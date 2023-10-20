@@ -223,6 +223,14 @@ async function runAS7() {
   await showHUD(frontmostApplication.bundleId!);
 }
 
+async function runAS8(key: string, modifiers: Modifers[]) {
+  const frontmostApplication = await getFrontmostApplication();
+  triggerHotkey(frontmostApplication.bundleId!, key, modifiers)
+
+  console.log(`v8: The frontmost application is: ${frontmostApplication.bundleId!}`);
+  await showHUD(frontmostApplication.bundleId!);
+}
+
 async function hudFrontApp() {
   const frontmostApplication = await getFrontmostApplication();
   console.log(`The frontmost application is: ${frontmostApplication.name}`);
@@ -230,17 +238,32 @@ async function hudFrontApp() {
 }
 
 export default function Command() {
+  const appHotkeys: AppHotkeys = hotkeys.applications[0];
   return (
     <List>
-      <List.Item
-        icon="list-icon.png"
-        title="Greeting"
-        actions={
-          <ActionPanel>
-            <Action title="Show Details" onAction={() => runAS7()}/>
-          </ActionPanel>
-        }
-      />
+      {
+        appHotkeys.sections.map(section => {
+          return <List.Section 
+            key={section.title}
+            title={section.title}
+          >
+            {
+              section.hotkeys.map(hotkey => {
+                return <List.Item
+                    icon="list-icon.png"
+                    key={hotkey.title}
+                    title={hotkey.title}
+                    actions={
+                      <ActionPanel>
+                        <Action title="Apply" onAction={() => runAS8(hotkey.key, hotkey.modifiers)}/>
+                      </ActionPanel>
+                    }
+                  />
+              })
+            }
+          </List.Section>  
+        })
+      }
     </List>
   );
 }
