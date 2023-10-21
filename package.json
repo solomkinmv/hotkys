@@ -9,7 +9,7 @@
   "commands": [
     {
       "name": "index",
-      "title": "Show shortcuts for the frontmost app",
+      "title": "Show shortcuts for the frontmost app base",
       "description": "Show shortcuts for the frontmost app. Uses hardcoded structure for the shortcuts",
       "mode": "view"
     },
@@ -18,6 +18,18 @@
       "title": "Copy current app's bundle id",
       "description": "Stores current app's bundle id in the clipboard as a concealed entry",
       "mode": "no-view"
+    },
+    {
+      "name": "current-shortcuts",
+      "title": "Show shortcuts for the frontmost app",
+      "description": "Taked current bundle id and launches other command",
+      "mode": "no-view"
+    },
+    {
+      "name": "app-shortcuts",
+      "title": "Show shortcuts for app that passed in context",
+      "description": "Accepts bundle id as param",
+      "mode": "view"
     }
   ],
   "dependencies": {
