@@ -149,7 +149,7 @@ interface Hotkeys {
 const hotkeys: Hotkeys = {
     applications: [
         {
-            bundleId: "com.appl.dt.Xcode",
+            bundleId: "com.apple.dt.Xcode",
             name: "Xcode",
             sections: [
                 {
@@ -190,6 +190,22 @@ const hotkeys: Hotkeys = {
                             title: "Format Document",
                             key: "F",
                             modifiers: [Modifers.shift, Modifers.option]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            bundleId: "com.apple.Safari",
+            name: "Safari",
+            sections: [
+                {
+                    title: "Bookmarks",
+                    hotkeys: [
+                        {
+                            title: "Open Bookmarks Manager",
+                            key: "B",
+                            modifiers: [Modifers.command, Modifers.option]
                         }
                     ]
                 }
