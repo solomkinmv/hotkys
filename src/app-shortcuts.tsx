@@ -176,6 +176,21 @@ const hotkeys: Hotkeys = {
                             modifiers: [Modifers.control]
                         }
                     ]
+                },
+                {
+                    title: "Editor",
+                    hotkeys: [
+                        {
+                            title: "Show library pop-up",
+                            key: "L",
+                            modifiers: [Modifers.command, Modifers.shift]
+                        },
+                        {
+                            title: "Show library window",
+                            key: "L",
+                            modifiers: [Modifers.command, Modifers.shift, Modifers.option]
+                        }
+                    ]
                 }
             ]
         },
