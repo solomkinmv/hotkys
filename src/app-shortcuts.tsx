@@ -1,7 +1,8 @@
 import { ActionPanel, Detail, List, Action, getFrontmostApplication } from "@raycast/api";
 import { showHUD, environment } from "@raycast/api";
 import { runAppleScript } from "@raycast/utils";
-import { AppHotkeys, Modifers, SectionHotkey, hotkeys, keyCodes, modifierSymbols } from ".";
+import { AppHotkeys, Keymap, Modifers, SectionHotkey, hotkeys, keyCodes, modifierSymbols } from ".";
+import { useState } from "react";
 
 
 async function triggerHotkey(bundleId: string, key: string, modifiers: Modifers[]) {
@@ -53,17 +54,45 @@ async function hudFrontApp() {
     await showHUD(JSON.stringify(frontmostApplication));
 }
 
+function KeymapDropdown(props: { keymaps: string[]; onKeymapChange: (newValue: string) => void }) {
+    const { keymaps, onKeymapChange } = props;
+    return (
+        <List.Dropdown
+            tooltip="Select Keymap"
+            storeValue={true}
+            onChange={(newValue) => {
+                onKeymapChange(newValue);
+            }}
+        >
+            <List.Dropdown.Section title="Keymaps">
+                {keymaps.map(keymap => (
+                    <List.Dropdown.Item key={keymap} title={keymap} value={keymap} />
+                ))}
+            </List.Dropdown.Section>
+        </List.Dropdown>
+    );
+}
+
 export default function Command() {
     const bundleId = environment.launchContext?.appBundleId;
     console.log(`Received ${bundleId}`)
-    const appHotkeys: AppHotkeys | undefined = hotkeys.applications.find(app => app.bundleId === bundleId);
-    if (!appHotkeys) {
+    const [appHotkeys, setAppHotkeys] = useState<AppHotkeys | undefined>(hotkeys.applications.find(app => app.bundleId === bundleId));
+    const [keymaps, setKeymaps] = useState<string[]>(appHotkeys?.keymaps.map(k => k.title) ?? [])
+    const [keymapShortcuts, setKeymapShortcuts] = useState<Keymap | undefined>(appHotkeys?.keymaps[0])
+    if (!keymapShortcuts) {
         return <Detail markdown="Sorry, no current app found 👋" />;
     }
+
+    const onKeymapChange = (newValue: string) => {
+        setKeymapShortcuts(selectKeymap(appHotkeys?.keymaps ?? [], newValue))
+    };
     return (
-        <List>
+        <List navigationTitle="Search Beers"
+            searchBarPlaceholder="Search for hotkeys"
+            searchBarAccessory={<KeymapDropdown keymaps={keymaps} onKeymapChange={onKeymapChange} />}
+        >
             {
-                appHotkeys.sections.map(section => {
+                keymapShortcuts.sections.map(section => {
                     return <List.Section
                         key={section.title}
                         title={section.title}
@@ -87,6 +116,10 @@ export default function Command() {
             }
         </List>
     );
+}
+
+function selectKeymap(keymaps: Keymap[], keymapName: string): Keymap | undefined {
+    return keymaps.find(keymap => keymap.title === keymapName)
 }
 
 function generateHotkeyText(hotkey: SectionHotkey): string {

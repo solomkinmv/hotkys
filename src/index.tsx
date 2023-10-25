@@ -58,25 +58,25 @@ export default function Command() {
     <List>
       {
         appHotkeys.sections.map(section => {
-          return <List.Section 
+          return <List.Section
             key={section.title}
             title={section.title}
           >
             {
               section.hotkeys.map(hotkey => {
                 return <List.Item
-                    icon="list-icon.png"
-                    key={hotkey.title}
-                    title={hotkey.title}
-                    actions={
-                      <ActionPanel>
-                        <Action title="Apply" onAction={() => runAS8(hotkey.key, hotkey.modifiers)}/>
-                      </ActionPanel>
-                    }
-                  />
+                  icon="list-icon.png"
+                  key={hotkey.title}
+                  title={hotkey.title}
+                  actions={
+                    <ActionPanel>
+                      <Action title="Apply" onAction={() => runAS8(hotkey.key, hotkey.modifiers)} />
+                    </ActionPanel>
+                  }
+                />
               })
             }
-          </List.Section>  
+          </List.Section>
         })
       }
     </List>
@@ -138,95 +138,130 @@ interface Section {
   hotkeys: SectionHotkey[]
 }
 
-export interface AppHotkeys {
-  bundleId: string,
-  name: string,
+export interface Keymap {
+  title: string,
   sections: Section[]
 }
 
-interface Hotkeys {
+export interface AppHotkeys {
+  bundleId: string,
+  name: string,
+  keymaps: Keymap[]
+}
+
+export interface Hotkeys {
   applications: AppHotkeys[]
 }
 
 export const hotkeys: Hotkeys = {
   applications: [
-      {
-          bundleId: "com.apple.dt.Xcode",
-          name: "Xcode",
+    {
+      bundleId: "com.apple.dt.Xcode",
+      name: "Xcode",
+      keymaps: [
+        {
+          title: "Default",
           sections: [
-              {
+            {
+              title: "Build",
+              hotkeys: [
+                {
+                  title: "Run",
+                  key: "R",
+                  modifiers: [Modifers.command]
+                },
+                {
                   title: "Build",
-                  hotkeys: [
-                      {
-                          title: "Run",
-                          key: "R",
-                          modifiers: [Modifers.command]
-                      },
-                      {
-                          title: "Build",
-                          key: "B",
-                          modifiers: [Modifers.command]
-                      }
-                  ]
-              },
-              {
-                  title: "Format",
-                  hotkeys: [
-                      {
-                          title: "Re-Indent",
-                          key: "I",
-                          modifiers: [Modifers.control]
-                      }
-                  ]
-              },
-              {
-                  title: "Editor",
-                  hotkeys: [
-                      {
-                          title: "Show library pop-up",
-                          key: "L",
-                          modifiers: [Modifers.command, Modifers.shift]
-                      },
-                      {
-                          title: "Show library window",
-                          key: "L",
-                          modifiers: [Modifers.command, Modifers.shift, Modifers.option]
-                      }
-                  ]
-              }
+                  key: "B",
+                  modifiers: [Modifers.command]
+                }
+              ]
+            },
+            {
+              title: "Format",
+              hotkeys: [
+                {
+                  title: "Re-Indent",
+                  key: "I",
+                  modifiers: [Modifers.control]
+                }
+              ]
+            },
+            {
+              title: "Editor",
+              hotkeys: [
+                {
+                  title: "Show library pop-up",
+                  key: "L",
+                  modifiers: [Modifers.command, Modifers.shift]
+                },
+                {
+                  title: "Show library window",
+                  key: "L",
+                  modifiers: [Modifers.command, Modifers.shift, Modifers.option]
+                }
+              ]
+            }
           ]
-      },
-      {
-          bundleId: "com.microsoft.VSCode",
-          name: "Visual Studio Code",
+        }
+      ]
+    },
+    {
+      bundleId: "com.microsoft.VSCode",
+      name: "Visual Studio Code",
+      keymaps: [
+        {
+          title: "Default",
           sections: [
-              {
-                  title: "Format",
-                  hotkeys: [
-                      {
-                          title: "Format Document",
-                          key: "F",
-                          modifiers: [Modifers.shift, Modifers.option]
-                      }
-                  ]
-              }
+            {
+              title: "Format",
+              hotkeys: [
+                {
+                  title: "Format Document",
+                  key: "F",
+                  modifiers: [Modifers.shift, Modifers.option]
+                }
+              ]
+            }
           ]
-      },
-      {
-          bundleId: "com.apple.Safari",
-          name: "Safari",
+        },
+        {
+          title: "Custom",
           sections: [
-              {
-                  title: "Bookmarks",
-                  hotkeys: [
-                      {
-                          title: "Open Bookmarks Manager",
-                          key: "B",
-                          modifiers: [Modifers.command, Modifers.option]
-                      }
-                  ]
-              }
+            {
+              title: "Editor",
+              hotkeys: [
+                {
+                  title: "Open Editor Tab",
+                  key: "E",
+                  modifiers: [Modifers.command, Modifers.shift]
+                }
+              ]
+            }
           ]
-      }
+        }
+      ]
+    },
+    {
+      bundleId: "com.apple.Safari",
+      name: "Safari",
+      keymaps: [
+        {
+          title: "Default",
+          sections: [
+            {
+              title: "Bookmarks",
+              hotkeys: [
+                {
+                  title: "Open Bookmarks Manager",
+                  key: "B",
+                  modifiers: [Modifers.command, Modifers.option]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
   ]
 }
