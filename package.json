@@ -8,9 +8,9 @@
   "license": "MIT",
   "commands": [
     {
-      "name": "index",
-      "title": "Show shortcuts for the frontmost app base",
-      "description": "Show shortcuts for the frontmost app. Uses hardcoded structure for the shortcuts",
+      "name": "all-shortcuts",
+      "title": "All shortcuts",
+      "description": "Show shortcuts for all available applications",
       "mode": "view"
     },
     {

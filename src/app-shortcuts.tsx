@@ -76,8 +76,8 @@ function KeymapDropdown(props: { keymaps: string[]; onKeymapChange: (newValue: s
     );
 }
 
-export default function Command() {
-    const bundleId = environment.launchContext?.appBundleId;
+export default function AppShortcuts(props: {bundleId: string} | undefined) {
+    const bundleId = props?.bundleId ?? environment.launchContext?.appBundleId;
     console.log(`Received ${bundleId}`)
     const [appHotkeys, setAppHotkeys] = useState<AppHotkeys | undefined>(hotkeys.applications.find(app => app.bundleId === bundleId));
     const [keymaps, setKeymaps] = useState<string[]>(appHotkeys?.keymaps.map(k => k.title) ?? [])
