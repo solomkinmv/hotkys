@@ -1,8 +1,11 @@
 import { ActionPanel, Detail, List, Action, getFrontmostApplication } from "@raycast/api";
 import { showHUD, environment } from "@raycast/api";
 import { runAppleScript } from "@raycast/utils";
-import { AppHotkeys, Keymap, Modifers, SectionHotkey, hotkeys, keyCodes, modifierSymbols } from ".";
 import { useState } from "react";
+import { Modifers, modifierSymbols } from "./model/modifiers";
+import { keyCodes } from "./model/key-codes";
+import { AppHotkeys, Keymap, SectionHotkey } from "./model/models";
+import { hotkeys } from "./model/hotkeys";
 
 
 async function triggerHotkey(bundleId: string, key: string, modifiers: Modifers[]) {
