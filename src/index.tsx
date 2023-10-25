@@ -83,7 +83,7 @@ export default function Command() {
   );
 }
 
-const keyCodes = new Map<string, string>([
+export const keyCodes = new Map<string, string>([
   ["A", "0"],
   ["B", "11"],
   ["C", "8"],
@@ -113,14 +113,21 @@ const keyCodes = new Map<string, string>([
   ["tilde", "50"]
 ]);
 
-enum Modifers {
+export enum Modifers {
   command = "command down",
   control = "control down",
   option = "option down",
   shift = "shift down"
 }
 
-interface SectionHotkey {
+export const modifierSymbols: Map<Modifers, string> = new Map([
+  [Modifers.command, "⌘"],
+  [Modifers.control, "^"],
+  [Modifers.option, "⌥"],
+  [Modifers.shift, "⇧"]
+])
+
+export interface SectionHotkey {
   title: string,
   key: string
   modifiers: Modifers[]
@@ -131,7 +138,7 @@ interface Section {
   hotkeys: SectionHotkey[]
 }
 
-interface AppHotkeys {
+export interface AppHotkeys {
   bundleId: string,
   name: string,
   sections: Section[]
@@ -141,38 +148,85 @@ interface Hotkeys {
   applications: AppHotkeys[]
 }
 
-const hotkeys: Hotkeys = {
+export const hotkeys: Hotkeys = {
   applications: [
-    {
-      bundleId: "com.appl.dt.Xcode",
-      name: "Xcode",
-      sections: [
-        {
-          title: "Build",
-          hotkeys: [
-            {
-              title: "Run",
-              key: "R",
-              modifiers: [Modifers.command]
-            },
-            {
-              title: "Build",
-              key: "B",
-              modifiers: [Modifers.command]
-            }
+      {
+          bundleId: "com.apple.dt.Xcode",
+          name: "Xcode",
+          sections: [
+              {
+                  title: "Build",
+                  hotkeys: [
+                      {
+                          title: "Run",
+                          key: "R",
+                          modifiers: [Modifers.command]
+                      },
+                      {
+                          title: "Build",
+                          key: "B",
+                          modifiers: [Modifers.command]
+                      }
+                  ]
+              },
+              {
+                  title: "Format",
+                  hotkeys: [
+                      {
+                          title: "Re-Indent",
+                          key: "I",
+                          modifiers: [Modifers.control]
+                      }
+                  ]
+              },
+              {
+                  title: "Editor",
+                  hotkeys: [
+                      {
+                          title: "Show library pop-up",
+                          key: "L",
+                          modifiers: [Modifers.command, Modifers.shift]
+                      },
+                      {
+                          title: "Show library window",
+                          key: "L",
+                          modifiers: [Modifers.command, Modifers.shift, Modifers.option]
+                      }
+                  ]
+              }
           ]
-        },
-        {
-          title: "Format",
-          hotkeys: [
-            {
-              title: "Re-Indent",
-              key: "I",
-              modifiers: [Modifers.control]
-            }
+      },
+      {
+          bundleId: "com.microsoft.VSCode",
+          name: "Visual Studio Code",
+          sections: [
+              {
+                  title: "Format",
+                  hotkeys: [
+                      {
+                          title: "Format Document",
+                          key: "F",
+                          modifiers: [Modifers.shift, Modifers.option]
+                      }
+                  ]
+              }
           ]
-        }
-      ]
-    }
+      },
+      {
+          bundleId: "com.apple.Safari",
+          name: "Safari",
+          sections: [
+              {
+                  title: "Bookmarks",
+                  hotkeys: [
+                      {
+                          title: "Open Bookmarks Manager",
+                          key: "B",
+                          modifiers: [Modifers.command, Modifers.option]
+                      }
+                  ]
+              }
+          ]
+      }
   ]
 }
