@@ -1,6 +1,7 @@
 import { ActionPanel, Detail, List, Action, getFrontmostApplication } from "@raycast/api";
 import { showHUD, environment } from "@raycast/api";
 import { runAppleScript } from "@raycast/utils";
+import { AppHotkeys, Modifers, SectionHotkey, hotkeys, keyCodes, modifierSymbols } from ".";
 
 
 async function triggerHotkey(bundleId: string, key: string, modifiers: Modifers[]) {
@@ -70,9 +71,9 @@ export default function Command() {
                         {
                             section.hotkeys.map(hotkey => {
                                 return <List.Item
-                                    icon="list-icon.png"
                                     key={hotkey.title}
                                     title={hotkey.title}
+                                    subtitle={generateHotkeyText(hotkey)}
                                     actions={
                                         <ActionPanel>
                                             <Action title="Apply" onAction={() => runAS8(hotkey.key, hotkey.modifiers)} />
@@ -88,143 +89,6 @@ export default function Command() {
     );
 }
 
-const keyCodes = new Map<string, string>([
-    ["A", "0"],
-    ["B", "11"],
-    ["C", "8"],
-    ["D", "2"],
-    ["E", "14"],
-    ["F", "3"],
-    ["G", "5"],
-    ["H", "4"],
-    ["I", "34"],
-    ["J", "38"],
-    ["K", "40"],
-    ["L", "37"],
-    ["M", "46"],
-    ["N", "45"],
-    ["O", "31"],
-    ["P", "35"],
-    ["Q", "12"],
-    ["R", "15"],
-    ["S", "1"],
-    ["T", "17"],
-    ["U", "32"],
-    ["V", "9"],
-    ["W", "13"],
-    ["X", "7"],
-    ["Y", "16"],
-    ["Z", "6"],
-    ["tilde", "50"]
-]);
-
-enum Modifers {
-    command = "command down",
-    control = "control down",
-    option = "option down",
-    shift = "shift down"
-}
-
-interface SectionHotkey {
-    title: string,
-    key: string
-    modifiers: Modifers[]
-}
-
-interface Section {
-    title: string,
-    hotkeys: SectionHotkey[]
-}
-
-interface AppHotkeys {
-    bundleId: string,
-    name: string,
-    sections: Section[]
-}
-
-interface Hotkeys {
-    applications: AppHotkeys[]
-}
-
-const hotkeys: Hotkeys = {
-    applications: [
-        {
-            bundleId: "com.apple.dt.Xcode",
-            name: "Xcode",
-            sections: [
-                {
-                    title: "Build",
-                    hotkeys: [
-                        {
-                            title: "Run",
-                            key: "R",
-                            modifiers: [Modifers.command]
-                        },
-                        {
-                            title: "Build",
-                            key: "B",
-                            modifiers: [Modifers.command]
-                        }
-                    ]
-                },
-                {
-                    title: "Format",
-                    hotkeys: [
-                        {
-                            title: "Re-Indent",
-                            key: "I",
-                            modifiers: [Modifers.control]
-                        }
-                    ]
-                },
-                {
-                    title: "Editor",
-                    hotkeys: [
-                        {
-                            title: "Show library pop-up",
-                            key: "L",
-                            modifiers: [Modifers.command, Modifers.shift]
-                        },
-                        {
-                            title: "Show library window",
-                            key: "L",
-                            modifiers: [Modifers.command, Modifers.shift, Modifers.option]
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            bundleId: "com.microsoft.VSCode",
-            name: "Visual Studio Code",
-            sections: [
-                {
-                    title: "Format",
-                    hotkeys: [
-                        {
-                            title: "Format Document",
-                            key: "F",
-                            modifiers: [Modifers.shift, Modifers.option]
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            bundleId: "com.apple.Safari",
-            name: "Safari",
-            sections: [
-                {
-                    title: "Bookmarks",
-                    hotkeys: [
-                        {
-                            title: "Open Bookmarks Manager",
-                            key: "B",
-                            modifiers: [Modifers.command, Modifers.option]
-                        }
-                    ]
-                }
-            ]
-        }
-    ]
+function generateHotkeyText(hotkey: SectionHotkey): string {
+    return hotkey.modifiers.map(modifier => modifierSymbols.get(modifier)).join("") + hotkey.key;
 }
