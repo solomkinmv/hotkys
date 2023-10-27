@@ -45,7 +45,7 @@ async function triggerHotkey(bundleId: string, key: string, modifiers: Modifers[
 
 async function runAS8(key: string, modifiers: Modifers[]) {
     const frontmostApplication = await getFrontmostApplication();
-    triggerHotkey(frontmostApplication.bundleId!, key, modifiers)
+    triggerHotkey(frontmostApplication.bundleId!, key, modifiers);
 
     console.log(`v8: The frontmost application is: ${frontmostApplication.bundleId!}`);
     await showHUD(frontmostApplication.bundleId!);
