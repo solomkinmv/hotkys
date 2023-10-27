@@ -11,7 +11,16 @@
       "name": "all-shortcuts",
       "title": "All Shortcuts",
       "description": "Show shortcuts for all available applications",
-      "mode": "view"
+      "mode": "view",
+      "preferences": [
+        {
+          "name": "delay",
+          "title": "Delay",
+          "description": "Specify delay required before running shortcut on the app",
+          "default": "2",
+          "type": "textfield"
+        }
+      ]
     },
     {
       "name": "current-app",
@@ -23,7 +32,16 @@
       "name": "app-shortcuts",
       "title": "Current Shortcuts",
       "description": "Show shortcuts for the frontmost application",
-      "mode": "view"
+      "mode": "view",
+      "preferences": [
+        {
+          "name": "delay",
+          "title": "Delay",
+          "description": "Specify delay required before running shortcut on the app",
+          "default": "2",
+          "type": "textfield"
+        }
+      ]
     }
   ],
   "dependencies": {

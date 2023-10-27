@@ -1,4 +1,4 @@
-import { ActionPanel, List, Action, getFrontmostApplication } from "@raycast/api";
+import { ActionPanel, List, Action, getFrontmostApplication, getPreferenceValues } from "@raycast/api";
 import { showHUD } from "@raycast/api";
 import { usePromise } from "@raycast/utils";
 import { useRef, useState } from "react";
@@ -7,9 +7,14 @@ import { AppHotkeys, Keymap, Section, SectionHotkey } from "./model/models";
 import { hotkeys } from "./model/hotkeys";
 import { runShortcuts } from "./engine/shortcut-runner";
 
+interface Preferences {
+    delay: string
+}
+
 async function runAS8(key: string, modifiers: Modifers[]) {
     const frontmostApplication = await getFrontmostApplication();
-    runShortcuts(frontmostApplication.bundleId!, key, modifiers);
+    const delay: number = parseFloat(getPreferenceValues<Preferences>().delay);
+    runShortcuts(frontmostApplication.bundleId!, delay, key, modifiers);
 
     console.log(`v8: The frontmost application is: ${frontmostApplication.bundleId!}`);
     await showHUD(frontmostApplication.bundleId!);

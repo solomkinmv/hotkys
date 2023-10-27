@@ -71,6 +71,16 @@ export const hotkeys: Hotkeys = {
                 },
               ],
             },
+            {
+              title: "Editor",
+              hotkeys: [
+                {
+                  title: "Open Editor Tab",
+                  key: "E",
+                  modifiers: [Modifers.command, Modifers.shift],
+                },
+              ],
+            },
           ],
         },
         {
