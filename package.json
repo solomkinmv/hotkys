@@ -20,14 +20,8 @@
       "mode": "no-view"
     },
     {
-      "name": "current-shortcuts",
-      "title": "Show shortcuts for the frontmost app",
-      "description": "Taked current bundle id and launches other command",
-      "mode": "no-view"
-    },
-    {
       "name": "app-shortcuts",
-      "title": "Show shortcuts for app that passed in context",
+      "title": "Show shortcuts for the frontmost app",
       "description": "Accepts bundle id as param",
       "mode": "view"
     }

@@ -6,7 +6,7 @@ export interface SectionHotkey {
     modifiers: Modifers[]
   }
   
-  interface Section {
+  export interface Section {
     title: string,
     hotkeys: SectionHotkey[]
   }

@@ -1,10 +1,10 @@
 import { ActionPanel, Detail, List, Action, getFrontmostApplication } from "@raycast/api";
 import { showHUD, environment } from "@raycast/api";
-import { runAppleScript } from "@raycast/utils";
-import { useState } from "react";
+import { runAppleScript, usePromise } from "@raycast/utils";
+import { useEffect, useRef, useState } from "react";
 import { Modifers, modifierSymbols } from "./model/modifiers";
 import { keyCodes } from "./model/key-codes";
-import { AppHotkeys, Keymap, SectionHotkey } from "./model/models";
+import { AppHotkeys, Keymap, Section, SectionHotkey } from "./model/models";
 import { hotkeys } from "./model/hotkeys";
 
 
@@ -76,26 +76,43 @@ function KeymapDropdown(props: { keymaps: string[]; onKeymapChange: (newValue: s
     );
 }
 
-export default function AppShortcuts(props: {bundleId: string} | undefined) {
-    const bundleId = props?.bundleId ?? environment.launchContext?.appBundleId;
-    console.log(`Received ${bundleId}`)
-    const [appHotkeys, setAppHotkeys] = useState<AppHotkeys | undefined>(hotkeys.applications.find(app => app.bundleId === bundleId));
-    const [keymaps, setKeymaps] = useState<string[]>(appHotkeys?.keymaps.map(k => k.title) ?? [])
-    const [keymapShortcuts, setKeymapShortcuts] = useState<Keymap | undefined>(appHotkeys?.keymaps[0])
-    if (!keymapShortcuts) {
-        return <Detail markdown="Sorry, no current app found 👋" />;
-    }
+export default function AppShortcuts(props: { bundleId: string } | undefined) {
+    const bundleIdOverride: string | undefined = props?.bundleId;
+
+    const [appHotkeys, setAppHotkeys] = useState<AppHotkeys | undefined>();
+    const [keymaps, setKeymaps] = useState<string[]>([]);
+    const [keymapSections, setKeymapSections] = useState<Section[]>([]);
+
+    const abortable = useRef<AbortController>();
+    const { isLoading, data, revalidate } = usePromise(
+        async () => {
+            return bundleIdOverride ?? (await getFrontmostApplication()).bundleId;
+        },
+        [],
+        {
+            onData: (bundleId) => {
+                const foundApp = hotkeys.applications.find(app => app.bundleId === bundleId);
+                const foundKeymaps = foundApp?.keymaps.map(k => k.title) ?? [];
+                const foundSections = foundApp?.keymaps[0].sections ?? [];
+                setAppHotkeys(foundApp);
+                setKeymaps(foundKeymaps);
+                setKeymapSections(foundSections)
+            },
+            abortable: abortable,
+        }
+    );
 
     const onKeymapChange = (newValue: string) => {
-        setKeymapShortcuts(selectKeymap(appHotkeys?.keymaps ?? [], newValue))
+        setKeymapSections(selectKeymap(appHotkeys?.keymaps ?? [], newValue)?.sections ?? [])
     };
     return (
-        <List navigationTitle="Search Beers"
+        <List isLoading={isLoading}
+            navigationTitle="Search Beers"
             searchBarPlaceholder="Search for hotkeys"
             searchBarAccessory={<KeymapDropdown keymaps={keymaps} onKeymapChange={onKeymapChange} />}
         >
             {
-                keymapShortcuts.sections.map(section => {
+                keymapSections.map(section => {
                     return <List.Section
                         key={section.title}
                         title={section.title}
