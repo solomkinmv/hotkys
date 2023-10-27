@@ -13,8 +13,8 @@ interface Preferences {
 async function runAS8(key: string, modifiers: Modifers[]) {
     const frontmostApplication = await getFrontmostApplication();
     const delay: number = parseFloat(getPreferenceValues<Preferences>().delay);
-    runShortcuts(frontmostApplication.bundleId!, delay, key, modifiers);
     closeMainWindow({ popToRootType: PopToRootType.Immediate });
+    runShortcuts(frontmostApplication.bundleId!, delay, key, modifiers);
 }
 
 function KeymapDropdown(props: { keymaps: string[]; onKeymapChange: (newValue: string) => void }) {
