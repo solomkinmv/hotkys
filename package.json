@@ -2,27 +2,27 @@
   "$schema": "https://www.raycast.com/schemas/extension.json",
   "name": "shortcuts",
   "title": "Shortcuts",
-  "description": "",
+  "description": "Extension that shows list of shortcuts for the apps.",
   "icon": "command-icon.png",
   "author": "tiny.water2342",
   "license": "MIT",
   "commands": [
     {
       "name": "all-shortcuts",
-      "title": "All shortcuts",
+      "title": "All Shortcuts",
       "description": "Show shortcuts for all available applications",
       "mode": "view"
     },
     {
       "name": "current-app",
-      "title": "Copy current app's bundle id",
+      "title": "Copy Current App's Bundle Id",
       "description": "Stores current app's bundle id in the clipboard as a concealed entry",
       "mode": "no-view"
     },
     {
       "name": "app-shortcuts",
-      "title": "Show shortcuts for the frontmost app",
-      "description": "Accepts bundle id as param",
+      "title": "Current Shortcuts",
+      "description": "Show shortcuts for the frontmost application",
       "mode": "view"
     }
   ],
