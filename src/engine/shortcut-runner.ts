@@ -33,12 +33,9 @@ function run(argv) {
 export async function runShortcuts(bundleId: string, delay: number, key: string, modifiers: Modifers[]) {
   console.log(`Running shortcut for application ${bundleId} with delay ${delay}`);
   try {
-    await runAppleScript(appleScript,
-      [bundleId, String(delay), keyCodes.get(key)!, ...modifiers],
-      {
-        language: "JavaScript",
-      },
-    );
+    await runAppleScript(appleScript, [bundleId, String(delay), keyCodes.get(key)!, ...modifiers], {
+      language: "JavaScript",
+    });
   } catch (error) {
     showFailureToast(error, { title: "Couldn't run shortcut" });
     return;

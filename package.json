@@ -18,6 +18,7 @@
           "title": "Delay",
           "description": "Specify delay required before running shortcut on the app",
           "default": "2",
+          "required": false,
           "type": "textfield"
         }
       ]
@@ -38,6 +39,7 @@
           "name": "delay",
           "title": "Delay",
           "description": "Specify delay required before running shortcut on the app",
+          "required": false,
           "default": "2",
           "type": "textfield"
         }

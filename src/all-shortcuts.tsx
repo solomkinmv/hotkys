@@ -1,12 +1,12 @@
 import { ActionPanel, List, Action, useNavigation } from "@raycast/api";
-import { hotkeys } from "./model/hotkeys";
 import AppShortcuts from "./app-shortcuts";
+import { shortcutsStorage } from "./shortcuts-storage/shortcuts-aggregator";
 
 export default function AllShortcutsCommand() {
   const { push } = useNavigation();
   return (
     <List>
-      {hotkeys.applications.map((application) => {
+      {shortcutsStorage.applications.map((application) => {
         return (
           <List.Item
             icon="list-icon.png"
