@@ -3,7 +3,7 @@ import { Modifers } from "./modifiers";
 export interface SectionHotkey {
   title: string;
   key: string;
-  modifiers: Modifers[];
+  modifiers?: Modifers[];
 }
 
 export interface Section {

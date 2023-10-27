@@ -26,8 +26,27 @@ export const vsCodeShortcuts: AppHotkeys = {
               key: "E",
               modifiers: [Modifers.command, Modifers.shift],
             },
+            {
+                title: "Shrink Selection",
+                key: "left",
+                modifiers: [Modifers.control, Modifers.shift]
+            },
+            {
+                title: "Increase Selection",
+                key: "right",
+                modifiers: [Modifers.control, Modifers.shift]
+            }
           ],
         },
+        {
+            title: "Refactor",
+            hotkeys: [
+                {
+                    title: "Rename",
+                    key: "F2"
+                }
+            ]
+        }
       ],
     },
     {
