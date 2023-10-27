@@ -1,4 +1,4 @@
-import { ActionPanel, List, Action, useNavigation } from "@raycast/api";
+import { Action, ActionPanel, List, useNavigation } from "@raycast/api";
 import AppShortcuts from "./app-shortcuts";
 import { shortcutsStorage } from "./shortcuts-storage/shortcuts-aggregator";
 
