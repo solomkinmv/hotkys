@@ -10,11 +10,10 @@ interface Preferences {
     delay: string
 }
 
-async function runAS8(key: string, modifiers: Modifers[]) {
-    const frontmostApplication = await getFrontmostApplication();
-    const delay: number = parseFloat(getPreferenceValues<Preferences>().delay);
+async function executeShortcut(bundlId: string, key: string, modifiers: Modifers[]) {
+    const delay: number = parseFloat(getPreferenceValues<Preferences>().delay); // todo: move work with preferences to separate structure
     closeMainWindow({ popToRootType: PopToRootType.Immediate });
-    runShortcuts(frontmostApplication.bundleId!, delay, key, modifiers);
+    runShortcuts(bundlId, delay, key, modifiers);
 }
 
 function KeymapDropdown(props: { keymaps: string[]; onKeymapChange: (newValue: string) => void }) {
@@ -83,7 +82,7 @@ export default function AppShortcuts(props: { bundleId: string } | undefined) {
                                     subtitle={generateHotkeyText(hotkey)}
                                     actions={
                                         <ActionPanel>
-                                            <Action title="Apply" onAction={() => runAS8(hotkey.key, hotkey.modifiers)} />
+                                            <Action title="Apply" onAction={() => executeShortcut(appHotkeys!.bundleId, hotkey.key, hotkey.modifiers)} />
                                         </ActionPanel>
                                     }
                                 />
