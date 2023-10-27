@@ -1,6 +1,9 @@
 # IntelliJ
 .idea
 
+# Test
+/coverage
+
 # dependencies
 /node_modules
 
