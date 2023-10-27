@@ -1,5 +1,4 @@
-import { ActionPanel, List, Action, getFrontmostApplication, getPreferenceValues } from "@raycast/api";
-import { showHUD } from "@raycast/api";
+import { ActionPanel, List, Action, getFrontmostApplication, getPreferenceValues, closeMainWindow, PopToRootType } from "@raycast/api";
 import { usePromise } from "@raycast/utils";
 import { useRef, useState } from "react";
 import { Modifers, modifierSymbols } from "./model/modifiers";
@@ -15,9 +14,7 @@ async function runAS8(key: string, modifiers: Modifers[]) {
     const frontmostApplication = await getFrontmostApplication();
     const delay: number = parseFloat(getPreferenceValues<Preferences>().delay);
     runShortcuts(frontmostApplication.bundleId!, delay, key, modifiers);
-
-    console.log(`v8: The frontmost application is: ${frontmostApplication.bundleId!}`);
-    await showHUD(frontmostApplication.bundleId!);
+    closeMainWindow({ popToRootType: PopToRootType.Immediate });
 }
 
 function KeymapDropdown(props: { keymaps: string[]; onKeymapChange: (newValue: string) => void }) {
