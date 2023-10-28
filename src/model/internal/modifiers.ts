@@ -11,3 +11,12 @@ export const modifierSymbols: Map<Modifiers, string> = new Map([
   [Modifiers.option, "⌥"],
   [Modifiers.shift, "⇧"],
 ]);
+
+export const modifierMapping: Map<string, Modifiers> = new Map([
+  ["ctrl", Modifiers.control],
+  ["shift", Modifiers.shift],
+  ["opt", Modifiers.option],
+  ["cmd", Modifiers.command],
+]);
+
+export const modifierTokens: string[] = ["ctrl", "shift", "opt", "cmd"];

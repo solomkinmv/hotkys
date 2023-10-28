@@ -1,6 +1,7 @@
 import { Shortcuts } from "../model/internal/internal-models";
 import { parseInputShortcuts } from "./input-parser";
 import { aggregatedApps } from "../shortcuts-db/shortcuts-aggregator";
+import { validate } from "./validator";
 
 export default useShortcutsProvider;
 
@@ -15,6 +16,7 @@ function useShortcutsProvider() {
 
 class ShortcutsProvider {
   public getShortcuts(): Shortcuts {
+    validate(aggregatedApps);
     return {
       applications: parseInputShortcuts(aggregatedApps),
     };

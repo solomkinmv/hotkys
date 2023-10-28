@@ -2,7 +2,7 @@ import { Modifiers } from "./modifiers";
 
 export interface SectionShortcut {
   title: string;
-  sequence: AtomicShortcut[]
+  sequence: AtomicShortcut[];
 }
 
 export interface AtomicShortcut {

@@ -1,26 +1,19 @@
-import { parseInputShortcuts } from "./input-parser";
+import { validate, ValidationError } from "./validator";
 import { InputApp } from "../model/input/input-models";
 import { AppShortcuts, AtomicShortcut } from "../model/internal/internal-models";
 import { Modifiers } from "../model/internal/modifiers";
 
-describe("Parses shortcut correctly", () => {
-  it("Parses app shortcut", () => {
-    expect(parseInputShortcuts([generateInputAppWithShortcut()])).toEqual([generateExpectedAppWithShortcut()]);
+describe("Throws validation errors", () => {
+  it("Throws validation error if incorrect modifier", () => {
+    expect(() => validate([generateInputAppWithShortcut({ shortcut: "abc+e" })])).toThrowError(
+      new ValidationError("Modifier 'abc' doesn't exist")
+    );
   });
 
-  it("Parses shortcut without modifiers", () => {
-    const expectedShortcutSequence = [
-      {
-        base: "e",
-        modifiers: [],
-      },
-    ];
-
-    expect(parseInputShortcuts([generateInputAppWithShortcut({ shortcut: "e" })])).toEqual([
-      generateExpectedAppWithShortcut({
-        shortcutSequence: expectedShortcutSequence,
-      }),
-    ]);
+  it("Throws validation error if there are whitespace in shortcut", () => {
+    expect(() => validate([generateInputAppWithShortcut({ shortcut: "cmd +e" })])).toThrowError(
+      new ValidationError("Invalid shortcut chord: '+e'")
+    );
   });
 });
 

@@ -1,6 +1,6 @@
 export interface InputShortcut {
   title: string;
-  key: string
+  key: string;
 }
 
 export interface InputSection {
