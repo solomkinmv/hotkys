@@ -42,6 +42,15 @@ export const vsCodeShortcuts: InputApp = {
             },
           ],
         },
+        {
+          title: "Navigation",
+          shortcuts: [
+            {
+              title: "Open Global Keybindings",
+              key: "cmd+k cmd+s"
+            }
+          ]
+        }
       ],
     },
     {

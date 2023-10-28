@@ -7,7 +7,8 @@ Shortcuts helper
 - [ ] Complex shortcuts support
     - [x] arrows
     - [x] F-keys
-    - [ ] shortcut chording (two sequential shortcuts)
+    - [x] shortcut chording (two sequential shortcuts)
+    - [ ] home/end/pgUp/pgDown
 - [ ]  Add validation
     - [ ] non-supported key used
     - [ ] everything should be lowercase

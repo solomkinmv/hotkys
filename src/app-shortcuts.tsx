@@ -21,7 +21,7 @@ interface Preferences {
 async function executeShortcut(bundleId: string, shortcutSequence: AtomicShortcut[]) {
   const delay: number = parseFloat(getPreferenceValues<Preferences>().delay); // todo: move work with preferences to separate structure
   closeMainWindow({ popToRootType: PopToRootType.Immediate });
-  runShortcuts(bundleId, delay, shortcutSequence[0].base, shortcutSequence[0].modifiers);
+  runShortcuts(bundleId, delay, shortcutSequence);
 }
 
 function KeymapDropdown(props: { keymaps: string[]; onKeymapChange: (newValue: string) => void }) {
