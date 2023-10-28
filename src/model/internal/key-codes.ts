@@ -44,6 +44,11 @@ export const keyCodes = new Map<string, string>([
   ["up", "126"],
   ["left", "123"],
   ["right", "124"],
+  // navigation
+  ["pagedown", "121"],
+  ["pageup", "116"],
+  ["home", "115"],
+  ["end", "119"],
   // symbols
   ["`", "50"],
   ["tilde", "50"],

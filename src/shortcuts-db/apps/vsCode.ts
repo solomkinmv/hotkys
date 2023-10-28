@@ -31,6 +31,14 @@ export const vsCodeShortcuts: InputApp = {
               title: "Increase Selection",
               key: "ctrl+shift+right",
             },
+            {
+              title: "Cursor Selection PageUp",
+              key: "shift+pageup",
+            },
+            {
+              title: "Cursor Selection PageDown",
+              key: "shift+pagedown",
+            },
           ],
         },
         {
@@ -47,10 +55,10 @@ export const vsCodeShortcuts: InputApp = {
           shortcuts: [
             {
               title: "Open Global Keybindings",
-              key: "cmd+k cmd+s"
-            }
-          ]
-        }
+              key: "cmd+k cmd+s",
+            },
+          ],
+        },
       ],
     },
     {

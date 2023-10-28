@@ -28,6 +28,10 @@ const modifierTokens: string[] = ["ctrl", "shift", "opt", "cmd"];
 // todo: validate all lowercase
 // todo: validate no spaces
 // todo: base in supported list
+// todo: the same keymap names per app
+// todo: the same section names
+// todo: the same shortcut names (in section?)
+// todo: the same app bundle ids or names
 
 const modifierMapping: Map<string, Modifiers> = new Map([
   ["ctrl", Modifiers.control],
