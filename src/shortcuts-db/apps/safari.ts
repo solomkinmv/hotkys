@@ -1,7 +1,6 @@
-import { AppHotkeys } from "../../model/models";
-import { Modifers } from "../../model/modifiers";
+import { InputApp } from "../../model/input/input-models";
 
-export const safariShortcuts: AppHotkeys = {
+export const safariShortcuts: InputApp = {
   bundleId: "com.apple.Safari",
   name: "Safari",
   keymaps: [
@@ -10,11 +9,10 @@ export const safariShortcuts: AppHotkeys = {
       sections: [
         {
           title: "Bookmarks",
-          hotkeys: [
+          shortcuts: [
             {
               title: "Open Bookmarks Manager",
-              key: "B",
-              modifiers: [Modifers.command, Modifers.option],
+              key: "cmd+opt+B",
             },
           ],
         },

@@ -1,7 +1,6 @@
-import { AppHotkeys } from "../../model/models";
-import { Modifers } from "../../model/modifiers";
+import { InputApp } from "../../model/input/input-models";
 
-export const xcodeShortcuts: AppHotkeys = {
+export const xcodeShortcuts: InputApp = {
   bundleId: "com.apple.dt.Xcode",
   name: "Xcode",
   keymaps: [
@@ -10,41 +9,36 @@ export const xcodeShortcuts: AppHotkeys = {
       sections: [
         {
           title: "Build",
-          hotkeys: [
+          shortcuts: [
             {
               title: "Run",
-              key: "R",
-              modifiers: [Modifers.command],
+              key: "cmd+r",
             },
             {
               title: "Build",
-              key: "B",
-              modifiers: [Modifers.command],
+              key: "cmd+b",
             },
           ],
         },
         {
           title: "Format",
-          hotkeys: [
+          shortcuts: [
             {
               title: "Re-Indent",
-              key: "I",
-              modifiers: [Modifers.control],
+              key: "ctrl+i",
             },
           ],
         },
         {
           title: "Editor",
-          hotkeys: [
+          shortcuts: [
             {
               title: "Show library pop-up",
-              key: "L",
-              modifiers: [Modifers.command, Modifers.shift],
+              key: "shift+cmd+l",
             },
             {
               title: "Show library window",
-              key: "L",
-              modifiers: [Modifers.command, Modifers.shift, Modifers.option],
+              key: "shift+opt+cmd+L",
             },
           ],
         },

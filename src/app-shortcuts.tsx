@@ -9,19 +9,20 @@ import {
 } from "@raycast/api";
 import { usePromise } from "@raycast/utils";
 import { useRef, useState } from "react";
-import { Modifers, modifierSymbols } from "./model/modifiers";
-import { AppHotkeys, Keymap, Section, SectionHotkey } from "./model/models";
 import { runShortcuts } from "./engine/shortcut-runner";
-import { shortcutsStorage } from "./shortcuts-storage/shortcuts-aggregator";
+import { Section, AppShortcuts, AtomicShortcut, Keymap, SectionShortcut } from "./model/internal/internal-models";
+import useShortcutsProvider from "./load/shortcuts-provider";
+import { modifierSymbols } from "./model/internal/modifiers";
+import ShortcutsProvider from "./load/shortcuts-provider";
 
 interface Preferences {
   delay: string;
 }
 
-async function executeShortcut(bundleId: string, key: string, modifiers: Modifers[] = []) {
+async function executeShortcut(bundleId: string, shortcutSequence: AtomicShortcut[]) {
   const delay: number = parseFloat(getPreferenceValues<Preferences>().delay); // todo: move work with preferences to separate structure
   closeMainWindow({ popToRootType: PopToRootType.Immediate });
-  runShortcuts(bundleId, delay, key, modifiers);
+  runShortcuts(bundleId, delay, shortcutSequence[0].base, shortcutSequence[0].modifiers);
 }
 
 function KeymapDropdown(props: { keymaps: string[]; onKeymapChange: (newValue: string) => void }) {
@@ -46,7 +47,8 @@ function KeymapDropdown(props: { keymaps: string[]; onKeymapChange: (newValue: s
 export default function AppShortcuts(props: { bundleId: string } | undefined) {
   const bundleIdOverride: string | undefined = props?.bundleId;
 
-  const [appHotkeys, setAppHotkeys] = useState<AppHotkeys | undefined>();
+  const shortcutsProvider = useShortcutsProvider();
+  const [appHotkeys, setAppHotkeys] = useState<AppShortcuts | undefined>();
   const [keymaps, setKeymaps] = useState<string[]>([]);
   const [keymapSections, setKeymapSections] = useState<Section[]>([]);
 
@@ -58,7 +60,7 @@ export default function AppShortcuts(props: { bundleId: string } | undefined) {
     [],
     {
       onData: (bundleId) => {
-        const foundApp = shortcutsStorage.applications.find((app) => app.bundleId === bundleId);
+        const foundApp = shortcutsProvider.getCachedShortcuts().applications.find((app) => app.bundleId === bundleId);
         const foundKeymaps = foundApp?.keymaps.map((k) => k.title) ?? [];
         const foundSections = foundApp?.keymaps[0].sections ?? [];
         setAppHotkeys(foundApp);
@@ -82,17 +84,17 @@ export default function AppShortcuts(props: { bundleId: string } | undefined) {
       {keymapSections.map((section) => {
         return (
           <List.Section key={section.title} title={section.title}>
-            {section.hotkeys.map((hotkey) => {
+            {section.hotkeys.map((shortcut) => {
               return (
                 <List.Item
-                  key={hotkey.title}
-                  title={hotkey.title}
-                  subtitle={generateHotkeyText(hotkey)}
+                  key={shortcut.title}
+                  title={shortcut.title}
+                  subtitle={generateHotkeyText(shortcut)}
                   actions={
                     <ActionPanel>
                       <Action
                         title="Apply"
-                        onAction={() => executeShortcut(appHotkeys!.bundleId, hotkey.key, hotkey.modifiers)}
+                        onAction={() => executeShortcut(appHotkeys!.bundleId, shortcut.sequence)}
                       />
                     </ActionPanel>
                   }
@@ -110,7 +112,10 @@ function selectKeymap(keymaps: Keymap[], keymapName: string): Keymap | undefined
   return keymaps.find((keymap) => keymap.title === keymapName);
 }
 
-function generateHotkeyText(hotkey: SectionHotkey): string {
-  const modifiersText = hotkey.modifiers?.map((modifier) => modifierSymbols.get(modifier)).join("") ?? "";
-  return modifiersText + hotkey.key;
+function generateHotkeyText(shortcut: SectionShortcut): string {
+  return shortcut.sequence.map(atomicShortcut => {
+    const modifiersText = atomicShortcut.modifiers.map((modifier) => modifierSymbols.get(modifier)).join("") ?? "";
+    return modifiersText + atomicShortcut.base;
+  }).join(" ")
+
 }

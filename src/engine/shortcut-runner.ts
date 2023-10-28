@@ -1,6 +1,6 @@
 import { runAppleScript, showFailureToast } from "@raycast/utils";
-import { Modifers } from "../model/modifiers";
-import { keyCodes } from "../model/key-codes";
+import { keyCodes } from "../model/internal/key-codes";
+import { Modifiers } from "../model/internal/modifiers";
 
 // language=JavaScript
 const appleScript = `
@@ -31,7 +31,7 @@ const appleScript = `
     }
 `;
 
-export async function runShortcuts(bundleId: string, delay: number, key: string, modifiers: Modifers[]) {
+export async function runShortcuts(bundleId: string, delay: number, key: string, modifiers: Modifiers[]) {
   console.log(`Running shortcut for application ${bundleId} with delay ${delay}`);
   try {
     await runAppleScript(appleScript, [bundleId, String(delay), keyCodes.get(key)!, ...modifiers], {

@@ -10,3 +10,5 @@ Shortcuts helper
     - [ ] shortcut chording (two sequential shortcuts)
 - [ ]  Add validation
     - [ ] non-supported key used
+    - [ ] everything should be lowercase
+    - [ ] can't use only modifiers without base

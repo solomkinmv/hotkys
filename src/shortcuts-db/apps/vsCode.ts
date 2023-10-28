@@ -1,7 +1,6 @@
-import { AppHotkeys } from "../../model/models";
-import { Modifers } from "../../model/modifiers";
+import { InputApp } from "../../model/input/input-models";
 
-export const vsCodeShortcuts: AppHotkeys = {
+export const vsCodeShortcuts: InputApp = {
   bundleId: "com.microsoft.VSCode",
   name: "Visual Studio Code",
   keymaps: [
@@ -10,40 +9,36 @@ export const vsCodeShortcuts: AppHotkeys = {
       sections: [
         {
           title: "Format",
-          hotkeys: [
+          shortcuts: [
             {
               title: "Format Document",
-              key: "F",
-              modifiers: [Modifers.shift, Modifers.option],
+              key: "shift+opt+f",
             },
           ],
         },
         {
           title: "Editor",
-          hotkeys: [
+          shortcuts: [
             {
               title: "Open Editor Tab",
-              key: "E",
-              modifiers: [Modifers.command, Modifers.shift],
+              key: "shift+cmd+e",
             },
             {
               title: "Shrink Selection",
-              key: "left",
-              modifiers: [Modifers.control, Modifers.shift],
+              key: "ctrl+shift+left",
             },
             {
               title: "Increase Selection",
-              key: "right",
-              modifiers: [Modifers.control, Modifers.shift],
+              key: "ctrl+shift+right",
             },
           ],
         },
         {
           title: "Refactor",
-          hotkeys: [
+          shortcuts: [
             {
               title: "Rename",
-              key: "F2",
+              key: "f2",
             },
           ],
         },
@@ -54,11 +49,10 @@ export const vsCodeShortcuts: AppHotkeys = {
       sections: [
         {
           title: "Editor",
-          hotkeys: [
+          shortcuts: [
             {
               title: "Open Editor Tab",
-              key: "E",
-              modifiers: [Modifers.command, Modifers.shift],
+              key: "shift+cmd+e",
             },
           ],
         },
