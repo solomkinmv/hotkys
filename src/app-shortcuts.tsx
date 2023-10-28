@@ -7,7 +7,7 @@ import {
   List,
   PopToRootType,
 } from "@raycast/api";
-import { usePromise } from "@raycast/utils";
+import { useCachedState, usePromise } from "@raycast/utils";
 import { useRef, useState } from "react";
 import { runShortcuts } from "./engine/shortcut-runner";
 import { AppShortcuts, AtomicShortcut, Keymap, Section, SectionShortcut } from "./model/internal/internal-models";
@@ -47,6 +47,7 @@ export default function AppShortcuts(props: { bundleId: string } | undefined) {
   const bundleIdOverride: string | undefined = props?.bundleId;
 
   const shortcutsProvider = useShortcutsProvider();
+  const [shortcuts] = useCachedState("shortcuts", shortcutsProvider.getShortcuts());
   const [appHotkeys, setAppHotkeys] = useState<AppShortcuts | undefined>();
   const [keymaps, setKeymaps] = useState<string[]>([]);
   const [keymapSections, setKeymapSections] = useState<Section[]>([]);
@@ -59,7 +60,7 @@ export default function AppShortcuts(props: { bundleId: string } | undefined) {
     [],
     {
       onData: (bundleId) => {
-        const foundApp = shortcutsProvider.getCachedShortcuts().applications.find((app) => app.bundleId === bundleId);
+        const foundApp = shortcuts.applications.find((app) => app.bundleId === bundleId);
         const foundKeymaps = foundApp?.keymaps.map((k) => k.title) ?? [];
         const foundSections = foundApp?.keymaps[0].sections ?? [];
         setAppHotkeys(foundApp);
