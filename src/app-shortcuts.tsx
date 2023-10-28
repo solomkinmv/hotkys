@@ -10,10 +10,9 @@ import {
 import { usePromise } from "@raycast/utils";
 import { useRef, useState } from "react";
 import { runShortcuts } from "./engine/shortcut-runner";
-import { Section, AppShortcuts, AtomicShortcut, Keymap, SectionShortcut } from "./model/internal/internal-models";
+import { AppShortcuts, AtomicShortcut, Keymap, Section, SectionShortcut } from "./model/internal/internal-models";
 import useShortcutsProvider from "./load/shortcuts-provider";
 import { modifierSymbols } from "./model/internal/modifiers";
-import ShortcutsProvider from "./load/shortcuts-provider";
 
 interface Preferences {
   delay: string;
@@ -92,10 +91,7 @@ export default function AppShortcuts(props: { bundleId: string } | undefined) {
                   subtitle={generateHotkeyText(shortcut)}
                   actions={
                     <ActionPanel>
-                      <Action
-                        title="Apply"
-                        onAction={() => executeShortcut(appHotkeys!.bundleId, shortcut.sequence)}
-                      />
+                      <Action title="Apply" onAction={() => executeShortcut(appHotkeys!.bundleId, shortcut.sequence)} />
                     </ActionPanel>
                   }
                 />
@@ -113,9 +109,24 @@ function selectKeymap(keymaps: Keymap[], keymapName: string): Keymap | undefined
 }
 
 function generateHotkeyText(shortcut: SectionShortcut): string {
-  return shortcut.sequence.map(atomicShortcut => {
-    const modifiersText = atomicShortcut.modifiers.map((modifier) => modifierSymbols.get(modifier)).join("") ?? "";
-    return modifiersText + atomicShortcut.base;
-  }).join(" ")
-
+  return shortcut.sequence
+    .map((atomicShortcut) => {
+      const modifiersText = atomicShortcut.modifiers.map((modifier) => modifierSymbols.get(modifier)).join("") ?? "";
+      return modifiersText + overrideSymbolIfPossible(atomicShortcut.base);
+    })
+    .join(" ");
 }
+
+function overrideSymbolIfPossible(base: string) {
+  if (baseKeySymbolOverride.has(base)) {
+    return baseKeySymbolOverride.get(base);
+  }
+  return base.toUpperCase();
+}
+
+const baseKeySymbolOverride: Map<string, string> = new Map([
+  ["left", "←"],
+  ["right", "→"],
+  ["up", "↑"],
+  ["down", "↓"],
+]);
