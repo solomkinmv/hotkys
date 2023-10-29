@@ -5,6 +5,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { AppShortcutsComponent } from "./components/app/app-shortcuts.component";
+import { AppsListComponent } from "./components/apps-list.component";
 
 const root = ReactDOM.createRoot(
     document.getElementById("root") as HTMLElement,
@@ -13,10 +14,16 @@ const router = createBrowserRouter([
     {
         path: "/",
         element: <App />,
-    },
-    {
-        path: "/apps/:bundleId",
-        element: <AppShortcutsComponent />,
+        children: [
+            {
+                path: "/",
+                element: <AppsListComponent/>
+            },
+            {
+                path: "/apps/:bundleId",
+                element: <AppShortcutsComponent />,
+            },
+        ]
     },
 ]);
 root.render(
