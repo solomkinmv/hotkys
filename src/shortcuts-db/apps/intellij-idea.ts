@@ -23,4 +23,5 @@ export const intellijIdeaShortcuts: InputApp = {
 export const intellijIdeaEapShortcuts: InputApp = {
   ...intellijIdeaShortcuts,
   bundleId: "com.jetbrains.intellij-EAP",
+  name: "IntelliJ IDEA EAP"
 };

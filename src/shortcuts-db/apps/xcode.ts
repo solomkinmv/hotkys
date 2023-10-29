@@ -38,7 +38,7 @@ export const xcodeShortcuts: InputApp = {
             },
             {
               title: "Show library window",
-              key: "shift+opt+cmd+L",
+              key: "shift+opt+cmd+l",
             },
           ],
         },

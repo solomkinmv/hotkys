@@ -12,10 +12,44 @@ export const safariShortcuts: InputApp = {
           shortcuts: [
             {
               title: "Open Bookmarks Manager",
-              key: "cmd+opt+B",
+              key: "opt+cmd+b",
             },
           ],
         },
+        {
+          title: "Current Webpage",
+          shortcuts: [
+            {
+              title: "Search the current webpage",
+              key: "cmd+f"
+            },
+            {
+              title: "Select the Smart Search field",
+              key: "cmd+l"
+            },
+            {
+              title: "Print the current webpage",
+              key: "cmd+p"
+            }
+          ]
+        },
+        {
+          title: "Tabs",
+          shortcuts: [
+            {
+              title: "Show tab overview",
+              key: "shift+cmd+\\"
+            },
+            {
+              title: "Go to the next tab",
+              key: "ctrl+tab"
+            },
+            {
+              title: "Go to the previous tab",
+              key: "ctrl+shift+tab"
+            }
+          ]
+        }
       ],
     },
   ],

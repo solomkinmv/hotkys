@@ -7,7 +7,7 @@ export enum Modifiers {
 
 export const modifierSymbols: Map<Modifiers, string> = new Map([
   [Modifiers.command, "⌘"],
-  [Modifiers.control, "^"],
+  [Modifiers.control, "⌃"],
   [Modifiers.option, "⌥"],
   [Modifiers.shift, "⇧"],
 ]);

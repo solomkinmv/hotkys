@@ -11,16 +11,22 @@ import { Modifiers } from "../model/internal/modifiers";
 // todo: the same shortcut names (in section?)
 // todo: the same app bundle ids or names
 
-describe("Throws validation errors", () => {
+describe("Throws validation error", () => {
   it("Throws validation error if incorrect modifier", () => {
     expect(() => validate([generateInputAppWithShortcut({ shortcut: "abc+e" })])).toThrowError(
       new ValidationError("Modifier 'abc' doesn't exist")
     );
   });
 
+  it("Throw validation error if base key unknown", () => {
+    expect(() => validate([generateInputAppWithShortcut({ shortcut: "abc+💩" })])).toThrowError(
+        new ValidationError("Modifier 'abc' doesn't exist")
+    );
+  });
+
   it("Throws validation error if there are whitespace in shortcut", () => {
-    expect(() => validate([generateInputAppWithShortcut({ shortcut: "cmd +e" })])).toThrowError(
-      new ValidationError("Invalid shortcut: 'cmd +e'")
+    expect(() => validate([generateInputAppWithShortcut({ shortcut: "cmd+e +e" })])).toThrowError(
+      new ValidationError("Invalid shortcut: 'cmd+e +e'")
     );
   });
 

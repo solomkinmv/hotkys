@@ -39,6 +39,8 @@ export const keyCodes = new Map<string, string>([
   ["f10", "109"],
   ["f11", "103"],
   ["f12", "111"],
+  // special keys
+  ["tab", "48"],
   // arrows
   ["down", "125"],
   ["up", "126"],
@@ -51,5 +53,5 @@ export const keyCodes = new Map<string, string>([
   ["end", "119"],
   // symbols
   ["`", "50"],
-  ["tilde", "50"],
+  ["\\", "42"],
 ]);
