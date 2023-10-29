@@ -10,7 +10,6 @@ const { Text, Link } = Typography;
 
 type MenuItem = Required<MenuProps>["items"][number];
 
-
 function getItem(
     label: React.ReactNode,
     key: React.Key,
@@ -27,33 +26,14 @@ function getItem(
     } as MenuItem;
 }
 
-const items: MenuItem[] = [
-    getItem("Keymaps", "sub1", <MailOutlined />, [
-        getItem("Option 1", "1"),
-        getItem("Option 2", "2"),
-        getItem("Option 3", "3"),
-        getItem("Option 4", "4"),
-    ]),
-    getItem("Sections", "sub2", <AppstoreOutlined />, [
-        getItem("Option 5", "5"),
-        getItem("Option 6", "6"),
-        getItem("Submenu", "sub3", null, [getItem("Option 7", "7"), getItem("Option 8", "8")]),
-    ]),
-    getItem("Navigation Three", "sub4", <SettingOutlined />, [
-        getItem("Option 9", "9"),
-        getItem("Option 10", "10"),
-        getItem("Option 11", "11"),
-        getItem("Option 12", "12"),
-    ]),
-];
-
 // submenu keys of first level
-const rootSubmenuKeys = ["sub1", "sub2", "sub4"];
+const rootSubmenuKeys = ["keymaps", "sections"];
 
 export function AppShortcutsComponent() {
     let { bundleId } = useParams();
     const appShortcuts = useShortcutsProvider().getShortcutsByApp(bundleId!);
     const [openKeys, setOpenKeys] = useState(["keymaps", "sections"]);
+    const [selectedKeys, setSelectedKeys] = useState([appShortcuts?.keymaps[0]!.title!]);
     const menu = appShortcuts ? buildMenu(appShortcuts) : [];
     const [selectedKeymap, setSelectedKeymap] = useState(appShortcuts?.keymaps[0]!);
     const onOpenChange: MenuProps["onOpenChange"] = (keys) => {
@@ -65,14 +45,25 @@ export function AppShortcutsComponent() {
         }
     };
 
+    const onSelect: MenuProps["onSelect"] = (event) => {
+        const category = event.keyPath[event.keyPath.length - 1];
+        if (category === "keymaps") {
+            const selectedKeymap = event.keyPath[0]
+            setSelectedKeymap(appShortcuts?.keymaps.find(keymap => keymap.title === selectedKeymap)!);
+            setSelectedKeys([selectedKeymap]);
+        }
+    }
+
     return (
         <Flex>
             <Menu
                 mode="inline"
                 openKeys={openKeys}
+                selectedKeys={selectedKeys}
                 onOpenChange={onOpenChange}
                 style={{ width: 256 }}
                 items={menu}
+                onSelect={onSelect}
             />
             <div>
                 <h1>{appShortcuts?.name}</h1>

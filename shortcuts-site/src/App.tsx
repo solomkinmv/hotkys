@@ -51,7 +51,7 @@ function App() {
                           } />
                 </div>
                 <Outlet />
-                <div>Footer</div>
+                <div>Made by Maksym Solomkin</div>
             </div>
         </ConfigProvider>
     );
