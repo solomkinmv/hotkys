@@ -37,12 +37,7 @@ export function AppShortcutsComponent() {
     const menu = appShortcuts ? buildMenu(appShortcuts) : [];
     const [selectedKeymap, setSelectedKeymap] = useState(appShortcuts?.keymaps[0]!);
     const onOpenChange: MenuProps["onOpenChange"] = (keys) => {
-        const latestOpenKey = keys.find((key) => openKeys.indexOf(key) === -1);
-        if (latestOpenKey && rootSubmenuKeys.indexOf(latestOpenKey!) === -1) {
-            setOpenKeys(keys);
-        } else {
-            setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
-        }
+        setOpenKeys(keys);
     };
 
     const onSelect: MenuProps["onSelect"] = (event) => {
