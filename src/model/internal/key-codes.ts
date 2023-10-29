@@ -41,6 +41,7 @@ export const keyCodes = new Map<string, string>([
   ["f12", "111"],
   // special keys
   ["tab", "48"],
+  ["esc", "53"],
   // arrows
   ["down", "125"],
   ["up", "126"],

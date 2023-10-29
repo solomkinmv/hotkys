@@ -1,10 +1,11 @@
 import { runAppleScript, showFailureToast } from "@raycast/utils";
 import { keyCodes } from "../model/internal/key-codes";
 import { AtomicShortcut } from "../model/internal/internal-models";
+import { macOsShortcuts } from "../shortcuts-db/apps/macos";
 
 // language=JavaScript
 const appleScript = `
-  // noinspection JSUnresolvedReference,JSUnusedLocalSymbols,JSLastCommaInObjectLiteral
+  // noinspection JSUnresolvedReference,JSUnusedLocalSymbols
 
   function run(argv) {
     const app = Application.currentApplication();
@@ -12,12 +13,14 @@ const appleScript = `
 
     let currentIndex = 0;
     const targetBundleID = argv[currentIndex++];
+    const delayArg = parseFloat(argv[currentIndex++]);
 
-    // Activate the target application
+    // Activate the target application if targetBundleID is present
     const systemEvents = Application("System Events");
-    if (systemEvents.applicationProcesses.whose({ bundleIdentifier: targetBundleID }).length > 0) {
+    if (targetBundleID && 
+        systemEvents.applicationProcesses.whose({ bundleIdentifier: targetBundleID }).length > 0) {
       app.doShellScript("open -b " + targetBundleID);
-      delay(parseFloat(argv[currentIndex++])); // Adjust the delay as needed for the app to activate
+      delay(delayArg); // Adjust the delay as needed for the app to activate
     }
 
     const numberOfChords = parseInt(argv[currentIndex++]);
@@ -63,13 +66,17 @@ export async function runShortcuts(bundleId: string, delay: number, sequence: At
  * ...
  * modifier MN
  * base key for chord N
+ *
+ * Note: macOS fake bundle id is an exception and will be replaced as an empty string
  */
 function generateArguments(bundleId: string, delay: number, sequence: AtomicShortcut[]): string[] {
+  bundleId = macOsShortcuts.bundleId === bundleId ? "" : bundleId;
   const args: string[] = [bundleId, String(delay), String(sequence.length)];
   sequence.forEach((atomic) => {
     args.push(String(atomic.modifiers.length));
     args.push(...atomic.modifiers);
     args.push(keyCodes.get(atomic.base)!);
   });
+  console.log("Generated arguments", args);
   return args;
 }

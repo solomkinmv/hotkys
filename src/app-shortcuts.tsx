@@ -134,5 +134,6 @@ const baseKeySymbolOverride: Map<string, string> = new Map([
   ["pagedown", "PgDown"],
   ["home", "Home"],
   ["end", "End"],
-    ["tab", "⇥"]
+  ["tab", "⇥"],
+  ["esc", "⎋"],
 ]);
