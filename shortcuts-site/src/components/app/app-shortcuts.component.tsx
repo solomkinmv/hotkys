@@ -60,9 +60,11 @@ export function AppShortcutsComponent() {
                 items={menu}
                 onSelect={onSelect}
             />
-            <div>
-                <h1>{appShortcuts?.name}</h1>
-                <div>{appShortcuts?.bundleId}</div>
+            <div style={{ paddingLeft: 20}}>
+                <Typography.Title level={1} style={{ margin: 0 }}>
+                    {appShortcuts?.name}
+                </Typography.Title>
+                <Text code>{appShortcuts?.bundleId}</Text>
                 {
                     selectedKeymap.sections.map(section => (
                         <div key={section.title}>

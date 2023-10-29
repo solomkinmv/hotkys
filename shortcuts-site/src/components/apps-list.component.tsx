@@ -1,23 +1,20 @@
 import { useShortcutsProvider } from "../core/load/shortcuts-provider";
 import { Link } from "react-router-dom";
-import { Flex, Layout } from "antd";
-import Sider from "antd/es/layout/Sider";
-import { Content } from "antd/es/layout/layout";
-import Search from "antd/es/input/Search";
+import { Flex, List, Typography } from "antd";
+
+const { Text } = Typography;
 
 export function AppsListComponent() {
     const shortcutsProvider = useShortcutsProvider();
     return (
-        <Flex>
-            <div>Sidebar will be here</div>
+        <Flex justify="center">
             <div>
-                {
-                shortcutsProvider.getShortcuts().applications.map(app =>
-                    <div key={app.bundleId}>
-                        <Link to={`/apps/${app.bundleId}`}>{app.name}</Link>
-                    </div>,
-                )
-            }
+                <List
+                    dataSource={shortcutsProvider.getShortcuts().applications}
+                    renderItem={(app) => <List.Item>
+                        <Link to={`/apps/${app.bundleId}`}>{app.name}</Link><Text code>{app.bundleId}</Text>
+                    </List.Item>}
+                />
             </div>
         </Flex>
     );
