@@ -1,4 +1,4 @@
-import useShortcutsProvider from "./shortcuts-provider";
+import { useShortcutsProvider } from "./shortcuts-provider";
 
 test("Parses all shortcuts successfully", () => {
   useShortcutsProvider().getShortcuts();

@@ -1,4 +1,4 @@
-import useShortcutsProvider from "../core/load/shortcuts-provider";
+import { useShortcutsProvider } from "../core/load/shortcuts-provider";
 
 export function AppsListComponent() {
     const shortcutsProvider = useShortcutsProvider();
