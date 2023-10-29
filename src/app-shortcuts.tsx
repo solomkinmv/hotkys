@@ -26,6 +26,9 @@ async function executeShortcut(bundleId: string, shortcutSequence: AtomicShortcu
 
 function KeymapDropdown(props: { keymaps: string[]; onKeymapChange: (newValue: string) => void }) {
   const { keymaps, onKeymapChange } = props;
+  if (keymaps.length == 1) {
+    return;
+  }
   return (
     <List.Dropdown
       tooltip="Select Keymap"
