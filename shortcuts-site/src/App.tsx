@@ -1,20 +1,23 @@
 import React from "react";
 import "./App.css";
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet, useNavigate } from "react-router-dom";
 import { ConfigProvider, Menu, MenuProps } from "antd";
 
 const headerMenu: MenuProps["items"] = [
     {
         key: "home",
-        label: "Home"
+        label: "Home",
+        onClick: () => <Navigate to="/" replace={true} />,
     },
     {
         key: "about",
-        label: "About"
-    }
-]
+        label: "About",
+    },
+];
 
 function App() {
+    const navigate = useNavigate();
+
     return (
         <ConfigProvider
             theme={{
@@ -38,7 +41,15 @@ function App() {
             }}
         >
             <div>
-                <div><Menu mode="horizontal" items={headerMenu} /></div>
+                <div>
+                    <Menu mode="horizontal" items={headerMenu}
+                          onClick={(event) => {
+                              if (event.key === "home") {
+                                  navigate("/");
+                              }
+                          }
+                          } />
+                </div>
                 <Outlet />
                 <div>Footer</div>
             </div>
