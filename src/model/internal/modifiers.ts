@@ -20,3 +20,8 @@ export const modifierMapping: Map<string, Modifiers> = new Map([
 ]);
 
 export const modifierTokens: string[] = ["ctrl", "shift", "opt", "cmd"];
+
+export const modifierTokensOrderMapping: Map<string, number> = new Map();
+modifierTokens.forEach((key, index) => {
+  modifierTokensOrderMapping.set(key, index);
+});
