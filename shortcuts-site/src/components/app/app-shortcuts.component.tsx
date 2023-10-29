@@ -65,7 +65,7 @@ export function AppShortcutsComponent() {
                 <div>{appShortcuts?.bundleId}</div>
                 {
                     selectedKeymap.sections.map(section => (
-                        <div>
+                        <div key={section.title}>
                             <Divider orientation="left">{section.title}</Divider>
                             <List
                                 dataSource={section.hotkeys}

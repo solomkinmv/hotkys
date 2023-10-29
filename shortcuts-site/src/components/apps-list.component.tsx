@@ -13,7 +13,9 @@ export function AppsListComponent() {
             <div>
                 {
                 shortcutsProvider.getShortcuts().applications.map(app =>
-                    <div><Link to={`/apps/${app.bundleId}`}>{app.name}</Link></div>,
+                    <div key={app.bundleId}>
+                        <Link to={`/apps/${app.bundleId}`}>{app.name}</Link>
+                    </div>,
                 )
             }
             </div>
