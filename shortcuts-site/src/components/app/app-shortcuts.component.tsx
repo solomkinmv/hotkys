@@ -2,9 +2,10 @@ import { useParams } from "react-router-dom";
 import { useShortcutsProvider } from "../../core/load/shortcuts-provider";
 import { AppShortcuts, SectionShortcut } from "../../core/model/internal/internal-models";
 import { modifierSymbols } from "../../core/model/internal/modifiers";
-import { Divider, Flex, List, Menu, MenuProps, Typography } from "antd";
-import { AppstoreOutlined, MailOutlined, SettingOutlined } from "@ant-design/icons";
+import { Divider, Flex, Input, InputProps, List, Menu, MenuProps, Typography } from "antd";
+import { AppstoreOutlined, SettingOutlined } from "@ant-design/icons";
 import { useState } from "react";
+import Fuse from "fuse.js";
 
 const { Text, Link } = Typography;
 
@@ -36,6 +37,7 @@ export function AppShortcutsComponent() {
     const [selectedKeys, setSelectedKeys] = useState([appShortcuts?.keymaps[0]!.title!]);
     const menu = appShortcuts ? buildMenu(appShortcuts) : [];
     const [selectedKeymap, setSelectedKeymap] = useState(appShortcuts?.keymaps[0]!);
+    const [filteredSections, setFilteredSections] = useState(selectedKeymap.sections);
     const onOpenChange: MenuProps["onOpenChange"] = (keys) => {
         setOpenKeys(keys);
     };
@@ -43,11 +45,25 @@ export function AppShortcutsComponent() {
     const onSelect: MenuProps["onSelect"] = (event) => {
         const category = event.keyPath[event.keyPath.length - 1];
         if (category === "keymaps") {
-            const selectedKeymap = event.keyPath[0]
+            const selectedKeymap = event.keyPath[0];
             setSelectedKeymap(appShortcuts?.keymaps.find(keymap => keymap.title === selectedKeymap)!);
             setSelectedKeys([selectedKeymap]);
         }
-    }
+    };
+
+    const fuse = new Fuse(selectedKeymap.sections, {
+        keys: [
+            "title", "hotkeys.title", "hotkeys.sequence.base", "hotkeys.sequence.modifiers",
+        ],
+    });
+    const onChange: InputProps["onChange"] = (e) => {
+        const inputText = e.currentTarget.value;
+        if (!inputText) {
+            setFilteredSections(selectedKeymap.sections);
+        } else {
+            setFilteredSections(fuse.search(e.currentTarget.value).map(result => result.item));
+        }
+    };
 
     return (
         <Flex>
@@ -60,13 +76,19 @@ export function AppShortcutsComponent() {
                 items={menu}
                 onSelect={onSelect}
             />
-            <div style={{ paddingLeft: 20}}>
+            <div style={{ paddingLeft: 20 }}>
                 <Typography.Title level={1} style={{ margin: 0 }}>
                     {appShortcuts?.name}
                 </Typography.Title>
                 <Text code>{appShortcuts?.bundleId}</Text>
+
+                <Input allowClear
+                       placeholder="Search..."
+                       onChange={onChange}
+                />
+
                 {
-                    selectedKeymap.sections.map(section => (
+                    filteredSections.map(section => (
                         <div key={section.title}>
                             <Divider orientation="left">{section.title}</Divider>
                             <List

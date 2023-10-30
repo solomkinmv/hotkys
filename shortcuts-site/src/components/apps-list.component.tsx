@@ -24,7 +24,7 @@ export function AppsListComponent() {
     return (
         <Flex justify="center">
             <div>
-                <Input
+                <Input allowClear
                     placeholder="Search..."
                     onChange={onChange}
                 />
