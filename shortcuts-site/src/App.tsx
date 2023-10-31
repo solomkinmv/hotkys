@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import { Navigate, Outlet, useNavigate } from "react-router-dom";
-import { ConfigProvider, Flex, Menu, MenuProps } from "antd";
+import { ConfigProvider, Menu, MenuProps } from "antd";
 
 const headerMenu: MenuProps["items"] = [
     {

@@ -1,20 +1,20 @@
 export interface InputShortcut {
-  title: string;
-  key: string;
+    title: string;
+    key: string;
 }
 
 export interface InputSection {
-  title: string;
-  shortcuts: InputShortcut[];
+    title: string;
+    shortcuts: InputShortcut[];
 }
 
 export interface InputKeymap {
-  title: string;
-  sections: InputSection[];
+    title: string;
+    sections: InputSection[];
 }
 
 export interface InputApp {
-  bundleId: string;
-  name: string;
-  keymaps: InputKeymap[];
+    bundleId: string;
+    name: string;
+    keymaps: InputKeymap[];
 }

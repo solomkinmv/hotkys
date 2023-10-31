@@ -7,7 +7,7 @@ import { AppstoreOutlined, SettingOutlined } from "@ant-design/icons";
 import { useState } from "react";
 import Fuse from "fuse.js";
 
-const { Text, Link } = Typography;
+const { Text } = Typography;
 
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -26,9 +26,6 @@ function getItem(
         type,
     } as MenuItem;
 }
-
-// submenu keys of first level
-const rootSubmenuKeys = ["keymaps", "sections"];
 
 export function AppShortcutsComponent() {
     let { bundleId } = useParams();

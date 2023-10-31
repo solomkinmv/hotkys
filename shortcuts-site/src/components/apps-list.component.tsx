@@ -25,8 +25,8 @@ export function AppsListComponent() {
         <Flex justify="center">
             <div>
                 <Input allowClear
-                    placeholder="Search..."
-                    onChange={onChange}
+                       placeholder="Search..."
+                       onChange={onChange}
                 />
                 <List
                     dataSource={appShortcuts}

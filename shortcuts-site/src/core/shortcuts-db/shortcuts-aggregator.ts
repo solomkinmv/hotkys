@@ -6,10 +6,10 @@ import { intellijIdeaEapShortcuts, intellijIdeaShortcuts } from "./apps/intellij
 import { macOsShortcuts } from "./apps/macos";
 
 export const aggregatedApps: InputApp[] = [
-  intellijIdeaEapShortcuts,
-  intellijIdeaShortcuts,
-  macOsShortcuts,
-  safariShortcuts,
-  vsCodeShortcuts,
-  xcodeShortcuts,
+    intellijIdeaEapShortcuts,
+    intellijIdeaShortcuts,
+    macOsShortcuts,
+    safariShortcuts,
+    vsCodeShortcuts,
+    xcodeShortcuts,
 ];

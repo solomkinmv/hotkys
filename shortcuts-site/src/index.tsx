@@ -17,13 +17,13 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "/",
-                element: <AppsListComponent/>
+                element: <AppsListComponent />,
             },
             {
                 path: "/apps/:bundleId",
                 element: <AppShortcutsComponent />,
             },
-        ]
+        ],
     },
 ]);
 root.render(
