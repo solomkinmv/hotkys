@@ -1,7 +1,10 @@
 import React from "react";
 import "./App.css";
 import { Navigate, Outlet, useNavigate } from "react-router-dom";
-import { ConfigProvider, Menu, MenuProps } from "antd";
+import { ConfigProvider, Divider, Menu, MenuProps, Typography } from "antd";
+
+const {Text} = Typography;
+
 
 const headerMenu: MenuProps["items"] = [
     {
@@ -51,7 +54,10 @@ function App() {
                           } />
                 </div>
                 <Outlet />
-                <div>Made by Maksym Solomkin</div>
+                <div>
+                    <Divider />
+                    <Text type="secondary">Made by Maksym Solomkin</Text>
+                </div>
             </div>
         </ConfigProvider>
     );
