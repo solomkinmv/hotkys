@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { useShortcutsProvider } from "../../core/load/shortcuts-provider";
 import { AppShortcuts, SectionShortcut } from "../../core/model/internal/internal-models";
 import { modifierSymbols } from "../../core/model/internal/modifiers";
-import { Divider, Flex, Input, InputProps, List, Menu, MenuProps, Typography } from "antd";
+import { Divider, Input, InputProps, List, Menu, MenuProps, Typography } from "antd";
 import { AppstoreOutlined, SettingOutlined } from "@ant-design/icons";
 import { useState } from "react";
 import Fuse from "fuse.js";

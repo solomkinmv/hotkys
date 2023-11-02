@@ -1,6 +1,6 @@
 import { useShortcutsProvider } from "../core/load/shortcuts-provider";
 import { Link } from "react-router-dom";
-import { Flex, Input, InputProps, List, Typography } from "antd";
+import { Input, InputProps, List, Typography } from "antd";
 import { useState } from "react";
 import Fuse from "fuse.js";
 
