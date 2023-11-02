@@ -2,9 +2,9 @@ import { useParams } from "react-router-dom";
 import { useShortcutsProvider } from "../../core/load/shortcuts-provider";
 import { AppShortcuts, Keymap, Section, SectionShortcut } from "../../core/model/internal/internal-models";
 import { modifierSymbols } from "../../core/model/internal/modifiers";
-import { Divider, Input, InputProps, List, Menu, MenuProps, Typography } from "antd";
+import { Divider, Input, InputProps, InputRef, List, Menu, MenuProps, Tag, Typography } from "antd";
 import { AppstoreOutlined, SettingOutlined } from "@ant-design/icons";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Fuse from "fuse.js";
 import "./app-shortcuts.component.css"
 
@@ -30,12 +30,28 @@ function getItem(
 
 export function AppShortcutsComponent() {
     let { bundleId } = useParams();
+    const inputRef = useRef<InputRef>(null);
+    const [searchShortcutVisible, setSearchShortcutVisible] = useState(true)
     const appShortcuts = useShortcutsProvider().getShortcutsByApp(bundleId!);
     const [openKeys, setOpenKeys] = useState(["keymaps", "sections"]);
     const [selectedKeys, setSelectedKeys] = useState([appShortcuts?.keymaps[0]!.title!]);
     const menu = appShortcuts ? buildMenu(appShortcuts) : [];
     const [selectedKeymap, setSelectedKeymap] = useState(appShortcuts?.keymaps[0]!);
     const [filteredSections, setFilteredSections] = useState(selectedKeymap.sections);
+
+    useEffect(() => {
+        const handleShortcut = (event: KeyboardEvent) => {
+            if (event.metaKey && event.key === 'k') {
+                inputRef.current?.focus();
+            }
+        };
+
+        window.addEventListener('keydown', handleShortcut);
+
+        return () => {
+            window.removeEventListener('keydown', handleShortcut);
+        };
+    }, []);
 
     const onOpenChange: MenuProps["onOpenChange"] = (keys) => {
         setOpenKeys(keys);
@@ -90,6 +106,10 @@ export function AppShortcutsComponent() {
                        placeholder="Search..."
                        onChange={onChange}
                        className="search-bar"
+                       ref={inputRef}
+                       suffix={<Tag style={{opacity: 0.5, display: searchShortcutVisible ? "block" : "none"}}>⌘K</Tag>}
+                       onBlur={() => setSearchShortcutVisible(true)}
+                       onFocus={() => setSearchShortcutVisible(false)}
                 />
 
                 {
