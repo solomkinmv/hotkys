@@ -6,6 +6,7 @@ import { Divider, Flex, Input, InputProps, List, Menu, MenuProps, Typography } f
 import { AppstoreOutlined, SettingOutlined } from "@ant-design/icons";
 import { useState } from "react";
 import Fuse from "fuse.js";
+import "./app-shortcuts.component.css"
 
 const { Text } = Typography;
 
@@ -63,17 +64,18 @@ export function AppShortcutsComponent() {
     };
 
     return (
-        <Flex>
-            <Menu
-                mode="inline"
-                openKeys={openKeys}
-                selectedKeys={selectedKeys}
-                onOpenChange={onOpenChange}
-                style={{ width: 256 }}
-                items={menu}
-                onSelect={onSelect}
-            />
-            <div style={{ paddingLeft: 20 }}>
+        <div className="container">
+            <div className="sidebar-menu">
+                <Menu
+                    mode="inline"
+                    openKeys={openKeys}
+                    selectedKeys={selectedKeys}
+                    onOpenChange={onOpenChange}
+                    items={menu}
+                    onSelect={onSelect}
+                />
+            </div>
+            <div className="content">
                 <Typography.Title level={1} style={{ margin: 0 }}>
                     {appShortcuts?.name}
                 </Typography.Title>
@@ -82,6 +84,7 @@ export function AppShortcutsComponent() {
                 <Input allowClear
                        placeholder="Search..."
                        onChange={onChange}
+                       className="search-bar"
                 />
 
                 {
@@ -99,7 +102,7 @@ export function AppShortcutsComponent() {
                     ))
                 }
             </div>
-        </Flex>
+        </div>
     );
 }
 

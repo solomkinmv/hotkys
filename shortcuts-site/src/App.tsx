@@ -25,25 +25,19 @@ function App() {
         <ConfigProvider
             theme={{
                 components: {
-                    Layout: {
-                        /* here is your component tokens */
-                        headerBg: "#f5f5f5",
-                        bodyBg: "#ffffff",
-                        siderBg: "#f5f5f5",
+                    Menu: {
+                        activeBarBorderWidth: 0,
                     },
+                    List: {
+                        // titleMarginBottom: 1,
+                        itemPadding: "12px 10px",
+                    }
                 },
-                // algorithm: theme.defaultAlgorithm,
                 token: {
-                    // Seed Token
-                    // colorPrimary: "#00b96b",
-                    // borderRadius: 2,
-
-                    // Alias Token
-                    // colorBgContainer: "#f6ffed",
                 },
             }}
         >
-            <div>
+            <div className="site-body">
                 <div>
                     <Menu mode="horizontal" items={headerMenu}
                           onClick={(event) => {

@@ -1,0 +1,11 @@
+.site-body {
+    width: 770px;
+    margin: 0 auto;
+}
+
+@media (max-width: 800px) {
+    .site-body {
+        width: calc(100% - 30px);
+        margin: 0 15px;
+    }
+}

@@ -22,7 +22,7 @@ export function AppsListComponent() {
     };
 
     return (
-        <Flex justify="center">
+        <div>
             <div>
                 <Input allowClear
                        placeholder="Search..."
@@ -35,6 +35,6 @@ export function AppsListComponent() {
                     </List.Item>}
                 />
             </div>
-        </Flex>
+        </div>
     );
 }
