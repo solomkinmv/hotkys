@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useShortcutsProvider } from "../../core/load/shortcuts-provider";
-import { AppShortcuts, SectionShortcut } from "../../core/model/internal/internal-models";
+import { AppShortcuts, Keymap, Section, SectionShortcut } from "../../core/model/internal/internal-models";
 import { modifierSymbols } from "../../core/model/internal/modifiers";
 import { Divider, Input, InputProps, List, Menu, MenuProps, Typography } from "antd";
 import { AppstoreOutlined, SettingOutlined } from "@ant-design/icons";
@@ -36,16 +36,26 @@ export function AppShortcutsComponent() {
     const menu = appShortcuts ? buildMenu(appShortcuts) : [];
     const [selectedKeymap, setSelectedKeymap] = useState(appShortcuts?.keymaps[0]!);
     const [filteredSections, setFilteredSections] = useState(selectedKeymap.sections);
+
     const onOpenChange: MenuProps["onOpenChange"] = (keys) => {
         setOpenKeys(keys);
     };
 
+    const calculateFilteredSections = (keymap: Keymap, filterText?: string): Section[] => {
+        if (!filterText) {
+            return keymap.sections;
+        }
+        return fuse.search(filterText).map(result => result.item);
+    }
+
     const onSelect: MenuProps["onSelect"] = (event) => {
         const category = event.keyPath[event.keyPath.length - 1];
         if (category === "keymaps") {
-            const selectedKeymap = event.keyPath[0];
-            setSelectedKeymap(appShortcuts?.keymaps.find(keymap => keymap.title === selectedKeymap)!);
-            setSelectedKeys([selectedKeymap]);
+            const newSelectedKeymapName = event.keyPath[0];
+            const newSelectedKeymap = appShortcuts?.keymaps.find(keymap => keymap.title === newSelectedKeymapName)!;
+            setSelectedKeymap(newSelectedKeymap);
+            setFilteredSections(calculateFilteredSections(newSelectedKeymap));
+            setSelectedKeys([newSelectedKeymapName]);
         }
     };
 
@@ -55,12 +65,7 @@ export function AppShortcutsComponent() {
         ],
     });
     const onChange: InputProps["onChange"] = (e) => {
-        const inputText = e.currentTarget.value;
-        if (!inputText) {
-            setFilteredSections(selectedKeymap.sections);
-        } else {
-            setFilteredSections(fuse.search(e.currentTarget.value).map(result => result.item));
-        }
+        setFilteredSections(calculateFilteredSections(selectedKeymap, e.currentTarget.value));
     };
 
     return (
