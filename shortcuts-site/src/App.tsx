@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import { Navigate, Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { ConfigProvider, Divider, Menu, MenuProps, Typography } from "antd";
 
 const {Text} = Typography;
@@ -10,7 +10,6 @@ const headerMenu: MenuProps["items"] = [
     {
         key: "home",
         label: "Home",
-        onClick: () => <Navigate to="/" replace={true} />,
     },
     {
         key: "about",
@@ -20,6 +19,8 @@ const headerMenu: MenuProps["items"] = [
 
 function App() {
     const navigate = useNavigate();
+    const location = useLocation();
+    const selectedKeys = [location.pathname === "/" ? "home" : ""];
 
     return (
         <ConfigProvider
@@ -39,7 +40,9 @@ function App() {
         >
             <div className="site-body">
                 <div>
-                    <Menu mode="horizontal" items={headerMenu}
+                    <Menu mode="horizontal"
+                          items={headerMenu}
+                          selectedKeys={selectedKeys}
                           onClick={(event) => {
                               if (event.key === "home") {
                                   navigate("/");
