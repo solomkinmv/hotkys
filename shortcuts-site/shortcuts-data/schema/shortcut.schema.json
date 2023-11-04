@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/product.schema.json",
+  "$defs": {
+    "section-shortcut": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        }
+      }
+    },
+    "section": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "hotkeys": {
+          "type": "array",
+          "items": {
+            "ref": "#/$defs/section-shortcut"
+          }
+        }
+      }
+    },
+    "keymap": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "sections": {
+          "type": "array",
+          "items": {
+            "ref": "#/$defs/section"
+          }
+        }
+      }
+    },
+    "app-shortcuts": {
+      "type": "object",
+      "properties": {
+        "bundleId": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "keymaps": {
+          "type": "array",
+          "items": {
+            "ref": "#/$defs/keymap"
+          }
+        }
+      }
+    }
+  },
+  "title": "Application shortcuts",
+  "description": "A product in the catalog",
+  "type": "object",
+  "properties": {
+    "bundleId": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "keymaps": {
+      "type": "array",
+      "items": {
+        "ref": "#/$defs/keymap"
+      }
+    }
+  }
+}

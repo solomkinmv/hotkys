@@ -1,5 +1,4 @@
 import { useParams } from "react-router-dom";
-import { useShortcutsProvider } from "../../core/load/shortcuts-provider";
 import { AppShortcuts, Keymap, Section, SectionShortcut } from "../../core/model/internal/internal-models";
 import { modifierSymbols } from "../../core/model/internal/modifiers";
 import { Divider, Input, InputProps, InputRef, List, Menu, MenuProps, Tag, Typography } from "antd";
@@ -7,6 +6,7 @@ import { AppstoreOutlined, SettingOutlined } from "@ant-design/icons";
 import { useEffect, useRef, useState } from "react";
 import Fuse from "fuse.js";
 import "./app-shortcuts.component.css"
+import { createShortcutsProvider } from '../../core/load/shortcuts-provider';
 
 const { Text } = Typography;
 
@@ -28,16 +28,42 @@ function getItem(
     } as MenuItem;
 }
 
+function buildFuse(selectedKeymap: Keymap) {
+    return new Fuse(selectedKeymap.sections, {
+        keys: [
+            "title", "hotkeys.title", "hotkeys.sequence.base", "hotkeys.sequence.modifiers",
+        ],
+    });
+}
+
 export function AppShortcutsComponent() {
     let { bundleId } = useParams();
     const inputRef = useRef<InputRef>(null);
     const [searchShortcutVisible, setSearchShortcutVisible] = useState(true)
-    const appShortcuts = useShortcutsProvider().getShortcutsByApp(bundleId!);
+    const [appShortcuts, setAppShortcuts] = useState<AppShortcuts>();
     const [openKeys, setOpenKeys] = useState(["keymaps", "sections"]);
-    const [selectedKeys, setSelectedKeys] = useState([appShortcuts?.keymaps[0]!.title!]);
-    const menu = appShortcuts ? buildMenu(appShortcuts) : [];
-    const [selectedKeymap, setSelectedKeymap] = useState(appShortcuts?.keymaps[0]!);
-    const [filteredSections, setFilteredSections] = useState(selectedKeymap.sections);
+    const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
+    const [menu, setMenu] = useState<MenuItem[]>([]);
+    const [selectedKeymap, setSelectedKeymap] = useState<Keymap>();
+    const [filteredSections, setFilteredSections] = useState<Section[]>([]);
+    const [fuse, setFuse] = useState<Fuse<Section>>();
+
+    useEffect(() => {
+        createShortcutsProvider()
+            .then(provider => {
+                const appShortcuts = provider.getShortcutsByApp(bundleId!);
+                if (!appShortcuts) {
+                    return;
+                }
+                setAppShortcuts(appShortcuts);
+                setSelectedKeys([appShortcuts.keymaps[0]!.title!]);
+                setMenu(buildMenu(appShortcuts));
+                const selectedKeymap = appShortcuts.keymaps[0]!;
+                setSelectedKeymap(selectedKeymap);
+                setFilteredSections(selectedKeymap.sections);
+                setFuse(buildFuse(selectedKeymap));
+            });
+    }, [bundleId]);
 
     useEffect(() => {
         const handleShortcut = (event: KeyboardEvent) => {
@@ -61,7 +87,7 @@ export function AppShortcutsComponent() {
         if (!filterText) {
             return keymap.sections;
         }
-        return fuse.search(filterText).map(result => result.item);
+        return fuse?.search(filterText)?.map(result => result.item) ?? [];
     }
 
     const onSelect: MenuProps["onSelect"] = (event) => {
@@ -72,16 +98,14 @@ export function AppShortcutsComponent() {
             setSelectedKeymap(newSelectedKeymap);
             setFilteredSections(calculateFilteredSections(newSelectedKeymap));
             setSelectedKeys([newSelectedKeymapName]);
+            setFuse(buildFuse(newSelectedKeymap));
         }
     };
 
-    const fuse = new Fuse(selectedKeymap.sections, {
-        keys: [
-            "title", "hotkeys.title", "hotkeys.sequence.base", "hotkeys.sequence.modifiers",
-        ],
-    });
     const onChange: InputProps["onChange"] = (e) => {
-        setFilteredSections(calculateFilteredSections(selectedKeymap, e.currentTarget.value));
+        if (selectedKeymap) {
+            setFilteredSections(calculateFilteredSections(selectedKeymap, e.currentTarget.value));
+        }
     };
 
     return (

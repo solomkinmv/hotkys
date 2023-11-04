@@ -18,3 +18,7 @@ export interface InputApp {
     name: string;
     keymaps: InputKeymap[];
 }
+
+export interface AllApps {
+    list: InputApp[];
+}

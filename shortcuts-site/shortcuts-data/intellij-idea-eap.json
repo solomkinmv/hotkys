@@ -1,0 +1,21 @@
+{
+  "$schema": "schema/shortcut.schema.json",
+  "bundleId": "com.jetbrains.intellij-EAP",
+  "name": "IntelliJ IDEA EAP",
+  "keymaps": [
+    {
+      "title": "Default",
+      "sections": [
+        {
+          "title": "Navigation",
+          "shortcuts": [
+            {
+              "title": "Recent Files",
+              "key": "cmd+e"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

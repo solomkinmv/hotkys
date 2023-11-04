@@ -1,19 +1,23 @@
 import { AppShortcuts, Shortcuts } from "../model/internal/internal-models";
 import { parseInputShortcuts } from "./input-parser";
-import { aggregatedApps } from "../shortcuts-db/shortcuts-aggregator";
 import { validate } from "./validator";
-import { useState } from "react";
+import { AllApps } from '../model/input/input-models';
 
-export function useShortcutsProvider() {
-    const [instance] = useState(new ShortcutsProvider());
-    return instance;
+export async function createShortcutsProvider() {
+    const data = await fetch('/combined-apps.json');
+    const apps = await data.json() as AllApps;
+    return new ShortcutsProvider(apps);
 }
 
 export class ShortcutsProvider {
+
+    constructor(private readonly allApps: AllApps) {
+    }
+
     public getShortcuts(): Shortcuts {
-        validate(aggregatedApps);
+        validate(this.allApps.list);
         return {
-            applications: parseInputShortcuts(aggregatedApps), // todo: don't parse each time
+            applications: parseInputShortcuts(this.allApps.list), // todo: don't parse each time
         };
     }
 

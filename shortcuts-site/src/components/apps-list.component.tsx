@@ -1,16 +1,17 @@
-import { useShortcutsProvider } from "../core/load/shortcuts-provider";
 import { Link } from "react-router-dom";
 import { Input, InputProps, InputRef, List, Tag, Typography } from "antd";
 import { useEffect, useRef, useState } from "react";
 import Fuse from "fuse.js";
+import { createShortcutsProvider, ShortcutsProvider } from '../core/load/shortcuts-provider';
+import { AppShortcuts } from '../core/model/internal/internal-models';
 
 const { Text } = Typography;
 
 export function AppsListComponent() {
     const inputRef = useRef<InputRef>(null);
     const [searchShortcutVisible, setSearchShortcutVisible] = useState(true)
-    const shortcutsProvider = useShortcutsProvider();
-    const allAppShortcuts = shortcutsProvider.getShortcuts().applications;
+    const [, setShortcutsProvider] = useState<ShortcutsProvider>();
+    const [allAppShortcuts, setAllAppShortcuts] = useState<AppShortcuts[]>([]);
     const [appShortcuts, setAppShortcuts] = useState(allAppShortcuts);
 
     useEffect(() => {
@@ -25,6 +26,15 @@ export function AppsListComponent() {
         return () => {
             window.removeEventListener('keydown', handleShortcut);
         };
+    }, []);
+
+    useEffect(() => {
+        createShortcutsProvider()
+            .then(provider => {
+                setShortcutsProvider(provider);
+                setAllAppShortcuts(provider.getShortcuts().applications);
+                setAppShortcuts(provider.getShortcuts().applications);
+            });
     }, []);
 
     const fuse = new Fuse(allAppShortcuts, { keys: ["name"] });
