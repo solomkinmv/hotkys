@@ -48,6 +48,35 @@
               "key": "ctrl+shift+tab"
             }
           ]
+        },
+        {
+          "title": "Develop",
+          "shortcuts": [
+            {
+              "title": "Toggle Responsive Design Mode",
+              "key": "ctrl+cmd+r"
+            },
+            {
+              "title": "Empty Caches",
+              "key": "opt+cmd+e"
+            },
+            {
+              "title": "Show Web Inspector",
+              "key": "opt+cmd+i"
+            },
+            {
+              "title": "Show JavaScript Console",
+              "key": "opt+cmd+c"
+            },
+            {
+              "title": "Show Page Source",
+              "key": "opt+cmd+u"
+            },
+            {
+              "title": "Show Page Resources",
+              "key": "opt+cmd+a"
+            }
+          ]
         }
       ]
     }
