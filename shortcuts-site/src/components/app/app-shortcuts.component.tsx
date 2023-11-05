@@ -67,7 +67,7 @@ export function AppShortcutsComponent() {
                 setFilteredSections(selectedKeymap.sections);
                 setFuse(buildFuse(selectedKeymap));
             });
-    }, [bundleId]);
+    }, [bundleId, navigate]);
 
     useEffect(() => {
         const handleShortcut = (event: KeyboardEvent) => {
