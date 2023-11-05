@@ -7,7 +7,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Fuse from "fuse.js";
 import "./app-shortcuts.component.css"
 import { createShortcutsProvider } from '../../core/load/shortcuts-provider';
-import useWindowDimensions from './useWindowDimensions';
+import useWindowDimensions from '../../hooks/useWindowDimensions';
 
 const { Text } = Typography;
 
@@ -37,6 +37,8 @@ function buildFuse(selectedKeymap: Keymap) {
     });
 }
 
+const MOBILE_VIEW_THRESHOLD = 600;
+
 export function AppShortcutsComponent() {
     let { bundleId } = useParams();
     const navigate = useNavigate();
@@ -50,6 +52,17 @@ export function AppShortcutsComponent() {
     const [filteredSections, setFilteredSections] = useState<Section[]>([]);
     const [fuse, setFuse] = useState<Fuse<Section>>();
     const {width} = useWindowDimensions();
+
+    useEffect(() => {
+        if (width > MOBILE_VIEW_THRESHOLD) {
+            setOpenKeys(["keymaps", "sections"])
+            setSearchShortcutVisible(true);
+        } else {
+            setOpenKeys([])
+            setSearchShortcutVisible(false);
+        }
+    }, [width]);
+
 
     useEffect(() => {
         createShortcutsProvider()
@@ -116,7 +129,7 @@ export function AppShortcutsComponent() {
         <div className="container">
             <div className="sidebar-menu">
                 <Menu
-                    mode={width > 600 ? "inline" : "horizontal"}
+                    mode={width > MOBILE_VIEW_THRESHOLD ? "inline" : "horizontal"}
                     openKeys={openKeys}
                     selectedKeys={selectedKeys}
                     onOpenChange={onOpenChange}
