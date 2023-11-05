@@ -1,7 +1,7 @@
 import { runAppleScript, showFailureToast } from "@raycast/utils";
 import { keyCodes } from "../model/internal/key-codes";
 import { AtomicShortcut } from "../model/internal/internal-models";
-import { macOsShortcuts } from "../shortcuts-db/apps/macos";
+import { removeHiddenBundleId } from '../model/internal/bundle-id-remover';
 
 // language=JavaScript
 const appleScript = `
@@ -70,13 +70,11 @@ export async function runShortcuts(bundleId: string, delay: number, sequence: At
  * Note: macOS fake bundle id is an exception and will be replaced as an empty string
  */
 function generateArguments(bundleId: string, delay: number, sequence: AtomicShortcut[]): string[] {
-  bundleId = macOsShortcuts.bundleId === bundleId ? "" : bundleId;
-  const args: string[] = [bundleId, String(delay), String(sequence.length)];
+  const args: string[] = [removeHiddenBundleId(bundleId), String(delay), String(sequence.length)];
   sequence.forEach((atomic) => {
     args.push(String(atomic.modifiers.length));
     args.push(...atomic.modifiers);
     args.push(keyCodes.get(atomic.base)!);
   });
-  console.log("Generated arguments", args);
   return args;
 }

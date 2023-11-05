@@ -1,6 +1,7 @@
 import { Action, ActionPanel, List, useNavigation } from "@raycast/api";
 import AppShortcuts from "./app-shortcuts";
 import useShortcutsProvider from './load/shortcuts-provider';
+import { removeHiddenBundleId } from './model/internal/bundle-id-remover';
 
 export default function AllShortcutsCommand() {
   const { push } = useNavigation();
@@ -14,7 +15,7 @@ export default function AllShortcutsCommand() {
             icon="list-icon.png"
             key={application.bundleId}
             title={application.name}
-            subtitle={application.bundleId}
+            subtitle={removeHiddenBundleId(application.bundleId)}
             actions={
               <ActionPanel>
                 <Action
