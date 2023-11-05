@@ -1,9 +1,9 @@
 import React from "react";
 import "./App.css";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import { ConfigProvider, Divider, Menu, MenuProps, Typography } from "antd";
+import { ConfigProvider, Divider, Menu, MenuProps, Space, Typography } from "antd";
 
-const {Text} = Typography;
+const {Text, Link} = Typography;
 
 
 const headerMenu: MenuProps["items"] = [
@@ -55,7 +55,10 @@ function App() {
                 <Outlet />
                 <div>
                     <Divider />
+                    <Space split={<Divider type="vertical" />}>
                     <Text type="secondary">Made by Maksym Solomkin</Text>
+                        <Link href="https://github.com/solomkinmv/shortcuts-disco/issues" target="_blank">Report issues or make a request</Link>
+                    </Space>
                 </div>
             </div>
         </ConfigProvider>
