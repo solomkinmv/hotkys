@@ -22,6 +22,7 @@
   },
   "scripts": {
     "export-data": "sh combine-apps.sh",
+    "generate-sitemap": "sh generate-sitemap.sh",
     "start": "npm run export-data && react-scripts start",
     "build": "npm run export-data && react-scripts build",
     "test": "npm run export-data && react-scripts test",
