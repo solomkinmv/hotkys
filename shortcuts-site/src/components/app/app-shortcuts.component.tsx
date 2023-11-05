@@ -109,7 +109,7 @@ export function AppShortcutsComponent() {
         }
     };
 
-    const {height, width} = useWindowDimensions();
+    const {width} = useWindowDimensions();
 
     return (
         <div className="container">
