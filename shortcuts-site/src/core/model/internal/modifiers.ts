@@ -1,8 +1,8 @@
 export enum Modifiers {
-    command = "command down",
     control = "control down",
-    option = "option down",
     shift = "shift down",
+    option = "option down",
+    command = "command down",
 }
 
 export const modifierSymbols: Map<Modifiers, string> = new Map([

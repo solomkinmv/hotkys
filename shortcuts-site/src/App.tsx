@@ -20,7 +20,8 @@ const headerMenu: MenuProps["items"] = [
 function App() {
     const navigate = useNavigate();
     const location = useLocation();
-    const selectedKeys = [location.pathname === "/" ? "home" : ""];
+    const lastPathElement = location.pathname.split("/").pop() ?? "";
+    const selectedKeys = [lastPathElement === "" ? "home" : lastPathElement];
 
     return (
         <ConfigProvider
@@ -46,9 +47,10 @@ function App() {
                           onClick={(event) => {
                               if (event.key === "home") {
                                   navigate("/");
+                              } else {
+                                  navigate(`/${event.key}`);
                               }
-                          }
-                          } />
+                          }}/>
                 </div>
                 <Outlet />
                 <div>
