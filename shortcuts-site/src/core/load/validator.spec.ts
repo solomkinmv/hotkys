@@ -10,6 +10,7 @@ import { Modifiers } from "../model/internal/modifiers";
 // todo: the same section names
 // todo: the same shortcut names (in section?)
 // todo: the same app bundle ids or names
+// todo: single keymap should be named "Default"
 
 describe("Throws validation error", () => {
     it("Throws validation error if incorrect modifier", () => {
