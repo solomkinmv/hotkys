@@ -55,6 +55,10 @@
           "title": "Navigation",
           "shortcuts": [
             {
+              "title": "Open quickly",
+              "key": "cmd+o"
+            },
+            {
               "title": "Go to next tab",
               "key": "shift+cmd+]"
             },
