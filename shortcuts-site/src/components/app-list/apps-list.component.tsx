@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 import { Input, InputProps, InputRef, List, Tag, Typography } from "antd";
 import { useEffect, useRef, useState } from "react";
 import Fuse from "fuse.js";
-import { createShortcutsProvider, ShortcutsProvider } from '../core/load/shortcuts-provider';
-import { AppShortcuts } from '../core/model/internal/internal-models';
+import { createShortcutsProvider, ShortcutsProvider } from '../../core/load/shortcuts-provider';
+import { AppShortcuts } from '../../core/model/internal/internal-models';
 
 const { Text } = Typography;
 

@@ -1,9 +1,9 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { AppShortcuts, Keymap, Section, SectionShortcut } from "../../core/model/internal/internal-models";
 import { modifierSymbols } from "../../core/model/internal/modifiers";
 import { Divider, Input, InputProps, InputRef, List, Menu, MenuProps, Tag, Typography } from "antd";
 import { AppstoreOutlined, SettingOutlined } from "@ant-design/icons";
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Fuse from "fuse.js";
 import "./app-shortcuts.component.css"
 import { createShortcutsProvider } from '../../core/load/shortcuts-provider';
@@ -39,6 +39,7 @@ function buildFuse(selectedKeymap: Keymap) {
 
 export function AppShortcutsComponent() {
     let { bundleId } = useParams();
+    const navigate = useNavigate();
     const inputRef = useRef<InputRef>(null);
     const [searchShortcutVisible, setSearchShortcutVisible] = useState(true)
     const [appShortcuts, setAppShortcuts] = useState<AppShortcuts>();
@@ -48,12 +49,14 @@ export function AppShortcutsComponent() {
     const [selectedKeymap, setSelectedKeymap] = useState<Keymap>();
     const [filteredSections, setFilteredSections] = useState<Section[]>([]);
     const [fuse, setFuse] = useState<Fuse<Section>>();
+    const {width} = useWindowDimensions();
 
     useEffect(() => {
         createShortcutsProvider()
             .then(provider => {
                 const appShortcuts = provider.getShortcutsByApp(bundleId!);
                 if (!appShortcuts) {
+                    navigate(`/404/apps/${bundleId!}`);
                     return;
                 }
                 setAppShortcuts(appShortcuts);
@@ -108,8 +111,6 @@ export function AppShortcutsComponent() {
             setFilteredSections(calculateFilteredSections(selectedKeymap, e.currentTarget.value));
         }
     };
-
-    const {width} = useWindowDimensions();
 
     return (
         <div className="container">

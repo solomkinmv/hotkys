@@ -5,7 +5,8 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { AppShortcutsComponent } from "./components/app/app-shortcuts.component";
-import { AppsListComponent } from "./components/apps-list.component";
+import { AppsListComponent } from "./components/app-list/apps-list.component";
+import AppNotFound from './components/app-not-found/app-not-found';
 
 const root = ReactDOM.createRoot(
     document.getElementById("root") as HTMLElement,
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
             {
                 path: "/apps/:bundleId",
                 element: <AppShortcutsComponent />,
+            },
+            {
+                path: "/404/apps/:bundleId?",
+                element: <AppNotFound />,
             },
         ],
     },
