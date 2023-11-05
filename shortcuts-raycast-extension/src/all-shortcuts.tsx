@@ -1,15 +1,13 @@
 import { Action, ActionPanel, List, useNavigation } from "@raycast/api";
 import AppShortcuts from "./app-shortcuts";
-import useShortcutsProvider from "./load/shortcuts-provider";
-import { useCachedState } from "@raycast/utils";
+import useShortcutsProvider from './load/shortcuts-provider';
 
 export default function AllShortcutsCommand() {
   const { push } = useNavigation();
-  const shortcutsProvider = useShortcutsProvider();
-  const [shortcuts] = useCachedState("shortcuts", shortcutsProvider.getShortcuts());
+  const {isLoading, shortcuts} = useShortcutsProvider();
 
   return (
-    <List>
+      <List isLoading={isLoading}>
       {shortcuts.applications.map((application) => {
         return (
           <List.Item

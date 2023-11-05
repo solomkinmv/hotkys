@@ -1,18 +1,10 @@
-import {
-  Action,
-  ActionPanel,
-  closeMainWindow,
-  getFrontmostApplication,
-  getPreferenceValues,
-  List,
-  PopToRootType,
-} from "@raycast/api";
-import { useCachedState, usePromise } from "@raycast/utils";
-import { useRef, useState } from "react";
+import { Action, ActionPanel, closeMainWindow, getFrontmostApplication, getPreferenceValues, List, PopToRootType } from "@raycast/api";
+import { usePromise } from "@raycast/utils";
+import { useState } from "react";
 import { runShortcuts } from "./engine/shortcut-runner";
-import { AppShortcuts, AtomicShortcut, Keymap, Section, SectionShortcut } from "./model/internal/internal-models";
-import useShortcutsProvider from "./load/shortcuts-provider";
+import { AppShortcuts, AtomicShortcut, Keymap, Section, SectionShortcut, Shortcuts } from "./model/internal/internal-models";
 import { modifierSymbols } from "./model/internal/modifiers";
+import useShortcutsProvider from './load/shortcuts-provider';
 
 interface Preferences {
   delay: string;
@@ -20,14 +12,14 @@ interface Preferences {
 
 async function executeShortcut(bundleId: string, shortcutSequence: AtomicShortcut[]) {
   const delay: number = parseFloat(getPreferenceValues<Preferences>().delay); // todo: move work with preferences to separate structure
-  closeMainWindow({ popToRootType: PopToRootType.Immediate });
-  runShortcuts(bundleId, delay, shortcutSequence);
+  await closeMainWindow({ popToRootType: PopToRootType.Immediate });
+  await runShortcuts(bundleId, delay, shortcutSequence);
 }
 
 function KeymapDropdown(props: { keymaps: string[]; onKeymapChange: (newValue: string) => void }) {
   const { keymaps, onKeymapChange } = props;
   if (keymaps.length == 1) {
-    return;
+    return null;
   }
   return (
     <List.Dropdown
@@ -47,41 +39,47 @@ function KeymapDropdown(props: { keymaps: string[]; onKeymapChange: (newValue: s
 }
 
 export default function AppShortcuts(props: { bundleId: string } | undefined) {
-  const bundleIdOverride: string | undefined = props?.bundleId;
-
-  const shortcutsProvider = useShortcutsProvider();
-  const [shortcuts] = useCachedState("shortcuts", shortcutsProvider.getShortcuts());
-  const [appHotkeys, setAppHotkeys] = useState<AppShortcuts | undefined>();
+  const [bundleId, setBundleId] = useState(props?.bundleId);
+  const [appShortcuts, setAppShortcuts] = useState<AppShortcuts | undefined>();
   const [keymaps, setKeymaps] = useState<string[]>([]);
   const [keymapSections, setKeymapSections] = useState<Section[]>([]);
 
-  const abortable = useRef<AbortController>();
-  const { isLoading } = usePromise(
-    async () => {
-      return bundleIdOverride ?? (await getFrontmostApplication()).bundleId;
-    },
-    [],
-    {
-      onData: (bundleId) => {
-        const foundApp = shortcuts.applications.find((app) => app.bundleId === bundleId);
-        const foundKeymaps = foundApp?.keymaps.map((k) => k.title) ?? [];
-        const foundSections = foundApp?.keymaps[0].sections ?? [];
-        setAppHotkeys(foundApp);
-        setKeymaps(foundKeymaps);
-        setKeymapSections(foundSections);
+  const initAppShortcuts = (bundleId: string, shortcuts: Shortcuts) => {
+    const foundApp = shortcuts.applications.find((app) => app.bundleId === bundleId);
+    const foundKeymaps = foundApp?.keymaps.map((k) => k.title) ?? [];
+    const foundSections = foundApp?.keymaps[0].sections ?? [];
+    setAppShortcuts(foundApp);
+    setKeymaps(foundKeymaps);
+    setKeymapSections(foundSections);
+  };
+
+  const {isLoading, shortcuts} = useShortcutsProvider((shortcuts) => {
+    if (!bundleId) return;
+    initAppShortcuts(bundleId, shortcuts);
+  });
+
+  const bundleLoading = usePromise(
+      async () => {
+        return bundleId ?? (await getFrontmostApplication()).bundleId;
       },
-      abortable: abortable,
-    }
-  );
+      [],
+      {
+        onData: (bundleId) => {
+          if (!bundleId) return;
+          setBundleId(bundleId);
+          initAppShortcuts(bundleId, shortcuts);
+        },
+      },
+  ).isLoading;
 
   const onKeymapChange = (newValue: string) => {
-    setKeymapSections(selectKeymap(appHotkeys?.keymaps ?? [], newValue)?.sections ?? []);
+    setKeymapSections(selectKeymap(appShortcuts?.keymaps ?? [], newValue)?.sections ?? []);
   };
   return (
     <List
-      isLoading={isLoading}
-      navigationTitle="Search Beers"
-      searchBarPlaceholder="Search for hotkeys"
+      isLoading={isLoading || bundleLoading}
+      navigationTitle="Current App Shortcuts"
+      searchBarPlaceholder="Search for shortcuts"
       searchBarAccessory={<KeymapDropdown keymaps={keymaps} onKeymapChange={onKeymapChange} />}
     >
       {keymapSections.map((section) => {
@@ -95,7 +93,7 @@ export default function AppShortcuts(props: { bundleId: string } | undefined) {
                   subtitle={generateHotkeyText(shortcut)}
                   actions={
                     <ActionPanel>
-                      <Action title="Apply" onAction={() => executeShortcut(appHotkeys!.bundleId, shortcut.sequence)} />
+                      <Action title="Apply" onAction={() => appShortcuts && executeShortcut(appShortcuts.bundleId, shortcut.sequence)}/>
                     </ActionPanel>
                   }
                 />
