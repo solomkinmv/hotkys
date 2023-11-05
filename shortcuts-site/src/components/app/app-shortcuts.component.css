@@ -18,3 +18,18 @@
 .search-bar {
     margin-top: 20px;
 }
+
+@media (max-width: 600px) {
+    .container {
+        all:unset
+    }
+
+    .sidebar-menu {
+        all:unset
+    }
+
+    .content {
+        all:unset
+    }
+}
+

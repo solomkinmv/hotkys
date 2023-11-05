@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import Fuse from "fuse.js";
 import "./app-shortcuts.component.css"
 import { createShortcutsProvider } from '../../core/load/shortcuts-provider';
+import useWindowDimensions from './useWindowDimensions';
 
 const { Text } = Typography;
 
@@ -108,11 +109,13 @@ export function AppShortcutsComponent() {
         }
     };
 
+    const {height, width} = useWindowDimensions();
+
     return (
         <div className="container">
             <div className="sidebar-menu">
                 <Menu
-                    mode="inline"
+                    mode={width > 600 ? "inline" : "horizontal"}
                     openKeys={openKeys}
                     selectedKeys={selectedKeys}
                     onOpenChange={onOpenChange}
