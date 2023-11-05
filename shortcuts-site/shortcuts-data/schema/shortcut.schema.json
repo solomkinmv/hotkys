@@ -1,79 +1,96 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://example.com/product.schema.json",
-  "$defs": {
-    "section-shortcut": {
-      "type": "object",
-      "properties": {
-        "title": {
-          "type": "string"
-        },
-        "key": {
-          "type": "string"
-        }
-      }
-    },
-    "section": {
-      "type": "object",
-      "properties": {
-        "title": {
-          "type": "string"
-        },
-        "hotkeys": {
-          "type": "array",
-          "items": {
-            "ref": "#/$defs/section-shortcut"
-          }
-        }
-      }
-    },
-    "keymap": {
-      "type": "object",
-      "properties": {
-        "title": {
-          "type": "string"
-        },
-        "sections": {
-          "type": "array",
-          "items": {
-            "ref": "#/$defs/section"
-          }
-        }
-      }
-    },
-    "app-shortcuts": {
-      "type": "object",
-      "properties": {
-        "bundleId": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "keymaps": {
-          "type": "array",
-          "items": {
-            "ref": "#/$defs/keymap"
-          }
-        }
-      }
-    }
-  },
   "title": "Application shortcuts",
   "description": "A product in the catalog",
   "type": "object",
   "properties": {
+    "$schema": {
+      "description": "Schema reference",
+      "type": "string",
+      "const": "schema/shortcut.schema.json"
+    },
     "bundleId": {
-      "type": "string"
+      "description": "Bundle id is a unique identifier for the macOS application. Example: 'com.microsoft.VSCode'",
+      "type": "string",
+      "minLength": 1
     },
     "name": {
-      "type": "string"
+      "description": "Name of the application",
+      "type": "string",
+      "minLength": 1
     },
     "keymaps": {
+      "description": "List of the application keymaps. Most of the applications have single keymap that should be named 'Default'.",
       "type": "array",
       "items": {
-        "ref": "#/$defs/keymap"
-      }
+        "$ref": "#/$defs/keymap"
+      },
+      "minItems": 1
+    }
+  },
+  "required": ["$schema", "bundleId", "name", "keymaps"],
+  "additionalProperties": "false",
+  "$defs": {
+    "keymap": {
+      "description": "Application keymap. Keymap is a shortcut configuration.",
+      "type": "object",
+      "properties": {
+        "title": {
+          "description": "Keymap title",
+          "type": "string",
+          "minLength": 1
+        },
+        "sections": {
+          "description": "List of sections",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/section"
+          },
+          "minItems": 1
+        }
+      },
+      "required": ["title", "sections"],
+      "additionalProperties": "false"
+    },
+    "section": {
+      "description": "Section with shortcuts or category. Examples: Edit, Navigate, Format.",
+      "type": "object",
+      "properties": {
+        "title": {
+          "description": "Section title",
+          "type": "string",
+          "minLength": 1
+        },
+        "shortcuts": {
+          "description": "List of shortcuts",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/section-shortcut"
+          },
+          "minItems": 1
+        }
+      },
+      "required": ["title", "shortcuts"],
+      "additionalProperties": "false"
+    },
+    "section-shortcut": {
+      "description": "Shortcut with title and key",
+      "type": "object",
+      "properties": {
+        "title": {
+          "description": "Shortcut title",
+          "type": "string",
+          "minLength": 1
+        },
+        "key": {
+          "description": "Shortcut key definition. Key consist of modifiers plus base key separated by '+' sign. Supported modifiers: 'ctrl', 'shift', 'opt', 'cmd'. Modifiers should be specified in that exact order, lowercase. Final shortcut token should always be a base key. Examples: 'ctrl+s', 'shift+cmd+e'. Shortcut macro or sequences of shortcuts are also supported and should be separated by whitespace (' '). Example: 'cmd+k cmd+s'",
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": ["title", "key"],
+      "additionalProperties": "false"
     }
   }
 }
