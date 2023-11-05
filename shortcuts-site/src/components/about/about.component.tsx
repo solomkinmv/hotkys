@@ -1,6 +1,6 @@
 import { Space, Typography } from 'antd';
 
-const {Title, Text, Link, Paragraph} = Typography;
+const {Title, Text, Link} = Typography;
 
 export default function About() {
     return (
