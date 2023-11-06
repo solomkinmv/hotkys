@@ -1,7 +1,8 @@
-import { validate, ValidationError } from "./validator";
+import Validator, { ValidationError } from "./validator";
 import { InputApp } from "../model/input/input-models";
 import { AppShortcuts, AtomicShortcut } from "../model/internal/internal-models";
 import { Modifiers } from "../model/internal/modifiers";
+import { parseKeyCodes } from './helpers.spec';
 
 // todo: validate all lowercase
 // todo: validate no spaces
@@ -13,20 +14,22 @@ import { Modifiers } from "../model/internal/modifiers";
 // todo: single keymap should be named "Default"
 
 describe("Throws validation error", () => {
+    const validator = new Validator(parseKeyCodes());
+
     it("Throws validation error if incorrect modifier", () => {
-        expect(() => validate([generateInputAppWithShortcut({ shortcut: "abc+e" })])).toThrowError(
+        expect(() => validator.validate([generateInputAppWithShortcut({shortcut: "abc+e"})])).toThrowError(
             new ValidationError("Modifier 'abc' doesn't exist"),
         );
     });
 
     it("Throw validation error if base key unknown", () => {
-        expect(() => validate([generateInputAppWithShortcut({ shortcut: "abc+💩" })])).toThrowError(
+        expect(() => validator.validate([generateInputAppWithShortcut({shortcut: "abc+💩"})])).toThrowError(
             new ValidationError("Modifier 'abc' doesn't exist"),
         );
     });
 
     it("Throws validation error if there are whitespace in shortcut", () => {
-        expect(() => validate([generateInputAppWithShortcut({ shortcut: "cmd+e +e" })])).toThrowError(
+        expect(() => validator.validate([generateInputAppWithShortcut({shortcut: "cmd+e +e"})])).toThrowError(
             new ValidationError("Invalid shortcut: 'cmd+e +e'"),
         );
     });
@@ -39,7 +42,7 @@ describe("Throws validation error", () => {
         "cmd+opt+e",
         "ctrl+shift+opt+cmd+e cmd+opt+e",
     ])("Throws validation error if modifiers are not in order %p", (shortcut: string) => {
-        expect(() => validate([generateInputAppWithShortcut({ shortcut })])).toThrowError(
+        expect(() => validator.validate([generateInputAppWithShortcut({shortcut})])).toThrowError(
             new ValidationError(`Modifiers have incorrect order. Received: '${shortcut}'. Correct order: ctrl, shift, opt, cmd`),
         );
     });
@@ -57,7 +60,7 @@ describe("Throws validation error", () => {
         "shift+opt+cmd+e",
         "ctrl+shift+opt+cmd+e ctrl+opt+cmd+e shift+opt+e ctrl+shift+e opt+cmd+e ctrl+cmd+e ctrl+shift+opt+e ctrl+shift+cmd+e ctrl+opt+cmd+e shift+opt+cmd+e",
     ])("Validation succeed if modifiers are in order %p", (shortcut: string) => {
-        expect(() => validate([generateInputAppWithShortcut({ shortcut })])).not.toThrowError();
+        expect(() => validator.validate([generateInputAppWithShortcut({shortcut})])).not.toThrowError();
     });
 });
 

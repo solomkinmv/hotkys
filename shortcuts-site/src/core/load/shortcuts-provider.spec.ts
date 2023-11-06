@@ -1,14 +1,11 @@
 import { ShortcutsProvider } from './shortcuts-provider';
-
-import * as fs from 'fs';
-import * as path from 'path';
-import { AllApps } from '../model/input/input-models';
+import Validator from './validator';
+import { parseAllApps, parseKeyCodes } from './helpers.spec';
 
 test("Parses all shortcuts successfully", async () => {
-    const filePath = path.resolve(__dirname, '../../../public', 'combined-apps.json');
-    const jsonContents = fs.readFileSync(filePath, 'utf8');
-    const allApps = JSON.parse(jsonContents) as AllApps;
+    const allApps = parseAllApps();
+    const keyCodes = parseKeyCodes();
 
-    const shortcutProvider = new ShortcutsProvider(allApps);
+    const shortcutProvider = new ShortcutsProvider(allApps, new Validator(keyCodes));
     shortcutProvider.getShortcuts();
 });

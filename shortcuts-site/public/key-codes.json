@@ -1,5 +1,5 @@
-export const keyCodes = new Map<string, string>([
-    // letters
+{
+  "keyCodes": [
     ["a", "0"],
     ["b", "11"],
     ["c", "8"],
@@ -26,7 +26,7 @@ export const keyCodes = new Map<string, string>([
     ["x", "7"],
     ["y", "16"],
     ["z", "6"],
-    // digits
+
     ["0", "27"],
     ["1", "18"],
     ["2", "19"],
@@ -37,7 +37,7 @@ export const keyCodes = new Map<string, string>([
     ["7", "26"],
     ["8", "28"],
     ["9", "25"],
-    // F-keys
+
     ["f1", "122"],
     ["f2", "120"],
     ["f3", "99"],
@@ -50,22 +50,22 @@ export const keyCodes = new Map<string, string>([
     ["f10", "109"],
     ["f11", "103"],
     ["f12", "111"],
-    // special keys
+
     ["tab", "48"],
     ["esc", "53"],
     ["enter", "36"],
     ["capslock", "57"],
-    // arrows
+
     ["down", "125"],
     ["up", "126"],
     ["left", "123"],
     ["right", "124"],
-    // navigation
+
     ["pagedown", "121"],
     ["pageup", "116"],
     ["home", "115"],
     ["end", "119"],
-    // symbols
+
     ["`", "50"],
     ["\\", "42"],
     [";", "41"],
@@ -75,5 +75,6 @@ export const keyCodes = new Map<string, string>([
     ["[", "33"],
     ["]", "30"],
     [",", "43"],
-    [".", "47"],
-]);
+    [".", "47"]
+  ]
+}
