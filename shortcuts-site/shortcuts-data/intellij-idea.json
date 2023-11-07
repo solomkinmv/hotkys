@@ -12,6 +12,10 @@
             {
               "title": "Recent Files",
               "key": "cmd+e"
+            },
+            {
+              "title": "Open window in floating mode",
+              "key": "shift+f4"
             }
           ]
         }
