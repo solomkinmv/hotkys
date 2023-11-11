@@ -4,11 +4,6 @@ import {CacheManager} from "../cache/cache-manager";
 
 export type KeyCodes = Map<string, string>;
 
-interface CachedItem {
-    data: IncomingKeyCodes;
-    lastUpdateTs: number;
-}
-
 interface IncomingKeyCodes {
     keyCodes: [string, string][];
 }
@@ -31,7 +26,7 @@ export default function useKeyCodes() {
         execute: shouldUpdateCache
     });
 
-    if (!shouldUpdateCache) {
+    if (cachedItem) {
         console.log("Returning key-codes from cache");
         return {
             isLoading: false,

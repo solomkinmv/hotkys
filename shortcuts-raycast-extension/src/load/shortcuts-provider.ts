@@ -5,34 +5,14 @@ import {useFetch} from '@raycast/utils';
 import {AllApps} from '../model/input/input-models';
 import useKeyCodes from './key-codes-provider';
 import {useEffect, useState} from 'react';
-import {Cache} from "@raycast/api";
+import {CacheManager} from "../cache/cache-manager";
 
-interface CachedItem {
-    data: Shortcuts;
-    lastUpdateTs: number;
-}
-
-const cache = new Cache();
-const TTL_MILLIS = 3600_000;
+const cacheManager = new CacheManager();
 const CACHE_KEY = "shortcuts";
 
 export default function useAllShortcuts() {
-    const cacheIsValid = (cachedItem: CachedItem | undefined): boolean => {
-        if (cachedItem === undefined) {
-            return false;
-        }
-
-        return cachedItem.lastUpdateTs + TTL_MILLIS > Date.now();
-    };
-    const getCachedItem = (localCache: Cache): CachedItem | undefined => {
-        const cachedStringValue = cache.get(CACHE_KEY);
-        if (cachedStringValue === undefined) {
-            return undefined;
-        }
-        return JSON.parse(cache.get(CACHE_KEY)!) as CachedItem;
-    };
-    const cachedItem = getCachedItem(cache);
-    const [shouldUpdateCache] = useState(!cacheIsValid(cachedItem));
+    const cachedItem = cacheManager.getCachedItem<Shortcuts>(CACHE_KEY);
+    const [shouldUpdateCache] = useState(!cacheManager.cacheItemIsValid(cachedItem));
     const keyCodesResult = useKeyCodes();
     const [shortcuts, setShortcuts] = useState<Shortcuts>(cachedItem ? cachedItem.data : {
             applications: []
@@ -56,11 +36,9 @@ export default function useAllShortcuts() {
             return;
         }
         if (shouldUpdateCache) {
-            const newCachedItem: CachedItem = {
-                lastUpdateTs: Date.now(),
-                data: new ShortcutsProvider(fetchResult.data!, new Validator(keyCodesResult.data!)).getShortcuts(),
-            };
-            cache.set(CACHE_KEY, JSON.stringify(newCachedItem));
+            const updatedShortcuts = new ShortcutsProvider(fetchResult.data!, new Validator(keyCodesResult.data!)).getShortcuts();
+            cacheManager.setValueWithTtl(CACHE_KEY, updatedShortcuts);
+            setShortcuts(updatedShortcuts);
         }
     }, [keyCodesResult.isLoading, fetchResult.isLoading, shouldUpdateCache]);
 
