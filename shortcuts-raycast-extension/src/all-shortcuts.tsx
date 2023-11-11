@@ -6,7 +6,6 @@ import { removeHiddenBundleId } from './model/internal/bundle-id-remover';
 export default function AllShortcutsCommand() {
   const { push } = useNavigation();
   const {isLoading, shortcuts} = useAllShortcuts();
-  console.log("AllShortcutsCommand: ", isLoading, shortcuts);
   return (
       <List isLoading={isLoading}>
       {shortcuts.applications.map((application) => {
