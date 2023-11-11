@@ -57,7 +57,7 @@ class ShortcutsProvider {
     public getShortcuts(): Shortcuts {
         this.validator.validate(this.allApps.list);
         return {
-            applications: parseInputShortcuts(this.allApps.list), // todo: don't parse each time
+            applications: parseInputShortcuts(this.allApps.list),
         };
     }
 
