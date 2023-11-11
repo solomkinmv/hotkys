@@ -1,12 +1,12 @@
 import { Action, ActionPanel, List, useNavigation } from "@raycast/api";
 import AppShortcuts from "./app-shortcuts";
-import useShortcutsProvider from './load/shortcuts-provider';
+import useAllShortcuts from './load/shortcuts-provider';
 import { removeHiddenBundleId } from './model/internal/bundle-id-remover';
 
 export default function AllShortcutsCommand() {
   const { push } = useNavigation();
-  const {isLoading, shortcuts} = useShortcutsProvider();
-
+  const {isLoading, shortcuts} = useAllShortcuts();
+  console.log("AllShortcutsCommand: ", isLoading, shortcuts);
   return (
       <List isLoading={isLoading}>
       {shortcuts.applications.map((application) => {

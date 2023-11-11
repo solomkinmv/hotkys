@@ -27,5 +27,6 @@ export interface AppShortcuts {
 }
 
 export interface Shortcuts {
+
   applications: AppShortcuts[];
 }
