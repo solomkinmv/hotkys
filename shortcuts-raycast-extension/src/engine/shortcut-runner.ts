@@ -1,7 +1,7 @@
 import { runAppleScript, showFailureToast } from "@raycast/utils";
 import { AtomicShortcut } from "../model/internal/internal-models";
-import { removeHiddenBundleId } from '../model/internal/bundle-id-remover';
-import { KeyCodes } from '../load/key-codes-provider';
+import { removeHiddenBundleId } from "../model/internal/bundle-id-remover";
+import { KeyCodes } from "../load/key-codes-provider";
 
 // language=JavaScript
 const appleScript = `
@@ -38,10 +38,7 @@ const appleScript = `
   }
 `;
 
-export async function runShortcuts(bundleId: string,
-                                   delay: number,
-                                   sequence: AtomicShortcut[],
-                                   keyCodes: KeyCodes) {
+export async function runShortcuts(bundleId: string, delay: number, sequence: AtomicShortcut[], keyCodes: KeyCodes) {
   console.log(`Running shortcut for application ${bundleId} with delay ${delay}`);
   try {
     await runAppleScript(appleScript, generateArguments(bundleId, delay, sequence, keyCodes), {
@@ -72,11 +69,7 @@ export async function runShortcuts(bundleId: string,
  *
  * Note: macOS fake bundle id is an exception and will be replaced as an empty string
  */
-function generateArguments(bundleId: string,
-                           delay: number,
-                           sequence: AtomicShortcut[],
-                           keyCodes: KeyCodes): string[] {
-
+function generateArguments(bundleId: string, delay: number, sequence: AtomicShortcut[], keyCodes: KeyCodes): string[] {
   const args: string[] = [removeHiddenBundleId(bundleId), String(delay), String(sequence.length)];
   sequence.forEach((atomic) => {
     args.push(String(atomic.modifiers.length));
