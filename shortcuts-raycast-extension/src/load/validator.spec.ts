@@ -102,31 +102,3 @@ function generateInputAppWithShortcut(override?: { shortcut: string }): InputApp
     ],
   };
 }
-
-function generateExpectedAppWithShortcut(override?: { shortcutSequence: AtomicShortcut[] }): AppShortcuts {
-  return {
-    bundleId: "some-bundle-id",
-    name: "some-name",
-    keymaps: [
-      {
-        title: "keymap-name",
-        sections: [
-          {
-            title: "section-name",
-            hotkeys: [
-              {
-                title: "shortcut",
-                sequence: override?.shortcutSequence ?? [
-                  {
-                    base: "e",
-                    modifiers: [Modifiers.command],
-                  },
-                ],
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  };
-}

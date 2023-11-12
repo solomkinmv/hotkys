@@ -1,7 +1,5 @@
 import Validator, {ValidationError} from "./validator";
 import {InputApp} from "../model/input/input-models";
-import {AppShortcuts, AtomicShortcut} from "../model/internal/internal-models";
-import {Modifiers} from "../model/internal/modifiers";
 import {parseKeyCodes} from "../../../__tests__/helpers.spec";
 
 // todo: validate all lowercase
@@ -104,34 +102,6 @@ function generateInputAppWithShortcut(override?: { shortcut: string }): InputApp
                             {
                                 title: "shortcut",
                                 key: override?.shortcut ?? "cmd+e",
-                            },
-                        ],
-                    },
-                ],
-            },
-        ],
-    };
-}
-
-function generateExpectedAppWithShortcut(override?: { shortcutSequence: AtomicShortcut[] }): AppShortcuts {
-    return {
-        bundleId: "some-bundle-id",
-        name: "some-name",
-        keymaps: [
-            {
-                title: "keymap-name",
-                sections: [
-                    {
-                        title: "section-name",
-                        hotkeys: [
-                            {
-                                title: "shortcut",
-                                sequence: override?.shortcutSequence ?? [
-                                    {
-                                        base: "e",
-                                        modifiers: [Modifiers.command],
-                                    },
-                                ],
                             },
                         ],
                     },

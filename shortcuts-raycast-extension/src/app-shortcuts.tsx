@@ -81,7 +81,6 @@ export default function AppShortcuts(props: { bundleId: string } | undefined) {
       onData: (bundleId) => {
         if (!bundleId) return;
         setBundleId(bundleId);
-        // initAppShortcuts(bundleId, shortcutsProviderResponse.shortcuts); // init only when everything loaded
       },
     }
   );
@@ -91,7 +90,7 @@ export default function AppShortcuts(props: { bundleId: string } | undefined) {
   };
 
   async function executeShortcut(bundleId: string, shortcutSequence: AtomicShortcut[]) {
-    const delay: number = parseFloat(getPreferenceValues<Preferences>().delay); // todo: move work with preferences to separate structure
+    const delay: number = parseFloat(getPreferenceValues<Preferences>().delay);
     await closeMainWindow({ popToRootType: PopToRootType.Immediate });
     await runShortcuts(bundleId, delay, shortcutSequence, keyCodesResponse.data!);
   }
@@ -113,12 +112,14 @@ export default function AppShortcuts(props: { bundleId: string } | undefined) {
                   title={shortcut.title}
                   subtitle={generateHotkeyText(shortcut)}
                   actions={
-                    <ActionPanel>
-                      <Action
-                        title="Apply"
-                        onAction={() => appShortcuts && executeShortcut(appShortcuts.bundleId, shortcut.sequence)}
-                      />
-                    </ActionPanel>
+                    shortcut.runnable ? (
+                      <ActionPanel>
+                        <Action
+                          title="Apply"
+                          onAction={() => appShortcuts && executeShortcut(appShortcuts.bundleId, shortcut.sequence)}
+                        />
+                      </ActionPanel>
+                    ) : null
                   }
                 />
               );
@@ -161,4 +162,5 @@ const baseKeySymbolOverride: Map<string, string> = new Map([
   ["end", "End"],
   ["tab", "⇥"],
   ["esc", "⎋"],
+  ["(click)", "(mouse click)"],
 ]);

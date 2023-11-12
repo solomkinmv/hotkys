@@ -3,11 +3,13 @@ import { Modifiers } from "./modifiers";
 export interface SectionShortcut {
   title: string;
   sequence: AtomicShortcut[];
+  runnable: boolean;
 }
 
 export interface AtomicShortcut {
   base: string;
   modifiers: Modifiers[];
+  runnable: boolean;
 }
 
 export interface Section {

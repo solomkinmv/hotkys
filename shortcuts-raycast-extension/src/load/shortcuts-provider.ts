@@ -1,5 +1,5 @@
 import { AppShortcuts, Shortcuts } from "../model/internal/internal-models";
-import { parseInputShortcuts } from "./input-parser";
+import { ShortcutsParser } from "./input-parser";
 import Validator from "./validator";
 import { useFetch } from "@raycast/utils";
 import { AllApps } from "../model/input/input-models";
@@ -40,6 +40,7 @@ export default function useAllShortcuts() {
     if (shouldUpdateCache) {
       const updatedShortcuts = new ShortcutsProvider(
         fetchResult.data!,
+        new ShortcutsParser(keyCodesResult.data!),
         new Validator(keyCodesResult.data!)
       ).getShortcuts();
       cacheManager.setValueWithTtl(CACHE_KEY, updatedShortcuts);
@@ -56,13 +57,14 @@ export default function useAllShortcuts() {
 class ShortcutsProvider {
   constructor(
     private readonly allApps: AllApps,
+    private readonly parser: ShortcutsParser,
     private readonly validator: Validator
   ) {}
 
   public getShortcuts(): Shortcuts {
     this.validator.validate(this.allApps.list);
     return {
-      applications: parseInputShortcuts(this.allApps.list),
+      applications: this.parser.parseInputShortcuts(this.allApps.list),
     };
   }
 
