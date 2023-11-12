@@ -215,4 +215,7 @@ const baseKeySymbolOverride: Map<string, string> = new Map([
     ["end", "End"],
     ["tab", "⇥"],
     ["esc", "⎋"],
+    ["enter", "↩"],
+    ["(click)", "(mouse click)"],
 ]);
+
