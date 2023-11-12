@@ -11,7 +11,6 @@ export default function AllShortcutsCommand() {
       {shortcuts.applications.map((application) => {
         return (
           <List.Item
-            icon="list-icon.png"
             key={application.bundleId}
             title={application.name}
             subtitle={removeHiddenBundleId(application.bundleId)}
