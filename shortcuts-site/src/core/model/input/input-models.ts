@@ -1,3 +1,5 @@
+// Update README.md if shortcut structure changes
+
 /**
  * Aggregation interface for all applications.
  */
@@ -38,10 +40,11 @@ export interface InputSection {
  * Shortcut with title and key.
  * Key consist of modifiers plus base key separated by '+' sign.
  * Supported modifiers: 'ctrl', 'shift', 'opt', 'cmd'. Modifiers should be specified in that exact order, lowercase @see {@link modifierTokens}.
- * Final shortcut token should always be a base key. List of all base keys: @see {@link keyCodes}.
+ * Final shortcut token should always be a base key. List of all base keys: @see {@link public/data/key-codes.json}.
+ * As an exception, `(click)` can be used instead of base key to show mouse click.
  * Examples: 'ctrl+s', 'shift+cmd+e'.
  *
- * Shortcut macro or sequences of shortcuts are also supported and should be separated by whitespace (' ').
+ * Shortcut macro or sequences of shortcuts are also supported and should be separated by space (' ').
  * Example: 'cmd+k cmd+s'
  */
 export interface InputShortcut {
