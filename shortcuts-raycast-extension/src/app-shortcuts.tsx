@@ -111,6 +111,7 @@ export default function AppShortcuts(props: { bundleId: string } | undefined) {
                   key={shortcut.title}
                   title={shortcut.title}
                   subtitle={generateHotkeyText(shortcut)}
+                  keywords={[section.title]}
                   actions={
                     shortcut.runnable ? (
                       <ActionPanel>
