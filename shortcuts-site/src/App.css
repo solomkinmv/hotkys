@@ -3,6 +3,10 @@
     margin: 0 auto;
 }
 
+.footer {
+    padding-bottom: 25px;
+}
+
 @media (max-width: 800px) {
     .site-body {
         width: calc(100% - 30px);
