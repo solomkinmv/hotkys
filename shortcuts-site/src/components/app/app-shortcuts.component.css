@@ -3,6 +3,9 @@
 }
 
 .sidebar-menu {
+    position: sticky;
+    align-self: flex-start;
+    top: 0;
     max-width: 200px;
     width: 100%;
     flex: 0 0 auto; /* Prevent the sidebar from growing */
