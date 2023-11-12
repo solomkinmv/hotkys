@@ -1,6 +1,6 @@
 import { ShortcutsProvider } from './shortcuts-provider';
 import Validator from './validator';
-import { parseAllApps, parseKeyCodes } from './helpers.spec';
+import {parseAllApps, parseKeyCodes} from "../../../__tests__/helpers.spec";
 
 test("Parses all shortcuts successfully", async () => {
     const allApps = parseAllApps();

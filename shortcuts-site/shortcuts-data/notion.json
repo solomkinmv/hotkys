@@ -1,0 +1,65 @@
+{
+  "$schema": "schema/shortcut.schema.json",
+  "bundleId": "notion.id",
+  "name": "Notion",
+  "keymaps": [
+    {
+      "title": "Default",
+      "sections": [
+        {
+          "title": "Popular",
+          "shortcuts": [
+            {
+              "title": "Create new page",
+              "key": "cmd+n"
+            },
+            {
+              "title": "Open new Notion window",
+              "key": "shift+cmd+n"
+            },
+            {
+              "title": "Open a page as a new window",
+              "key": "shift+opt+(click)"
+            },
+            {
+              "title": "Open a link as a new Notion tab",
+              "key": "cmd+(click)"
+            },
+            {
+              "title": "Create a new Notion tab",
+              "key": "cmd+t"
+            },
+            {
+              "title": "Open search or jump to a recently viewed page",
+              "key": "cmd+p"
+            },
+            {
+              "title": "Copy page url",
+              "key": "cmd+l"
+            },
+            {
+              "title": "Go back a page",
+              "key": "cmd+["
+            },
+            {
+              "title": "Go forward a page",
+              "key": "cmd+]"
+            },
+            {
+              "title": "Go to the previous database page in database peek",
+              "key": "ctrl+shift+k"
+            },
+            {
+              "title": "Go to the next database page in database peek",
+              "key": "ctrl+shift+j"
+            },
+            {
+              "title": "Toggle between dark mode and light mode",
+              "key": "shift+cmd+l"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
