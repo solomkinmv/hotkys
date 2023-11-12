@@ -23,9 +23,7 @@ export default class Validator {
     const totalNumberOfTokens = chordTokens.length;
     this.validateModifiersExist(totalNumberOfTokens, chordTokens, fullShortcutKey);
     this.validateOrderOfModifiers(totalNumberOfTokens, chordTokens, fullShortcutKey);
-    if (!this.keyCodes.has(chordTokens[totalNumberOfTokens - 1])) {
-      throw new ValidationError(`Unknown base key for shortcut: '${fullShortcutKey}'`);
-    }
+    this.validateBaseShortcutToken(chordTokens[totalNumberOfTokens - 1], fullShortcutKey);
   }
 
   private validateModifiersExist(totalNumberOfTokens: number, chordTokens: string[], fullShortcutKey: string) {
@@ -51,6 +49,15 @@ export default class Validator {
         );
       }
     }
+  }
+
+  private validateBaseShortcutToken(baseToken: string, fullShortcutKey: string) {
+    if (baseToken === "(click)") return;
+    if (this.keyCodes.has(baseToken)) return;
+    if (modifierMapping.has(baseToken)) {
+      throw new ValidationError(`Shortcut expression should end with base key: '${fullShortcutKey}'`);
+    }
+    throw new ValidationError(`Unknown base key for shortcut: '${fullShortcutKey}'`);
   }
 }
 

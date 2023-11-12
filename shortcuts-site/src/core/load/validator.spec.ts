@@ -1,8 +1,8 @@
-import Validator, { ValidationError } from "./validator";
-import { InputApp } from "../model/input/input-models";
-import { AppShortcuts, AtomicShortcut } from "../model/internal/internal-models";
-import { Modifiers } from "../model/internal/modifiers";
-import { parseKeyCodes } from './helpers.spec';
+import Validator, {ValidationError} from "./validator";
+import {InputApp} from "../model/input/input-models";
+import {AppShortcuts, AtomicShortcut} from "../model/internal/internal-models";
+import {Modifiers} from "../model/internal/modifiers";
+import {parseKeyCodes} from "../../../__tests__/helpers.spec";
 
 // todo: validate all lowercase
 // todo: validate no spaces
@@ -22,9 +22,27 @@ describe("Throws validation error", () => {
         );
     });
 
-    it("Throw validation error if base key unknown", () => {
-        expect(() => validator.validate([generateInputAppWithShortcut({shortcut: "abc+💩"})])).toThrowError(
-            new ValidationError("Modifier 'abc' doesn't exist"),
+    it.each([
+        "cmd+💩",
+        "cmd+",
+        "cmd+e shift+abc",
+        "cmd+e ctrl+"
+    ])("Throw validation error if base key unknown %p", (shortcut: string) => {
+        expect(() => validator.validate([generateInputAppWithShortcut({shortcut})])).toThrowError(
+            new ValidationError(`Unknown base key for shortcut: '${shortcut}'`),
+        );
+    });
+
+    it.each([
+        "ctrl",
+        "shift",
+        "cmd",
+        "ctrl",
+        "ctrl+shift+opt+cmd",
+        "ctrl",
+    ])("Throws validation error if base key is missing %p", (shortcut: string) => {
+        expect(() => validator.validate([generateInputAppWithShortcut({shortcut})])).toThrowError(
+            new ValidationError(`Shortcut expression should end with base key: '${shortcut}'`),
         );
     });
 
@@ -60,6 +78,14 @@ describe("Throws validation error", () => {
         "shift+opt+cmd+e",
         "ctrl+shift+opt+cmd+e ctrl+opt+cmd+e shift+opt+e ctrl+shift+e opt+cmd+e ctrl+cmd+e ctrl+shift+opt+e ctrl+shift+cmd+e ctrl+opt+cmd+e shift+opt+cmd+e",
     ])("Validation succeed if modifiers are in order %p", (shortcut: string) => {
+        expect(() => validator.validate([generateInputAppWithShortcut({shortcut})])).not.toThrowError();
+    });
+
+    it.each([
+        "ctrl+(click)",
+        "shift+(click)",
+        "cmd+e opt+(click)"
+    ])("Click can be used instead of base key %p", (shortcut: string) => {
         expect(() => validator.validate([generateInputAppWithShortcut({shortcut})])).not.toThrowError();
     });
 });
