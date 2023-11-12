@@ -29,7 +29,7 @@ process.
 
 Each application is described by `name` and `bundleId` of the macOS application.
 
-> **Note:** currently support only macOs. Please vote for this feature [here](https://github.com/solomkinmv/shortcuts-disco/issues/2).
+> **Note:** currently support only macOS. Please vote for this feature [here](https://github.com/solomkinmv/shortcuts-disco/issues/2).
 
 * App contains `keymaps`
 * Keymap contain `title` and list of `sections` 

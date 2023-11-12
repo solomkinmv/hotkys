@@ -1,15 +1,15 @@
-import { useNavigate, useParams } from "react-router-dom";
-import { AppShortcuts, Keymap, Section, SectionShortcut } from "../../core/model/internal/internal-models";
-import { modifierSymbols } from "../../core/model/internal/modifiers";
-import { Divider, Input, InputProps, InputRef, List, Menu, MenuProps, Tag, Typography } from "antd";
-import { AppstoreOutlined, SettingOutlined } from "@ant-design/icons";
-import React, { useEffect, useRef, useState } from "react";
+import {useNavigate, useParams} from "react-router-dom";
+import {AppShortcuts, Keymap, Section, SectionShortcut} from "../../core/model/internal/internal-models";
+import {modifierSymbols} from "../../core/model/internal/modifiers";
+import {Divider, Input, InputProps, InputRef, List, Menu, MenuProps, Tag, Typography} from "antd";
+import {AppstoreOutlined, SettingOutlined} from "@ant-design/icons";
+import React, {useEffect, useRef, useState} from "react";
 import Fuse from "fuse.js";
-import "./app-shortcuts.component.css"
-import { createShortcutsProvider } from '../../core/load/shortcuts-provider';
-import useWindowDimensions from '../../hooks/useWindowDimensions';
+import "./app-shortcuts.component.css";
+import {createShortcutsProvider} from "../../core/load/shortcuts-provider";
+import useWindowDimensions from "../../hooks/useWindowDimensions";
 
-const { Text } = Typography;
+const {Text} = Typography;
 
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -40,10 +40,10 @@ function buildFuse(selectedKeymap: Keymap) {
 const MOBILE_VIEW_THRESHOLD = 600;
 
 export function AppShortcutsComponent() {
-    let { bundleId } = useParams();
+    let {bundleId} = useParams();
     const navigate = useNavigate();
     const inputRef = useRef<InputRef>(null);
-    const [searchShortcutVisible, setSearchShortcutVisible] = useState(true)
+    const [searchShortcutVisible, setSearchShortcutVisible] = useState(true);
     const [appShortcuts, setAppShortcuts] = useState<AppShortcuts>();
     const [openKeys, setOpenKeys] = useState(["keymaps", "sections"]);
     const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
@@ -55,10 +55,10 @@ export function AppShortcutsComponent() {
 
     useEffect(() => {
         if (width > MOBILE_VIEW_THRESHOLD) {
-            setOpenKeys(["keymaps", "sections"])
+            setOpenKeys(["keymaps", "sections"]);
             setSearchShortcutVisible(true);
         } else {
-            setOpenKeys([])
+            setOpenKeys([]);
             setSearchShortcutVisible(false);
         }
     }, [width]);
@@ -84,15 +84,15 @@ export function AppShortcutsComponent() {
 
     useEffect(() => {
         const handleShortcut = (event: KeyboardEvent) => {
-            if (event.metaKey && event.key === 'k') {
+            if (event.metaKey && event.key === "k") {
                 inputRef.current?.focus();
             }
         };
 
-        window.addEventListener('keydown', handleShortcut);
+        window.addEventListener("keydown", handleShortcut);
 
         return () => {
-            window.removeEventListener('keydown', handleShortcut);
+            window.removeEventListener("keydown", handleShortcut);
         };
     }, []);
 
@@ -105,7 +105,7 @@ export function AppShortcutsComponent() {
             return keymap.sections;
         }
         return fuse?.search(filterText)?.map(result => result.item) ?? [];
-    }
+    };
 
     const onSelect: MenuProps["onSelect"] = (event) => {
         const category = event.keyPath[event.keyPath.length - 1];
@@ -116,6 +116,12 @@ export function AppShortcutsComponent() {
             setFilteredSections(calculateFilteredSections(newSelectedKeymap));
             setSelectedKeys([newSelectedKeymapName]);
             setFuse(buildFuse(newSelectedKeymap));
+        }
+        if (category === "sections") {
+            const element = document.getElementById(event.key);
+            if (element) {
+                element.scrollIntoView({behavior: 'smooth'});
+            }
         }
     };
 
@@ -138,7 +144,7 @@ export function AppShortcutsComponent() {
                 />
             </div>
             <div className="content">
-                <Typography.Title level={1} style={{ margin: 0 }}>
+                <Typography.Title level={1} style={{margin: 0}}>
                     {appShortcuts?.name}
                 </Typography.Title>
                 <Text code>{appShortcuts?.bundleId}</Text>
@@ -155,7 +161,7 @@ export function AppShortcutsComponent() {
 
                 {
                     filteredSections.map(section => (
-                        <div key={section.title}>
+                        <div key={section.title} id={section.title}>
                             <Divider orientation="left">{section.title}</Divider>
                             <List
                                 dataSource={section.hotkeys}
@@ -176,8 +182,8 @@ function buildMenu(appShortcuts: AppShortcuts): MenuItem[] {
     const keymapSubItems = appShortcuts.keymaps.map(keymap => getItem(keymap.title, keymap.title));
     const sections = appShortcuts.keymaps[0].sections.map(section => getItem(section.title, section.title));
     return [
-        getItem("Keymaps", "keymaps", <SettingOutlined />, keymapSubItems),
-        getItem("Sections", "sections", <AppstoreOutlined />, sections),
+        getItem("Keymaps", "keymaps", <SettingOutlined/>, keymapSubItems),
+        getItem("Sections", "sections", <AppstoreOutlined/>, sections),
 
     ];
 }
