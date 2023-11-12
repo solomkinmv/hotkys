@@ -1,5 +1,5 @@
 #!/bin/bash
-combined_file="public/combined-apps.json"
+combined_file="public/data/combined-apps.json"
 
 # Initialize the combined JSON object
 echo '{"list": [' > "$combined_file"

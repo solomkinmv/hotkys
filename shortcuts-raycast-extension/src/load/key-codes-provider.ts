@@ -14,7 +14,7 @@ const CACHE_KEY = "key-codes";
 export default function useKeyCodes() {
   const cachedItem = cacheManager.getCachedItem<IncomingKeyCodes>(CACHE_KEY);
   const [shouldUpdateCache] = useState(!cacheManager.cacheItemIsValid(cachedItem));
-  const useKeyCodesFetchResult = useFetch<IncomingKeyCodes>("https://shortcuts.solomk.in/key-codes.json", {
+  const useKeyCodesFetchResult = useFetch<IncomingKeyCodes>("https://shortcuts.solomk.in/data/key-codes.json", {
     keepPreviousData: true,
     onWillExecute: (parameters) => {
       console.log("Will fetch key codes", shouldUpdateCache, cachedItem);

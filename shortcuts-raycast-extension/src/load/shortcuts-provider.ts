@@ -22,7 +22,7 @@ export default function useAllShortcuts() {
         }
   );
 
-  const fetchResult = useFetch<AllApps>("https://shortcuts.solomk.in/combined-apps.json", {
+  const fetchResult = useFetch<AllApps>("https://shortcuts.solomk.in/data/combined-apps.json", {
     keepPreviousData: true,
     onWillExecute: (parameters) => {
       console.log("Will fetch shortcuts");

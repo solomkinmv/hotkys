@@ -4,10 +4,10 @@ import Validator from "./validator";
 import { AllApps } from '../model/input/input-models';
 
 export async function createShortcutsProvider() {
-    const data = await fetch('/combined-apps.json');
+    const data = await fetch('/data/combined-apps.json');
     const apps = await data.json() as AllApps;
 
-    const keyCodesData = await fetch('/key-codes.json');
+    const keyCodesData = await fetch('/data/key-codes.json');
     const keyCodePairs = await keyCodesData.json() as { keyCodes: [string, string][] };
 
     return new ShortcutsProvider(apps, new Validator(new Map(keyCodePairs.keyCodes))); // todo: don't create these classes each time
