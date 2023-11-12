@@ -1,7 +1,12 @@
 {
   "root": true,
-  "extends": ["@raycast"],
+  "extends": [
+    "@raycast"
+  ],
   "rules": {
-    "semi": [1, "always"]
+    "semi": [
+      1,
+      "always"
+    ]
   }
 }

@@ -2,8 +2,8 @@ import { Cache } from "@raycast/api";
 
 // todo: minimise creations of this class
 export class CacheManager {
-  private readonly cache: Cache = new Cache();
   private static readonly TTL_MILLIS = 10_000;
+  private readonly cache: Cache = new Cache();
 
   constructor() {
     console.log("Creating cache manager");
