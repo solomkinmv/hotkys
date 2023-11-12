@@ -2,8 +2,7 @@ import { InputApp, InputShortcut } from "../model/input/input-models";
 import { modifierMapping, modifierTokensOrderMapping } from "../model/internal/modifiers";
 
 export default class Validator {
-  constructor(private readonly keyCodes: Map<string, string>) {
-  }
+  constructor(private readonly keyCodes: Map<string, string>) {}
 
   public validate(inputApps: InputApp[]): void {
     inputApps.forEach((inputApp) => {
@@ -48,7 +47,7 @@ export default class Validator {
       const idx2 = modifierTokensOrderMapping.get(chordTokens[i + 1]) ?? -1;
       if (idx1 < 0 || idx2 < 0 || idx1 >= idx2) {
         throw new ValidationError(
-            `Modifiers have incorrect order. Received: '${fullShortcutKey}'. Correct order: ctrl, shift, opt, cmd`,
+          `Modifiers have incorrect order. Received: '${fullShortcutKey}'. Correct order: ctrl, shift, opt, cmd`
         );
       }
     }

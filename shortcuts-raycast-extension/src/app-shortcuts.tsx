@@ -1,11 +1,26 @@
-import { Action, ActionPanel, closeMainWindow, getFrontmostApplication, getPreferenceValues, List, PopToRootType } from "@raycast/api";
+import {
+  Action,
+  ActionPanel,
+  closeMainWindow,
+  getFrontmostApplication,
+  getPreferenceValues,
+  List,
+  PopToRootType,
+} from "@raycast/api";
 import { usePromise } from "@raycast/utils";
 import { useEffect, useState } from "react";
 import { runShortcuts } from "./engine/shortcut-runner";
-import { AppShortcuts, AtomicShortcut, Keymap, Section, SectionShortcut, Shortcuts } from "./model/internal/internal-models";
+import {
+  AppShortcuts,
+  AtomicShortcut,
+  Keymap,
+  Section,
+  SectionShortcut,
+  Shortcuts,
+} from "./model/internal/internal-models";
 import { modifierSymbols } from "./model/internal/modifiers";
-import useAllShortcuts from './load/shortcuts-provider';
-import useKeyCodes from './load/key-codes-provider';
+import useAllShortcuts from "./load/shortcuts-provider";
+import useKeyCodes from "./load/key-codes-provider";
 
 interface Preferences {
   delay: string;
@@ -58,17 +73,17 @@ export default function AppShortcuts(props: { bundleId: string } | undefined) {
   }, [shortcutsProviderResponse.isLoading, bundleId]);
 
   usePromise(
-      async () => {
-        return bundleId ?? (await getFrontmostApplication()).bundleId;
+    async () => {
+      return bundleId ?? (await getFrontmostApplication()).bundleId;
+    },
+    [],
+    {
+      onData: (bundleId) => {
+        if (!bundleId) return;
+        setBundleId(bundleId);
+        // initAppShortcuts(bundleId, shortcutsProviderResponse.shortcuts); // init only when everything loaded
       },
-      [],
-      {
-        onData: (bundleId) => {
-          if (!bundleId) return;
-          setBundleId(bundleId);
-          // initAppShortcuts(bundleId, shortcutsProviderResponse.shortcuts); // init only when everything loaded
-        },
-      },
+    }
   );
 
   const onKeymapChange = (newValue: string) => {
@@ -77,14 +92,13 @@ export default function AppShortcuts(props: { bundleId: string } | undefined) {
 
   async function executeShortcut(bundleId: string, shortcutSequence: AtomicShortcut[]) {
     const delay: number = parseFloat(getPreferenceValues<Preferences>().delay); // todo: move work with preferences to separate structure
-    await closeMainWindow({popToRootType: PopToRootType.Immediate});
+    await closeMainWindow({ popToRootType: PopToRootType.Immediate });
     await runShortcuts(bundleId, delay, shortcutSequence, keyCodesResponse.data!);
   }
 
-
   return (
     <List
-        isLoading={shortcutsProviderResponse.isLoading || keyCodesResponse.isLoading || !bundleId}
+      isLoading={shortcutsProviderResponse.isLoading || keyCodesResponse.isLoading || !bundleId}
       navigationTitle="Current App Shortcuts"
       searchBarPlaceholder="Search for shortcuts"
       searchBarAccessory={<KeymapDropdown keymaps={keymaps} onKeymapChange={onKeymapChange} />}
@@ -100,7 +114,10 @@ export default function AppShortcuts(props: { bundleId: string } | undefined) {
                   subtitle={generateHotkeyText(shortcut)}
                   actions={
                     <ActionPanel>
-                      <Action title="Apply" onAction={() => appShortcuts && executeShortcut(appShortcuts.bundleId, shortcut.sequence)}/>
+                      <Action
+                        title="Apply"
+                        onAction={() => appShortcuts && executeShortcut(appShortcuts.bundleId, shortcut.sequence)}
+                      />
                     </ActionPanel>
                   }
                 />
