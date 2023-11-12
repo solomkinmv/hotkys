@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Fuse from "fuse.js";
 import { createShortcutsProvider, ShortcutsProvider } from '../../core/load/shortcuts-provider';
 import { AppShortcuts } from '../../core/model/internal/internal-models';
+import "./app-list.component.css";
 
 const { Text } = Typography;
 
@@ -53,6 +54,7 @@ export function AppsListComponent() {
                 <Input allowClear
                        placeholder="Search..."
                        onChange={onChange}
+                       className="search-bar"
                        ref={inputRef}
                        suffix={<Tag style={{opacity: 0.5, display: searchShortcutVisible ? "block" : "none"}}>⌘K</Tag>}
                        onBlur={() => setSearchShortcutVisible(true)}
