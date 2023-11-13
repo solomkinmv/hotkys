@@ -82,7 +82,7 @@
             },
             {
               "title": "Strikethrough",
-              "key": "~ ~"
+              "key": "shift+` shift+`"
             }
           ]
         },
