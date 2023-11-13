@@ -1,0 +1,105 @@
+{
+  "$schema": "schema/shortcut.schema.json",
+  "bundleId": "ru.keepcoder.Telegram",
+  "name": "Telegram",
+  "keymaps": [
+    {
+      "title": "Default",
+      "sections": [
+        {
+          "title": "Chat",
+          "shortcuts": [
+            {
+              "title": "Open Info",
+              "key": "right"
+            },
+            {
+              "title": "Go up to select up message to reply",
+              "key": "cmd+up"
+            },
+            {
+              "title": "Go down to select up message to reply",
+              "key": "cmd+down"
+            },
+            {
+              "title": "Edit last message",
+              "key": "up"
+            },
+            {
+              "title": "Record voice/video message",
+              "key": "cmd+r"
+            },
+            {
+              "title": "Search messages",
+              "key": "cmd+f"
+            }
+          ]
+        },
+        {
+          "title": "Video chat",
+          "shortcuts": [
+            {
+              "title": "Toggle camera",
+              "key": "cmd+t"
+            },
+            {
+              "title": "Toggle screen sharing",
+              "key": "cmd+t"
+            }
+          ]
+        },
+        {
+          "title": "Search",
+          "shortcuts": [
+            {
+              "title": "Quick search",
+              "key": "cmd+k"
+            },
+            {
+              "title": "Global search",
+              "key": "shift+cmd+f"
+            }
+          ]
+        },
+        {
+          "title": "Markdown",
+          "shortcuts": [
+            {
+              "title": "Bold",
+              "key": "cmd+b"
+            },
+            {
+              "title": "Italic",
+              "key": "cmd+i"
+            },
+            {
+              "title": "Monospace",
+              "key": "shift+cmd+k"
+            },
+            {
+              "title": "Hyperlink",
+              "key": "cmd+u"
+            },
+            {
+              "title": "Strikethrough",
+              "key": "~ ~"
+            }
+          ]
+        },
+        {
+          "title": "Others",
+          "shortcuts": [
+            {
+              "title": "Open shortcuts",
+              "key": "cmd+?"
+            },
+            {
+              "title": "Lock by passcode",
+              "key": "cmd+l"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
