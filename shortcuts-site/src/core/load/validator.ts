@@ -16,7 +16,16 @@ export default class Validator {
     }
 
     private validateShortcut(inputShortcut: InputShortcut): void {
-        inputShortcut.key.split(" ").forEach((chord) => this.validateChord(inputShortcut.key, chord));
+        inputShortcut.key?.split(" ").forEach((chord) => this.validateChord(inputShortcut.key!, chord));
+        if (inputShortcut.title.length > 50) {
+            throw new ValidationError(`Title longer than 50 symbols: '${inputShortcut.title}'`);
+        }
+        if (inputShortcut.comment && inputShortcut.comment.length > 50) {
+            throw new ValidationError(`Comment longer than 50 symbols: '${inputShortcut.comment}'`);
+        }
+        if (inputShortcut.key === undefined && inputShortcut.comment === undefined) {
+            throw new ValidationError(`Shortcut '${inputShortcut.title}' should contains at least key or comment`); // todo: add test
+        }
     }
 
     private validateChord(fullShortcutKey: string, chord: string): void {
@@ -53,7 +62,6 @@ export default class Validator {
     }
 
     private validateBaseShortcutToken(baseToken: string, fullShortcutKey: string) {
-        if (baseToken === "(click)") return;
         if (this.keyCodes.has(baseToken)) return;
         if (modifierMapping.has(baseToken)) {
             throw new ValidationError(`Shortcut expression should end with base key: '${fullShortcutKey}'`);

@@ -13,7 +13,8 @@ export class ShortcutsParser {
   // todo: the same shortcut names (in section?)
   // todo: the same app bundle ids or names
 
-  constructor(private readonly keyCodes: Map<string, string>) {}
+  constructor(private readonly keyCodes: Map<string, string>) {
+  }
 
   public parseInputShortcuts(inputApps: InputApp[]): AppShortcuts[] {
     return inputApps.map((inputApp) => {
@@ -26,7 +27,7 @@ export class ShortcutsParser {
             sections: inputKeymap.sections.map((inputSection) => {
               return {
                 title: inputSection.title,
-                hotkeys: inputSection.shortcuts.map((inputShortcut)  => this.parseSingleShortcut(inputShortcut)),
+                hotkeys: inputSection.shortcuts.map((inputShortcut) => this.parseSingleShortcut(inputShortcut)),
               };
             }),
           };
@@ -36,12 +37,12 @@ export class ShortcutsParser {
   }
 
   private parseSingleShortcut(inputShortcut: InputShortcut): SectionShortcut {
-    const chords = inputShortcut.key.split(" ");
-    const atomicSequence = chords.map((chord) => this.parseChord(chord));
+    const chords = inputShortcut.key?.split(" ");
+    const atomicSequence = chords?.map((chord) => this.parseChord(chord));
     return {
       title: inputShortcut.title,
-      sequence: atomicSequence,
-      runnable: atomicSequence.every((atomicShortcut) => atomicShortcut.runnable),
+      sequence: atomicSequence ?? [],
+      comment: inputShortcut.comment,
     };
   }
 
@@ -58,8 +59,7 @@ export class ShortcutsParser {
     const baseToken = chordTokens[totalNumberOfTokens - 1];
     return {
       base: baseToken,
-      modifiers: modifiers,
-      runnable: this.keyCodes.has(baseToken),
+      modifiers: modifiers
     };
   }
 }

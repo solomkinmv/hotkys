@@ -17,7 +17,6 @@ describe("Parses shortcut correctly", () => {
             {
                 base: "e",
                 modifiers: [],
-                runnable: true,
             },
         ];
 
@@ -28,22 +27,6 @@ describe("Parses shortcut correctly", () => {
         ]);
     });
 
-    it("Parses non-runnable shortcut", () => {
-        const expectedShortcutSequence: AtomicShortcut[] = [
-            {
-                base: "(click)",
-                modifiers: [Modifiers.command],
-                runnable: false,
-            },
-        ];
-
-        expect(parser.parseInputShortcuts([generateInputAppWithShortcut({shortcut: "cmd+(click)"})])).toEqual([
-            generateExpectedAppWithShortcut({
-                shortcutSequence: expectedShortcutSequence,
-                runnableSequence: false,
-            }),
-        ]);
-    });
 });
 
 function generateInputAppWithShortcut(override?: { shortcut: string }): InputApp {
@@ -71,7 +54,6 @@ function generateInputAppWithShortcut(override?: { shortcut: string }): InputApp
 
 function generateExpectedAppWithShortcut(override?: {
     shortcutSequence?: AtomicShortcut[],
-    runnableSequence?: boolean
 }): AppShortcuts {
     return {
         bundleId: "some-bundle-id",
@@ -89,10 +71,8 @@ function generateExpectedAppWithShortcut(override?: {
                                     {
                                         base: "e",
                                         modifiers: [Modifiers.command],
-                                        runnable: true,
                                     },
                                 ],
-                                runnable: override?.runnableSequence ?? true,
                             },
                         ],
                     },

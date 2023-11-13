@@ -37,7 +37,8 @@ export interface InputSection {
 }
 
 /**
- * Shortcut with title and key.
+ * Shortcut with title, key and comment. TODO: update readme
+ * There should be at least key or comment field. Key contains structured shortcut declaration while comment is just a string value.
  * Key consist of modifiers plus base key separated by '+' sign.
  * Supported modifiers: 'ctrl', 'shift', 'opt', 'cmd'. Modifiers should be specified in that exact order, lowercase @see {@link modifierTokens}.
  * Final shortcut token should always be a base key. List of all base keys: @see {@link public/data/key-codes.json}.
@@ -49,5 +50,6 @@ export interface InputSection {
  */
 export interface InputShortcut {
     title: string;
-    key: string;
+    key?: string;
+    comment?: string;
 }

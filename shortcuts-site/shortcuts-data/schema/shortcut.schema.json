@@ -81,15 +81,33 @@
         "title": {
           "description": "Shortcut title",
           "type": "string",
-          "minLength": 1
+          "minLength": 1,
+          "maxLength": 25
         },
         "key": {
           "description": "Shortcut key definition. Key consist of modifiers plus base key separated by '+' sign. Supported modifiers: 'ctrl', 'shift', 'opt', 'cmd'. Modifiers should be specified in that exact order, lowercase. Final shortcut token should always be a base key. Examples: 'ctrl+s', 'shift+cmd+e'. Shortcut macro or sequences of shortcuts are also supported and should be separated by whitespace (' '). Example: 'cmd+k cmd+s'",
           "type": "string",
           "minLength": 1
+        },
+        "comment": {
+          "description": "Text comment for the shortcut. Can be used as a substitute or addition to the declared key",
+          "type": "string",
+          "maxLength": 50
         }
       },
-      "required": ["title", "key"],
+      "required": ["title"],
+      "anyOf": [
+        {
+          "required": [
+            "key"
+          ]
+        },
+        {
+          "required": [
+            "comment"
+          ]
+        }
+      ],
       "additionalProperties": "false"
     }
   }

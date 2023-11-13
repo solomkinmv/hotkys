@@ -50,6 +50,20 @@ describe("Throws validation error", () => {
         );
     });
 
+    it("Throws validation error if title longer than 50 characters", () => {
+        const title = "some really really long text is here for longer tha";
+        expect(() => validator.validate([generateInputAppWithShortcut({title})])).toThrowError(
+            new ValidationError(`Title longer than 50 symbols: '${title}'`),
+        );
+    })
+
+    it("Throws validation error if comment longer than 50 characters", () => {
+        const comment = "some really really long text is here for longer tha";
+        expect(() => validator.validate([generateInputAppWithShortcut({comment})])).toThrowError(
+            new ValidationError(`Comment longer than 50 symbols: '${comment}'`),
+        );
+    })
+
     it.each([
         "opt+ctrl+e",
         "cmd+ctrl+e",
@@ -79,16 +93,9 @@ describe("Throws validation error", () => {
         expect(() => validator.validate([generateInputAppWithShortcut({shortcut})])).not.toThrowError();
     });
 
-    it.each([
-        "ctrl+(click)",
-        "shift+(click)",
-        "cmd+e opt+(click)"
-    ])("Click can be used instead of base key %p", (shortcut: string) => {
-        expect(() => validator.validate([generateInputAppWithShortcut({shortcut})])).not.toThrowError();
-    });
 });
 
-function generateInputAppWithShortcut(override?: { shortcut: string }): InputApp {
+function generateInputAppWithShortcut(override?: { title?: string, shortcut?: string, comment?: string }): InputApp {
     return {
         bundleId: "some-bundle-id",
         name: "some-name",
@@ -100,8 +107,9 @@ function generateInputAppWithShortcut(override?: { shortcut: string }): InputApp
                         title: "section-name",
                         shortcuts: [
                             {
-                                title: "shortcut",
+                                title: override?.title ?? "shortcut",
                                 key: override?.shortcut ?? "cmd+e",
+                                comment: override?.comment ?? "some-comment"
                             },
                         ],
                     },

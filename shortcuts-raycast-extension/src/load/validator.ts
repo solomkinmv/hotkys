@@ -2,7 +2,8 @@ import { InputApp, InputShortcut } from "../model/input/input-models";
 import { modifierMapping, modifierTokensOrderMapping } from "../model/internal/modifiers";
 
 export default class Validator {
-  constructor(private readonly keyCodes: Map<string, string>) {}
+  constructor(private readonly keyCodes: Map<string, string>) {
+  }
 
   public validate(inputApps: InputApp[]): void {
     inputApps.forEach((inputApp) => {
@@ -15,7 +16,16 @@ export default class Validator {
   }
 
   private validateShortcut(inputShortcut: InputShortcut): void {
-    inputShortcut.key.split(" ").forEach((chord) => this.validateChord(inputShortcut.key, chord));
+    inputShortcut.key?.split(" ").forEach((chord) => this.validateChord(inputShortcut.key!, chord));
+    if (inputShortcut.title.length > 50) {
+      throw new ValidationError(`Title longer than 50 symbols: '${inputShortcut.title}'`);
+    }
+    if (inputShortcut.comment && inputShortcut.comment.length > 50) {
+      throw new ValidationError(`Comment longer than 50 symbols: '${inputShortcut.comment}'`);
+    }
+    if (inputShortcut.key === undefined && inputShortcut.comment === undefined) {
+      throw new ValidationError(`Shortcut '${inputShortcut.title}' should contains at least key or comment`); // todo: add test
+    }
   }
 
   private validateChord(fullShortcutKey: string, chord: string): void {
@@ -23,7 +33,7 @@ export default class Validator {
     const totalNumberOfTokens = chordTokens.length;
     this.validateModifiersExist(totalNumberOfTokens, chordTokens, fullShortcutKey);
     this.validateOrderOfModifiers(totalNumberOfTokens, chordTokens, fullShortcutKey);
-    this.validateBaseShortcutToken(chordTokens[totalNumberOfTokens - 1], fullShortcutKey);
+    this.validateBaseShortcutToken(chordTokens[totalNumberOfTokens - 1], fullShortcutKey)
   }
 
   private validateModifiersExist(totalNumberOfTokens: number, chordTokens: string[], fullShortcutKey: string) {
@@ -45,14 +55,13 @@ export default class Validator {
       const idx2 = modifierTokensOrderMapping.get(chordTokens[i + 1]) ?? -1;
       if (idx1 < 0 || idx2 < 0 || idx1 >= idx2) {
         throw new ValidationError(
-          `Modifiers have incorrect order. Received: '${fullShortcutKey}'. Correct order: ctrl, shift, opt, cmd`
+            `Modifiers have incorrect order. Received: '${fullShortcutKey}'. Correct order: ctrl, shift, opt, cmd`,
         );
       }
     }
   }
 
   private validateBaseShortcutToken(baseToken: string, fullShortcutKey: string) {
-    if (baseToken === "(click)") return;
     if (this.keyCodes.has(baseToken)) return;
     if (modifierMapping.has(baseToken)) {
       throw new ValidationError(`Shortcut expression should end with base key: '${fullShortcutKey}'`);

@@ -16,45 +16,67 @@ describe("Throws validation error", () => {
   const validator = new Validator(new Map([["e", "10"]]));
 
   it("Throws validation error if incorrect modifier", () => {
-    expect(() => validator.validate([generateInputAppWithShortcut({ shortcut: "abc+e" })])).toThrowError(
-      new ValidationError("Modifier 'abc' doesn't exist")
+    expect(() => validator.validate([generateInputAppWithShortcut({shortcut: "abc+e"})])).toThrowError(
+        new ValidationError("Modifier 'abc' doesn't exist"),
     );
   });
 
-  it.each(["cmd+💩", "cmd+", "cmd+e shift+abc", "cmd+e ctrl+"])(
-    "Throw validation error if base key unknown %p",
-    (shortcut: string) => {
-      expect(() => validator.validate([generateInputAppWithShortcut({ shortcut })])).toThrowError(
-        new ValidationError(`Unknown base key for shortcut: '${shortcut}'`)
-      );
-    }
-  );
+  it.each([
+    "cmd+💩",
+    "cmd+",
+    "cmd+e shift+abc",
+    "cmd+e ctrl+"
+  ])("Throw validation error if base key unknown %p", (shortcut: string) => {
+    expect(() => validator.validate([generateInputAppWithShortcut({shortcut})])).toThrowError(
+        new ValidationError(`Unknown base key for shortcut: '${shortcut}'`),
+    );
+  });
 
-  it.each(["ctrl", "shift", "cmd", "ctrl", "ctrl+shift+opt+cmd", "ctrl"])(
-    "Throws validation error if base key is missing %p",
-    (shortcut: string) => {
-      expect(() => validator.validate([generateInputAppWithShortcut({ shortcut })])).toThrowError(
-        new ValidationError(`Shortcut expression should end with base key: '${shortcut}'`)
-      );
-    }
-  );
+  it.each([
+    "ctrl",
+    "shift",
+    "cmd",
+    "ctrl",
+    "ctrl+shift+opt+cmd",
+    "ctrl",
+  ])("Throws validation error if base key is missing %p", (shortcut: string) => {
+    expect(() => validator.validate([generateInputAppWithShortcut({shortcut})])).toThrowError(
+        new ValidationError(`Shortcut expression should end with base key: '${shortcut}'`),
+    );
+  });
 
   it("Throws validation error if there are whitespace in shortcut", () => {
-    expect(() => validator.validate([generateInputAppWithShortcut({ shortcut: "cmd+e +e" })])).toThrowError(
-      new ValidationError("Invalid shortcut: 'cmd+e +e'")
+    expect(() => validator.validate([generateInputAppWithShortcut({shortcut: "cmd+e +e"})])).toThrowError(
+        new ValidationError("Invalid shortcut: 'cmd+e +e'"),
     );
   });
 
-  it.each(["opt+ctrl+e", "cmd+ctrl+e", "shift+ctrl+e", "opt+shift+e", "cmd+opt+e", "ctrl+shift+opt+cmd+e cmd+opt+e"])(
-    "Throws validation error if modifiers are not in order %p",
-    (shortcut: string) => {
-      expect(() => validator.validate([generateInputAppWithShortcut({ shortcut })])).toThrowError(
-        new ValidationError(
-          `Modifiers have incorrect order. Received: '${shortcut}'. Correct order: ctrl, shift, opt, cmd`
-        )
-      );
-    }
-  );
+  it("Throws validation error if title longer than 50 characters", () => {
+    const title = "some really really long text is here for longer tha";
+    expect(() => validator.validate([generateInputAppWithShortcut({title})])).toThrowError(
+        new ValidationError(`Title longer than 50 symbols: '${title}'`),
+    );
+  })
+
+  it("Throws validation error if comment longer than 50 characters", () => {
+    const comment = "some really really long text is here for longer tha";
+    expect(() => validator.validate([generateInputAppWithShortcut({comment})])).toThrowError(
+        new ValidationError(`Comment longer than 50 symbols: '${comment}'`),
+    );
+  })
+
+  it.each([
+    "opt+ctrl+e",
+    "cmd+ctrl+e",
+    "shift+ctrl+e",
+    "opt+shift+e",
+    "cmd+opt+e",
+    "ctrl+shift+opt+cmd+e cmd+opt+e",
+  ])("Throws validation error if modifiers are not in order %p", (shortcut: string) => {
+    expect(() => validator.validate([generateInputAppWithShortcut({shortcut})])).toThrowError(
+        new ValidationError(`Modifiers have incorrect order. Received: '${shortcut}'. Correct order: ctrl, shift, opt, cmd`),
+    );
+  });
 
   it.each([
     "ctrl+shift+opt+cmd+e",
@@ -69,18 +91,12 @@ describe("Throws validation error", () => {
     "shift+opt+cmd+e",
     "ctrl+shift+opt+cmd+e ctrl+opt+cmd+e shift+opt+e ctrl+shift+e opt+cmd+e ctrl+cmd+e ctrl+shift+opt+e ctrl+shift+cmd+e ctrl+opt+cmd+e shift+opt+cmd+e",
   ])("Validation succeed if modifiers are in order %p", (shortcut: string) => {
-    expect(() => validator.validate([generateInputAppWithShortcut({ shortcut })])).not.toThrowError();
+    expect(() => validator.validate([generateInputAppWithShortcut({shortcut})])).not.toThrowError();
   });
 
-  it.each(["ctrl+(click)", "shift+(click)", "cmd+e opt+(click)"])(
-    "Click can be used instead of base key %p",
-    (shortcut: string) => {
-      expect(() => validator.validate([generateInputAppWithShortcut({ shortcut })])).not.toThrowError();
-    }
-  );
 });
 
-function generateInputAppWithShortcut(override?: { shortcut: string }): InputApp {
+function generateInputAppWithShortcut(override?: { title?: string, shortcut?: string, comment?: string }): InputApp {
   return {
     bundleId: "some-bundle-id",
     name: "some-name",
@@ -92,8 +108,9 @@ function generateInputAppWithShortcut(override?: { shortcut: string }): InputApp
             title: "section-name",
             shortcuts: [
               {
-                title: "shortcut",
+                title: override?.title ?? "shortcut",
                 key: override?.shortcut ?? "cmd+e",
+                comment: override?.comment ?? "some-comment"
               },
             ],
           },
