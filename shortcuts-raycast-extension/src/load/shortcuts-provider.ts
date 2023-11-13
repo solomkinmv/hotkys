@@ -40,7 +40,7 @@ export default function useAllShortcuts() {
     if (shouldUpdateCache) {
       const updatedShortcuts = new ShortcutsProvider(
         fetchResult.data!,
-        new ShortcutsParser(keyCodesResult.data!),
+        new ShortcutsParser(),
         new Validator(keyCodesResult.data!)
       ).getShortcuts();
       cacheManager.setValueWithTtl(CACHE_KEY, updatedShortcuts);

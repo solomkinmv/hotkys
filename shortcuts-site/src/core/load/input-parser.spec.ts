@@ -5,8 +5,7 @@ import {Modifiers} from "../model/internal/modifiers";
 import {parseKeyCodes} from "../../../__tests__/helpers.spec";
 
 describe("Parses shortcut correctly", () => {
-    const keyCodes = parseKeyCodes();
-    const parser = new ShortcutsParser(keyCodes);
+    const parser = new ShortcutsParser();
 
     it("Parses app shortcut", () => {
         expect(parser.parseInputShortcuts([generateInputAppWithShortcut()])).toEqual([generateExpectedAppWithShortcut()]);

@@ -1,4 +1,4 @@
-import {InputApp, InputShortcut} from "../model/input/input-models";
+import {InputApp, InputKeymap, InputSection, InputShortcut} from "../model/input/input-models";
 import {modifierMapping, modifierTokensOrderMapping} from "../model/internal/modifiers";
 
 export default class Validator {
@@ -6,13 +6,69 @@ export default class Validator {
     }
 
     public validate(inputApps: InputApp[]): void {
+        this.validateUniqueApplications(inputApps);
         inputApps.forEach((inputApp) => {
+            this.validateKeymaps(inputApp.keymaps, inputApp.name);
             inputApp.keymaps.forEach((inputKeymap) => {
+                this.validateSections(inputKeymap.sections, inputApp.name);
                 inputKeymap.sections.forEach((inputSection) => {
                     inputSection.shortcuts.forEach(this.validateShortcut.bind(this));
                 });
             });
         });
+    }
+
+    private validateUniqueApplications(inputApps: InputApp[]) {
+        const bundleIds = new Set<string>();
+        const appNames = new Set<string>();
+        inputApps.forEach((app) => {
+            if (bundleIds.has(app.bundleId)) {
+                throw new ValidationError(`Duplicated app bundleId found: '${app.bundleId}'`)
+            }
+            bundleIds.add(app.bundleId);
+            if (appNames.has(app.name)) {
+                throw new ValidationError(`Duplicated app name found: '${app.name}'`)
+            }
+            appNames.add(app.name);
+        })
+    }
+
+    private validateKeymaps(keymaps: InputKeymap[], appName: string) {
+        const keymapNames = new Set<string>();
+        if (keymaps.length === 0) {
+            throw new ValidationError(`Application '${appName}' should contain at least one keymap`);
+        }
+        if (keymaps.length === 1 && keymaps[0].title !== "Default") {
+            throw new ValidationError(`Single keymap should be named 'Default' instead of '${keymaps[0].title}' for application '${appName}'`)
+        }
+        keymaps.forEach((keymap) => {
+            if (keymap.sections.length === 0) {
+                throw new ValidationError(`Keymap '${keymap.title}' should contain at least one section for application '${appName}'`);
+            }
+            if (keymap.title.length === 0) {
+                throw new ValidationError(`Keymap title should not be empty for application '${appName}'`);
+            }
+            if (keymapNames.has(keymap.title)) {
+                throw new ValidationError(`Duplicated keymap title '${keymap.title}' for application '${appName}'`);
+            }
+            keymapNames.add(keymap.title);
+        })
+    }
+
+    private validateSections(sections: InputSection[], appName: string) {
+        const sectionNames = new Set<string>();
+        sections.forEach((section) => {
+            if (section.shortcuts.length === 0) {
+                throw new ValidationError(`Section '${section.title}' should contain at least one shortcut for application '${appName}'`);
+            }
+            if (section.title.length === 0) {
+                throw new ValidationError(`Section title should not be empty for application '${appName}'`);
+            }
+            if (sectionNames.has(section.title)) {
+                throw new ValidationError(`Duplicated section title '${section.title}' per keymap for application '${appName}'`);
+            }
+            sectionNames.add(section.title);
+        })
     }
 
     private validateShortcut(inputShortcut: InputShortcut): void {
@@ -44,7 +100,7 @@ export default class Validator {
             }
             const modifier = modifierMapping.get(token);
             if (modifier === undefined) {
-                throw new ValidationError(`Modifier '${token}' doesn't exist`);
+                throw new ValidationError(`Modifier doesn't exist: '${fullShortcutKey}'`);
             }
         }
     }

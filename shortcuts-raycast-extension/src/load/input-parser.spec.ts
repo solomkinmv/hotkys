@@ -4,8 +4,7 @@ import { AppShortcuts, AtomicShortcut } from "../model/internal/internal-models"
 import { Modifiers } from "../model/internal/modifiers";
 
 describe("Parses shortcut correctly", () => {
-  const keyCodes = new Map([["e", "10"]]);
-  const parser = new ShortcutsParser(keyCodes);
+  const parser = new ShortcutsParser();
 
   it("Parses app shortcut", () => {
     expect(parser.parseInputShortcuts([generateInputAppWithShortcut()])).toEqual([generateExpectedAppWithShortcut()]);
@@ -19,13 +18,12 @@ describe("Parses shortcut correctly", () => {
       },
     ];
 
-    expect(parser.parseInputShortcuts([generateInputAppWithShortcut({shortcut: "e"})])).toEqual([
+    expect(parser.parseInputShortcuts([generateInputAppWithShortcut({ shortcut: "e" })])).toEqual([
       generateExpectedAppWithShortcut({
         shortcutSequence: expectedShortcutSequence,
       }),
     ]);
   });
-
 });
 
 function generateInputAppWithShortcut(override?: { shortcut: string }): InputApp {
@@ -51,9 +49,7 @@ function generateInputAppWithShortcut(override?: { shortcut: string }): InputApp
   };
 }
 
-function generateExpectedAppWithShortcut(override?: {
-  shortcutSequence?: AtomicShortcut[],
-}): AppShortcuts {
+function generateExpectedAppWithShortcut(override?: { shortcutSequence?: AtomicShortcut[] }): AppShortcuts {
   return {
     bundleId: "some-bundle-id",
     name: "some-name",

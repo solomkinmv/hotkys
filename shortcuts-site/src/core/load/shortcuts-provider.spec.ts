@@ -8,7 +8,7 @@ test("Parses all shortcuts successfully", async () => {
     const keyCodes = parseKeyCodes();
 
     const shortcutProvider = new ShortcutsProvider(allApps,
-        new ShortcutsParser(keyCodes),
+        new ShortcutsParser(),
         new Validator(keyCodes));
     shortcutProvider.getShortcuts();
 });

@@ -12,8 +12,8 @@ export async function createShortcutsProvider() {
 
     const keyCodesMap = new Map(keyCodePairs.keyCodes);
     return new ShortcutsProvider(apps,
-        new ShortcutsParser(keyCodesMap),
-        new Validator(keyCodesMap)); // todo: don't create these classes each time
+        new ShortcutsParser(),
+        new Validator(keyCodesMap));
 }
 
 export class ShortcutsProvider {
