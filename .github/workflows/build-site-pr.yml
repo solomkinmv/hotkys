@@ -7,7 +7,7 @@ on:
     branches: 
       - main
     paths:
-      - 'shortcuts-site'
+      - 'shortcuts-site/**'
 
 jobs:
   build:
