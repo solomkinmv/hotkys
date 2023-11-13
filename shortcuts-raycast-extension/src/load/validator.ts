@@ -15,7 +15,9 @@ export default class Validator {
   }
 
   private validateShortcut(inputShortcut: InputShortcut): void {
-    inputShortcut.key?.split(" ").forEach((chord) => this.validateChord(inputShortcut.key!, chord));
+    const shortcutKey = inputShortcut.key;
+    if (shortcutKey === undefined) return;
+    shortcutKey.split(" ").forEach((chord) => this.validateChord(shortcutKey, chord));
   }
 
   private validateChord(fullShortcutKey: string, chord: string): void {

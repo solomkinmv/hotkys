@@ -24,12 +24,6 @@ export default function useAllShortcuts() {
 
   const fetchResult = useFetch<AllApps>("https://shortcuts.solomk.in/data/combined-apps.json", {
     keepPreviousData: true,
-    onWillExecute: (parameters) => {
-      console.log("Will fetch shortcuts");
-    },
-    onData: (data) => {
-      console.log("Shortcuts data received");
-    },
     execute: shouldUpdateCache,
   });
 
@@ -37,11 +31,11 @@ export default function useAllShortcuts() {
     if (keyCodesResult.isLoading || fetchResult.isLoading) {
       return;
     }
-    if (shouldUpdateCache) {
+    if (shouldUpdateCache && fetchResult.data && keyCodesResult.data) {
       const updatedShortcuts = new ShortcutsProvider(
-        fetchResult.data!,
+        fetchResult.data,
         new ShortcutsParser(),
-        new Validator(keyCodesResult.data!)
+        new Validator(keyCodesResult.data)
       ).getShortcuts();
       cacheManager.setValueWithTtl(CACHE_KEY, updatedShortcuts);
       setShortcuts(updatedShortcuts);

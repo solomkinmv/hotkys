@@ -39,8 +39,10 @@ export class ShortcutsParser {
     const modifiers: Modifiers[] = [];
     for (let i = 0; i < totalNumberOfTokens - 1; i++) {
       const token = chordTokens[i];
-      const modifier = modifierMapping.get(token)!;
-      modifiers.push(modifier);
+      const modifier = modifierMapping.get(token);
+      if (modifier) {
+        modifiers.push(modifier);
+      }
     }
     const baseToken = chordTokens[totalNumberOfTokens - 1];
     return {

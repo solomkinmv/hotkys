@@ -74,6 +74,7 @@ function generateArguments(bundleId: string, delay: number, sequence: AtomicShor
   sequence.forEach((atomic) => {
     args.push(String(atomic.modifiers.length));
     args.push(...atomic.modifiers);
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     args.push(keyCodes.get(atomic.base)!);
   });
   return args;

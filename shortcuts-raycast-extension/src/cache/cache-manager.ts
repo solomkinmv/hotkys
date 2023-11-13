@@ -1,20 +1,15 @@
 import { Cache } from "@raycast/api";
 
-// todo: minimise creations of this class
 export class CacheManager {
   private static readonly TTL_MILLIS = 10_000;
   private readonly cache: Cache = new Cache();
-
-  constructor() {
-    console.log("Creating cache manager");
-  }
 
   public getCachedItem<T>(cacheKey: string): CachedItem<T> | undefined {
     const cachedStringValue = this.cache.get(cacheKey);
     if (cachedStringValue === undefined) {
       return undefined;
     }
-    return JSON.parse(this.cache.get(cacheKey)!) as CachedItem<T>;
+    return JSON.parse(cachedStringValue) as CachedItem<T>;
   }
 
   public setValueWithTtl<T>(cacheKey: string, value: T) {
