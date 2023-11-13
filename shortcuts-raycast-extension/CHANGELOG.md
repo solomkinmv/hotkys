@@ -1,3 +1,5 @@
-# shortcuts Changelog
+# Shortcuts Search Changelog
 
-## [Initial Version] - 2023-10-18
+## [Initial Version] - 2023-11-13
+
+Initial version code
