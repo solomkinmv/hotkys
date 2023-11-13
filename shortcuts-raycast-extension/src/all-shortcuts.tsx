@@ -19,7 +19,7 @@ export default function AllShortcutsCommand() {
             actions={
               <ActionPanel>
                 <Action
-                  title="Apply"
+                  title="Open"
                   onAction={() => {
                     push(<AppShortcuts bundleId={application.bundleId} />);
                   }}
