@@ -34,7 +34,7 @@ Each application is described by `name` and `bundleId` of the macOS application.
 * App contains `keymaps`
 * Keymap contain `title` and list of `sections` 
 * Section contains `title` and list of `shortcuts`
-* Shortcut contain `title` and shortcut declaration inside `key` property
+* Shortcut contain `title`, `comment` and shortcut declaration inside `key` property. There should be at least `key` or `comment` field. Key contains structured shortcut declaration while comment is just a string value.
 
 Shortcuts `key` rules:
 * Key consist of modifiers plus base key separated by `+` sign.
