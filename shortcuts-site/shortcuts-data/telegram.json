@@ -91,7 +91,7 @@
           "shortcuts": [
             {
               "title": "Open shortcuts",
-              "key": "cmd+?"
+              "key": "cmd+/"
             },
             {
               "title": "Lock by passcode",
