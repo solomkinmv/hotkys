@@ -2,7 +2,7 @@ import { Action, ActionPanel, List, useNavigation } from "@raycast/api";
 import AppShortcuts from "./app-shortcuts";
 import useAllShortcuts from "./load/shortcuts-provider";
 import { removeHiddenBundleId } from "./model/internal/bundle-id-remover";
-import {getAvatarIcon} from "@raycast/utils";
+import { getAvatarIcon } from "@raycast/utils";
 
 export default function AllShortcutsCommand() {
   const { push } = useNavigation();

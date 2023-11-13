@@ -3,7 +3,6 @@ import { modifierMapping, Modifiers } from "../model/internal/modifiers";
 import { InputApp, InputShortcut } from "../model/input/input-models";
 
 export class ShortcutsParser {
-
   public parseInputShortcuts(inputApps: InputApp[]): AppShortcuts[] {
     return inputApps.map((inputApp) => {
       return {
@@ -46,7 +45,7 @@ export class ShortcutsParser {
     const baseToken = chordTokens[totalNumberOfTokens - 1];
     return {
       base: baseToken,
-      modifiers: modifiers
+      modifiers: modifiers,
     };
   }
 }

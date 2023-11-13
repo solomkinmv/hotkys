@@ -113,13 +113,7 @@ export default function AppShortcuts(props: { bundleId: string } | undefined) {
                   key={shortcut.title}
                   title={shortcut.title}
                   subtitle={generateHotkeyText(shortcut)}
-                  accessories={
-                    shortcut.comment
-                      ? [
-                          { text: shortcut.comment, icon: Icon.SpeechBubble },
-                        ]
-                      : undefined
-                  }
+                  accessories={shortcut.comment ? [{ text: shortcut.comment, icon: Icon.SpeechBubble }] : undefined}
                   keywords={[section.title]}
                   actions={
                     shortcut.sequence.length > 0 ? (
