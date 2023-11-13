@@ -1,0 +1,30 @@
+# Workflow to build site PR
+name: Build site PR
+
+on:
+  # Runs on pull requests targeting the default branch
+  pull_request:
+    branches: 
+      - main
+    paths:
+      - 'shortcuts-site'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'npm'
+          cache-dependency-path: shortcuts-site/package-lock.json
+      
+      - name: Run tests
+        run: |
+          cd shortcuts-site
+          npm install
+          npm run generate-sitemap
+          npm test
