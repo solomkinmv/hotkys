@@ -1,25 +1,7 @@
 import { Modifiers } from "./modifiers";
 
-export interface SectionShortcut {
-  title: string;
-  sequence: AtomicShortcut[];
-  runnable: boolean;
-}
-
-export interface AtomicShortcut {
-  base: string;
-  modifiers: Modifiers[];
-  runnable: boolean;
-}
-
-export interface Section {
-  title: string;
-  hotkeys: SectionShortcut[];
-}
-
-export interface Keymap {
-  title: string;
-  sections: Section[];
+export interface Shortcuts {
+  applications: AppShortcuts[];
 }
 
 export interface AppShortcuts {
@@ -28,6 +10,23 @@ export interface AppShortcuts {
   keymaps: Keymap[];
 }
 
-export interface Shortcuts {
-  applications: AppShortcuts[];
+export interface Keymap {
+  title: string;
+  sections: Section[];
+}
+
+export interface Section {
+  title: string;
+  hotkeys: SectionShortcut[];
+}
+
+export interface SectionShortcut {
+  title: string;
+  sequence: AtomicShortcut[];
+  comment?: string;
+}
+
+export interface AtomicShortcut {
+  base: string;
+  modifiers: Modifiers[];
 }

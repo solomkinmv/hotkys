@@ -66,15 +66,18 @@
           "shortcuts": [
             {
               "title": "Bold",
-              "key": "cmd+b"
+              "key": "cmd+b",
+              "comment": "Alternatively wrap text with **"
             },
             {
               "title": "Italic",
-              "key": "cmd+i"
+              "key": "cmd+i",
+              "comment": "Alternatively wrap text with __"
             },
             {
               "title": "Monospace",
-              "key": "shift+cmd+k"
+              "key": "shift+cmd+k",
+              "comment": "Alternatively wrap text with `"
             },
             {
               "title": "Hyperlink",
@@ -82,7 +85,7 @@
             },
             {
               "title": "Strikethrough",
-              "key": "shift+` shift+`"
+              "comment": "Wrap text with ~~"
             }
           ]
         },
@@ -96,6 +99,40 @@
             {
               "title": "Lock by passcode",
               "key": "cmd+l"
+            }
+          ]
+        },
+        {
+          "title": "Mouse",
+          "shortcuts": [
+            {
+              "title": "Fast reply",
+              "comment": "Double click"
+            },
+            {
+              "title": "Schedule message",
+              "comment": "Option click on 'Send Message'"
+            }
+          ]
+        },
+        {
+          "title": "Gestures",
+          "shortcuts": [
+            {
+              "title": "Reply",
+              "comment": "Swipe from right to left"
+            },
+            {
+              "title": "Chat list actions",
+              "comment": "Swipe left or right"
+            },
+            {
+              "title": "Navigation back",
+              "comment": "Swipe from left to right"
+            },
+            {
+              "title": "Sticker/Emoji/GIF Panel",
+              "comment": "Swipe left or right"
             }
           ]
         }

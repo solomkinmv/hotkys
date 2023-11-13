@@ -1,6 +1,6 @@
 import {useNavigate, useParams} from "react-router-dom";
 import {AppShortcuts, Keymap, Section, SectionShortcut} from "../../core/model/internal/internal-models";
-import {modifierSymbols} from "../../core/model/internal/modifiers";
+import {modifierMapping, modifierSymbols} from "../../core/model/internal/modifiers";
 import {Divider, Input, InputProps, InputRef, List, Menu, MenuProps, Tag, Typography} from "antd";
 import {AppstoreOutlined, SettingOutlined} from "@ant-design/icons";
 import React, {useEffect, useRef, useState} from "react";
@@ -166,8 +166,13 @@ export function AppShortcutsComponent() {
                             <List
                                 dataSource={section.hotkeys}
                                 renderItem={(sectionShortcut) =>
-                                    <List.Item>{sectionShortcut.title}<Text
-                                        code>{generateHotkeyText(sectionShortcut)}</Text></List.Item>
+                                    <List.Item>
+                                        <div>
+                                            {sectionShortcut.title}
+                                            {sectionShortcut.sequence.length > 0 ? <Text code>{generateHotkeyText(sectionShortcut)}</Text> : null}
+                                        </div>
+                                        <Text type="secondary">{generateCommentText(sectionShortcut.comment)}</Text>
+                                    </List.Item>
                                 }
                             />
                         </div>
@@ -197,6 +202,20 @@ function generateHotkeyText(shortcut: SectionShortcut): string {
         .join(" ");
 }
 
+function generateCommentText(optionalComment: string | undefined): string | undefined {
+    if (optionalComment === undefined) {
+        return undefined;
+    }
+    let comment = optionalComment
+    modifierMapping.forEach((modifier, text) => {
+        comment = comment.replace("{" + text + "}", modifierSymbols.get(modifier) ?? "");
+    })
+    baseKeySymbolOverride.forEach((text, symbol) => {
+        comment = comment.replace("{" + text + "}", symbol);
+    })
+    return comment;
+}
+
 function overrideSymbolIfPossible(base: string) {
     if (baseKeySymbolOverride.has(base)) {
         return baseKeySymbolOverride.get(base);
@@ -215,7 +234,6 @@ const baseKeySymbolOverride: Map<string, string> = new Map([
     ["end", "End"],
     ["tab", "⇥"],
     ["esc", "⎋"],
-    ["enter", "↩"],
-    ["(click)", "(mouse click)"],
+    ["enter", "↩"]
 ]);
 

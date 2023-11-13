@@ -4,6 +4,7 @@ import {
   closeMainWindow,
   getFrontmostApplication,
   getPreferenceValues,
+  Icon,
   List,
   PopToRootType,
 } from "@raycast/api";
@@ -90,9 +91,10 @@ export default function AppShortcuts(props: { bundleId: string } | undefined) {
   };
 
   async function executeShortcut(bundleId: string, shortcutSequence: AtomicShortcut[]) {
+    if (keyCodesResponse.data === undefined) return;
     const delay: number = parseFloat(getPreferenceValues<Preferences>().delay);
     await closeMainWindow({ popToRootType: PopToRootType.Immediate });
-    await runShortcuts(bundleId, delay, shortcutSequence, keyCodesResponse.data!);
+    await runShortcuts(bundleId, delay, shortcutSequence, keyCodesResponse.data);
   }
 
   return (
@@ -111,16 +113,23 @@ export default function AppShortcuts(props: { bundleId: string } | undefined) {
                   key={shortcut.title}
                   title={shortcut.title}
                   subtitle={generateHotkeyText(shortcut)}
+                  accessories={
+                    shortcut.comment
+                      ? [
+                          { text: shortcut.comment, icon: Icon.SpeechBubble },
+                        ]
+                      : undefined
+                  }
                   keywords={[section.title]}
                   actions={
-                    shortcut.runnable ? (
+                    shortcut.sequence.length > 0 ? (
                       <ActionPanel>
                         <Action
                           title="Apply"
                           onAction={() => appShortcuts && executeShortcut(appShortcuts.bundleId, shortcut.sequence)}
                         />
                       </ActionPanel>
-                    ) : null
+                    ) : undefined
                   }
                 />
               );
@@ -164,5 +173,4 @@ const baseKeySymbolOverride: Map<string, string> = new Map([
   ["tab", "⇥"],
   ["esc", "⎋"],
   ["enter", "↩"],
-  ["(click)", "(mouse click)"],
 ]);
