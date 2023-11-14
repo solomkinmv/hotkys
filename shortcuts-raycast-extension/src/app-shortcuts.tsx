@@ -167,4 +167,8 @@ const baseKeySymbolOverride: Map<string, string> = new Map([
   ["tab", "⇥"],
   ["esc", "⎋"],
   ["enter", "↩"],
+  ["cmd", "⌘"],
+  ["ctrl", "⌃"],
+  ["opt", "⌥"],
+  ["shift", "⇧"],
 ]);
