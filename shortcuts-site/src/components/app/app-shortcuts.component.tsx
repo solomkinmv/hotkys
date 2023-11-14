@@ -120,7 +120,7 @@ export function AppShortcutsComponent() {
         if (category === "sections") {
             const element = document.getElementById(event.key);
             if (element) {
-                element.scrollIntoView({behavior: 'smooth'});
+                element.scrollIntoView({behavior: "smooth"});
             }
         }
     };
@@ -169,7 +169,8 @@ export function AppShortcutsComponent() {
                                     <List.Item>
                                         <div>
                                             {sectionShortcut.title}
-                                            {sectionShortcut.sequence.length > 0 ? <Text code>{generateHotkeyText(sectionShortcut)}</Text> : null}
+                                            {sectionShortcut.sequence.length > 0 ?
+                                                <Text code>{generateHotkeyText(sectionShortcut)}</Text> : null}
                                         </div>
                                         <Text type="secondary">{generateCommentText(sectionShortcut.comment)}</Text>
                                     </List.Item>
@@ -206,13 +207,13 @@ function generateCommentText(optionalComment: string | undefined): string | unde
     if (optionalComment === undefined) {
         return undefined;
     }
-    let comment = optionalComment
+    let comment = optionalComment;
     modifierMapping.forEach((modifier, text) => {
         comment = comment.replace("{" + text + "}", modifierSymbols.get(modifier) ?? "");
-    })
+    });
     baseKeySymbolOverride.forEach((text, symbol) => {
         comment = comment.replace("{" + text + "}", symbol);
-    })
+    });
     return comment;
 }
 
@@ -234,6 +235,10 @@ const baseKeySymbolOverride: Map<string, string> = new Map([
     ["end", "End"],
     ["tab", "⇥"],
     ["esc", "⎋"],
-    ["enter", "↩"]
+    ["enter", "↩"],
+    ["cmd", "⌘"],
+    ["ctrl", "⌃"],
+    ["opt", "⌥"],
+    ["shift", "⇧"],
 ]);
 

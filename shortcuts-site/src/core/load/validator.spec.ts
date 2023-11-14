@@ -4,6 +4,7 @@ import {parseKeyCodes} from "../../../__tests__/helpers.spec";
 
 const validator = new Validator(parseKeyCodes());
 
+// todo: ensure no duplicated modifiers
 describe("Throws validation error", () => {
 
     describe("Throws validation error for shortcut key cases", () => {
@@ -27,19 +28,6 @@ describe("Throws validation error", () => {
         ])("Throw validation error if base key unknown %p", (shortcut: string) => {
             expect(() => validator.validate([generateInputAppWithShortcut({shortcut})])).toThrowError(
                 new ValidationError(`Unknown base key for shortcut: '${shortcut}'`),
-            );
-        });
-
-        it.each([
-            "ctrl",
-            "shift",
-            "cmd",
-            "ctrl",
-            "ctrl+shift+opt+cmd",
-            "ctrl",
-        ])("Throws validation error if base key is missing %p", (shortcut: string) => {
-            expect(() => validator.validate([generateInputAppWithShortcut({shortcut})])).toThrowError(
-                new ValidationError(`Shortcut expression should end with base key: '${shortcut}'`),
             );
         });
 

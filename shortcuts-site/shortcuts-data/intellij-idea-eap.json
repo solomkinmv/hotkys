@@ -7,10 +7,83 @@
       "title": "Default",
       "sections": [
         {
+          "title": "Popular",
+          "shortcuts": [
+            {
+              "title": "Search everywhere",
+              "key": "shift shift"
+            },
+            {
+              "title": "Find action...",
+              "key": "shift+cmd+a"
+            },
+            {
+              "title": "Show Project window",
+              "key": "cmd+1"
+            },
+            {
+              "title": "Rebuild",
+              "key": "shift+cmd+f9"
+            },
+            {
+              "title": "Show Intention Actions",
+              "key": "opt+enter"
+            },
+            {
+              "title": "Recent files",
+              "key": "cmd+e"
+            },
+            {
+              "title": "Find usages",
+              "key": "opt+f7"
+            },
+            {
+              "title": "Select in...",
+              "key": "opt+f1"
+            },
+            {
+              "title": "Settings",
+              "key": "cmd+,"
+            },
+            {
+              "title": "Generate",
+              "key": "cmd+n"
+            },
+            {
+              "title": "Run anything",
+              "key": "ctrl ctrl"
+            },
+            {
+              "title": "Debug",
+              "key": "ctrl+opt+d"
+            },
+            {
+              "title": "View breakpoints",
+              "key": "shift+cmd+f8"
+            },
+            {
+              "title": "Attach to process",
+              "key": "shift+opt+f5"
+            },
+            {
+              "title": "VCS operations popup",
+              "key": "ctrl+v"
+            },
+            {
+              "title": "Refactor this",
+              "key": "ctrl+t"
+            },
+            {
+              "title": "Reformat code",
+              "key": "opt+cmd+l"
+            }
+          ]
+        },
+        {
           "title": "Navigation",
           "shortcuts": [
             {
-              "title": "Recent Files",
+              "title": "Recent files",
               "key": "cmd+e"
             },
             {
