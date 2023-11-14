@@ -4,7 +4,6 @@ import {parseKeyCodes} from "../../../__tests__/helpers.spec";
 
 const validator = new Validator(parseKeyCodes());
 
-// todo: ensure no duplicated modifiers
 describe("Throws validation error", () => {
 
     describe("Throws validation error for shortcut key cases", () => {
@@ -57,10 +56,19 @@ describe("Throws validation error", () => {
             "shift+ctrl+e",
             "opt+shift+e",
             "cmd+opt+e",
+            "cmd+e shift+shift+a",
             "ctrl+shift+opt+cmd+e cmd+opt+e",
         ])("Throws validation error if modifiers are not in order %p", (shortcut: string) => {
             expect(() => validator.validate([generateInputAppWithShortcut({shortcut})])).toThrowError(
                 new ValidationError(`Modifiers have incorrect order. Received: '${shortcut}'. Correct order: ctrl, shift, opt, cmd`),
+            );
+        });
+
+        it.each([
+            "ctrl+ctrl"
+        ])("Throws validation error if shortcut tokens are repeated %p", (shortcut: string) => {
+            expect(() => validator.validate([generateInputAppWithShortcut({shortcut})])).toThrowError(
+                new ValidationError(`Shortcut tokens are repeated: '${shortcut}'`),
             );
         });
 

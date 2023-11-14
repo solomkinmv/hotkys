@@ -90,6 +90,13 @@ export default class Validator {
         this.validateModifiersExist(totalNumberOfTokens, chordTokens, fullShortcutKey);
         this.validateOrderOfModifiers(totalNumberOfTokens, chordTokens, fullShortcutKey);
         this.validateBaseShortcutToken(chordTokens[totalNumberOfTokens - 1], fullShortcutKey)
+        this.validateUniqueTokens(totalNumberOfTokens, chordTokens, fullShortcutKey);
+    }
+
+    private validateUniqueTokens(totalNumberOfTokens: number, chordTokens: string[], fullShortcutKey: string) {
+        if (totalNumberOfTokens !== new Set(chordTokens).size) {
+            throw new ValidationError(`Shortcut tokens are repeated: '${fullShortcutKey}'`);
+        }
     }
 
     private validateModifiersExist(totalNumberOfTokens: number, chordTokens: string[], fullShortcutKey: string) {
