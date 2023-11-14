@@ -7,8 +7,12 @@ import { getAvatarIcon, useFrecencySorting } from "@raycast/utils";
 export default function AllShortcutsCommand() {
   const { push } = useNavigation();
   const { isLoading, shortcuts } = useAllShortcuts();
-  const { data: sortedApplications, visitItem, resetRanking } = useFrecencySorting(shortcuts.applications, {
-    key: (app) => app.name
+  const {
+    data: sortedApplications,
+    visitItem,
+    resetRanking,
+  } = useFrecencySorting(shortcuts.applications, {
+    key: (app) => app.name,
   });
   return (
     <List isLoading={isLoading}>
