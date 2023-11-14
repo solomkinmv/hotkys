@@ -2,26 +2,30 @@ import { Action, ActionPanel, List, useNavigation } from "@raycast/api";
 import AppShortcuts from "./app-shortcuts";
 import useAllShortcuts from "./load/shortcuts-provider";
 import { removeHiddenBundleId } from "./model/internal/bundle-id-remover";
-import { getAvatarIcon } from "@raycast/utils";
+import { getAvatarIcon, useFrecencySorting } from "@raycast/utils";
 
 export default function AllShortcutsCommand() {
   const { push } = useNavigation();
   const { isLoading, shortcuts } = useAllShortcuts();
+  const { data: sortedApplications, visitItem, resetRanking } = useFrecencySorting(shortcuts.applications, {
+    key: (app) => app.name
+  });
   return (
     <List isLoading={isLoading}>
-      {shortcuts.applications.map((application) => {
+      {sortedApplications.map((app) => {
         return (
           <List.Item
-            key={application.bundleId}
-            icon={getAvatarIcon(application.name)}
-            title={application.name}
-            subtitle={removeHiddenBundleId(application.bundleId)}
+            key={app.bundleId}
+            icon={getAvatarIcon(app.name)}
+            title={app.name}
+            subtitle={removeHiddenBundleId(app.bundleId)}
             actions={
               <ActionPanel>
                 <Action
                   title="Open"
-                  onAction={() => {
-                    push(<AppShortcuts bundleId={application.bundleId} />);
+                  onAction={async () => {
+                    await visitItem(app);
+                    push(<AppShortcuts bundleId={app.bundleId} />);
                   }}
                 />
               </ActionPanel>
