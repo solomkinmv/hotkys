@@ -9,7 +9,7 @@ const {Text, Link} = Typography;
 const headerMenu: MenuProps["items"] = [
     {
         key: "home",
-        label: "Home",
+        label: "Shortcuts Disco",
     },
     {
         key: "about",
