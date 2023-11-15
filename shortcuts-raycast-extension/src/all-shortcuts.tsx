@@ -3,7 +3,7 @@ import AppShortcuts from "./app-shortcuts";
 import useAllShortcuts from "./load/shortcuts-provider";
 import { removeHiddenBundleId } from "./model/internal/bundle-id-remover";
 import { getAvatarIcon, useFrecencySorting } from "@raycast/utils";
-import {Application} from "./model/internal/internal-models";
+import { Application } from "./model/internal/internal-models";
 
 export default function AllShortcutsCommand() {
   const { push } = useNavigation();

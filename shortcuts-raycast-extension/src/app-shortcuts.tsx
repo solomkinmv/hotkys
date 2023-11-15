@@ -136,9 +136,7 @@ export default function AppShortcuts(props?: { app: Application }) {
                       <ActionPanel>
                         <Action
                           title="Apply"
-                          onAction={() =>
-                            application && executeShortcut(application.bundleId, shortcut.sequence)
-                          }
+                          onAction={() => application && executeShortcut(application.bundleId, shortcut.sequence)}
                         />
                       </ActionPanel>
                     ) : undefined
