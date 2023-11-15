@@ -97,7 +97,7 @@ export default function AppShortcuts(props?: { app: Application }) {
     setKeymapSections(selectKeymap(application?.keymaps ?? [], newValue)?.sections ?? []);
   };
 
-  async function executeShortcut(bundleId: string, shortcutSequence: AtomicShortcut[]) {
+  async function executeShortcut(bundleId: string | undefined, shortcutSequence: AtomicShortcut[]) {
     if (keyCodesResponse.data === undefined) return;
     const delay: number = parseFloat(getPreferenceValues<Preferences>().delay);
     await closeMainWindow({ popToRootType: PopToRootType.Immediate });
@@ -132,12 +132,12 @@ export default function AppShortcuts(props?: { app: Application }) {
                   }
                   keywords={[section.title]}
                   actions={
-                    application?.bundleId && shortcut.sequence.length > 0 ? (
+                    shortcut.sequence.length > 0 ? (
                       <ActionPanel>
                         <Action
                           title="Apply"
                           onAction={() =>
-                            application.bundleId && executeShortcut(application.bundleId, shortcut.sequence)
+                            application && executeShortcut(application.bundleId, shortcut.sequence)
                           }
                         />
                       </ActionPanel>

@@ -20,7 +20,7 @@ export default function AllShortcutsCommand() {
             key={keyFromApp(app)}
             icon={getAvatarIcon(app.name)}
             title={app.name}
-            subtitle={app.bundleId && removeHiddenBundleId(app.bundleId)}
+            subtitle={removeHiddenBundleId(app.bundleId)}
             actions={
               <ActionPanel>
                 <Action
