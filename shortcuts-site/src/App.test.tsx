@@ -10,6 +10,6 @@ test("renders learn react link", () => {
         </BrowserRouter>,
     );
 
-    const linkElement = screen.getByText(/home/i);
+    const linkElement = screen.getByText(/Shortcuts Disco/i);
     expect(linkElement).toBeInTheDocument();
 });
