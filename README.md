@@ -27,9 +27,7 @@ To add new application create a json file in `shortcuts-site/shortcuts-data` wit
 Schema will help with json structure. It doesn't provide all the validation, but dramatically simplifies the whole
 process.
 
-Each application is described by `name` and `bundleId` of the macOS application.
-
-> **Note:** currently support only macOS. Please vote for this feature [here](https://github.com/solomkinmv/shortcuts-disco/issues/2).
+Each application is described by `name`, `slug` and optional `bundleId` of the macOS application.
 
 * App contains `keymaps`
 * Keymap contain `title` and list of `sections` 

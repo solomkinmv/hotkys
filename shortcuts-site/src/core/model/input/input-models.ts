@@ -9,7 +9,7 @@ export interface AllApps {
 
 /**
  * High level type for each application.
- * Each application consist of name, bundleId and keymaps.
+ * Each application consist of name, slug, bundleId and keymaps.
  */
 export interface InputApp {
     bundleId?: string;
