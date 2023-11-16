@@ -63,7 +63,7 @@ export function AppsListComponent() {
                 <List
                     dataSource={appShortcuts}
                     renderItem={(app) => <List.Item>
-                        <Link to={`/apps/${app.bundleId}`}>{app.name}</Link><Text code>{app.bundleId}</Text>
+                        <Link to={`/apps/${app.slug}`}>{app.name}</Link><Text code hidden={!app.bundleId}>{app.bundleId}</Text>
                     </List.Item>}
                 />
             </div>

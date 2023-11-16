@@ -1,6 +1,7 @@
 {
   "$schema": "schema/shortcut.schema.json",
   "bundleId": "notion.id",
+  "slug": "notion",
   "name": "Notion",
   "keymaps": [
     {

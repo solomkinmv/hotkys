@@ -2,6 +2,7 @@
   "$schema": "schema/shortcut.schema.json",
   "bundleId": "com.apple.dt.Xcode",
   "name": "Xcode",
+  "slug": "xcode",
   "keymaps": [
     {
       "title": "Default",

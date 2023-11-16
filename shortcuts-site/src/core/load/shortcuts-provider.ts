@@ -31,8 +31,8 @@ export class ShortcutsProvider {
         };
     }
 
-    public getShortcutsByApp(bundleId: string): AppShortcuts | undefined {
+    public getShortcutsByApp(slug: string): AppShortcuts | undefined {
         const shortcuts = this.getShortcuts();
-        return shortcuts.applications.find((app) => app.bundleId === bundleId);
+        return shortcuts.applications.find((app) => app.slug === slug);
     }
 }

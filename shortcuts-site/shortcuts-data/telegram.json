@@ -2,6 +2,7 @@
   "$schema": "schema/shortcut.schema.json",
   "bundleId": "ru.keepcoder.Telegram",
   "name": "Telegram",
+  "slug": "telegram",
   "keymaps": [
     {
       "title": "Default",

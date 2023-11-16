@@ -40,7 +40,7 @@ function buildFuse(selectedKeymap: Keymap) {
 const MOBILE_VIEW_THRESHOLD = 600;
 
 export function AppShortcutsComponent() {
-    let {bundleId} = useParams();
+    let {slug} = useParams();
     const navigate = useNavigate();
     const inputRef = useRef<InputRef>(null);
     const [searchShortcutVisible, setSearchShortcutVisible] = useState(true);
@@ -67,9 +67,9 @@ export function AppShortcutsComponent() {
     useEffect(() => {
         createShortcutsProvider()
             .then(provider => {
-                const appShortcuts = provider.getShortcutsByApp(bundleId!);
+                const appShortcuts = provider.getShortcutsByApp(slug!);
                 if (!appShortcuts) {
-                    navigate(`/404/apps/${bundleId!}`);
+                    navigate(`/404/apps/${slug!}`);
                     return;
                 }
                 setAppShortcuts(appShortcuts);
@@ -80,7 +80,7 @@ export function AppShortcutsComponent() {
                 setFilteredSections(selectedKeymap.sections);
                 setFuse(buildFuse(selectedKeymap));
             });
-    }, [bundleId, navigate]);
+    }, [slug, navigate]);
 
     useEffect(() => {
         const handleShortcut = (event: KeyboardEvent) => {
@@ -147,7 +147,7 @@ export function AppShortcutsComponent() {
                 <Typography.Title level={1} style={{margin: 0}}>
                     {appShortcuts?.name}
                 </Typography.Title>
-                <Text code>{appShortcuts?.bundleId}</Text>
+                <Text code hidden={!appShortcuts?.bundleId}>{appShortcuts?.bundleId}</Text>
 
                 <Input allowClear
                        placeholder="Search..."
