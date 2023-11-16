@@ -21,15 +21,23 @@ export default class Validator {
     private validateUniqueApplications(inputApps: InputApp[]) {
         const bundleIds = new Set<string>();
         const appNames = new Set<string>();
+        const slugs = new Set<string>();
         inputApps.forEach((app) => {
+            if (appNames.has(app.name)) {
+                throw new ValidationError(`Duplicated app name found: '${app.name}'`);
+            }
+            appNames.add(app.name);
+
+            if (slugs.has(app.slug)) {
+                throw new ValidationError(`Duplicated slug found: '${app.slug}'`);
+            }
+            slugs.add(app.slug);
+
+            if (!app.bundleId) return;
             if (bundleIds.has(app.bundleId)) {
                 throw new ValidationError(`Duplicated app bundleId found: '${app.bundleId}'`)
             }
             bundleIds.add(app.bundleId);
-            if (appNames.has(app.name)) {
-                throw new ValidationError(`Duplicated app name found: '${app.name}'`)
-            }
-            appNames.add(app.name);
         })
     }
 

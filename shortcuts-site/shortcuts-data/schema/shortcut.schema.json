@@ -1,6 +1,6 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://example.com/product.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://shortcuts.solomk.in/schema/shortcut.schema.json",
   "title": "Application shortcuts",
   "description": "A product in the catalog",
   "type": "object",
@@ -14,6 +14,12 @@
       "description": "Bundle id is a unique identifier for the macOS application. Example: 'com.microsoft.VSCode'",
       "type": "string",
       "minLength": 1
+    },
+    "slug": {
+      "description": "Unique readable identifier",
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*$"
     },
     "name": {
       "description": "Name of the application",
@@ -29,8 +35,8 @@
       "minItems": 1
     }
   },
-  "required": ["$schema", "bundleId", "name", "keymaps"],
-  "additionalProperties": "false",
+  "required": ["$schema", "name", "slug", "keymaps"],
+  "additionalProperties": false,
   "$defs": {
     "keymap": {
       "description": "Application keymap. Keymap is a shortcut configuration.",
@@ -51,7 +57,7 @@
         }
       },
       "required": ["title", "sections"],
-      "additionalProperties": "false"
+      "additionalProperties": false
     },
     "section": {
       "description": "Section with shortcuts or category. Examples: Edit, Navigate, Format.",
@@ -72,7 +78,7 @@
         }
       },
       "required": ["title", "shortcuts"],
-      "additionalProperties": "false"
+      "additionalProperties": false
     },
     "section-shortcut": {
       "description": "Shortcut with title and key",
@@ -108,7 +114,7 @@
           ]
         }
       ],
-      "additionalProperties": "false"
+      "additionalProperties": false
     }
   }
 }

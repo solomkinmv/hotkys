@@ -2,6 +2,7 @@
   "$schema": "schema/shortcut.schema.json",
   "bundleId": "com.microsoft.VSCode",
   "name": "Visual Studio Code",
+  "slug": "vsCode",
   "keymaps": [
     {
       "title": "Default",

@@ -2,6 +2,7 @@
   "$schema": "schema/shortcut.schema.json",
   "bundleId": "com.microsoft.Outlook",
   "name": "Microsoft Outlook",
+  "slug": "microsoft-outlook",
   "keymaps": [
     {
       "title": "Default",
@@ -72,7 +73,7 @@
           "shortcuts": [
             {
               "title": "Create a new message",
-              "key": "cmd+n"
+            "key": "cmd+n"
             },
             {
               "title": "Mark message as read",

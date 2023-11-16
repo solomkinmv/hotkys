@@ -22,7 +22,7 @@ const router = createBrowserRouter([
                 element: <AppsListComponent />,
             },
             {
-                path: "/apps/:bundleId",
+                path: "/apps/:slug",
                 element: <AppShortcutsComponent />,
             },
             {

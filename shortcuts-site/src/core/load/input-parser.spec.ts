@@ -2,7 +2,6 @@ import {ShortcutsParser} from "./input-parser";
 import {InputApp} from "../model/input/input-models";
 import {AppShortcuts, AtomicShortcut} from "../model/internal/internal-models";
 import {Modifiers} from "../model/internal/modifiers";
-import {parseKeyCodes} from "../../../__tests__/helpers.spec";
 
 describe("Parses shortcut correctly", () => {
     const parser = new ShortcutsParser();
@@ -32,6 +31,7 @@ function generateInputAppWithShortcut(override?: { shortcut: string }): InputApp
     return {
         bundleId: "some-bundle-id",
         name: "some-name",
+        slug: "slug",
         keymaps: [
             {
                 title: "keymap-name",
@@ -57,6 +57,7 @@ function generateExpectedAppWithShortcut(override?: {
     return {
         bundleId: "some-bundle-id",
         name: "some-name",
+        slug: "slug",
         keymaps: [
             {
                 title: "keymap-name",

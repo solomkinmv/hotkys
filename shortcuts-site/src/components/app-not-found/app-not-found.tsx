@@ -4,11 +4,11 @@ import { Divider, Typography } from 'antd';
 const {Text} = Typography;
 
 export default function AppNotFound() {
-    let {bundleId} = useParams();
+    let {slug} = useParams();
 
-    const clarificationBlock = bundleId ? (
+    const clarificationBlock = slug ? (
         <div>
-            Selected bundleId <Text code>{bundleId}</Text> doesn't exist in the database.
+            Selected bundleId <Text code>{slug}</Text> doesn't exist in the database.
         </div>
     ) : null;
 

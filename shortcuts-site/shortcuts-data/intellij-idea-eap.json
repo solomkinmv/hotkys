@@ -2,6 +2,7 @@
   "$schema": "schema/shortcut.schema.json",
   "bundleId": "com.jetbrains.intellij-EAP",
   "name": "IntelliJ IDEA EAP",
+  "slug": "intellij-idea-eap",
   "keymaps": [
     {
       "title": "Default",

@@ -1,21 +1,21 @@
 {
   "$schema": "schema/shortcut.schema.json",
-  "bundleId": "mac.os.fake.bundle.id",
   "name": "MacOS",
+  "slug": "macos",
   "keymaps": [
     {
       "title": "Default",
       "sections": [
         {
-          "title": "App manipulation",
+          "title": "General",
           "shortcuts": [
             {
               "title": "Open force quit window",
               "key": "opt+cmd+esc"
             },
             {
-              "title": "Recent Files",
-              "key": "cmd+e"
+              "title": "Lock screen",
+              "key": "ctrl+cmd+q"
             }
           ]
         }

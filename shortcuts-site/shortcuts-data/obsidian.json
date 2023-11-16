@@ -2,6 +2,7 @@
   "$schema": "schema/shortcut.schema.json",
   "name": "Obsidian",
   "bundleId": "md.obsidian",
+  "slug": "obsidian",
   "keymaps": [
     {
       "title": "Default",

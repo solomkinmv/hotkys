@@ -12,8 +12,9 @@ export interface AllApps {
  * Each application consist of name, bundleId and keymaps.
  */
 export interface InputApp {
-    bundleId: string;
+    bundleId?: string;
     name: string;
+    slug: string;
     keymaps: InputKeymap[];
 }
 

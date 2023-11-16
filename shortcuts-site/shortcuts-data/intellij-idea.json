@@ -2,6 +2,7 @@
   "$schema": "schema/shortcut.schema.json",
   "bundleId": "com.jetbrains.intellij",
   "name": "IntelliJ IDEA",
+  "slug": "intellij-idea",
   "keymaps": [
     {
       "title": "Default",
