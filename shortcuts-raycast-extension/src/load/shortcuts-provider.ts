@@ -10,7 +10,19 @@ import { CacheManager } from "../cache/cache-manager";
 const cacheManager = new CacheManager();
 const CACHE_KEY = "shortcuts";
 
-export default function useAllShortcuts() {
+interface Properties {
+  execute: boolean;
+}
+
+export default function useAllShortcuts(props?: Properties) {
+  if (props && !props.execute) {
+    return {
+      isLoading: false,
+      shortcuts: {
+        applications: [],
+      },
+    };
+  }
   const cachedItem = cacheManager.getCachedItem<Shortcuts>(CACHE_KEY);
   const [shouldUpdateCache] = useState(!cacheManager.cacheItemIsValid(cachedItem));
   const keyCodesResult = useKeyCodes();
