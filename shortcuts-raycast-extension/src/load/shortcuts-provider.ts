@@ -1,7 +1,7 @@
 import { Application, Shortcuts } from "../model/internal/internal-models";
 import { ShortcutsParser } from "./input-parser";
 import Validator from "./validator";
-import { useFetch } from "@raycast/utils";
+import { useFetch, usePromise } from "@raycast/utils";
 import { AllApps } from "../model/input/input-models";
 import useKeyCodes from "./key-codes-provider";
 import { useEffect, useState } from "react";
@@ -23,21 +23,36 @@ export default function useAllShortcuts(props?: Properties) {
       },
     };
   }
-  const cachedItem = cacheManager.getCachedItem<Shortcuts>(CACHE_KEY);
-  const [shouldUpdateCache] = useState(!cacheManager.cacheItemIsValid(cachedItem));
+  const [shouldUpdateCache, setShouldUpdateCache] = useState(false);
+  const [shortcuts, setShortcuts] = useState<Shortcuts>({
+    applications: [],
+  });
   const keyCodesResult = useKeyCodes();
-  const [shortcuts, setShortcuts] = useState<Shortcuts>(
-    cachedItem
-      ? cachedItem.data
-      : {
-          applications: [],
-        }
-  );
 
+  const cacheQueryResult = usePromise(async () => cacheManager.getCachedItem<Shortcuts>(CACHE_KEY), [], {
+    onData: async (cachedItem) => {
+      if (cacheManager.cacheItemIsValid(cachedItem)) {
+        if (!cachedItem) return;
+        setShortcuts(cachedItem.data);
+      } else {
+        setShouldUpdateCache(true);
+      }
+    },
+  });
   const fetchResult = useFetch<AllApps>("https://shortcuts.solomk.in/data/combined-apps.json", {
     keepPreviousData: true,
     execute: shouldUpdateCache,
   });
+
+  useEffect(() => {
+    if (cacheQueryResult.isLoading) return;
+    const cachedItem = cacheQueryResult.data;
+    if (cacheManager.cacheItemIsValid(cachedItem)) {
+      setShortcuts(cachedItem!.data);
+    } else {
+      setShouldUpdateCache(true);
+    }
+  }, [cacheQueryResult]);
 
   useEffect(() => {
     if (keyCodesResult.isLoading || fetchResult.isLoading) {
@@ -49,8 +64,8 @@ export default function useAllShortcuts(props?: Properties) {
         new ShortcutsParser(),
         new Validator(keyCodesResult.data)
       ).getShortcuts();
-      cacheManager.setValueWithTtl(CACHE_KEY, updatedShortcuts);
       setShortcuts(updatedShortcuts);
+      cacheManager.setValueWithTtl(CACHE_KEY, updatedShortcuts);
     }
   }, [keyCodesResult.isLoading, fetchResult.isLoading, shouldUpdateCache]);
 
