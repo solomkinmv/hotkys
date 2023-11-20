@@ -10,7 +10,7 @@
     "@types/jest": "^29.5.8",
     "@types/node": "^16.18.59",
     "@types/react": "^18.2.37",
-    "@types/react-dom": "^18.2.14",
+    "@types/react-dom": "^18.2.15",
     "antd": "^5.10.2",
     "fuse.js": "^7.0.0",
     "react": "^18.2.0",
