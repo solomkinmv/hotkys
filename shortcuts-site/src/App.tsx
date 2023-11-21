@@ -15,6 +15,10 @@ const headerMenu: MenuProps["items"] = [
         key: "about",
         label: "About",
     },
+    {
+        key: "raycast-extension",
+        label: "RayCast Extension"
+    }
 ];
 
 function App() {

@@ -8,6 +8,7 @@ import { AppShortcutsComponent } from "./components/app/app-shortcuts.component"
 import { AppsListComponent } from "./components/app-list/apps-list.component";
 import AppNotFound from './components/app-not-found/app-not-found';
 import About from './components/about/about.component';
+import RaycastExtension from "./components/raycast/raycast.component";
 
 const root = ReactDOM.createRoot(
     document.getElementById("root") as HTMLElement,
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
             {
                 path: "/about",
                 element: <About />
+            },
+            {
+                path: "/raycast-extension",
+                element: <RaycastExtension />
             }
         ],
     },
