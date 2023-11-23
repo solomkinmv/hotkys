@@ -93,7 +93,7 @@ export default class Validator {
     }
 
     private validateChord(fullShortcutKey: string, chord: string): void {
-        const chordTokens = chord.split("+");
+        const chordTokens = chord.split(/(?<!\+)\+/);
         const totalNumberOfTokens = chordTokens.length;
         this.validateModifiersExist(totalNumberOfTokens, chordTokens, fullShortcutKey);
         this.validateOrderOfModifiers(totalNumberOfTokens, chordTokens, fullShortcutKey);
