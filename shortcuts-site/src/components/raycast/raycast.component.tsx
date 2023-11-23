@@ -22,6 +22,19 @@ export default function RaycastExtension() {
                 <Text>You can download extension from the <Link
                     href="https://www.raycast.com/solomkinmv/shortcuts-search" target="_blank">RayCast
                     Store</Link>.</Text>
+                <a title="Install shortcuts-search Raycast Extension"
+                   href="https://www.raycast.com/solomkinmv/shortcuts-search"
+                style={{
+                    display: "flex",
+                    justifyContent: "center"
+                }}>
+                    <img
+                        src="https://www.raycast.com/solomkinmv/shortcuts-search/install_button@2x.png?v=1.1"
+                        height="64"
+                        alt="" style={{
+                        height: "64px"
+                    }}/>
+                </a>
             </Space>
         </div>
     );
