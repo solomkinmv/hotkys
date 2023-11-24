@@ -60,7 +60,7 @@ function App() {
                 <div className="footer">
                     <Divider />
                     <Space split={<Divider type="vertical" />}>
-                    <Text type="secondary">Made by <Link href="https://blog.solomk.in" target="_blank" color="red">Maksym Solomkin</Link></Text>
+                    <Text type="secondary">Made by <Link href="https://solomk.in" target="_blank" color="red">Maksym Solomkin</Link></Text>
                         <Link href="https://github.com/solomkinmv/shortcuts-disco/issues" target="_blank">Report issues or make a request</Link>
                     </Space>
                 </div>
