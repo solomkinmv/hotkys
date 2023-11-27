@@ -9,7 +9,7 @@
     "@testing-library/user-event": "^14.5.1",
     "@types/jest": "^29.5.8",
     "@types/node": "^20.9.2",
-    "@types/react": "^18.2.37",
+    "@types/react": "^18.2.38",
     "@types/react-dom": "^18.2.16",
     "antd": "^5.11.2",
     "fuse.js": "^7.0.0",
