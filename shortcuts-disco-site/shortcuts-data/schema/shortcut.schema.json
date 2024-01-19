@@ -1,0 +1,120 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://shortcuts.solomk.in/schema/shortcut.schema.json",
+  "title": "Application shortcuts",
+  "description": "A product in the catalog",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "description": "Schema reference",
+      "type": "string",
+      "const": "schema/shortcut.schema.json"
+    },
+    "bundleId": {
+      "description": "Bundle id is a unique identifier for the macOS application. Example: 'com.microsoft.VSCode'",
+      "type": "string",
+      "minLength": 1
+    },
+    "slug": {
+      "description": "Unique readable identifier",
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*$"
+    },
+    "name": {
+      "description": "Name of the application",
+      "type": "string",
+      "minLength": 1
+    },
+    "keymaps": {
+      "description": "List of the application keymaps. Most of the applications have single keymap that should be named 'Default'.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/keymap"
+      },
+      "minItems": 1
+    }
+  },
+  "required": ["$schema", "name", "slug", "keymaps"],
+  "additionalProperties": false,
+  "$defs": {
+    "keymap": {
+      "description": "Application keymap. Keymap is a shortcut configuration.",
+      "type": "object",
+      "properties": {
+        "title": {
+          "description": "Keymap title",
+          "type": "string",
+          "minLength": 1
+        },
+        "sections": {
+          "description": "List of sections",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/section"
+          },
+          "minItems": 1
+        }
+      },
+      "required": ["title", "sections"],
+      "additionalProperties": false
+    },
+    "section": {
+      "description": "Section with shortcuts or category. Examples: Edit, Navigate, Format.",
+      "type": "object",
+      "properties": {
+        "title": {
+          "description": "Section title",
+          "type": "string",
+          "minLength": 1
+        },
+        "shortcuts": {
+          "description": "List of shortcuts",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/section-shortcut"
+          },
+          "minItems": 1
+        }
+      },
+      "required": ["title", "shortcuts"],
+      "additionalProperties": false
+    },
+    "section-shortcut": {
+      "description": "Shortcut with title and key",
+      "type": "object",
+      "properties": {
+        "title": {
+          "description": "Shortcut title",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 50
+        },
+        "key": {
+          "description": "Shortcut key definition. Key consist of modifiers plus base key separated by '+' sign. Supported modifiers: 'ctrl', 'shift', 'opt', 'cmd'. Modifiers should be specified in that exact order, lowercase. Final shortcut token should always be a base key. Examples: 'ctrl+s', 'shift+cmd+e'. Shortcut macro or sequences of shortcuts are also supported and should be separated by whitespace (' '). Example: 'cmd+k cmd+s'",
+          "type": "string",
+          "minLength": 1
+        },
+        "comment": {
+          "description": "Text comment for the shortcut. Can be used as a substitute or addition to the declared key",
+          "type": "string",
+          "maxLength": 50
+        }
+      },
+      "required": ["title"],
+      "anyOf": [
+        {
+          "required": [
+            "key"
+          ]
+        },
+        {
+          "required": [
+            "comment"
+          ]
+        }
+      ],
+      "additionalProperties": false
+    }
+  }
+}

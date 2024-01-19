@@ -1,0 +1,90 @@
+{
+  "$schema": "schema/shortcut.schema.json",
+  "bundleId": "com.tinyspeck.slackmacgap",
+  "name": "Slack",
+  "slug": "slack",
+  "keymaps": [
+    {
+      "title": "Default",
+      "sections": [
+        {
+          "title": "Basics",
+          "shortcuts": [
+            {
+              "title": "Compose a new message",
+              "key": "cmd+n"
+            },
+            {
+              "title": "Unsend a message",
+              "key": "cmd+z"
+            },
+            {
+              "title": "Set your status",
+              "key": "shift+cmd+y"
+            },
+            {
+              "title": "Open preferences",
+              "key": "cmd+,"
+            },
+            {
+              "title": "Show or hide the left sidebar",
+              "key": "shift+cmd+d"
+            },
+            {
+              "title": "Hide the right sidebar",
+              "key": "cmd+."
+            },
+            {
+              "title": "Create a new canvas",
+              "key": "shift+cmd+n"
+            },
+            {
+              "title": "Upload a file",
+              "key": "cmd+u"
+            },
+            {
+              "title": "View all downloaded files",
+              "key": "shift+cmd+j"
+            },
+            {
+              "title": "Create a new snippet",
+              "key": "shift+cmd+enter"
+            },
+            {
+              "title": "Open the directory",
+              "key": "shift+cmd+e"
+            },
+            {
+              "title": "Start a search",
+              "key": "cmd+g"
+            },
+            {
+              "title": "Search in the current conversation",
+              "key": "cmd+f"
+            },
+            {
+              "title": "Start, join, leave, or end a huddle",
+              "key": "shift+cmd+h"
+            },
+            {
+              "title": "Toggle mute on a huddle",
+              "key": "shift+cmd+space"
+            },
+            {
+              "title": "Open Help",
+              "key": "f1"
+            },
+            {
+              "title": "Toggle full screen view",
+              "key": "ctrl+cmd+f"
+            },
+            {
+              "title": "Reopen last closed window",
+              "key": "shift+cmd+w"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

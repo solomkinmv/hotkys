@@ -1,0 +1,25 @@
+{
+  "$schema": "schema/shortcut.schema.json",
+  "name": "MacOS",
+  "slug": "macos",
+  "keymaps": [
+    {
+      "title": "Default",
+      "sections": [
+        {
+          "title": "General",
+          "shortcuts": [
+            {
+              "title": "Open force quit window",
+              "key": "opt+cmd+esc"
+            },
+            {
+              "title": "Lock screen",
+              "key": "ctrl+cmd+q"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
