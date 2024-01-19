@@ -1,7 +1,7 @@
-import {AppShortcuts, Shortcuts} from "../model/internal/internal-models";
+import {AppShortcuts, Shortcuts} from "@/app/lib/model/internal/internal-models";
 import {ShortcutsParser} from "./input-parser";
 import Validator from "./validator";
-import {AllApps} from "../model/input/input-models";
+import {AllApps} from "@/app/lib/model/input/input-models";
 
 export async function createShortcutsProvider() {
     const data = await fetch("/data/combined-apps.json");
