@@ -1,6 +1,7 @@
+import { parseKeyCodes } from "../../../../../__tests__/helpers";
 import Validator, {ValidationError} from "./validator";
-import {InputApp, InputKeymap} from "../model/input/input-models";
-import {parseKeyCodes} from "../../../__tests__/helpers.spec";
+import {InputApp, InputKeymap} from "@/app/lib/model/input/input-models";
+import { describe, expect, it } from "@jest/globals";
 
 const validator = new Validator(parseKeyCodes());
 

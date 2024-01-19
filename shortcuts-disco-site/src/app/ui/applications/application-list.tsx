@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { Input, InputProps, InputRef, List, Tag, Typography} from "antd";
-import { AppShortcuts } from "@/app/lib/core/model/internal/internal-models";
+import { AppShortcuts } from "@/app/lib/model/internal/internal-models";
 import Fuse from "fuse.js";
 import Link from "next/link";
 

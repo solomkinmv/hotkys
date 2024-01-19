@@ -1,9 +1,9 @@
 import fs from "fs";
 import path from "path";
-import { ShortcutsParser } from "@/app/lib/core/load/input-parser";
-import Validator from "@/app/lib/core/load/validator";
-import { ShortcutsProvider } from "@/app/lib/core/load/shortcuts-provider";
-import { AllApps } from "@/app/lib/core/model/input/input-models";
+import { ShortcutsParser } from "@/app/lib/load/input-parser";
+import Validator from "@/app/lib/load/validator";
+import { ShortcutsProvider } from "@/app/lib/load/shortcuts-provider";
+import { AllApps } from "@/app/lib/model/input/input-models";
 
 const shortcutsDirectory = path.join(process.cwd(), "public/data");
 

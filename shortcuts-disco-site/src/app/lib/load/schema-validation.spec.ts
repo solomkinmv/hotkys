@@ -1,5 +1,6 @@
 import Ajv from 'ajv';
 import * as fs from 'fs';
+import { describe, expect, it } from "@jest/globals";
 
 describe("Test schema", () => {
     const shortcutsDir = "shortcuts-data";

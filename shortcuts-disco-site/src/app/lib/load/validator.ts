@@ -1,5 +1,5 @@
-import {InputApp, InputKeymap, InputSection, InputShortcut} from "../model/input/input-models";
-import {modifierMapping, modifierTokensOrderMapping} from "../model/internal/modifiers";
+import {InputApp, InputKeymap, InputSection, InputShortcut} from "@/app/lib/model/input/input-models";
+import {modifierMapping, modifierTokensOrderMapping} from "@/app/lib/model/internal/modifiers";
 
 export default class Validator {
     constructor(private readonly keyCodes: Map<string, string>) {
