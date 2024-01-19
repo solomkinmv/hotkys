@@ -1,0 +1,119 @@
+{
+  "$schema": "schema/shortcut.schema.json",
+  "bundleId": "com.microsoft.Outlook",
+  "name": "Microsoft Outlook",
+  "slug": "microsoft-outlook",
+  "keymaps": [
+    {
+      "title": "Default",
+      "sections": [
+        {
+          "title": "General Shortcuts",
+          "shortcuts": [
+            {
+              "title": "General Shortcuts",
+              "key": "cmd+o"
+            },
+            {
+              "title": "Close an open item",
+              "key": "cmd+w"
+            },
+            {
+              "title": "Flag an item for follow-up",
+              "key": "ctrl+5"
+            },
+            {
+              "title": "Go to the search box",
+              "key": "opt+cmd+f"
+            },
+            {
+              "title": "Use advanced find",
+              "key": "shift+cmd+f"
+            },
+            {
+              "title": "Check spelling and grammar",
+              "key": "cmd+;"
+            },
+            {
+              "title": "Make text bold",
+              "key": "cmd+b"
+            },
+            {
+              "title": "Make text italic",
+              "key": "cmd+i"
+            },
+            {
+              "title": "Add bullets",
+              "key": "shift+cmd+l"
+            },
+            {
+              "title": "Switch to mail",
+              "key": "cmd+1"
+            },
+            {
+              "title": "Switch to calendar",
+              "key": "cmd+2"
+            },
+            {
+              "title": "Switch to contacts",
+              "key": "cmd+3"
+            },
+            {
+              "title": "Switch to tasks",
+              "key": "cmd+4"
+            },
+            {
+              "title": "Switch to notes",
+              "key": "cmd+5"
+            }
+          ]
+        },
+        {
+          "title": "Email",
+          "shortcuts": [
+            {
+              "title": "Create a new message",
+            "key": "cmd+n"
+            },
+            {
+              "title": "Mark message as read",
+              "key": "cmd+t"
+            },
+            {
+              "title": "Mark message as unread",
+              "key": "shift+cmd+t"
+            },
+            {
+              "title": "Move message to a folder",
+              "key": "shift+cmd+m"
+            },
+            {
+              "title": "Send a message",
+              "key": "cmd+enter"
+            },
+            {
+              "title": "Reply",
+              "key": "cmd+r"
+            },
+            {
+              "title": "Reply all",
+              "key": "shift+cmd+r"
+            },
+            {
+              "title": "Forward",
+              "key": "cmd+j"
+            },
+            {
+              "title": "Attach a file to a message",
+              "key": "cmd+e"
+            },
+            {
+              "title": "Create a folder",
+              "key": "shift+cmd+n"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

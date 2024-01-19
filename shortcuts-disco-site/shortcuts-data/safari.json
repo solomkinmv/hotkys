@@ -1,0 +1,85 @@
+{
+  "$schema": "schema/shortcut.schema.json",
+  "bundleId": "com.apple.Safari",
+  "name": "Safari",
+  "slug": "safari",
+  "keymaps": [
+    {
+      "title": "Default",
+      "sections": [
+        {
+          "title": "Bookmarks",
+          "shortcuts": [
+            {
+              "title": "Open Bookmarks Manager",
+              "key": "opt+cmd+b"
+            }
+          ]
+        },
+        {
+          "title": "Current Webpage",
+          "shortcuts": [
+            {
+              "title": "Search the current webpage",
+              "key": "cmd+f"
+            },
+            {
+              "title": "Select the Smart Search field",
+              "key": "cmd+l"
+            },
+            {
+              "title": "Print the current webpage",
+              "key": "cmd+p"
+            }
+          ]
+        },
+        {
+          "title": "Tabs",
+          "shortcuts": [
+            {
+              "title": "Show tab overview",
+              "key": "shift+cmd+\\"
+            },
+            {
+              "title": "Go to the next tab",
+              "key": "ctrl+tab"
+            },
+            {
+              "title": "Go to the previous tab",
+              "key": "ctrl+shift+tab"
+            }
+          ]
+        },
+        {
+          "title": "Develop",
+          "shortcuts": [
+            {
+              "title": "Toggle Responsive Design Mode",
+              "key": "ctrl+cmd+r"
+            },
+            {
+              "title": "Empty Caches",
+              "key": "opt+cmd+e"
+            },
+            {
+              "title": "Show Web Inspector",
+              "key": "opt+cmd+i"
+            },
+            {
+              "title": "Show JavaScript Console",
+              "key": "opt+cmd+c"
+            },
+            {
+              "title": "Show Page Source",
+              "key": "opt+cmd+u"
+            },
+            {
+              "title": "Show Page Resources",
+              "key": "opt+cmd+a"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
