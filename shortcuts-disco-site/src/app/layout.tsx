@@ -5,6 +5,16 @@ import { GoogleAnalytics } from "@next/third-parties/google"
 import { Header } from "@/ui/header";
 import { Footer } from "@/ui/footer";
 import { ConfigProvider } from "antd";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: {
+    template: '%s | Shortcuts Disco',
+    default: 'Shortcuts Disco',
+  },
+  description: 'Shortcuts Disco is a tool to help you search keyboard shortcuts for applications',
+  metadataBase: new URL('https://shortcuts.solomk.in'),
+};
 
 const RootLayout = ({ children }: React.PropsWithChildren) => {
 
