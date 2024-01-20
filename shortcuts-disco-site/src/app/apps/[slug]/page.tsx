@@ -1,6 +1,6 @@
-import { getAllShortcuts } from "@/app/lib/shortcuts";
+import { getAllShortcuts } from "@/lib/shortcuts";
 import { notFound } from "next/navigation";
-import { AppShortcutsComponent } from "@/app/ui/applications/application";
+import { AppShortcutsComponent } from "@/ui/applications/application";
 
 
 export async function generateStaticParams() {

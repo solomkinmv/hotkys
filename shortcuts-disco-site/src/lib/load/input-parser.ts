@@ -1,6 +1,6 @@
-import {AppShortcuts, AtomicShortcut, SectionShortcut} from "@/app/lib/model/internal/internal-models";
-import {modifierMapping, Modifiers} from "@/app/lib/model/internal/modifiers";
-import {InputApp, InputShortcut} from "@/app/lib/model/input/input-models";
+import {AppShortcuts, AtomicShortcut, SectionShortcut} from "@/lib/model/internal/internal-models";
+import {modifierMapping, Modifiers} from "@/lib/model/internal/modifiers";
+import {InputApp, InputShortcut} from "@/lib/model/input/input-models";
 
 export class ShortcutsParser {
 

@@ -1,8 +1,8 @@
 import React from "react";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
-import "@/app/ui/globals.css";
-import { Header } from "@/app/ui/header";
-import { Footer } from "@/app/ui/footer";
+import "@/ui/globals.css";
+import { Header } from "@/ui/header";
+import { Footer } from "@/ui/footer";
 
 const RootLayout = ({ children }: React.PropsWithChildren) => {
 

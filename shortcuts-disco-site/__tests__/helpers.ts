@@ -1,6 +1,6 @@
 import path from "path";
 import fs from "fs";
-import { AllApps } from "@/app/lib/model/input/input-models";
+import { AllApps } from "@/lib/model/input/input-models";
 
 export function parseKeyCodes(): Map<string, string> {
   const filePath = path.resolve(__dirname, "../public/data", "key-codes.json");

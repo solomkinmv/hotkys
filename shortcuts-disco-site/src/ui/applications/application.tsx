@@ -5,9 +5,9 @@ import {AppstoreOutlined, SettingOutlined} from "@ant-design/icons";
 import React, {useEffect, useRef, useState} from "react";
 import Fuse from "fuse.js";
 import "./application.css";
-import { AppShortcuts, Keymap, Section, SectionShortcut } from "@/app/lib/model/internal/internal-models";
-import useWindowDimensions from "@/app/lib/hooks/useWindowDimensions";
-import { modifierMapping, modifierSymbols } from "@/app/lib/model/internal/modifiers";
+import { AppShortcuts, Keymap, Section, SectionShortcut } from "@/lib/model/internal/internal-models";
+import useWindowDimensions from "@/lib/hooks/useWindowDimensions";
+import { modifierMapping, modifierSymbols } from "@/lib/model/internal/modifiers";
 
 const {Text} = Typography;
 
