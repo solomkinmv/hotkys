@@ -1,25 +1,25 @@
-import { InlineCode } from "@/app/ui/typography";
+"use client";
 
-export default function Page() {
+import { Space, Typography } from 'antd';
+
+const {Title, Text, Link} = Typography;
+
+export default function About() {
+  const code = '"$schema": "schema/shortcut.schema.json"';
   return (
-    <div className="bg-white p-4">
-      <div className="text-3xl font-bold mb-6">Shortcuts Disco</div>
-      <p className="text-gray-700 mb-4">
-        Shortcuts database for different applications.
-      </p>
-      <p className="text-gray-700 mb-8">
-        Note: currently support only macOS. Please vote for this feature <a href="#"
-                                                                            className="text-blue-600 hover:underline">here</a>
-      </p>
-      <div className="font-bold text-3xl mb-4">Contribution</div>
-      <p className="text-gray-700 mb-4">
-        Create PR with shortcuts in <span className="font-mono bg-gray-200 p-1 rounded">shortcuts-data</span> on GitHub.
-      </p>
-      <p className="text-gray-700 mb-4">
-        Include schema for each application <InlineCode code='"$schema": "schema/shortcut.schema.json"'/> as
-        a first JSON property.
-      </p>
-      <a href="#" className="text-blue-600 hover:underline">See full contribution guide on GitHub</a>
+    <div>
+      <Space direction="vertical">
+        <Title>Shortcuts Disco</Title>
+        <Text>Shortcuts database for different applications.</Text>
+        <Text>Note: currently support only macOs. Please vote for this feature <Link
+          href="https://github.com/solomkinmv/shortcuts-disco/issues/2" target="_blank">here</Link></Text>
+        <Title level={3}>Contribution</Title>
+        <Text>Create PR with shortcuts in <Text code>shortcuts-data</Text> on <Link href="https://github.com/solomkinmv/shortcuts-disco/tree/main/shortcuts-site/shortcuts-data"
+                                                                                    target="_blank">GitHub</Link>.</Text>
+        <Text>Include schema for each application <Text code>{code}</Text> as a first JSON
+          property.</Text>
+        <Text>See full contribution guide on <Link href="https://github.com/solomkinmv/shortcuts-disco" target="_blank">GitHub</Link></Text>
+      </Space>
     </div>
   );
 }
