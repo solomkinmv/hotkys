@@ -6,7 +6,7 @@ export const Footer = () => (
   <div className="footer">
     <Divider />
     <Space split={<Divider type="vertical" />}>
-      <span className={"text-gray-600"}>
+      <span className={"text-base text-gray-500"}>
         Made by <Link href="https://solomk.in" target="_blank" color="red">Maksym
         Solomkin</Link>
       </span>
