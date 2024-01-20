@@ -8,7 +8,7 @@ output_file="public/sitemap.txt"
 for file in "$data_dir"/*.json; do
   bundle_id=$(jq -r '.bundleId' "$file")
   if [ "$bundle_id" != "null" ]; then
-    url="https://shortcuts.solomk.in/?/apps/$bundle_id"
+    url="https://shortcuts.solomk.in/apps/$bundle_id"
     echo "$url" >> "$output_file"
   fi
 done
