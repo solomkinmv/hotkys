@@ -1,3 +1,5 @@
+import { InlineCode } from "@/app/ui/typography";
+
 export default function Page() {
   return (
     <div className="bg-white p-4">
@@ -14,7 +16,7 @@ export default function Page() {
         Create PR with shortcuts in <span className="font-mono bg-gray-200 p-1 rounded">shortcuts-data</span> on GitHub.
       </p>
       <p className="text-gray-700 mb-4">
-        Include schema for each application <span className="font-mono bg-gray-200 p-1 rounded">"$schema": "schema/shortcut.schema.json"</span> as
+        Include schema for each application <InlineCode>"$schema": "schema/shortcut.schema.json"</InlineCode> as
         a first JSON property.
       </p>
       <a href="#" className="text-blue-600 hover:underline">See full contribution guide on GitHub</a>
