@@ -10,13 +10,13 @@ RayCast extension adds additional automation features:
 
 ## Shortcuts Contribution
 
-Shortcuts are stored as a json files in `shortcuts-site/shortcuts-data`.
-GitHub [link](https://github.com/solomkinmv/shortcuts-disco/tree/main/shortcuts-site/shortcuts-data).
+Shortcuts are stored as a json files in `shortcuts-disco-site/shortcuts-data`.
+GitHub [link](https://github.com/solomkinmv/shortcuts-disco/tree/main/shortcuts-disco-site/shortcuts-data).
 
 Interfaces for input model can be found by
-this [link](https://github.com/solomkinmv/shortcuts-disco/blob/main/shortcuts-site/src/core/model/input/input-models.ts).
+this [link](https://github.com/solomkinmv/shortcuts-disco/blob/main/shortcuts-disco-site/src/lib/model/input/input-models.ts).
 
-To add new application create a json file in `shortcuts-site/shortcuts-data` with following template:
+To add new application create a json file in `shortcuts-disco-site/shortcuts-data` with following template:
 
 ```json
 {
@@ -36,8 +36,8 @@ Each application is described by `name`, `slug` and optional `bundleId` of the m
 
 Shortcuts `key` rules:
 * Key consist of modifiers plus base key separated by `+` sign.
-* Supported modifiers: `ctrl`, `shift`, `pt`, `cmd`. Modifiers should be specified in that exact order, lowercase [{@link modifierTokens}](https://github.com/solomkinmv/shortcuts-disco/blob/main/shortcuts-site/src/core/model/internal/modifiers.ts).
-* Final shortcut token should always be a base key. List of all base keys: [{@link public/data/key-codes.json}](https://github.com/solomkinmv/shortcuts-disco/blob/main/shortcuts-site/public/data/key-codes.json).
+* Supported modifiers: `ctrl`, `shift`, `pt`, `cmd`. Modifiers should be specified in that exact order, lowercase [{@link modifierTokens}](https://github.com/solomkinmv/shortcuts-disco/blob/main/shortcuts-disco-site/src/lib/model/internal/modifiers.ts).
+* Final shortcut token should always be a base key. List of all base keys: [{@link public/data/key-codes.json}](https://github.com/solomkinmv/shortcuts-disco/blob/main/shortcuts-disco-site/public/data/key-codes.json).
 * As an exception, `(click)` can be used instead of base key to show mouse click.
 * Examples: `ctrl+s`, `shift+cmd+e`.
 * Shortcut macro or sequences of shortcuts are also supported and should be separated by space (` `).

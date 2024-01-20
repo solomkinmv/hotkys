@@ -6,7 +6,7 @@ on:
   push:
     branches: ["main"]
     paths:
-      - 'shortcuts-site/**'
+      - 'shortcuts-disco-site/**'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -38,10 +38,10 @@ jobs:
         with:
           node-version: 18
           cache: 'npm'
-          cache-dependency-path: shortcuts-site/package-lock.json
+          cache-dependency-path: shortcuts-disco-site/package-lock.json
       - name: Build site
         run: |
-          cd shortcuts-site
+          cd shortcuts-disco-site
           npm install
           npm run generate-sitemap
           npm run build
@@ -50,7 +50,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
-          path: 'shortcuts-site/build'
+          path: 'shortcuts-disco-site/out'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
