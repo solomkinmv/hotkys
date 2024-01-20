@@ -16,7 +16,7 @@ export default function Page() {
         Create PR with shortcuts in <span className="font-mono bg-gray-200 p-1 rounded">shortcuts-data</span> on GitHub.
       </p>
       <p className="text-gray-700 mb-4">
-        Include schema for each application <InlineCode>"$schema": "schema/shortcut.schema.json"</InlineCode> as
+        Include schema for each application <InlineCode code='"$schema": "schema/shortcut.schema.json"'/> as
         a first JSON property.
       </p>
       <a href="#" className="text-blue-600 hover:underline">See full contribution guide on GitHub</a>
