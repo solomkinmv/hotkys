@@ -4,9 +4,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { Input, InputProps, InputRef, List, Tag, Typography} from "antd";
 import { AppShortcuts } from "@/lib/model/internal/internal-models";
 import Fuse from "fuse.js";
-import Link from "next/link";
 
-const { Text } = Typography;
+const { Text, Link } = Typography;
 
 export const ApplicationList = (
   {
