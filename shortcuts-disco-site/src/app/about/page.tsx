@@ -1,26 +1,23 @@
-import { Space } from "antd";
-import Link from "next/link";
-
-const Page = () => (
-  <div>
-    <Space direction="vertical">
-      <h1>Shortcuts Disco</h1>
-      <div>Shortcuts database for different applications.</div>
-      <div>Note: currently support only macOs. Please vote for this feature <Link
-        href="https://github.com/solomkinmv/shortcuts-disco/issues/2" target="_blank">here</Link></div>
-      <h3>Contribution</h3>
-      <div>Create PR with shortcuts in <span>shortcuts-data</span> on <Link
-        href="https://github.com/solomkinmv/shortcuts-disco/tree/main/shortcuts-site/shortcuts-data"
-        target="_blank">GitHub</Link>.
-      </div>
-      <div>Include schema for each application <span>"$schema": "schema/shortcut.schema.json"</span> as a first
-        JSON
-        property.
-      </div>
-      <div>See full contribution guide on <Link href="https://github.com/solomkinmv/shortcuts-disco"
-                                                target="_blank">GitHub</Link></div>
-    </Space>
-  </div>
-);
-
-export default Page;
+export default function Page() {
+  return (
+    <div className="bg-white p-4">
+      <div className="text-3xl font-bold mb-6">Shortcuts Disco</div>
+      <p className="text-gray-700 mb-4">
+        Shortcuts database for different applications.
+      </p>
+      <p className="text-gray-700 mb-8">
+        Note: currently support only macOS. Please vote for this feature <a href="#"
+                                                                            className="text-blue-600 hover:underline">here</a>
+      </p>
+      <div className="font-bold text-3xl mb-4">Contribution</div>
+      <p className="text-gray-700 mb-4">
+        Create PR with shortcuts in <span className="font-mono bg-gray-200 p-1 rounded">shortcuts-data</span> on GitHub.
+      </p>
+      <p className="text-gray-700 mb-4">
+        Include schema for each application <span className="font-mono bg-gray-200 p-1 rounded">"$schema": "schema/shortcut.schema.json"</span> as
+        a first JSON property.
+      </p>
+      <a href="#" className="text-blue-600 hover:underline">See full contribution guide on GitHub</a>
+    </div>
+  );
+}
