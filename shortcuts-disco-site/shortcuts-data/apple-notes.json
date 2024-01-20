@@ -1,0 +1,320 @@
+{
+  "$schema": "schema/shortcut.schema.json",
+  "bundleId": "com.apple.Notes",
+  "name": "Apple Notes",
+  "slug": "apple-notes",
+  "keymaps": [
+    {
+      "title": "Default",
+      "sections": [
+        {
+          "title": "General",
+          "shortcuts": [
+            {
+              "title": "Create a New Note",
+              "key": "cmd+n"
+            },
+            {
+              "title": "Duplicate a Note",
+              "key": "cmd+d"
+            },
+            {
+              "title": "Create a New Folder",
+              "key": "shift+cmd+n"
+            },
+            {
+              "title": "Show or Hide Folders",
+              "key": "opt+cmd+s"
+            },
+            {
+              "title": "Show Main Notes Window",
+              "key": "cmd+0"
+            },
+            {
+              "title": "Show Notes in List",
+              "key": "cmd+1"
+            },
+            {
+              "title": "Show Notes in Gallery View",
+              "key": "cmd+2"
+            },
+            {
+              "title": "Show Attachments",
+              "key": "cmd+3"
+            },
+            {
+              "title": "Search All Notes",
+              "key": "opt+cmd+f"
+            },
+            {
+              "title": "Move Between Sidebar, Notes List, Search Field",
+              "key": "tab"
+            },
+            {
+              "title": "Begin Typing in Selected Note",
+              "key": "enter"
+            },
+            {
+              "title": "Print a Note",
+              "key": "cmd+p"
+            },
+            {
+              "title": "Show or Hide Highlights in Shared Note",
+              "key": "ctrl+cmd+i"
+            },
+            {
+              "title": "Show or Hide Activity List in Shared Note",
+              "key": "ctrl+cmd+k"
+            }
+          ]
+        },
+        {
+          "title": "Editing and Formatting",
+          "shortcuts": [
+            {
+              "title": "Attach a File",
+              "key": "shift+cmd+a"
+            },
+            {
+              "title": "Create a Link",
+              "key": "cmd+k"
+            },
+            {
+              "title": "Insert a Table",
+              "key": "opt+cmd+t"
+            },
+            {
+              "title": "Apply Title Format",
+              "key": "shift+cmd+t"
+            },
+            {
+              "title": "Apply Heading Format",
+              "key": "shift+cmd+h"
+            },
+            {
+              "title": "Apply Subheading Format",
+              "key": "shift+cmd+j"
+            },
+            {
+              "title": "Apply Body Format",
+              "key": "shift+cmd+b"
+            },
+            {
+              "title": "Apply Monospaced Format",
+              "key": "shift+cmd+m"
+            },
+            {
+              "title": "Apply Checklist Format",
+              "key": "shift+cmd+l"
+            },
+            {
+              "title": "Bold",
+              "key": "cmd+b"
+            },
+            {
+              "title": "Italic",
+              "key": "cmd+i"
+            },
+            {
+              "title": "Underline",
+              "key": "cmd+u"
+            },
+            {
+              "title": "Increase Font Size",
+              "key": "cmd++"
+            },
+            {
+              "title": "Decrease Font Size",
+              "key": "cmd+-"
+            },
+            {
+              "title": "Apply Bulleted List Format",
+              "key": "shift+cmd+7"
+            },
+            {
+              "title": "Apply Dashed List Format",
+              "key": "shift+cmd+8"
+            },
+            {
+              "title": "Apply Numbered List Format",
+              "key": "shift+cmd+9"
+            },
+            {
+              "title": "Increase List Level",
+              "key": "cmd+]"
+            },
+            {
+              "title": "Increase List Level",
+              "key": "tab"
+            },
+            {
+              "title": "Decrease List Level",
+              "key": "cmd+["
+            },
+            {
+              "title": "Decrease List Level",
+              "key": "shift+tab"
+            },
+            {
+              "title": "Add Line Break in List Item",
+              "key": "ctrl+enter"
+            },
+            {
+              "title": "Insert Tab Character in List",
+              "key": "opt+tab"
+            },
+            {
+              "title": "Zoom In on Note",
+              "key": "shift+cmd+."
+            },
+            {
+              "title": "Zoom Out on Note",
+              "key": "shift+cmd+,"
+            },
+            {
+              "title": "Reset Zoom to Default",
+              "key": "shift+cmd+0"
+            }
+          ]
+        },
+        {
+          "title": "Table Shortcuts",
+          "shortcuts": [
+            {
+              "title": "Insert a Table",
+              "key": "opt+cmd+t"
+            },
+            {
+              "title": "Add a Row Below",
+              "key": "opt+cmd+down"
+            },
+            {
+              "title": "Add a Row Above",
+              "key": "opt+cmd+up"
+            },
+            {
+              "title": "Add a Column to the Right",
+              "key": "opt+cmd+right"
+            },
+            {
+              "title": "Add a Column to the Left",
+              "key": "opt+cmd+left"
+            },
+            {
+              "title": "Add a Break Within a Cell",
+              "key": "opt+enter"
+            },
+            {
+              "title": "Move One Cell to the Right",
+              "key": "tab"
+            },
+            {
+              "title": "Move One Cell to the Left",
+              "key": "shift+tab"
+            },
+            {
+              "title": "Select a Row",
+              "key": "shift+left"
+            },
+            {
+              "title": "Select a Row",
+              "key": "shift+right"
+            },
+            {
+              "title": "Select a Column",
+              "key": "shift+up"
+            },
+            {
+              "title": "Select a Column",
+              "key": "shift+down"
+            },
+            {
+              "title": "Select a Table",
+              "key": "cmd+a"
+            }
+          ]
+        },
+        {
+          "title": "List Shortcuts",
+          "shortcuts": [
+            {
+              "title": "Use Checklist Formatting",
+              "key": "shift+cmd+l"
+            },
+            {
+              "title": "Increase a List Level",
+              "key": "cmd+right"
+            },
+            {
+              "title": "Increase a List Level",
+              "key": "tab"
+            },
+            {
+              "title": "Decrease a List Level",
+              "key": "cmd+left"
+            },
+            {
+              "title": "Decrease a List Level",
+              "key": "shift+tab"
+            },
+            {
+              "title": "Move a List Item Up",
+              "key": "ctrl+cmd+up"
+            },
+            {
+              "title": "Move a List Item Down",
+              "key": "ctrl+cmd+down"
+            },
+            {
+              "title": "Add a Line Break in a List",
+              "key": "ctrl+enter"
+            },
+            {
+              "title": "Mark or Unmark a Checklist Item",
+              "key": "shift+cmd+u"
+            }
+          ]
+        },
+        {
+          "title": "Miscellaneous",
+          "shortcuts": [
+            {
+              "title": "Use Selection for Find",
+              "key": "cmd+e"
+            },
+            {
+              "title": "Jump to Selection",
+              "key": "cmd+j"
+            },
+            {
+              "title": "Show Spelling and Grammar",
+              "key": "shift+cmd+;"
+            },
+            {
+              "title": "Check Document Now",
+              "key": "cmd+;"
+            },
+            {
+              "title": "Show Fonts",
+              "key": "cmd+t"
+            },
+            {
+              "title": "Show Colors",
+              "key": "shift+cmd+c"
+            },
+            {
+              "title": "Copy Style",
+              "key": "opt+cmd+c"
+            },
+            {
+              "title": "Paste Style",
+              "key": "opt+cmd+v"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
+
