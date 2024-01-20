@@ -1,42 +1,35 @@
 "use client";
 
-import { Menu, MenuProps } from "antd";
+import { Menu, MenuProps, Typography } from "antd";
 import React from "react";
 import { usePathname, useRouter } from "next/navigation";
 
+const { Link } = Typography;
+
 const headerMenu: MenuProps["items"] = [
   {
-    key: "home",
-    label: "Shortcuts Disco",
+    key: "/",
+    label: <Link href="/">Shortcuts Disco</Link>,
   },
   {
-    key: "about",
-    label: "About",
+    key: "/about",
+    label: <Link href="/about">About</Link>,
   },
   {
-    key: "raycast-extension",
-    label: "RayCast Extension",
+    key: "/raycast-extension",
+    label: <Link href="/raycast-extension">Raycast Extension</Link>,
   },
 ];
 
 export const Header = () => {
-  const router = useRouter();
   const pathname = usePathname();
-  const lastPathElement = pathname.split("/").pop() ?? "";
-  // const selectedKeys = ["home"];
-  const selectedKeys = [lastPathElement === "" ? "home" : lastPathElement];
+  const selectedKeys = [pathname];
   return (
     <div>
       <Menu mode="horizontal"
             items={headerMenu}
             selectedKeys={selectedKeys}
-            onClick={async (event) => {
-              if (event.key === "home") {
-                router.push("/");
-              } else {
-                router.push(`/${event.key}`);
-              }
-            }} />
+            />
     </div>
   )
 }
