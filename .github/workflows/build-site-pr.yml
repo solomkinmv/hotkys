@@ -7,7 +7,7 @@ on:
     branches: 
       - main
     paths:
-      - 'shortcuts-site/**'
+      - 'shortcuts-disco-site/**'
 
 jobs:
   build:
@@ -20,11 +20,11 @@ jobs:
         with:
           node-version: 18
           cache: 'npm'
-          cache-dependency-path: shortcuts-site/package-lock.json
+          cache-dependency-path: shortcuts-disco-site/package-lock.json
       
       - name: Run tests
         run: |
-          cd shortcuts-site
+          cd shortcuts-disco-site
           npm install
           npm run generate-sitemap
           npm test
