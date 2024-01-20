@@ -1,8 +1,8 @@
 import { ShortcutsProvider } from "./shortcuts-provider";
 import Validator from "./validator";
 import { ShortcutsParser } from "./input-parser";
-import { parseAllApps, parseKeyCodes } from "../../../../../__tests__/helpers";
 import { test } from "@jest/globals";
+import { parseAllApps, parseKeyCodes } from "../../../__tests__/helpers";
 
 test("Parses all shortcuts successfully", async () => {
   const allApps = parseAllApps();
