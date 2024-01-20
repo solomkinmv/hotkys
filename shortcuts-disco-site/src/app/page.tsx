@@ -6,7 +6,9 @@ const Page = async () => {
   const allAppShortcuts = getAllShortcuts();
   console.log("Received shortcuts: ", allAppShortcuts);
   return (
+    <div>
       <ApplicationList applications={allAppShortcuts.applications} />
+    </div>
   );
 };
 
