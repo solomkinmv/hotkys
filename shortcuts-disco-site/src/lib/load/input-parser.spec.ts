@@ -1,7 +1,7 @@
 import {ShortcutsParser} from "./input-parser";
-import {InputApp} from "@/app/lib/model/input/input-models";
-import {AppShortcuts, AtomicShortcut} from "@/app/lib/model/internal/internal-models";
-import {Modifiers} from "@/app/lib/model/internal/modifiers";
+import {InputApp} from "@/lib/model/input/input-models";
+import {AppShortcuts, AtomicShortcut} from "@/lib/model/internal/internal-models";
+import {Modifiers} from "@/lib/model/internal/modifiers";
 import { describe, expect, it } from "@jest/globals";
 
 describe("Parses shortcut correctly", () => {

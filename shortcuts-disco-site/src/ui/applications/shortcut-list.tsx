@@ -1,6 +1,6 @@
-import { Section, SectionShortcut } from "@/app/lib/model/internal/internal-models";
-import { Divider } from "@/app/ui/divider";
-import { modifierMapping, modifierSymbols } from "@/app/lib/model/internal/modifiers";
+import { Section, SectionShortcut } from "@/lib/model/internal/internal-models";
+import { Divider } from "@/ui/divider";
+import { modifierMapping, modifierSymbols } from "@/lib/model/internal/modifiers";
 import { clsx } from "clsx";
 
 export default function ShortcutList(
