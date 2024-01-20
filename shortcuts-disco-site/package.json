@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest"
+    "test": "jest",
+    "export-data": "sh combine-apps.sh",
+    "generate-sitemap": "sh generate-sitemap.sh"
   },
   "dependencies": {
     "@ant-design/nextjs-registry": "^1.0.0",
