@@ -1,0 +1,259 @@
+{
+  "$schema": "schema/shortcut.schema.json",
+  "bundleId": "com.google.Chrome",
+  "name": "Google Chrome",
+  "slug": "google-chrome",
+  "keymaps": [
+    {
+      "title": "Default",
+      "sections": [
+        {
+          "title": "Chrome Window and Tabs",
+          "shortcuts": [
+            {
+              "title": "Open a New Window",
+              "key": "cmd+n"
+            },
+            {
+              "title": "Open a New Incognito Window",
+              "key": "shift+cmd+n"
+            },
+            {
+              "title": "Enter/Exit Full Screen Mode",
+              "key": "ctrl+cmd+f"
+            },
+            {
+              "title": "Minimize the Window",
+              "key": "cmd+m"
+            },
+            {
+              "title": "Hide the Window",
+              "key": "cmd+h"
+            },
+            {
+              "title": "Close a Window",
+              "key": "shift+cmd+w"
+            },
+            {
+              "title": "Quit Chrome",
+              "key": "cmd+q"
+            },
+            {
+              "title": "Open a New Tab",
+              "key": "cmd+t"
+            },
+            {
+              "title": "Close Current Tab",
+              "key": "cmd+w"
+            },
+            {
+              "title": "Reopen Closed Tab",
+              "key": "shift+cmd+t"
+            },
+            {
+              "title": "Jump to Address Bar",
+              "key": "cmd+l"
+            },
+            {
+              "title": "Select Tab 1",
+              "key": "cmd+1",
+              "comment": "Can be used with digits 1 to 8"
+            },
+            {
+              "title": "Select the Last Tab",
+              "key": "cmd+9"
+            },
+            {
+              "title": "Move to Next Tab",
+              "key": "opt+cmd+right"
+            },
+            {
+              "title": "Move to Previous Tab",
+              "key": "opt+cmd+left"
+            }
+          ]
+        },
+        {
+          "title": "Webpage Navigation",
+          "shortcuts": [
+            {
+              "title": "Reload Page",
+              "key": "cmd+r"
+            },
+            {
+              "title": "Reload and Ignore Cache",
+              "key": "shift+cmd+r"
+            },
+            {
+              "title": "Zoom In",
+              "key": "cmd+plus"
+            },
+            {
+              "title": "Zoom Out",
+              "key": "cmd+hyphen"
+            },
+            {
+              "title": "Reset Zoom",
+              "key": "cmd+0"
+            },
+            {
+              "title": "Move Down a Screen",
+              "key": "space"
+            },
+            {
+              "title": "Move Up a Screen",
+              "key": "shift+space"
+            },
+            {
+              "title": "Save the Page",
+              "key": "cmd+s"
+            },
+            {
+              "title": "Save the Page as a Bookmark",
+              "key": "cmd+d"
+            },
+            {
+              "title": "Save Open Tabs in a New Bookmarks Folder",
+              "key": "shift+cmd+d"
+            },
+            {
+              "title": "Print the Page",
+              "key": "cmd+p"
+            },
+            {
+              "title": "Go to the Address Bar",
+              "key": "cmd+l"
+            },
+            {
+              "title": "Move Cursor to the Address Bar",
+              "key": "ctrl+f5"
+            },
+            {
+              "title": "Search with Default Search Engine",
+              "comment": "type term then return"
+            },
+            {
+              "title": "Search with a Different Search Engine",
+              "comment": "type search engine then tab"
+            },
+            {
+              "title": "Open a Website in a Background Tab",
+              "comment": "type web address then return"
+            },
+            {
+              "title": "Complete 'www.' and '.com' for Current Tab",
+              "key": "ctrl+enter"
+            },
+            {
+              "title": "Complete 'www.' and '.com' for New Tab",
+              "key": "ctrl+shift+enter"
+            }
+          ]
+        },
+        {
+          "title": "Chrome Features",
+          "shortcuts": [
+            {
+              "title": "Toggle the Bookmarks Bar",
+              "key": "shift+cmd+b"
+            },
+            {
+              "title": "Open the Bookmarks Manager",
+              "key": "opt+cmd+b"
+            },
+            {
+              "title": "Open the History Page",
+              "key": "cmd+y"
+            },
+            {
+              "title": "Open the Downloads Page",
+              "key": "shift+cmd+j"
+            },
+            {
+              "title": "Chrome Task Manager",
+              "key": "shift+esc"
+            },
+            {
+              "title": "Open the Find Bar to Search the Page",
+              "key": "cmd+f"
+            },
+            {
+              "title": "Log in as a Different User",
+              "key": "shift+cmd+m"
+            },
+            {
+              "title": "Open Developer Tools",
+              "key": "opt+cmd+j"
+            },
+            {
+              "title": "Open Clear Data Options",
+              "key": "shift+cmd+backspace"
+            },
+            {
+              "title": "Open the Settings Page",
+              "key": "cmd+,"
+            }
+          ]
+        },
+        {
+          "title": "Development",
+          "shortcuts": [
+            {
+              "title": "Open Developer Tools",
+              "key": "opt+cmd+j"
+            },
+            {
+              "title": "Open the JavaScript Console",
+              "key": "opt+cmd+j"
+            },
+            {
+              "title": "Inspect Elements",
+              "key": "shift+cmd+c"
+            },
+            {
+              "title": "View Page Source",
+              "key": "opt+cmd+u"
+            },
+            {
+              "title": "Open the Task Manager",
+              "key": "shift+esc"
+            },
+            {
+              "title": "Reload the Page, Ignoring Cached Content",
+              "key": "shift+cmd+r"
+            },
+            {
+              "title": "Show or Hide the Bookmarks Bar",
+              "key": "shift+cmd+b"
+            },
+            {
+              "title": "Open the History Page",
+              "key": "cmd+y"
+            },
+            {
+              "title": "Open the Downloads Page",
+              "key": "shift+cmd+j"
+            },
+            {
+              "title": "Open Chrome Settings",
+              "key": "cmd+,"
+            },
+            {
+              "title": "Navigate to the Next Match Within the Inspector",
+              "key": "cmd+g"
+            },
+            {
+              "title": "Navigate to Previous Match Within the Inspector",
+              "key": "shift+cmd+g"
+            },
+            {
+              "title": "Take a Screenshot of the Visible Area",
+              "key": "shift+cmd+p",
+              "comment": "then type 'Screenshot'"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
