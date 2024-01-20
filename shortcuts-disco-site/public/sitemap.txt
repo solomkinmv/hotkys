@@ -1,15 +1,2 @@
 https://shortcuts.solomk.in
 https://shortcuts.solomk.in/about
-https://shortcuts.solomk.in/apps/com.apple.Notes
-https://shortcuts.solomk.in/apps/org.mozilla.firefox
-https://shortcuts.solomk.in/apps/com.apple.freeform
-https://shortcuts.solomk.in/apps/com.jetbrains.intellij-EAP
-https://shortcuts.solomk.in/apps/com.jetbrains.intellij
-https://shortcuts.solomk.in/apps/com.microsoft.Outlook
-https://shortcuts.solomk.in/apps/notion.id
-https://shortcuts.solomk.in/apps/md.obsidian
-https://shortcuts.solomk.in/apps/com.apple.Safari
-https://shortcuts.solomk.in/apps/com.tinyspeck.slackmacgap
-https://shortcuts.solomk.in/apps/ru.keepcoder.Telegram
-https://shortcuts.solomk.in/apps/com.microsoft.VSCode
-https://shortcuts.solomk.in/apps/com.apple.dt.Xcode
