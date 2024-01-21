@@ -3,9 +3,11 @@ import { notFound } from "next/navigation";
 import { AppShortcutsComponent } from "@/ui/applications/application";
 import { Metadata } from "next";
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+interface Props {
+  params: { slug: string };
+}
 
-
+export function generateMetadata({ params }: Props): Metadata {
   return {
     title: findApplication(params.slug)?.name,
   };
@@ -16,17 +18,17 @@ export async function generateStaticParams() {
     .map(app => ({ slug: app.slug }));
 }
 
-function findApplication(slug: string) {
-  return getAllShortcuts()
-    .applications
-    .find(app => app.slug === slug);
-}
-
-export default function Page({ params }: { params: { slug: string } }) {
+export default function Page({ params }: Props) {
   const appShortcuts = findApplication(params.slug) || notFound();
 
 
   return (
     <AppShortcutsComponent application={appShortcuts} />
   );
+}
+
+function findApplication(slug: string) {
+  return getAllShortcuts()
+    .applications
+    .find(app => app.slug === slug);
 }
