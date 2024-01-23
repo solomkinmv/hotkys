@@ -1,0 +1,204 @@
+{
+  "$schema": "schema/shortcut.schema.json",
+  "bundleId": "com.apple.finder",
+  "name": "Finder",
+  "slug": "finder",
+  "keymaps": [
+    {
+      "title": "Default",
+      "sections": [
+        {
+          "title": "File Operations",
+          "shortcuts": [
+            {
+              "title": "New Finder window",
+              "key": "cmd+n"
+            },
+            {
+              "title": "New Folder",
+              "key": "shift+cmd+n"
+            },
+            {
+              "title": "Open selected item",
+              "key": "cmd+o"
+            },
+            {
+              "title": "Close window",
+              "key": "cmd+w"
+            },
+            {
+              "title": "Get Info",
+              "key": "cmd+i"
+            },
+            {
+              "title": "Duplicate",
+              "key": "cmd+d"
+            },
+            {
+              "title": "Make Alias",
+              "key": "opt+cmd+a"
+            },
+            {
+              "title": "Show original item",
+              "key": "cmd+r"
+            },
+            {
+              "title": "Add to Sidebar",
+              "key": "ctrl+t"
+            },
+            {
+              "title": "Eject",
+              "key": "cmd+e"
+            },
+            {
+              "title": "Move to Trash",
+              "key": "cmd+backspace"
+            },
+            {
+              "title": "Empty Trash",
+              "key": "shift+cmd+backspace"
+            }
+          ]
+        },
+        {
+          "title": "View",
+          "shortcuts": [
+            {
+              "title": "Show Hidden Files",
+              "key": "shift+cmd+."
+            },
+            {
+              "title": "As Icons",
+              "key": "cmd+1"
+            },
+            {
+              "title": "As List",
+              "key": "cmd+2"
+            },
+            {
+              "title": "As Columns",
+              "key": "cmd+3"
+            },
+            {
+              "title": "As Gallery",
+              "key": "cmd+4"
+            },
+            {
+              "title": "Open Quick Look",
+              "key": "cmd+y"
+            },
+            {
+              "title": "Hide/Show Toolbar",
+              "key": "opt+cmd+t"
+            },
+            {
+              "title": "Hide/Show Sidebar",
+              "key": "opt+cmd+s"
+            },
+            {
+              "title": "Hide/Show Preview pane",
+              "key": "shift+cmd+p"
+            },
+            {
+              "title": "Hide/Show Status bar",
+              "key": "cmd+/"
+            },
+            {
+              "title": "Hide/Show Path bar",
+              "key": "opt+cmd+p"
+            },
+            {
+              "title": "Hide/Show Tab bar",
+              "key": "opt+cmd+t"
+            },
+            {
+              "title": "Increase size of icons",
+              "key": "cmd++"
+            },
+            {
+              "title": "Decrease size of icons",
+              "key": "cmd+-"
+            }
+          ]
+        },
+        {
+          "title": "Navigation",
+          "shortcuts": [
+            {
+              "title": "Go to Folder",
+              "key": "shift+cmd+g"
+            },
+            {
+              "title": "Go to Home folder",
+              "key": "shift+cmd+h"
+            },
+            {
+              "title": "Go to Computer",
+              "key": "shift+cmd+c"
+            },
+            {
+              "title": "Go to Desktop",
+              "key": "shift+cmd+d"
+            },
+            {
+              "title": "Go to All My Files",
+              "key": "shift+cmd+f"
+            },
+            {
+              "title": "Go to Applications",
+              "key": "shift+cmd+a"
+            },
+            {
+              "title": "Go to iCloud Drive",
+              "key": "shift+cmd+i"
+            },
+            {
+              "title": "Go to Network",
+              "key": "shift+cmd+k"
+            },
+            {
+              "title": "Go to Recent",
+              "key": "shift+cmd+l"
+            },
+            {
+              "title": "Go to Utilities",
+              "key": "shift+cmd+u"
+            },
+            {
+              "title": "Back",
+              "key": "cmd+["
+            },
+            {
+              "title": "Forward",
+              "key": "cmd+]"
+            },
+            {
+              "title": "Scroll to Top",
+              "key": "cmd+up"
+            },
+            {
+              "title": "Scroll to Bottom",
+              "key": "cmd+down"
+            },
+            {
+              "title": "Open Applications folder",
+              "key": "shift+cmd+a"
+            },
+            {
+              "title": "Open Documents folder",
+              "key": "shift+cmd+o"
+            },
+            {
+              "title": "Open AirDrop",
+              "key": "shift+cmd+r"
+            },
+            {
+              "title": "Connect to Server",
+              "key": "cmd+k"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
