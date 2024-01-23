@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "dev": "npm run export-data && next dev",
+    "build": "npm run export-data && next build",
+    "start": "npm run export-data && next start",
     "lint": "next lint",
     "test": "jest",
     "export-data": "sh combine-apps.sh",
