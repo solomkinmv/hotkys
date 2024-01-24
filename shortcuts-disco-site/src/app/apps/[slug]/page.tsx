@@ -1,6 +1,6 @@
 import { getAllShortcuts } from "@/lib/shortcuts";
 import { notFound } from "next/navigation";
-import { AppShortcutsComponent } from "@/ui/applications/application";
+import { AppShortcutsComponent } from "@/app/apps/[slug]/application";
 import { Metadata } from "next";
 
 interface Props {

@@ -1,6 +1,6 @@
 "use client";
 
-import {Divider, Input, InputProps, InputRef, List, Menu, MenuProps, Tag, Typography} from "antd";
+import { Anchor, Divider, Input, InputProps, InputRef, List, Menu, MenuProps, Tag, Typography } from "antd";
 import {AppstoreOutlined, SettingOutlined} from "@ant-design/icons";
 import React, {useEffect, useRef, useState} from "react";
 import Fuse from "fuse.js";
@@ -126,6 +126,7 @@ export function AppShortcutsComponent({
           items={menu}
           onSelect={onSelect}
         />
+        {buildAnchor(application)}
       </div>
       <div className="content">
         <Typography.Title level={1} style={{margin: 0}}>
@@ -168,13 +169,21 @@ export function AppShortcutsComponent({
   );
 }
 
+function buildAnchor(appShortcuts: AppShortcuts) {
+  const sections = appShortcuts.keymaps[0].sections.map(section => {
+    return {
+      key: section.title,
+      href: `#${section.title}`,
+      title: section.title,
+    };
+  });
+  return <Anchor items={sections} affix={true} />;
+}
+
 function buildMenu(appShortcuts: AppShortcuts): MenuItem[] {
   const keymapSubItems = appShortcuts.keymaps.map(keymap => getItem(keymap.title, keymap.title));
-  const sections = appShortcuts.keymaps[0].sections.map(section => getItem(section.title, section.title));
   return [
     getItem("Keymaps", "keymaps", <SettingOutlined/>, keymapSubItems),
-    getItem("Sections", "sections", <AppstoreOutlined/>, sections),
-
   ];
 }
 
