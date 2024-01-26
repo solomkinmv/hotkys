@@ -5,9 +5,13 @@
 .site-body {
   width: 770px;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 .footer {
+  margin-top: auto;
   padding-bottom: 25px;
 }
 
