@@ -26,5 +26,4 @@ jobs:
         run: |
           cd shortcuts-disco-site
           npm install
-          npm run generate-sitemap
           npm test

@@ -8,8 +8,7 @@
     "start": "npm run export-data && next start",
     "lint": "next lint",
     "test": "jest",
-    "export-data": "sh combine-apps.sh",
-    "generate-sitemap": "sh generate-sitemap.sh"
+    "export-data": "sh combine-apps.sh"
   },
   "dependencies": {
     "@ant-design/nextjs-registry": "^1.0.0",
