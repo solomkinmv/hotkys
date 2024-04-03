@@ -2,7 +2,7 @@
   "$schema": "schema/shortcut.schema.json",
   "bundleId": "com.apple.finder",
   "name": "Finder",
-  "slug": "finder",
+  "slug": "apple-finder",
   "keymaps": [
     {
       "title": "Default",
