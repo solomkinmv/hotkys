@@ -26,6 +26,11 @@
       "type": "string",
       "minLength": 1
     },
+    "source": {
+      "description": "Link to the source of the shortcuts",
+      "type": "string",
+      "format": "uri"
+    },
     "keymaps": {
       "description": "List of the application keymaps. Most of the applications have single keymap that should be named 'Default'.",
       "type": "array",
