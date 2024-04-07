@@ -1,34 +1,36 @@
-import { getAllShortcuts } from "@/lib/shortcuts";
-import { notFound } from "next/navigation";
-import { AppShortcutsComponent } from "@/app/apps/[slug]/application";
-import { Metadata } from "next";
+import {getAllShortcuts} from "@/lib/shortcuts";
+import {Metadata} from "next";
+import {notFound} from "next/navigation";
+import {AppDetails} from "@/app/apps/[slug]/app-details";
 
 interface Props {
-  params: { slug: string };
+    params: { slug: string };
 }
 
-export function generateMetadata({ params }: Props): Metadata {
-  return {
-    title: findApplication(params.slug)?.name,
-  };
+export function generateMetadata({params}: Props): Metadata {
+    return {
+        title: findApplication(params.slug)?.name,
+    };
 }
 
 export async function generateStaticParams() {
-  return getAllShortcuts().applications
-    .map(app => ({ slug: app.slug }));
+    return getAllShortcuts().applications
+        .map(app => ({slug: app.slug}));
 }
 
-export default function Page({ params }: Props) {
-  const appShortcuts = findApplication(params.slug) || notFound();
+export default function SingleApplicationPage({params}: Props) {
+    const appShortcuts = findApplication(params.slug) || notFound();
 
 
-  return (
-    <AppShortcutsComponent application={appShortcuts} />
-  );
+    return (
+        <>
+            <AppDetails application={appShortcuts}/>
+        </>
+    );
 }
 
 function findApplication(slug: string) {
-  return getAllShortcuts()
-    .applications
-    .find(app => app.slug === slug);
+    return getAllShortcuts()
+        .applications
+        .find(app => app.slug === slug);
 }
