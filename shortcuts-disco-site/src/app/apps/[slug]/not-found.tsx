@@ -1,22 +1,20 @@
-"use client";
-import { Divider, Typography } from 'antd';
+import Link from "next/link";
+import {Separator} from "@/components/ui/separator";
 
-const {Text, Link} = Typography;
+export default function NotFound({params}: { params: { slug: string } }) {
+    const slug = params.slug;
+    const clarificationBlock = slug ? (
+        <div>
+            Selected bundleId <kbd>{slug}</kbd> does not exist in the database.
+        </div>
+    ) : null;
 
-export default function NotFound({ params }: { params: { slug: string } }) {
-  const slug = params.slug;
-  const clarificationBlock = slug ? (
-    <div>
-      Selected bundleId <Text code>{slug}</Text> does not exist in the database.
-    </div>
-  ) : null;
-
-  return (
-    <div>
-      <h1>Oops! Application not found</h1>
-      {clarificationBlock}
-      <Divider/>
-      <Link href="/">All supported applications</Link>
-    </div>
-  )
+    return (
+        <div>
+            <h1>Oops! Application not found</h1>
+            {clarificationBlock}
+            <Separator/>
+            <Link href="/">All supported applications</Link>
+        </div>
+    )
 }
