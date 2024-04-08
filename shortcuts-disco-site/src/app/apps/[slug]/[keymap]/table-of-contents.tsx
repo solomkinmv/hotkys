@@ -17,9 +17,10 @@ const TableOfContents = ({sections, sectionRefs}: {
 }) => {
     const observer = useRef<IntersectionObserver | null>(null);
     const anchorRefs = useAnchorRefs(sections);
-    let prevElement: HTMLAnchorElement | undefined;
 
     useEffect(() => {
+        let prevElement: HTMLAnchorElement | undefined;
+
         observer.current = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 const id = entry.target.getAttribute('id');
@@ -51,7 +52,7 @@ const TableOfContents = ({sections, sectionRefs}: {
                 observer.current.disconnect();
             }
         };
-    }, [sections, sectionRefs]);
+    }, [sections, sectionRefs, anchorRefs]);
 
     return (
         <div className="sticky top-0">
