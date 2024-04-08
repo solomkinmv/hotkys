@@ -25,7 +25,7 @@ const SearchBar = (
         return () => {
             window.removeEventListener("keydown", handleShortcut);
         };
-    }, []);
+    }, [inputRef]);
 
     return (
         <div className="relative w-full rounded-md text-sm dark:border-0">
