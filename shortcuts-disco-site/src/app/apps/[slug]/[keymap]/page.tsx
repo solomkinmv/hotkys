@@ -9,12 +9,6 @@ interface Props {
     params: { slug: string, keymap: string };
 }
 
-export function generateMetadata({params}: Props): Metadata {
-    return {
-        title: findApplication(params.slug)?.name,
-    };
-}
-
 export async function generateStaticParams() {
     return getAllShortcuts().applications
         .flatMap(app => app.keymaps.map(keymap => ({

@@ -9,9 +9,10 @@ import {serializeKeymap} from "@/lib/model/keymap-utils";
 interface KeymapSelectorProps {
     keymaps: Keymap[],
     activeKeymap: string,
+    urlPrefix: string,
 }
 
-export function KeymapSelector({keymaps, activeKeymap}: KeymapSelectorProps) {
+export function KeymapSelector({keymaps, activeKeymap, urlPrefix}: KeymapSelectorProps) {
     const [open, setOpen] = React.useState(false)
 
     return (
@@ -29,7 +30,7 @@ export function KeymapSelector({keymaps, activeKeymap}: KeymapSelectorProps) {
             </PopoverTrigger>
             <PopoverContent className="p-0 w-[200px]">
                 {keymaps.map((keymap) => (
-                    <Link href={serializeKeymap(keymap)}
+                    <Link href={`${urlPrefix}/${serializeKeymap(keymap)}`}
                           passHref
                           key={keymap.title}
                           className="block cursor-pointer px-2 py-2 hover:bg-slate-100/50">
