@@ -1,20 +1,22 @@
 import React from 'react';
 import Link from 'next/link';
 import {GithubIcon, TwitterIcon} from "@/components/ui/icons";
+import {Keyboard} from "lucide-react";
 
 export const Header = () => {
     return (
         <header className="border-b">
             <div className="mx-auto flex max-w-3xl items-center justify-between py-6">
-                <nav className="flex gap-4">
-                    <Link className="flex items-center gap-2" href="/">
+                <nav className="flex items-center gap-4">
+                    <Link className="flex items-center gap-2 border-b-2 border-transparent hover:border-blue-500" href="/">
+                        <Keyboard />
                         <span className="text-lg font-semibold">Shortcuts Disco</span>
                     </Link>
-                    <Link className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
+                    <Link className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50 hover:border-b-2 hover:border-blue-500"
                           href="/about">
                         About
                     </Link>
-                    <Link className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
+                    <Link className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50 hover:border-b-2 hover:border-blue-500"
                           href="/raycast-extension">
                         Raycast Extension
                     </Link>
