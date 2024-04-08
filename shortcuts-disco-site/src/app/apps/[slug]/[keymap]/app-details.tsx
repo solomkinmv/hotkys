@@ -11,6 +11,8 @@ import Fuse from "fuse.js";
 import {KeymapSelector} from "@/app/apps/[slug]/[keymap]/keymap-selector";
 import TableOfContents from "@/app/apps/[slug]/[keymap]/table-of-contents";
 import {ListItem} from "@/components/ui/list";
+import Link from "next/link";
+import {cn} from "@/lib/utils";
 
 export const AppDetails = ({
                                application,
@@ -76,14 +78,19 @@ export const AppDetails = ({
             <div className="grid gap-4 p-4 md:w-50 md:gap-6">
                 <div className="flex gap-4">
                     <div className="flex flex-col">
-                        <KeymapSelector keymaps={application.keymaps} activeKeymap={keymap.title} urlPrefix={`/apps/${application.slug}`}/>
+                        <KeymapSelector keymaps={application.keymaps} activeKeymap={keymap.title}
+                                        urlPrefix={`/apps/${application.slug}`}/>
                         <TableOfContents sections={keymap.sections} sectionRefs={sectionRefs}/>
                     </div>
                 </div>
             </div>
             <div className="grid min-h-0 flex-1 border-l">
                 <div className="min-h-0 flex-1 p-4 md:p-6">
-                    <Header1>{application.name}</Header1>
+                    <Header1 className={cn(application.source && "mb-0")}>{application.name}</Header1>
+                    {application.source &&
+                        <Link href={application.source} className="text-sm text-gray-500 hover:underline">
+                            Source
+                        </Link>}
                     <SearchBar onChange={handleSearch}/>
                     {appDetails}
                 </div>

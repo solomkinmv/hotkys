@@ -8,10 +8,10 @@ export function Paragraph({children}: {children: React.ReactNode}) {
   )
 }
 
-export function Header1({children}: {children: string}) {
+export function Header1({children, className}: {children: string, className?: string}) {
   return (
-    <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
-      {children}
-    </h1>
+      <h1 className={`scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl ${className}`}>
+        {children}
+      </h1>
   )
 }
