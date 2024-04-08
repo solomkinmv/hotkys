@@ -21,18 +21,18 @@ export function KeymapSelector({keymaps, activeKeymap}: KeymapSelectorProps) {
                     variant="outline"
                     role="combobox"
                     aria-expanded={open}
-                    className="w-[200px] justify-between"
+                    className="justify-between w-[200px]"
                 >
                     {activeKeymap}
                     <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50"/>
                 </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-[200px] p-0">
+            <PopoverContent className="p-0 w-[200px]">
                 {keymaps.map((keymap) => (
                     <Link href={serializeKeymap(keymap)}
                           passHref
                           key={keymap.title}
-                          className="block cursor-pointer hover:bg-slate-100/50 px-2 py-2">
+                          className="block cursor-pointer px-2 py-2 hover:bg-slate-100/50">
                         {keymap.title}
                     </Link>
                 ))}

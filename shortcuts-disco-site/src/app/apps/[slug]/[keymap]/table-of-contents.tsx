@@ -55,12 +55,12 @@ const TableOfContents = ({sections, sectionRefs}: {
 
     return (
         <div className="sticky top-0">
-            <h2 className="text-lg font-bold mb-2">Sections</h2>
+            <h2 className="mb-2 text-lg font-bold">Sections</h2>
             {sections.map((section) => (
                 <Link href={`#${section.title}`}
                       key={section.title}
                       ref={anchorRefs.current[section.title]}
-                      className="block cursor-pointer hover:bg-slate-100/50 px-2 py-1 not-prose">
+                      className="block cursor-pointer px-2 py-1 not-prose hover:bg-slate-100/50">
                     {section.title}
                 </Link>
             ))}

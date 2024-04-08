@@ -1,7 +1,6 @@
 "use client";
 
 import {AppShortcuts, Keymap, SectionShortcut} from "@/lib/model/internal/internal-models";
-import {Table, TableBody, TableCell, TableRow} from "@/components/ui/table";
 import {KeyboardBadge} from "@/components/ui/keyboard-badge";
 import {modifierMapping, modifierSymbols} from "@/lib/model/internal/modifiers";
 import {SeparatorWithText} from "@/components/ui/separator-with-text";
@@ -11,6 +10,7 @@ import {Header1} from "@/components/ui/typography";
 import Fuse from "fuse.js";
 import {KeymapSelector} from "@/app/apps/[slug]/[keymap]/keymap-selector";
 import TableOfContents from "@/app/apps/[slug]/[keymap]/table-of-contents";
+import {ListItem} from "@/components/ui/list";
 
 export const AppDetails = ({
                                application,
@@ -56,28 +56,24 @@ export const AppDetails = ({
         return (
             <div id={section.title} key={section.title} ref={sectionRefs.current[section.title]}>
                 <SeparatorWithText>{section.title}</SeparatorWithText>
-                <Table>
-                    <TableBody>
-                        {section.hotkeys.map((hotkey, idx) => (
-                            <TableRow key={hotkey.title + idx}>
-                                <TableCell className="font-medium">
-                                    {hotkey.title}
-                                    <KeyboardBadge base={generateHotkeyText(hotkey)} className="ml-2"/>
-                                </TableCell>
-                                <TableCell className="text-gray-500 text-right">
-                                    {generateCommentText(hotkey.comment)}
-                                </TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
+                {section.hotkeys.map((hotkey, idx) => (
+                    <ListItem key={hotkey.title + idx}>
+                        <span className="font-medium">
+                            <span>{hotkey.title}</span>
+                            <KeyboardBadge base={generateHotkeyText(hotkey)} className="ml-2"/>
+                        </span>
+                        <span className="text-right text-gray-500">
+                            {generateCommentText(hotkey.comment)}
+                        </span>
+                    </ListItem>
+                ))}
             </div>
         );
     });
 
-    return <section className="prose prose-gray max-w-3xl mx-auto dark:prose-invert">
-        <div className="flex flex-1 min-h-0 w-full">
-            <div className="grid gap-4 p-4 md:gap-6 md:w-50">
+    return (
+        <div className="flex min-h-0 w-full flex-1">
+            <div className="grid gap-4 p-4 md:w-50 md:gap-6">
                 <div className="flex gap-4">
                     <div className="flex flex-col">
                         <KeymapSelector keymaps={application.keymaps} activeKeymap={keymap.title}/>
@@ -85,15 +81,15 @@ export const AppDetails = ({
                     </div>
                 </div>
             </div>
-            <div className="flex-1 border-l grid min-h-0">
-                <div className="flex-1 p-4 min-h-0 md:p-6">
+            <div className="grid min-h-0 flex-1 border-l">
+                <div className="min-h-0 flex-1 p-4 md:p-6">
                     <Header1>{application.name}</Header1>
                     <SearchBar onChange={handleSearch}/>
                     {appDetails}
                 </div>
             </div>
         </div>
-    </section>;
+    );
 };
 
 function generateHotkeyText(shortcut: SectionShortcut): string {

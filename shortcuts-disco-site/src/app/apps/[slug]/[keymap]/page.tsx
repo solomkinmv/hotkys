@@ -28,9 +28,9 @@ export default function SingleApplicationPage({params}: Props) {
     const keymap = findKeymap(appShortcuts, params.keymap) || notFound();
 
     return (
-        <>
+        <section className="mx-auto max-w-3xl prose prose-gray dark:prose-invert">
             <AppDetails application={appShortcuts} keymap={keymap}/>
-        </>
+        </section>
     );
 }
 
