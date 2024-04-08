@@ -1,28 +1,34 @@
 "use client";
 
-import {AppShortcuts, SectionShortcut} from "@/lib/model/internal/internal-models";
+import {AppShortcuts, Keymap, SectionShortcut} from "@/lib/model/internal/internal-models";
 import {Table, TableBody, TableCell, TableRow} from "@/components/ui/table";
 import {KeyboardBadge} from "@/components/ui/keyboard-badge";
 import {modifierMapping, modifierSymbols} from "@/lib/model/internal/modifiers";
 import {SeparatorWithText} from "@/components/ui/separator-with-text";
-import TableOfContents from "@/app/apps/[slug]/table-of-contents";
 import React, {useRef, useState} from "react";
 import {SearchBar} from "@/components/ui/search-bar";
 import {Header1} from "@/components/ui/typography";
 import Fuse from "fuse.js";
+import {KeymapSelector} from "@/app/apps/[slug]/[keymap]/keymap-selector";
+import TableOfContents from "@/app/apps/[slug]/[keymap]/table-of-contents";
 
 export const AppDetails = ({
                                application,
+                               keymap
                            }: {
-    application: AppShortcuts;
+    application: AppShortcuts,
+    keymap: Keymap
 }) => {
 
 
-    const keymap = application.keymaps[0];
     const [searchResults, setSearchResults] = useState(keymap.sections);
 
 
-    const hotkeys = keymap.sections.flatMap(section => section.hotkeys.map(hotkey => ({...hotkey, sectionTitle: section.title})));
+    const hotkeys = keymap.sections.flatMap(section =>
+        section.hotkeys.map(hotkey => ({
+            ...hotkey,
+            sectionTitle: section.title
+        })));
 
     const fuse = new Fuse(hotkeys, {
         keys: ["title"],
@@ -74,6 +80,7 @@ export const AppDetails = ({
             <div className="grid gap-4 p-4 md:gap-6 md:w-50">
                 <div className="flex gap-4">
                     <div className="flex flex-col">
+                        <KeymapSelector keymaps={application.keymaps} activeKeymap={keymap.title}/>
                         <TableOfContents sections={keymap.sections} sectionRefs={sectionRefs}/>
                     </div>
                 </div>
