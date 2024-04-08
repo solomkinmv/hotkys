@@ -76,7 +76,7 @@ export const AppDetails = ({
             <div className="grid gap-4 p-4 md:w-50 md:gap-6">
                 <div className="flex gap-4">
                     <div className="flex flex-col">
-                        <KeymapSelector keymaps={application.keymaps} activeKeymap={keymap.title}/>
+                        <KeymapSelector keymaps={application.keymaps} activeKeymap={keymap.title} urlPrefix={`/apps/${application.slug}`}/>
                         <TableOfContents sections={keymap.sections} sectionRefs={sectionRefs}/>
                     </div>
                 </div>
