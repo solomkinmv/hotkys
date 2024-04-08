@@ -1,9 +1,10 @@
 import React, {useEffect, useRef} from 'react';
 import 'tailwindcss/tailwind.css'
 import {Section} from "@/lib/model/internal/internal-models";
+import Link from "next/link";
 
 function useAnchorRefs(sections: Section[]) {
-    const anchorRefs = useRef<Record<string, React.RefObject<HTMLDivElement>>>({});
+    const anchorRefs = useRef<Record<string, React.RefObject<HTMLAnchorElement>>>({});
     sections.forEach(section => {
         anchorRefs.current[section.title] = React.createRef();
     });
@@ -16,16 +17,14 @@ const TableOfContents = ({sections, sectionRefs}: {
 }) => {
     const observer = useRef<IntersectionObserver | null>(null);
     const anchorRefs = useAnchorRefs(sections);
-    let prevElement: HTMLDivElement | undefined;
+    let prevElement: HTMLAnchorElement | undefined;
 
     useEffect(() => {
         observer.current = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                console.log("Observed element: ", entry.target);
                 const id = entry.target.getAttribute('id');
                 if (!id) return;
                 let element = anchorRefs.current[id];
-                console.log("Corresponding anchor tag: ", element);
                 if (element && element.current) {
                     if (entry.isIntersecting) {
                         if (prevElement) {
@@ -43,7 +42,6 @@ const TableOfContents = ({sections, sectionRefs}: {
         // Observe the elements
         Object.values(sectionRefs.current).forEach((ref) => {
             if (observer.current && ref.current) {
-                console.log("Observing element: ", ref.current);
                 observer.current.observe(ref.current);
             }
         });
@@ -56,14 +54,15 @@ const TableOfContents = ({sections, sectionRefs}: {
     }, [sections, sectionRefs]);
 
     return (
-        <div className="toc p-4 sticky top-0">
+        <div className="sticky top-0">
             <h2 className="text-lg font-bold mb-2">Sections</h2>
             {sections.map((section) => (
-                <div key={section.title} ref={anchorRefs.current[section.title]}>
-                    <a href={`#${section.title}`} className="not-prose">
-                        {section.title}
-                    </a>
-                </div>
+                <Link href={`#${section.title}`}
+                      key={section.title}
+                      ref={anchorRefs.current[section.title]}
+                      className="block cursor-pointer hover:bg-gray-200 px-2 py-1 not-prose">
+                    {section.title}
+                </Link>
             ))}
         </div>
     );

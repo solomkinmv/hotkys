@@ -17,7 +17,6 @@ export const ApplicationList = (
         applications: AppShortcuts[];
     }) => {
 
-    const [searchShortcutVisible, setSearchShortcutVisible] = useState(true);
     const [appShortcuts, setAppShortcuts] = useState(applications);
 
 
@@ -43,7 +42,7 @@ export const ApplicationList = (
                     {appShortcuts.map((app) => (
                         <TableRow key={app.slug}>
                             <TableCell className="font-medium"><Link
-                                href={`/apps/${app.slug}`}>{app.name}</Link></TableCell>
+                                href={`/apps/${app.slug}/default`}>{app.name}</Link></TableCell>
                             <TableCell className="text-right"><KeyboardBadge base={app.bundleId}/></TableCell>
                         </TableRow>
                     ))}
