@@ -11,25 +11,25 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <section className="prose prose-gray max-w-3xl mx-auto dark:prose-invert">
+    <section className="mx-auto max-w-3xl prose prose-gray dark:prose-invert">
       <Header1>RayCast Extension: Shortcuts Search</Header1>
       <div className="flex flex-wrap justify-around">
-        <div className="w-full sm:w-1/2 p-4">
+        <div className="w-full p-4 sm:w-1/2">
           <Image alt="List of all aps in Raycast extension"
                  width={380} height={238} src="media/shortcuts-search-1.png"
                  className="mt-0 mb-0" />
         </div>
-        <div className="w-full sm:w-1/2 p-4">
+        <div className="w-full p-4 sm:w-1/2">
           <Image alt="App search in Raycast extension"
                  width={380} height={238} src="media/shortcuts-search-2.png"
                  className="mt-0 mb-0" />
         </div>
-        <div className="w-full sm:w-1/2 p-4">
+        <div className="w-full p-4 sm:w-1/2">
           <Image alt="Application specific shortcuts in Raycast extension"
                  width={380} height={238} src="media/shortcuts-search-3.png"
                  className="mt-0 mb-0" />
         </div>
-        <div className="w-full sm:w-1/2 p-4">
+        <div className="w-full p-4 sm:w-1/2">
           <Image alt="Shortcut sarch in Raycast extension"
                  width={380} height={238} src="media/shortcuts-search-4.png"
                  className="mt-0 mb-0" />

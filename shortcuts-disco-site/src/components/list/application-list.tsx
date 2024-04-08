@@ -3,11 +3,10 @@
 import React, {useState} from "react";
 import {AppShortcuts} from "@/lib/model/internal/internal-models";
 import Fuse from "fuse.js";
-import {Table, TableBody, TableCell, TableRow} from "@/components/ui/table";
 import {KeyboardBadge} from "@/components/ui/keyboard-badge";
-import Link from "next/link";
 import {InputProps} from "@/components/ui/input";
 import {SearchBar} from "@/components/ui/search-bar";
+import {LinkableListItem} from "@/components/ui/list";
 
 
 export const ApplicationList = (
@@ -18,7 +17,6 @@ export const ApplicationList = (
     }) => {
 
     const [appShortcuts, setAppShortcuts] = useState(applications);
-
 
     const fuse = new Fuse(applications, {
         keys: ["name"],
@@ -37,17 +35,14 @@ export const ApplicationList = (
     return (
         <>
             <SearchBar onChange={onChange}/>
-            <Table>
-                <TableBody>
-                    {appShortcuts.map((app) => (
-                        <TableRow key={app.slug}>
-                            <TableCell className="font-medium"><Link
-                                href={`/apps/${app.slug}/default`}>{app.name}</Link></TableCell>
-                            <TableCell className="text-right"><KeyboardBadge base={app.bundleId}/></TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
+            <div className="mt-2">
+                {appShortcuts.map((app) => (
+                    <LinkableListItem key={app.slug} to={`/apps/${app.slug}/default`}>
+                        <span>{app.name}</span>
+                        <KeyboardBadge base={app.bundleId}/>
+                    </LinkableListItem>
+                ))}
+            </div>
         </>
     );
 };

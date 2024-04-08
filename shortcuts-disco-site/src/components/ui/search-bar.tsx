@@ -28,7 +28,7 @@ const SearchBar = (
     }, []);
 
     return (
-        <div className="relative w-full text-sm rounded-md dark:border-0">
+        <div className="relative w-full rounded-md text-sm dark:border-0">
             <Input
                 className="w-full pl-10"
                 placeholder="Search"
@@ -37,11 +37,11 @@ const SearchBar = (
                 ref={inputRef}
                 {...props}
             />
-            <SearchIcon className="absolute left-2.5 top-2.5 h-5 w-5 text-gray-300 dark:text-gray-700"/>
+            <SearchIcon className="absolute h-5 w-5 text-gray-300 left-2.5 top-2.5 dark:text-gray-700"/>
             <KeyboardBadge
                 modifiers="⌘"
                 base="K"
-                className="absolute right-4 top-2.5 h-5 w-5 text-gray-300 dark:text-gray-700"
+                className="absolute right-4 h-5 w-5 text-gray-300 top-2.5 dark:text-gray-700"
             />
         </div>
     );
