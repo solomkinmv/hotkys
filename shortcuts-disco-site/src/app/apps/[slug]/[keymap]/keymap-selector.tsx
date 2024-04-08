@@ -32,7 +32,7 @@ export function KeymapSelector({keymaps, activeKeymap}: KeymapSelectorProps) {
                     <Link href={serializeKeymap(keymap)}
                           passHref
                           key={keymap.title}
-                          className="block cursor-pointer hover:bg-gray-200 px-2 py-2">
+                          className="block cursor-pointer hover:bg-slate-100/50 px-2 py-2">
                         {keymap.title}
                     </Link>
                 ))}
