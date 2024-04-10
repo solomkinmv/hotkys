@@ -1,5 +1,6 @@
 import {MetadataRoute} from "next";
 import {getAllShortcuts} from "@/lib/shortcuts";
+import {serializeKeymap} from "@/lib/model/keymap-utils";
 
 const ChangeFrequency = {
     ALWAYS: "always",
@@ -42,7 +43,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         });
         for (const keymap of app.keymaps) {
             sitePages.push({
-                url: `https://shortcuts.solomk.in/apps/${app.slug}/${keymap.title}`,
+                url: `https://shortcuts.solomk.in/apps/${app.slug}/${serializeKeymap(keymap)}`,
                 lastModified: new Date(),
                 changeFrequency: ChangeFrequency.WEEKLY,
                 priority: 0.7,
