@@ -39,7 +39,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             url: `https://shortcuts.solomk.in/apps/${app.slug}`,
             lastModified: new Date(),
             changeFrequency: ChangeFrequency.WEEKLY,
-            priority: 0.7,
+            priority: 0.3,
         });
         for (const keymap of app.keymaps) {
             sitePages.push({
