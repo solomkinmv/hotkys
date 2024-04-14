@@ -83,6 +83,15 @@
               "key": "shift+cmd+w"
             }
           ]
+        },
+        {
+          "title": "Formatting",
+          "shortcuts": [
+            {
+              "title": "Apply formatting to markdown text",
+              "key": "ctrl+shift+f"
+            }
+          ]
         }
       ]
     }
