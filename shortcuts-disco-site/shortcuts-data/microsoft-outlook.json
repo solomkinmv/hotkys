@@ -80,6 +80,10 @@
               "key": "cmd+t"
             },
             {
+              "title": "Archive message",
+              "key": "ctrl+e"
+            },
+            {
               "title": "Mark message as unread",
               "key": "shift+cmd+t"
             },
