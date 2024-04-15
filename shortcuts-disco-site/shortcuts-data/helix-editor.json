@@ -1,6 +1,6 @@
 {
   "$schema": "schema/shortcut.schema.json",
-  "bundleId": "helix.editor",
+  "bundleId": "",
   "name": "Helix",
   "slug": "helix-editor",
   "source": "https://docs.helix-editor.com/keymap.html",
@@ -13,19 +13,35 @@
           "shortcuts": [
             {
               "title": "Move left",
-              "key": "h, left"
+              "key": "h"
+            },
+            {
+              "title": "Move left",
+              "key": "left"
             },
             {
               "title": "Move down",
-              "key": "j, down"
+              "key": "j"
+            },
+            {
+              "title": "Move down",
+              "key": "down"
             },
             {
               "title": "Move up",
-              "key": "k, up"
+              "key": "k"
+            },
+            {
+              "title": "Move up",
+              "key": "up"
             },
             {
               "title": "Move right",
-              "key": "l, right"
+              "key": "l"
+            },
+            {
+              "title": "Move right",
+              "key": "right"
             },
             {
               "title": "Move next word start",
@@ -41,15 +57,15 @@
             },
             {
               "title": "Move next WORD start",
-              "key": "W"
+              "key": "shift+w"
             },
             {
               "title": "Move previous WORD start",
-              "key": "B"
+              "key": "shift+b"
             },
             {
               "title": "Move next WORD end",
-              "key": "E"
+              "key": "shift+e"
             },
             {
               "title": "Find 'till next char",
@@ -61,19 +77,19 @@
             },
             {
               "title": "Find 'till previous char",
-              "key": "T"
+              "key": "shift+t"
             },
             {
               "title": "Find previous char",
-              "key": "F"
+              "key": "shift+f"
             },
             {
               "title": "Go to line number <n>",
-              "key": "G"
+              "key": "shift+g"
             },
             {
               "title": "Repeat last motion (f, t or m)",
-              "key": "opt-."
+              "key": "opt+."
             },
             {
               "title": "Move to the start of the line",
@@ -85,31 +101,39 @@
             },
             {
               "title": "Move page up",
-              "key": "ctrl-b, pageup"
+              "key": "ctrl+b"
+            },
+            {
+              "title": "Move page up",
+              "key": "pageup"
             },
             {
               "title": "Move page down",
-              "key": "ctrl-f, pagedown"
+              "key": "ctrl+f"
+            },
+            {
+              "title": "Move page down",
+              "key": "pagedown"
             },
             {
               "title": "Move half page up",
-              "key": "ctrl-u"
+              "key": "ctrl+u"
             },
             {
               "title": "Move half page down",
-              "key": "ctrl-d"
+              "key": "ctrl+d"
             },
             {
               "title": "Jump forward on the jumplist",
-              "key": "ctrl-i"
+              "key": "ctrl+i"
             },
             {
               "title": "Jump backward on the jumplist",
-              "key": "ctrl-o"
+              "key": "ctrl+o"
             },
             {
               "title": "Save the current selection to the jumplist",
-              "key": "ctrl-s"
+              "key": "ctrl+s"
             }
           ]
         },
@@ -122,7 +146,7 @@
             },
             {
               "title": "Replace with yanked text",
-              "key": "R"
+              "key": "shift+r"
             },
             {
               "title": "Switch case of the selected text",
@@ -134,7 +158,7 @@
             },
             {
               "title": "Set the selected text to upper case",
-              "key": "opt-`"
+              "key": "opt+`"
             },
             {
               "title": "Insert before selection",
@@ -146,11 +170,11 @@
             },
             {
               "title": "Insert at the start of the line",
-              "key": "I"
+              "key": "shift+i"
             },
             {
               "title": "Insert at the end of the line",
-              "key": "A"
+              "key": "shift+a"
             },
             {
               "title": "Open new line below selection",
@@ -158,7 +182,7 @@
             },
             {
               "title": "Open new line above selection",
-              "key": "O"
+              "key": "shift+o"
             },
             {
               "title": "Repeat last insert",
@@ -170,15 +194,15 @@
             },
             {
               "title": "Redo change",
-              "key": "U"
+              "key": "shift+u"
             },
             {
               "title": "Move backward in history",
-              "key": "opt-u"
+              "key": "opt+u"
             },
             {
               "title": "Move forward in history",
-              "key": "opt-U"
+              "key": "shift+opt+u"
             },
             {
               "title": "Yank selection",
@@ -190,7 +214,7 @@
             },
             {
               "title": "Paste before selection",
-              "key": "P"
+              "key": "shift+p"
             },
             {
               "title": "Select a register to yank to or paste from",
@@ -214,7 +238,7 @@
             },
             {
               "title": "delete selection, without yanking",
-              "key": "opt-d"
+              "key": "opt+d"
             },
             {
               "title": "Change selection (delete and enter insert mode)",
@@ -222,19 +246,19 @@
             },
             {
               "title": "Change select - del and to insert mod without yank",
-              "key": "opt-c"
+              "key": "opt+c"
             },
             {
               "title": "Increment object (number) under cursor",
-              "key": "ctrl-a"
+              "key": "ctrl+a"
             },
             {
               "title": "Decrement object (number) under cursor",
-              "key": "ctrl-x"
+              "key": "ctrl+x"
             },
             {
               "title": "Start/stop macro record to selected register",
-              "key": "Q"
+              "key": "shift+q"
             },
             {
               "title": "Play back a recorded macro from selected register",
@@ -251,7 +275,7 @@
             },
             {
               "title": "Pipe each select into shell command ignore output",
-              "key": "opt-|"
+              "key": "opt+|"
             },
             {
               "title": "Run shell cmd, insert output before each selection",
@@ -259,7 +283,7 @@
             },
             {
               "title": "Run shell cmd, append output after each selection",
-              "key": "opt-!"
+              "key": "opt+!"
             },
             {
               "title": "Pipe all select to shl cmd keep select cmd retur 0",
@@ -276,19 +300,19 @@
             },
             {
               "title": "Split select into sub selections on regex matches",
-              "key": "S"
+              "key": "shift+s"
             },
             {
               "title": "Split selection on newlines",
-              "key": "opt-s"
+              "key": "opt+s"
             },
             {
               "title": "Merge selections",
-              "key": "opt-minus"
+              "key": "opt+-"
             },
             {
               "title": "Merge consecutive selections",
-              "key": "opt-_"
+              "key": "opt+_"
             },
             {
               "title": "Align selection in columns",
@@ -304,11 +328,11 @@
             },
             {
               "title": "Flip selection cursor and anchor",
-              "key": "opt-;"
+              "key": "opt+;"
             },
             {
               "title": "Ensures the selection is in forward direction",
-              "key": "opt-:"
+              "key": "opt+:"
             },
             {
               "title": "Keep only the primary selection",
@@ -316,15 +340,15 @@
             },
             {
               "title": "Remove the primary selection",
-              "key": "opt-,"
+              "key": "opt+,"
             },
             {
               "title": "Copy select onto the next line (Add cursor below)",
-              "key": "C"
+              "key": "shift+c"
             },
             {
               "title": "Copy select to the previous line Add cursor above",
-              "key": "opt-C"
+              "key": "shift+opt+c"
             },
             {
               "title": "Rotate main selection backward",
@@ -336,11 +360,11 @@
             },
             {
               "title": "Rotate selection contents backward",
-              "key": "opt-("
+              "key": "opt+("
             },
             {
               "title": "Rotate selection contents forward",
-              "key": "opt-)"
+              "key": "opt+)"
             },
             {
               "title": "Select entire file",
@@ -352,47 +376,63 @@
             },
             {
               "title": "Extend select to line bounds (line-wise selection)",
-              "key": "X"
+              "key": "shift+x"
             },
             {
               "title": "Shrink select to line bounds (line-wise selection)",
-              "key": "opt-x"
+              "key": "opt+x"
             },
             {
               "title": "Join lines inside selection",
-              "key": "J"
+              "key": "shift+j"
             },
             {
               "title": "Join lines inside select and select inserted space",
-              "key": "opt-J"
+              "key": "shift+opt+j"
             },
             {
               "title": "Keep selections matching the regex",
-              "key": "K"
+              "key": "shift+k"
             },
             {
               "title": "Remove selections matching the regex",
-              "key": "opt-K"
+              "key": "shift+opt+k"
             },
             {
               "title": "Comment/uncomment the selections",
-              "key": "ctrl-c"
+              "key": "ctrl+c"
             },
             {
               "title": "Expand selection to parent syntax node (TS)",
-              "key": "opt-o, opt-up"
+              "key": "opt+o"
+            },
+            {
+              "title": "Expand selection to parent syntax node (TS)",
+              "key": "opt+up"
             },
             {
               "title": "Shrink syntax tree object selection (TS)",
-              "key": "opt-i, opt-down"
+              "key": "opt+i"
+            },
+            {
+              "title": "Shrink syntax tree object selection (TS)",
+              "key": "opt+down"
             },
             {
               "title": "Select previous sibling node in syntax tree (TS)",
-              "key": "opt-p, opt-left"
+              "key": "opt+p"
+            },
+            {
+              "title": "Select previous sibling node in syntax tree (TS)",
+              "key": "opt+left"
             },
             {
               "title": "Select next sibling node in syntax tree (TS)",
-              "key": "opt-n, opt-right"
+              "key": "opt+n"
+            },
+            {
+              "title": "Select next sibling node in syntax tree (TS)",
+              "key": "opt+right"
             }
           ]
         },
@@ -413,7 +453,7 @@
             },
             {
               "title": "Select previous search match",
-              "key": "N"
+              "key": "shift+n"
             },
             {
               "title": "Use current selection as the search pattern",
@@ -446,11 +486,11 @@
             },
             {
               "title": "enter sticky view mode",
-              "key": "Z"
+              "key": "shift+z"
             },
             {
               "title": "enter window mode",
-              "key": "ctrl-w"
+              "key": "ctrl+w"
             },
             {
               "title": "enter space mode",
@@ -463,7 +503,11 @@
           "shortcuts": [
             {
               "title": "Vertically center the line",
-              "key": "z, c"
+              "key": "z"
+            },
+            {
+              "title": "Vertically center the line",
+              "key": "c"
             },
             {
               "title": "Align the line to the top of the screen",
@@ -479,27 +523,43 @@
             },
             {
               "title": "Scroll the view downwards",
-              "key": "j, down"
+              "key": "j"
+            },
+            {
+              "title": "Scroll the view downwards",
+              "key": "down"
             },
             {
               "title": "Scroll the view upwards",
-              "key": "k, up"
+              "key": "k"
+            },
+            {
+              "title": "Scroll the view upwards",
+              "key": "up"
             },
             {
               "title": "Move page down",
-              "key": "ctrl-f, pagedown"
+              "key": "ctrl+f"
+            },
+            {
+              "title": "Move page down",
+              "key": "pagedown"
             },
             {
               "title": "Move page up",
-              "key": "ctrl-b, pageup"
+              "key": "ctrl+b"
+            },
+            {
+              "title": "Move page up",
+              "key": "pageup"
             },
             {
               "title": "Move half page down",
-              "key": "ctrl-d"
+              "key": "ctrl+d"
             },
             {
               "title": "Move half page up",
-              "key": "ctrl-u"
+              "key": "ctrl+u"
             }
           ]
         },
@@ -622,15 +682,27 @@
           "shortcuts": [
             {
               "title": "Switch to next window",
-              "key": "w, ctrl-w"
+              "key": "w"
+            },
+            {
+              "title": "Switch to next window",
+              "key": "ctrl+w"
             },
             {
               "title": "Vertical right split",
-              "key": "v, ctrl-v"
+              "key": "v"
+            },
+            {
+              "title": "Vertical right split",
+              "key": "ctrl+v"
             },
             {
               "title": "Horizontal bottom split",
-              "key": "s, ctrl-s"
+              "key": "s"
+            },
+            {
+              "title": "Horizontal bottom split",
+              "key": "ctrl+s"
             },
             {
               "title": "Go to files in the selection in horizontal splits",
@@ -638,47 +710,87 @@
             },
             {
               "title": "Go to files in the selection in vertical splits",
-              "key": "F"
+              "key": "shift+f"
             },
             {
               "title": "Move to left split",
-              "key": "h, ctrl-h, left"
+              "key": "h"
+            },
+            {
+              "title": "Move to left split",
+              "key": "ctrl+h"
+            },
+            {
+              "title": "Move to left split",
+              "key": "left"
             },
             {
               "title": "Move to split below",
-              "key": "j, ctrl-j, down"
+              "key": "j"
+            },
+            {
+              "title": "Move to split below",
+              "key": "ctrl+j"
+            },
+            {
+              "title": "Move to split below",
+              "key": "down"
             },
             {
               "title": "Move to split above",
-              "key": "k, ctrl-k, up"
+              "key": "k"
+            },
+            {
+              "title": "Move to split above",
+              "key": "ctrl+k"
+            },
+            {
+              "title": "Move to split above",
+              "key": "up"
             },
             {
               "title": "Move to right split",
-              "key": "l, ctrl-l, right"
+              "key": "l"
+            },
+            {
+              "title": "Move to right split",
+              "key": "ctrl+l"
+            },
+            {
+              "title": "Move to right split",
+              "key": "right"
             },
             {
               "title": "Close current window",
-              "key": "q, ctrl-q"
+              "key": "q"
+            },
+            {
+              "title": "Close current window",
+              "key": "ctrl+q"
             },
             {
               "title": "Only keep current window, closing all the others",
-              "key": "o, ctrl-o"
+              "key": "o"
+            },
+            {
+              "title": "Only keep current window, closing all the others",
+              "key": "ctrl+o"
             },
             {
               "title": "Swap window to the left",
-              "key": "H"
+              "key": "shift+h"
             },
             {
               "title": "Swap window downwards",
-              "key": "J"
+              "key": "shift+j"
             },
             {
               "title": "Swap window upwards",
-              "key": "K"
+              "key": "shift+k"
             },
             {
               "title": "Swap window to the right",
-              "key": "L"
+              "key": "shift+l"
             }
           ]
         },
@@ -691,7 +803,7 @@
             },
             {
               "title": "Open file picker at current working directory",
-              "key": "F"
+              "key": "shift+f"
             },
             {
               "title": "Open buffer picker",
@@ -715,7 +827,7 @@
             },
             {
               "title": "Open workspace symbol picker (LSP)",
-              "key": "S"
+              "key": "shift+s"
             },
             {
               "title": "Open document diagnostics picker (LSP)",
@@ -723,7 +835,7 @@
             },
             {
               "title": "Open workspace diagnostics picker (LSP)",
-              "key": "D"
+              "key": "shift+d"
             },
             {
               "title": "Rename symbol (LSP)",
@@ -751,7 +863,7 @@
             },
             {
               "title": "Paste system clipboard before selections",
-              "key": "P"
+              "key": "shift+p"
             },
             {
               "title": "Yank selections to clipboard",
@@ -759,11 +871,11 @@
             },
             {
               "title": "Yank main selection to clipboard",
-              "key": "Y"
+              "key": "shift+y"
             },
             {
               "title": "Replace selections by clipboard contents",
-              "key": "R"
+              "key": "shift+r"
             },
             {
               "title": "Global search in workspace folder",
@@ -780,11 +892,11 @@
           "shortcuts": [
             {
               "title": "Scroll up",
-              "key": "ctrl-u"
+              "key": "ctrl+u"
             },
             {
               "title": "Scroll down",
-              "key": "ctrl-d"
+              "key": "ctrl+d"
             }
           ]
         },
@@ -895,43 +1007,59 @@
             },
             {
               "title": "Commit undo checkpoint",
-              "key": "ctrl-s"
+              "key": "ctrl+s"
             },
             {
               "title": "Autocomplete",
-              "key": "ctrl-x"
+              "key": "ctrl+x"
             },
             {
               "title": "Insert a register content",
-              "key": "ctrl-r"
+              "key": "ctrl+r"
             },
             {
               "title": "delete previous word",
-              "key": "ctrl-w, opt-backspace"
+              "key": "ctrl+w"
+            },
+            {
+              "title": "delete previous word",
+              "key": "opt+backspace"
             },
             {
               "title": "delete next word",
-              "key": "opt-d, opt-delete"
+              "key": "opt+d"
             },
             {
               "title": "delete to start of line",
-              "key": "ctrl-u"
+              "key": "ctrl+u"
             },
             {
               "title": "delete to end of line",
-              "key": "ctrl-k"
+              "key": "ctrl+k"
             },
             {
               "title": "delete previous char",
-              "key": "ctrl-h, backspace, shift-backspace"
+              "key": "ctrl+h"
+            },
+            {
+              "title": "delete previous char",
+              "key": "backspace"
+            },
+            {
+              "title": "delete previous char",
+              "key": "shift+backspace"
             },
             {
               "title": "delete next char",
-              "key": "ctrl-d, delete"
+              "key": "ctrl+d"
             },
             {
               "title": "Insert new line",
-              "key": "ctrl-j, enter"
+              "key": "ctrl+j"
+            },
+            {
+              "title": "Insert new line",
+              "key": "enter"
             }
           ]
         },
@@ -940,79 +1068,127 @@
           "shortcuts": [
             {
               "title": "Close prompt",
-              "key": "esc, ctrl-c"
+              "key": "esc"
+            },
+            {
+              "title": "Close prompt",
+              "key": "ctrl+c"
             },
             {
               "title": "Backward a word",
-              "key": "opt-b, ctrl-left"
+              "key": "opt+b"
+            },
+            {
+              "title": "Backward a word",
+              "key": "ctrl+left"
             },
             {
               "title": "Backward a char",
-              "key": "ctrl-b, left"
+              "key": "ctrl+b"
+            },
+            {
+              "title": "Backward a char",
+              "key": "left"
             },
             {
               "title": "Forward a word",
-              "key": "opt-f, ctrl-right"
+              "key": "opt+f"
+            },
+            {
+              "title": "Forward a word",
+              "key": "ctrl+right"
             },
             {
               "title": "Forward a char",
-              "key": "ctrl-f, right"
+              "key": "ctrl+f"
+            },
+            {
+              "title": "Forward a char",
+              "key": "right"
             },
             {
               "title": "Move prompt end",
-              "key": "ctrl-e, end"
+              "key": "ctrl+e"
+            },
+            {
+              "title": "Move prompt end",
+              "key": "end"
             },
             {
               "title": "Move prompt start",
-              "key": "ctrl-a, home"
+              "key": "ctrl+a"
+            },
+            {
+              "title": "Move prompt start",
+              "key": "home"
             },
             {
               "title": "delete previous word",
-              "key": "ctrl-w, opt-backspace, ctrl-backspace"
+              "key": "ctrl+w"
+            },
+            {
+              "title": "delete previous word",
+              "key": "opt+backspace"
+            },
+            {
+              "title": "delete previous word",
+              "key": "ctrl+backspace"
             },
             {
               "title": "delete next word",
-              "key": "opt-d, opt-delete, ctrl-delete"
+              "key": "opt+d"
             },
             {
               "title": "delete to start of line",
-              "key": "ctrl-u"
+              "key": "ctrl+u"
             },
             {
               "title": "delete to end of line",
-              "key": "ctrl-k"
+              "key": "ctrl+k"
             },
             {
               "title": "delete previous char",
-              "key": "backspace, ctrl-h, shift-backspace"
+              "key": "backspace"
+            },
+            {
+              "title": "delete previous char",
+              "key": "ctrl+h"
+            },
+            {
+              "title": "delete previous char",
+              "key": "shift+backspace"
             },
             {
               "title": "delete next char",
-              "key": "delete, ctrl-d"
+              "key": "ctrl+d"
             },
             {
               "title": "Ins word und doc cursor may be chng ctrl-r ctrl-w",
-              "key": "ctrl-s"
+              "key": "ctrl+s"
             },
             {
               "title": "Select previous history",
-              "key": "ctrl-p, up"
+              "key": "ctrl+p"
+            },
+            {
+              "title": "Select previous history",
+              "key": "up"
             },
             {
               "title": "Select next history",
-              "key": "ctrl-n, down"
+              "key": "ctrl+n"
+            },
+            {
+              "title": "Select next history",
+              "key": "down"
             },
             {
               "title": "Insert data of register selected follow input char",
-              "key": "ctrl-r"
+              "key": "ctrl+r"
             },
             {
               "title": "Select next completion item",
               "key": "tab"
-            },
-            {
-              "title": "Select previous completion item",
-              "key": "BackTab"
             },
             {
               "title": "Open selected",
@@ -1025,19 +1201,43 @@
           "shortcuts": [
             {
               "title": "Previous entry",
-              "key": "shift-tab, up, ctrl-p"
+              "key": "shift+tab"
+            },
+            {
+              "title": "Previous entry",
+              "key": "up"
+            },
+            {
+              "title": "Previous entry",
+              "key": "ctrl+p"
             },
             {
               "title": "Next entry",
-              "key": "tab, down, ctrl-n"
+              "key": "tab"
+            },
+            {
+              "title": "Next entry",
+              "key": "down"
+            },
+            {
+              "title": "Next entry",
+              "key": "ctrl+n"
             },
             {
               "title": "Page up",
-              "key": "pageup, ctrl-u"
+              "key": "pageup"
+            },
+            {
+              "title": "Page up",
+              "key": "ctrl+u"
             },
             {
               "title": "Page down",
-              "key": "pagedown, ctrl-d"
+              "key": "pagedown"
+            },
+            {
+              "title": "Page down",
+              "key": "ctrl+d"
             },
             {
               "title": "Go to first entry",
@@ -1053,37 +1253,27 @@
             },
             {
               "title": "Open selected in background without closing picker",
-              "key": "opt-enter"
+              "key": "opt+enter"
             },
             {
               "title": "Open horizontally",
-              "key": "ctrl-s"
+              "key": "ctrl+s"
             },
             {
               "title": "Open vertically",
-              "key": "ctrl-v"
+              "key": "ctrl+v"
             },
             {
               "title": "Toggle preview",
-              "key": "ctrl-t"
+              "key": "ctrl+t"
             },
             {
               "title": "Close picker",
-              "key": "esc, ctrl-c"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "title": "Custom",
-      "sections": [
-        {
-          "title": "Command combination",
-          "shortcuts": [
+              "key": "esc"
+            },
             {
-              "title": "replace all selected characters",
-              "key": "t(char)r(nchar)"
+              "title": "Close picker",
+              "key": "ctrl+c"
             }
           ]
         }
