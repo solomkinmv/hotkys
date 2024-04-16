@@ -1,6 +1,5 @@
 {
   "$schema": "schema/shortcut.schema.json",
-  "bundleId": "",
   "name": "Helix",
   "slug": "helix-editor",
   "source": "https://docs.helix-editor.com/keymap.html",
