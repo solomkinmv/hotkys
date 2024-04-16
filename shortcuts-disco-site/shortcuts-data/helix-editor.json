@@ -150,7 +150,7 @@
             },
             {
               "title": "Switch case of the selected text",
-              "key": "~"
+              "key": "shift+`"
             },
             {
               "title": "Set the selected text to lower case",
@@ -218,15 +218,15 @@
             },
             {
               "title": "Select a register to yank to or paste from",
-              "key": "<reg>"
+              "comment": "<reg>"
             },
             {
               "title": "Indent selection",
-              "key": ">"
+              "key": "shift+."
             },
             {
               "title": "Unindent selection",
-              "key": "<"
+              "key": "shift+,"
             },
             {
               "title": "Format selection (currently disabled) (LSP)",
@@ -271,23 +271,23 @@
           "shortcuts": [
             {
               "title": "Pipe each select through shell cmd replac with out",
-              "key": "|"
+              "key": "shift+\\"
             },
             {
               "title": "Pipe each select into shell command ignore output",
-              "key": "opt+|"
+              "key": "shift+opt+\\"
             },
             {
               "title": "Run shell cmd, insert output before each selection",
-              "key": "!"
+              "key": "shift+1"
             },
             {
               "title": "Run shell cmd, append output after each selection",
-              "key": "opt+!"
+              "key": "shift+opt+1"
             },
             {
               "title": "Pipe all select to shl cmd keep select cmd retur 0",
-              "key": "$"
+              "key": "shift+4"
             }
           ]
         },
@@ -312,15 +312,15 @@
             },
             {
               "title": "Merge consecutive selections",
-              "key": "opt+_"
+              "key": "shift+opt+-"
             },
             {
               "title": "Align selection in columns",
-              "key": "&"
+              "key": "shift+7"
             },
             {
               "title": "Trim whitespace from the selection",
-              "key": "_"
+              "key": "shift+-"
             },
             {
               "title": "Collapse selection onto a single cursor",
@@ -332,7 +332,7 @@
             },
             {
               "title": "Ensures the selection is in forward direction",
-              "key": "opt+:"
+              "key": "shift+opt+;"
             },
             {
               "title": "Keep only the primary selection",
@@ -352,23 +352,23 @@
             },
             {
               "title": "Rotate main selection backward",
-              "key": "("
+              "key": "shift+9"
             },
             {
               "title": "Rotate main selection forward",
-              "key": ")"
+              "key": "shift+0"
             },
             {
               "title": "Rotate selection contents backward",
-              "key": "opt+("
+              "key": "shift+opt+9"
             },
             {
               "title": "Rotate selection contents forward",
-              "key": "opt+)"
+              "key": "shift+opt+0"
             },
             {
               "title": "Select entire file",
-              "key": "%"
+              "key": "shift+5"
             },
             {
               "title": "Select current line if selected extend next line",
@@ -445,7 +445,7 @@
             },
             {
               "title": "Search for previous pattern",
-              "key": "?"
+              "key": "shift+/"
             },
             {
               "title": "Select next search match",
@@ -457,7 +457,7 @@
             },
             {
               "title": "Use current selection as the search pattern",
-              "key": "*"
+              "key": "shift+8"
             }
           ]
         },
@@ -478,7 +478,7 @@
             },
             {
               "title": "enter command mode",
-              "key": ":"
+              "key": "shift+;"
             },
             {
               "title": "enter view mode",
@@ -657,23 +657,23 @@
             },
             {
               "title": "Surround current selection with <char>",
-              "key": "s <char>"
+              "comment": "s <char>"
             },
             {
               "title": "Replace surround character <from> with <to>",
-              "key": "r <from><to>"
+              "comment": "r <from><to>"
             },
             {
               "title": "delete surround character <char>",
-              "key": "d <char>"
+              "comment": "d <char>"
             },
             {
               "title": "Select around textobject",
-              "key": "a <object>"
+              "comment": "a <object>"
             },
             {
               "title": "Select inside textobject",
-              "key": "i <object>"
+              "comment": "i <object>"
             }
           ]
         },
@@ -883,7 +883,7 @@
             },
             {
               "title": "Open command palette",
-              "key": "?"
+              "key": "shift+/"
             }
           ]
         },
@@ -905,91 +905,91 @@
           "shortcuts": [
             {
               "title": "Go to next diagnostic (LSP)",
-              "key": "]d"
+              "key": "] d"
             },
             {
               "title": "Go to previous diagnostic (LSP)",
-              "key": "[d"
+              "key": "[ d"
             },
             {
               "title": "Go to last diagnostic in document (LSP)",
-              "key": "]D"
+              "key": "] shift+d"
             },
             {
               "title": "Go to first diagnostic in document (LSP)",
-              "key": "[D"
+              "key": "[ shift+d"
             },
             {
               "title": "Go to next function (TS)",
-              "key": "]f"
+              "key": "] f"
             },
             {
               "title": "Go to previous function (TS)",
-              "key": "[f"
+              "key": "[ f"
             },
             {
               "title": "Go to next type definition (TS)",
-              "key": "]t"
+              "key": "] t"
             },
             {
               "title": "Go to previous type definition (TS)",
-              "key": "[t"
+              "key": "[ t"
             },
             {
               "title": "Go to next argument/parameter (TS)",
-              "key": "]a"
+              "key": "] a"
             },
             {
               "title": "Go to previous argument/parameter (TS)",
-              "key": "[a"
+              "key": "[ a"
             },
             {
               "title": "Go to next comment (TS)",
-              "key": "]c"
+              "key": "] c"
             },
             {
               "title": "Go to previous comment (TS)",
-              "key": "[c"
+              "key": "[ c"
             },
             {
               "title": "Go to next test (TS)",
-              "key": "]T"
+              "key": "] shift+t"
             },
             {
               "title": "Go to previous test (TS)",
-              "key": "[T"
+              "key": "[ shift+t"
             },
             {
               "title": "Go to next paragraph",
-              "key": "]p"
+              "key": "] p"
             },
             {
               "title": "Go to previous paragraph",
-              "key": "[p"
+              "key": "[ p"
             },
             {
               "title": "Go to next change",
-              "key": "]g"
+              "key": "] g"
             },
             {
               "title": "Go to previous change",
-              "key": "[g"
+              "key": "[ g"
             },
             {
               "title": "Go to last change",
-              "key": "]G"
+              "key": "] shift+g"
             },
             {
               "title": "Go to first change",
-              "key": "[G"
+              "key": "[ shift+g"
             },
             {
               "title": "Add newline below",
-              "key": "]space"
+              "key": "] space"
             },
             {
               "title": "Add newline above",
-              "key": "[space"
+              "key": "[ space"
             }
           ]
         }
