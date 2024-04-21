@@ -13,35 +13,35 @@
           "shortcuts": [
             {
               "title": "New",
-              "key": "cmd+N"
+              "key": "cmd+n"
             },
             {
               "title": "New Window",
-              "key": "cmd+shift+N"
+              "key": "shift+cmd+n"
             },
             {
               "title": "New tab",
-              "key": "cmd+T"
+              "key": "cmd+t"
             },
             {
               "title": "Open",
-              "key": "cmd+O"
+              "key": "cmd+o"
             },
             {
               "title": "Open Quickly",
-              "key": "cmd+shift+O"
+              "key": "shift+cmd+o"
             },
             {
               "title": "Reopen Closed File",
-              "key": "cmd+shift+T"
+              "key": "shift+cmd+t"
             },
             {
               "title": "Save",
-              "key": "cmd+S"
+              "key": "cmd+s"
             },
             {
               "title": "Save As Duplicate",
-              "key": "cmd+shift+S"
+              "key": "shift+cmd+s"
             },
             {
               "title": "Preference",
@@ -49,7 +49,7 @@
             },
             {
               "title": "Close",
-              "key": "cmd+W"
+              "key": "cmd+w"
             }
           ]
         },
@@ -66,47 +66,47 @@
             },
             {
               "title": "Cut",
-              "key": "cmd+X"
+              "key": "cmd+x"
             },
             {
               "title": "Copy",
-              "key": "cmd+C"
+              "key": "cmd+c"
             },
             {
               "title": "Paste",
-              "key": "cmd+V"
+              "key": "cmd+v"
             },
             {
               "title": "Copy As Markdown",
-              "key": "cmd+shift+C"
+              "key": "shift+cmd+c"
             },
             {
               "title": "Paste As Plain Text",
-              "key": "cmd+shift+V"
+              "key": "shift+cmd+v"
             },
             {
               "title": "Select All",
-              "key": "cmd+A"
+              "key": "cmd+a"
             },
             {
               "title": "Select Line/Sentence Select Row (in table)",
-              "key": "cmd+L"
+              "key": "cmd+l"
             },
             {
               "title": "Delete Row (in table)",
-              "key": "cmd+shift+backspace"
+              "key": "shift+cmd+backspace"
             },
             {
               "title": "Select Style Scope Select Cell (in table)",
-              "key": "cmd+E"
+              "key": "cmd+e"
             },
             {
               "title": "Select Word",
-              "key": "cmd+D"
+              "key": "cmd+d"
             },
             {
               "title": "Delete Word",
-              "key": "cmd+shift+D"
+              "key": "shift+cmd+d"
             },
             {
               "title": "Jump to Top",
@@ -114,7 +114,7 @@
             },
             {
               "title": "Jump to Selection",
-              "key": "cmd+J"
+              "key": "cmd+j"
             },
             {
               "title": "Jump to Bottom",
@@ -122,11 +122,11 @@
             },
             {
               "title": "Find",
-              "key": "cmd+F"
+              "key": "cmd+f"
             },
             {
               "title": "Find Next",
-              "key": "cmd+G"
+              "key": "cmd+g"
             },
             {
               "title": "Find Next",
@@ -134,7 +134,7 @@
             },
             {
               "title": "Find Previous",
-              "key": "cmd+shift+G"
+              "key": "shift+cmd+g"
             },
             {
               "title": "Find Previous",
@@ -142,7 +142,7 @@
             },
             {
               "title": "Replace",
-              "key": "cmd+H"
+              "key": "cmd+h"
             }
           ]
         },
@@ -191,27 +191,27 @@
             },
             {
               "title": "Insert Table",
-              "key": "cmd+opt+T"
+              "key": "opt+cmd+t"
             },
             {
               "title": "Code Fences",
-              "key": "cmd+opt+C"
+              "key": "opt+cmd+c"
             },
             {
               "title": "Math Block",
-              "key": "cmd+opt+B"
+              "key": "opt+cmd+b"
             },
             {
               "title": "Quote",
-              "key": "cmd+opt+Q"
+              "key": "opt+cmd+q"
             },
             {
               "title": "Ordered List",
-              "key": "cmd+opt+O"
+              "key": "opt+cmd+o"
             },
             {
               "title": "Unordered List",
-              "key": "cmd+opt+U"
+              "key": "opt+cmd+u"
             },
             {
               "title": "Indent",
@@ -236,19 +236,19 @@
           "shortcuts": [
             {
               "title": "Strong",
-              "key": "cmd+B"
+              "key": "cmd+b"
             },
             {
               "title": "Emphasis",
-              "key": "cmd+I"
+              "key": "cmd+i"
             },
             {
               "title": "Underline",
-              "key": "cmd+U"
+              "key": "cmd+u"
             },
             {
               "title": "Code",
-              "key": "cmd+shift+`"
+              "key": "shift+cmd+`"
             },
             {
               "title": "Strike",
@@ -256,11 +256,11 @@
             },
             {
               "title": "Hyperlink",
-              "key": "cmd+K"
+              "key": "cmd+k"
             },
             {
               "title": "Image",
-              "key": "cmd+ctrl+I"
+              "key": "ctrl+cmd+i"
             },
             {
               "title": "Clear Format",
@@ -273,19 +273,19 @@
           "shortcuts": [
             {
               "title": "Toggle Sidebar",
-              "key": "cmd+shift+L"
+              "key": "shift+cmd+l"
             },
             {
               "title": "Outline",
-              "key": "cmd+ctrl+1"
+              "key": "ctrl+cmd+1"
             },
             {
               "title": "Articles",
-              "key": "cmd+ctrl+2"
+              "key": "ctrl+cmd+2"
             },
             {
               "title": "File Tree",
-              "key": "cmd+ctrl+3"
+              "key": "ctrl+cmd+3"
             },
             {
               "title": "Source Code Mode",
@@ -293,15 +293,15 @@
             },
             {
               "title": "Focus Mode",
-              "key": "F8"
+              "key": "f8"
             },
             {
               "title": "Typewriter Mode",
-              "key": "F9"
+              "key": "f9"
             },
             {
               "title": "Toggle Fullscreen",
-              "key": "cmd+opt+F"
+              "key": "opt+cmd+f"
             },
             {
               "title": "Switch Between Opened Documents",
