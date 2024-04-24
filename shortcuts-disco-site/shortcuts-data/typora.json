@@ -1,0 +1,315 @@
+{
+  "$schema": "schema/shortcut.schema.json",
+  "bundleId": "abnerworks.Typora",
+  "name": "Typora",
+  "slug": "typora",
+  "source": "https://support.typora.io/Shortcut-Keys/",
+  "keymaps": [
+    {
+      "title": "Default",
+      "sections": [
+        {
+          "title": "File",
+          "shortcuts": [
+            {
+              "title": "New",
+              "key": "cmd+n"
+            },
+            {
+              "title": "New Window",
+              "key": "shift+cmd+n"
+            },
+            {
+              "title": "New tab",
+              "key": "cmd+t"
+            },
+            {
+              "title": "Open",
+              "key": "cmd+o"
+            },
+            {
+              "title": "Open Quickly",
+              "key": "shift+cmd+o"
+            },
+            {
+              "title": "Reopen Closed File",
+              "key": "shift+cmd+t"
+            },
+            {
+              "title": "Save",
+              "key": "cmd+s"
+            },
+            {
+              "title": "Save As Duplicate",
+              "key": "shift+cmd+s"
+            },
+            {
+              "title": "Preference",
+              "key": "cmd+,"
+            },
+            {
+              "title": "Close",
+              "key": "cmd+w"
+            }
+          ]
+        },
+        {
+          "title": "Edit",
+          "shortcuts": [
+            {
+              "title": "New Paragraph",
+              "key": "enter"
+            },
+            {
+              "title": "New Line",
+              "key": "shift+enter"
+            },
+            {
+              "title": "Cut",
+              "key": "cmd+x"
+            },
+            {
+              "title": "Copy",
+              "key": "cmd+c"
+            },
+            {
+              "title": "Paste",
+              "key": "cmd+v"
+            },
+            {
+              "title": "Copy As Markdown",
+              "key": "shift+cmd+c"
+            },
+            {
+              "title": "Paste As Plain Text",
+              "key": "shift+cmd+v"
+            },
+            {
+              "title": "Select All",
+              "key": "cmd+a"
+            },
+            {
+              "title": "Select Line/Sentence Select Row (in table)",
+              "key": "cmd+l"
+            },
+            {
+              "title": "Delete Row (in table)",
+              "key": "shift+cmd+backspace"
+            },
+            {
+              "title": "Select Style Scope Select Cell (in table)",
+              "key": "cmd+e"
+            },
+            {
+              "title": "Select Word",
+              "key": "cmd+d"
+            },
+            {
+              "title": "Delete Word",
+              "key": "shift+cmd+d"
+            },
+            {
+              "title": "Jump to Top",
+              "key": "cmd+up"
+            },
+            {
+              "title": "Jump to Selection",
+              "key": "cmd+j"
+            },
+            {
+              "title": "Jump to Bottom",
+              "key": "cmd+down"
+            },
+            {
+              "title": "Find",
+              "key": "cmd+f"
+            },
+            {
+              "title": "Find Next",
+              "key": "cmd+g"
+            },
+            {
+              "title": "Find Next",
+              "key": "enter"
+            },
+            {
+              "title": "Find Previous",
+              "key": "shift+cmd+g"
+            },
+            {
+              "title": "Find Previous",
+              "key": "shift+enter"
+            },
+            {
+              "title": "Replace",
+              "key": "cmd+h"
+            }
+          ]
+        },
+        {
+          "title": "Paragraph",
+          "shortcuts": [
+            {
+              "title": "Heading 1",
+              "key": "cmd+1"
+            },
+            {
+              "title": "Heading 2",
+              "key": "cmd+2"
+            },
+            {
+              "title": "Heading 3",
+              "key": "cmd+3"
+            },
+            {
+              "title": "Heading 4",
+              "key": "cmd+4"
+            },
+            {
+              "title": "Heading 5",
+              "key": "cmd+5"
+            },
+            {
+              "title": "Heading 6",
+              "key": "cmd+6"
+            },
+            {
+              "title": "Heading 7",
+              "key": "cmd+7"
+            },
+            {
+              "title": "Paragraph",
+              "key": "cmd+0"
+            },
+            {
+              "title": "Increase Heading Level",
+              "key": "cmd+="
+            },
+            {
+              "title": "Decrease Heading Level",
+              "key": "cmd+hyphen"
+            },
+            {
+              "title": "Insert Table",
+              "key": "opt+cmd+t"
+            },
+            {
+              "title": "Code Fences",
+              "key": "opt+cmd+c"
+            },
+            {
+              "title": "Math Block",
+              "key": "opt+cmd+b"
+            },
+            {
+              "title": "Quote",
+              "key": "opt+cmd+q"
+            },
+            {
+              "title": "Ordered List",
+              "key": "opt+cmd+o"
+            },
+            {
+              "title": "Unordered List",
+              "key": "opt+cmd+u"
+            },
+            {
+              "title": "Indent",
+              "key": "cmd+["
+            },
+            {
+              "title": "Indent",
+              "key": "tab"
+            },
+            {
+              "title": "Outdent",
+              "key": "cmd+]"
+            },
+            {
+              "title": "Outdent",
+              "key": "shift+tab"
+            }
+          ]
+        },
+        {
+          "title": "Format",
+          "shortcuts": [
+            {
+              "title": "Strong",
+              "key": "cmd+b"
+            },
+            {
+              "title": "Emphasis",
+              "key": "cmd+i"
+            },
+            {
+              "title": "Underline",
+              "key": "cmd+u"
+            },
+            {
+              "title": "Code",
+              "key": "shift+cmd+`"
+            },
+            {
+              "title": "Strike",
+              "key": "ctrl+shift+`"
+            },
+            {
+              "title": "Hyperlink",
+              "key": "cmd+k"
+            },
+            {
+              "title": "Image",
+              "key": "ctrl+cmd+i"
+            },
+            {
+              "title": "Clear Format",
+              "key": "cmd+\\"
+            }
+          ]
+        },
+        {
+          "title": "View",
+          "shortcuts": [
+            {
+              "title": "Toggle Sidebar",
+              "key": "shift+cmd+l"
+            },
+            {
+              "title": "Outline",
+              "key": "ctrl+cmd+1"
+            },
+            {
+              "title": "Articles",
+              "key": "ctrl+cmd+2"
+            },
+            {
+              "title": "File Tree",
+              "key": "ctrl+cmd+3"
+            },
+            {
+              "title": "Source Code Mode",
+              "key": "cmd+/"
+            },
+            {
+              "title": "Focus Mode",
+              "key": "f8"
+            },
+            {
+              "title": "Typewriter Mode",
+              "key": "f9"
+            },
+            {
+              "title": "Toggle Fullscreen",
+              "key": "opt+cmd+f"
+            },
+            {
+              "title": "Switch Between Opened Documents",
+              "key": "cmd+`"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
