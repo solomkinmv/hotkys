@@ -15,13 +15,13 @@ const ChangeFrequency = {
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const sitePages = [
         {
-            url: "https://shortcuts.solomk.in",
+            url: "https://hotkys.com",
             lastModified: new Date(),
             changeFrequency: ChangeFrequency.WEEKLY,
             priority: 1,
         },
         {
-            url: "https://shortcuts.solomk.in/raycast-extension",
+            url: "https://hotkys.com/raycast-extension",
             lastModified: new Date(),
             changeFrequency: ChangeFrequency.WEEKLY,
             priority: 0.8,
@@ -36,14 +36,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     for (const app of getAllShortcuts().applications) {
         sitePages.push({
-            url: `https://shortcuts.solomk.in/apps/${app.slug}`,
+            url: `https://hotkys.com/apps/${app.slug}`,
             lastModified: new Date(),
             changeFrequency: ChangeFrequency.WEEKLY,
             priority: 0.3,
         });
         for (const keymap of app.keymaps) {
             sitePages.push({
-                url: `https://shortcuts.solomk.in/apps/${app.slug}/${serializeKeymap(keymap)}`,
+                url: `https://hotkys.com/apps/${app.slug}/${serializeKeymap(keymap)}`,
                 lastModified: new Date(),
                 changeFrequency: ChangeFrequency.WEEKLY,
                 priority: 0.7,

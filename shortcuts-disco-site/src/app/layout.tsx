@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     default: "Shortcuts Disco",
   },
   description: "Shortcuts Disco is a tool to help you search keyboard shortcuts for applications",
-  metadataBase: new URL("https://shortcuts.solomk.in"),
+  metadataBase: new URL("https://hotkys.com"),
 };
 
 const RootLayout = ({ children }: React.PropsWithChildren) => {

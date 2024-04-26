@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
             allow: '/',
             disallow: '/private/',
         },
-        sitemap: 'https://shortcuts.solomk.in/sitemap.xml',
+        sitemap: 'https://hotkys.com/sitemap.xml',
     }
 }

@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://shortcuts.solomk.in/schema/shortcut.schema.json",
+  "$id": "https://hotkys.com/schema/shortcut.schema.json",
   "title": "Application shortcuts",
   "description": "A product in the catalog",
   "type": "object",

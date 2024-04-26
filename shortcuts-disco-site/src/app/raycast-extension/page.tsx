@@ -6,7 +6,7 @@ import { Header1, Paragraph } from "@/components/ui/typography";
 export const metadata: Metadata = {
   title: "Raycast Extension",
   description: "Shortcuts Disco is a tool to help you search keyboard shortcuts for applications",
-  metadataBase: new URL("https://shortcuts.solomk.in"),
+  metadataBase: new URL("https://hotkys.com"),
 };
 
 export default function Page() {
