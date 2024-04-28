@@ -18,6 +18,15 @@
               "key": "ctrl+cmd+q"
             }
           ]
+        },
+        {
+          "title": "Window",
+          "shortcuts": [
+            {
+              "title": "Toggle Full Screen",
+              "key": "ctrl+cmd+f"
+            }
+          ]
         }
       ]
     }
