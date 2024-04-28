@@ -4,15 +4,13 @@ import {Header1, Paragraph} from "@/components/ui/typography";
 
 export const metadata: Metadata = {
     title: "About",
-    description: "Shortcuts Disco is a tool to help you search keyboard shortcuts for applications",
-    metadataBase: new URL("https://hotkys.com"),
 };
 
 export default function About() {
     const code = "\"$schema\": \"schema/shortcut.schema.json\"";
     return (
         <section className="mx-auto max-w-3xl prose prose-gray dark:prose-invert">
-            <Header1>Shortcuts Disco</Header1>
+            <Header1>Hotkys</Header1>
             <Paragraph>Shortcuts database for different applications.</Paragraph>
             <Paragraph>
                 Note: currently support only macOs. Please vote for this feature <Link

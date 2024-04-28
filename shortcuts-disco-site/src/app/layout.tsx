@@ -15,10 +15,10 @@ const fontSans = FontSans({
 
 export const metadata: Metadata = {
   title: {
-    template: "%s | Shortcuts Disco",
-    default: "Shortcuts Disco",
+    template: "%s | Hotkys",
+    default: "Hotkys",
   },
-  description: "Shortcuts Disco is a tool to help you search keyboard shortcuts for applications",
+  description: "Hotkys is a tool to help you search keyboard shortcuts for applications",
   metadataBase: new URL("https://hotkys.com"),
 };
 
