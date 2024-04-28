@@ -27,7 +27,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             priority: 0.8,
         },
         {
-            url: "https://solomk.in/about",
+            url: "https://hotkys.com/about",
             lastModified: new Date(),
             changeFrequency: ChangeFrequency.WEEKLY,
             priority: 0.5,
