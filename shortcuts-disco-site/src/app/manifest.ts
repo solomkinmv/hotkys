@@ -4,7 +4,7 @@ export default function manifest(): MetadataRoute.Manifest {
     return {
         name: 'Hotkys',
         short_name: 'Hotkys',
-        description: 'Hotkys is a tool to help you search keyboard shortcuts for applications',
+        description: 'Collection of useful shortcuts for different applications',
         start_url: '/',
         display: 'standalone',
         background_color: '#fff',

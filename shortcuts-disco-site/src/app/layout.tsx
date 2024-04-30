@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     template: "%s | Hotkys",
     default: "Hotkys",
   },
-  description: "Hotkys is a tool to help you search keyboard shortcuts for applications",
+  description: "Collection of useful shortcuts for different applications",
   metadataBase: new URL("https://hotkys.com"),
 };
 
