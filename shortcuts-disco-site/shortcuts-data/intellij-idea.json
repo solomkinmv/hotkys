@@ -92,6 +92,31 @@
               "key": "shift+f4"
             }
           ]
+        },
+        {
+          "title": "Version Control System",
+          "shortcuts": [
+            {
+              "title": "Update project",
+              "key": "cmd+t"
+            },
+            {
+              "title": "Commit project",
+              "key": "cmd+k"
+            },
+            {
+              "title": "Push commits",
+              "key": "shift+cmd+k"
+            },
+            {
+              "title": "Push commits with force push",
+                "key": "shift+cmd+k shift+opt+enter enter"
+            },
+            {
+              "title": "Pull changes",
+              "key": "shift+cmd+k"
+            }
+          ]
         }
       ]
     }
