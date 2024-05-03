@@ -1,0 +1,58 @@
+{
+  "$schema": "schema/shortcut.schema.json",
+  "bundleId": "com.design.spline",
+  "name": "Spline",
+  "slug": "spline",
+  "keymaps": [
+    {
+      "title": "Default",
+      "sections": [
+        {
+          "title": "Main",
+          "shortcuts": [
+            {
+              "title": "Orbit",
+              "comment": "OPT + DRAG"
+            },
+            {
+              "title": "Panning",
+              "comment": "SPACE + DRAG"
+            },
+            {
+              "title": "Zoom",
+              "comment": "CMD+WHEEEL"
+            },
+            {
+              "title": "Zoom In",
+              "key": "cmd++"
+            },
+            {
+              "title": "Zoom Out",
+              "key": "cmd+-"
+            },
+            {
+              "title": "Perspective",
+              "key": "M"
+            },
+            {
+              "title": "Reset Camera",
+              "key": "opt+r"
+            },
+            {
+              "title": "Focus Object",
+              "key": "s"
+            },
+            {
+              "title": "Drag Copy",
+              "comment": "CMD+DRAG"
+            },
+            {
+              "title": "Duplicate",
+              "key": "cmd+d"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
