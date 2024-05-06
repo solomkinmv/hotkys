@@ -7,6 +7,8 @@ import {KeyboardBadge} from "@/components/ui/keyboard-badge";
 import {InputProps} from "@/components/ui/input";
 import {SearchBar} from "@/components/ui/search-bar";
 import {LinkableListItem} from "@/components/ui/list";
+import {cn} from "@/lib/utils";
+import {Header1, HeaderCompact1} from "@/components/ui/typography";
 
 
 export const ApplicationList = (
@@ -34,6 +36,7 @@ export const ApplicationList = (
 
     return (
         <>
+            <HeaderCompact1 className="mt-0 mb-1">All Applications</HeaderCompact1>
             <SearchBar onChange={onChange}/>
             <div className="mt-2">
                 {appShortcuts.map((app) => (

@@ -10,7 +10,15 @@ export function Paragraph({children}: {children: React.ReactNode}) {
 
 export function Header1({children, className}: {children: string, className?: string}) {
   return (
-      <h1 className={`scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl ${className}`}>
+      <h1 className={`text-4xl font-extrabold tracking-tight lg:text-5xl ${className}`}>
+        {children}
+      </h1>
+  )
+}
+
+export function HeaderCompact1({children, className}: {children: string, className?: string}) {
+  return (
+      <h1 className={`font-extrabold tracking-tight ${className}`}>
         {children}
       </h1>
   )
