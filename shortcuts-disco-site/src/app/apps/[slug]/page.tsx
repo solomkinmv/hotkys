@@ -9,7 +9,8 @@ interface Props {
 
 export function generateMetadata({params}: Props): Metadata {
     return {
-        title: getAppShortcutsBySlug(params.slug)?.name,
+        title: getAppShortcutsBySlug(params.slug)?.name + " Shortcuts",
+        description: "Keyboard shortcuts for " + getAppShortcutsBySlug(params.slug)?.name,
     };
 }
 

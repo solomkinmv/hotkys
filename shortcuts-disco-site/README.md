@@ -7,6 +7,10 @@ npm run dev
 
 If you're having error `next: Comamnd not found`:
 
-```sh
+```bash
 npm install -g next
 ```
+
+## Contribution guide
+
+See `README.md` in the root of the repository.

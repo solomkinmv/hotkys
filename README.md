@@ -1,4 +1,4 @@
-# Shortcuts Disco
+# Hotkys
 
 Web site and RayCast extension that allows you to find shortcuts for your app.
 
@@ -82,3 +82,13 @@ Shortcuts `key` rules:
 }
 ```
 </details>
+
+### Additional information
+
+Use `prettify` script to format json files and fix order of key modifiers.
+
+Go to `shortcuts-disco-site` folder and run:
+
+```bash
+npm run prettify
+```
