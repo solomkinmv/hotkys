@@ -1,0 +1,491 @@
+{
+  "$schema": "schema/shortcut.schema.json",
+  "bundleId": "com.pixelmator.pro",
+  "name": "Pixelmator Pro",
+  "slug": "pixelmator-pro",
+  "keymaps": [
+    {
+      "title": "Default",
+      "sections": [
+        {
+          "title": "File Operations",
+          "shortcuts": [
+            {
+              "title": "New Image",
+              "key": "cmd+n"
+            },
+            {
+              "title": "Open Image",
+              "key": "cmd+o"
+            },
+            {
+              "title": "Save Image",
+              "key": "cmd+s"
+            },
+            {
+              "title": "Duplicate Image",
+              "key": "shift+cmd+s"
+            },
+            {
+              "title": "Save As",
+              "key": "opt+shift+cmd+s"
+            },
+            {
+              "title": "Export",
+              "key": "cmd+e"
+            },
+            {
+              "title": "Print",
+              "key": "cmd+p"
+            },
+            {
+              "title": "Close Window",
+              "key": "cmd+w"
+            },
+            {
+              "title": "Close All Windows",
+              "key": "opt+cmd+w"
+            },
+            {
+              "title": "Quit Pixelmator Pro",
+              "key": "cmd+q"
+            },
+            {
+              "title": "Quit Pixelmator Pro and Keep Windows",
+              "key": "opt+cmd+q"
+            }
+          ]
+        },
+        {
+          "title": "Edit Operations",
+          "shortcuts": [
+            {
+              "title": "Undo",
+              "key": "cmd+z"
+            },
+            {
+              "title": "Redo",
+              "key": "shift+cmd+z"
+            },
+            {
+              "title": "Cut",
+              "key": "cmd+x"
+            },
+            {
+              "title": "Copy",
+              "key": "cmd+c"
+            },
+            {
+              "title": "Paste",
+              "key": "cmd+v"
+            },
+            {
+              "title": "Paste and Match Style",
+              "key": "opt+shift+cmd+v"
+            },
+            {
+              "title": "Select All",
+              "key": "cmd+a"
+            },
+            {
+              "title": "Deselect",
+              "key": "cmd+d"
+            },
+            {
+              "title": "Invert Selection",
+              "key": "shift+cmd+i"
+            },
+            {
+              "title": "Refine Selection",
+              "key": "opt+cmd+r"
+            }
+          ]
+        },
+        {
+          "title": "Fill and Color",
+          "shortcuts": [
+            {
+              "title": "Fill Layer with Color",
+              "key": "opt+cmd+f"
+            },
+            {
+              "title": "Fill Layer with Background Color",
+              "key": "cmd+backspace"
+            },
+            {
+              "title": "Fill Layer with Foreground Color",
+              "key": "opt+backspace"
+            },
+            {
+              "title": "Reset Foreground/Background Colors",
+              "key": "d"
+            },
+            {
+              "title": "Switch Foreground/Background Colors",
+              "key": "x"
+            },
+            {
+              "title": "Cycle Blend Modes",
+              "key": "shift+plus"
+            }
+          ]
+        },
+        {
+          "title": "Path Drawing",
+          "shortcuts": [
+            {
+              "title": "Add Sharp Point",
+              "comment": "click"
+            },
+            {
+              "title": "Add Smooth Point",
+              "comment": "drag"
+            },
+            {
+              "title": "Delete Most Recently Added Anchor Point",
+              "key": "backspace"
+            },
+            {
+              "title": "Adjust Direction Lines of Smooth Anchor Point",
+              "comment": "cmd+drag"
+            },
+            {
+              "title": "Break Apart Direction Lines of Smooth Anchor Point",
+              "comment": "opt+drag"
+            },
+            {
+              "title": "Finish Drawing Path and Close It",
+              "key": "shift+enter"
+            },
+            {
+              "title": "Finish Drawing Path and Leave It Open",
+              "key": "enter"
+            }
+          ]
+        },
+        {
+          "title": "Shape Editing",
+          "shortcuts": [
+            {
+              "title": "Make Shape Editable",
+              "key": "enter"
+            },
+            {
+              "title": "Adjust Corner Radius of Rounded Rectangle Shape",
+              "comment": "cmd+drag"
+            },
+            {
+              "title": "Break Apart Direction Lines of Smooth Anchor Point",
+              "comment": "opt+drag"
+            },
+            {
+              "title": "Select or Deselect Multiple Anchor Points",
+              "comment": "shift+click"
+            },
+            {
+              "title": "Delete Selected Anchor Points",
+              "key": "backspace"
+            },
+            {
+              "title": "Stop Editing Shape",
+              "key": "esc"
+            }
+          ]
+        },
+        {
+          "title": "Text Operations",
+          "shortcuts": [
+            {
+              "title": "Insert Text Layer",
+              "key": "shift+cmd+t"
+            },
+            {
+              "title": "Insert Circular Text Layer",
+              "key": "opt+shift+cmd+t"
+            },
+            {
+              "title": "Expand Text Box to Both Directions",
+              "comment": "opt+drag"
+            },
+            {
+              "title": "New Image",
+              "key": "cmd+n"
+            },
+            {
+              "title": "Open Image",
+              "key": "cmd+o"
+            },
+            {
+              "title": "Save Image",
+              "key": "cmd+s"
+            },
+            {
+              "title": "Duplicate Image",
+              "key": "shift+cmd+s"
+            },
+            {
+              "title": "Save As",
+              "key": "opt+shift+cmd+s"
+            },
+            {
+              "title": "Export",
+              "key": "cmd+e"
+            },
+            {
+              "title": "Print",
+              "key": "cmd+p"
+            },
+            {
+              "title": "Close Window",
+              "key": "cmd+w"
+            },
+            {
+              "title": "Close All Windows",
+              "key": "opt+cmd+w"
+            },
+            {
+              "title": "Quit Pixelmator Pro",
+              "key": "cmd+q"
+            },
+            {
+              "title": "Quit Pixelmator Pro and Keep Windows",
+              "key": "opt+cmd+q"
+            }
+          ]
+        },
+        {
+          "title": "View",
+          "shortcuts": [
+            {
+              "title": "Zoom In",
+              "key": "cmd++"
+            },
+            {
+              "title": "Zoom Out",
+              "key": "cmd+-"
+            },
+            {
+              "title": "Fit to Screen",
+              "key": "cmd+0"
+            },
+            {
+              "title": "Actual Size",
+              "key": "cmd+1"
+            },
+            {
+              "title": "Show/Hide Layers",
+              "key": "shift+cmd+l"
+            },
+            {
+              "title": "Show/Hide Tools",
+              "key": "shift+cmd+t"
+            },
+            {
+              "title": "Show/Hide Sidebar",
+              "key": "shift+cmd+s"
+            },
+            {
+              "title": "Toggle Fullscreen",
+              "key": "ctrl+cmd+f"
+            },
+            {
+              "title": "Show Grid",
+              "key": "opt+cmd+'"
+            },
+            {
+              "title": "Show Rulers",
+              "key": "cmd+r"
+            },
+            {
+              "title": "Show Guides",
+              "key": "opt+cmd+;"
+            }
+          ]
+        },
+        {
+          "title": "Layer Operations",
+          "shortcuts": [
+            {
+              "title": "Duplicate Layer",
+              "key": "cmd+d"
+            },
+            {
+              "title": "Merge Layers",
+              "key": "cmd+e"
+            },
+            {
+              "title": "Group Layers",
+              "key": "cmd+g"
+            },
+            {
+              "title": "Ungroup Layers",
+              "key": "shift+cmd+g"
+            },
+            {
+              "title": "Lock/Unlock Layer",
+              "key": "/"
+            },
+            {
+              "title": "Hide/Show Layer",
+              "key": "opt+cmd+,"
+            },
+            {
+              "title": "Hide All Layers",
+              "key": "opt+cmd+h"
+            },
+            {
+              "title": "New Layer",
+              "key": "shift+cmd+n"
+            },
+            {
+              "title": "Delete Layer",
+              "key": "backspace"
+            },
+            {
+              "title": "Select Next Layer",
+              "key": "opt+]"
+            },
+            {
+              "title": "Select Previous Layer",
+              "key": "opt+["
+            },
+            {
+              "title": "Select Top Layer",
+              "key": "opt+."
+            },
+            {
+              "title": "Select Bottom Layer",
+              "key": "opt+,"
+            },
+            {
+              "title": "Bring Layer Forward",
+              "key": "cmd+]"
+            },
+            {
+              "title": "Send Layer Backward",
+              "key": "cmd+["
+            },
+            {
+              "title": "Bring Layer to Front",
+              "key": "opt+cmd+]"
+            },
+            {
+              "title": "Send Layer to Back",
+              "key": "opt+cmd+["
+            },
+            {
+              "title": "Move Layer While Using Any Tool",
+              "comment": "cmd+drag"
+            }
+          ]
+        },
+        {
+          "title": "Tools",
+          "shortcuts": [
+            {
+              "title": "Move Tool",
+              "key": "v"
+            },
+            {
+              "title": "Brush Tool",
+              "key": "b"
+            },
+            {
+              "title": "Eraser Tool",
+              "key": "e"
+            },
+            {
+              "title": "Text Tool",
+              "key": "t"
+            },
+            {
+              "title": "Clone Tool",
+              "key": "o"
+            },
+            {
+              "title": "Crop Tool",
+              "key": "c"
+            },
+            {
+              "title": "Rectangle Shape Tool",
+              "key": "u"
+            },
+            {
+              "title": "Pen Tool",
+              "key": "p"
+            },
+            {
+              "title": "Transform Tool",
+              "key": "cmd+t"
+            }
+          ]
+        },
+        {
+          "title": "Selection",
+          "shortcuts": [
+            {
+              "title": "Select Entire Image",
+              "key": "cmd+a"
+            },
+            {
+              "title": "Deselect Active Selection",
+              "key": "cmd+d"
+            },
+            {
+              "title": "Constrain Proportions",
+              "key": "shift"
+            },
+            {
+              "title": "Invert Selection",
+              "key": "shift+cmd+i"
+            },
+            {
+              "title": "Refine Selection",
+              "key": "opt+cmd+r"
+            },
+            {
+              "title": "Add to Selection",
+              "key": "shift"
+            },
+            {
+              "title": "Subtract from Selection",
+              "key": "opt"
+            },
+            {
+              "title": "Intersect Selection",
+              "key": "shift+opt"
+            },
+            {
+              "title": "Load Outline of Layer as Selection",
+              "key": "opt+cmd+l"
+            },
+            {
+              "title": "Load Grayscale Selection",
+              "key": "shift+opt+cmd+l"
+            },
+            {
+              "title": "Select Subject",
+              "key": "ctrl+s"
+            },
+            {
+              "title": "Temporarily Switch from Painting to Erasing",
+              "key": "`"
+            },
+            {
+              "title": "Navigate Brushes",
+              "key": "."
+            },
+            {
+              "title": "Stroke with Brush",
+              "key": "opt+cmd+b"
+            },
+            {
+              "title": "Increase Brush Size",
+              "key": "]"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
