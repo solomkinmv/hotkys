@@ -28,7 +28,7 @@
             },
             {
               "title": "Save As",
-              "key": "opt+shift+cmd+s"
+              "key": "shift+opt+cmd+s"
             },
             {
               "title": "Export",
@@ -81,7 +81,7 @@
             },
             {
               "title": "Paste and Match Style",
-              "key": "opt+shift+cmd+v"
+              "key": "shift+opt+cmd+v"
             },
             {
               "title": "Select All",
@@ -201,7 +201,7 @@
             },
             {
               "title": "Insert Circular Text Layer",
-              "key": "opt+shift+cmd+t"
+              "key": "shift+opt+cmd+t"
             },
             {
               "title": "Expand Text Box to Both Directions",
@@ -225,7 +225,7 @@
             },
             {
               "title": "Save As",
-              "key": "opt+shift+cmd+s"
+              "key": "shift+opt+cmd+s"
             },
             {
               "title": "Export",

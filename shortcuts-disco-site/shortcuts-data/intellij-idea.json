@@ -110,7 +110,7 @@
             },
             {
               "title": "Push commits with force push",
-                "key": "shift+cmd+k shift+opt+enter enter"
+              "key": "shift+cmd+k shift+opt+enter enter"
             },
             {
               "title": "Pull changes",
