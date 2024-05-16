@@ -1,6 +1,6 @@
 {
   "$schema": "schema/shortcut.schema.json",
-  "bundleId": "com.pixelmator.pro",
+  "bundleId": "com.pixelmatorteam.pixelmator.x",
   "name": "Pixelmator Pro",
   "slug": "pixelmator-pro",
   "keymaps": [
