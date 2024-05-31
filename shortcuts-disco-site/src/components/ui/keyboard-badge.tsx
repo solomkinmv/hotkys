@@ -1,18 +1,24 @@
 type KeyboardBadgeProps = {
-  modifiers?: string;
-  base?: string;
-  className?: string;
+    tokens: string[];
+    className?: string;
 };
 
-export const KeyboardBadge = ({ modifiers, base, ...props }: KeyboardBadgeProps) => (
+export const KeyboardBadge = ({tokens, ...props}: KeyboardBadgeProps) => (
     <span {...props}>
-    {base && <span
-        className="h-5">
-      {/* {modifiers && <span className="text-xs">{modifiers}</span>} */}
-      {/* {base} */}
-      {base.split('').map((char, index) => (
-          <kbd key={index} className=" shadow-slate-200 pointer-events-none text-xs h-5 select-none gap-4 mx-0.5 rounded font-mono font-semibold opacity-100 bg-muted px-1.5">{char}</kbd>
-        ))}
-    </span>}
-  </span>
+        <kbd
+            className="pointer-events-none h-5 select-none items-center gap-1 rounded font-mono font-medium opacity-100 bg-muted px-1.5">
+            {tokens.map((token, index) => {
+                if (isSpecialSymbol(token)) {
+                    return <span key={index} className="pr-0.5">{token}</span>;
+                }
+                return <span key={index} className="font-extralight">{token}</span>;
+            })}
+        </kbd>
+    </span>
 );
+
+function isSpecialSymbol(token: string) {
+    if (token.length > 1) return false;
+    if (token === " ") return false;
+    return !/^[a-z0-9]+$/i.test(token);
+}

@@ -62,7 +62,8 @@ export const AppDetails = ({
                     <ListItem key={hotkey.title + idx}>
                         <span className="font-medium">
                             <span>{hotkey.title}</span>
-                            <KeyboardBadge base={generateHotkeyText(hotkey)} className="ml-2"/>
+                            {hotkey.sequence.length > 0 &&
+                                <KeyboardBadge tokens={generateFormattedHotkeyTokens(hotkey)} className="ml-2"/>}
                         </span>
                         <span className="text-right text-gray-500">
                             {generateCommentText(hotkey.comment)}
@@ -99,13 +100,13 @@ export const AppDetails = ({
     );
 };
 
-function generateHotkeyText(shortcut: SectionShortcut): string {
+function generateFormattedHotkeyTokens(shortcut: SectionShortcut): string[] {
     return shortcut.sequence
-        .map((atomicShortcut) => {
-            const modifiersText = atomicShortcut.modifiers.map((modifier) => modifierSymbols.get(modifier)).join("") ?? "";
-            return modifiersText + overrideSymbolIfPossible(atomicShortcut.base);
-        })
-        .join(" ");
+        .flatMap((atomicShortcut) => {
+            const modifiersText: string[] = atomicShortcut.modifiers.map((modifier) => modifierSymbols.get(modifier))
+                .filter(value => value !== undefined) as string[];
+            return [...modifiersText, overrideSymbolIfPossible(atomicShortcut.base), " "];
+        });
 }
 
 function generateCommentText(optionalComment: string | undefined): string | undefined {
@@ -122,9 +123,9 @@ function generateCommentText(optionalComment: string | undefined): string | unde
     return comment;
 }
 
-function overrideSymbolIfPossible(base: string) {
+function overrideSymbolIfPossible(base: string): string {
     if (baseKeySymbolOverride.has(base)) {
-        return baseKeySymbolOverride.get(base);
+        return baseKeySymbolOverride.get(base) as string;
     }
     return base.toUpperCase();
 }
