@@ -1,0 +1,498 @@
+{
+  "$schema": "schema/shortcut.schema.json",
+  "bundleId": "com.apple.iWork.Numbers",
+  "name": "Numbers",
+  "slug": "numbers",
+  "keymaps": [
+    {
+      "title": "Default",
+      "sections": [
+        {
+          "title": "File",
+          "shortcuts": [
+            {
+              "title": "New…",
+              "key": "cmd+n"
+            },
+            {
+              "title": "New…",
+              "key": "cmd+n"
+            },
+            {
+              "title": "Open…",
+              "key": "cmd+o"
+            },
+            {
+              "title": "Close",
+              "key": "cmd+w"
+            },
+            {
+              "title": "Close All",
+              "key": "opt+cmd+w"
+            },
+            {
+              "title": "Save",
+              "key": "cmd+s"
+            },
+            {
+              "title": "Save As…",
+              "key": "shift+opt+cmd+s"
+            },
+            {
+              "title": "Duplicate",
+              "key": "shift+cmd+s"
+            },
+            {
+              "title": "Print…",
+              "key": "cmd+p"
+            },
+            {
+              "title": "Print Without Preview…",
+              "key": "opt+cmd+p"
+            }
+          ]
+        },
+        {
+          "title": "Edit",
+          "shortcuts": [
+            {
+              "title": "Undo Paste",
+              "key": "cmd+z"
+            },
+            {
+              "title": "Redo",
+              "key": "shift+cmd+z"
+            },
+            {
+              "title": "Cut",
+              "key": "cmd+x"
+            },
+            {
+              "title": "Copy",
+              "key": "cmd+c"
+            },
+            {
+              "title": "Paste",
+              "key": "cmd+v"
+            },
+            {
+              "title": "Paste and Match Style",
+              "key": "shift+opt+cmd+v"
+            },
+            {
+              "title": "Paste and Preserve Style",
+              "key": "ctrl+shift+cmd+v"
+            },
+            {
+              "title": "Paste Formula Results",
+              "key": "shift+cmd+v"
+            },
+            {
+              "title": "Duplicate Selection",
+              "key": "cmd+d"
+            },
+            {
+              "title": "Select All",
+              "key": "cmd+a"
+            },
+            {
+              "title": "Deselect All",
+              "key": "shift+cmd+a"
+            },
+            {
+              "title": "Select Parent",
+              "comment": "cmd+return"
+            },
+            {
+              "title": "Edit Cell as Formula",
+              "key": "ctrl+="
+            },
+            {
+              "title": "Find…",
+              "key": "cmd+f"
+            },
+            {
+              "title": "Find Next",
+              "key": "cmd+g"
+            },
+            {
+              "title": "Find Previous",
+              "key": "shift+cmd+g"
+            },
+            {
+              "title": "Use Selection for Find",
+              "key": "cmd+e"
+            },
+            {
+              "title": "Jump to Selection",
+              "key": "cmd+j"
+            },
+            {
+              "title": "Show Spelling and Grammar",
+              "key": "shift+cmd+;"
+            },
+            {
+              "title": "Check Document Now",
+              "key": "cmd+;"
+            },
+            {
+              "title": "Start Dictation…",
+              "comment": "🎤"
+            },
+            {
+              "title": "Emoji & Symbols",
+              "comment": "fn+e"
+            }
+          ]
+        },
+        {
+          "title": "Insert",
+          "shortcuts": [
+            {
+              "title": "Sheet",
+              "key": "shift+cmd+n"
+            },
+            {
+              "title": "Draw With Pen",
+              "key": "shift+opt+cmd+p"
+            },
+            {
+              "title": "Comment",
+              "key": "shift+cmd+k"
+            },
+            {
+              "title": "Equation...",
+              "key": "opt+cmd+e"
+            }
+          ]
+        },
+        {
+          "title": "Table",
+          "shortcuts": [
+            {
+              "title": "Delete Row",
+              "key": "opt+cmd+backspace"
+            },
+            {
+              "title": "Delete Column",
+              "key": "ctrl+cmd+backspace"
+            },
+            {
+              "title": "Row",
+              "comment": "opt+cmd+return"
+            },
+            {
+              "title": "Column",
+              "comment": "ctrl+cmd+return"
+            },
+            {
+              "title": "First Value in Row",
+              "key": "opt+cmd+left"
+            },
+            {
+              "title": "Last Value in Row",
+              "key": "opt+cmd+right"
+            },
+            {
+              "title": "First Value in Column",
+              "key": "opt+cmd+up"
+            },
+            {
+              "title": "Last Value in Column",
+              "key": "opt+cmd+down"
+            },
+            {
+              "title": "Extend to First Value in Row",
+              "key": "shift+opt+cmd+left"
+            },
+            {
+              "title": "Extend to Last Value in Row",
+              "key": "shift+opt+cmd+right"
+            },
+            {
+              "title": "Extend to First Value in Column",
+              "key": "shift+opt+cmd+up"
+            },
+            {
+              "title": "Extend to Last Value in Column",
+              "key": "shift+opt+cmd+down"
+            },
+            {
+              "title": "Autofill…",
+              "key": "cmd+\\"
+            },
+            {
+              "title": "Autofill from Row Above",
+              "key": "opt+cmd+\\"
+            },
+            {
+              "title": "Autofill from Column Before",
+              "key": "ctrl+cmd+\\"
+            },
+            {
+              "title": "Insert Current Date",
+              "key": "ctrl+shift+cmd+d"
+            },
+            {
+              "title": "Insert Current Time",
+              "key": "ctrl+shift+cmd+t"
+            },
+            {
+              "title": "Merge Cells",
+              "key": "ctrl+cmd+m"
+            },
+            {
+              "title": "Unmerge Cells",
+              "key": "ctrl+shift+cmd+m"
+            }
+          ]
+        },
+        {
+          "title": "Organize",
+          "shortcuts": [
+            {
+              "title": "Apply Sort Rules",
+              "key": "shift+cmd+r"
+            },
+            {
+              "title": "Turn Filters On",
+              "key": "opt+cmd+f"
+            },
+            {
+              "title": "Collapse All Groups",
+              "key": "shift+opt+cmd+8"
+            },
+            {
+              "title": "Expand All Groups",
+              "key": "shift+opt+cmd+9"
+            }
+          ]
+        },
+        {
+          "title": "Format",
+          "shortcuts": [
+            {
+              "title": "Show Fonts",
+              "key": "cmd+t"
+            },
+            {
+              "title": "Bold",
+              "key": "cmd+b"
+            },
+            {
+              "title": "Italic",
+              "key": "cmd+i"
+            },
+            {
+              "title": "Underline",
+              "key": "cmd+u"
+            },
+            {
+              "title": "Bigger",
+              "key": "shift+cmd+="
+            },
+            {
+              "title": "Smaller",
+              "key": "cmd+-"
+            },
+            {
+              "title": "Tighten",
+              "key": "opt+cmd+["
+            },
+            {
+              "title": "Loosen",
+              "key": "opt+cmd+]"
+            },
+            {
+              "title": "Superscript",
+              "key": "ctrl+shift+cmd+="
+            },
+            {
+              "title": "Subscript",
+              "key": "ctrl+cmd+-"
+            },
+            {
+              "title": "Auto-Align Table Cell",
+              "key": "opt+cmd+u"
+            },
+            {
+              "title": "Increase Indent Level",
+              "key": "cmd+]"
+            },
+            {
+              "title": "Decrease Indent Level",
+              "key": "cmd+["
+            },
+            {
+              "title": "Edit Chart Data…",
+              "key": "shift+cmd+d"
+            },
+            {
+              "title": "Edit Mask",
+              "key": "shift+cmd+m"
+            },
+            {
+              "title": "Copy Style",
+              "key": "opt+cmd+c"
+            },
+            {
+              "title": "Paste Style",
+              "key": "opt+cmd+v"
+            },
+            {
+              "title": "Define as Text Placeholder",
+              "key": "ctrl+opt+cmd+t"
+            },
+            {
+              "title": "Define as Media Placeholder",
+              "key": "ctrl+opt+cmd+i"
+            }
+          ]
+        },
+        {
+          "title": "Arrange",
+          "shortcuts": [
+            {
+              "title": "Bring Forward",
+              "key": "shift+opt+cmd+f"
+            },
+            {
+              "title": "Bring to Front",
+              "key": "shift+cmd+f"
+            },
+            {
+              "title": "Send Backward",
+              "key": "shift+opt+cmd+b"
+            },
+            {
+              "title": "Send to Back",
+              "key": "shift+cmd+b"
+            },
+            {
+              "title": "Lock",
+              "key": "cmd+l"
+            },
+            {
+              "title": "Unlock",
+              "key": "opt+cmd+l"
+            },
+            {
+              "title": "Group",
+              "key": "opt+cmd+g"
+            },
+            {
+              "title": "Ungroup",
+              "key": "shift+opt+cmd+g"
+            }
+          ]
+        },
+        {
+          "title": "View",
+          "shortcuts": [
+            {
+              "title": "Show All Tabs",
+              "key": "shift+cmd+\\"
+            },
+            {
+              "title": "Show Next Inspector Tab",
+              "key": "ctrl+`"
+            },
+            {
+              "title": "Show Previous Inspector Tab",
+              "key": "ctrl+shift+`"
+            },
+            {
+              "title": "Hide Inspector",
+              "key": "opt+cmd+i"
+            },
+            {
+              "title": "Show Rulers",
+              "key": "cmd+r"
+            },
+            {
+              "title": "Show Next Comment",
+              "key": "opt+cmd+k"
+            },
+            {
+              "title": "Show Previous Comment",
+              "key": "shift+opt+cmd+k"
+            },
+            {
+              "title": "Show Colors",
+              "key": "shift+cmd+c"
+            },
+            {
+              "title": "Zoom In",
+              "key": "shift+cmd+."
+            },
+            {
+              "title": "Zoom Out",
+              "key": "shift+cmd+,"
+            },
+            {
+              "title": "Actual Size",
+              "key": "cmd+0"
+            },
+            {
+              "title": "Zoom to Selection",
+              "key": "shift+cmd+0"
+            },
+            {
+              "title": "Enter Full Screen",
+              "comment": "fn+f"
+            },
+            {
+              "title": "Hide Toolbar",
+              "key": "opt+cmd+t"
+            }
+          ]
+        },
+        {
+          "title": "Window",
+          "shortcuts": [
+            {
+              "title": "Minimize",
+              "key": "cmd+m"
+            },
+            {
+              "title": "Minimize All",
+              "key": "opt+cmd+m"
+            },
+            {
+              "title": "Zoom",
+              "key": "ctrl+cmd+="
+            },
+            {
+              "title": "Zoom All",
+              "key": "ctrl+opt+cmd+="
+            },
+            {
+              "title": "Show Previous Tab",
+              "key": "ctrl+shift+tab"
+            },
+            {
+              "title": "Show Next Tab",
+              "key": "ctrl+tab"
+            },
+            {
+              "title": "Show Previous Sheet",
+              "key": "shift+cmd+["
+            },
+            {
+              "title": "Show Next Sheet",
+              "key": "shift+cmd+]"
+            },
+            {
+              "title": "Show First Sheet",
+              "key": "shift+opt+cmd+["
+            },
+            {
+              "title": "Show Last Sheet",
+              "key": "shift+opt+cmd+]"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
