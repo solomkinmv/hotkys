@@ -1,8 +1,8 @@
 {
   "$schema": "schema/shortcut.schema.json",
-  "bundleId": "com.omnigroup.OmniFocus3",
-  "name": "OmniFocus 3",
-  "slug": "omnifocus3",
+  "bundleId": "com.omnigroup.OmniFocus4",
+  "name": "OmniFocus 4",
+  "slug": "omnifocus4",
   "keymaps": [
     {
       "title": "Default",
