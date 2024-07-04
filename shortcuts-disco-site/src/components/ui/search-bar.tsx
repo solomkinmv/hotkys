@@ -39,8 +39,7 @@ const SearchBar = (
             />
             <SearchIcon className="absolute h-5 w-5 text-gray-300 left-2.5 top-2.5 dark:text-gray-700"/>
             <KeyboardBadge
-                modifiers="⌘"
-                base="K"
+                tokens={["⌘", "K"]}
                 className="absolute right-4 h-5 w-5 text-gray-300 top-2.5 dark:text-gray-700"
             />
         </div>

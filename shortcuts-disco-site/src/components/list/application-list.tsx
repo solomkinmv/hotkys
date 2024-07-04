@@ -42,7 +42,7 @@ export const ApplicationList = (
                 {appShortcuts.map((app) => (
                     <LinkableListItem key={app.slug} to={`/apps/${app.slug}`}>
                         <span>{app.name}</span>
-                        <KeyboardBadge base={app.bundleId}/>
+                        {app.bundleId && <KeyboardBadge tokens={[app.bundleId]}/>}
                     </LinkableListItem>
                 ))}
             </div>
