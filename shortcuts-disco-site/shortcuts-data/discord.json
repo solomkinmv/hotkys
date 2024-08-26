@@ -1,0 +1,213 @@
+{
+  "$schema": "schema/shortcut.schema.json",
+  "name": "Discord",
+  "slug": "discord",
+  "bundleId": "com.hnc.Discord",
+  "keymaps": [
+    {
+      "title": "Default",
+      "sections": [
+        {
+          "title": "Messages",
+          "shortcuts": [
+            {
+              "title": "Edit message",
+              "key": "e"
+            },
+            {
+              "title": "Delete message",
+              "key": "backspace"
+            },
+            {
+              "title": "Pin message",
+              "key": "p"
+            },
+            {
+              "title": "Add reaction",
+              "key": "plus"
+            },
+            {
+              "title": "Reply",
+              "key": "r"
+            },
+            {
+              "title": "Mark unread",
+              "key": "opt+enter"
+            },
+            {
+              "title": "Copy text",
+              "key": "cmd+c"
+            },
+            {
+              "title": "Focus text area",
+              "key": "esc"
+            }
+          ]
+        },
+        {
+          "title": "Navigation",
+          "shortcuts": [
+            {
+              "title": "Navigate between servers",
+              "comment": "Use ⬆️ and ⬇️",
+              "key": "opt+cmd+up"
+            },
+            {
+              "title": "Navigate between channels",
+              "comment": "Use ⬆️ and ⬇️",
+              "key": "opt+up"
+            },
+            {
+              "title": "Navigate between unread channels",
+              "comment": "Use ⬆️ and ⬇️",
+              "key": "shift+opt+up"
+            },
+            {
+              "title": "Navigate between unread channels with mentions",
+              "comment": "Use ⬆️ and ⬇️",
+              "key": "shift+opt+cmd+up"
+            },
+            {
+              "title": "Navigate forward and backward in page history",
+              "comment": "Use [ and ]",
+              "key": "shift+opt+["
+            },
+            {
+              "title": "Navigate to current call",
+              "key": "shift+opt+cmd+v"
+            },
+            {
+              "title": "Toggle between last server and DMs",
+              "key": "opt+cmd+right"
+            },
+            {
+              "title": "Toggle QuickSwitcher",
+              "key": "cmd+k"
+            },
+            {
+              "title": "Create or join a server",
+              "key": "shift+cmd+n"
+            }
+          ]
+        },
+        {
+          "title": "Chat",
+          "shortcuts": [
+            {
+              "title": "Mark server read",
+              "key": "shift+esc"
+            },
+            {
+              "title": "Mark channel read",
+              "key": "esc"
+            },
+            {
+              "title": "Create a private group",
+              "key": "shift+cmd+t"
+            },
+            {
+              "title": "Toggle pins popout",
+              "key": "cmd+p"
+            },
+            {
+              "title": "Toggle inbox popout",
+              "key": "cmd+i"
+            },
+            {
+              "title": "Mark top inbox channel read",
+              "key": "shift+cmd+e"
+            },
+            {
+              "title": "Toggle channel member list",
+              "key": "cmd+u"
+            },
+            {
+              "title": "Toggle emoji picker",
+              "key": "cmd+e"
+            },
+            {
+              "title": "Toggle GIF picker",
+              "key": "cmd+g"
+            },
+            {
+              "title": "Toggle sticker picker",
+              "key": "cmd+s"
+            },
+            {
+              "title": "Scroll chat up or down",
+              "comment": "Use PgUp and PgDown",
+              "key": "pageup"
+            },
+            {
+              "title": "Upload a file",
+              "key": "shift+cmd+u"
+            },
+            {
+              "title": "Focus text area",
+              "comment": "any key"
+            },
+            {
+              "title": "Jump to oldest unread message",
+              "key": "shift+pageup"
+            }
+          ]
+        },
+        {
+          "title": "Voice and Video",
+          "shortcuts": [
+            {
+              "title": "Toggle mute",
+              "key": "shift+cmd+m"
+            },
+            {
+              "title": "Toggle deafen",
+              "key": "shift+cmd+d"
+            },
+            {
+              "title": "Answer incoming call",
+              "key": "cmd+enter"
+            },
+            {
+              "title": "Decline incoming call",
+              "key": "esc"
+            },
+            {
+              "title": "Start call in private message or group",
+              "key": "ctrl+'"
+            },
+            {
+              "title": "Toggle soundboard",
+              "key": "shift+cmd+b"
+            }
+          ]
+        },
+        {
+          "title": "Miscellaneous",
+          "shortcuts": [
+            {
+              "title": "Get help",
+              "key": "shift+cmd+h"
+            },
+            {
+              "title": "Search",
+              "key": "cmd+f"
+            },
+            {
+              "title": "Raging demon",
+              "comment": "Only works from the hotkeys window",
+              "key": "h h right n k"
+            },
+            {
+              "title": "Listen to Lofi Beats with Wumpus",
+              "key": "shift+opt+cmd+w"
+            },
+            {
+              "title": "Toggle hotkeys window",
+              "key": "cmd+/"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
