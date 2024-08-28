@@ -1,0 +1,168 @@
+{
+  "$schema": "schema/shortcut.schema.json",
+  "name": "FreshRSS",
+  "slug": "freshrss",
+  "keymaps": [
+    {
+      "title": "Default",
+      "sections": [
+        {
+          "title": "Views",
+          "shortcuts": [
+            {
+              "title": "Switch to normal view",
+              "key": "1"
+            },
+            {
+              "title": "Switch to global view",
+              "key": "2"
+            },
+            {
+              "title": "Switch to reading view",
+              "key": "3"
+            }
+          ]
+        },
+        {
+          "title": "Navigation",
+          "shortcuts": [
+            {
+              "title": "Open the next article",
+              "key": "j"
+            },
+            {
+              "title": "Open the next unread article",
+              "key": "h"
+            },
+            {
+              "title": "Open the previous article",
+              "key": "k"
+            },
+            {
+              "title": "Open the first article",
+              "key": "home"
+            },
+            {
+              "title": "Open the last article",
+              "key": "end"
+            },
+            {
+              "title": "Focus next without opening",
+              "key": "n"
+            },
+            {
+              "title": "Focus previous without opening",
+              "key": "p"
+            },
+            {
+              "title": "Open the next feed",
+              "key": "shift+j"
+            },
+            {
+              "title": "Open the next unread feed",
+              "key": "shift+h"
+            },
+            {
+              "title": "Open the previous feed",
+              "key": "shift+k"
+            },
+            {
+              "title": "Open the first feed",
+              "key": "shift+home"
+            },
+            {
+              "title": "Open the last feed",
+              "key": "shift+end"
+            },
+            {
+              "title": "Open the next category",
+              "key": "opt+j"
+            },
+            {
+              "title": "Open the next unread category",
+              "key": "opt+h"
+            },
+            {
+              "title": "Open the previous category",
+              "key": "opt+k"
+            },
+            {
+              "title": "Open the first category",
+              "key": "opt+home"
+            },
+            {
+              "title": "Open the last category",
+              "key": "opt+end"
+            }
+          ]
+        },
+        {
+          "title": "Article actions",
+          "shortcuts": [
+            {
+              "title": "Toggle current article read status",
+              "key": "r"
+            },
+            {
+              "title": "Mark previous articles as read",
+              "key": "opt+r"
+            },
+            {
+              "title": "Mark all articles as read",
+              "key": "shift+r"
+            },
+            {
+              "title": "Toggle favourite",
+              "key": "shift+f"
+            },
+            {
+              "title": "Open on original website",
+              "key": "space"
+            },
+            {
+              "title": "Share",
+              "key": "s"
+            },
+            {
+              "title": "Collapse",
+              "key": "c"
+            },
+            {
+              "title": "Play/pause media",
+              "key": "v"
+            }
+          ]
+        },
+        {
+          "title": "Other actions",
+          "shortcuts": [
+            {
+              "title": "Update feeds",
+              "key": "q"
+            },
+            {
+              "title": "Load more articles",
+              "key": "m"
+            },
+            {
+              "title": "Access search box",
+              "key": "a"
+            },
+            {
+              "title": "Access user queries",
+              "key": "u"
+            },
+            {
+              "title": "Close menus",
+              "key": "esc"
+            },
+            {
+              "title": "Display documentation",
+              "key": "f1"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,388 @@
+{
+  "$schema": "schema/shortcut.schema.json",
+  "bundleId": "com.omnigroup.OmniFocus4",
+  "name": "OmniFocus 4",
+  "slug": "omnifocus4",
+  "keymaps": [
+    {
+      "title": "Default",
+      "sections": [
+        {
+          "title": "File",
+          "shortcuts": [
+            {
+              "title": "New Action",
+              "key": "cmd+n"
+            },
+            {
+              "title": "New Project",
+              "key": "shift+cmd+n"
+            },
+            {
+              "title": "New Tag",
+              "key": "ctrl+cmd+n"
+            },
+            {
+              "title": "New Window",
+              "key": "opt+cmd+n"
+            },
+            {
+              "title": "New Tab",
+              "key": "opt+cmd+t"
+            },
+            {
+              "title": "Quick Open…",
+              "key": "cmd+o"
+            },
+            {
+              "title": "Close Window",
+              "key": "cmd+w"
+            },
+            {
+              "title": "Close All",
+              "key": "opt+cmd+w"
+            },
+            {
+              "title": "Sync Now",
+              "key": "cmd+s"
+            },
+            {
+              "title": "Page Setup…",
+              "key": "shift+cmd+p"
+            },
+            {
+              "title": "Print…",
+              "key": "cmd+p"
+            }
+          ]
+        },
+        {
+          "title": "Edit",
+          "shortcuts": [
+            {
+              "title": "Undo",
+              "key": "cmd+z"
+            },
+            {
+              "title": "Redo",
+              "key": "shift+cmd+z"
+            },
+            {
+              "title": "Cut",
+              "key": "cmd+x"
+            },
+            {
+              "title": "Copy",
+              "key": "cmd+c"
+            },
+            {
+              "title": "Paste",
+              "key": "cmd+v"
+            },
+            {
+              "title": "Paste and Match Style",
+              "key": "shift+opt+cmd+v"
+            },
+            {
+              "title": "Paste and Simplify Style",
+              "key": "ctrl+shift+opt+cmd+v"
+            },
+            {
+              "title": "Select All",
+              "key": "cmd+a"
+            },
+            {
+              "title": "Deselect All",
+              "key": "shift+cmd+a"
+            },
+            {
+              "title": "Duplicate",
+              "key": "cmd+d"
+            },
+            {
+              "title": "Edit Note",
+              "key": "cmd+'"
+            },
+            {
+              "title": "Convert to Project",
+              "key": "shift+cmd+1"
+            },
+            {
+              "title": "Mark Reviewed",
+              "key": "shift+cmd+r"
+            },
+            {
+              "title": "Add Forecast Tag",
+              "key": "ctrl+cmd+l"
+            },
+            {
+              "title": "Set Flag",
+              "key": "shift+cmd+l"
+            },
+            {
+              "title": "Go to Search Field",
+              "key": "opt+cmd+f"
+            },
+            {
+              "title": "Find…",
+              "key": "cmd+f"
+            },
+            {
+              "title": "Find Next",
+              "key": "cmd+g"
+            },
+            {
+              "title": "Find Previous",
+              "key": "shift+cmd+g"
+            },
+            {
+              "title": "Use Selection for Find",
+              "key": "cmd+e"
+            },
+            {
+              "title": "Jump to Selection",
+              "key": "cmd+j"
+            },
+            {
+              "title": "Show Spelling and Grammar",
+              "key": "shift+cmd+;"
+            },
+            {
+              "title": "Check Document Now",
+              "key": "cmd+;"
+            },
+            {
+              "title": "Start Dictation…",
+              "comment": "🎤"
+            },
+            {
+              "title": "Emoji & Symbols",
+              "comment": "fn+e"
+            }
+          ]
+        },
+        {
+          "title": "Organize",
+          "shortcuts": [
+            {
+              "title": "Clean Up",
+              "key": "cmd+k"
+            },
+            {
+              "title": "Add Inside",
+              "key": "shift+cmd+]"
+            },
+            {
+              "title": "Add Outside",
+              "key": "shift+cmd+["
+            },
+            {
+              "title": "Move Down",
+              "key": "ctrl+cmd+down"
+            },
+            {
+              "title": "Move Right",
+              "key": "ctrl+cmd+right"
+            },
+            {
+              "title": "Move Up",
+              "key": "ctrl+cmd+up"
+            },
+            {
+              "title": "Move Left",
+              "key": "ctrl+cmd+left"
+            },
+            {
+              "title": "Indent",
+              "key": "cmd+]"
+            },
+            {
+              "title": "Outdent",
+              "key": "cmd+["
+            },
+            {
+              "title": "Group",
+              "key": "opt+cmd+g"
+            },
+            {
+              "title": "Ungroup",
+              "key": "opt+cmd+u"
+            }
+          ]
+        },
+        {
+          "title": "View",
+          "shortcuts": [
+            {
+              "title": "Expand All",
+              "key": "ctrl+cmd+9"
+            },
+            {
+              "title": "Collapse All",
+              "key": "ctrl+cmd+0"
+            },
+            {
+              "title": "Expand Item",
+              "key": "cmd+9"
+            },
+            {
+              "title": "Expand Item Completely",
+              "key": "opt+cmd+9"
+            },
+            {
+              "title": "Collapse Item",
+              "key": "cmd+0"
+            },
+            {
+              "title": "Collapse Item Completely",
+              "key": "opt+cmd+0"
+            },
+            {
+              "title": "Show All Notes",
+              "key": "ctrl+cmd+'"
+            },
+            {
+              "title": "Show Note",
+              "key": "opt+cmd+'"
+            },
+            {
+              "title": "Focus on Selected Projects",
+              "key": "shift+cmd+f"
+            },
+            {
+              "title": "Show in Projects",
+              "key": "opt+cmd+r"
+            },
+            {
+              "title": "Show Sidebar",
+              "key": "opt+cmd+s"
+            },
+            {
+              "title": "Show Inspector",
+              "key": "opt+cmd+i"
+            },
+            {
+              "title": "Go to Sidebar",
+              "key": "opt+cmd+1"
+            },
+            {
+              "title": "Go to Outline",
+              "key": "opt+cmd+2"
+            },
+            {
+              "title": "Go to Inspector",
+              "key": "opt+cmd+3"
+            },
+            {
+              "title": "Show View Options",
+              "key": "shift+cmd+v"
+            },
+            {
+              "title": "Show All Tabs",
+              "key": "shift+cmd+\\"
+            },
+            {
+              "title": "Enter Full Screen",
+              "comment": "fn+f"
+            }
+          ]
+        },
+        {
+          "title": "Perspectives",
+          "shortcuts": [
+            {
+              "title": "Show Perspectives",
+              "key": "ctrl+cmd+p"
+            },
+            {
+              "title": "Inbox",
+              "key": "cmd+1"
+            },
+            {
+              "title": "Projects",
+              "key": "cmd+2"
+            },
+            {
+              "title": "Tags",
+              "key": "cmd+3"
+            },
+            {
+              "title": "Forecast",
+              "key": "cmd+4"
+            },
+            {
+              "title": "Flagged",
+              "key": "cmd+5"
+            },
+            {
+              "title": "Review",
+              "key": "cmd+6"
+            }
+          ]
+        },
+        {
+          "title": "Format",
+          "shortcuts": [
+            {
+              "title": "Copy Style",
+              "key": "opt+cmd+c"
+            },
+            {
+              "title": "Paste Style",
+              "key": "opt+cmd+v"
+            },
+            {
+              "title": "Clear Style",
+              "key": "ctrl+cmd+backspace"
+            },
+            {
+              "title": "Show Fonts",
+              "key": "cmd+t"
+            },
+            {
+              "title": "Show Colors",
+              "key": "shift+cmd+c"
+            },
+            {
+              "title": "Bold",
+              "key": "cmd+b"
+            },
+            {
+              "title": "Italic",
+              "key": "cmd+i"
+            },
+            {
+              "title": "Underline",
+              "key": "cmd+u"
+            },
+            {
+              "title": "Bigger",
+              "key": "shift+cmd+="
+            },
+            {
+              "title": "Smaller",
+              "key": "cmd+-"
+            }
+          ]
+        },
+        {
+          "title": "Window",
+          "shortcuts": [
+            {
+              "title": "Minimize Window",
+              "key": "cmd+m"
+            },
+            {
+              "title": "Minimize All Windows",
+              "key": "opt+cmd+m"
+            },
+            {
+              "title": "Show Quick Entry",
+              "key": "ctrl+shift+opt+space"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
