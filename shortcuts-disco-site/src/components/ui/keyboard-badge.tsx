@@ -3,17 +3,21 @@ type KeyboardBadgeProps = {
     className?: string;
 };
 
-export const KeyboardBadge = ({tokens, ...props}: KeyboardBadgeProps) => (
+export const KeyboardBadge = ({ tokens, ...props }: KeyboardBadgeProps) => (
     <span {...props}>
-        <kbd
-            className="pointer-events-none h-5 select-none items-center gap-1 rounded font-mono font-medium opacity-100 bg-muted px-1.5">
-            {tokens.map((token, index) => {
-                if (isSpecialSymbol(token)) {
-                    return <span key={index} className="pr-0.5">{token}</span>;
-                }
-                return <span key={index} className="font-extralight">{token}</span>;
-            })}
-        </kbd>
+        {tokens
+            .filter(token => token.trim() !== '')
+            .map((token, index, arr) => [
+                index > 0 && <span key={`plus-${index}`} className="px-1 text-neutral-300">+</span>,
+                <kbd 
+                    key={`kbd-${index}`}
+                    className={`pointer-events-none h-5 select-none items-center gap-1 rounded font-mono font-medium opacity-100 bg-muted px-1.5 ${isSpecialSymbol(token) ? '' : 'pr-1.5'}`}
+                >
+                    {token}
+                </kbd>
+            ])
+            .flat()
+            .filter(Boolean)}
     </span>
 );
 

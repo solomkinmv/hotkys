@@ -62,11 +62,14 @@ export const AppDetails = ({
                     <ListItem key={hotkey.title + idx}>
                         <span className="font-medium">
                             <span>{hotkey.title}</span>
-                            {hotkey.sequence.length > 0 &&
-                                <KeyboardBadge tokens={generateFormattedHotkeyTokens(hotkey)} className="ml-2"/>}
                         </span>
-                        <span className="text-right text-gray-500">
-                            {generateCommentText(hotkey.comment)}
+                        <span className="text-right text-gray-900">
+                            {hotkey.sequence.length > 0 &&
+                                <KeyboardBadge tokens={generateFormattedHotkeyTokens(hotkey)} className="ml-2" />}
+                            {hotkey.comment && hotkey.comment.length > 0 &&
+                                <span className="text-gray-900 text-slate-500 font-sm text-sm bg-slate-100 px-1.5 py-1 rounded-md">
+                                    {generateCommentText(hotkey.comment)}
+                                </span>}
                         </span>
                     </ListItem>
                 ))}
