@@ -2,6 +2,9 @@
   "name": "shortcuts-disco-site",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=20.6"
+  },
   "scripts": {
     "dev": "npm run export-data && next dev",
     "build": "npm run export-data && next build",
@@ -43,7 +46,6 @@
     "postcss": "^8.4.38",
     "prettier-plugin-tailwindcss": "0.5.4",
     "tailwindcss": "^3.4.3",
-    "ts-node": "^10.9.1",
     "tsx": "^4.10.2",
     "typescript": "^5"
   }
