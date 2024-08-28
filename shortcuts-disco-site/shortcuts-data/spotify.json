@@ -1,0 +1,221 @@
+{
+  "$schema": "schema/shortcut.schema.json",
+  "name": "Spotify",
+  "slug": "spotify",
+  "bundleId": "com.spotify.client",
+  "source": "https://support.spotify.com/is-en/using_spotify/system_settings/keyboard-shortcuts/",
+  "keymaps": [
+    {
+      "title": "Default",
+      "sections": [
+        {
+          "title": "Basic",
+          "shortcuts": [
+            {
+              "title": "Create new playlist",
+              "key": "cmd+n"
+            },
+            {
+              "title": "Create new folder",
+              "key": "shift+cmd+n"
+            },
+            {
+              "title": "Open context menu",
+              "key": "opt+j"
+            },
+            {
+              "title": "Open Quick Search",
+              "key": "opt+k"
+            },
+            {
+              "title": "Select all",
+              "key": "cmd+a"
+            },
+            {
+              "title": "Filter (in Songs and Playlists)",
+              "key": "cmd+f"
+            },
+            {
+              "title": "Search in Your Library",
+              "key": "opt+cmd+f"
+            },
+            {
+              "title": "Log out",
+              "key": "shift+cmd+f6"
+            }
+          ]
+        },
+        {
+          "title": "Playback",
+          "shortcuts": [
+            {
+              "title": "Play / Pause",
+              "key": "space"
+            },
+            {
+              "title": "Like",
+              "key": "shift+opt+b"
+            },
+            {
+              "title": "Shuffle",
+              "key": "cmd+s"
+            },
+            {
+              "title": "Repeat",
+              "key": "cmd+r"
+            },
+            {
+              "title": "Skip to previous",
+              "key": "cmd+left"
+            },
+            {
+              "title": "Skip to next",
+              "key": "cmd+right"
+            },
+            {
+              "title": "Seek backward",
+              "key": "shift+cmd+left"
+            },
+            {
+              "title": "Seek forward",
+              "key": "shift+cmd+right"
+            },
+            {
+              "title": "Raise volume",
+              "key": "cmd+up"
+            },
+            {
+              "title": "Lower volume",
+              "key": "cmd+down"
+            }
+          ]
+        },
+        {
+          "title": "Navigation",
+          "shortcuts": [
+            {
+              "title": "Home",
+              "key": "shift+opt+h"
+            },
+            {
+              "title": "Back in history",
+              "key": "opt+left"
+            },
+            {
+              "title": "Forward in history",
+              "key": "opt+right"
+            },
+            {
+              "title": "Preferences",
+              "key": "cmd+,"
+            },
+            {
+              "title": "Currently playing",
+              "key": "shift+opt+j"
+            },
+            {
+              "title": "Search",
+              "comment": "Focuses the top search bar in Home",
+              "key": "cmd+l"
+            },
+            {
+              "title": "Liked songs",
+              "key": "shift+opt+s"
+            },
+            {
+              "title": "Queue",
+              "key": "shift+opt+q"
+            },
+            {
+              "title": "Your Library",
+              "key": "shift+opt+0"
+            },
+            {
+              "title": "Your playlists",
+              "key": "shift+opt+1"
+            },
+            {
+              "title": "Your podcasts",
+              "key": "shift+opt+2"
+            },
+            {
+              "title": "Your artists",
+              "key": "shift+opt+3"
+            },
+            {
+              "title": "Your albums",
+              "key": "shift+opt+4"
+            },
+            {
+              "title": "Your audiobooks",
+              "key": "shift+opt+5"
+            },
+            {
+              "title": "Made for you",
+              "key": "shift+opt+m"
+            },
+            {
+              "title": "New Releases",
+              "key": "shift+opt+n"
+            },
+            {
+              "title": "Charts",
+              "key": "shift+opt+c"
+            }
+          ]
+        },
+        {
+          "title": "Layout",
+          "shortcuts": [
+            {
+              "title": "Toggle left sidebar",
+              "key": "shift+opt+l"
+            },
+            {
+              "title": "Decrease left sidebar width",
+              "key": "shift+opt+left"
+            },
+            {
+              "title": "Increase left sidebar width",
+              "key": "shift+opt+right"
+            },
+            {
+              "title": "Toggle right sidebar",
+              "key": "shift+opt+r"
+            },
+            {
+              "title": "Decrease right sidebar width",
+              "key": "shift+opt+down"
+            },
+            {
+              "title": "Increase right sidebar width",
+              "key": "shift+opt+up"
+            }
+          ]
+        },
+        {
+          "title": "Editing playlists",
+          "shortcuts": [
+            {
+              "title": "Cut from playlist",
+              "key": "cmd+x"
+            },
+            {
+              "title": "Delete from playlist",
+              "key": "backspace"
+            },
+            {
+              "title": "Copy selected song",
+              "key": "cmd+c"
+            },
+            {
+              "title": "Paste selected song",
+              "comment": "Pastes a link to the song in a text editor",
+              "key": "cmd+v"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
