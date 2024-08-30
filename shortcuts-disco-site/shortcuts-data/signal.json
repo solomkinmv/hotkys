@@ -1,0 +1,256 @@
+{
+  "$schema": "schema/shortcut.schema.json",
+  "bundleId": "org.whispersystems.signal-desktop",
+  "name": "Signal",
+  "slug": "signal",
+  "source": "https://support.signal.org/hc/en-us/articles/360036517511-Signal-Desktop-Keyboard-Shortcuts",
+  "keymaps": [
+    {
+      "title": "Default",
+      "sections": [
+        {
+          "title": "Display",
+          "shortcuts": [
+            {
+              "title": "Zoom in",
+              "key": "cmd+="
+            },
+            {
+              "title": "Zoom out",
+              "key": "cmd+-"
+            }
+          ]
+        },
+        {
+          "title": "Navigation",
+          "shortcuts": [
+            {
+              "title": "View all shortcuts",
+              "key": "cmd+/"
+            },
+            {
+              "title": "Navigate by section",
+              "key": "cmd+t"
+            },
+            {
+              "title": "Previous chat",
+              "key": "opt+up"
+            },
+            {
+              "title": "Next chat",
+              "key": "opt+down"
+            },
+            {
+              "title": "Previous unread chat",
+              "key": "shift+opt+up"
+            },
+            {
+              "title": "Next unread chat",
+              "key": "shift+opt+down"
+            },
+            {
+              "title": "Jump to chat 1",
+              "comment": "Use 1 to 9",
+              "key": "cmd+1"
+            },
+            {
+              "title": "Focus oldest unread or last message",
+              "key": "cmd+j"
+            },
+            {
+              "title": "Preferences",
+              "key": "cmd+,"
+            },
+            {
+              "title": "Open chat menu",
+              "key": "shift+cmd+l"
+            },
+            {
+              "title": "Start new chat",
+              "key": "cmd+n"
+            },
+            {
+              "title": "Search",
+              "key": "cmd+f"
+            },
+            {
+              "title": "Search in chat",
+              "key": "shift+cmd+f"
+            },
+            {
+              "title": "Focus composer",
+              "key": "shift+cmd+t"
+            },
+            {
+              "title": "Open All Media view",
+              "key": "shift+cmd+m"
+            },
+            {
+              "title": "Save Media (in media viewer)",
+              "key": "cmd+s"
+            },
+            {
+              "title": "Open emoji chooser",
+              "key": "shift+cmd+j"
+            },
+            {
+              "title": "Open sticker chooser",
+              "key": "shift+cmd+g"
+            },
+            {
+              "title": "Begin recording voice message",
+              "key": "shift+cmd+y"
+            },
+            {
+              "title": "Archive chat",
+              "key": "shift+cmd+a"
+            },
+            {
+              "title": "Unarchive chat",
+              "key": "shift+cmd+u"
+            },
+            {
+              "title": "Scroll to top of list",
+              "key": "cmd+up"
+            },
+            {
+              "title": "Scroll to bottom of list",
+              "key": "cmd+down"
+            },
+            {
+              "title": "Close current chat",
+              "key": "shift+cmd+c"
+            }
+          ]
+        },
+        {
+          "title": "Messages",
+          "shortcuts": [
+            {
+              "title": "Default action for selected message",
+              "key": "enter"
+            },
+            {
+              "title": "View selected message details",
+              "key": "cmd+d"
+            },
+            {
+              "title": "Toggle reply to selected message",
+              "key": "shift+cmd+r"
+            },
+            {
+              "title": "Toggle emoji-reaction picker for selected message",
+              "key": "shift+cmd+e"
+            },
+            {
+              "title": "Save attachment from selected message",
+              "key": "cmd+s"
+            },
+            {
+              "title": "Forward selected messages",
+              "key": "shift+cmd+s"
+            },
+            {
+              "title": "Open context menu for selected message",
+              "key": "cmd+f12"
+            },
+            {
+              "title": "Delete selected message",
+              "key": "shift+cmd+d"
+            }
+          ]
+        },
+        {
+          "title": "Composer",
+          "shortcuts": [
+            {
+              "title": "Add newline to message",
+              "key": "shift+enter"
+            },
+            {
+              "title": "Expand composer",
+              "key": "shift+cmd+k"
+            },
+            {
+              "title": "Send (in expanded composer)",
+              "key": "cmd+enter"
+            },
+            {
+              "title": "Attach file",
+              "key": "cmd+u"
+            },
+            {
+              "title": "Remove draft link preview",
+              "key": "cmd+p"
+            },
+            {
+              "title": "Remove all draft attachments",
+              "key": "shift+cmd+p"
+            },
+            {
+              "title": "Edit the previous message",
+              "key": "up"
+            },
+            {
+              "title": "Mark selected text as bold",
+              "key": "cmd+b"
+            },
+            {
+              "title": "Mark selected text as italic",
+              "key": "cmd+i"
+            },
+            {
+              "title": "Mark selected text as strikethrough",
+              "key": "shift+cmd+x"
+            },
+            {
+              "title": "Mark selected text as monospace",
+              "key": "cmd+e"
+            },
+            {
+              "title": "Mark selected text as a spoiler",
+              "key": "shift+cmd+b"
+            }
+          ]
+        },
+        {
+          "title": "Calling",
+          "shortcuts": [
+            {
+              "title": "Toggle mute on and off",
+              "key": "shift+m"
+            },
+            {
+              "title": "Toggle video on and off",
+              "key": "shift+v"
+            },
+            {
+              "title": "Accept call with video (video calls only)",
+              "key": "ctrl+shift+v"
+            },
+            {
+              "title": "Accept call without video",
+              "key": "ctrl+shift+a"
+            },
+            {
+              "title": "Decline call",
+              "key": "ctrl+shift+d"
+            },
+            {
+              "title": "Start voice call",
+              "key": "ctrl+shift+c"
+            },
+            {
+              "title": "Start video call",
+              "key": "ctrl+shift+y"
+            },
+            {
+              "title": "End call",
+              "key": "ctrl+shift+e"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
