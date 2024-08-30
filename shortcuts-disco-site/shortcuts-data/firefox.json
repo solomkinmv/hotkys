@@ -149,6 +149,10 @@
             {
               "title": "Focus Search Bar",
               "key": "cmd+k"
+            },
+            {
+              "title": "Search open tabs",
+              "key": "cmd+k shift+5"
             }
           ]
         },
@@ -244,6 +248,20 @@
             {
               "title": "Style Editor",
               "key": "shift+f7"
+            }
+          ]
+        },
+        {
+          "title": "Tab Containers",
+          "shortcuts": [
+            {
+              "title": "Open Containers Panel",
+              "key": "ctrl+."
+            },
+            {
+              "title": "Open Tab in Container 1-9",
+              "comment": "Configure in settings",
+              "key": "shift+cmd+1"
             }
           ]
         }
