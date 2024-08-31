@@ -11,15 +11,40 @@ export function prettifyAppShortcuts() {
     }
 }
 
-function prettifyApp(inputApp: InputApp) {
+/**
+ * Attempts to convert the key representations in the given app to the format 
+ * expected by Hotkys. Works directly on the input object.
+ */
+export function prettifyApp(inputApp: InputApp) {
     console.log(`Prettifying app: ${inputApp.name}`)
     inputApp.keymaps.forEach((inputKeymap) => {
         inputKeymap.sections.forEach((inputSection) => {
             inputSection.shortcuts.forEach((inputShortcut) => {
-                inputShortcut.key = inputShortcut?.key ? sortShortcutKeys(inputShortcut.key) : undefined;
+                inputShortcut.key = inputShortcut?.key ? 
+                    sortShortcutKeys(canonicalizeKeys(inputShortcut.key))
+                    : undefined;
             });
         });
     });
+}
+
+/**
+ * Converts common non-standard key representations to the standard used by Hotkys
+ */
+function canonicalizeKeys(key: string): string {
+    let k = key.toLowerCase();
+    const toReplace = [
+        [/option/g, "opt"],
+        [/command/g, "cmd"],
+        [/escape/g, "esc"],
+        [/pgup/g, "pageup"],
+        [/pgdown/g, "pagedown"],
+    ] as [RegExp, string][];
+    for (const _args of toReplace) {
+        // @ts-ignore there _does_ exist a replace(r: RegExp, s: string) signature...
+        k = k.replace.apply(k, _args);
+    }
+    return k
 }
 
 function sortShortcutKeys(key: string): string {
@@ -38,4 +63,7 @@ function sortChord(chord: string): string {
     return modifiers.join("+");
 }
 
-prettifyAppShortcuts();
+// If run directly via the CLI
+if (import.meta.url === `file://${process.argv[1]}`) {
+    prettifyAppShortcuts();
+}
