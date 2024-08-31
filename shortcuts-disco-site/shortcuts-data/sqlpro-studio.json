@@ -1,0 +1,108 @@
+{
+  "$schema": "schema/shortcut.schema.json",
+  "bundleId": "com.hankinsoft.sqlpro-studio-setapp",
+  "name": "SQLPro Studio",
+  "slug": "sqlpro-studio",
+  "source": "https://github.com/hankinsoft/SQLPro/wiki/Keyboard-shortcuts",
+  "keymaps": [
+    {
+      "title": "Default",
+      "sections": [
+        {
+          "title": "General",
+          "shortcuts": [
+            {
+              "title": "Opens the connection dialog",
+              "key": "cmd+c"
+            }
+          ]
+        },
+        {
+          "title": "Tab navigation",
+          "shortcuts": [
+            {
+              "title": "Close the current tab.",
+              "comment": "Closes the document if no tabs are open",
+              "key": "cmd+w"
+            },
+            {
+              "title": "Opens a new tab",
+              "key": "cmd+t"
+            },
+            {
+              "title": "Switches to the tab at that index",
+              "comment": "Use 0-9",
+              "key": "cmd+0"
+            },
+            {
+              "title": "Switches to the next tab",
+              "key": "shift+cmd+]"
+            },
+            {
+              "title": "Switches to the previous tab",
+              "key": "shift+cmd+["
+            }
+          ]
+        },
+        {
+          "title": "Query Tab",
+          "shortcuts": [
+            {
+              "title": "Run the current query",
+              "key": "cmd+e"
+            },
+            {
+              "title": "Display the history popup",
+              "key": "shift+cmd+h"
+            },
+            {
+              "title": "Display the database selector popup",
+              "key": "shift+cmd+d"
+            },
+            {
+              "title": "Hide/show the results grid",
+              "key": "cmd+k"
+            },
+            {
+              "title": "Comment/Uncomment query (Selection based)",
+              "key": "cmd+-"
+            },
+            {
+              "title": "Format query",
+              "key": "shift+cmd+k"
+            },
+            {
+              "title": "Goto line",
+              "key": "shift+cmd+g"
+            },
+            {
+              "title": "Move to matching bracket",
+              "key": "ctrl+]"
+            },
+            {
+              "title": "Show/hide autocomplete",
+              "key": "esc"
+            }
+          ]
+        },
+        {
+          "title": "Database Tree",
+          "shortcuts": [
+            {
+              "title": "Default action for current item",
+              "key": "cmd+down"
+            },
+            {
+              "title": "Secondary action for current item",
+              "key": "cmd+right"
+            },
+            {
+              "title": "Hide/show database tree",
+              "key": "cmd+l"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
