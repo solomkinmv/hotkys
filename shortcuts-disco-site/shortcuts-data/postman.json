@@ -1,0 +1,199 @@
+{
+  "$schema": "schema/shortcut.schema.json",
+  "bundleId": "com.postmanlabs.mac",
+  "name": "Postman",
+  "slug": "postman",
+  "keymaps": [
+    {
+      "title": "Default",
+      "sections": [
+        {
+          "title": "Tabs",
+          "shortcuts": [
+            {
+              "title": "Open New Tab",
+              "key": "cmd+t"
+            },
+            {
+              "title": "Close Tab",
+              "key": "cmd+w"
+            },
+            {
+              "title": "Force Close Tab",
+              "key": "opt+cmd+w"
+            },
+            {
+              "title": "Switch To Next Tab",
+              "key": "shift+cmd+]"
+            },
+            {
+              "title": "Switch To Previous Tab",
+              "key": "shift+cmd+["
+            },
+            {
+              "title": "Switch To Tab at Position",
+              "comment": "Use 1 to 8",
+              "key": "cmd+1"
+            },
+            {
+              "title": "Switch To Last Tab",
+              "key": "cmd+9"
+            },
+            {
+              "title": "Reopen Last Closed Tab",
+              "key": "shift+cmd+t"
+            },
+            {
+              "title": "New Runner Tab",
+              "key": "shift+cmd+r"
+            },
+            {
+              "title": "Search Tabs",
+              "key": "shift+cmd+a"
+            }
+          ]
+        },
+        {
+          "title": "Sidebar",
+          "shortcuts": [
+            {
+              "title": "Search Sidebar",
+              "key": "cmd+f"
+            },
+            {
+              "title": "Next Item",
+              "key": "down"
+            },
+            {
+              "title": "Previous Item",
+              "key": "up"
+            },
+            {
+              "title": "Expand Item",
+              "key": "right"
+            },
+            {
+              "title": "Expand All",
+              "key": "opt+right"
+            },
+            {
+              "title": "Collapse Item",
+              "key": "left"
+            },
+            {
+              "title": "Collapse All",
+              "key": "opt+left"
+            },
+            {
+              "title": "Select Item",
+              "key": "cmd+e"
+            },
+            {
+              "title": "Rename Item",
+              "key": "shift+cmd+y"
+            },
+            {
+              "title": "Cut Item",
+              "key": "cmd+x"
+            },
+            {
+              "title": "Paste Item",
+              "key": "cmd+v"
+            },
+            {
+              "title": "Duplicate Item",
+              "key": "cmd+d"
+            },
+            {
+              "title": "Delete Item",
+              "key": "backspace"
+            }
+          ]
+        },
+        {
+          "title": "Interface",
+          "shortcuts": [
+            {
+              "title": "Zoom in",
+              "key": "cmd+plus"
+            },
+            {
+              "title": "Zoom out",
+              "key": "cmd+-"
+            },
+            {
+              "title": "Reset Zoom",
+              "key": "cmd+0"
+            },
+            {
+              "title": "Toggle Two-Pane View",
+              "key": "opt+cmd+v"
+            },
+            {
+              "title": "Toggle Sidebar",
+              "key": "cmd+\\"
+            },
+            {
+              "title": "Environment Selector",
+              "key": "opt+cmd+e"
+            }
+          ]
+        },
+        {
+          "title": "Window and Modals",
+          "shortcuts": [
+            {
+              "title": "New...",
+              "key": "cmd+n"
+            },
+            {
+              "title": "New Postman Window",
+              "key": "shift+cmd+n"
+            },
+            {
+              "title": "New Console Window",
+              "key": "opt+cmd+c"
+            },
+            {
+              "title": "Find",
+              "key": "shift+cmd+f"
+            },
+            {
+              "title": "Import",
+              "key": "cmd+o"
+            },
+            {
+              "title": "Settings",
+              "key": "cmd+,"
+            },
+            {
+              "title": "Open Shortcut Help",
+              "key": "cmd+/"
+            },
+            {
+              "title": "Search",
+              "key": "cmd+k"
+            },
+            {
+              "title": "Open Postbot",
+              "key": "shift+cmd+\\"
+            },
+            {
+              "title": "Open Vault",
+              "key": "ctrl+shift+v"
+            }
+          ]
+        },
+        {
+          "title": "Console",
+          "shortcuts": [
+            {
+              "title": "Clear Console",
+              "key": "shift+cmd+k"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
