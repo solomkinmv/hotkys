@@ -1,4 +1,5 @@
-export function removeHiddenBundleId(bundleId: string | undefined): string {
-  if (bundleId === undefined || bundleId.endsWith(".fake.bundle.id")) return "";
-  return bundleId;
+import {Application} from "./internal-models";
+
+export function formatSubtitle(application: Application): string {
+  return application.bundleId || application.hostname || "";
 }
