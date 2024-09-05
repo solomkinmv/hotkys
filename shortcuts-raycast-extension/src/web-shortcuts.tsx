@@ -2,12 +2,11 @@ import { Action, ActionPanel, closeMainWindow, getPreferenceValues, Icon, List, 
 import { showFailureToast, usePromise } from "@raycast/utils";
 import { useEffect, useState } from "react";
 import { runShortcuts } from "./engine/shortcut-runner";
-import { Application, AtomicShortcut, Keymap, Section, SectionShortcut } from "./model/internal/internal-models";
-import { modifierSymbols } from "./model/internal/modifiers";
+import { Application, AtomicShortcut, Keymap, Section } from "./model/internal/internal-models";
 import useAllShortcuts from "./load/shortcuts-provider";
 import useKeyCodes from "./load/key-codes-provider";
 import { getFrontmostHostname } from "./hooks/use-frontmost-hostname";
-import { baseKeySymbolOverride } from "./view/base-key-override";
+import { generateHotkeyText } from "./view/hotkey-text-formatter";
 
 interface Preferences {
   delay: string;
@@ -135,20 +134,4 @@ export default function WebShortcuts() {
 
 function selectKeymap(keymaps: Keymap[], keymapName: string): Keymap | undefined {
   return keymaps.find((keymap) => keymap.title === keymapName);
-}
-
-function generateHotkeyText(shortcut: SectionShortcut): string {
-  return shortcut.sequence
-    .map((atomicShortcut) => {
-      const modifiersText = atomicShortcut.modifiers.map((modifier) => modifierSymbols.get(modifier)).join("") ?? "";
-      return modifiersText + overrideSymbolIfPossible(atomicShortcut.base);
-    })
-    .join(" ");
-}
-
-function overrideSymbolIfPossible(base: string) {
-  if (baseKeySymbolOverride.has(base)) {
-    return baseKeySymbolOverride.get(base);
-  }
-  return base.toUpperCase();
 }
