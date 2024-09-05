@@ -1,10 +1,10 @@
-import { closeMainWindow, PopToRootType } from "@raycast/api";
-import { showFailureToast, usePromise } from "@raycast/utils";
+import { usePromise } from "@raycast/utils";
 import { useEffect, useState } from "react";
 import { Application } from "./model/internal/internal-models";
 import useAllShortcuts from "./load/shortcuts-provider";
 import { ShortcutsList } from "./view/shortcuts-list";
 import { getFrontmostHostname } from "./engine/frontmost-hostname-fetcher";
+import { exitWithMessage } from "./view/exit-action";
 
 export default function WebShortcuts() {
   const [application, setApplication] = useState<Application>();
@@ -39,11 +39,4 @@ export default function WebShortcuts() {
   });
 
   return <ShortcutsList application={application} />;
-}
-
-function exitWithMessage(message: string) {
-  // noinspection JSIgnoredPromiseFromCall
-  closeMainWindow({ clearRootSearch: true, popToRootType: PopToRootType.Immediate });
-  // noinspection JSIgnoredPromiseFromCall
-  showFailureToast(undefined, { title: message });
 }
