@@ -9,30 +9,41 @@ import { ShortcutsList } from "./view/shortcuts-list";
 export default function WebShortcuts() {
   const [application, setApplication] = useState<Application>();
   const [hostname, setHostname] = useState<string>();
+  const [isLoading, setIsLoading] = useState(true);
 
   const shortcutsProviderResponse = useAllShortcuts();
 
   useEffect(() => {
-    if (application || shortcutsProviderResponse.isLoading || !hostname) {
+    if (isLoading || application || shortcutsProviderResponse.isLoading) {
       return;
     }
+    if (!hostname) {
+      exitWithMessage("No current web application found");
+      return;
+    }
+
     const foundApp = shortcutsProviderResponse.data.applications.find((app) => app.hostname === hostname);
     if (!foundApp) {
-      // noinspection JSIgnoredPromiseFromCall
-      closeMainWindow({ clearRootSearch: true, popToRootType: PopToRootType.Immediate });
-      // noinspection JSIgnoredPromiseFromCall
-      showFailureToast(undefined, { title: `Shortcuts not available for web page ${hostname}` });
+      exitWithMessage(`Shortcuts not available for application ${hostname}`);
       return;
     }
     setApplication(foundApp);
-  }, [shortcutsProviderResponse.isLoading, hostname, application]);
+  }, [shortcutsProviderResponse.isLoading, hostname, application, isLoading]);
 
   usePromise(getFrontmostHostname, [], {
     onData: (fetchedHostname) => {
+      setIsLoading(false);
       if (!fetchedHostname) return;
       setHostname(fetchedHostname);
     },
   });
 
   return <ShortcutsList application={application} />;
+}
+
+function exitWithMessage(message: string) {
+  // noinspection JSIgnoredPromiseFromCall
+  closeMainWindow({ clearRootSearch: true, popToRootType: PopToRootType.Immediate });
+  // noinspection JSIgnoredPromiseFromCall
+  showFailureToast(undefined, { title: message });
 }
