@@ -15,31 +15,10 @@ import { Application, AtomicShortcut, Keymap, Section } from "./model/internal/i
 import useAllShortcuts from "./load/shortcuts-provider";
 import useKeyCodes from "./load/key-codes-provider";
 import { generateHotkeyText } from "./view/hotkey-text-formatter";
+import { KeymapDropdown } from "./view/keymap-dropdown";
 
 interface Preferences {
   delay: string;
-}
-
-function KeymapDropdown(props: { keymaps: string[]; onKeymapChange: (newValue: string) => void }) {
-  const { keymaps, onKeymapChange } = props;
-  if (keymaps.length == 1) {
-    return null;
-  }
-  return (
-    <List.Dropdown
-      tooltip="Select Keymap"
-      storeValue={true}
-      onChange={(newValue) => {
-        onKeymapChange(newValue);
-      }}
-    >
-      <List.Dropdown.Section title="Keymaps">
-        {keymaps.map((keymap) => (
-          <List.Dropdown.Item key={keymap} title={keymap} value={keymap} />
-        ))}
-      </List.Dropdown.Section>
-    </List.Dropdown>
-  );
 }
 
 export default function AppShortcuts(props?: { app: Application }) {
