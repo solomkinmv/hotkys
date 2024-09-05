@@ -1,13 +1,4 @@
-import {
-  Action,
-  ActionPanel,
-  closeMainWindow,
-  getFrontmostApplication,
-  getPreferenceValues,
-  Icon,
-  List,
-  PopToRootType,
-} from "@raycast/api";
+import { Action, ActionPanel, closeMainWindow, getPreferenceValues, Icon, List, PopToRootType } from "@raycast/api";
 import { showFailureToast, usePromise } from "@raycast/utils";
 import { useEffect, useState } from "react";
 import { runShortcuts } from "./engine/shortcut-runner";
@@ -15,7 +6,8 @@ import { Application, AtomicShortcut, Keymap, Section, SectionShortcut } from ".
 import { modifierSymbols } from "./model/internal/modifiers";
 import useAllShortcuts from "./load/shortcuts-provider";
 import useKeyCodes from "./load/key-codes-provider";
-import {getFrontmostHostname} from "./hooks/use-frontmost-hostname";
+import { getFrontmostHostname } from "./hooks/use-frontmost-hostname";
+import { baseKeySymbolOverride } from "./view/base-key-override";
 
 interface Preferences {
   delay: string;
@@ -80,7 +72,7 @@ export default function WebShortcuts() {
     onData: (fetchedHostname) => {
       if (!fetchedHostname) return;
       setHostname(fetchedHostname);
-    }
+    },
   });
 
   const onKeymapChange = (newValue: string) => {
@@ -160,24 +152,3 @@ function overrideSymbolIfPossible(base: string) {
   }
   return base.toUpperCase();
 }
-
-const baseKeySymbolOverride: Map<string, string> = new Map([
-  ["left", "←"],
-  ["right", "→"],
-  ["up", "↑"],
-  ["down", "↓"],
-  ["pageup", "PgUp"],
-  ["pagedown", "PgDown"],
-  ["home", "Home"],
-  ["end", "End"],
-  ["space", "Space"],
-  ["capslock", "⇪"],
-  ["backspace", "⌫"],
-  ["tab", "⇥"],
-  ["esc", "⎋"],
-  ["enter", "↩"],
-  ["cmd", "⌘"],
-  ["ctrl", "⌃"],
-  ["opt", "⌥"],
-  ["shift", "⇧"],
-]);
