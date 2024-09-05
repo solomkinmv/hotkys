@@ -57,7 +57,7 @@ const appleScript = `
 `;
 
 function extractHostname(url: string): string {
-  const match = url.match(/^(?:https?:\/\/)?(?:[^@\n]+@)?([^:/\n?]+)/im);
+  const match = url.match(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:/\n?]+)/im);
   return match ? match[1] : url;
 }
 
