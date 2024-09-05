@@ -3,8 +3,8 @@ import { showFailureToast, usePromise } from "@raycast/utils";
 import { useEffect, useState } from "react";
 import { Application } from "./model/internal/internal-models";
 import useAllShortcuts from "./load/shortcuts-provider";
-import { getFrontmostHostname } from "./hooks/use-frontmost-hostname";
 import { ShortcutsList } from "./view/shortcuts-list";
+import { getFrontmostHostname } from "./engine/frontmost-hostname-fetcher";
 
 export default function WebShortcuts() {
   const [application, setApplication] = useState<Application>();

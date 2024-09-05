@@ -1,5 +1,5 @@
 //language=JavaScript
-import { runAppleScript, usePromise } from "@raycast/utils";
+import { runAppleScript } from "@raycast/utils";
 
 const appleScript = `
     const chromium = new Set([
@@ -64,12 +64,4 @@ function extractHostname(url: string): string {
 export async function getFrontmostHostname(): Promise<string | null> {
   const url = await runAppleScript(appleScript, { language: "JavaScript" });
   return url && url !== "null" ? extractHostname(url) : null;
-}
-
-export type FrontmostHostnameHook = { hostname: string | null | undefined; loading: boolean };
-
-export function useFrontmostHostname(): FrontmostHostnameHook {
-  const { isLoading, data } = usePromise(getFrontmostHostname);
-
-  return { hostname: data, loading: isLoading };
 }
