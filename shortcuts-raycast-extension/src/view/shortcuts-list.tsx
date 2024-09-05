@@ -1,24 +1,33 @@
 import { Action, ActionPanel, closeMainWindow, getPreferenceValues, Icon, List, PopToRootType } from "@raycast/api";
 import { KeymapDropdown } from "./keymap-dropdown";
 import { generateHotkeyText } from "./hotkey-text-formatter";
-import { Application, Section, SectionShortcut } from "../model/internal/internal-models";
+import { Application, Keymap, Section, SectionShortcut } from "../model/internal/internal-models";
 import { runShortcuts } from "../engine/shortcut-runner";
 import useKeyCodes from "../load/key-codes-provider";
+import { useEffect, useState } from "react";
 
 interface ShortcutsListProps {
-  isLoading: boolean;
   application: Application | undefined;
-  keymaps: string[];
-  onKeymapChange: (newValue: string) => void;
-  keymapSections: Section[];
 }
 
 interface Preferences {
   delay: string;
 }
 
-export function ShortcutsList({ isLoading, application, keymaps, onKeymapChange, keymapSections }: ShortcutsListProps) {
+export function ShortcutsList({ application }: ShortcutsListProps) {
   const keyCodesResponse = useKeyCodes();
+  const [keymaps, setKeymaps] = useState<string[]>([]);
+  const [keymapSections, setKeymapSections] = useState<Section[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    if (!application) return;
+    const foundKeymaps = application?.keymaps.map((k) => k.title) ?? [];
+    const foundSections = application?.keymaps[0].sections ?? [];
+    setKeymaps(foundKeymaps);
+    setKeymapSections(foundSections);
+    setIsLoading(false);
+  }, [application]);
 
   const handleShortcutExecution = async (application: Application, sectionShortcut: SectionShortcut) => {
     if (keyCodesResponse.data === undefined) return;
@@ -27,11 +36,15 @@ export function ShortcutsList({ isLoading, application, keymaps, onKeymapChange,
     await runShortcuts(application.bundleId, delay, sectionShortcut.sequence, keyCodesResponse.data);
   };
 
+  const handleKeymapChange = (newValue: string) => {
+    setKeymapSections(selectKeymap(application?.keymaps ?? [], newValue)?.sections ?? []);
+  };
+
   return (
     <List
       isLoading={isLoading}
       searchBarPlaceholder="Search for shortcuts"
-      searchBarAccessory={<KeymapDropdown keymaps={keymaps} onKeymapChange={onKeymapChange} />}
+      searchBarAccessory={<KeymapDropdown keymaps={keymaps} onKeymapChange={handleKeymapChange} />}
       navigationTitle={application?.name}
     >
       {application &&
@@ -70,4 +83,8 @@ export function ShortcutsList({ isLoading, application, keymaps, onKeymapChange,
         })}
     </List>
   );
+}
+
+function selectKeymap(keymaps: Keymap[], keymapName: string): Keymap | undefined {
+  return keymaps.find((keymap) => keymap.title === keymapName);
 }
