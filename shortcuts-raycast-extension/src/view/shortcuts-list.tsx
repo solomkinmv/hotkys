@@ -16,16 +16,13 @@ interface Preferences {
 
 export function ShortcutsList({ application }: ShortcutsListProps) {
   const keyCodesResponse = useKeyCodes();
-  const [keymaps, setKeymaps] = useState<string[]>([]);
+  const keymaps = application?.keymaps.map((k) => k.title) ?? [];
   const [keymapSections, setKeymapSections] = useState<Section[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (!application) return;
-    const foundKeymaps = application?.keymaps.map((k) => k.title) ?? [];
-    const foundSections = application?.keymaps[0].sections ?? [];
-    setKeymaps(foundKeymaps);
-    setKeymapSections(foundSections);
+    setKeymapSections(application?.keymaps[0].sections ?? []);
     setIsLoading(false);
   }, [application]);
 
@@ -52,9 +49,13 @@ export function ShortcutsList({ application }: ShortcutsListProps) {
           return (
             <List.Section key={section.title} title={section.title}>
               {section.hotkeys.map((shortcut) => {
+                // It is possible the same title is repeated, with two alternative key sequences.
+                // Therefore, to generate a unique key, we have to combine info about the title and key sequences.
+                const generateKey = ({ title, sequence }: SectionShortcut) =>
+                  `${title}-${[sequence.map(({ modifiers, base }) => `${modifiers.join("")}${base}`)].flat().join("")}`;
                 return (
                   <List.Item
-                    key={shortcut.title}
+                    key={generateKey(shortcut)}
                     title={shortcut.title}
                     subtitle={generateHotkeyText(shortcut)}
                     accessories={
