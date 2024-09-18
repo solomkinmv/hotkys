@@ -1,7 +1,7 @@
 import { Action, ActionPanel, List, useNavigation } from "@raycast/api";
 import AppShortcuts from "./app-shortcuts";
 import useAllShortcuts from "./load/shortcuts-provider";
-import { formatSubtitle } from "./model/internal/bundle-id-remover";
+import { formatSubtitle } from "./model/internal/subtitle-formatter";
 import { getAvatarIcon, useFrecencySorting } from "@raycast/utils";
 
 export default function AllShortcutsCommand() {
