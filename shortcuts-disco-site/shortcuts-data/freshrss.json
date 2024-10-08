@@ -2,6 +2,7 @@
   "$schema": "schema/shortcut.schema.json",
   "name": "FreshRSS",
   "slug": "freshrss",
+  "source": "https://github.com/FreshRSS/FreshRSS/blob/6be98417fc614eefa827b827aa2b75adf0618ff4/config-user.default.php#L72-L95",
   "keymaps": [
     {
       "title": "Default",
@@ -113,7 +114,7 @@
             },
             {
               "title": "Toggle favourite",
-              "key": "shift+f"
+              "key": "f"
             },
             {
               "title": "Open on original website",

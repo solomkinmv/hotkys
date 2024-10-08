@@ -3,6 +3,7 @@
   "bundleId": "notion.id",
   "slug": "notion",
   "name": "Notion",
+  "source": "https://www.notion.so/help/keyboard-shortcuts",
   "keymaps": [
     {
       "title": "Default",
@@ -57,6 +58,152 @@
             {
               "title": "Toggle between dark mode and light mode",
               "key": "shift+cmd+l"
+            }
+          ]
+        },
+        {
+          "title": "General",
+          "shortcuts": [
+            {
+              "title": "Expand or close the sidebar",
+              "key": "cmd+\\"
+            },
+            {
+              "title": "Move the current page",
+              "key": "shift+cmd+p"
+            },
+            {
+              "title": "Share or publish to the web",
+              "key": "shift+cmd+o"
+            },
+            {
+              "title": "Dictate text",
+              "key": "cmd+o"
+            },
+            {
+              "title": "Open page side/center-peek fully",
+              "key": "cmd+enter"
+            }
+          ]
+        },
+        {
+          "title": "Content creation",
+          "shortcuts": [
+            {
+              "title": "Create body text",
+              "key": "opt+cmd+0"
+            },
+            {
+              "title": "Create H1 heading",
+              "key": "opt+cmd+1"
+            },
+            {
+              "title": "Create H2 heading",
+              "key": "opt+cmd+2"
+            },
+            {
+              "title": "Create H3 heading",
+              "key": "opt+cmd+3"
+            },
+            {
+              "title": "Create to-do checkbox",
+              "key": "opt+cmd+4"
+            },
+            {
+              "title": "Create bulleted list",
+              "key": "opt+cmd+5"
+            },
+            {
+              "title": "Create numbered list",
+              "key": "opt+cmd+6"
+            },
+            {
+              "title": "Create toggle list",
+              "key": "opt+cmd+7"
+            },
+            {
+              "title": "Create code block",
+              "key": "opt+cmd+8"
+            },
+            {
+              "title": "Create or convert to a new page",
+              "key": "opt+cmd+9"
+            }
+          ]
+        },
+        {
+          "title": "Text formatting",
+          "shortcuts": [
+            {
+              "title": "Bold",
+              "key": "cmd+b"
+            },
+            {
+              "title": "Italic",
+              "key": "cmd+i"
+            },
+            {
+              "title": "Underline",
+              "key": "cmd+u"
+            },
+            {
+              "title": "Strikethrough",
+              "key": "shift+cmd+s"
+            },
+            {
+              "title": "Inline code",
+              "key": "cmd+e"
+            },
+            {
+              "title": "Apply last text or highlight color",
+              "key": "shift+cmd+h"
+            }
+          ]
+        },
+        {
+          "title": "Block Actions",
+          "shortcuts": [
+            {
+              "title": "Select current block",
+              "key": "esc"
+            },
+            {
+              "title": "Stop selecting blocks",
+              "comment": "When blocks are selected",
+              "key": "esc"
+            },
+            {
+              "title": "Move selected blocks",
+              "comment": "Up or down",
+              "key": "shift+cmd+up"
+            },
+            {
+              "title": "Delete selected blocks",
+              "key": "backspace"
+            },
+            {
+              "title": "Duplicate selected blocks",
+              "key": "cmd+d"
+            },
+            {
+              "title": "Edit selected block",
+              "key": "enter"
+            },
+            {
+              "title": "Edit or change selected blocks",
+              "key": "cmd+/"
+            },
+            {
+              "title": "Edit multiple database rows or cards",
+              "key": "cmd+/"
+            },
+            {
+              "title": "Expand or close all toggles",
+              "key": "opt+cmd+t"
+            },
+            {
+              "title": "Toggle full-screen on selected image",
+              "key": "space"
             }
           ]
         }

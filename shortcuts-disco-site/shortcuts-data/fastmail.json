@@ -1,6 +1,7 @@
 {
   "$schema": "schema/shortcut.schema.json",
   "name": "FastMail",
+  "hostname": "app.fastmail.com",
   "slug": "fastmail",
   "keymaps": [
     {
