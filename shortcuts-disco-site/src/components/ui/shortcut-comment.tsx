@@ -65,7 +65,6 @@ function generateCommentTokens(optionalComment: string): string[] {
     tokens.push(...newTokens);
   });
 
-  console.log(tokens);
   return tokens;
 }
 
