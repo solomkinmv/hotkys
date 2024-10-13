@@ -21,11 +21,11 @@
             },
             {
               "title": "Open a page as a new window",
-              "comment": "⇧⌥(click)"
+              "comment": "shift opt (click)"
             },
             {
               "title": "Open a link as a new tab",
-              "comment": "⌘(click)"
+              "comment": "cmd (click)"
             },
             {
               "title": "Create a new Notion tab",
