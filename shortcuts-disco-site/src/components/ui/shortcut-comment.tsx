@@ -54,18 +54,19 @@ function generateCommentTokens(optionalComment: string): string[] {
     tokens.forEach((token) => {
       let parts = token.split(regex);
       while (parts.length > 1) {
-        newTokens.push(parts.shift()!, symbol);
+        newTokens.push(parts.shift()!.trim(), symbol);
         token = parts.join(text);
         parts = token.split(regex);
       }
-      newTokens.push(token);
+      newTokens.push(token.trim());
     });
 
     tokens.length = 0;
     tokens.push(...newTokens);
   });
 
-  return tokens;
+  // Filter out empty tokens
+  return tokens.filter((token) => token.length > 0);
 }
 
 function isSpecialSymbol(token: string) {
