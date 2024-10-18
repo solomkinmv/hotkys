@@ -3,6 +3,7 @@ import AppShortcuts from "./app-shortcuts";
 import useAllShortcuts from "./load/shortcuts-provider";
 import { formatSubtitle } from "./model/internal/subtitle-formatter";
 import { getAvatarIcon, useFrecencySorting } from "@raycast/utils";
+import { useState, useEffect } from "react";
 
 export default function AllShortcutsCommand() {
   const { push } = useNavigation();
@@ -11,9 +12,34 @@ export default function AllShortcutsCommand() {
     key: (app) => app.slug,
   });
 
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
+  const handleKeyDown = (e: KeyboardEvent) => {
+    if (e.key === "ArrowDown") {
+      setSelectedIndex((prevIndex) => (prevIndex + 1) % sortedApplications.length);
+    } else if (e.key === "ArrowUp") {
+      setSelectedIndex((prevIndex) => (prevIndex - 1 + sortedApplications.length) % sortedApplications.length);
+    } else if (e.key === "Enter") {
+      const selectedApp = sortedApplications[selectedIndex];
+      if (selectedApp) {
+        visitItem(selectedApp);
+        push(<AppShortcuts app={selectedApp} />);
+      }
+    } else if (e.key === "Escape") {
+      setSelectedIndex(-1);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [sortedApplications, selectedIndex]);
+
   return (
     <List isLoading={isLoading}>
-      {sortedApplications.map((app) => {
+      {sortedApplications.map((app, index) => {
         return (
           <List.Item
             key={app.slug}
@@ -31,6 +57,7 @@ export default function AllShortcutsCommand() {
                 />
               </ActionPanel>
             }
+            accessories={index === selectedIndex ? [{ text: "Selected", icon: "🔵" }] : []}
           />
         );
       })}
