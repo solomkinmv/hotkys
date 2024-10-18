@@ -1,6 +1,6 @@
 "use client";
 
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {AppShortcuts} from "@/lib/model/internal/internal-models";
 import Fuse from "fuse.js";
 import {KeyboardBadge} from "@/components/ui/keyboard-badge";
@@ -19,6 +19,7 @@ export const ApplicationList = (
     }) => {
 
     const [appShortcuts, setAppShortcuts] = useState(applications);
+    const [selectedIndex, setSelectedIndex] = useState(-1);
 
     const fuse = new Fuse(applications, {
         keys: ["name"],
@@ -34,13 +35,35 @@ export const ApplicationList = (
         }
     };
 
+    const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === "ArrowDown") {
+            setSelectedIndex((prevIndex) => (prevIndex + 1) % appShortcuts.length);
+        } else if (e.key === "ArrowUp") {
+            setSelectedIndex((prevIndex) => (prevIndex - 1 + appShortcuts.length) % appShortcuts.length);
+        } else if (e.key === "Enter") {
+            const selectedApp = appShortcuts[selectedIndex];
+            if (selectedApp) {
+                window.location.href = `/apps/${selectedApp.slug}`;
+            }
+        } else if (e.key === "Escape") {
+            setSelectedIndex(-1);
+        }
+    };
+
+    useEffect(() => {
+        window.addEventListener("keydown", handleKeyDown);
+        return () => {
+            window.removeEventListener("keydown", handleKeyDown);
+        };
+    }, [appShortcuts, selectedIndex]);
+
     return (
         <>
             <HeaderCompact1 className="mt-0 mb-1">All Applications</HeaderCompact1>
             <SearchBar onChange={onChange}/>
             <div className="mt-2">
-                {appShortcuts.map((app) => (
-                    <LinkableListItem key={app.slug} to={`/apps/${app.slug}`}>
+                {appShortcuts.map((app, index) => (
+                    <LinkableListItem key={app.slug} to={`/apps/${app.slug}`} selected={index === selectedIndex}>
                         <span>{app.name}</span>
                         <KeyboardBadge base={app.bundleId}/>
                     </LinkableListItem>
