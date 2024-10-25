@@ -16,7 +16,7 @@ export const ApplicationList = ({
 }) => {
   const [appShortcuts, setAppShortcuts] = useState(applications);
   const [selectedIndex, setSelectedIndex] = useState(-1);
-  const itemRefs = useRef<(HTMLAnchorElement | null)[]>([]);
+  const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const fuse = new Fuse(applications, {
     keys: ["name"],
