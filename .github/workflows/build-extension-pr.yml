@@ -4,26 +4,32 @@ name: Build extension PR
 on:
   # Runs on pull requests targeting the default branch
   pull_request:
-    branches: 
+    branches:
       - main
     paths:
-      - 'shortcuts-raycast-extension/**'
+      - 'shortcuts-raycast-extension/**' # Trigger only for changes in this directory
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    # Set the default working directory for run steps
+    defaults:
+      run:
+        working-directory: shortcuts-raycast-extension
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
-      - name: Set up Node
-        uses: actions/setup-node@v3
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
           cache: 'npm'
+          # Cache path relative to the repo root
           cache-dependency-path: shortcuts-raycast-extension/package-lock.json
-      
-      - name: Run tests
-        run: |
-          cd shortcuts-raycast-extension
-          npm install
-          npm test
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run build & tests
+        run: npm test
