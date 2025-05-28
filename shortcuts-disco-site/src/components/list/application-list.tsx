@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { AppShortcuts } from "@/lib/model/internal/internal-models";
 import Fuse from "fuse.js";
 import { KeyboardBadge } from "@/components/ui/keyboard-badge";
@@ -8,74 +8,46 @@ import { InputProps } from "@/components/ui/input";
 import { SearchBar } from "@/components/ui/search-bar";
 import { LinkableListItem } from "@/components/ui/list";
 import { HeaderCompact1 } from "@/components/ui/typography";
+import { useKeyboardNavigation } from "@/lib/hooks/use-keyboard-navigation";
 
+/**
+ * ApplicationList component displays a searchable, keyboard-navigable list of applications
+ * 
+ * @param applications Array of application shortcuts to display
+ */
 export const ApplicationList = ({
   applications,
 }: {
   applications: AppShortcuts[];
 }) => {
+  // State for filtered applications
   const [appShortcuts, setAppShortcuts] = useState(applications);
-  const [selectedIndex, setSelectedIndex] = useState(-1);
-  const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
 
+  // Setup fuzzy search with Fuse.js
   const fuse = new Fuse(applications, {
     keys: ["name"],
     includeScore: true,
     includeMatches: true,
   });
 
+  // Use custom hook for keyboard navigation
+  const { selectedIndex, itemRefs } = useKeyboardNavigation<AppShortcuts>(
+    appShortcuts,
+    undefined,
+    (app) => `/apps/${app.slug}`
+  );
+
+  // Handle search input changes
   const onChange: InputProps["onChange"] = (e) => {
     const inputText = e.currentTarget.value;
     if (!inputText) {
       setAppShortcuts(applications);
     } else {
       setAppShortcuts(
-        fuse.search(e.currentTarget.value).map((result) => result.item),
+        fuse.search(inputText).map((result) => result.item),
       );
     }
   };
-
-  const handleKeyDown = useCallback(
-    (e: KeyboardEvent) => {
-      if (e.key === "ArrowDown") {
-        e.preventDefault();
-        setSelectedIndex((prevIndex) => {
-          const newIndex = (prevIndex + 1) % appShortcuts.length;
-          itemRefs.current[newIndex]?.scrollIntoView({
-            behavior: "smooth",
-            block: "center",
-          });
-          return newIndex;
-        });
-      } else if (e.key === "ArrowUp") {
-        e.preventDefault();
-        setSelectedIndex((prevIndex) => {
-          const newIndex =
-            (prevIndex - 1 + appShortcuts.length) % appShortcuts.length;
-          itemRefs.current[newIndex]?.scrollIntoView({
-            behavior: "smooth",
-            block: "center",
-          });
-          return newIndex;
-        });
-      } else if (e.key === "Enter") {
-        const selectedApp = appShortcuts[selectedIndex];
-        if (selectedApp) {
-          window.location.href = `/apps/${selectedApp.slug}`;
-        }
-      } else if (e.key === "Escape") {
-        setSelectedIndex(-1);
-      }
-    },
-    [appShortcuts, selectedIndex],
-  );
-
-  useEffect(() => {
-    window.addEventListener("keydown", handleKeyDown);
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [appShortcuts, handleKeyDown, selectedIndex]);
 
   return (
     <>
