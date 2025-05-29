@@ -57,6 +57,11 @@
           "type": "string",
           "minLength": 1
         },
+        "platform": {
+          "description": "Platform for which this keymap is designed",
+          "type": "string",
+          "enum": ["windows", "linux", "macos"]
+        },
         "sections": {
           "description": "List of sections",
           "type": "array",
@@ -101,7 +106,7 @@
           "maxLength": 50
         },
         "key": {
-          "description": "Shortcut key definition. Key consist of modifiers plus base key separated by '+' sign. Supported modifiers: 'ctrl', 'shift', 'opt', 'cmd'. Modifiers should be specified in that exact order, lowercase. Final shortcut token should always be a base key. Examples: 'ctrl+s', 'shift+cmd+e'. Shortcut macro or sequences of shortcuts are also supported and should be separated by whitespace (' '). Example: 'cmd+k cmd+s'",
+          "description": "Shortcut key definition. Key consist of modifiers plus base key separated by '+' sign. Supported modifiers: 'ctrl', 'shift', 'opt', 'cmd', 'win'. Modifiers should be specified in that exact order, lowercase. Final shortcut token should always be a base key. Examples: 'ctrl+s', 'shift+cmd+e', 'win+e'. Shortcut macro or sequences of shortcuts are also supported and should be separated by whitespace (' '). Example: 'cmd+k cmd+s'",
           "type": "string",
           "minLength": 1
         },

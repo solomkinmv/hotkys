@@ -23,6 +23,7 @@ To add shortcuts for a new application or web app, create a new JSON file, like 
   "keymaps": [
     {
       "title": "Default",
+      "platform": "macos",
       "sections": [
         {
           "title": "Bookmarks",
@@ -57,14 +58,16 @@ The structure contains the following information:
 - Each application has a `name` and `slug`.
 - The `bundleId` is an optional field, which helps identify a macOS application. It is not applicable to websites or web apps. Use the Raycast command "Copy Current App's Bundle Id" included with the Raycast extension to find the bundle Id of the application you want to add. 
 - An application can have multiple `keymaps`. Usually there is just one, named "Default". A keymap can have multiple sections of shortcuts. Each one has a title.
+- Each keymap can specify a `platform` field to indicate which operating system it's designed for. Supported values are `windows`, `linux`, and `macos`. This is useful for applications that have different shortcuts on different platforms. The platform will be visually indicated in the UI.
 
 **Shortcut information**
 - A shortcut definition always has a `title`. For the rest, it must contain a `key` field, `comment` field, or both. 
 - `key` contains a **structured** shortcut declaration in a string. The rules are as follows:
   * A `key` consists of modifiers plus a base key separated by `+` sign(s).
-  * Supported modifiers: `ctrl`, `shift`, `opt`, `cmd`. Modifiers should be specified in that exact order and be lowercase [{@link modifierTokens}](https://github.com/solomkinmv/shortcuts-disco/blob/main/shortcuts-disco-site/src/lib/model/internal/modifiers.ts).
+  * Supported modifiers: `ctrl`, `shift`, `opt`, `cmd`, `win`. Modifiers should be specified in that exact order and be lowercase [{@link modifierTokens}](https://github.com/solomkinmv/shortcuts-disco/blob/main/shortcuts-disco-site/src/lib/model/internal/modifiers.ts).
     - ❌ Invalid example: ~~`Cmd+Shift+Option+E`~~
     - ✅ Valid example: `shift+opt+cmd+e`
+    - ✅ Windows example: `win+e` (Windows Explorer)
   * Final shortcut token should always be a base key. List of all base keys: [{@link public/data/key-codes.json}](https://github.com/solomkinmv/shortcuts-disco/blob/main/shortcuts-disco-site/public/data/key-codes.json).
     * Examples: `ctrl+s`, `shift+cmd+e`.
   * Shortcut macro or sequences of shortcuts are also supported and should be separated by space (` `).

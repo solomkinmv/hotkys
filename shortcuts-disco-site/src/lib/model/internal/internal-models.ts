@@ -14,6 +14,7 @@ export interface AppShortcuts {
 
 export interface Keymap {
     title: string;
+    platform?: 'windows' | 'linux' | 'macos';
     sections: Section[];
 }
 
