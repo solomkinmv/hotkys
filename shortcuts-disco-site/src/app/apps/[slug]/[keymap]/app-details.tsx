@@ -9,6 +9,8 @@ import { KeyboardBadge } from "@/components/ui/keyboard-badge";
 import {
   modifierMapping,
   modifierSymbols,
+  isWindows,
+  isLinux,
 } from "@/lib/model/internal/modifiers";
 import { SeparatorWithText } from "@/components/ui/separator-with-text";
 import React, { useCallback, useEffect, useRef, useState } from "react";
@@ -20,6 +22,23 @@ import TableOfContents from "@/app/apps/[slug]/[keymap]/table-of-contents";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { ListItem } from "@/components/ui/list";
+import { Badge } from "@/components/ui/badge";
+
+// Helper function to get platform display name
+const getPlatformDisplay = (platform?: 'windows' | 'linux' | 'macos') => {
+  if (!platform) return null;
+
+  switch (platform) {
+    case 'windows':
+      return 'Windows';
+    case 'linux':
+      return 'Linux';
+    case 'macos':
+      return 'macOS';
+    default:
+      return null;
+  }
+};
 
 export const AppDetails = ({
   application,
@@ -164,17 +183,26 @@ export const AppDetails = ({
       </div>
       <div className="grid min-h-0 flex-1 border-l overflow-y-auto">
         <div className="min-h-0 flex-1 p-4 md:p-6">
-          <Header1 className={cn(application.source && "mb-0")}>
-            {application.name}
-          </Header1>
-          {application.source && (
-            <Link
-              href={application.source}
-              className="text-sm text-gray-500 hover:underline"
-            >
-              Source
-            </Link>
-          )}
+          <div className="flex items-center gap-2">
+            <Header1 className={cn(application.source && "mb-0")}>
+              {application.name}
+            </Header1>
+            {keymap.platform && (
+              <Badge variant="outline" className="text-sm">
+                {getPlatformDisplay(keymap.platform)}
+              </Badge>
+            )}
+          </div>
+          <div className="flex items-center gap-2">
+            {application.source && (
+              <Link
+                href={application.source}
+                className="text-sm text-gray-500 hover:underline"
+              >
+                Source
+              </Link>
+            )}
+          </div>
           <SearchBar onChange={handleSearch} />
           {appDetails}
         </div>
@@ -221,7 +249,8 @@ function overrideSymbolIfPossible(base: string) {
   return base.toUpperCase();
 }
 
-const baseKeySymbolOverride: Map<string, string> = new Map([
+// macOS specific symbols
+const macBaseKeySymbolOverride: Map<string, string> = new Map([
   ["left", "←"],
   ["right", "→"],
   ["up", "↑"],
@@ -240,4 +269,57 @@ const baseKeySymbolOverride: Map<string, string> = new Map([
   ["ctrl", "⌃"],
   ["opt", "⌥"],
   ["shift", "⇧"],
+  ["win", "⊞"],
 ]);
+
+// Windows specific symbols
+const winBaseKeySymbolOverride: Map<string, string> = new Map([
+  ["left", "←"],
+  ["right", "→"],
+  ["up", "↑"],
+  ["down", "↓"],
+  ["pageup", "PgUp"],
+  ["pagedown", "PgDown"],
+  ["home", "Home"],
+  ["end", "End"],
+  ["space", "Space"],
+  ["capslock", "Caps"],
+  ["backspace", "Backspace"],
+  ["tab", "Tab"],
+  ["esc", "Esc"],
+  ["enter", "Enter"],
+  ["cmd", "Ctrl"],
+  ["ctrl", "Ctrl"],
+  ["opt", "Alt"],
+  ["shift", "Shift"],
+  ["win", "Win"],
+]);
+
+// Linux specific symbols (similar to Windows but with Super instead of Win)
+const linuxBaseKeySymbolOverride: Map<string, string> = new Map([
+  ["left", "←"],
+  ["right", "→"],
+  ["up", "↑"],
+  ["down", "↓"],
+  ["pageup", "PgUp"],
+  ["pagedown", "PgDown"],
+  ["home", "Home"],
+  ["end", "End"],
+  ["space", "Space"],
+  ["capslock", "Caps"],
+  ["backspace", "Backspace"],
+  ["tab", "Tab"],
+  ["esc", "Esc"],
+  ["enter", "Enter"],
+  ["cmd", "Ctrl"],
+  ["ctrl", "Ctrl"],
+  ["opt", "Alt"],
+  ["shift", "Shift"],
+  ["win", "Super"],
+]);
+
+// Use the appropriate symbols based on platform
+const baseKeySymbolOverride: Map<string, string> = 
+  isWindows ? winBaseKeySymbolOverride : 
+  isLinux ? linuxBaseKeySymbolOverride : 
+  macBaseKeySymbolOverride;

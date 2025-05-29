@@ -6,6 +6,7 @@
   "keymaps": [
     {
       "title": "Default",
+      "platform": "macos",
       "sections": [
         {
           "title": "Format",
@@ -63,6 +64,7 @@
     },
     {
       "title": "Custom",
+      "platform": "macos",
       "sections": [
         {
           "title": "Editor",
@@ -70,6 +72,88 @@
             {
               "title": "Open Editor Tab",
               "key": "shift+cmd+e"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Windows Default",
+      "platform": "windows",
+      "sections": [
+        {
+          "title": "Format",
+          "shortcuts": [
+            {
+              "title": "Format Document",
+              "key": "shift+alt+f"
+            }
+          ]
+        },
+        {
+          "title": "Editor",
+          "shortcuts": [
+            {
+              "title": "Open Editor Tab",
+              "key": "shift+ctrl+e"
+            },
+            {
+              "title": "Shrink Selection",
+              "key": "ctrl+shift+left"
+            },
+            {
+              "title": "Increase Selection",
+              "key": "ctrl+shift+right"
+            }
+          ]
+        },
+        {
+          "title": "Navigation",
+          "shortcuts": [
+            {
+              "title": "Open Global Keybindings",
+              "key": "ctrl+k ctrl+s"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Linux Default",
+      "platform": "linux",
+      "sections": [
+        {
+          "title": "Format",
+          "shortcuts": [
+            {
+              "title": "Format Document",
+              "key": "shift+ctrl+i"
+            }
+          ]
+        },
+        {
+          "title": "Editor",
+          "shortcuts": [
+            {
+              "title": "Open Editor Tab",
+              "key": "shift+ctrl+e"
+            },
+            {
+              "title": "Shrink Selection",
+              "key": "ctrl+shift+left"
+            },
+            {
+              "title": "Increase Selection",
+              "key": "ctrl+shift+right"
+            }
+          ]
+        },
+        {
+          "title": "Navigation",
+          "shortcuts": [
+            {
+              "title": "Open Global Keybindings",
+              "key": "ctrl+k ctrl+s"
             }
           ]
         }
