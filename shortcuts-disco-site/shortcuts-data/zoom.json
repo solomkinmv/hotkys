@@ -1,0 +1,68 @@
+{
+  "$schema": "schema/shortcut.schema.json",
+  "bundleId": "us.zoom.xos",
+  "name": "Zoom",
+  "slug": "zoom",
+  "keymaps": [
+    {
+      "title": "Default",
+      "sections": [
+        {
+          "title": "Meetings",
+          "shortcuts": [
+            { "title": "Join meeting", "key": "cmd+j" },
+            { "title": "Start meeting", "key": "cmd+ctrl+v" },
+            { "title": "Schedule meeting", "key": "cmd+d" },
+            { "title": "Direct Share (screen share via direct share)", "key": "cmd+ctrl+s" }
+          ]
+        },
+        {
+          "title": "Meeting controls",
+          "shortcuts": [
+            { "title": "Mute/Unmute audio", "key": "cmd+shift+a" },
+            { "title": "Start/Stop video", "key": "cmd+shift+v" },
+            { "title": "Switch camera", "key": "cmd+shift+n" },
+            { "title": "Start/Stop screen share", "key": "cmd+shift+s" },
+            { "title": "Pause/Resume share", "key": "cmd+shift+t" },
+            { "title": "Raise/Lower hand", "key": "opt+y" },
+            { "title": "Show/Hide meeting controls (floating)", "key": "ctrl+opt+cmd+h" }
+          ]
+        },
+        {
+          "title": "Recording",
+          "shortcuts": [
+            { "title": "Start/Stop local recording", "key": "cmd+shift+r" },
+            { "title": "Start/Stop cloud recording", "key": "cmd+shift+c" },
+            { "title": "Pause/Resume recording", "key": "cmd+shift+p" }
+          ]
+        },
+        {
+          "title": "Views & navigation",
+          "shortcuts": [
+            { "title": "Switch Speaker/Multi-speaker/Gallery view", "key": "cmd+shift+w" },
+            { "title": "Previous gallery page (25 participants)", "key": "ctrl+p" },
+            { "title": "Next gallery page (25 participants)", "key": "ctrl+n" },
+            { "title": "Enter/Exit full screen", "key": "cmd+shift+f" },
+            { "title": "Minimal window", "key": "cmd+shift+m" },
+            { "title": "Enable/Disable dual monitor mode", "key": "cmd+shift+d" }
+          ]
+        },
+        {
+          "title": "Participants & chat",
+          "shortcuts": [
+            { "title": "Show/Hide participants panel", "key": "cmd+u" },
+            { "title": "Show/Hide in-meeting chat panel", "key": "cmd+shift+h" },
+            { "title": "Open Invite window", "key": "cmd+i" },
+            { "title": "Copy invite link", "key": "cmd+shift+i" }
+          ]
+        },
+        {
+          "title": "General",
+          "shortcuts": [
+            { "title": "Close current window", "key": "cmd+w" }
+          ]
+        }
+      ]
+    }
+  ]
+}
