@@ -201,6 +201,44 @@ describe("Throws validation error", () => {
             );
         });
     });
+
+    describe("Platform validation", () => {
+        it("should accept valid macOS platform", () => {
+            const appShortcuts = generateInputAppWithShortcut({platform: "macos"});
+            expect(() => validator.validate([appShortcuts])).not.toThrow();
+        });
+
+        it("should accept valid Windows platform", () => {
+            const appShortcuts = generateInputAppWithShortcut({platform: "windows"});
+            expect(() => validator.validate([appShortcuts])).not.toThrow();
+        });
+
+        it("should accept valid Linux platform", () => {
+            const appShortcuts = generateInputAppWithShortcut({platform: "linux"});
+            expect(() => validator.validate([appShortcuts])).not.toThrow();
+        });
+
+        it("should accept undefined platform", () => {
+            const appShortcuts = generateInputAppWithShortcut();
+            expect(() => validator.validate([appShortcuts])).not.toThrow();
+        });
+
+        it.each([
+            "invalid",
+            "mac",
+            "win",
+            "ubuntu",
+            "",
+            "MACOS",
+            "Windows",
+        ])("should reject invalid platform value %p", (platform: string) => {
+            const appShortcuts = generateInputAppWithShortcut({platform: platform as any});
+            const keymapTitle = appShortcuts.keymaps[0].title;
+            expect(() => validator.validate([appShortcuts])).toThrow(
+                new ValidationError(`Invalid platform "${platform}" in keymap "${keymapTitle}". Must be one of: windows, linux, macos`),
+            );
+        });
+    });
 });
 
 function generateInputAppWithShortcut(override?: {
@@ -211,7 +249,8 @@ function generateInputAppWithShortcut(override?: {
     sectionTitle?: string;
     title?: string,
     shortcut?: string,
-    comment?: string
+    comment?: string,
+    platform?: "windows" | "linux" | "macos"
 }): InputApp {
     return {
         bundleId: override?.appBundleId ?? "some-bundle-id",
@@ -220,6 +259,7 @@ function generateInputAppWithShortcut(override?: {
         keymaps: [
             {
                 title: override?.keymapTitle ?? "Default",
+                platform: override?.platform,
                 sections: [
                     {
                         title: override?.sectionTitle ?? "section-name",

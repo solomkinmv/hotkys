@@ -28,7 +28,34 @@ describe("Parses shortcut correctly", () => {
 
 });
 
-function generateInputAppWithShortcut(override?: { shortcut: string }): InputApp {
+describe("Platform field preservation", () => {
+    const parser = new ShortcutsParser();
+
+    it("should preserve macOS platform", () => {
+        const result = parser.parseInputShortcuts([generateInputAppWithShortcut({platform: "macos"})]);
+        expect(result[0].keymaps[0].platform).toBe("macos");
+    });
+
+    it("should preserve Windows platform", () => {
+        const result = parser.parseInputShortcuts([generateInputAppWithShortcut({platform: "windows"})]);
+        expect(result[0].keymaps[0].platform).toBe("windows");
+    });
+
+    it("should preserve Linux platform", () => {
+        const result = parser.parseInputShortcuts([generateInputAppWithShortcut({platform: "linux"})]);
+        expect(result[0].keymaps[0].platform).toBe("linux");
+    });
+
+    it("should handle missing platform field", () => {
+        const result = parser.parseInputShortcuts([generateInputAppWithShortcut()]);
+        expect(result[0].keymaps[0].platform).toBeUndefined();
+    });
+});
+
+function generateInputAppWithShortcut(override?: {
+    shortcut?: string;
+    platform?: "windows" | "linux" | "macos";
+}): InputApp {
     return {
         bundleId: "some-bundle-id",
         name: "some-name",
@@ -36,6 +63,7 @@ function generateInputAppWithShortcut(override?: { shortcut: string }): InputApp
         keymaps: [
             {
                 title: "keymap-name",
+                platform: override?.platform,
                 sections: [
                     {
                         title: "section-name",

@@ -4,22 +4,22 @@
 
 These issues will cause bugs in production and must be fixed before merging:
 
-- [ ] **Fix URL serialization regex bug** (`src/lib/model/keymap-utils.ts:4`)
+- [x] **Fix URL serialization regex bug** (`src/lib/model/keymap-utils.ts:4`)
   - Change `replaceAll("\w", "-")` to `replace(/[^\w-]+/g, "-")`
   - Bug causes "Windows" → "windo-s" in URLs
   - File: `src/lib/model/keymap-utils.ts`
 
-- [ ] **Add platform field to parser** (`src/lib/load/input-parser.ts:16`)
+- [x] **Add platform field to parser** (`src/lib/load/input-parser.ts:16`)
   - Platform field is currently dropped during parsing
   - Add `platform: inputKeymap.platform,` to the mapper
   - File: `src/lib/load/input-parser.ts`
 
-- [ ] **Fix failing test** (`src/lib/load/input-parser.spec.ts:11`)
+- [x] **Fix failing test** (`src/lib/load/input-parser.spec.ts:11`)
   - Test expects `Modifiers.command` but gets `Modifiers.control` due to platform detection
   - Mock platform detection or use explicit modifiers in test
   - File: `src/lib/load/input-parser.spec.ts`
 
-- [ ] **Add platform enum validation** (`src/lib/load/validator.ts`)
+- [x] **Add platform enum validation** (`src/lib/load/validator.ts`)
   - Validate that platform values are in ['windows', 'linux', 'macos']
   - Reject invalid values like "", null, "invalid"
   - File: `src/lib/load/validator.ts`
@@ -108,7 +108,7 @@ These improvements enhance the feature but aren't blocking:
   - Use throughout codebase for consistency
   - Update all interfaces to use shared type
 
-- [ ] **Fix SSR hydration issue** (`modifiers.ts:35-36`)
+- [x] **Fix SSR hydration issue** (`modifiers.ts:35-36`)
   - Platform detection at module load can cause hydration mismatch
   - Create `usePlatform()` hook for client-side detection
   - Document server vs client platform handling
@@ -121,7 +121,7 @@ These improvements enhance the feature but aren't blocking:
 
 ### Features
 
-- [ ] **Add platform auto-selection**
+- [x] **Add platform auto-selection**
   - When user visits app page, auto-select keymap for their platform
   - If no platform match, select first keymap
   - Consider user preference override
@@ -155,14 +155,15 @@ These improvements enhance the feature but aren't blocking:
 
 - **Schema**: ✅ Complete
 - **Types**: ✅ Complete
-- **Data Files**: ✅ Working (vsCode.json has examples)
-- **UI Display**: ✅ Working
-- **URL Routing**: ❌ Broken (critical bug)
-- **Data Parsing**: ❌ Broken (platform field lost)
-- **Validation**: ❌ Missing
-- **Tests**: ❌ Missing (0% coverage)
+- **Data Files**: ✅ Complete (18 files with platform field)
+- **UI Display**: ✅ Complete (platform badges)
+- **URL Routing**: ✅ Fixed
+- **Data Parsing**: ✅ Fixed
+- **Validation**: ✅ Complete
+- **Platform Auto-Selection**: ✅ Complete
+- **Tests**: ⚠️ Partial (need platform-specific tests)
 
-**Overall Implementation**: 70% complete
+**Overall Implementation**: 90% complete
 
 ---
 
