@@ -43,7 +43,7 @@ export function KeymapSelector({keymaps, activeKeymap, urlPrefix}: KeymapSelecto
                     variant="outline"
                     role="combobox"
                     aria-expanded={open}
-                    className="justify-between w-[200px]"
+                    className="justify-between w-full"
                 >
                     <div className="flex items-center">
                         {activeKeymap}
@@ -56,7 +56,7 @@ export function KeymapSelector({keymaps, activeKeymap, urlPrefix}: KeymapSelecto
                     <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50"/>
                 </Button>
             </PopoverTrigger>
-            <PopoverContent className="p-0 w-[200px]">
+            <PopoverContent className="p-0 w-full">
                 {keymaps.map((keymap) => (
                     <Link href={`${urlPrefix}/${serializeKeymap(keymap)}`}
                           passHref

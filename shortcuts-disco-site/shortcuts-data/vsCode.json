@@ -95,7 +95,7 @@
           "shortcuts": [
             {
               "title": "Open Editor Tab",
-              "key": "shift+ctrl+e"
+              "key": "ctrl+shift+e"
             },
             {
               "title": "Shrink Selection",
@@ -127,7 +127,7 @@
           "shortcuts": [
             {
               "title": "Format Document",
-              "key": "shift+ctrl+i"
+              "key": "ctrl+shift+i"
             }
           ]
         },
@@ -136,7 +136,7 @@
           "shortcuts": [
             {
               "title": "Open Editor Tab",
-              "key": "shift+ctrl+e"
+              "key": "ctrl+shift+e"
             },
             {
               "title": "Shrink Selection",

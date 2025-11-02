@@ -5,7 +5,7 @@ import {AppDetails} from "@/app/apps/[slug]/[keymap]/app-details";
 import {AppShortcuts, Keymap} from "@/lib/model/internal/internal-models";
 
 interface Props {
-    params: { slug: string, keymap: string };
+    params: Promise<{ slug: string, keymap: string }>;
 }
 
 export async function generateStaticParams() {
@@ -16,16 +16,13 @@ export async function generateStaticParams() {
         })));
 }
 
-export default function SingleApplicationPage({params}: Props) {
-    console.log("building page", params);
-    const appShortcuts = getAppShortcutsBySlug(params.slug) || notFound();
-    const keymap = findKeymap(appShortcuts, params.keymap) || notFound();
+export default async function SingleApplicationPage({params}: Props) {
+    const resolvedParams = await params;
+    console.log("building page", resolvedParams);
+    const appShortcuts = getAppShortcutsBySlug(resolvedParams.slug) || notFound();
+    const keymap = findKeymap(appShortcuts, resolvedParams.keymap) || notFound();
 
-    return (
-        <section className="mx-auto max-w-3xl prose prose-gray dark:prose-invert">
-            <AppDetails application={appShortcuts} keymap={keymap}/>
-        </section>
-    );
+    return <AppDetails application={appShortcuts} keymap={keymap}/>;
 }
 
 
