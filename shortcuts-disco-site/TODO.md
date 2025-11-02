@@ -103,7 +103,7 @@ These improvements enhance the feature but aren't blocking:
 
 ### Code Quality
 
-- [ ] **Extract shared Platform type**
+- [x] **Extract shared Platform type**
   - Create `export type Platform = 'windows' | 'linux' | 'macos'`
   - Use throughout codebase for consistency
   - Update all interfaces to use shared type
@@ -114,7 +114,7 @@ These improvements enhance the feature but aren't blocking:
   - Document server vs client platform handling
   - File: `src/lib/hooks/use-platform.ts` (new)
 
-- [ ] **Add `isMacOS` export for consistency**
+- [x] **Add `isMacOS` export for consistency**
   - Currently have `isWindows` and `isLinux` but not `isMacOS`
   - Add for API consistency
   - File: `src/lib/model/internal/modifiers.ts`
