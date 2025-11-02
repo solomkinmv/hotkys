@@ -10,11 +10,11 @@ export const Footer = () => {
   return (
     <footer className="flex items-center justify-between border-t p-6">
       {/* Copyright and issue reporting */}
-      <div className="text-xs text-gray-500 dark:text-gray-400">
+      <div className="text-xs text-muted-foreground">
         <p className="m-0">
           Made by <Link href="https://solomk.in" className="underline">Maksym Solomkin</Link>
         </p>
-        
+
         {/* Footer links */}
         {FOOTER_LINKS.map(link => (
           <p key={link.href} className="m-0">

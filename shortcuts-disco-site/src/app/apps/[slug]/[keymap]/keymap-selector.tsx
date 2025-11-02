@@ -46,7 +46,7 @@ export function KeymapSelector({keymaps, activeKeymap, urlPrefix}: KeymapSelecto
                     <Link href={`${urlPrefix}/${serializeKeymap(keymap)}`}
                           passHref
                           key={keymap.title}
-                          className="block cursor-pointer px-2 py-2 hover:bg-slate-100/50 flex items-center justify-between">
+                          className="block cursor-pointer px-2 py-2 hover:bg-accent flex items-center justify-between">
                         <span>{keymap.title}</span>
                         {keymap.platform && (
                             <Badge variant="outline" className="text-xs" aria-label={`Platform: ${getPlatformDisplay(keymap.platform)}`}>

@@ -22,9 +22,9 @@ export const Header = () => {
           {MAIN_NAV_LINKS.map((link, index) => (
             <Link
               key={link.href}
-              className={index === 0 
+              className={index === 0
                 ? "flex items-center gap-2 border-b-2 border-transparent hover:border-blue-500"
-                : "text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50 hover:border-b-2 hover:border-blue-500"
+                : "text-muted-foreground hover:text-foreground hover:border-b-2 hover:border-blue-500"
               }
               href={link.href}
             >
@@ -36,9 +36,9 @@ export const Header = () => {
         {/* Social media links */}
         <div className="flex items-center space-x-4">
           {SOCIAL_LINKS.map(link => (
-            <Link 
+            <Link
               key={link.href}
-              className="text-gray-900 hover:underline dark:text-gray-100"
+              className="text-foreground hover:underline"
               href={link.href}
             >
               {link.icon === "TwitterIcon" ? (
