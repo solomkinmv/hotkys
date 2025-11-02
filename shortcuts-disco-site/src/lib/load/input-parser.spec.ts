@@ -42,7 +42,7 @@ function generateInputAppWithShortcut(override?: { shortcut: string }): InputApp
                         shortcuts: [
                             {
                                 title: "shortcut",
-                                key: override?.shortcut ?? "cmd+e",
+                                key: override?.shortcut ?? "ctrl+e",
                             },
                         ],
                     },
@@ -71,7 +71,7 @@ function generateExpectedAppWithShortcut(override?: {
                                 sequence: override?.shortcutSequence ?? [
                                     {
                                         base: "e",
-                                        modifiers: [Modifiers.command],
+                                        modifiers: [Modifiers.control],
                                     },
                                 ],
                             },

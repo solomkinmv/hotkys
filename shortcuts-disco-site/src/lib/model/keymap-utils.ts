@@ -1,7 +1,7 @@
 import {Keymap} from "@/lib/model/internal/internal-models";
 
 export const serializeKeymap = (keymap: Keymap) => {
-    const titlePart = keymap.title.replaceAll("\w", "-").toLowerCase();
+    const titlePart = keymap.title.replace(/[^\w-]+/g, "-").toLowerCase();
     if (keymap.platform) {
         return `${titlePart}-${keymap.platform}`;
     }
