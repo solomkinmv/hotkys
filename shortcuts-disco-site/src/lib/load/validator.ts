@@ -1,7 +1,8 @@
 import {InputApp, InputKeymap, InputSection, InputShortcut} from "@/lib/model/input/input-models";
 import {modifierMapping, modifierTokensOrderMapping} from "@/lib/model/internal/modifiers";
+import {Platform} from "@/lib/model/internal/internal-models";
 
-const VALID_PLATFORMS = ['windows', 'linux', 'macos'] as const;
+const VALID_PLATFORMS: readonly Platform[] = ['windows', 'linux', 'macos'] as const;
 
 export default class Validator {
     constructor(private readonly keyCodes: Map<string, string>) {

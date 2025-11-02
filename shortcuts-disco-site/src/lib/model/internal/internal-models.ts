@@ -1,5 +1,10 @@
 import {Modifiers} from "./modifiers";
 
+/**
+ * Supported platform types
+ */
+export type Platform = 'windows' | 'linux' | 'macos';
+
 export interface Shortcuts {
     applications: AppShortcuts[];
 }
@@ -14,7 +19,7 @@ export interface AppShortcuts {
 
 export interface Keymap {
     title: string;
-    platform?: 'windows' | 'linux' | 'macos';
+    platform?: Platform;
     sections: Section[];
 }
 

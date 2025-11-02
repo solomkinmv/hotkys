@@ -1,6 +1,7 @@
 import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
 import path from "path"
+import { Platform } from "./model/internal/internal-models"
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -14,7 +15,7 @@ export const dataFolder = path.resolve(rootFolder, 'shortcuts-data')
  * @param platform - The platform identifier (windows, linux, macos)
  * @returns Human-readable platform name or null if no platform
  */
-export function getPlatformDisplay(platform?: 'windows' | 'linux' | 'macos'): string | null {
+export function getPlatformDisplay(platform?: Platform): string | null {
   if (!platform) return null;
 
   switch (platform) {

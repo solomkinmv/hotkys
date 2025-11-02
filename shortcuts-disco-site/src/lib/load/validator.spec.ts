@@ -2,6 +2,7 @@ import Validator, {ValidationError} from "./validator";
 import {InputApp, InputKeymap} from "@/lib/model/input/input-models";
 import { describe, expect, it } from "@jest/globals";
 import { parseKeyCodes } from "../../../__tests__/helpers";
+import { Platform } from "@/lib/model/internal/internal-models";
 
 const validator = new Validator(parseKeyCodes());
 
@@ -250,7 +251,7 @@ function generateInputAppWithShortcut(override?: {
     title?: string,
     shortcut?: string,
     comment?: string,
-    platform?: "windows" | "linux" | "macos"
+    platform?: Platform
 }): InputApp {
     return {
         bundleId: override?.appBundleId ?? "some-bundle-id",
