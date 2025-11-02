@@ -14,6 +14,7 @@ export class ShortcutsParser {
                 keymaps: inputApp.keymaps.map((inputKeymap) => {
                     return {
                         title: inputKeymap.title,
+                        platform: inputKeymap.platform,
                         sections: inputKeymap.sections.map((inputSection) => {
                             return {
                                 title: inputSection.title,

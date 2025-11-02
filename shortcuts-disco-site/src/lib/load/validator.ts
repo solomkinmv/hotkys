@@ -1,6 +1,8 @@
 import {InputApp, InputKeymap, InputSection, InputShortcut} from "@/lib/model/input/input-models";
 import {modifierMapping, modifierTokensOrderMapping} from "@/lib/model/internal/modifiers";
 
+const VALID_PLATFORMS = ['windows', 'linux', 'macos'] as const;
+
 export default class Validator {
     constructor(private readonly keyCodes: Map<string, string>) {
     }
@@ -60,6 +62,14 @@ export default class Validator {
                 throw new ValidationError(`Duplicated keymap title '${keymap.title}' for application '${appName}'`);
             }
             keymapNames.add(keymap.title);
+
+            if (keymap.platform !== undefined) {
+                if (!VALID_PLATFORMS.includes(keymap.platform as any)) {
+                    throw new ValidationError(
+                        `Invalid platform "${keymap.platform}" in keymap "${keymap.title}". Must be one of: ${VALID_PLATFORMS.join(', ')}`
+                    );
+                }
+            }
         })
     }
 
