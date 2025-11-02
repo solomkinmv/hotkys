@@ -33,9 +33,9 @@ export const metadata: Metadata = {
  */
 const RootLayout = ({ children }: React.PropsWithChildren) => {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <body className={cn(
-        "flex flex-col min-h-screen bg-white dark:bg-gray-900 font-sans antialiased",
+        "flex flex-col min-h-screen bg-background text-foreground font-sans antialiased",
         fontSans.variable,
       )}>
         <Header />

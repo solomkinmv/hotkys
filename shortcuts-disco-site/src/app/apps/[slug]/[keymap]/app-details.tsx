@@ -138,7 +138,7 @@ export const AppDetails = ({
                   className="ml-2"
                 />
               </span>
-              <span className="text-right text-gray-500">
+              <span className="text-right text-muted-foreground">
                 {generateCommentText(hotkey.comment)}
               </span>
             </ListItem>
@@ -181,7 +181,7 @@ export const AppDetails = ({
             {application.source && (
               <Link
                 href={application.source}
-                className="text-sm text-gray-500 hover:underline"
+                className="text-sm text-muted-foreground hover:underline"
               >
                 Source
               </Link>

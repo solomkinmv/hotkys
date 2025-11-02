@@ -28,12 +28,12 @@ const TableOfContents = ({sections, sectionRefs}: {
                 if (element && element.current) {
                     if (entry.isIntersecting) {
                         if (prevElement) {
-                            prevElement.classList.remove('bg-slate-100/50');
+                            prevElement.classList.remove('bg-accent');
                         }
-                        element.current.classList.add('bg-slate-100/50');
+                        element.current.classList.add('bg-accent');
                         prevElement = element.current;
                     } else {
-                        element.current.classList.remove('bg-slate-100/50');
+                        element.current.classList.remove('bg-accent');
                     }
                 }
             });
@@ -60,7 +60,7 @@ const TableOfContents = ({sections, sectionRefs}: {
                 <Link href={`#${section.title}`}
                       key={section.title}
                       ref={anchorRefs.current[section.title]}
-                      className="block cursor-pointer px-2 py-1 not-prose hover:bg-slate-100/50">
+                      className="block cursor-pointer px-2 py-1 not-prose hover:bg-accent">
                     {section.title}
                 </Link>
             ))}

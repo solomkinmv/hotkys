@@ -29,7 +29,7 @@ export const ListItem = forwardRef<
   <div
     ref={ref}
     className={cn(
-      "flex cursor-pointer items-center justify-between border-b p-2 prose-sm last:border-0 hover:bg-slate-100/50",
+      "flex cursor-pointer items-center justify-between border-b p-2 prose-sm last:border-0 hover:bg-accent",
       { "outline-solid outline-2 outline-offset-1 rounded-md": selected },
     )}
   >
