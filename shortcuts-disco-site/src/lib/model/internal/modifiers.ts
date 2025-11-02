@@ -47,13 +47,19 @@ export const modifierMapping: Map<string, Modifiers> = new Map([
     ["ctrl", Modifiers.control],
     ["shift", Modifiers.shift],
     ["opt", Modifiers.option],
+    ["alt", Modifiers.option],
     ["cmd", isWindows || isLinux ? Modifiers.control : Modifiers.command],
     ["win", Modifiers.win],
 ]);
 
-export const modifierTokens: string[] = ["ctrl", "shift", "opt", "cmd", "win"];
+export const modifierTokens: string[] = ["ctrl", "shift", "opt", "alt", "cmd", "win"];
 
-export const modifierTokensOrderMapping: Map<string, number> = new Map();
-modifierTokens.forEach((key, index) => {
-    modifierTokensOrderMapping.set(key, index);
-});
+// Create a special order mapping that treats 'opt' and 'alt' as the same position
+export const modifierTokensOrderMapping: Map<string, number> = new Map([
+    ["ctrl", 0],
+    ["shift", 1],
+    ["opt", 2],
+    ["alt", 2],  // Same position as 'opt'
+    ["cmd", 3],
+    ["win", 4],
+]);

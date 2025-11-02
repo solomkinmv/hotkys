@@ -4,13 +4,14 @@ import {notFound} from "next/navigation";
 import {AppDetails} from "@/app/apps/[slug]/[keymap]/app-details";
 
 interface Props {
-    params: { slug: string };
+    params: Promise<{ slug: string }>;
 }
 
-export function generateMetadata({params}: Props): Metadata {
+export async function generateMetadata({params}: Props): Promise<Metadata> {
+    const resolvedParams = await params;
     return {
-        title: getAppShortcutsBySlug(params.slug)?.name + " Shortcuts",
-        description: "Keyboard shortcuts for " + getAppShortcutsBySlug(params.slug)?.name,
+        title: getAppShortcutsBySlug(resolvedParams.slug)?.name + " Shortcuts",
+        description: "Keyboard shortcuts for " + getAppShortcutsBySlug(resolvedParams.slug)?.name,
     };
 }
 
@@ -19,12 +20,11 @@ export async function generateStaticParams() {
         .flatMap(app => ({slug: app.slug}));
 }
 
-export default function SingleApplicationPage({params}: Props) {
-    const appShortcuts = getAppShortcutsBySlug(params.slug) || notFound();
+export default async function SingleApplicationPage({params}: Props) {
+    const resolvedParams = await params;
+    const appShortcuts = getAppShortcutsBySlug(resolvedParams.slug) || notFound();
 
     return (
-        <section className="mx-auto max-w-3xl prose prose-gray dark:prose-invert">
-            <AppDetails application={appShortcuts} keymap={appShortcuts.keymaps[0]}/>
-        </section>
+        <AppDetails application={appShortcuts} keymap={appShortcuts.keymaps[0]}/>
     );
 }

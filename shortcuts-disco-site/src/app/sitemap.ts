@@ -2,6 +2,8 @@ import {MetadataRoute} from "next";
 import {getAllShortcuts} from "@/lib/shortcuts";
 import {serializeKeymap} from "@/lib/model/keymap-utils";
 
+export const dynamic = "force-static";
+
 const ChangeFrequency = {
     ALWAYS: "always",
     HOURLY: "hourly",

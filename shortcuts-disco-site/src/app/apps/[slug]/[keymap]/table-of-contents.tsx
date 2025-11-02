@@ -1,10 +1,9 @@
 import React, {useEffect, useRef} from 'react';
-import 'tailwindcss/tailwind.css'
 import {Section} from "@/lib/model/internal/internal-models";
 import Link from "next/link";
 
 function useAnchorRefs(sections: Section[]) {
-    const anchorRefs = useRef<Record<string, React.RefObject<HTMLAnchorElement>>>({});
+    const anchorRefs = useRef<Record<string, React.RefObject<HTMLAnchorElement | null>>>({});
     sections.forEach(section => {
         anchorRefs.current[section.title] = React.createRef();
     });
@@ -13,7 +12,7 @@ function useAnchorRefs(sections: Section[]) {
 
 const TableOfContents = ({sections, sectionRefs}: {
     sections: Section[],
-    sectionRefs: React.MutableRefObject<Record<string, React.RefObject<HTMLDivElement>>>
+    sectionRefs: React.MutableRefObject<Record<string, React.RefObject<HTMLDivElement | null>>>
 }) => {
     const observer = useRef<IntersectionObserver | null>(null);
     const anchorRefs = useAnchorRefs(sections);

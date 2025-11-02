@@ -124,7 +124,7 @@ export const AppDetails = ({
     };
   }, [handleKeyDown]);
 
-  const sectionRefs = useRef<Record<string, React.RefObject<HTMLDivElement>>>(
+  const sectionRefs = useRef<Record<string, React.RefObject<HTMLDivElement | null>>>(
     {},
   );
   let globalIndex = 0;
@@ -165,8 +165,8 @@ export const AppDetails = ({
   });
 
   return (
-    <div className="flex min-h-0 w-full flex-1">
-      <div className="grid gap-4 p-4 md:w-50 md:gap-6">
+    <div className="mx-auto flex min-h-0 w-full max-w-5xl flex-1">
+      <div className="grid gap-4 p-4 md:w-56 md:gap-6">
         <div className="flex gap-4">
           <div className="flex flex-col">
             <KeymapSelector
