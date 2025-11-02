@@ -1,6 +1,6 @@
 import {ShortcutsParser} from "./input-parser";
 import {InputApp} from "@/lib/model/input/input-models";
-import {AppShortcuts, AtomicShortcut} from "@/lib/model/internal/internal-models";
+import {AppShortcuts, AtomicShortcut, Platform} from "@/lib/model/internal/internal-models";
 import {Modifiers} from "@/lib/model/internal/modifiers";
 import { describe, expect, it } from "@jest/globals";
 
@@ -54,7 +54,7 @@ describe("Platform field preservation", () => {
 
 function generateInputAppWithShortcut(override?: {
     shortcut?: string;
-    platform?: "windows" | "linux" | "macos";
+    platform?: Platform;
 }): InputApp {
     return {
         bundleId: "some-bundle-id",

@@ -1,3 +1,5 @@
+import { Platform } from "./internal-models";
+
 export enum Modifiers {
     control = "control down",
     shift = "shift down",
@@ -7,9 +9,9 @@ export enum Modifiers {
 }
 
 // Detect platform (client-side only, cached for performance)
-let cachedPlatform: 'windows' | 'linux' | 'macos' | null = null;
+let cachedPlatform: Platform | null = null;
 
-export function getPlatform(): 'windows' | 'linux' | 'macos' {
+export function getPlatform(): Platform {
     if (cachedPlatform) {
         return cachedPlatform;
     }
@@ -34,6 +36,7 @@ export function getPlatform(): 'windows' | 'linux' | 'macos' {
 // Lazy evaluation to avoid hydration mismatches
 export const isWindows = typeof window !== 'undefined' && getPlatform() === 'windows';
 export const isLinux = typeof window !== 'undefined' && getPlatform() === 'linux';
+export const isMacOS = typeof window !== 'undefined' && getPlatform() === 'macos';
 
 // macOS modifier symbols
 export const macModifierSymbols: Map<Modifiers, string> = new Map([

@@ -1,5 +1,7 @@
 // Update README.md if shortcut structure changes
 
+import { Platform } from "../internal/internal-models";
+
 /**
  * Aggregation interface for all applications.
  */
@@ -28,7 +30,7 @@ export interface InputApp {
  */
 export interface InputKeymap {
     title: string;
-    platform?: 'windows' | 'linux' | 'macos';
+    platform?: Platform;
     sections: InputSection[];
 }
 

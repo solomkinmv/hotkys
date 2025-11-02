@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { getPlatform } from '@/lib/model/internal/modifiers';
+import { Platform } from '@/lib/model/internal/internal-models';
 
 /**
  * React hook to detect the user's platform (Windows, Linux, or macOS).
@@ -9,8 +10,8 @@ import { getPlatform } from '@/lib/model/internal/modifiers';
  *
  * @returns The detected platform: 'windows', 'linux', or 'macos'
  */
-export function usePlatform(): 'windows' | 'linux' | 'macos' {
-  const [platform, setPlatform] = useState<'windows' | 'linux' | 'macos'>('macos');
+export function usePlatform(): Platform {
+  const [platform, setPlatform] = useState<Platform>('macos');
 
   useEffect(() => {
     setPlatform(getPlatform());
