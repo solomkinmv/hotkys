@@ -9,7 +9,7 @@ export enum Modifiers {
 // Detect platform (client-side only, cached for performance)
 let cachedPlatform: 'windows' | 'linux' | 'macos' | null = null;
 
-function getPlatform(): 'windows' | 'linux' | 'macos' {
+export function getPlatform(): 'windows' | 'linux' | 'macos' {
     if (cachedPlatform) {
         return cachedPlatform;
     }
