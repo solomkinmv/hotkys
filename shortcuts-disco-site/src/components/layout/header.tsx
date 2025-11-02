@@ -23,8 +23,8 @@ export const Header = () => {
             <Link
               key={link.href}
               className={index === 0
-                ? "flex items-center gap-2 border-b-2 border-transparent hover:border-blue-500"
-                : "text-muted-foreground hover:text-foreground hover:border-b-2 hover:border-blue-500"
+                ? "flex items-center gap-2 border-b-2 border-transparent hover:border-primary"
+                : "text-muted-foreground hover:text-foreground hover:border-b-2 hover:border-primary"
               }
               href={link.href}
             >
