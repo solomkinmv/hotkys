@@ -20,25 +20,9 @@ import Fuse from "fuse.js";
 import { KeymapSelector } from "@/app/apps/[slug]/[keymap]/keymap-selector";
 import TableOfContents from "@/app/apps/[slug]/[keymap]/table-of-contents";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
+import { cn, getPlatformDisplay } from "@/lib/utils";
 import { ListItem } from "@/components/ui/list";
 import { Badge } from "@/components/ui/badge";
-
-// Helper function to get platform display name
-const getPlatformDisplay = (platform?: 'windows' | 'linux' | 'macos') => {
-  if (!platform) return null;
-
-  switch (platform) {
-    case 'windows':
-      return 'Windows';
-    case 'linux':
-      return 'Linux';
-    case 'macos':
-      return 'macOS';
-    default:
-      return null;
-  }
-};
 
 export const AppDetails = ({
   application,
@@ -188,7 +172,7 @@ export const AppDetails = ({
               {application.name}
             </Header1>
             {keymap.platform && (
-              <Badge variant="outline" className="text-sm">
+              <Badge variant="outline" className="text-sm" aria-label={`Platform: ${getPlatformDisplay(keymap.platform)}`}>
                 {getPlatformDisplay(keymap.platform)}
               </Badge>
             )}
