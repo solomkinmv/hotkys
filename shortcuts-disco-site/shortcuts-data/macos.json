@@ -5,6 +5,7 @@
   "keymaps": [
     {
       "title": "Default",
+      "platform": "macos",
       "sections": [
         {
           "title": "General",
