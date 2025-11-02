@@ -18,7 +18,6 @@ export async function generateStaticParams() {
 
 export default async function SingleApplicationPage({params}: Props) {
     const resolvedParams = await params;
-    console.log("building page", resolvedParams);
     const appShortcuts = getAppShortcutsBySlug(resolvedParams.slug) || notFound();
     const keymap = findKeymap(appShortcuts, resolvedParams.keymap) || notFound();
 

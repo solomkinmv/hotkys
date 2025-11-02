@@ -6,9 +6,34 @@ export enum Modifiers {
     win = "win down",
 }
 
-// Detect platform
-export const isWindows = typeof window !== 'undefined' && navigator.platform.indexOf('Win') > -1;
-export const isLinux = typeof window !== 'undefined' && navigator.platform.indexOf('Linux') > -1;
+// Detect platform (client-side only, cached for performance)
+let cachedPlatform: 'windows' | 'linux' | 'macos' | null = null;
+
+function getPlatform(): 'windows' | 'linux' | 'macos' {
+    if (cachedPlatform) {
+        return cachedPlatform;
+    }
+
+    if (typeof window === 'undefined') {
+        return 'macos'; // Default to macOS for SSR
+    }
+
+    // Use userAgent instead of deprecated navigator.platform
+    const userAgent = navigator.userAgent.toLowerCase();
+    if (userAgent.indexOf('win') > -1) {
+        cachedPlatform = 'windows';
+    } else if (userAgent.indexOf('linux') > -1) {
+        cachedPlatform = 'linux';
+    } else {
+        cachedPlatform = 'macos';
+    }
+
+    return cachedPlatform;
+}
+
+// Lazy evaluation to avoid hydration mismatches
+export const isWindows = typeof window !== 'undefined' && getPlatform() === 'windows';
+export const isLinux = typeof window !== 'undefined' && getPlatform() === 'linux';
 
 // macOS modifier symbols
 export const macModifierSymbols: Map<Modifiers, string> = new Map([
