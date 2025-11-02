@@ -48,14 +48,14 @@ These issues affect code quality and maintainability:
   - Test all three platforms
   - File: `src/lib/model/keymap-utils.spec.ts` (new)
 
-- [ ] **Remove code duplication** (`getPlatformDisplay` helper)
+- [x] **Remove code duplication** (`getPlatformDisplay` helper)
   - Extract `getPlatformDisplay` to shared utility
   - Remove from `app-details.tsx:28-41`
   - Remove from `keymap-selector.tsx:17-30`
   - Create `src/lib/utils/platform.ts` or add to `src/lib/utils.ts`
   - Update imports in both files
 
-- [ ] **Add accessibility labels to platform badges**
+- [x] **Add accessibility labels to platform badges**
   - Add aria-label to Badge in `app-details.tsx:190-194`
   - Add aria-label to Badge in `keymap-selector.tsx:50-53` and `66-69`
   - Example: `aria-label="Platform: Windows"`
