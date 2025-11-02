@@ -6,6 +6,7 @@
   "keymaps": [
     {
       "title": "Default",
+      "platform": "macos",
       "sections": [
         {
           "title": "Chrome Window and Tabs",
