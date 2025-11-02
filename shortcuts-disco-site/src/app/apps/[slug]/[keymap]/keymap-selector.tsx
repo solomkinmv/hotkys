@@ -6,28 +6,13 @@ import {Keymap} from "@/lib/model/internal/internal-models";
 import Link from "next/link";
 import {serializeKeymap} from "@/lib/model/keymap-utils";
 import {Badge} from "@/components/ui/badge";
+import {getPlatformDisplay} from "@/lib/utils";
 
 interface KeymapSelectorProps {
     keymaps: Keymap[],
     activeKeymap: string,
     urlPrefix: string,
 }
-
-// Helper function to get platform display name
-const getPlatformDisplay = (platform?: 'windows' | 'linux' | 'macos') => {
-    if (!platform) return null;
-
-    switch (platform) {
-        case 'windows':
-            return 'Windows';
-        case 'linux':
-            return 'Linux';
-        case 'macos':
-            return 'macOS';
-        default:
-            return null;
-    }
-};
 
 export function KeymapSelector({keymaps, activeKeymap, urlPrefix}: KeymapSelectorProps) {
     const [open, setOpen] = React.useState(false)
@@ -48,7 +33,7 @@ export function KeymapSelector({keymaps, activeKeymap, urlPrefix}: KeymapSelecto
                     <div className="flex items-center">
                         {activeKeymap}
                         {activePlatform && (
-                            <Badge variant="outline" className="ml-2 text-xs">
+                            <Badge variant="outline" className="ml-2 text-xs" aria-label={`Platform: ${getPlatformDisplay(activePlatform)}`}>
                                 {getPlatformDisplay(activePlatform)}
                             </Badge>
                         )}
@@ -64,7 +49,7 @@ export function KeymapSelector({keymaps, activeKeymap, urlPrefix}: KeymapSelecto
                           className="block cursor-pointer px-2 py-2 hover:bg-slate-100/50 flex items-center justify-between">
                         <span>{keymap.title}</span>
                         {keymap.platform && (
-                            <Badge variant="outline" className="text-xs">
+                            <Badge variant="outline" className="text-xs" aria-label={`Platform: ${getPlatformDisplay(keymap.platform)}`}>
                                 {getPlatformDisplay(keymap.platform)}
                             </Badge>
                         )}
