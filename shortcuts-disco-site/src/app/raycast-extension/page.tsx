@@ -1,7 +1,6 @@
 import {Metadata} from "next";
-import Link from "next/link";
 import Image from "next/image";
-import {Header1, Paragraph} from "@/components/ui/typography";
+import {Header1, Paragraph, TypographyLink} from "@/components/ui/typography";
 
 export const metadata: Metadata = {
     title: "Raycast Extension",
@@ -33,26 +32,26 @@ export default function Page() {
                            className="mt-0 mb-0"/>
                 </div>
             </div>
-            <Paragraph><Link href="https://www.raycast.com" target="_blank" rel="nofollow">RayCast</Link> is a productivity tool,
+            <Paragraph><TypographyLink href="https://www.raycast.com">RayCast</TypographyLink> is a productivity tool,
                 basically Spotlight on steroids.</Paragraph>
             <Paragraph>Allows to list, search and run shortcuts for different applications.</Paragraph>
             <Paragraph>By selecting shortcut extension actually runs the shortcut using AppleScript.</Paragraph>
-            <Paragraph>You can download extension from the <Link
-                href="https://www.raycast.com/solomkinmv/shortcuts-search" target="_blank" rel="nofollow">RayCast
-                Store</Link>.</Paragraph>
-            <Link title="Install shortcuts-search Raycast Extension"
-                  href="https://www.raycast.com/solomkinmv/shortcuts-search"
-                  target={"_blank"}
-                  style={{
-                      display: "flex",
-                      justifyContent: "center",
-                  }}
-                  rel="nofollow">
+            <Paragraph>You can download extension from the <TypographyLink
+                href="https://www.raycast.com/solomkinmv/shortcuts-search">RayCast
+                Store</TypographyLink>.</Paragraph>
+            <a title="Install shortcuts-search Raycast Extension"
+               href="https://www.raycast.com/solomkinmv/shortcuts-search"
+               target="_blank"
+               style={{
+                   display: "flex",
+                   justifyContent: "center",
+               }}
+               rel="noopener noreferrer nofollow">
                 <Image
                     src="https://www.raycast.com/solomkinmv/shortcuts-search/install_button@2x.png?v=1.1"
                     alt="Install Hotkys Raycast extension" height={64} width={256}
                 />
-            </Link>
+            </a>
         </section>
     );
 }
