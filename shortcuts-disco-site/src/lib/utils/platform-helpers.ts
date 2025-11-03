@@ -31,21 +31,21 @@ export function getPlatformIcon(platform: Platform): string {
 /**
  * Check if an app matches the platform filter
  * @param app - Application shortcuts object
- * @param platformFilters - Set of platforms to filter by
+ * @param platformFilter - Platform to filter by (null = all platforms)
  * @returns True if app has at least one keymap matching the filter
  */
 export function appMatchesPlatformFilter(
   app: AppShortcuts,
-  platformFilters: Set<Platform>
+  platformFilter: Platform | null
 ): boolean {
+  // If filter is null (All), show all apps
+  if (platformFilter === null) return true;
+
   const appPlatforms = getAppPlatforms(app);
 
   // If no platforms specified in app data, always show it
   if (appPlatforms.length === 0) return true;
 
-  // If all platforms are selected, show all apps
-  if (platformFilters.size === 3) return true;
-
-  // Check if any app platform is in the filter set
-  return appPlatforms.some((p) => platformFilters.has(p));
+  // Check if app has a keymap for the selected platform
+  return appPlatforms.includes(platformFilter);
 }
