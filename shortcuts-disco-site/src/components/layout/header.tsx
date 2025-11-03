@@ -36,7 +36,6 @@ export const Header = () => {
         
         {/* Social media links and theme toggle */}
         <div className="flex items-center space-x-4">
-          <ThemeToggle />
           {SOCIAL_LINKS.map(link => (
             <Link
               key={link.href}
@@ -50,6 +49,7 @@ export const Header = () => {
               )}
             </Link>
           ))}
+          <ThemeToggle />
         </div>
       </div>
     </header>
