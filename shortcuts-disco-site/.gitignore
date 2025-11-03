@@ -37,3 +37,6 @@ next-env.d.ts
 
 # Combined Apps json
 public/data/combined-apps.json
+
+# Personal TODO
+TODO.md
