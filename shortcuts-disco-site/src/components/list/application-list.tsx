@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { AppShortcuts } from "@/lib/model/internal/internal-models";
 import Fuse from "fuse.js";
 import { KeyboardBadge } from "@/components/ui/keyboard-badge";
@@ -9,6 +9,11 @@ import { SearchBar } from "@/components/ui/search-bar";
 import { LinkableListItem } from "@/components/ui/list";
 import { HeaderCompact1 } from "@/components/ui/typography";
 import { useKeyboardNavigation } from "@/lib/hooks/use-keyboard-navigation";
+import { Badge } from "@/components/ui/badge";
+import { getAppPlatforms, getPlatformIcon, appMatchesPlatformFilter } from "@/lib/utils/platform-helpers";
+import { getPlatformDisplay } from "@/lib/utils";
+import { usePlatformFilter } from "@/lib/hooks/use-platform-filter";
+import { PlatformFilter } from "@/components/ui/platform-filter";
 
 /**
  * ApplicationList component displays a searchable, keyboard-navigable list of applications
@@ -20,15 +25,32 @@ export const ApplicationList = ({
 }: {
   applications: AppShortcuts[];
 }) => {
-  // State for filtered applications
-  const [appShortcuts, setAppShortcuts] = useState(applications);
+  const [searchTerm, setSearchTerm] = useState("");
+  const { platformFilters, setPlatformFilters } = usePlatformFilter();
 
-  // Setup fuzzy search with Fuse.js
-  const fuse = new Fuse(applications, {
-    keys: ["name"],
-    includeScore: true,
-    includeMatches: true,
-  });
+  // Apply platform filter first, then search
+  const filteredByPlatform = useMemo(() => {
+    return applications.filter((app) =>
+      appMatchesPlatformFilter(app, platformFilters)
+    );
+  }, [applications, platformFilters]);
+
+  // Setup fuzzy search with Fuse.js on platform-filtered apps
+  const fuse = useMemo(() => {
+    return new Fuse(filteredByPlatform, {
+      keys: ["name"],
+      includeScore: true,
+      includeMatches: true,
+    });
+  }, [filteredByPlatform]);
+
+  // Apply search filter
+  const appShortcuts = useMemo(() => {
+    if (!searchTerm) {
+      return filteredByPlatform;
+    }
+    return fuse.search(searchTerm).map((result) => result.item);
+  }, [searchTerm, filteredByPlatform, fuse]);
 
   // Use custom hook for keyboard navigation
   const { selectedIndex, itemRefs } = useKeyboardNavigation<AppShortcuts>(
@@ -39,34 +61,55 @@ export const ApplicationList = ({
 
   // Handle search input changes
   const onChange: InputProps["onChange"] = (e) => {
-    const inputText = e.currentTarget.value;
-    if (!inputText) {
-      setAppShortcuts(applications);
-    } else {
-      setAppShortcuts(
-        fuse.search(inputText).map((result) => result.item),
-      );
-    }
+    setSearchTerm(e.currentTarget.value);
   };
 
   return (
     <>
-      <HeaderCompact1 className="mt-0 mb-1">All Applications</HeaderCompact1>
+      <div className="flex items-center justify-between mb-1">
+        <HeaderCompact1 className="mt-0 mb-0">All Applications</HeaderCompact1>
+        <PlatformFilter
+          platformFilters={platformFilters}
+          setPlatformFilters={setPlatformFilters}
+        />
+      </div>
       <SearchBar onChange={onChange} />
       <div className="mt-2">
-        {appShortcuts.map((app, index) => (
-          <LinkableListItem
-            key={app.slug}
-            to={`/apps/${app.slug}`}
-            selected={index === selectedIndex}
-            ref={(el) => {
-              itemRefs.current[index] = el;
-            }}
-          >
-            <span>{app.name}</span>
-            <KeyboardBadge base={app.bundleId} />
-          </LinkableListItem>
-        ))}
+        {appShortcuts.length === 0 ? (
+          <p className="text-center text-muted-foreground py-8">
+            No applications found matching your filter criteria.
+          </p>
+        ) : (
+          appShortcuts.map((app, index) => {
+            const platforms = getAppPlatforms(app);
+            return (
+              <LinkableListItem
+                key={app.slug}
+                to={`/apps/${app.slug}`}
+                selected={index === selectedIndex}
+                ref={(el) => {
+                  itemRefs.current[index] = el;
+                }}
+              >
+                <span>{app.name}</span>
+                <div className="flex items-center gap-1">
+                  {platforms.map((platform) => (
+                    <Badge
+                      key={platform}
+                      variant="outline"
+                      className="text-xs"
+                      aria-label={`Platform: ${getPlatformDisplay(platform)}`}
+                      title={getPlatformDisplay(platform) || undefined}
+                    >
+                      {getPlatformIcon(platform)}
+                    </Badge>
+                  ))}
+                  <KeyboardBadge base={app.bundleId} />
+                </div>
+              </LinkableListItem>
+            );
+          })
+        )}
       </div>
     </>
   );
