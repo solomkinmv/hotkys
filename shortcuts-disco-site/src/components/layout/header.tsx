@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { GithubIcon, TwitterIcon } from "@/components/ui/icons";
 import { MAIN_NAV_LINKS, SOCIAL_LINKS } from "@/lib/constants/navigation";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 /**
  * Header component for the application
@@ -33,8 +34,9 @@ export const Header = () => {
           ))}
         </nav>
         
-        {/* Social media links */}
+        {/* Social media links and theme toggle */}
         <div className="flex items-center space-x-4">
+          <ThemeToggle />
           {SOCIAL_LINKS.map(link => (
             <Link
               key={link.href}
