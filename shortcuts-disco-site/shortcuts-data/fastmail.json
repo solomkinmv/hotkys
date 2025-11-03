@@ -3,49 +3,68 @@
   "name": "FastMail",
   "hostname": "app.fastmail.com",
   "slug": "fastmail",
+  "source": "https://www.fastmail.help/hc/en-us/articles/360058753534-Keyboard-shortcuts",
   "keymaps": [
     {
-      "title": "Default",
+      "title": "macOS",
+      "platform": "macos",
       "sections": [
         {
           "title": "Global Navigation",
           "shortcuts": [
             {
-              "title": "Go to your mail",
+              "title": "Go to mail",
               "key": "shift+g m"
             },
             {
-              "title": "Go to your contacts",
+              "title": "Go to contacts",
               "key": "shift+g a"
             },
             {
-              "title": "Go to your calendar",
-              "key": "shift+g"
+              "title": "Go to calendar",
+              "key": "shift+g c"
             },
             {
-              "title": "Go to your notes",
+              "title": "Go to notes",
               "key": "shift+g n"
             },
             {
-              "title": "Go to your file storage",
+              "title": "Go to file storage",
               "key": "shift+g f"
             },
             {
-              "title": "Open the settings for your account",
+              "title": "Open account settings",
               "key": "shift+g s"
             },
             {
-              "title": "Open the Fastmail help",
+              "title": "Open Fastmail help",
               "key": "shift+g /"
             },
             {
-              "title": "Log out of your account",
-              "key": "shift+g l"
+              "title": "Switch user/logout",
+              "key": "shift+f"
+            },
+            {
+              "title": "Log out",
+              "key": "shift+f l"
             }
           ]
         },
         {
-          "title": "Mail Actions",
+          "title": "General",
+          "shortcuts": [
+            {
+              "title": "Undo",
+              "key": "cmd+z"
+            },
+            {
+              "title": "Redo",
+              "key": "shift+cmd+z"
+            }
+          ]
+        },
+        {
+          "title": "Mail - General Actions",
           "shortcuts": [
             {
               "title": "Compose new message",
@@ -74,6 +93,599 @@
             {
               "title": "Toggle sidebar",
               "key": "shift+cmd+i"
+            },
+            {
+              "title": "Refresh",
+              "key": "u"
+            }
+          ]
+        },
+        {
+          "title": "Mail - Navigate & Select",
+          "shortcuts": [
+            {
+              "title": "Focus next",
+              "key": "j"
+            },
+            {
+              "title": "Focus previous",
+              "key": "k"
+            },
+            {
+              "title": "Open conversation",
+              "key": "o"
+            },
+            {
+              "title": "Select/deselect",
+              "key": "x"
+            },
+            {
+              "title": "Toggle pinned",
+              "key": "s"
+            },
+            {
+              "title": "Select range",
+              "key": "shift+x"
+            },
+            {
+              "title": "Select all",
+              "key": "' a"
+            },
+            {
+              "title": "Unselect all",
+              "key": "' n"
+            }
+          ]
+        },
+        {
+          "title": "Mail - Conversation Actions",
+          "shortcuts": [
+            {
+              "title": "Delete to Trash",
+              "key": "d"
+            },
+            {
+              "title": "Permanently delete",
+              "key": "cmd+backspace"
+            },
+            {
+              "title": "Move to folder",
+              "key": "m"
+            },
+            {
+              "title": "Archive",
+              "key": "y"
+            },
+            {
+              "title": "Report spam",
+              "key": "shift+1"
+            },
+            {
+              "title": "Mark read",
+              "key": "shift+i"
+            },
+            {
+              "title": "Mark unread",
+              "key": "shift+u"
+            },
+            {
+              "title": "Open labels",
+              "key": "l"
+            },
+            {
+              "title": "Mute conversation",
+              "key": "shift+m"
+            }
+          ]
+        },
+        {
+          "title": "Mail - Message Actions",
+          "shortcuts": [
+            {
+              "title": "Next message",
+              "key": "j"
+            },
+            {
+              "title": "Previous message",
+              "key": "k"
+            },
+            {
+              "title": "Return to mailbox",
+              "key": "u"
+            },
+            {
+              "title": "Archive and next",
+              "key": "["
+            },
+            {
+              "title": "Archive and previous",
+              "key": "]"
+            },
+            {
+              "title": "Reply",
+              "key": "r"
+            },
+            {
+              "title": "Reply to all",
+              "key": "a"
+            },
+            {
+              "title": "Forward",
+              "key": "f"
+            },
+            {
+              "title": "Display images",
+              "key": "shift+l"
+            },
+            {
+              "title": "Expand all messages",
+              "key": "shift+e"
+            }
+          ]
+        },
+        {
+          "title": "Compose",
+          "shortcuts": [
+            {
+              "title": "Send",
+              "key": "cmd+enter"
+            },
+            {
+              "title": "Save draft",
+              "key": "cmd+s"
+            },
+            {
+              "title": "Show Cc field",
+              "key": "shift+cmd+c"
+            },
+            {
+              "title": "Show Bcc field",
+              "key": "shift+cmd+b"
+            },
+            {
+              "title": "Bold",
+              "key": "cmd+b"
+            },
+            {
+              "title": "Italic",
+              "key": "cmd+i"
+            },
+            {
+              "title": "Underline",
+              "key": "cmd+u"
+            },
+            {
+              "title": "Add/remove link",
+              "key": "cmd+k"
+            },
+            {
+              "title": "Format as code",
+              "key": "cmd+d"
+            },
+            {
+              "title": "Schedule send",
+              "key": "shift+cmd+enter"
+            }
+          ]
+        },
+        {
+          "title": "Calendar",
+          "shortcuts": [
+            {
+              "title": "New event",
+              "key": "n"
+            },
+            {
+              "title": "Day view",
+              "key": "d"
+            },
+            {
+              "title": "Week view",
+              "key": "w"
+            },
+            {
+              "title": "Month view",
+              "key": "m"
+            },
+            {
+              "title": "Go to date",
+              "key": "g"
+            },
+            {
+              "title": "Go to today",
+              "key": "t"
+            },
+            {
+              "title": "Next",
+              "key": "j"
+            },
+            {
+              "title": "Previous",
+              "key": "k"
+            },
+            {
+              "title": "Save event",
+              "key": "cmd+s"
+            },
+            {
+              "title": "Search events",
+              "key": "/"
+            }
+          ]
+        },
+        {
+          "title": "Contacts",
+          "shortcuts": [
+            {
+              "title": "New contact",
+              "key": "n"
+            },
+            {
+              "title": "Next",
+              "key": "j"
+            },
+            {
+              "title": "Previous",
+              "key": "k"
+            },
+            {
+              "title": "Edit",
+              "key": "e"
+            },
+            {
+              "title": "Save",
+              "key": "cmd+s"
+            },
+            {
+              "title": "Delete",
+              "key": "cmd+backspace"
+            },
+            {
+              "title": "Search",
+              "key": "/"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Windows",
+      "platform": "windows",
+      "sections": [
+        {
+          "title": "Global Navigation",
+          "shortcuts": [
+            {
+              "title": "Go to mail",
+              "key": "shift+g m"
+            },
+            {
+              "title": "Go to contacts",
+              "key": "shift+g a"
+            },
+            {
+              "title": "Go to calendar",
+              "key": "shift+g c"
+            },
+            {
+              "title": "Go to notes",
+              "key": "shift+g n"
+            },
+            {
+              "title": "Go to file storage",
+              "key": "shift+g f"
+            },
+            {
+              "title": "Open account settings",
+              "key": "shift+g s"
+            },
+            {
+              "title": "Open Fastmail help",
+              "key": "shift+g /"
+            },
+            {
+              "title": "Switch user/logout",
+              "key": "shift+f"
+            },
+            {
+              "title": "Log out",
+              "key": "shift+f l"
+            }
+          ]
+        },
+        {
+          "title": "General",
+          "shortcuts": [
+            {
+              "title": "Undo",
+              "key": "ctrl+z"
+            },
+            {
+              "title": "Redo",
+              "key": "ctrl+y"
+            }
+          ]
+        },
+        {
+          "title": "Mail - General Actions",
+          "shortcuts": [
+            {
+              "title": "Compose new message",
+              "key": "c"
+            },
+            {
+              "title": "Go to folder",
+              "key": "g"
+            },
+            {
+              "title": "Page down",
+              "key": "space"
+            },
+            {
+              "title": "Page up",
+              "key": "shift+space"
+            },
+            {
+              "title": "Search messages",
+              "key": "/"
+            },
+            {
+              "title": "Cancel",
+              "key": "esc esc"
+            },
+            {
+              "title": "Toggle sidebar",
+              "key": "ctrl+shift+i"
+            },
+            {
+              "title": "Refresh",
+              "key": "u"
+            }
+          ]
+        },
+        {
+          "title": "Mail - Navigate & Select",
+          "shortcuts": [
+            {
+              "title": "Focus next",
+              "key": "j"
+            },
+            {
+              "title": "Focus previous",
+              "key": "k"
+            },
+            {
+              "title": "Open conversation",
+              "key": "o"
+            },
+            {
+              "title": "Select/deselect",
+              "key": "x"
+            },
+            {
+              "title": "Toggle pinned",
+              "key": "s"
+            },
+            {
+              "title": "Select range",
+              "key": "shift+x"
+            },
+            {
+              "title": "Select all",
+              "key": "' a"
+            },
+            {
+              "title": "Unselect all",
+              "key": "' n"
+            }
+          ]
+        },
+        {
+          "title": "Mail - Conversation Actions",
+          "shortcuts": [
+            {
+              "title": "Delete to Trash",
+              "key": "d"
+            },
+            {
+              "title": "Permanently delete",
+              "key": "backspace"
+            },
+            {
+              "title": "Move to folder",
+              "key": "m"
+            },
+            {
+              "title": "Archive",
+              "key": "y"
+            },
+            {
+              "title": "Report spam",
+              "key": "shift+1"
+            },
+            {
+              "title": "Mark read",
+              "key": "shift+i"
+            },
+            {
+              "title": "Mark unread",
+              "key": "shift+u"
+            },
+            {
+              "title": "Open labels",
+              "key": "l"
+            },
+            {
+              "title": "Mute conversation",
+              "key": "shift+m"
+            }
+          ]
+        },
+        {
+          "title": "Mail - Message Actions",
+          "shortcuts": [
+            {
+              "title": "Next message",
+              "key": "j"
+            },
+            {
+              "title": "Previous message",
+              "key": "k"
+            },
+            {
+              "title": "Return to mailbox",
+              "key": "u"
+            },
+            {
+              "title": "Archive and next",
+              "key": "["
+            },
+            {
+              "title": "Archive and previous",
+              "key": "]"
+            },
+            {
+              "title": "Reply",
+              "key": "r"
+            },
+            {
+              "title": "Reply to all",
+              "key": "a"
+            },
+            {
+              "title": "Forward",
+              "key": "f"
+            },
+            {
+              "title": "Display images",
+              "key": "shift+l"
+            },
+            {
+              "title": "Expand all messages",
+              "key": "shift+e"
+            }
+          ]
+        },
+        {
+          "title": "Compose",
+          "shortcuts": [
+            {
+              "title": "Send",
+              "key": "ctrl+enter"
+            },
+            {
+              "title": "Save draft",
+              "key": "ctrl+s"
+            },
+            {
+              "title": "Show Cc field",
+              "key": "ctrl+shift+c"
+            },
+            {
+              "title": "Show Bcc field",
+              "key": "ctrl+shift+b"
+            },
+            {
+              "title": "Bold",
+              "key": "ctrl+b"
+            },
+            {
+              "title": "Italic",
+              "key": "ctrl+i"
+            },
+            {
+              "title": "Underline",
+              "key": "ctrl+u"
+            },
+            {
+              "title": "Add/remove link",
+              "key": "ctrl+k"
+            },
+            {
+              "title": "Format as code",
+              "key": "ctrl+d"
+            },
+            {
+              "title": "Schedule send",
+              "key": "ctrl+shift+enter"
+            }
+          ]
+        },
+        {
+          "title": "Calendar",
+          "shortcuts": [
+            {
+              "title": "New event",
+              "key": "n"
+            },
+            {
+              "title": "Day view",
+              "key": "d"
+            },
+            {
+              "title": "Week view",
+              "key": "w"
+            },
+            {
+              "title": "Month view",
+              "key": "m"
+            },
+            {
+              "title": "Go to date",
+              "key": "g"
+            },
+            {
+              "title": "Go to today",
+              "key": "t"
+            },
+            {
+              "title": "Next",
+              "key": "j"
+            },
+            {
+              "title": "Previous",
+              "key": "k"
+            },
+            {
+              "title": "Save event",
+              "key": "ctrl+s"
+            },
+            {
+              "title": "Search events",
+              "key": "/"
+            }
+          ]
+        },
+        {
+          "title": "Contacts",
+          "shortcuts": [
+            {
+              "title": "New contact",
+              "key": "n"
+            },
+            {
+              "title": "Next",
+              "key": "j"
+            },
+            {
+              "title": "Previous",
+              "key": "k"
+            },
+            {
+              "title": "Edit",
+              "key": "e"
+            },
+            {
+              "title": "Save",
+              "key": "ctrl+s"
+            },
+            {
+              "title": "Delete",
+              "key": "backspace"
+            },
+            {
+              "title": "Search",
+              "key": "/"
             }
           ]
         }
