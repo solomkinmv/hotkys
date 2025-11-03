@@ -26,14 +26,14 @@ export const ApplicationList = ({
   applications: AppShortcuts[];
 }) => {
   const [searchTerm, setSearchTerm] = useState("");
-  const { platformFilters, setPlatformFilters } = usePlatformFilter();
+  const { platformFilter, setPlatformFilter } = usePlatformFilter();
 
   // Apply platform filter first, then search
   const filteredByPlatform = useMemo(() => {
     return applications.filter((app) =>
-      appMatchesPlatformFilter(app, platformFilters)
+      appMatchesPlatformFilter(app, platformFilter)
     );
-  }, [applications, platformFilters]);
+  }, [applications, platformFilter]);
 
   // Setup fuzzy search with Fuse.js on platform-filtered apps
   const fuse = useMemo(() => {
@@ -69,8 +69,8 @@ export const ApplicationList = ({
       <div className="flex items-center justify-between mb-1">
         <HeaderCompact1 className="mt-0 mb-0">All Applications</HeaderCompact1>
         <PlatformFilter
-          platformFilters={platformFilters}
-          setPlatformFilters={setPlatformFilters}
+          platformFilter={platformFilter}
+          setPlatformFilter={setPlatformFilter}
         />
       </div>
       <SearchBar onChange={onChange} />
