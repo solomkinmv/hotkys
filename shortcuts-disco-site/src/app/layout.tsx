@@ -6,6 +6,7 @@ import { Metadata } from "next";
 import { cn } from "@/lib/utils";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import { ThemeProvider } from "@/components/theme-provider";
 
 /**
  * Font configuration for the application
@@ -33,18 +34,20 @@ export const metadata: Metadata = {
  */
 const RootLayout = ({ children }: React.PropsWithChildren) => {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" suppressHydrationWarning>
       <body className={cn(
         "flex flex-col min-h-screen bg-background text-foreground font-sans antialiased",
         fontSans.variable,
       )}>
-        <Header />
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <Header />
 
-        <main className="flex-1 p-6 md:p-10">
-          {children}
-        </main>
+          <main className="flex-1 p-6 md:p-10">
+            {children}
+          </main>
 
-        <Footer />
+          <Footer />
+        </ThemeProvider>
         <GoogleAnalytics gaId="G-RKBKYV49KC" />
       </body>
     </html>
