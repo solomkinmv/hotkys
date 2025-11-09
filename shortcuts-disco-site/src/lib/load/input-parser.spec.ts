@@ -32,29 +32,29 @@ describe("Platform field preservation", () => {
     const parser = new ShortcutsParser();
 
     it("should preserve macOS platform", () => {
-        const result = parser.parseInputShortcuts([generateInputAppWithShortcut({platform: "macos"})]);
-        expect(result[0].keymaps[0].platform).toBe("macos");
+        const result = parser.parseInputShortcuts([generateInputAppWithShortcut({platforms: ["macos"]})]);
+        expect(result[0].keymaps[0].platforms).toEqual(["macos"]);
     });
 
     it("should preserve Windows platform", () => {
-        const result = parser.parseInputShortcuts([generateInputAppWithShortcut({platform: "windows"})]);
-        expect(result[0].keymaps[0].platform).toBe("windows");
+        const result = parser.parseInputShortcuts([generateInputAppWithShortcut({platforms: ["windows"]})]);
+        expect(result[0].keymaps[0].platforms).toEqual(["windows"]);
     });
 
     it("should preserve Linux platform", () => {
-        const result = parser.parseInputShortcuts([generateInputAppWithShortcut({platform: "linux"})]);
-        expect(result[0].keymaps[0].platform).toBe("linux");
+        const result = parser.parseInputShortcuts([generateInputAppWithShortcut({platforms: ["linux"]})]);
+        expect(result[0].keymaps[0].platforms).toEqual(["linux"]);
     });
 
-    it("should handle missing platform field", () => {
+    it("should handle missing platforms field", () => {
         const result = parser.parseInputShortcuts([generateInputAppWithShortcut()]);
-        expect(result[0].keymaps[0].platform).toBeUndefined();
+        expect(result[0].keymaps[0].platforms).toBeUndefined();
     });
 });
 
 function generateInputAppWithShortcut(override?: {
     shortcut?: string;
-    platform?: Platform;
+    platforms?: Platform[];
 }): InputApp {
     return {
         bundleId: "some-bundle-id",
@@ -63,7 +63,7 @@ function generateInputAppWithShortcut(override?: {
         keymaps: [
             {
                 title: "keymap-name",
-                platform: override?.platform,
+                platforms: override?.platforms,
                 sections: [
                     {
                         title: "section-name",
