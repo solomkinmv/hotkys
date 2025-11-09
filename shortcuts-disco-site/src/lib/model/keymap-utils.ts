@@ -5,9 +5,6 @@ export const serializeKeymap = (keymap: Keymap) => {
         .replace(/[^\w-]+/g, "-")  // Replace non-word chars with dashes
         .replace(/^-+|-+$/g, "")    // Remove leading/trailing dashes
         .toLowerCase();
-    if (keymap.platform) {
-        return `${titlePart}-${keymap.platform}`;
-    }
     return titlePart;
 }
 

@@ -1,6 +1,6 @@
-import {InputApp, InputKeymap, InputSection, InputShortcut} from "@/lib/model/input/input-models";
-import {modifierMapping, modifierTokensOrderMapping} from "@/lib/model/internal/modifiers";
-import {Platform} from "@/lib/model/internal/internal-models";
+import { InputApp, InputKeymap, InputSection, InputShortcut } from "@/lib/model/input/input-models";
+import { modifierMapping, modifierTokensOrderMapping } from "@/lib/model/internal/modifiers";
+import { Platform } from "@/lib/model/internal/internal-models";
 
 const VALID_PLATFORMS: readonly Platform[] = ['windows', 'linux', 'macos'] as const;
 
@@ -49,9 +49,6 @@ export default class Validator {
         if (keymaps.length === 0) {
             throw new ValidationError(`Application '${appName}' should contain at least one keymap`);
         }
-        if (keymaps.length === 1 && keymaps[0].title !== "Default") {
-            throw new ValidationError(`Single keymap should be named 'Default' instead of '${keymaps[0].title}' for application '${appName}'`)
-        }
         keymaps.forEach((keymap) => {
             if (keymap.sections.length === 0) {
                 throw new ValidationError(`Keymap '${keymap.title}' should contain at least one section for application '${appName}'`);
@@ -64,12 +61,27 @@ export default class Validator {
             }
             keymapNames.add(keymap.title);
 
-            if (keymap.platform !== undefined) {
-                if (!VALID_PLATFORMS.includes(keymap.platform as any)) {
+            if (keymap.platforms !== undefined) {
+                if (keymap.platforms.length === 0) {
                     throw new ValidationError(
-                        `Invalid platform "${keymap.platform}" in keymap "${keymap.title}". Must be one of: ${VALID_PLATFORMS.join(', ')}`
+                        `Platforms array cannot be empty in keymap "${keymap.title}" for application "${appName}". Must have at least one platform.`
                     );
                 }
+
+                const platformSet = new Set<Platform>();
+                keymap.platforms.forEach((platform) => {
+                    if (!VALID_PLATFORMS.includes(platform)) {
+                        throw new ValidationError(
+                            `Invalid platform "${platform}" in keymap "${keymap.title}". Must be one of: ${VALID_PLATFORMS.join(', ')}`
+                        );
+                    }
+                    if (platformSet.has(platform)) {
+                        throw new ValidationError(
+                            `Duplicate platform "${platform}" in keymap "${keymap.title}" for application "${appName}"`
+                        );
+                    }
+                    platformSet.add(platform);
+                });
             }
         })
     }

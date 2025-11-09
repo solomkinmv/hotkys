@@ -171,11 +171,11 @@ export const AppDetails = ({
             <Header1 className={cn(application.source && "mb-0")}>
               {application.name}
             </Header1>
-            {keymap.platform && (
-              <Badge variant="outline" className="text-sm" aria-label={`Platform: ${getPlatformDisplay(keymap.platform)}`}>
-                {getPlatformDisplay(keymap.platform)}
+            {keymap.platforms?.map((platform) => (
+              <Badge key={platform} variant="outline" className="text-sm" aria-label={`Platform: ${getPlatformDisplay(platform)}`}>
+                {getPlatformDisplay(platform)}
               </Badge>
-            )}
+            ))}
           </div>
           <div className="flex items-center gap-2">
             {application.source && (

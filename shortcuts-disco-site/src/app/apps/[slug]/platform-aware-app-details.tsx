@@ -16,7 +16,7 @@ export function PlatformAwareAppDetails({application}: Props) {
     const userPlatform = usePlatform();
 
     // Select first keymap matching user's platform, or first keymap if no match
-    const keymap = application.keymaps.find(k => k.platform === userPlatform)
+    const keymap = application.keymaps.find(k => k.platforms?.includes(userPlatform))
                   || application.keymaps[0];
 
     return <AppDetails application={application} keymap={keymap}/>;

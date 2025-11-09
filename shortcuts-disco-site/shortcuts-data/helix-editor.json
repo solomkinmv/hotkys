@@ -6,6 +6,9 @@
   "keymaps": [
     {
       "title": "Normal",
+      "platforms": [
+        "macos"
+      ],
       "sections": [
         {
           "title": "Movement",
@@ -996,6 +999,9 @@
     },
     {
       "title": "Others",
+      "platforms": [
+        "macos"
+      ],
       "sections": [
         {
           "title": "Insert",
