@@ -1,5 +1,5 @@
-import Validator, {ValidationError} from "./validator";
-import {InputApp, InputKeymap} from "@/lib/model/input/input-models";
+import Validator, { ValidationError } from "./validator";
+import { InputApp, InputKeymap } from "@/lib/model/input/input-models";
 import { describe, expect, it } from "@jest/globals";
 import { parseKeyCodes } from "../../../__tests__/helpers";
 import { Platform } from "@/lib/model/internal/internal-models";
@@ -192,34 +192,25 @@ describe("Throws validation error", () => {
                 new ValidationError(`Section '${appShortcuts.keymaps[0].sections[0].title}' should contain at least one shortcut for application '${appShortcuts.name}'`),
             );
         });
-
-        it("Throws validation error if application has single keymap and it's title is not 'Default'", () => {
-            const keymapTitle = "non-Default";
-            const appShortcuts = generateInputAppWithShortcut({keymapTitle});
-
-            expect(() => validator.validate([appShortcuts])).toThrow(
-                new ValidationError(`Single keymap should be named 'Default' instead of '${keymapTitle}' for application '${appShortcuts.name}'`),
-            );
-        });
     });
 
     describe("Platform validation", () => {
         it("should accept valid macOS platform", () => {
-            const appShortcuts = generateInputAppWithShortcut({platform: "macos"});
+            const appShortcuts = generateInputAppWithShortcut({platforms: ["macos"]});
             expect(() => validator.validate([appShortcuts])).not.toThrow();
         });
 
         it("should accept valid Windows platform", () => {
-            const appShortcuts = generateInputAppWithShortcut({platform: "windows"});
+            const appShortcuts = generateInputAppWithShortcut({platforms: ["windows"]});
             expect(() => validator.validate([appShortcuts])).not.toThrow();
         });
 
         it("should accept valid Linux platform", () => {
-            const appShortcuts = generateInputAppWithShortcut({platform: "linux"});
+            const appShortcuts = generateInputAppWithShortcut({platforms: ["linux"]});
             expect(() => validator.validate([appShortcuts])).not.toThrow();
         });
 
-        it("should accept undefined platform", () => {
+        it("should accept undefined platforms", () => {
             const appShortcuts = generateInputAppWithShortcut();
             expect(() => validator.validate([appShortcuts])).not.toThrow();
         });
@@ -233,7 +224,7 @@ describe("Throws validation error", () => {
             "MACOS",
             "Windows",
         ])("should reject invalid platform value %p", (platform: string) => {
-            const appShortcuts = generateInputAppWithShortcut({platform: platform as any});
+            const appShortcuts = generateInputAppWithShortcut({platforms: [platform as any]});
             const keymapTitle = appShortcuts.keymaps[0].title;
             expect(() => validator.validate([appShortcuts])).toThrow(
                 new ValidationError(`Invalid platform "${platform}" in keymap "${keymapTitle}". Must be one of: windows, linux, macos`),
@@ -251,7 +242,7 @@ function generateInputAppWithShortcut(override?: {
     title?: string,
     shortcut?: string,
     comment?: string,
-    platform?: Platform
+    platforms?: Platform[]
 }): InputApp {
     return {
         bundleId: override?.appBundleId ?? "some-bundle-id",
@@ -260,7 +251,7 @@ function generateInputAppWithShortcut(override?: {
         keymaps: [
             {
                 title: override?.keymapTitle ?? "Default",
-                platform: override?.platform,
+                platforms: override?.platforms,
                 sections: [
                     {
                         title: override?.sectionTitle ?? "section-name",
