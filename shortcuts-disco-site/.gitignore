@@ -35,8 +35,11 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# Combined Apps json
+# Generated data files
 public/data/combined-apps.json
+public/data/macos/
+public/data/windows/
+public/data/linux/
 
 # Personal TODO
 TODO.md
