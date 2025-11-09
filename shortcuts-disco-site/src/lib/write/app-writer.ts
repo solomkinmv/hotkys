@@ -45,6 +45,7 @@ interface AppMetadata {
     name: string;
     slug: string;
     bundleId?: string;
+    hostname?: string;
     source?: string;
     keymaps: string[];
 }
@@ -72,6 +73,7 @@ export function generatePlatformFiles() {
                 name: app.name,
                 slug: app.slug,
                 bundleId: app.bundleId,
+                hostname: app.hostname,
                 source: app.source,
                 keymaps: filteredKeymaps.map(k => k.title)
             };
