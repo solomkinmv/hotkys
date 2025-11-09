@@ -19,7 +19,7 @@ export function KeymapSelector({keymaps, activeKeymap, urlPrefix}: KeymapSelecto
 
     // Find the active keymap object
     const activeKeymapObj = keymaps.find(k => k.title === activeKeymap);
-    const activePlatform = activeKeymapObj?.platform;
+    const activePlatforms = activeKeymapObj?.platforms ?? [];
 
     return (
         <Popover open={open} onOpenChange={setOpen}>
@@ -30,13 +30,13 @@ export function KeymapSelector({keymaps, activeKeymap, urlPrefix}: KeymapSelecto
                     aria-expanded={open}
                     className="justify-between w-full"
                 >
-                    <div className="flex items-center">
+                    <div className="flex items-center gap-1">
                         {activeKeymap}
-                        {activePlatform && (
-                            <Badge variant="outline" className="ml-2 text-xs" aria-label={`Platform: ${getPlatformDisplay(activePlatform)}`}>
-                                {getPlatformDisplay(activePlatform)}
+                        {activePlatforms.map((platform) => (
+                            <Badge key={platform} variant="outline" className="ml-2 text-xs" aria-label={`Platform: ${getPlatformDisplay(platform)}`}>
+                                {getPlatformDisplay(platform)}
                             </Badge>
-                        )}
+                        ))}
                     </div>
                     <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50"/>
                 </Button>
@@ -48,11 +48,13 @@ export function KeymapSelector({keymaps, activeKeymap, urlPrefix}: KeymapSelecto
                           key={keymap.title}
                           className="block cursor-pointer px-2 py-2 hover:bg-accent flex items-center justify-between">
                         <span>{keymap.title}</span>
-                        {keymap.platform && (
-                            <Badge variant="outline" className="text-xs" aria-label={`Platform: ${getPlatformDisplay(keymap.platform)}`}>
-                                {getPlatformDisplay(keymap.platform)}
-                            </Badge>
-                        )}
+                        <div className="flex items-center gap-1">
+                            {keymap.platforms?.map((platform) => (
+                                <Badge key={platform} variant="outline" className="text-xs" aria-label={`Platform: ${getPlatformDisplay(platform)}`}>
+                                    {getPlatformDisplay(platform)}
+                                </Badge>
+                            ))}
+                        </div>
                     </Link>
                 ))}
             </PopoverContent>

@@ -6,6 +6,9 @@
   "keymaps": [
     {
       "title": "Default",
+      "platforms": [
+        "macos"
+      ],
       "sections": [
         {
           "title": "Views",

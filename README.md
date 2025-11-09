@@ -23,7 +23,7 @@ To add shortcuts for a new application or web app, create a new JSON file, like 
   "keymaps": [
     {
       "title": "Default",
-      "platform": "macos",
+      "platforms": ["macos"],
       "sections": [
         {
           "title": "Bookmarks",
@@ -56,9 +56,14 @@ The structure contains the following information:
 
 **Application information**
 - Each application has a `name` and `slug`.
-- The `bundleId` is an optional field, which helps identify a macOS application. It is not applicable to websites or web apps. Use the Raycast command "Copy Current App's Bundle Id" included with the Raycast extension to find the bundle Id of the application you want to add. 
+- The `bundleId` is an optional field, which helps identify a macOS application. It is not applicable to websites or web apps. Use the Raycast command "Copy Current App's Bundle Id" included with the Raycast extension to find the bundle Id of the application you want to add.
 - An application can have multiple `keymaps`. Usually there is just one, named "Default". A keymap can have multiple sections of shortcuts. Each one has a title.
-- Each keymap can specify a `platform` field to indicate which operating system it's designed for. Supported values are `windows`, `linux`, and `macos`. This is useful for applications that have different shortcuts on different platforms. The platform will be visually indicated in the UI.
+- Each keymap can specify a `platforms` field (array) to indicate which operating systems it's designed for. Supported values are `"windows"`, `"linux"`, and `"macos"`. The platforms will be visually indicated in the UI with badges.
+  - Single platform: `"platforms": ["macos"]`
+  - Multiple platforms: `"platforms": ["windows", "linux"]` (when shortcuts are identical across those platforms)
+  - Platform-specific keymaps: When shortcuts differ between platforms (e.g., `cmd+s` on macOS vs `ctrl+s` on Windows), create separate keymaps with different titles like "macOS" and "Windows", each with their own `platforms` array
+  - At least one platform must be specified if the `platforms` field is present
+  - Duplicate platforms within the same keymap are not allowed
 
 **Shortcut information**
 - A shortcut definition always has a `title`. For the rest, it must contain a `key` field, `comment` field, or both. 

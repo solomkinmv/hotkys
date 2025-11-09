@@ -57,10 +57,15 @@
           "type": "string",
           "minLength": 1
         },
-        "platform": {
-          "description": "Platform for which this keymap is designed",
-          "type": "string",
-          "enum": ["windows", "linux", "macos"]
+        "platforms": {
+          "description": "Platforms for which this keymap is designed",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["windows", "linux", "macos"]
+          },
+          "minItems": 1,
+          "uniqueItems": true
         },
         "sections": {
           "description": "List of sections",

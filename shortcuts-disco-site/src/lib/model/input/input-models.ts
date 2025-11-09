@@ -24,13 +24,14 @@ export interface InputApp {
 /**
  * Application keymap. Keymap is a shortcut configuration.
  * Most of the applications have single keymap that should be named "Default".
- * Each keymap consist of title, optional platform, and sections.
- * Platform can be specified to indicate which operating system the keymap is for.
+ * Each keymap consist of title, optional platforms array, and sections.
+ * Platforms array can be specified to indicate which operating systems the keymap is for.
  * Supported values are 'windows', 'linux', and 'macos'.
+ * At least one platform must be specified if the platforms field is present.
  */
 export interface InputKeymap {
     title: string;
-    platform?: Platform;
+    platforms?: Platform[];
     sections: InputSection[];
 }
 

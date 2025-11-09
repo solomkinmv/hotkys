@@ -7,8 +7,7 @@ import { AppShortcuts, Platform } from "@/lib/model/internal/internal-models";
  */
 export function getAppPlatforms(app: AppShortcuts): Platform[] {
   const platforms = app.keymaps
-    .map((k) => k.platform)
-    .filter((p): p is Platform => p !== undefined);
+    .flatMap((k) => k.platforms ?? []);
   return Array.from(new Set(platforms));
 }
 

@@ -19,7 +19,7 @@ export interface AppShortcuts {
 
 export interface Keymap {
     title: string;
-    platform?: Platform;
+    platforms?: Platform[];
     sections: Section[];
 }
 

@@ -7,6 +7,9 @@
   "keymaps": [
     {
       "title": "Default",
+      "platforms": [
+        "macos"
+      ],
       "sections": [
         {
           "title": "Popular",
