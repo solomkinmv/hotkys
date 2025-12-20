@@ -86,6 +86,11 @@ describe("Throws validation error", () => {
             "ctrl+opt+cmd+e",
             "shift+opt+cmd+e",
             "ctrl+shift+opt+cmd+e ctrl+opt+cmd+e shift+opt+e ctrl+shift+e opt+cmd+e ctrl+cmd+e ctrl+shift+opt+e ctrl+shift+cmd+e ctrl+opt+cmd+e shift+opt+cmd+e",
+            "alt+e",
+            "ctrl+alt+e",
+            "shift+alt+e",
+            "alt+cmd+e",
+            "ctrl+shift+alt+cmd+e",
         ])("Validation succeed if modifiers are in order %p", (shortcut: string) => {
             expect(() => validator.validate([generateInputAppWithShortcut({shortcut})])).not.toThrow();
         });
