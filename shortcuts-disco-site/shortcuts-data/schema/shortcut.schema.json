@@ -16,7 +16,7 @@
       "minLength": 1
     },
     "hostname": {
-      "description": "Hostname of the web application. Example: 'code.visualstudio.com'",
+      "description": "Hostname of the web application. Supports wildcard prefix for subdomains. Examples: 'code.visualstudio.com', '*.zendesk.com'",
       "type": "string",
       "minLength": 1
     },
