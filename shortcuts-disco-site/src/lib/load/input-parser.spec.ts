@@ -26,6 +26,36 @@ describe("Parses shortcut correctly", () => {
         ]);
     });
 
+    it("Parses shortcut with alt modifier", () => {
+        const expectedShortcutSequence: AtomicShortcut[] = [
+            {
+                base: "e",
+                modifiers: [Modifiers.option],
+            },
+        ];
+
+        expect(parser.parseInputShortcuts([generateInputAppWithShortcut({shortcut: "alt+e"})])).toEqual([
+            generateExpectedAppWithShortcut({
+                shortcutSequence: expectedShortcutSequence,
+            }),
+        ]);
+    });
+
+    it("Parses shortcut with alt and other modifiers", () => {
+        const expectedShortcutSequence: AtomicShortcut[] = [
+            {
+                base: "e",
+                modifiers: [Modifiers.control, Modifiers.shift, Modifiers.option],
+            },
+        ];
+
+        expect(parser.parseInputShortcuts([generateInputAppWithShortcut({shortcut: "ctrl+shift+alt+e"})])).toEqual([
+            generateExpectedAppWithShortcut({
+                shortcutSequence: expectedShortcutSequence,
+            }),
+        ]);
+    });
+
 });
 
 describe("Platform field preservation", () => {
