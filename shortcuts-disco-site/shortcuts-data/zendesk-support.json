@@ -1,0 +1,476 @@
+{
+  "$schema": "schema/shortcut.schema.json",
+  "name": "Zendesk Support",
+  "slug": "zendesk-support",
+  "source": "https://zen-marketing-documentation.s3.amazonaws.com/docs/en/keyboard_shortcuts.pdf",
+  "keymaps": [
+    {
+      "title": "macOS",
+      "platforms": [
+        "macos"
+      ],
+      "sections": [
+        {
+          "title": "Navigation (Anywhere)",
+          "shortcuts": [
+            {
+              "title": "Home",
+              "key": "ctrl+alt+h"
+            },
+            {
+              "title": "Views",
+              "key": "ctrl+alt+v"
+            },
+            {
+              "title": "Current ticket",
+              "key": "ctrl+alt+t"
+            },
+            {
+              "title": "Current requester",
+              "key": "ctrl+alt+r"
+            },
+            {
+              "title": "Search",
+              "key": "ctrl+alt+f"
+            },
+            {
+              "title": "Advanced search",
+              "key": "ctrl+alt+/"
+            },
+            {
+              "title": "New ticket",
+              "key": "ctrl+alt+n"
+            },
+            {
+              "title": "Next tab",
+              "key": "ctrl+alt+tab"
+            },
+            {
+              "title": "Previous tab",
+              "key": "ctrl+shift+alt+tab"
+            }
+          ]
+        },
+        {
+          "title": "Navigation (Lists)",
+          "shortcuts": [
+            {
+              "title": "Move up or down",
+              "key": "up"
+            },
+            {
+              "title": "Move left or right",
+              "key": "left"
+            },
+            {
+              "title": "Drill into item",
+              "key": "enter"
+            },
+            {
+              "title": "Select current item",
+              "key": "space"
+            },
+            {
+              "title": "Toggle preview of current item",
+              "key": "x"
+            }
+          ]
+        },
+        {
+          "title": "Navigation (Moving)",
+          "shortcuts": [
+            {
+              "title": "Close current tab",
+              "key": "ctrl+alt+w"
+            },
+            {
+              "title": "Move to next ticket",
+              "key": "ctrl+alt+down"
+            },
+            {
+              "title": "Move to next ticket",
+              "key": "ctrl+alt+j"
+            }
+          ]
+        },
+        {
+          "title": "Tickets (Viewing)",
+          "shortcuts": [
+            {
+              "title": "Open reply box",
+              "key": "ctrl+alt+c"
+            },
+            {
+              "title": "Open note box",
+              "key": "ctrl+alt+x"
+            },
+            {
+              "title": "Open macro box",
+              "key": "ctrl+alt+m"
+            },
+            {
+              "title": "Toggle Apps",
+              "key": "ctrl+alt+a"
+            },
+            {
+              "title": "Toggle user tab",
+              "key": "ctrl+alt+,"
+            },
+            {
+              "title": "Toggle knowledge",
+              "key": "ctrl+alt+k"
+            },
+            {
+              "title": "Search knowledge",
+              "key": "ctrl+alt+l"
+            }
+          ]
+        },
+        {
+          "title": "Tickets (Updating)",
+          "shortcuts": [
+            {
+              "title": "Update with current status",
+              "key": "ctrl+alt+u"
+            },
+            {
+              "title": "Update as Open",
+              "key": "ctrl+alt+o"
+            },
+            {
+              "title": "Update as Pending",
+              "key": "ctrl+alt+p"
+            },
+            {
+              "title": "Update as On-hold",
+              "key": "ctrl+alt+d"
+            },
+            {
+              "title": "Update as Solved",
+              "key": "ctrl+alt+s"
+            }
+          ]
+        },
+        {
+          "title": "Composing",
+          "shortcuts": [
+            {
+              "title": "Insert inline image",
+              "key": "cmd+m"
+            },
+            {
+              "title": "Create a link",
+              "key": "cmd+k"
+            },
+            {
+              "title": "Indent right",
+              "key": "cmd+]"
+            },
+            {
+              "title": "Indent left",
+              "key": "cmd+["
+            },
+            {
+              "title": "Format as bold",
+              "key": "cmd+b"
+            },
+            {
+              "title": "Format as italics",
+              "key": "cmd+i"
+            },
+            {
+              "title": "Format as underline",
+              "key": "cmd+u"
+            },
+            {
+              "title": "Format as code",
+              "key": "shift+cmd+5"
+            },
+            {
+              "title": "Format as code block",
+              "key": "shift+cmd+6"
+            },
+            {
+              "title": "Format as numbered list",
+              "key": "shift+cmd+7"
+            },
+            {
+              "title": "Format as bulleted list",
+              "key": "shift+cmd+8"
+            },
+            {
+              "title": "Format as quote",
+              "key": "shift+cmd+9"
+            },
+            {
+              "title": "Clear formatting",
+              "key": "shift+cmd+a"
+            },
+            {
+              "title": "Open color palette",
+              "key": "shift+cmd+y"
+            },
+            {
+              "title": "Increase heading size",
+              "key": "shift+cmd++"
+            },
+            {
+              "title": "Decrease heading size",
+              "key": "shift+cmd+-"
+            },
+            {
+              "title": "Format as heading 1",
+              "key": "alt+cmd+1"
+            },
+            {
+              "title": "Format as heading 2",
+              "key": "alt+cmd+2"
+            },
+            {
+              "title": "Format as heading 3",
+              "key": "alt+cmd+3"
+            },
+            {
+              "title": "Format as heading 4",
+              "key": "alt+cmd+4"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Windows",
+      "platforms": [
+        "windows"
+      ],
+      "sections": [
+        {
+          "title": "Navigation (Anywhere)",
+          "shortcuts": [
+            {
+              "title": "Home",
+              "key": "ctrl+alt+h"
+            },
+            {
+              "title": "Views",
+              "key": "ctrl+alt+v"
+            },
+            {
+              "title": "Current ticket",
+              "key": "ctrl+alt+t"
+            },
+            {
+              "title": "Current requester",
+              "key": "ctrl+alt+r"
+            },
+            {
+              "title": "Search",
+              "key": "ctrl+alt+f"
+            },
+            {
+              "title": "Advanced search",
+              "key": "ctrl+alt+/"
+            },
+            {
+              "title": "New ticket",
+              "key": "ctrl+alt+n"
+            },
+            {
+              "title": "Next tab",
+              "key": "ctrl+alt+tab"
+            },
+            {
+              "title": "Previous tab",
+              "key": "ctrl+shift+alt+tab"
+            }
+          ]
+        },
+        {
+          "title": "Navigation (Lists)",
+          "shortcuts": [
+            {
+              "title": "Move up or down",
+              "key": "up"
+            },
+            {
+              "title": "Move left or right",
+              "key": "left"
+            },
+            {
+              "title": "Drill into item",
+              "key": "enter"
+            },
+            {
+              "title": "Select current item",
+              "key": "space"
+            },
+            {
+              "title": "Toggle preview of current item",
+              "key": "x"
+            }
+          ]
+        },
+        {
+          "title": "Navigation (Moving)",
+          "shortcuts": [
+            {
+              "title": "Close current tab",
+              "key": "ctrl+alt+w"
+            },
+            {
+              "title": "Move to next ticket",
+              "key": "ctrl+alt+down"
+            },
+            {
+              "title": "Move to next ticket",
+              "key": "ctrl+alt+j"
+            }
+          ]
+        },
+        {
+          "title": "Tickets (Viewing)",
+          "shortcuts": [
+            {
+              "title": "Open reply box",
+              "key": "ctrl+alt+c"
+            },
+            {
+              "title": "Open note box",
+              "key": "ctrl+alt+x"
+            },
+            {
+              "title": "Open macro box",
+              "key": "ctrl+alt+m"
+            },
+            {
+              "title": "Toggle Apps",
+              "key": "ctrl+alt+a"
+            },
+            {
+              "title": "Toggle user tab",
+              "key": "ctrl+alt+,"
+            },
+            {
+              "title": "Toggle knowledge",
+              "key": "ctrl+alt+k"
+            },
+            {
+              "title": "Search knowledge",
+              "key": "ctrl+alt+l"
+            }
+          ]
+        },
+        {
+          "title": "Tickets (Updating)",
+          "shortcuts": [
+            {
+              "title": "Update with current status",
+              "key": "ctrl+alt+u"
+            },
+            {
+              "title": "Update as Open",
+              "key": "ctrl+alt+o"
+            },
+            {
+              "title": "Update as Pending",
+              "key": "ctrl+alt+p"
+            },
+            {
+              "title": "Update as On-hold",
+              "key": "ctrl+alt+d"
+            },
+            {
+              "title": "Update as Solved",
+              "key": "ctrl+alt+s"
+            }
+          ]
+        },
+        {
+          "title": "Composing",
+          "shortcuts": [
+            {
+              "title": "Insert inline image",
+              "key": "ctrl+m"
+            },
+            {
+              "title": "Create a link",
+              "key": "ctrl+k"
+            },
+            {
+              "title": "Indent right",
+              "key": "ctrl+]"
+            },
+            {
+              "title": "Indent left",
+              "key": "ctrl+["
+            },
+            {
+              "title": "Format as bold",
+              "key": "ctrl+b"
+            },
+            {
+              "title": "Format as italics",
+              "key": "ctrl+i"
+            },
+            {
+              "title": "Format as underline",
+              "key": "ctrl+u"
+            },
+            {
+              "title": "Format as code",
+              "key": "ctrl+shift+5"
+            },
+            {
+              "title": "Format as code block",
+              "key": "ctrl+shift+6"
+            },
+            {
+              "title": "Format as numbered list",
+              "key": "ctrl+shift+7"
+            },
+            {
+              "title": "Format as bulleted list",
+              "key": "ctrl+shift+8"
+            },
+            {
+              "title": "Format as quote",
+              "key": "ctrl+shift+9"
+            },
+            {
+              "title": "Clear formatting",
+              "key": "ctrl+shift+a"
+            },
+            {
+              "title": "Open color palette",
+              "key": "ctrl+shift+y"
+            },
+            {
+              "title": "Increase heading size",
+              "key": "ctrl+shift++"
+            },
+            {
+              "title": "Decrease heading size",
+              "key": "ctrl+shift+-"
+            },
+            {
+              "title": "Format as heading 1",
+              "key": "ctrl+alt+1"
+            },
+            {
+              "title": "Format as heading 2",
+              "key": "ctrl+alt+2"
+            },
+            {
+              "title": "Format as heading 3",
+              "key": "ctrl+alt+3"
+            },
+            {
+              "title": "Format as heading 4",
+              "key": "ctrl+alt+4"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
