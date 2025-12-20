@@ -3,12 +3,16 @@
   "bundleId": "us.zoom.xos",
   "name": "Zoom",
   "slug": "zoom",
+  "source": "https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0067050",
   "keymaps": [
     {
-      "title": "Default",
+      "title": "macOS",
+      "platforms": [
+        "macos"
+      ],
       "sections": [
         {
-          "title": "Meetings",
+          "title": "Meeting",
           "shortcuts": [
             {
               "title": "Join meeting",
@@ -23,20 +27,23 @@
               "key": "cmd+d"
             },
             {
-              "title": "Direct Share (screen share via direct share)",
+              "title": "Screen share via direct share",
               "key": "ctrl+cmd+s"
-            }
-          ]
-        },
-        {
-          "title": "Meeting controls",
-          "shortcuts": [
+            },
             {
-              "title": "Mute/Unmute audio",
+              "title": "Mute/unmute audio",
               "key": "shift+cmd+a"
             },
             {
-              "title": "Start/Stop video",
+              "title": "Mute audio for everyone except host",
+              "key": "ctrl+cmd+m"
+            },
+            {
+              "title": "Unmute audio for everyone except host",
+              "key": "ctrl+cmd+u"
+            },
+            {
+              "title": "Start/stop video",
               "key": "shift+cmd+v"
             },
             {
@@ -44,87 +51,219 @@
               "key": "shift+cmd+n"
             },
             {
-              "title": "Start/Stop screen share",
+              "title": "Start/stop screen share",
               "key": "shift+cmd+s"
             },
             {
-              "title": "Pause/Resume share",
+              "title": "Pause/resume screen share",
               "key": "shift+cmd+t"
             },
             {
-              "title": "Raise/Lower hand",
-              "key": "opt+y"
-            },
-            {
-              "title": "Show/Hide meeting controls (floating)",
-              "key": "ctrl+opt+cmd+h"
-            }
-          ]
-        },
-        {
-          "title": "Recording",
-          "shortcuts": [
-            {
-              "title": "Start/Stop local recording",
+              "title": "Start/stop local recording",
               "key": "shift+cmd+r"
             },
             {
-              "title": "Start/Stop cloud recording",
+              "title": "Start/stop cloud recording",
               "key": "shift+cmd+c"
             },
             {
-              "title": "Pause/Resume recording",
+              "title": "Pause/resume recording",
               "key": "shift+cmd+p"
-            }
-          ]
-        },
-        {
-          "title": "Views & navigation",
-          "shortcuts": [
+            },
             {
-              "title": "Switch Speaker/Multi-speaker/Gallery view",
+              "title": "Switch view modes",
               "key": "shift+cmd+w"
             },
             {
-              "title": "Previous gallery page (25 participants)",
+              "title": "Previous gallery page",
               "key": "ctrl+p"
             },
             {
-              "title": "Next gallery page (25 participants)",
+              "title": "Next gallery page",
               "key": "ctrl+n"
             },
             {
-              "title": "Enter/Exit full screen",
-              "key": "shift+cmd+f"
-            },
-            {
-              "title": "Minimal window",
-              "key": "shift+cmd+m"
-            },
-            {
-              "title": "Enable/Disable dual monitor mode",
-              "key": "shift+cmd+d"
-            }
-          ]
-        },
-        {
-          "title": "Participants & chat",
-          "shortcuts": [
-            {
-              "title": "Show/Hide participants panel",
+              "title": "Show/hide participants panel",
               "key": "cmd+u"
             },
             {
-              "title": "Show/Hide in-meeting chat panel",
+              "title": "Show/hide in-meeting chat panel",
               "key": "shift+cmd+h"
             },
             {
-              "title": "Open Invite window",
+              "title": "Open invite window",
               "key": "cmd+i"
             },
             {
               "title": "Copy invite link",
               "key": "shift+cmd+i"
+            },
+            {
+              "title": "Raise/lower hand",
+              "key": "opt+y"
+            },
+            {
+              "title": "Begin remote control",
+              "key": "ctrl+shift+r"
+            },
+            {
+              "title": "Revoke remote control permission",
+              "key": "ctrl+shift+g"
+            },
+            {
+              "title": "Enter/exit full screen",
+              "key": "shift+cmd+f"
+            },
+            {
+              "title": "Switch to minimal window",
+              "key": "shift+cmd+m"
+            },
+            {
+              "title": "Enable/disable dual monitor mode",
+              "key": "shift+cmd+d"
+            },
+            {
+              "title": "Show/hide floating meeting controls",
+              "key": "ctrl+opt+cmd+h"
+            },
+            {
+              "title": "Read active speaker name",
+              "key": "cmd+2"
+            },
+            {
+              "title": "Open meeting reactions panel",
+              "key": "shift+cmd+y"
+            },
+            {
+              "title": "Send clapping hands reaction",
+              "key": "opt+cmd+4"
+            },
+            {
+              "title": "Send thumbs up reaction",
+              "key": "opt+cmd+5"
+            },
+            {
+              "title": "Send heart reaction",
+              "key": "opt+cmd+6"
+            },
+            {
+              "title": "Send joy reaction",
+              "key": "opt+cmd+7"
+            },
+            {
+              "title": "Send wow reaction",
+              "key": "opt+cmd+8"
+            },
+            {
+              "title": "Send celebrate reaction",
+              "key": "opt+cmd+9"
+            },
+            {
+              "title": "Focus last received message",
+              "key": "shift+cmd+u"
+            },
+            {
+              "title": "Focus chat input field",
+              "key": "shift+cmd+e"
+            },
+            {
+              "title": "Create new chat with participants",
+              "key": "cmd+n"
+            },
+            {
+              "title": "Open AI Companion panel (in-meeting)",
+              "key": "shift+cmd+o"
+            }
+          ]
+        },
+        {
+          "title": "Team Chat",
+          "shortcuts": [
+            {
+              "title": "Screenshot",
+              "key": "cmd+t"
+            },
+            {
+              "title": "Search in chat or channel",
+              "key": "cmd+f"
+            },
+            {
+              "title": "Back in chat history",
+              "key": "cmd+["
+            },
+            {
+              "title": "Forward in chat history",
+              "key": "cmd+]"
+            },
+            {
+              "title": "New message",
+              "key": "cmd+n"
+            },
+            {
+              "title": "Collapse all",
+              "key": "opt+cmd+0"
+            },
+            {
+              "title": "Add member to group chat/channel",
+              "key": "opt+cmd+i"
+            },
+            {
+              "title": "Focus list of all chats and channels",
+              "key": "shift+cmd+l"
+            },
+            {
+              "title": "Jump to start of new messages",
+              "key": "ctrl+cmd+n"
+            },
+            {
+              "title": "Focus on latest message",
+              "key": "shift+cmd+u"
+            },
+            {
+              "title": "Focus chat input field",
+              "key": "shift+cmd+e"
+            }
+          ]
+        },
+        {
+          "title": "Clips",
+          "shortcuts": [
+            {
+              "title": "Record new clip",
+              "key": "shift+cmd+c"
+            }
+          ]
+        },
+        {
+          "title": "Phone",
+          "shortcuts": [
+            {
+              "title": "Call highlighted phone number",
+              "key": "ctrl+shift+c"
+            },
+            {
+              "title": "Accept inbound call",
+              "key": "ctrl+shift+a"
+            },
+            {
+              "title": "Decline inbound call",
+              "key": "ctrl+shift+d"
+            },
+            {
+              "title": "End current call",
+              "key": "ctrl+shift+e"
+            },
+            {
+              "title": "Mute/unmute call",
+              "key": "ctrl+shift+m"
+            },
+            {
+              "title": "Hold/unhold call",
+              "key": "ctrl+shift+h"
+            },
+            {
+              "title": "Transfer call",
+              "key": "ctrl+shift+t"
             }
           ]
         },
@@ -132,7 +271,520 @@
           "title": "General",
           "shortcuts": [
             {
+              "title": "Global search",
+              "key": "cmd+e"
+            },
+            {
+              "title": "Increase chat display size",
+              "key": "cmd++"
+            },
+            {
+              "title": "Decrease chat display size",
+              "key": "cmd+-"
+            },
+            {
+              "title": "Reset chat display size",
+              "key": "cmd+0"
+            },
+            {
               "title": "Close current window",
+              "key": "cmd+w"
+            },
+            {
+              "title": "Start Zoom Client Healthcheck",
+              "key": "shift+opt+cmd+d"
+            },
+            {
+              "title": "Move to next product tab",
+              "key": "ctrl+tab"
+            },
+            {
+              "title": "Move to previous product tab",
+              "key": "ctrl+shift+tab"
+            },
+            {
+              "title": "Move to last product tab",
+              "key": "cmd+9"
+            },
+            {
+              "title": "Switch Portrait/Landscape views",
+              "key": "cmd+l"
+            },
+            {
+              "title": "Share Log",
+              "key": "ctrl+shift+opt+v"
+            },
+            {
+              "title": "Show/hide AI Companion side panel",
+              "key": "shift+cmd+o"
+            },
+            {
+              "title": "Show/hide Calendar side panel",
+              "key": "shift+cmd+j"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Windows",
+      "platforms": [
+        "windows"
+      ],
+      "sections": [
+        {
+          "title": "Meeting",
+          "shortcuts": [
+            {
+              "title": "Focus Zoom Meeting controls",
+              "key": "ctrl+shift+alt"
+            },
+            {
+              "title": "Previous gallery page",
+              "key": "pageup"
+            },
+            {
+              "title": "Next gallery page",
+              "key": "pagedown"
+            },
+            {
+              "title": "Switch to Speaker view",
+              "key": "alt+f1"
+            },
+            {
+              "title": "Switch to Gallery view",
+              "key": "alt+f2"
+            },
+            {
+              "title": "Close current window",
+              "key": "alt+f4"
+            },
+            {
+              "title": "Start/stop video",
+              "key": "alt+v"
+            },
+            {
+              "title": "Mute/unmute audio",
+              "key": "alt+a"
+            },
+            {
+              "title": "Mute/unmute for everyone except host",
+              "key": "alt+m"
+            },
+            {
+              "title": "Open/stop screen share",
+              "key": "alt+s"
+            },
+            {
+              "title": "Show/hide share windows",
+              "key": "shift+alt+s"
+            },
+            {
+              "title": "Pause/resume screen share",
+              "key": "alt+t"
+            },
+            {
+              "title": "Start/stop local recording",
+              "key": "alt+r"
+            },
+            {
+              "title": "Start/stop cloud recording",
+              "key": "alt+c"
+            },
+            {
+              "title": "Pause/resume recording",
+              "key": "alt+p"
+            },
+            {
+              "title": "Switch camera",
+              "key": "alt+n"
+            },
+            {
+              "title": "Enter/exit full screen",
+              "key": "alt+f"
+            },
+            {
+              "title": "Show/hide in-meeting chat panel",
+              "key": "alt+h"
+            },
+            {
+              "title": "Show/hide participants panel",
+              "key": "alt+u"
+            },
+            {
+              "title": "Open invite window",
+              "key": "alt+i"
+            },
+            {
+              "title": "Copy invitation link",
+              "key": "shift+alt+i"
+            },
+            {
+              "title": "Raise/lower hand",
+              "key": "alt+y"
+            },
+            {
+              "title": "End or leave meeting prompt",
+              "key": "alt+q"
+            },
+            {
+              "title": "Begin remote control",
+              "key": "shift+alt+r"
+            },
+            {
+              "title": "Revoke remote control",
+              "key": "shift+alt+g"
+            },
+            {
+              "title": "Read active speaker name",
+              "key": "ctrl+2"
+            },
+            {
+              "title": "Show/hide floating meeting controls",
+              "key": "ctrl+shift+alt+h"
+            },
+            {
+              "title": "Increase chat display size",
+              "key": "ctrl++"
+            },
+            {
+              "title": "Decrease chat display size",
+              "key": "ctrl+-"
+            },
+            {
+              "title": "Focus chat input field",
+              "key": "shift+alt+e"
+            },
+            {
+              "title": "Focus last received message",
+              "key": "ctrl+shift+u"
+            },
+            {
+              "title": "Focus list of chats",
+              "key": "ctrl+l"
+            },
+            {
+              "title": "Jump to unread messages",
+              "key": "ctrl+shift+n"
+            },
+            {
+              "title": "Start new chat with participants",
+              "key": "ctrl+n"
+            },
+            {
+              "title": "Open AI Companion (in-meeting)",
+              "key": "ctrl+shift+o"
+            },
+            {
+              "title": "Open Reactions panel",
+              "key": "ctrl+shift+y"
+            },
+            {
+              "title": "Send clapping hands reaction",
+              "key": "shift+alt+4"
+            },
+            {
+              "title": "Send thumbs up reaction",
+              "key": "shift+alt+5"
+            },
+            {
+              "title": "Send heart reaction",
+              "key": "shift+alt+6"
+            },
+            {
+              "title": "Send joy reaction",
+              "key": "shift+alt+7"
+            },
+            {
+              "title": "Send wow reaction",
+              "key": "shift+alt+8"
+            },
+            {
+              "title": "Send celebrate reaction",
+              "key": "shift+alt+9"
+            }
+          ]
+        },
+        {
+          "title": "Team Chat",
+          "shortcuts": [
+            {
+              "title": "Screenshot",
+              "key": "shift+alt+t"
+            },
+            {
+              "title": "Hide current chat session",
+              "key": "ctrl+w"
+            },
+            {
+              "title": "Go to previous chat",
+              "key": "ctrl+up"
+            },
+            {
+              "title": "Go to next chat",
+              "key": "ctrl+down"
+            },
+            {
+              "title": "Back in chat history",
+              "key": "alt+left"
+            },
+            {
+              "title": "Forward in chat history",
+              "key": "alt+right"
+            },
+            {
+              "title": "Start a new chat",
+              "key": "ctrl+n"
+            },
+            {
+              "title": "Focus list of all chats",
+              "key": "ctrl+l"
+            },
+            {
+              "title": "Focus latest message",
+              "key": "ctrl+shift+u"
+            },
+            {
+              "title": "Add member to group chat/channel",
+              "key": "ctrl+alt+i"
+            },
+            {
+              "title": "Jump to new messages",
+              "key": "alt+n"
+            },
+            {
+              "title": "Insert hyperlink",
+              "key": "ctrl+k"
+            }
+          ]
+        },
+        {
+          "title": "Phone",
+          "shortcuts": [
+            {
+              "title": "Call highlighted phone number",
+              "key": "ctrl+p"
+            },
+            {
+              "title": "Accept inbound call",
+              "key": "ctrl+shift+a"
+            },
+            {
+              "title": "End current call",
+              "key": "ctrl+shift+e"
+            },
+            {
+              "title": "Decline inbound call",
+              "key": "ctrl+shift+d"
+            },
+            {
+              "title": "Mute/unmute call",
+              "key": "ctrl+shift+m"
+            },
+            {
+              "title": "Hold/unhold call",
+              "key": "ctrl+shift+h"
+            },
+            {
+              "title": "Transfer call",
+              "key": "ctrl+shift+t"
+            }
+          ]
+        },
+        {
+          "title": "General",
+          "shortcuts": [
+            {
+              "title": "Open AI Companion panel",
+              "key": "ctrl+shift+o"
+            },
+            {
+              "title": "Open Calendar panel",
+              "key": "ctrl+shift+j"
+            },
+            {
+              "title": "Close current window",
+              "key": "alt+f4"
+            },
+            {
+              "title": "Search",
+              "key": "ctrl+f"
+            },
+            {
+              "title": "Navigate among popup windows",
+              "key": "f6"
+            },
+            {
+              "title": "Switch to next product tab",
+              "key": "ctrl+tab"
+            },
+            {
+              "title": "Switch to previous product tab",
+              "key": "ctrl+shift+tab"
+            },
+            {
+              "title": "Switch to last product tab",
+              "key": "ctrl+9"
+            },
+            {
+              "title": "Switch Portrait/Landscape views",
+              "key": "alt+l"
+            },
+            {
+              "title": "Start network diagnostic",
+              "key": "ctrl+shift+alt+d"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Linux",
+      "platforms": [
+        "linux"
+      ],
+      "sections": [
+        {
+          "title": "Meeting",
+          "shortcuts": [
+            {
+              "title": "Start/stop video",
+              "key": "alt+v"
+            },
+            {
+              "title": "Mute/unmute audio",
+              "key": "alt+a"
+            },
+            {
+              "title": "Mute/unmute for everyone except host",
+              "key": "alt+m"
+            },
+            {
+              "title": "Start/stop screen sharing",
+              "key": "alt+s"
+            },
+            {
+              "title": "Pause/resume screen sharing",
+              "key": "alt+t"
+            },
+            {
+              "title": "Start/stop local recording",
+              "key": "alt+r"
+            },
+            {
+              "title": "Start/stop cloud recording",
+              "key": "alt+c"
+            },
+            {
+              "title": "Pause/resume recording",
+              "key": "alt+p"
+            },
+            {
+              "title": "Switch camera",
+              "key": "alt+n"
+            },
+            {
+              "title": "Open/close participants panel",
+              "key": "alt+u"
+            },
+            {
+              "title": "Open invite window",
+              "key": "alt+i"
+            },
+            {
+              "title": "Raise/lower hand",
+              "key": "alt+y"
+            },
+            {
+              "title": "Begin remote control",
+              "key": "shift+alt+r"
+            },
+            {
+              "title": "Revoke remote control",
+              "key": "shift+alt+g"
+            }
+          ]
+        },
+        {
+          "title": "Team Chat",
+          "shortcuts": [
+            {
+              "title": "Screenshot",
+              "key": "shift+alt+t"
+            },
+            {
+              "title": "Close current chat session",
+              "key": "ctrl+w"
+            },
+            {
+              "title": "Back in chat history",
+              "key": "alt+left"
+            },
+            {
+              "title": "Forward in chat history",
+              "key": "alt+right"
+            },
+            {
+              "title": "Collapse all chat sections",
+              "key": "shift+alt+left"
+            }
+          ]
+        },
+        {
+          "title": "Phone",
+          "shortcuts": [
+            {
+              "title": "Accept inbound call",
+              "key": "ctrl+shift+a"
+            },
+            {
+              "title": "Decline inbound call",
+              "key": "ctrl+shift+d"
+            },
+            {
+              "title": "End current call",
+              "key": "ctrl+shift+e"
+            },
+            {
+              "title": "Mute/unmute call",
+              "key": "ctrl+shift+m"
+            },
+            {
+              "title": "Hold/unhold call",
+              "key": "ctrl+shift+h"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "iOS",
+      "sections": [
+        {
+          "title": "Meeting",
+          "shortcuts": [
+            {
+              "title": "Mute/unmute audio",
+              "key": "shift+cmd+a"
+            },
+            {
+              "title": "Start/stop video",
+              "key": "shift+cmd+v"
+            },
+            {
+              "title": "Display/hide chat",
+              "key": "shift+cmd+h"
+            },
+            {
+              "title": "Minimize meeting",
+              "key": "shift+cmd+m"
+            },
+            {
+              "title": "Display/hide participants",
+              "key": "cmd+u"
+            },
+            {
+              "title": "Close front window",
               "key": "cmd+w"
             }
           ]
