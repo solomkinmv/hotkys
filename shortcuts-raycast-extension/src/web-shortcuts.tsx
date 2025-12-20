@@ -4,6 +4,7 @@ import { Application } from "./model/internal/internal-models";
 import useAllShortcuts from "./load/shortcuts-provider";
 import { ShortcutsList } from "./view/shortcuts-list";
 import { getFrontmostHostname } from "./engine/frontmost-hostname-fetcher";
+import { matchesHostname } from "./engine/hostname-matcher";
 import { exitWithMessage } from "./view/exit-action";
 
 export default function WebShortcuts() {
@@ -22,7 +23,9 @@ export default function WebShortcuts() {
       return;
     }
 
-    const foundApp = shortcutsProviderResponse.data.applications.find((app) => app.hostname === hostname);
+    const foundApp = shortcutsProviderResponse.data.applications.find(
+      (app) => app.hostname !== undefined && matchesHostname(app.hostname, hostname)
+    );
     if (!foundApp) {
       exitWithMessage(`Shortcuts not available for application ${hostname}`);
       return;
