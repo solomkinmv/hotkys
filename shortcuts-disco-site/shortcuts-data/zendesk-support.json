@@ -2,6 +2,7 @@
   "$schema": "schema/shortcut.schema.json",
   "name": "Zendesk Support",
   "slug": "zendesk-support",
+  "hostname": "*.zendesk.com",
   "source": "https://zen-marketing-documentation.s3.amazonaws.com/docs/en/keyboard_shortcuts.pdf",
   "keymaps": [
     {
