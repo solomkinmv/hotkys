@@ -26,8 +26,18 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 type ViewMode = "list" | "cheatsheet";
 
-function parseViewMode(value: string | null): ViewMode {
-  return value === "cheatsheet" ? "cheatsheet" : "list";
+const VIEW_MODE_STORAGE_KEY = "shortcuts-view-mode";
+
+function parseViewMode(value: string | null): ViewMode | null {
+  if (value === "cheatsheet") return "cheatsheet";
+  if (value === "list") return "list";
+  return null;
+}
+
+function getStoredViewMode(): ViewMode {
+  if (typeof window === "undefined") return "list";
+  const stored = localStorage.getItem(VIEW_MODE_STORAGE_KEY);
+  return stored === "cheatsheet" ? "cheatsheet" : "list";
 }
 
 export const AppDetails = ({
@@ -40,9 +50,19 @@ export const AppDetails = ({
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const viewMode = parseViewMode(searchParams.get("view"));
+  const urlViewMode = parseViewMode(searchParams.get("view"));
+
+  const [viewMode, setViewModeState] = useState<ViewMode>("list");
+
+  useEffect(() => {
+    const effectiveMode = urlViewMode ?? getStoredViewMode();
+    setViewModeState(effectiveMode);
+  }, [urlViewMode]);
 
   const setViewMode = (newMode: ViewMode) => {
+    setViewModeState(newMode);
+    localStorage.setItem(VIEW_MODE_STORAGE_KEY, newMode);
+
     const params = new URLSearchParams(searchParams.toString());
     if (newMode === "list") {
       params.delete("view");
