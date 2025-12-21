@@ -1,4 +1,5 @@
 import {getAllShortcuts, getAppShortcutsBySlug} from "@/lib/shortcuts";
+import {Metadata} from "next";
 import {notFound} from "next/navigation";
 import {keymapMatchesTitle, serializeKeymap} from "@/lib/model/keymap-utils";
 import {AppDetails} from "@/app/apps/[slug]/[keymap]/app-details";
@@ -7,6 +8,26 @@ import {Suspense} from "react";
 
 interface Props {
     params: Promise<{ slug: string, keymap: string }>;
+}
+
+export async function generateMetadata({params}: Props): Promise<Metadata> {
+    const resolvedParams = await params;
+    const app = getAppShortcutsBySlug(resolvedParams.slug);
+    const appName = app?.name ?? "App";
+
+    return {
+        title: `${appName} Shortcuts`,
+        description: `Keyboard shortcuts cheat sheet for ${appName}`,
+        openGraph: {
+            title: `${appName} Shortcuts`,
+            description: `Keyboard shortcuts cheat sheet for ${appName}`,
+        },
+        twitter: {
+            card: "summary_large_image",
+            title: `${appName} Shortcuts`,
+            description: `Keyboard shortcuts cheat sheet for ${appName}`,
+        },
+    };
 }
 
 export async function generateStaticParams() {
