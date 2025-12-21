@@ -3,7 +3,7 @@
 import React, { useState, useMemo } from "react";
 import { AppShortcuts } from "@/lib/model/internal/internal-models";
 import Fuse from "fuse.js";
-import { KeyboardBadge } from "@/components/ui/keyboard-badge";
+import { Kbd } from "@/components/ui/kbd";
 import { InputProps } from "@/components/ui/input";
 import { SearchBar } from "@/components/ui/search-bar";
 import { LinkableListItem } from "@/components/ui/list";
@@ -104,7 +104,7 @@ export const ApplicationList = ({
                       {getPlatformIcon(platform)}
                     </Badge>
                   ))}
-                  <KeyboardBadge base={app.bundleId} />
+                  {app.bundleId && <Kbd>{app.bundleId}</Kbd>}
                 </div>
               </LinkableListItem>
             );

@@ -1,7 +1,7 @@
 import React, { InputHTMLAttributes, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { SearchIcon } from "lucide-react";
-import { KeyboardBadge } from "@/components/ui/keyboard-badge";
+import { Kbd, KbdGroup } from "@/components/ui/kbd";
 
 interface SearchBarProps extends InputHTMLAttributes<HTMLInputElement> {
   // Add other props here if needed
@@ -27,21 +27,20 @@ const SearchBar = ({ onChange, ...props }: SearchBarProps) => {
   }, [inputRef]);
 
   return (
-    <div className="relative w-full rounded-md text-sm">
+    <div className="relative w-full">
+      <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
       <Input
-        className="w-full pl-10"
+        className="w-full pl-9 pr-16"
         placeholder="Search"
         type="search"
         onChange={onChange}
         ref={inputRef}
         {...props}
       />
-      <SearchIcon className="absolute h-5 w-5 text-muted-foreground left-2.5 top-2.5" />
-      <KeyboardBadge
-        modifiers="⌘"
-        base="K"
-        className="absolute right-4 h-5 w-5 text-muted-foreground top-2.5"
-      />
+      <KbdGroup className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
+        <Kbd>⌘</Kbd>
+        <Kbd>K</Kbd>
+      </KbdGroup>
     </div>
   );
 };

@@ -3,14 +3,11 @@
 import {
   AppShortcuts,
   Keymap,
-  SectionShortcut,
 } from "@/lib/model/internal/internal-models";
-import { KeyboardBadge } from "@/components/ui/keyboard-badge";
+import { ShortcutDisplay } from "@/components/ui/shortcut-display";
 import {
   modifierMapping,
   modifierSymbols,
-  isWindows,
-  isLinux,
 } from "@/lib/model/internal/modifiers";
 import { SeparatorWithText } from "@/components/ui/separator-with-text";
 import React, { useCallback, useEffect, useRef, useState } from "react";
@@ -131,12 +128,9 @@ export const AppDetails = ({
                 itemRefs.current[currentIndex] = el;
               }}
             >
-              <span className="font-medium">
+              <span className="font-medium inline-flex items-center gap-2">
                 <span>{hotkey.title}</span>
-                <KeyboardBadge
-                  base={generateHotkeyText(hotkey)}
-                  className="ml-2"
-                />
+                <ShortcutDisplay shortcut={hotkey} />
               </span>
               <span className="text-right text-muted-foreground">
                 {generateCommentText(hotkey.comment)}
@@ -195,18 +189,6 @@ export const AppDetails = ({
   );
 };
 
-function generateHotkeyText(shortcut: SectionShortcut): string {
-  return shortcut.sequence
-    .map((atomicShortcut) => {
-      const modifiersText =
-        atomicShortcut.modifiers
-          .map((modifier) => modifierSymbols.get(modifier))
-          .join("") ?? "";
-      return modifiersText + overrideSymbolIfPossible(atomicShortcut.base);
-    })
-    .join(" ");
-}
-
 function generateCommentText(
   optionalComment: string | undefined,
 ): string | undefined {
@@ -220,90 +202,15 @@ function generateCommentText(
       modifierSymbols.get(modifier) ?? "",
     );
   });
-  baseKeySymbolOverride.forEach((text, symbol) => {
-    comment = comment.replace("{" + text + "}", symbol);
+  baseKeySymbolOverride.forEach((symbol, key) => {
+    comment = comment.replace("{" + key + "}", symbol);
   });
   return comment;
 }
 
-function overrideSymbolIfPossible(base: string) {
-  if (baseKeySymbolOverride.has(base)) {
-    return baseKeySymbolOverride.get(base);
-  }
-  return base.toUpperCase();
-}
-
-// macOS specific symbols
-const macBaseKeySymbolOverride: Map<string, string> = new Map([
+const baseKeySymbolOverride: Map<string, string> = new Map([
   ["left", "←"],
   ["right", "→"],
   ["up", "↑"],
   ["down", "↓"],
-  ["pageup", "PgUp"],
-  ["pagedown", "PgDown"],
-  ["home", "Home"],
-  ["end", "End"],
-  ["space", "Space"],
-  ["capslock", "⇪"],
-  ["backspace", "⌫"],
-  ["tab", "⇥"],
-  ["esc", "⎋"],
-  ["enter", "↩"],
-  ["cmd", "⌘"],
-  ["ctrl", "⌃"],
-  ["opt", "⌥"],
-  ["shift", "⇧"],
-  ["win", "⊞"],
 ]);
-
-// Windows specific symbols
-const winBaseKeySymbolOverride: Map<string, string> = new Map([
-  ["left", "←"],
-  ["right", "→"],
-  ["up", "↑"],
-  ["down", "↓"],
-  ["pageup", "PgUp"],
-  ["pagedown", "PgDown"],
-  ["home", "Home"],
-  ["end", "End"],
-  ["space", "Space"],
-  ["capslock", "Caps"],
-  ["backspace", "Backspace"],
-  ["tab", "Tab"],
-  ["esc", "Esc"],
-  ["enter", "Enter"],
-  ["cmd", "Ctrl"],
-  ["ctrl", "Ctrl"],
-  ["opt", "Alt"],
-  ["shift", "Shift"],
-  ["win", "Win"],
-]);
-
-// Linux specific symbols (similar to Windows but with Super instead of Win)
-const linuxBaseKeySymbolOverride: Map<string, string> = new Map([
-  ["left", "←"],
-  ["right", "→"],
-  ["up", "↑"],
-  ["down", "↓"],
-  ["pageup", "PgUp"],
-  ["pagedown", "PgDown"],
-  ["home", "Home"],
-  ["end", "End"],
-  ["space", "Space"],
-  ["capslock", "Caps"],
-  ["backspace", "Backspace"],
-  ["tab", "Tab"],
-  ["esc", "Esc"],
-  ["enter", "Enter"],
-  ["cmd", "Ctrl"],
-  ["ctrl", "Ctrl"],
-  ["opt", "Alt"],
-  ["shift", "Shift"],
-  ["win", "Super"],
-]);
-
-// Use the appropriate symbols based on platform
-const baseKeySymbolOverride: Map<string, string> = 
-  isWindows ? winBaseKeySymbolOverride : 
-  isLinux ? linuxBaseKeySymbolOverride : 
-  macBaseKeySymbolOverride;
