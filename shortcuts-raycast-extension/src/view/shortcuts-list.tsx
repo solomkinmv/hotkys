@@ -1,6 +1,6 @@
 import { Action, ActionPanel, closeMainWindow, getPreferenceValues, Icon, List, PopToRootType } from "@raycast/api";
 import { KeymapDropdown } from "./keymap-dropdown";
-import { generateHotkeyText } from "./hotkey-text-formatter";
+import { generateHotkeyAccessories } from "./hotkey-text-formatter";
 import { Application, Keymap, Section, SectionShortcut } from "../model/internal/internal-models";
 import { runShortcuts } from "../engine/shortcut-runner";
 import useKeyCodes from "../load/key-codes-provider";
@@ -56,21 +56,15 @@ export function ShortcutsList({ application, isLoading: externalLoading }: Short
                 // Therefore, to generate a unique key, we have to combine info about the title and key sequences.
                 const generateKey = ({ title, sequence }: SectionShortcut) =>
                   `${title}-${[sequence.map(({ modifiers, base }) => `${modifiers.join("")}${base}`)].flat().join("")}`;
+                const hotkeyAccessories = generateHotkeyAccessories(shortcut);
+                const commentAccessory: List.Item.Accessory[] = shortcut.comment
+                  ? [{ text: shortcut.comment, icon: Icon.SpeechBubble }]
+                  : [];
                 return (
                   <List.Item
                     key={generateKey(shortcut)}
                     title={shortcut.title}
-                    subtitle={generateHotkeyText(shortcut)}
-                    accessories={
-                      shortcut.comment
-                        ? [
-                            {
-                              text: shortcut.comment,
-                              icon: Icon.SpeechBubble,
-                            },
-                          ]
-                        : undefined
-                    }
+                    accessories={[...hotkeyAccessories, ...commentAccessory]}
                     keywords={[section.title]}
                     actions={
                       shortcut.sequence.length > 0 ? (
