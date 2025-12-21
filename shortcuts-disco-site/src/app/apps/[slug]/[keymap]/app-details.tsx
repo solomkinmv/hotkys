@@ -22,10 +22,13 @@ import { ListItem } from "@/components/ui/list";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { LayoutGrid, List } from "lucide-react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 type ViewMode = "list" | "cheatsheet";
 
-const VIEW_MODE_STORAGE_KEY = "shortcuts-view-mode";
+function parseViewMode(value: string | null): ViewMode {
+  return value === "cheatsheet" ? "cheatsheet" : "list";
+}
 
 export const AppDetails = ({
   application,
@@ -34,18 +37,25 @@ export const AppDetails = ({
   application: AppShortcuts;
   keymap: Keymap;
 }) => {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const viewMode = parseViewMode(searchParams.get("view"));
+
+  const setViewMode = (newMode: ViewMode) => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (newMode === "list") {
+      params.delete("view");
+    } else {
+      params.set("view", newMode);
+    }
+    const query = params.toString();
+    router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false });
+  };
+
   const [searchResults, setSearchResults] = useState(keymap.sections);
   const [selectedIndex, setSelectedIndex] = useState(-1);
-  const [viewMode, setViewMode] = useState<ViewMode>(() => {
-    if (typeof window === "undefined") return "list";
-    const stored = localStorage.getItem(VIEW_MODE_STORAGE_KEY);
-    return stored === "cheatsheet" ? "cheatsheet" : "list";
-  });
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
-
-  useEffect(() => {
-    localStorage.setItem(VIEW_MODE_STORAGE_KEY, viewMode);
-  }, [viewMode]);
 
   const totalItems = searchResults.reduce(
     (sum, section) => sum + section.hotkeys.length,
