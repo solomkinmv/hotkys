@@ -20,6 +20,10 @@ import Link from "next/link";
 import { cn, getPlatformDisplay } from "@/lib/utils";
 import { ListItem } from "@/components/ui/list";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { LayoutGrid, List } from "lucide-react";
+
+type ViewMode = "list" | "cheatsheet";
 
 export const AppDetails = ({
   application,
@@ -30,6 +34,7 @@ export const AppDetails = ({
 }) => {
   const [searchResults, setSearchResults] = useState(keymap.sections);
   const [selectedIndex, setSelectedIndex] = useState(-1);
+  const [viewMode, setViewMode] = useState<ViewMode>("list");
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const totalItems = searchResults.reduce(
@@ -142,9 +147,45 @@ export const AppDetails = ({
     );
   });
 
+  const cheatsheetView = (
+    <div className="columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-4">
+      {searchResults.map((section) => {
+        sectionRefs.current[section.title] = React.createRef();
+        return (
+          <div
+            id={section.title}
+            key={section.title}
+            ref={sectionRefs.current[section.title]}
+            className="border rounded-lg p-3 mb-4 break-inside-avoid"
+          >
+            <h3 className="font-semibold text-sm mb-2 text-muted-foreground">
+              {section.title}
+            </h3>
+            <div className="space-y-1">
+              {section.hotkeys.map((hotkey, idx) => (
+                <div
+                  key={hotkey.title + idx}
+                  className="flex items-center justify-between gap-2 text-sm py-1"
+                >
+                  <span className="truncate">{hotkey.title}</span>
+                  <ShortcutDisplay shortcut={hotkey} className="shrink-0" />
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+
   return (
-    <div className="mx-auto flex min-h-0 w-full max-w-5xl flex-1">
-      <div className="grid gap-4 p-4 md:w-56 md:gap-6">
+    <div
+      className={cn(
+        "mx-auto flex min-h-0 w-full flex-1",
+        viewMode === "list" && "max-w-5xl",
+      )}
+    >
+      <div className="grid gap-4 p-4 md:w-56 md:gap-6 shrink-0">
         <div className="flex gap-4">
           <div className="flex flex-col">
             <KeymapSelector
@@ -152,24 +193,49 @@ export const AppDetails = ({
               activeKeymap={keymap.title}
               urlPrefix={`/apps/${application.slug}`}
             />
-            <TableOfContents
-              sections={keymap.sections}
-              sectionRefs={sectionRefs}
-            />
+            {viewMode === "list" && (
+              <TableOfContents
+                sections={keymap.sections}
+                sectionRefs={sectionRefs}
+              />
+            )}
           </div>
         </div>
       </div>
       <div className="grid min-h-0 flex-1 border-l overflow-y-auto">
         <div className="min-h-0 flex-1 p-4 md:p-6">
-          <div className="flex items-center gap-2">
-            <Header1 className={cn(application.source && "mb-0")}>
-              {application.name}
-            </Header1>
-            {keymap.platforms?.map((platform) => (
-              <Badge key={platform} variant="outline" className="text-sm" aria-label={`Platform: ${getPlatformDisplay(platform)}`}>
-                {getPlatformDisplay(platform)}
-              </Badge>
-            ))}
+          <div className="flex items-center justify-between gap-2 mb-2">
+            <div className="flex items-center gap-2">
+              <Header1 className="mb-0">{application.name}</Header1>
+              {keymap.platforms?.map((platform) => (
+                <Badge
+                  key={platform}
+                  variant="outline"
+                  className="text-sm"
+                  aria-label={`Platform: ${getPlatformDisplay(platform)}`}
+                >
+                  {getPlatformDisplay(platform)}
+                </Badge>
+              ))}
+            </div>
+            <div className="flex items-center gap-1">
+              <Button
+                variant={viewMode === "list" ? "default" : "outline"}
+                size="icon"
+                onClick={() => setViewMode("list")}
+                aria-label="List view"
+              >
+                <List className="h-4 w-4" />
+              </Button>
+              <Button
+                variant={viewMode === "cheatsheet" ? "default" : "outline"}
+                size="icon"
+                onClick={() => setViewMode("cheatsheet")}
+                aria-label="Cheat sheet view"
+              >
+                <LayoutGrid className="h-4 w-4" />
+              </Button>
+            </div>
           </div>
           <div className="flex items-center gap-2">
             {application.source && (
@@ -182,7 +248,9 @@ export const AppDetails = ({
             )}
           </div>
           <SearchBar onChange={handleSearch} />
-          {appDetails}
+          <div className="mt-4">
+            {viewMode === "list" ? appDetails : cheatsheetView}
+          </div>
         </div>
       </div>
     </div>
