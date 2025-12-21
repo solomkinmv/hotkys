@@ -8,13 +8,14 @@ import { useEffect, useState } from "react";
 
 interface ShortcutsListProps {
   application: Application | undefined;
+  isLoading?: boolean;
 }
 
 interface Preferences {
   delay: string;
 }
 
-export function ShortcutsList({ application }: ShortcutsListProps) {
+export function ShortcutsList({ application, isLoading: externalLoading }: ShortcutsListProps) {
   const keyCodesResponse = useKeyCodes();
   const keymaps = application?.keymaps.map((k) => k.title) ?? [];
   const [keymapSections, setKeymapSections] = useState<Section[]>([]);
@@ -25,6 +26,8 @@ export function ShortcutsList({ application }: ShortcutsListProps) {
     setKeymapSections(application?.keymaps[0].sections ?? []);
     setIsLoading(false);
   }, [application]);
+
+  const loading = externalLoading ?? isLoading;
 
   const handleShortcutExecution = async (application: Application, sectionShortcut: SectionShortcut) => {
     if (keyCodesResponse.data === undefined) return;
@@ -39,7 +42,7 @@ export function ShortcutsList({ application }: ShortcutsListProps) {
 
   return (
     <List
-      isLoading={isLoading}
+      isLoading={loading}
       searchBarPlaceholder="Search for shortcuts"
       searchBarAccessory={<KeymapDropdown keymaps={keymaps} onKeymapChange={handleKeymapChange} />}
       navigationTitle={application?.name}

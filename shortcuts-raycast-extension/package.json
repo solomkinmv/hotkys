@@ -67,8 +67,7 @@
   ],
   "dependencies": {
     "@raycast/api": "^1.103.5",
-    "@raycast/utils": "^2.2.2",
-    "cross-fetch": "^4.1.0"
+    "@raycast/utils": "^2.2.2"
   },
   "devDependencies": {
     "@raycast/api": "^1.103.5",
