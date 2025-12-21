@@ -23,6 +23,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { LayoutGrid, List } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { MasonryGrid } from "@/components/ui/masonry-grid";
 
 type ViewMode = "list" | "cheatsheet";
 
@@ -188,15 +189,16 @@ export const AppDetails = ({
   });
 
   const cheatsheetView = (
-    <div className="flex flex-wrap gap-4 justify-center items-start">
-      {searchResults.map((section) => {
+    <MasonryGrid
+      items={searchResults}
+      getItemHeight={(section) => section.hotkeys.length + 1}
+      renderItem={(section) => {
         sectionRefs.current[section.title] = React.createRef();
         return (
           <div
             id={section.title}
-            key={section.title}
             ref={sectionRefs.current[section.title]}
-            className="border rounded-lg p-3 w-72"
+            className="border rounded-lg p-3"
           >
             <h3 className="font-semibold text-sm mb-2 text-muted-foreground">
               {section.title}
@@ -214,8 +216,8 @@ export const AppDetails = ({
             </div>
           </div>
         );
-      })}
-    </div>
+      }}
+    />
   );
 
   return (
@@ -288,7 +290,7 @@ export const AppDetails = ({
           <div className="border-l flex-1 px-4 md:px-6 pb-6">{appDetails}</div>
         </div>
       ) : (
-        <div className="px-4 md:px-6 pb-6">{cheatsheetView}</div>
+        <div className="px-4 md:px-6 pb-6 max-w-screen-2xl mx-auto">{cheatsheetView}</div>
       )}
     </div>
   );
