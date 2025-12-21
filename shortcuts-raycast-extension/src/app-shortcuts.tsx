@@ -18,19 +18,26 @@ export default function AppShortcuts(props?: AppShortcutsProps) {
 
   // Get the frontmost application's bundleId if no slug provided
   const { isLoading: bundleIdLoading, data: bundleId } = usePromise(
-    async () => (await getFrontmostApplication()).bundleId,
+    async () => {
+      try {
+        return (await getFrontmostApplication()).bundleId;
+      } catch {
+        return undefined;
+      }
+    },
     [],
     {
       execute: !props?.slug,
-      failureToastOptions: {
-        title: "Failed to get frontmost application",
-      },
     }
   );
 
   // If we have a bundleId but no slug, look up the slug from apps list
   useEffect(() => {
-    if (slug || !bundleId || appsLoading) {
+    if (slug || appsLoading || bundleIdLoading) {
+      return;
+    }
+    if (!bundleId) {
+      exitWithMessage("Could not detect the frontmost application");
       return;
     }
     const foundApp = apps.find((app) => app.bundleId === bundleId);
@@ -39,7 +46,7 @@ export default function AppShortcuts(props?: AppShortcutsProps) {
       return;
     }
     setSlug(foundApp.slug);
-  }, [bundleId, slug, apps, appsLoading]);
+  }, [bundleId, bundleIdLoading, slug, apps, appsLoading]);
 
   const isLoading = appsLoading || shortcutsLoading || (!props?.slug && bundleIdLoading);
 
