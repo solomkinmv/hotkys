@@ -1,6 +1,7 @@
 {
   "$schema": "schema/shortcut.schema.json",
   "name": "FastMail",
+  "bundleId": "com.fastmail.mac.Fastmail",
   "hostname": "app.fastmail.com",
   "slug": "fastmail",
   "source": "https://www.fastmail.help/hc/en-us/articles/360058753534-Keyboard-shortcuts",
