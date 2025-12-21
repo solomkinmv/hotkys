@@ -207,9 +207,16 @@ export const AppDetails = ({
               {section.hotkeys.map((hotkey, idx) => (
                 <div
                   key={hotkey.title + idx}
-                  className="flex items-center justify-between gap-2 text-sm py-1"
+                  className="flex items-start justify-between gap-2 text-sm py-1"
                 >
-                  <span className="truncate">{hotkey.title}</span>
+                  <div className="flex flex-col min-w-0">
+                    <span>{hotkey.title}</span>
+                    {hotkey.comment && (
+                      <span className="text-xs text-muted-foreground">
+                        {generateCommentText(hotkey.comment)}
+                      </span>
+                    )}
+                  </div>
                   <ShortcutDisplay shortcut={hotkey} className="shrink-0" />
                 </div>
               ))}
