@@ -4,6 +4,7 @@ interface MasonryGridProps<T> {
   items: T[];
   getItemHeight: (item: T) => number;
   renderItem: (item: T) => React.ReactNode;
+  columnCount: number;
   columnWidth?: string;
 }
 
@@ -52,21 +53,6 @@ function ColumnLayout<T>({
   );
 }
 
-export function MasonryGrid<T>(props: MasonryGridProps<T>) {
-  return (
-    <>
-      <div className="hidden xl:block">
-        <ColumnLayout {...props} columnCount={4} />
-      </div>
-      <div className="hidden lg:block xl:hidden">
-        <ColumnLayout {...props} columnCount={3} />
-      </div>
-      <div className="hidden sm:block lg:hidden">
-        <ColumnLayout {...props} columnCount={2} />
-      </div>
-      <div className="block sm:hidden">
-        <ColumnLayout {...props} columnCount={1} />
-      </div>
-    </>
-  );
+export function MasonryGrid<T>({ columnCount, ...props }: MasonryGridProps<T>) {
+  return <ColumnLayout {...props} columnCount={columnCount} />;
 }

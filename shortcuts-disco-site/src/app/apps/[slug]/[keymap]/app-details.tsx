@@ -22,13 +22,20 @@ import { AppIcon } from "@/components/ui/app-icon";
 import { ListItem } from "@/components/ui/list";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { LayoutGrid, List } from "lucide-react";
+import { LayoutGrid, List, Settings2 } from "lucide-react";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Slider } from "@/components/ui/slider";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { MasonryGrid } from "@/components/ui/masonry-grid";
 
 type ViewMode = "list" | "cheatsheet";
 
 const VIEW_MODE_STORAGE_KEY = "shortcuts-view-mode";
+const COLUMN_COUNT_STORAGE_KEY = "shortcuts-column-count";
+const DEFAULT_COLUMNS = 4;
+const MIN_COLUMNS = 1;
+const MAX_COLUMNS = 6;
+const MIN_COLUMN_WIDTH = 288;
 
 function parseViewMode(value: string | null): ViewMode | null {
   if (value === "cheatsheet") return "cheatsheet";
@@ -42,6 +49,20 @@ function getStoredViewMode(): ViewMode {
   return stored === "cheatsheet" ? "cheatsheet" : "list";
 }
 
+function parseColumnCount(value: string | null): number | null {
+  if (value === null) return null;
+  const num = parseInt(value, 10);
+  if (isNaN(num) || num < MIN_COLUMNS || num > MAX_COLUMNS) return null;
+  return num;
+}
+
+function getStoredColumnCount(): number {
+  if (typeof window === "undefined") return DEFAULT_COLUMNS;
+  const stored = localStorage.getItem(COLUMN_COUNT_STORAGE_KEY);
+  const parsed = parseColumnCount(stored);
+  return parsed ?? DEFAULT_COLUMNS;
+}
+
 export const AppDetails = ({
   application,
   keymap,
@@ -53,13 +74,40 @@ export const AppDetails = ({
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const urlViewMode = parseViewMode(searchParams.get("view"));
+  const urlColumnCount = parseColumnCount(searchParams.get("cols"));
 
   const [viewMode, setViewModeState] = useState<ViewMode>("list");
+  const [userColumnCount, setUserColumnCountState] = useState<number>(DEFAULT_COLUMNS);
+  const [maxColumns, setMaxColumns] = useState<number>(MAX_COLUMNS);
+
+  const effectiveColumnCount = Math.min(userColumnCount, maxColumns);
 
   useEffect(() => {
     const effectiveMode = urlViewMode ?? getStoredViewMode();
     setViewModeState(effectiveMode);
   }, [urlViewMode]);
+
+  useEffect(() => {
+    const effectiveCols = urlColumnCount ?? getStoredColumnCount();
+    setUserColumnCountState(effectiveCols);
+  }, [urlColumnCount]);
+
+  useEffect(() => {
+    if (viewMode !== "cheatsheet") return;
+
+    const updateMaxColumns = () => {
+      const padding = 48;
+      const availableWidth = window.innerWidth - padding;
+      const gap = 16;
+      const max = Math.max(1, Math.floor((availableWidth + gap) / (MIN_COLUMN_WIDTH + gap)));
+      setMaxColumns(max);
+    };
+
+    updateMaxColumns();
+    window.addEventListener("resize", updateMaxColumns);
+
+    return () => window.removeEventListener("resize", updateMaxColumns);
+  }, [viewMode]);
 
   const setViewMode = (newMode: ViewMode) => {
     setViewModeState(newMode);
@@ -70,6 +118,20 @@ export const AppDetails = ({
       params.delete("view");
     } else {
       params.set("view", newMode);
+    }
+    const query = params.toString();
+    router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false });
+  };
+
+  const setColumnCount = (newCount: number) => {
+    setUserColumnCountState(newCount);
+    localStorage.setItem(COLUMN_COUNT_STORAGE_KEY, String(newCount));
+
+    const params = new URLSearchParams(searchParams.toString());
+    if (newCount === DEFAULT_COLUMNS) {
+      params.delete("cols");
+    } else {
+      params.set("cols", String(newCount));
     }
     const query = params.toString();
     router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false });
@@ -192,6 +254,7 @@ export const AppDetails = ({
   const cheatsheetView = (
     <MasonryGrid
       items={searchResults}
+      columnCount={effectiveColumnCount}
       getItemHeight={(section) => section.hotkeys.length + 1}
       renderItem={(section) => {
         sectionRefs.current[section.title] = React.createRef();
@@ -269,6 +332,30 @@ export const AppDetails = ({
               >
                 <LayoutGrid className="h-4 w-4" />
               </Button>
+              {viewMode === "cheatsheet" && (
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button variant="ghost" size="icon" aria-label="Column settings">
+                      <Settings2 className="h-4 w-4" />
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-56" align="end">
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between">
+                        <label className="text-sm font-medium">Columns</label>
+                        <span className="text-sm text-muted-foreground">{effectiveColumnCount}</span>
+                      </div>
+                      <Slider
+                        min={MIN_COLUMNS}
+                        max={MAX_COLUMNS}
+                        step={1}
+                        value={[userColumnCount]}
+                        onValueChange={([value]) => setColumnCount(value)}
+                      />
+                    </div>
+                  </PopoverContent>
+                </Popover>
+              )}
             </div>
           </div>
         </div>
@@ -299,7 +386,7 @@ export const AppDetails = ({
           <div className="border-l flex-1 px-4 md:px-6 pb-6">{appDetails}</div>
         </div>
       ) : (
-        <div className="px-4 md:px-6 pb-6 max-w-screen-2xl mx-auto">{cheatsheetView}</div>
+        <div className="px-4 md:px-6 pb-6 mx-auto" style={{ maxWidth: `${effectiveColumnCount * 288 + (effectiveColumnCount - 1) * 16 + 48}px` }}>{cheatsheetView}</div>
       )}
     </div>
   );
