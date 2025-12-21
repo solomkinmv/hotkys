@@ -6,6 +6,26 @@ export interface AllApps {
 }
 
 /**
+ * Platform-specific response containing app metadata.
+ */
+export interface AppsResponse {
+  platform: string;
+  apps: AppMetadata[];
+}
+
+/**
+ * App metadata for list display (without full shortcuts).
+ */
+export interface AppMetadata {
+  name: string;
+  slug: string;
+  bundleId?: string;
+  hostname?: string;
+  source?: string;
+  keymaps: string[];
+}
+
+/**
  * High level type for each application.
  * Each application consist of name, bundleId and keymaps.
  */
@@ -24,6 +44,7 @@ export interface InputApp {
  */
 export interface InputKeymap {
   title: string;
+  platforms?: string[];
   sections: InputSection[];
 }
 

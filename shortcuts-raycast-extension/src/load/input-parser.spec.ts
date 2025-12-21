@@ -4,12 +4,10 @@ import { Application, AtomicShortcut } from "../model/internal/internal-models";
 import { Modifiers } from "../model/internal/modifiers";
 
 describe("Parses shortcut correctly", () => {
-  const parser = new ShortcutsParser(
-    new Map([
-      ["e", "10"],
-      ["+", "24"],
-    ])
-  );
+  const parser = new ShortcutsParser({
+    e: "10",
+    "+": "24",
+  });
 
   it("Parses app shortcut", () => {
     expect(parser.parseInputShortcuts([generateInputAppWithShortcut()])).toEqual([generateExpectedAppWithShortcut()]);
