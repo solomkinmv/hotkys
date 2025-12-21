@@ -16,39 +16,39 @@
           "shortcuts": [
             {
               "title": "Home",
-              "key": "ctrl+alt+h"
+              "key": "ctrl+opt+h"
             },
             {
               "title": "Views",
-              "key": "ctrl+alt+v"
+              "key": "ctrl+opt+v"
             },
             {
               "title": "Current ticket",
-              "key": "ctrl+alt+t"
+              "key": "ctrl+opt+t"
             },
             {
               "title": "Current requester",
-              "key": "ctrl+alt+r"
+              "key": "ctrl+opt+r"
             },
             {
               "title": "Search",
-              "key": "ctrl+alt+f"
+              "key": "ctrl+opt+f"
             },
             {
               "title": "Advanced search",
-              "key": "ctrl+alt+/"
+              "key": "ctrl+opt+/"
             },
             {
               "title": "New ticket",
-              "key": "ctrl+alt+n"
+              "key": "ctrl+opt+n"
             },
             {
               "title": "Next tab",
-              "key": "ctrl+alt+tab"
+              "key": "ctrl+opt+tab"
             },
             {
               "title": "Previous tab",
-              "key": "ctrl+shift+alt+tab"
+              "key": "ctrl+shift+opt+tab"
             }
           ]
         },
@@ -82,15 +82,15 @@
           "shortcuts": [
             {
               "title": "Close current tab",
-              "key": "ctrl+alt+w"
+              "key": "ctrl+opt+w"
             },
             {
               "title": "Move to next ticket",
-              "key": "ctrl+alt+down"
+              "key": "ctrl+opt+down"
             },
             {
               "title": "Move to next ticket",
-              "key": "ctrl+alt+j"
+              "key": "ctrl+opt+j"
             }
           ]
         },
@@ -99,31 +99,31 @@
           "shortcuts": [
             {
               "title": "Open reply box",
-              "key": "ctrl+alt+c"
+              "key": "ctrl+opt+c"
             },
             {
               "title": "Open note box",
-              "key": "ctrl+alt+x"
+              "key": "ctrl+opt+x"
             },
             {
               "title": "Open macro box",
-              "key": "ctrl+alt+m"
+              "key": "ctrl+opt+m"
             },
             {
               "title": "Toggle Apps",
-              "key": "ctrl+alt+a"
+              "key": "ctrl+opt+a"
             },
             {
               "title": "Toggle user tab",
-              "key": "ctrl+alt+,"
+              "key": "ctrl+opt+,"
             },
             {
               "title": "Toggle knowledge",
-              "key": "ctrl+alt+k"
+              "key": "ctrl+opt+k"
             },
             {
               "title": "Search knowledge",
-              "key": "ctrl+alt+l"
+              "key": "ctrl+opt+l"
             }
           ]
         },
@@ -132,23 +132,23 @@
           "shortcuts": [
             {
               "title": "Update with current status",
-              "key": "ctrl+alt+u"
+              "key": "ctrl+opt+u"
             },
             {
               "title": "Update as Open",
-              "key": "ctrl+alt+o"
+              "key": "ctrl+opt+o"
             },
             {
               "title": "Update as Pending",
-              "key": "ctrl+alt+p"
+              "key": "ctrl+opt+p"
             },
             {
               "title": "Update as On-hold",
-              "key": "ctrl+alt+d"
+              "key": "ctrl+opt+d"
             },
             {
               "title": "Update as Solved",
-              "key": "ctrl+alt+s"
+              "key": "ctrl+opt+s"
             }
           ]
         },
@@ -221,19 +221,19 @@
             },
             {
               "title": "Format as heading 1",
-              "key": "alt+cmd+1"
+              "key": "opt+cmd+1"
             },
             {
               "title": "Format as heading 2",
-              "key": "alt+cmd+2"
+              "key": "opt+cmd+2"
             },
             {
               "title": "Format as heading 3",
-              "key": "alt+cmd+3"
+              "key": "opt+cmd+3"
             },
             {
               "title": "Format as heading 4",
-              "key": "alt+cmd+4"
+              "key": "opt+cmd+4"
             }
           ]
         }
