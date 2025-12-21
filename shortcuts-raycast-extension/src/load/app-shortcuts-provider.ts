@@ -15,15 +15,12 @@ export function useAppShortcuts(slug: string | undefined): UseAppShortcutsResult
   const platform = getPlatform();
   const keyCodesResult = useKeyCodes();
 
-  const { isLoading, data } = useFetch<InputApp>(
-    `https://hotkys.com/data/${platform}/${slug}.json`,
-    {
-      execute: !!slug,
-      failureToastOptions: {
-        title: "Failed to load shortcuts",
-      },
-    }
-  );
+  const { isLoading, data } = useFetch<InputApp>(`https://hotkys.com/data/${platform}/${slug}.json`, {
+    execute: !!slug,
+    failureToastOptions: {
+      title: "Failed to load shortcuts",
+    },
+  });
 
   // Parse the input app with keyCodes
   // Done outside useFetch to avoid Map serialization issues

@@ -60,7 +60,7 @@
     },
     {
       "name": "current-app",
-      "title": "Copy Current App's Bundle Id",
+      "title": "Copy Current App's Bundle ID",
       "description": "Saves current app's bundle id in the clipboard",
       "mode": "no-view"
     }

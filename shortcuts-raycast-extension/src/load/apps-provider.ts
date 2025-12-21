@@ -12,15 +12,12 @@ interface UseAppsResult {
 export function useApps(): UseAppsResult {
   const platform = getPlatform();
 
-  const { isLoading, data } = useFetch<AppsResponse>(
-    `https://hotkys.com/data/${platform}/apps.json`,
-    {
-      keepPreviousData: true,
-      failureToastOptions: {
-        title: "Failed to load applications",
-      },
-    }
-  );
+  const { isLoading, data } = useFetch<AppsResponse>(`https://hotkys.com/data/${platform}/apps.json`, {
+    keepPreviousData: true,
+    failureToastOptions: {
+      title: "Failed to load applications",
+    },
+  });
 
   return {
     isLoading,
