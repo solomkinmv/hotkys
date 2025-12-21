@@ -47,6 +47,7 @@ interface AppMetadata {
     bundleId?: string;
     hostname?: string;
     source?: string;
+    icon?: string;
     keymaps: string[];
 }
 
@@ -75,6 +76,7 @@ export function generatePlatformFiles() {
                 bundleId: app.bundleId,
                 hostname: app.hostname,
                 source: app.source,
+                icon: app.icon,
                 keymaps: filteredKeymaps.map(k => k.title)
             };
         });

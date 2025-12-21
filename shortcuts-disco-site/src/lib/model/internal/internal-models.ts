@@ -14,6 +14,7 @@ export interface AppShortcuts {
     name: string;
     slug: string;
     source?: string;
+    icon?: string;
     keymaps: Keymap[];
 }
 

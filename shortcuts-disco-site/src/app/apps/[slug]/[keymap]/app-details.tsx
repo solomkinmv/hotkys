@@ -18,6 +18,7 @@ import { KeymapSelector } from "@/app/apps/[slug]/[keymap]/keymap-selector";
 import TableOfContents from "@/app/apps/[slug]/[keymap]/table-of-contents";
 import Link from "next/link";
 import { getPlatformDisplay } from "@/lib/utils";
+import { AppIcon } from "@/components/ui/app-icon";
 import { ListItem } from "@/components/ui/list";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -232,6 +233,7 @@ export const AppDetails = ({
       <div className="mx-auto max-w-5xl p-4 md:p-6">
         <div className="flex items-center justify-between gap-2 mb-2">
           <div className="flex items-center gap-2">
+            <AppIcon icon={application.icon} appName={application.name} size="md" />
             <Header1 className="mb-0">{application.name}</Header1>
             {keymap.platforms?.map((platform) => (
               <Badge
