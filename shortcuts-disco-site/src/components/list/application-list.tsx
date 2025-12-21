@@ -14,6 +14,7 @@ import { getAppPlatforms, getPlatformIcon, appMatchesPlatformFilter } from "@/li
 import { getPlatformDisplay } from "@/lib/utils";
 import { usePlatformFilter } from "@/lib/hooks/use-platform-filter";
 import { PlatformFilter } from "@/components/ui/platform-filter";
+import { AppIcon } from "@/components/ui/app-icon";
 
 /**
  * ApplicationList component displays a searchable, keyboard-navigable list of applications
@@ -91,7 +92,10 @@ export const ApplicationList = ({
                   itemRefs.current[index] = el;
                 }}
               >
-                <span>{app.name}</span>
+                <span className="flex items-center gap-2 not-prose">
+                  <AppIcon icon={app.icon} appName={app.name} size="sm" />
+                  {app.name}
+                </span>
                 <div className="flex items-center gap-1">
                   {platforms.map((platform) => (
                     <Badge

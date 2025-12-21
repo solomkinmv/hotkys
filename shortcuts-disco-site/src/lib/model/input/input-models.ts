@@ -19,6 +19,7 @@ export interface InputApp {
     name: string;
     slug: string;
     source?: string;
+    icon?: string;
     keymaps: InputKeymap[];
 }
 

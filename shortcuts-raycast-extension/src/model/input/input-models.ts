@@ -22,6 +22,7 @@ export interface AppMetadata {
   bundleId?: string;
   hostname?: string;
   source?: string;
+  icon?: string;
   keymaps: string[];
 }
 
@@ -34,6 +35,7 @@ export interface InputApp {
   hostname?: string;
   name: string;
   slug: string;
+  icon?: string;
   keymaps: InputKeymap[];
 }
 
