@@ -17,7 +17,7 @@ import Fuse from "fuse.js";
 import { KeymapSelector } from "@/app/apps/[slug]/[keymap]/keymap-selector";
 import TableOfContents from "@/app/apps/[slug]/[keymap]/table-of-contents";
 import Link from "next/link";
-import { cn, getPlatformDisplay } from "@/lib/utils";
+import { getPlatformDisplay } from "@/lib/utils";
 import { ListItem } from "@/components/ui/list";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -168,7 +168,7 @@ export const AppDetails = ({
   });
 
   const cheatsheetView = (
-    <div className="columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-4">
+    <div className="flex flex-wrap gap-4 justify-center items-start">
       {searchResults.map((section) => {
         sectionRefs.current[section.title] = React.createRef();
         return (
@@ -176,7 +176,7 @@ export const AppDetails = ({
             id={section.title}
             key={section.title}
             ref={sectionRefs.current[section.title]}
-            className="border rounded-lg p-3 mb-4 break-inside-avoid"
+            className="border rounded-lg p-3 w-72"
           >
             <h3 className="font-semibold text-sm mb-2 text-muted-foreground">
               {section.title}
@@ -199,94 +199,77 @@ export const AppDetails = ({
   );
 
   return (
-    <div
-      className={cn(
-        "mx-auto flex min-h-0 w-full flex-1",
-        viewMode === "list" && "max-w-5xl",
-      )}
-    >
-      {viewMode === "list" && (
-        <div className="grid gap-4 p-4 md:w-56 md:gap-6 shrink-0">
-          <div className="flex gap-4">
-            <div className="flex flex-col">
-              <KeymapSelector
-                keymaps={application.keymaps}
-                activeKeymap={keymap.title}
-                urlPrefix={`/apps/${application.slug}`}
-              />
-              <TableOfContents
-                sections={keymap.sections}
-                sectionRefs={sectionRefs}
-              />
+    <div className="min-h-0 w-full flex-1 overflow-y-auto">
+      <div className="mx-auto max-w-5xl p-4 md:p-6">
+        <div className="flex items-center justify-between gap-2 mb-2">
+          <div className="flex items-center gap-2">
+            <Header1 className="mb-0">{application.name}</Header1>
+            {keymap.platforms?.map((platform) => (
+              <Badge
+                key={platform}
+                variant="outline"
+                className="text-sm"
+                aria-label={`Platform: ${getPlatformDisplay(platform)}`}
+              >
+                {getPlatformDisplay(platform)}
+              </Badge>
+            ))}
+          </div>
+          <div className="flex items-center gap-2">
+            <KeymapSelector
+              keymaps={application.keymaps}
+              activeKeymap={keymap.title}
+              urlPrefix={`/apps/${application.slug}`}
+            />
+            <div className="flex items-center gap-1">
+              <Button
+                variant={viewMode === "list" ? "secondary" : "ghost"}
+                size="icon"
+                onClick={() => setViewMode("list")}
+                aria-label="List view"
+              >
+                <List className="h-4 w-4" />
+              </Button>
+              <Button
+                variant={viewMode === "cheatsheet" ? "secondary" : "ghost"}
+                size="icon"
+                onClick={() => setViewMode("cheatsheet")}
+                aria-label="Cheat sheet view"
+              >
+                <LayoutGrid className="h-4 w-4" />
+              </Button>
             </div>
           </div>
         </div>
-      )}
-      <div
-        className={cn(
-          "grid min-h-0 flex-1 overflow-y-auto",
-          viewMode === "list" && "border-l",
-        )}
-      >
-        <div className="min-h-0 flex-1 p-4 md:p-6">
-          <div className="flex items-center justify-between gap-2 mb-2">
-            <div className="flex items-center gap-2">
-              <Header1 className="mb-0">{application.name}</Header1>
-              {keymap.platforms?.map((platform) => (
-                <Badge
-                  key={platform}
-                  variant="outline"
-                  className="text-sm"
-                  aria-label={`Platform: ${getPlatformDisplay(platform)}`}
-                >
-                  {getPlatformDisplay(platform)}
-                </Badge>
-              ))}
-            </div>
-            <div className="flex items-center gap-2">
-              {viewMode === "cheatsheet" && (
-                <KeymapSelector
-                  keymaps={application.keymaps}
-                  activeKeymap={keymap.title}
-                  urlPrefix={`/apps/${application.slug}`}
+        <div className="flex items-center gap-2">
+          {application.source && (
+            <Link
+              href={application.source}
+              className="text-sm text-muted-foreground hover:underline"
+            >
+              Source
+            </Link>
+          )}
+        </div>
+        <SearchBar onChange={handleSearch} />
+      </div>
+      {viewMode === "list" ? (
+        <div className="mx-auto max-w-5xl flex">
+          <div className="grid gap-4 px-4 md:w-56 md:gap-6 shrink-0">
+            <div className="flex gap-4">
+              <div className="flex flex-col">
+                <TableOfContents
+                  sections={keymap.sections}
+                  sectionRefs={sectionRefs}
                 />
-              )}
-              <div className="flex items-center gap-1">
-                <Button
-                  variant={viewMode === "list" ? "secondary" : "ghost"}
-                  size="icon"
-                  onClick={() => setViewMode("list")}
-                  aria-label="List view"
-                >
-                  <List className="h-4 w-4" />
-                </Button>
-                <Button
-                  variant={viewMode === "cheatsheet" ? "secondary" : "ghost"}
-                  size="icon"
-                  onClick={() => setViewMode("cheatsheet")}
-                  aria-label="Cheat sheet view"
-                >
-                  <LayoutGrid className="h-4 w-4" />
-                </Button>
               </div>
             </div>
           </div>
-          <div className="flex items-center gap-2">
-            {application.source && (
-              <Link
-                href={application.source}
-                className="text-sm text-muted-foreground hover:underline"
-              >
-                Source
-              </Link>
-            )}
-          </div>
-          <SearchBar onChange={handleSearch} />
-          <div className="mt-4">
-            {viewMode === "list" ? appDetails : cheatsheetView}
-          </div>
+          <div className="border-l flex-1 px-4 md:px-6 pb-6">{appDetails}</div>
         </div>
-      </div>
+      ) : (
+        <div className="px-4 md:px-6 pb-6">{cheatsheetView}</div>
+      )}
     </div>
   );
 };
