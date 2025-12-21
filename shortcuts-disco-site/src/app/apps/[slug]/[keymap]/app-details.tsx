@@ -271,7 +271,7 @@ export const AppDetails = ({
               {section.hotkeys.map((hotkey, idx) => (
                 <div
                   key={hotkey.title + idx}
-                  className="flex items-start justify-between gap-2 text-sm py-1"
+                  className="flex flex-wrap items-start justify-between gap-x-2 gap-y-1 text-sm py-1"
                 >
                   <div className="flex flex-col min-w-0">
                     <span>{hotkey.title}</span>
@@ -281,7 +281,7 @@ export const AppDetails = ({
                       </span>
                     )}
                   </div>
-                  <ShortcutDisplay shortcut={hotkey} className="shrink-0" />
+                  <ShortcutDisplay shortcut={hotkey} />
                 </div>
               ))}
             </div>
