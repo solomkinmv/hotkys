@@ -2,6 +2,7 @@ import {getAllShortcuts, getAppShortcutsBySlug} from "@/lib/shortcuts";
 import {Metadata} from "next";
 import {notFound} from "next/navigation";
 import {PlatformAwareAppDetails} from "@/app/apps/[slug]/platform-aware-app-details";
+import {Suspense} from "react";
 
 interface Props {
     params: Promise<{ slug: string }>;
@@ -25,6 +26,8 @@ export default async function SingleApplicationPage({params}: Props) {
     const appShortcuts = getAppShortcutsBySlug(resolvedParams.slug) || notFound();
 
     return (
-        <PlatformAwareAppDetails application={appShortcuts}/>
+        <Suspense>
+            <PlatformAwareAppDetails application={appShortcuts}/>
+        </Suspense>
     );
 }
