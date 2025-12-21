@@ -36,6 +36,11 @@
       "type": "string",
       "format": "uri"
     },
+    "icon": {
+      "description": "Path to the application icon. Can be a relative path (e.g., 'icons/app.png') or an absolute URL",
+      "type": "string",
+      "minLength": 1
+    },
     "keymaps": {
       "description": "List of the application keymaps. Most of the applications have single keymap that should be named 'Default'.",
       "type": "array",
