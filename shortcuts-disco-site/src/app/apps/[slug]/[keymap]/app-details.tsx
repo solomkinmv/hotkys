@@ -195,24 +195,29 @@ export const AppDetails = ({
         viewMode === "list" && "max-w-5xl",
       )}
     >
-      <div className="grid gap-4 p-4 md:w-56 md:gap-6 shrink-0">
-        <div className="flex gap-4">
-          <div className="flex flex-col">
-            <KeymapSelector
-              keymaps={application.keymaps}
-              activeKeymap={keymap.title}
-              urlPrefix={`/apps/${application.slug}`}
-            />
-            {viewMode === "list" && (
+      {viewMode === "list" && (
+        <div className="grid gap-4 p-4 md:w-56 md:gap-6 shrink-0">
+          <div className="flex gap-4">
+            <div className="flex flex-col">
+              <KeymapSelector
+                keymaps={application.keymaps}
+                activeKeymap={keymap.title}
+                urlPrefix={`/apps/${application.slug}`}
+              />
               <TableOfContents
                 sections={keymap.sections}
                 sectionRefs={sectionRefs}
               />
-            )}
+            </div>
           </div>
         </div>
-      </div>
-      <div className="grid min-h-0 flex-1 border-l overflow-y-auto">
+      )}
+      <div
+        className={cn(
+          "grid min-h-0 flex-1 overflow-y-auto",
+          viewMode === "list" && "border-l",
+        )}
+      >
         <div className="min-h-0 flex-1 p-4 md:p-6">
           <div className="flex items-center justify-between gap-2 mb-2">
             <div className="flex items-center gap-2">
@@ -228,23 +233,32 @@ export const AppDetails = ({
                 </Badge>
               ))}
             </div>
-            <div className="flex items-center gap-1">
-              <Button
-                variant={viewMode === "list" ? "secondary" : "ghost"}
-                size="icon"
-                onClick={() => setViewMode("list")}
-                aria-label="List view"
-              >
-                <List className="h-4 w-4" />
-              </Button>
-              <Button
-                variant={viewMode === "cheatsheet" ? "secondary" : "ghost"}
-                size="icon"
-                onClick={() => setViewMode("cheatsheet")}
-                aria-label="Cheat sheet view"
-              >
-                <LayoutGrid className="h-4 w-4" />
-              </Button>
+            <div className="flex items-center gap-2">
+              {viewMode === "cheatsheet" && (
+                <KeymapSelector
+                  keymaps={application.keymaps}
+                  activeKeymap={keymap.title}
+                  urlPrefix={`/apps/${application.slug}`}
+                />
+              )}
+              <div className="flex items-center gap-1">
+                <Button
+                  variant={viewMode === "list" ? "secondary" : "ghost"}
+                  size="icon"
+                  onClick={() => setViewMode("list")}
+                  aria-label="List view"
+                >
+                  <List className="h-4 w-4" />
+                </Button>
+                <Button
+                  variant={viewMode === "cheatsheet" ? "secondary" : "ghost"}
+                  size="icon"
+                  onClick={() => setViewMode("cheatsheet")}
+                  aria-label="Cheat sheet view"
+                >
+                  <LayoutGrid className="h-4 w-4" />
+                </Button>
+              </div>
             </div>
           </div>
           <div className="flex items-center gap-2">
