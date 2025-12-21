@@ -25,6 +25,8 @@ import { LayoutGrid, List } from "lucide-react";
 
 type ViewMode = "list" | "cheatsheet";
 
+const VIEW_MODE_STORAGE_KEY = "shortcuts-view-mode";
+
 export const AppDetails = ({
   application,
   keymap,
@@ -34,8 +36,16 @@ export const AppDetails = ({
 }) => {
   const [searchResults, setSearchResults] = useState(keymap.sections);
   const [selectedIndex, setSelectedIndex] = useState(-1);
-  const [viewMode, setViewMode] = useState<ViewMode>("list");
+  const [viewMode, setViewMode] = useState<ViewMode>(() => {
+    if (typeof window === "undefined") return "list";
+    const stored = localStorage.getItem(VIEW_MODE_STORAGE_KEY);
+    return stored === "cheatsheet" ? "cheatsheet" : "list";
+  });
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    localStorage.setItem(VIEW_MODE_STORAGE_KEY, viewMode);
+  }, [viewMode]);
 
   const totalItems = searchResults.reduce(
     (sum, section) => sum + section.hotkeys.length,
@@ -220,7 +230,7 @@ export const AppDetails = ({
             </div>
             <div className="flex items-center gap-1">
               <Button
-                variant={viewMode === "list" ? "default" : "outline"}
+                variant={viewMode === "list" ? "secondary" : "ghost"}
                 size="icon"
                 onClick={() => setViewMode("list")}
                 aria-label="List view"
@@ -228,7 +238,7 @@ export const AppDetails = ({
                 <List className="h-4 w-4" />
               </Button>
               <Button
-                variant={viewMode === "cheatsheet" ? "default" : "outline"}
+                variant={viewMode === "cheatsheet" ? "secondary" : "ghost"}
                 size="icon"
                 onClick={() => setViewMode("cheatsheet")}
                 aria-label="Cheat sheet view"
