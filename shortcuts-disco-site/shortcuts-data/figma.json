@@ -3,7 +3,8 @@
   "bundleId": "com.figma.Desktop",
   "name": "Figma",
   "slug": "figma",
-  "source": "https://help.figma.com/hc/en-us/articles/360040328653-Keyboard-shortcuts-in-Figma",
+  "source": "https://help.figma.com/hc/en-us/articles/360040328653-Use-Figma-products-with-a-keyboard",
+  "icon": "icons/figma.png",
   "keymaps": [
     {
       "title": "Default",
@@ -12,24 +13,11 @@
       ],
       "sections": [
         {
-          "title": "Essential",
+          "title": "Essentials",
           "shortcuts": [
             {
-              "title": "Show shortcuts",
-              "key": "ctrl+shift+/"
-            },
-            {
-              "title": "Show/Hide UI",
-              "key": "cmd+\\"
-            },
-            {
-              "title": "Pick Color",
-              "key": "cmd+c"
-            },
-            {
-              "title": "Quick actions",
-              "comment": "Search through menus, commands, and plugins",
-              "key": "cmd+/"
+              "title": "Pick color",
+              "key": "ctrl+c"
             }
           ]
         },
@@ -37,51 +25,51 @@
           "title": "Tools",
           "shortcuts": [
             {
-              "title": "Move Tool",
+              "title": "Move tool",
               "key": "v"
             },
             {
-              "title": "Frame Tool",
+              "title": "Frame tool",
               "key": "f"
             },
             {
-              "title": "Pen Tool",
+              "title": "Pen tool",
               "key": "p"
             },
             {
-              "title": "Pencil Tool",
+              "title": "Pencil tool",
               "key": "shift+p"
             },
             {
-              "title": "Text Tool",
+              "title": "Text tool",
               "key": "t"
             },
             {
-              "title": "Rectangle Tool",
+              "title": "Rectangle tool",
               "key": "r"
             },
             {
-              "title": "Ellipse Tool",
+              "title": "Ellipse tool",
               "key": "o"
             },
             {
-              "title": "Line Tool",
+              "title": "Line tool",
               "key": "l"
             },
             {
-              "title": "Arrow Tool",
+              "title": "Arrow tool",
               "key": "shift+l"
             },
             {
-              "title": "Add Comment",
+              "title": "Add comment",
               "key": "c"
             },
             {
-              "title": "Pick Color",
-              "key": "cmd+c"
+              "title": "Pick color",
+              "key": "ctrl+c"
             },
             {
-              "title": "Slice Tool",
+              "title": "Slice cool",
               "key": "s"
             }
           ]
@@ -90,56 +78,40 @@
           "title": "View",
           "shortcuts": [
             {
-              "title": "Show/Hide UI",
-              "key": "cmd+\\"
-            },
-            {
-              "title": "Open Dev Mode",
-              "key": "shift+d"
-            },
-            {
-              "title": "Show/Hide Rulers",
+              "title": "Rulers",
               "key": "shift+r"
             },
             {
-              "title": "Show/Hide Outlines",
-              "key": "shift+cmd+o"
+              "title": "Outlines",
+              "key": "shift+o"
             },
             {
-              "title": "Show/Hide Pixel Preview",
-              "key": "shift+cmd+p"
+              "title": "Pixel preview",
+              "key": "ctrl+p"
             },
             {
-              "title": "Show/Hide Layout Grids",
-              "key": "cmd+g"
+              "title": "Layout grids",
+              "key": "ctrl+g"
             },
             {
-              "title": "Show/Hide Pixel Grid",
-              "key": "cmd+'"
-            },
-            {
-              "title": "Show/Hide Multiplayer Cursors",
-              "key": "opt+cmd+\\"
-            },
-            {
-              "title": "Show Layers",
+              "title": "Open layers panel",
               "key": "opt+1"
             },
             {
-              "title": "Show Assets/Components",
+              "title": "Open assets panel",
               "key": "opt+2"
             },
             {
-              "title": "Show Team Library",
-              "key": "opt+3"
-            },
-            {
-              "title": "Open Design Panel",
+              "title": "Open design panel",
               "key": "opt+8"
             },
             {
-              "title": "Open Prototype Panel",
+              "title": "Open prototype panel",
               "key": "opt+9"
+            },
+            {
+              "title": "Open inspect panel",
+              "key": "opt+0"
             }
           ]
         },
@@ -147,52 +119,43 @@
           "title": "Zoom",
           "shortcuts": [
             {
-              "title": "Pan",
-              "comment": "Drag while holding",
-              "key": "space"
-            },
-            {
-              "title": "Zoom In",
-              "key": "cmd+="
-            },
-            {
-              "title": "Zoom Out",
-              "key": "cmd+-"
+              "title": "Zoom out",
+              "key": "plus"
             },
             {
               "title": "Zoom to 100%",
               "key": "shift+0"
             },
             {
-              "title": "Zoom to Fit",
+              "title": "Zoom to fit",
               "key": "shift+1"
             },
             {
-              "title": "Zoom to Selection",
+              "title": "Zoom to selection",
               "key": "shift+2"
             },
             {
-              "title": "Zoom to Previous Frame",
+              "title": "Zoom to previous frame",
               "key": "shift+n"
             },
             {
-              "title": "Zoom to Next Frame",
+              "title": "Zoom to next frame",
               "key": "n"
             },
             {
-              "title": "Previous Page",
+              "title": "Previous page",
               "key": "pageup"
             },
             {
-              "title": "Next Page",
+              "title": "Next page",
               "key": "pagedown"
             },
             {
-              "title": "Find Previous Frame",
+              "title": "Find previous frame",
               "key": "home"
             },
             {
-              "title": "Find Next Frame",
+              "title": "Find next frame",
               "key": "end"
             }
           ]
@@ -213,7 +176,7 @@
               "key": "cmd+u"
             },
             {
-              "title": "Create Link",
+              "title": "Create link",
               "key": "cmd+k"
             },
             {
@@ -221,60 +184,24 @@
               "key": "shift+cmd+x"
             },
             {
-              "title": "Turn into a Numbered List",
+              "title": "Turn into a list",
               "key": "shift+cmd+7"
             },
             {
-              "title": "Turn into a Bullet List",
-              "key": "shift+cmd+8"
-            },
-            {
-              "title": "Text Alight Left",
+              "title": "Text align left",
               "key": "opt+cmd+l"
             },
             {
-              "title": "Text Align Center",
+              "title": "Text align center",
               "key": "opt+cmd+t"
             },
             {
-              "title": "Text Align Right",
+              "title": "Text align right",
               "key": "opt+cmd+r"
             },
             {
-              "title": "Text Align Justified",
+              "title": "Text align justified",
               "key": "opt+cmd+j"
-            },
-            {
-              "title": "Decrease Font Size",
-              "key": "shift+cmd+,"
-            },
-            {
-              "title": "Increase Font Size",
-              "key": "shift+cmd+."
-            },
-            {
-              "title": "Decrease Font Weight",
-              "key": "opt+cmd+,"
-            },
-            {
-              "title": "Increase Font Weight",
-              "key": "opt+cmd+."
-            },
-            {
-              "title": "Decrease Letter Spacing",
-              "key": "opt+,"
-            },
-            {
-              "title": "Increase Letter Spacing",
-              "key": "opt+."
-            },
-            {
-              "title": "Decrease Line Height",
-              "key": "shift+opt+,"
-            },
-            {
-              "title": "Increase Line Height",
-              "key": "shift+opt+."
             }
           ]
         },
@@ -290,48 +217,35 @@
               "key": "shift+p"
             },
             {
-              "title": "Paint Bucket",
-              "comment": "after selecting points",
+              "title": "Paint bucket",
               "key": "b"
             },
             {
-              "title": "Bend Tool",
-              "comment": "after selecting points",
+              "title": "Bend tool",
               "key": "cmd"
             },
             {
-              "title": "Remove Fill",
-              "key": "opt+/"
-            },
-            {
-              "title": "Remove Stroke",
-              "key": "/"
-            },
-            {
-              "title": "Swap Fill and Stroke",
+              "title": "Swap fill and stroke",
               "key": "shift+x"
             },
             {
-              "title": "Outline Stroke",
+              "title": "Outline stroke",
               "key": "shift+cmd+o"
             },
             {
-              "title": "Flatten Selection",
+              "title": "Flatten selection",
               "key": "cmd+e"
             },
             {
-              "title": "Join Selection",
-              "comment": "after selecting points",
+              "title": "Join selection",
               "key": "cmd+j"
             },
             {
-              "title": "Smooth Join Selection",
-              "comment": "after selecting points",
+              "title": "Smooth join selection",
               "key": "shift+cmd+j"
             },
             {
-              "title": "Delete and Heal Selection",
-              "comment": "after selecting points",
+              "title": "Delete and heal selection",
               "key": "shift+backspace"
             }
           ]
@@ -340,69 +254,51 @@
           "title": "Selection",
           "shortcuts": [
             {
-              "title": "Select All",
+              "title": "Select all",
               "key": "cmd+a"
             },
             {
-              "title": "Select Inverse",
+              "title": "Select inverse",
               "key": "shift+cmd+a"
             },
             {
-              "title": "Select None",
+              "title": "Select none",
               "key": "esc"
             },
             {
-              "title": "Deep Select",
-              "comment": "Hold and click",
-              "key": "cmd"
-            },
-            {
-              "title": "Select Layer Menu",
-              "comment": "Hold and right-click",
-              "key": "cmd"
-            },
-            {
-              "title": "Select Child",
+              "title": "Select children",
               "key": "enter"
             },
             {
-              "title": "Select Parent",
-              "key": "\\"
-            },
-            {
-              "title": "Select All Parents",
+              "title": "Select parent",
               "key": "shift+enter"
             },
             {
-              "title": "Select Next Sibling",
+              "title": "Select next sibling",
               "key": "tab"
             },
             {
-              "title": "Select Previous Sibling",
+              "title": "Select previous sibling",
               "key": "shift+tab"
             },
             {
-              "title": "Select Matching Layers",
-              "key": "opt+cmd+a"
-            },
-            {
-              "title": "Group Selection",
+              "title": "Group selections",
               "key": "cmd+g"
             },
             {
-              "title": "Ungroup Selection",
+              "title": "Ungroup selection",
               "key": "shift+cmd+g"
             },
             {
-              "title": "Frame Selection",
+              "title": "Frame selection",
               "key": "opt+cmd+g"
             },
             {
-              "title": "Show/Hide Selection",
+              "title": "Show / Hide selection",
               "key": "shift+cmd+h"
             },
             {
-              "title": "Lock/Unlock Selection",
+              "title": "Lock / Unlock selection",
               "key": "shift+cmd+l"
             }
           ]
@@ -411,43 +307,27 @@
           "title": "Cursor",
           "shortcuts": [
             {
-              "title": "Measure to Selection",
-              "comment": "hold while pointing",
+              "title": "Measure to selection (while pointing)",
               "key": "opt"
             },
             {
-              "title": "Duplicate Selection",
-              "comment": "hold while moving",
+              "title": "Duplicate selection (while moving)",
               "key": "opt"
             },
             {
-              "title": "Deep Select",
-              "comment": "hold while clicking",
-              "key": "cmd"
-            },
-            {
-              "title": "Deep Select Within Rectangle",
-              "comment": "hold while dragging to select",
-              "key": "cmd"
-            },
-            {
-              "title": "Resize from Center",
-              "comment": "hold while resizing",
+              "title": "Resize from center (while dragging)",
               "key": "opt"
             },
             {
-              "title": "Resize Proportionally",
-              "comment": "hold while resizing",
+              "title": "Resize proportionally (while dragging)",
               "key": "shift"
             },
             {
-              "title": "Move While Resizing",
-              "comment": "hold while resizing",
+              "title": "Move while resizing (while dragging)",
               "key": "space"
             },
             {
-              "title": "Crop (images)/Ignore Constraints (frames)",
-              "comment": "hold while resizing",
+              "title": "Ignore constraints (frames only, while dragging)",
               "key": "cmd"
             }
           ]
@@ -468,19 +348,15 @@
               "key": "cmd+v"
             },
             {
-              "title": "Paste to Replace",
-              "key": "shift+cmd+r"
-            },
-            {
-              "title": "Paste over Selection",
+              "title": "Paste over selection",
               "key": "shift+cmd+v"
             },
             {
-              "title": "Duplicate Selection",
+              "title": "Duplicate",
               "key": "cmd+d"
             },
             {
-              "title": "Rename Selection",
+              "title": "Rename selection",
               "key": "cmd+r"
             },
             {
@@ -488,16 +364,20 @@
               "key": "shift+cmd+e"
             },
             {
+              "title": "Copy properties",
+              "key": "opt+cmd+c"
+            },
+            {
+              "title": "Paste properties",
+              "key": "opt+cmd+v"
+            },
+            {
               "title": "Copy as PNG",
               "key": "shift+cmd+c"
             },
             {
-              "title": "Copy Properties",
-              "key": "opt+cmd+c"
-            },
-            {
-              "title": "Paste Properties",
-              "key": "opt+cmd+v"
+              "title": "Copy Page Link to Clipboard",
+              "key": "cmd+l"
             }
           ]
         },
@@ -505,44 +385,35 @@
           "title": "Transform",
           "shortcuts": [
             {
-              "title": "Flip Horizontal",
+              "title": "Flip horizontal",
               "key": "shift+h"
             },
             {
-              "title": "Flip Vertical",
+              "title": "Flip vertical",
               "key": "shift+v"
             },
             {
-              "title": "Use as Mask",
+              "title": "Use a mask",
               "key": "ctrl+cmd+m"
             },
             {
-              "title": "Edit Shape or Image",
+              "title": "Edit shape or image",
               "key": "enter"
             },
             {
-              "title": "Place Image",
+              "title": "Place image",
               "key": "shift+cmd+k"
             },
             {
-              "title": "Crop Image",
-              "comment": "hold while double-clicking",
-              "key": "opt"
-            },
-            {
-              "title": "Set Opacity to 10%",
-              "key": "0 0"
-            },
-            {
-              "title": "Set Opacity to 10%",
+              "title": "Set opacity to 10",
               "key": "1"
             },
             {
-              "title": "Set Opacity to 50%",
+              "title": "Set opacity to 50",
               "key": "5"
             },
             {
-              "title": "Set Opacity to 100%",
+              "title": "Set opacity to 100",
               "key": "0"
             }
           ]
@@ -551,68 +422,32 @@
           "title": "Arrange",
           "shortcuts": [
             {
-              "title": "Bring Forward",
-              "key": "cmd+]"
-            },
-            {
-              "title": "Send Backward",
-              "key": "cmd+["
-            },
-            {
-              "title": "Bring to Front",
-              "key": "]"
-            },
-            {
-              "title": "Send to Back",
-              "key": "["
-            },
-            {
-              "title": "Align Left",
+              "title": "Align left",
               "key": "opt+a"
             },
             {
-              "title": "Align Right",
+              "title": "Align right",
               "key": "opt+d"
             },
             {
-              "title": "Align Top",
+              "title": "Align top",
               "key": "opt+w"
             },
             {
-              "title": "Align Bottom",
+              "title": "Align bottom",
               "key": "opt+s"
             },
             {
-              "title": "Align Horizontal Centers",
-              "key": "opt+h"
-            },
-            {
-              "title": "Align Vertical Centers",
-              "key": "opt+v"
-            },
-            {
-              "title": "Tidy Up",
+              "title": "Tidy up",
               "key": "ctrl+opt+t"
             },
             {
-              "title": "Distribute Horizontal Spacing",
-              "key": "ctrl+opt+h"
-            },
-            {
-              "title": "Distribute Vertical Spacing",
-              "key": "ctrl+opt+v"
-            },
-            {
-              "title": "Add Auto Layout",
+              "title": "Add auto layout",
               "key": "shift+a"
             },
             {
-              "title": "Remove Auto Layout",
+              "title": "Remove auto layout",
               "key": "shift+opt+a"
-            },
-            {
-              "title": "Suggest Auto Layout",
-              "key": "ctrl+shift+a"
             }
           ]
         },
@@ -620,25 +455,521 @@
           "title": "Components",
           "shortcuts": [
             {
-              "title": "Team Library",
-              "key": "shift+cmd+o"
+              "title": "Show assets",
+              "key": "opt+2"
             },
             {
-              "title": "Create Component",
-              "key": "shift+cmd+k"
+              "title": "Team library",
+              "key": "opt+cmd+o"
             },
             {
-              "title": "Detach Instance",
-              "key": "shift+cmd+b"
+              "title": "Create component",
+              "key": "opt+cmd+k"
             },
             {
-              "title": "Insert component",
-              "key": "shift+i"
+              "title": "Detach intense",
+              "key": "opt+cmd+b"
             },
             {
-              "title": "Swap Component Instance",
-              "comment": "hold while insert a component",
+              "title": "Swap component instance",
               "key": "opt"
+            },
+            {
+              "title": "Show components menu",
+              "key": "shift+i"
+            }
+          ]
+        },
+        {
+          "title": "Prototyping",
+          "shortcuts": [
+            {
+              "title": "Fullscreen",
+              "key": "f"
+            },
+            {
+              "title": "Scale view",
+              "key": "z"
+            },
+            {
+              "title": "Restart prototype",
+              "key": "r"
+            },
+            {
+              "title": "Comment",
+              "key": "c"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Default (Windows)",
+      "platforms": [
+        "windows"
+      ],
+      "sections": [
+        {
+          "title": "Essentials",
+          "shortcuts": [
+            {
+              "title": "Pick color",
+              "key": "ctrl+c"
+            }
+          ]
+        },
+        {
+          "title": "Tools",
+          "shortcuts": [
+            {
+              "title": "Move tool",
+              "key": "v"
+            },
+            {
+              "title": "Frame tool",
+              "key": "f"
+            },
+            {
+              "title": "Pen tool",
+              "key": "p"
+            },
+            {
+              "title": "Pencil tool",
+              "key": "shift+p"
+            },
+            {
+              "title": "Text tool",
+              "key": "t"
+            },
+            {
+              "title": "Rectangle tool",
+              "key": "r"
+            },
+            {
+              "title": "Ellipse tool",
+              "key": "o"
+            },
+            {
+              "title": "Line tool",
+              "key": "l"
+            },
+            {
+              "title": "Arrow tool",
+              "key": "shift+l"
+            },
+            {
+              "title": "Add comment",
+              "key": "c"
+            },
+            {
+              "title": "Pick color",
+              "key": "i"
+            },
+            {
+              "title": "Slice cool",
+              "key": "s"
+            }
+          ]
+        },
+        {
+          "title": "View",
+          "shortcuts": [
+            {
+              "title": "Rulers",
+              "key": "shift+r"
+            },
+            {
+              "title": "Outlines",
+              "key": "ctrl+o"
+            },
+            {
+              "title": "Pixel preview",
+              "key": "ctrl+shift+p"
+            },
+            {
+              "title": "Layout grids",
+              "key": "shift+g"
+            },
+            {
+              "title": "Open layers panel",
+              "key": "alt+1"
+            },
+            {
+              "title": "Open assets panel",
+              "key": "alt+2"
+            },
+            {
+              "title": "Open design panel",
+              "key": "alt+8"
+            },
+            {
+              "title": "Open prototype panel",
+              "key": "alt+9"
+            },
+            {
+              "title": "Open inspect panel",
+              "key": "alt+0"
+            }
+          ]
+        },
+        {
+          "title": "Zoom",
+          "shortcuts": [
+            {
+              "title": "Zoom out",
+              "key": "plus"
+            },
+            {
+              "title": "Zoom to 100%",
+              "key": "shift+0"
+            },
+            {
+              "title": "Zoom to fit",
+              "key": "shift+1"
+            },
+            {
+              "title": "Zoom to selection",
+              "key": "shift+2"
+            },
+            {
+              "title": "Zoom to previous frame",
+              "key": "shift+n"
+            },
+            {
+              "title": "Zoom to next frame",
+              "key": "n"
+            },
+            {
+              "title": "Previous page",
+              "key": "pageup"
+            },
+            {
+              "title": "Next page",
+              "key": "pagedown"
+            },
+            {
+              "title": "Find previous frame",
+              "key": "home"
+            },
+            {
+              "title": "Find next frame",
+              "key": "end"
+            }
+          ]
+        },
+        {
+          "title": "Text",
+          "shortcuts": [
+            {
+              "title": "Bold",
+              "key": "ctrl+b"
+            },
+            {
+              "title": "Italic",
+              "key": "ctrl+i"
+            },
+            {
+              "title": "Underline",
+              "key": "ctrl+u"
+            },
+            {
+              "title": "Create link",
+              "key": "ctrl+k"
+            },
+            {
+              "title": "Strikethrough",
+              "key": "ctrl+shift+x"
+            },
+            {
+              "title": "Turn into a list",
+              "key": "ctrl+shift+7"
+            },
+            {
+              "title": "Text align left",
+              "key": "ctrl+alt+l"
+            },
+            {
+              "title": "Text align center",
+              "key": "ctrl+alt+t"
+            },
+            {
+              "title": "Text align right",
+              "key": "ctrl+alt+r"
+            },
+            {
+              "title": "Text align justified",
+              "key": "ctrl+alt+j"
+            }
+          ]
+        },
+        {
+          "title": "Shape",
+          "shortcuts": [
+            {
+              "title": "Pen",
+              "key": "p"
+            },
+            {
+              "title": "Pencil",
+              "key": "shift+p"
+            },
+            {
+              "title": "Paint bucket",
+              "key": "b"
+            },
+            {
+              "title": "Bend tool",
+              "key": "ctrl"
+            },
+            {
+              "title": "Swap fill and stroke",
+              "key": "shift+x"
+            },
+            {
+              "title": "Outline stroke",
+              "key": "ctrl+shift+o"
+            },
+            {
+              "title": "Flatten selection",
+              "key": "ctrl+e"
+            },
+            {
+              "title": "Join selection",
+              "key": "ctrl+j"
+            },
+            {
+              "title": "Smooth join selection",
+              "key": "ctrl+shift+j"
+            },
+            {
+              "title": "Delete and heal selection",
+              "key": "shift+backspace"
+            }
+          ]
+        },
+        {
+          "title": "Selection",
+          "shortcuts": [
+            {
+              "title": "Select all",
+              "key": "ctrl+a"
+            },
+            {
+              "title": "Select inverse",
+              "key": "ctrl+shift+a"
+            },
+            {
+              "title": "Select none",
+              "key": "esc"
+            },
+            {
+              "title": "Select children",
+              "key": "enter"
+            },
+            {
+              "title": "Select parent",
+              "key": "shift+enter"
+            },
+            {
+              "title": "Select next sibling",
+              "key": "tab"
+            },
+            {
+              "title": "Select previous sibling",
+              "key": "shift+tab"
+            },
+            {
+              "title": "Group selections",
+              "key": "ctrl+g"
+            },
+            {
+              "title": "Ungroup selection",
+              "key": "ctrl+shift+g"
+            },
+            {
+              "title": "Frame selection",
+              "key": "ctrl+alt+g"
+            },
+            {
+              "title": "Show / Hide selection",
+              "key": "ctrl+shift+h"
+            },
+            {
+              "title": "Lock / Unlock selection",
+              "key": "ctrl+shift+l"
+            }
+          ]
+        },
+        {
+          "title": "Cursor",
+          "shortcuts": [
+            {
+              "title": "Measure to selection (while pointing)",
+              "key": "alt"
+            },
+            {
+              "title": "Duplicate selection (while moving)",
+              "key": "alt"
+            },
+            {
+              "title": "Resize from center (while dragging)",
+              "key": "alt"
+            },
+            {
+              "title": "Resize proportionally (while dragging)",
+              "key": "shift"
+            },
+            {
+              "title": "Move while resizing (while dragging)",
+              "key": "space"
+            },
+            {
+              "title": "Ignore constraints (frames only, while dragging)",
+              "key": "ctrl"
+            }
+          ]
+        },
+        {
+          "title": "Edit",
+          "shortcuts": [
+            {
+              "title": "Copy",
+              "key": "ctrl+c"
+            },
+            {
+              "title": "Cut",
+              "key": "ctrl+x"
+            },
+            {
+              "title": "Paste",
+              "key": "ctrl+v"
+            },
+            {
+              "title": "Paste over selection",
+              "key": "ctrl+shift+v"
+            },
+            {
+              "title": "Duplicate",
+              "key": "ctrl+d"
+            },
+            {
+              "title": "Rename selection",
+              "key": "ctrl+r"
+            },
+            {
+              "title": "Export",
+              "key": "ctrl+shift+e"
+            },
+            {
+              "title": "Copy properties",
+              "key": "ctrl+alt+c"
+            },
+            {
+              "title": "Paste properties",
+              "key": "ctrl+alt+v"
+            },
+            {
+              "title": "Copy as PNG",
+              "key": "ctrl+shift+c"
+            },
+            {
+              "title": "Copy Page Link to Clipboard",
+              "key": "ctrl+l"
+            }
+          ]
+        },
+        {
+          "title": "Transform",
+          "shortcuts": [
+            {
+              "title": "Flip horizontal",
+              "key": "shift+h"
+            },
+            {
+              "title": "Flip vertical",
+              "key": "shift+v"
+            },
+            {
+              "title": "Use a mask",
+              "key": "ctrl+m"
+            },
+            {
+              "title": "Edit shape or image",
+              "key": "enter"
+            },
+            {
+              "title": "Place image",
+              "key": "ctrl+shift+k"
+            },
+            {
+              "title": "Set opacity to 10",
+              "key": "1"
+            },
+            {
+              "title": "Set opacity to 50",
+              "key": "5"
+            },
+            {
+              "title": "Set opacity to 100",
+              "key": "0"
+            }
+          ]
+        },
+        {
+          "title": "Arrange",
+          "shortcuts": [
+            {
+              "title": "Align left",
+              "key": "alt+a"
+            },
+            {
+              "title": "Align right",
+              "key": "alt+d"
+            },
+            {
+              "title": "Align top",
+              "key": "alt+w"
+            },
+            {
+              "title": "Align bottom",
+              "key": "alt+s"
+            },
+            {
+              "title": "Tidy up",
+              "key": "ctrl+alt+t"
+            },
+            {
+              "title": "Add auto layout",
+              "key": "shift+a"
+            },
+            {
+              "title": "Remove auto layout",
+              "key": "shift+alt+a"
+            }
+          ]
+        },
+        {
+          "title": "Components",
+          "shortcuts": [
+            {
+              "title": "Show assets",
+              "key": "alt+2"
+            },
+            {
+              "title": "Team library",
+              "key": "ctrl+alt+o"
+            },
+            {
+              "title": "Create component",
+              "key": "ctrl+alt+k"
+            },
+            {
+              "title": "Detach intense",
+              "key": "ctrl+alt+b"
+            },
+            {
+              "title": "Swap component instance",
+              "key": "alt"
             }
           ]
         }

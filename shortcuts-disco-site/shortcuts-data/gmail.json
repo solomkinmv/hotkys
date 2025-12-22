@@ -1,0 +1,175 @@
+{
+  "$schema": "schema/shortcut.schema.json",
+  "hostname": "mail.google.com",
+  "name": "Gmail",
+  "slug": "gmail",
+  "source": "https://support.google.com/mail/answer/6594",
+  "icon": "icons/gmail.png",
+  "keymaps": [
+    {
+      "title": "Default",
+      "platforms": [
+        "macos",
+        "windows"
+      ],
+      "sections": [
+        {
+          "title": "Compose and chat",
+          "shortcuts": [
+            {
+              "title": "Previous message in an open conversation",
+              "key": "p"
+            },
+            {
+              "title": "Next message in an open conversation",
+              "key": "n"
+            },
+            {
+              "title": "Focus main window",
+              "key": "shift+esc"
+            },
+            {
+              "title": "Focus latest chat or compose",
+              "key": "esc"
+            },
+            {
+              "title": "Advance to the next chat or compose",
+              "key": "ctrl+."
+            },
+            {
+              "title": "Go to next misspelled word (Mac only)",
+              "key": "cmd+;"
+            }
+          ]
+        },
+        {
+          "title": "Actions",
+          "shortcuts": [
+            {
+              "title": "Select conversation",
+              "key": "x"
+            },
+            {
+              "title": "Toggle star/rotate among superstars",
+              "key": "s"
+            },
+            {
+              "title": "Archive",
+              "key": "e"
+            },
+            {
+              "title": "Mute conversation",
+              "key": "m"
+            },
+            {
+              "title": "Reply",
+              "key": "r"
+            },
+            {
+              "title": "Reply in a new window",
+              "key": "shift+r"
+            },
+            {
+              "title": "Reply all",
+              "key": "a"
+            },
+            {
+              "title": "Reply all in a new window",
+              "key": "shift+a"
+            },
+            {
+              "title": "Forward",
+              "key": "f"
+            },
+            {
+              "title": "Forward in a new window",
+              "key": "shift+f"
+            },
+            {
+              "title": "Update conversation",
+              "key": "shift+n"
+            },
+            {
+              "title": "Undo last action",
+              "key": "z"
+            },
+            {
+              "title": "Mark as read",
+              "key": "shift+i"
+            },
+            {
+              "title": "Mark as unread",
+              "key": "shift+u"
+            },
+            {
+              "title": "Mark as not important",
+              "key": "plus"
+            },
+            {
+              "title": "Snooze\n        Note: This shortcut isn't availa...",
+              "key": "b"
+            },
+            {
+              "title": "Expand entire conversation",
+              "key": ";"
+            },
+            {
+              "title": "Add conversation to Tasks",
+              "key": "shift+t"
+            }
+          ]
+        },
+        {
+          "title": "Navigation",
+          "shortcuts": [
+            {
+              "title": "Back to threadlist",
+              "key": "u"
+            },
+            {
+              "title": "Newer conversation",
+              "key": "k"
+            },
+            {
+              "title": "Older conversation",
+              "key": "j"
+            },
+            {
+              "title": "Open conversation",
+              "key": "o"
+            }
+          ]
+        },
+        {
+          "title": "Application",
+          "shortcuts": [
+            {
+              "title": "Compose",
+              "key": "c"
+            },
+            {
+              "title": "Compose in a new tab",
+              "key": "d"
+            },
+            {
+              "title": "Search chat contacts",
+              "key": "g"
+            },
+            {
+              "title": "Open \"more actions\" menu",
+              "key": "."
+            },
+            {
+              "title": "Open \"move to\" menu",
+              "key": "v"
+            },
+            {
+              "title": "Open \"label as\" menu",
+              "key": "l"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

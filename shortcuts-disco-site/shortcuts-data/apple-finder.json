@@ -3,6 +3,7 @@
   "bundleId": "com.apple.finder",
   "name": "Finder",
   "slug": "apple-finder",
+  "icon": "icons/apple-finder.png",
   "keymaps": [
     {
       "title": "Default",
@@ -116,7 +117,7 @@
             },
             {
               "title": "Increase size of icons",
-              "key": "cmd++"
+              "key": "shift+cmd+plus"
             },
             {
               "title": "Decrease size of icons",

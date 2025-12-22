@@ -1,0 +1,265 @@
+{
+  "$schema": "schema/shortcut.schema.json",
+  "bundleId": "com.panic.Transmit",
+  "name": "Transmit",
+  "slug": "transmit",
+  "source": "https://help.panic.com/transmit/transmit5/shortcuts/",
+  "icon": "icons/transmit.png",
+  "keymaps": [
+    {
+      "title": "Default",
+      "platforms": [
+        "macos"
+      ],
+      "sections": [
+        {
+          "title": "Transmit Menu",
+          "shortcuts": [
+            {
+              "title": "Preferences…",
+              "key": "cmd"
+            },
+            {
+              "title": "Hide Transmit",
+              "key": "cmd+h"
+            },
+            {
+              "title": "Hide Others",
+              "key": "opt+cmd+h"
+            },
+            {
+              "title": "Quit Transmit",
+              "key": "cmd+q"
+            },
+            {
+              "title": "Quit and Close All Windows",
+              "key": "opt+cmd+q"
+            }
+          ]
+        },
+        {
+          "title": "File",
+          "shortcuts": [
+            {
+              "title": "New Window",
+              "key": "cmd+n"
+            },
+            {
+              "title": "New Tab",
+              "key": "cmd+t"
+            },
+            {
+              "title": "New Folder",
+              "key": "shift+cmd+n"
+            },
+            {
+              "title": "New File",
+              "key": "opt+cmd+n"
+            },
+            {
+              "title": "Close Tab",
+              "key": "cmd+w"
+            },
+            {
+              "title": "Close Window",
+              "key": "shift+cmd+w"
+            },
+            {
+              "title": "Close All",
+              "key": "opt+cmd+w"
+            },
+            {
+              "title": "Disconnect",
+              "key": "cmd+e"
+            },
+            {
+              "title": "Open",
+              "key": "cmd+o"
+            },
+            {
+              "title": "Save",
+              "key": "cmd+s"
+            },
+            {
+              "title": "Preview in Browser",
+              "key": "cmd+b"
+            },
+            {
+              "title": "Get Info",
+              "key": "cmd+i"
+            },
+            {
+              "title": "Show Inspector",
+              "key": "opt+cmd+i"
+            },
+            {
+              "title": "Duplicate",
+              "key": "cmd+d"
+            },
+            {
+              "title": "Quick Look “selected-file”",
+              "key": "cmd+y"
+            },
+            {
+              "title": "Print…",
+              "key": "cmd+p"
+            }
+          ]
+        },
+        {
+          "title": "Edit",
+          "shortcuts": [
+            {
+              "title": "Undo",
+              "key": "cmd+z"
+            },
+            {
+              "title": "Redo",
+              "key": "shift+cmd+z"
+            },
+            {
+              "title": "Cut",
+              "key": "cmd+x"
+            },
+            {
+              "title": "Copy",
+              "key": "cmd+c"
+            },
+            {
+              "title": "Paste",
+              "key": "cmd+v"
+            },
+            {
+              "title": "Select All",
+              "key": "cmd+a"
+            },
+            {
+              "title": "Jump to Selection",
+              "key": "cmd+j"
+            },
+            {
+              "title": "Check Spelling",
+              "key": "cmd+;"
+            }
+          ]
+        },
+        {
+          "title": "View",
+          "shortcuts": [
+            {
+              "title": "Show Transfers",
+              "key": "cmd+l"
+            },
+            {
+              "title": "Show Transfers Window",
+              "key": "opt+cmd+l"
+            },
+            {
+              "title": "View as Thumbnails",
+              "key": "cmd+1"
+            },
+            {
+              "title": "View as List",
+              "key": "cmd+2"
+            },
+            {
+              "title": "View as Columns",
+              "key": "cmd+3"
+            },
+            {
+              "title": "View as Cover Flow",
+              "key": "cmd+4"
+            },
+            {
+              "title": "Refresh",
+              "key": "cmd+r"
+            },
+            {
+              "title": "Show Invisible Files",
+              "key": "shift+cmd+b"
+            },
+            {
+              "title": "Hide Places Bar",
+              "key": "shift+cmd+s"
+            },
+            {
+              "title": "Show View Options",
+              "key": "shift+cmd+j"
+            },
+            {
+              "title": "Focus on Local",
+              "key": "opt+cmd+left"
+            },
+            {
+              "title": "Focus on Remote",
+              "key": "opt+cmd+right"
+            }
+          ]
+        },
+        {
+          "title": "Go",
+          "shortcuts": [
+            {
+              "title": "Enclosing Folder",
+              "key": "cmd+up"
+            },
+            {
+              "title": "Go to Folder…",
+              "key": "opt+cmd+g"
+            },
+            {
+              "title": "Open in Terminal",
+              "key": "opt+cmd+t"
+            },
+            {
+              "title": "Link Folder Navigation",
+              "key": "shift+cmd+l"
+            },
+            {
+              "title": "Connect To > Last Used Protocol",
+              "key": "cmd+k"
+            }
+          ]
+        },
+        {
+          "title": "Transfer",
+          "shortcuts": [
+            {
+              "title": "Transfer Selected Items",
+              "key": "shift+cmd+r"
+            },
+            {
+              "title": "Transfer Selected Items Without Rules",
+              "key": "shift+opt+cmd+r"
+            },
+            {
+              "title": "Cancel",
+              "key": "cmd+."
+            }
+          ]
+        },
+        {
+          "title": "Windows",
+          "shortcuts": [
+            {
+              "title": "Minimize",
+              "key": "cmd+m"
+            },
+            {
+              "title": "Minimize All",
+              "key": "opt+cmd+m"
+            },
+            {
+              "title": "Select Next Tab",
+              "key": "ctrl+tab"
+            },
+            {
+              "title": "Show Inspector",
+              "key": "opt+cmd+i"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

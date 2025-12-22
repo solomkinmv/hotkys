@@ -3,11 +3,289 @@
   "bundleId": "com.apple.dt.Xcode",
   "name": "Xcode",
   "slug": "xcode",
+  "source": "https://developer.apple.com/library/archive/documentation/IDEs/Conceptual/xcode_help-command_shortcuts/Introduction/Introduction.html",
+  "icon": "icons/xcode.png",
   "keymaps": [
     {
       "title": "Default",
       "platforms": [
         "macos"
+      ],
+      "sections": [
+        {
+          "title": "Text editing",
+          "shortcuts": [
+            {
+              "title": "Cut",
+              "key": "cmd+x"
+            },
+            {
+              "title": "Copy",
+              "key": "cmd+c"
+            },
+            {
+              "title": "Paste",
+              "key": "cmd+v"
+            },
+            {
+              "title": "Delete backward",
+              "key": "ctrl+h"
+            },
+            {
+              "title": "Delete forward",
+              "key": "ctrl+d"
+            },
+            {
+              "title": "Delete to beginning of line",
+              "key": "cmd+backspace"
+            },
+            {
+              "title": "Delete word backward",
+              "key": "ctrl+backspace"
+            }
+          ]
+        },
+        {
+          "title": "Text navigation",
+          "shortcuts": [
+            {
+              "title": "Move up",
+              "key": "ctrl+p"
+            },
+            {
+              "title": "Move backward",
+              "key": "ctrl+b"
+            },
+            {
+              "title": "Move down",
+              "key": "ctrl+n"
+            },
+            {
+              "title": "Move forward",
+              "key": "ctrl+f"
+            },
+            {
+              "title": "Move to beginning of document",
+              "key": "cmd+up"
+            },
+            {
+              "title": "Move to beginning of line",
+              "key": "ctrl+a"
+            },
+            {
+              "title": "Move to end of document",
+              "key": "cmd+down"
+            },
+            {
+              "title": "Move to end of line",
+              "key": "ctrl+e"
+            },
+            {
+              "title": "Move backward a word",
+              "key": "ctrl+opt+b"
+            },
+            {
+              "title": "Move forward a word",
+              "key": "ctrl+opt+f"
+            },
+            {
+              "title": "Page down",
+              "key": "ctrl+v"
+            },
+            {
+              "title": "Move backward extending selection",
+              "key": "ctrl+shift+b"
+            },
+            {
+              "title": "Move down extending selection",
+              "key": "ctrl+shift+n"
+            },
+            {
+              "title": "Move forward extending selection",
+              "key": "ctrl+shift+f"
+            },
+            {
+              "title": "Move left extending selection",
+              "key": "shift+left"
+            },
+            {
+              "title": "Move paragraph backward extending selection",
+              "key": "shift+opt+up"
+            },
+            {
+              "title": "Move paragraph forward extending selection",
+              "key": "shift+opt+down"
+            },
+            {
+              "title": "Move right extending selection",
+              "key": "shift+right"
+            },
+            {
+              "title": "Move subword backward extending selection",
+              "key": "shift+opt+left"
+            },
+            {
+              "title": "Move subword forward extending selection",
+              "key": "shift+opt+right"
+            },
+            {
+              "title": "Move to beginning of document extending selection",
+              "key": "shift+cmd+up"
+            },
+            {
+              "title": "Move to beginning of line extending selection",
+              "key": "shift+cmd+left"
+            },
+            {
+              "title": "Move to beginning of paragraph",
+              "key": "ctrl+a"
+            },
+            {
+              "title": "Move to beginning of paragraph extending selection",
+              "key": "ctrl+shift+a"
+            },
+            {
+              "title": "Move to end of document extending selection",
+              "key": "shift+cmd+down"
+            },
+            {
+              "title": "Move to end of line extending selection",
+              "key": "shift+cmd+right"
+            },
+            {
+              "title": "Move to end of paragraph",
+              "key": "ctrl+e"
+            },
+            {
+              "title": "Move to end of paragraph extending selection",
+              "key": "ctrl+shift+e"
+            },
+            {
+              "title": "Move up extending selection",
+              "key": "ctrl+shift+p"
+            },
+            {
+              "title": "Move word backward extending selection",
+              "key": "ctrl+shift+opt+b"
+            },
+            {
+              "title": "Move word forward extending selection",
+              "key": "ctrl+shift+opt+f"
+            }
+          ]
+        },
+        {
+          "title": "Edit",
+          "shortcuts": [
+            {
+              "title": "Undo",
+              "key": "cmd+z"
+            },
+            {
+              "title": "Redo",
+              "key": "shift+cmd+z"
+            },
+            {
+              "title": "Cut",
+              "key": "cmd+x"
+            },
+            {
+              "title": "Copy",
+              "key": "cmd+c"
+            },
+            {
+              "title": "Paste",
+              "key": "cmd+v"
+            },
+            {
+              "title": "Paste and match style",
+              "key": "shift+opt+cmd+v"
+            },
+            {
+              "title": "Add to bookmarks",
+              "key": "cmd+d"
+            },
+            {
+              "title": "Go to line",
+              "key": "cmd+l"
+            },
+            {
+              "title": "Next completion",
+              "key": "ctrl+."
+            },
+            {
+              "title": "Edit all in scope",
+              "key": "ctrl+cmd+t"
+            },
+            {
+              "title": "Special characters",
+              "key": "opt+cmd+t"
+            }
+          ]
+        },
+        {
+          "title": "Format",
+          "shortcuts": [
+            {
+              "title": "Copy style",
+              "key": "opt+cmd+c"
+            },
+            {
+              "title": "Paste style",
+              "key": "opt+cmd+v"
+            }
+          ]
+        },
+        {
+          "title": "Run",
+          "shortcuts": [
+            {
+              "title": "Next thread",
+              "key": "ctrl+opt+cmd+up"
+            },
+            {
+              "title": "Previous thread",
+              "key": "ctrl+opt+cmd+down"
+            }
+          ]
+        },
+        {
+          "title": "Find",
+          "shortcuts": [
+            {
+              "title": "Preferences",
+              "key": "cmd"
+            },
+            {
+              "title": "Tab",
+              "key": "tab"
+            }
+          ]
+        },
+        {
+          "title": "Code Folding",
+          "shortcuts": [
+            {
+              "title": "Fold methods/functions",
+              "key": "ctrl+cmd+up"
+            }
+          ]
+        },
+        {
+          "title": "Misc",
+          "shortcuts": [
+            {
+              "title": "Code sense complete list",
+              "key": "ctrl"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Default (Windows)",
+      "platforms": [
+        "windows"
       ],
       "sections": [
         {

@@ -12,7 +12,7 @@ import {
 import { SeparatorWithText } from "@/components/ui/separator-with-text";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { SearchBar } from "@/components/ui/search-bar";
-import { Header1 } from "@/components/ui/typography";
+import { Header1, TypographyMuted, TypographySmall } from "@/components/ui/typography";
 import Fuse from "fuse.js";
 import { KeymapSelector } from "@/app/apps/[slug]/[keymap]/keymap-selector";
 import TableOfContents from "@/app/apps/[slug]/[keymap]/table-of-contents";
@@ -22,11 +22,12 @@ import { AppIcon } from "@/components/ui/app-icon";
 import { ListItem } from "@/components/ui/list";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { LayoutGrid, List, Settings2 } from "lucide-react";
+import { LayoutGrid, List, Menu, Settings2 } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Slider } from "@/components/ui/slider";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { MasonryGrid } from "@/components/ui/masonry-grid";
+import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
 
 type ViewMode = "list" | "cheatsheet";
 
@@ -139,6 +140,7 @@ export const AppDetails = ({
 
   const [searchResults, setSearchResults] = useState(keymap.sections);
   const [selectedIndex, setSelectedIndex] = useState(-1);
+  const [sectionSheetOpen, setSectionSheetOpen] = useState(false);
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const totalItems = searchResults.reduce(
@@ -264,9 +266,9 @@ export const AppDetails = ({
             ref={sectionRefs.current[section.title]}
             className="border rounded-lg p-3"
           >
-            <h3 className="font-semibold text-sm mb-2 text-muted-foreground">
+            <TypographyMuted className="font-semibold mb-2">
               {section.title}
-            </h3>
+            </TypographyMuted>
             <div className="space-y-1">
               {section.hotkeys.map((hotkey, idx) => (
                 <div
@@ -294,69 +296,78 @@ export const AppDetails = ({
   return (
     <div className="min-h-0 w-full flex-1 overflow-y-auto">
       <div className="mx-auto max-w-5xl p-4 md:p-6">
-        <div className="flex items-center justify-between gap-2 mb-2">
-          <div className="flex items-center gap-2">
-            <AppIcon icon={application.icon} appName={application.name} size="md" />
-            <Header1 className="mb-0">{application.name}</Header1>
-            {keymap.platforms?.map((platform) => (
-              <Badge
-                key={platform}
-                variant="outline"
-                className="text-sm"
-                aria-label={`Platform: ${getPlatformDisplay(platform)}`}
-              >
-                {getPlatformDisplay(platform)}
-              </Badge>
-            ))}
-          </div>
-          <div className="flex items-center gap-2">
-            <KeymapSelector
-              keymaps={application.keymaps}
-              activeKeymap={keymap.title}
-              urlPrefix={`/apps/${application.slug}`}
-            />
-            <div className="flex items-center gap-1">
-              <Button
-                variant={viewMode === "list" ? "secondary" : "ghost"}
-                size="icon"
-                onClick={() => setViewMode("list")}
-                aria-label="List view"
-              >
-                <List className="h-4 w-4" />
-              </Button>
-              <Button
-                variant={viewMode === "cheatsheet" ? "secondary" : "ghost"}
-                size="icon"
-                onClick={() => setViewMode("cheatsheet")}
-                aria-label="Cheat sheet view"
-              >
-                <LayoutGrid className="h-4 w-4" />
-              </Button>
-              {viewMode === "cheatsheet" && (
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <Button variant="ghost" size="icon" aria-label="Column settings">
-                      <Settings2 className="h-4 w-4" />
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-56" align="end">
-                    <div className="space-y-3">
-                      <div className="flex items-center justify-between">
-                        <label className="text-sm font-medium">Columns</label>
-                        <span className="text-sm text-muted-foreground">{effectiveColumnCount}</span>
-                      </div>
-                      <Slider
-                        min={MIN_COLUMNS}
-                        max={MAX_COLUMNS}
-                        step={1}
-                        value={[userColumnCount]}
-                        onValueChange={([value]) => setColumnCount(value)}
-                      />
+        <div className="flex items-center gap-2 mb-2">
+          <AppIcon icon={application.icon} appName={application.name} size="md" />
+          <Header1 className="mb-0">{application.name}</Header1>
+          {keymap.platforms?.map((platform) => (
+            <Badge
+              key={platform}
+              variant="outline"
+              className="text-sm hidden md:inline-flex"
+              aria-label={`Platform: ${getPlatformDisplay(platform)}`}
+            >
+              {getPlatformDisplay(platform)}
+            </Badge>
+          ))}
+        </div>
+        <div className="flex items-center gap-2 mb-2">
+          {viewMode === "list" && (
+            <Button
+              variant="outline"
+              size="sm"
+              className="md:hidden"
+              onClick={() => setSectionSheetOpen(true)}
+            >
+              <Menu className="h-4 w-4 mr-1" />
+              Sections
+            </Button>
+          )}
+          <KeymapSelector
+            keymaps={application.keymaps}
+            activeKeymap={keymap.title}
+            urlPrefix={`/apps/${application.slug}`}
+          />
+          <div className="hidden md:flex items-center gap-1">
+            <Button
+              variant={viewMode === "list" ? "secondary" : "ghost"}
+              size="icon"
+              onClick={() => setViewMode("list")}
+              aria-label="List view"
+            >
+              <List className="h-4 w-4" />
+            </Button>
+            <Button
+              variant={viewMode === "cheatsheet" ? "secondary" : "ghost"}
+              size="icon"
+              onClick={() => setViewMode("cheatsheet")}
+              aria-label="Cheat sheet view"
+            >
+              <LayoutGrid className="h-4 w-4" />
+            </Button>
+            {viewMode === "cheatsheet" && (
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button variant="ghost" size="icon" aria-label="Column settings">
+                    <Settings2 className="h-4 w-4" />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-56" align="end">
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <TypographySmall>Columns</TypographySmall>
+                      <TypographyMuted>{effectiveColumnCount}</TypographyMuted>
                     </div>
-                  </PopoverContent>
-                </Popover>
-              )}
-            </div>
+                    <Slider
+                      min={MIN_COLUMNS}
+                      max={MAX_COLUMNS}
+                      step={1}
+                      value={[userColumnCount]}
+                      onValueChange={([value]) => setColumnCount(value)}
+                    />
+                  </div>
+                </PopoverContent>
+              </Popover>
+            )}
           </div>
         </div>
         <div className="flex items-center gap-2">
@@ -372,19 +383,27 @@ export const AppDetails = ({
         <SearchBar onChange={handleSearch} />
       </div>
       {viewMode === "list" ? (
-        <div className="mx-auto max-w-5xl flex">
-          <div className="grid gap-4 px-4 md:w-56 md:gap-6 shrink-0">
-            <div className="flex gap-4">
-              <div className="flex flex-col">
-                <TableOfContents
-                  sections={keymap.sections}
-                  sectionRefs={sectionRefs}
-                />
-              </div>
+        <>
+          <Sheet open={sectionSheetOpen} onOpenChange={setSectionSheetOpen}>
+            <SheetContent side="left" className="w-64 overflow-y-auto">
+              <SheetTitle className="sr-only">Sections</SheetTitle>
+              <TableOfContents
+                sections={keymap.sections}
+                sectionRefs={sectionRefs}
+                onSectionClick={() => setSectionSheetOpen(false)}
+              />
+            </SheetContent>
+          </Sheet>
+          <div className="mx-auto max-w-5xl flex">
+            <div className="hidden md:block px-4 md:w-56 shrink-0">
+              <TableOfContents
+                sections={keymap.sections}
+                sectionRefs={sectionRefs}
+              />
             </div>
+            <div className="md:border-l flex-1 px-4 md:px-6 pb-6">{appDetails}</div>
           </div>
-          <div className="border-l flex-1 px-4 md:px-6 pb-6">{appDetails}</div>
-        </div>
+        </>
       ) : (
         <div className="px-4 md:px-6 pb-6 mx-auto" style={{ maxWidth: `${effectiveColumnCount * 288 + (effectiveColumnCount - 1) * 16 + 48}px` }}>{cheatsheetView}</div>
       )}

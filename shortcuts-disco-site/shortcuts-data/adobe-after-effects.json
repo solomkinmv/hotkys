@@ -1,0 +1,2202 @@
+{
+  "$schema": "schema/shortcut.schema.json",
+  "bundleId": "com.adobe.AfterEffects",
+  "name": "Adobe After Effects",
+  "slug": "adobe-after-effects",
+  "source": "https://helpx.adobe.com/after-effects/using/keyboard-shortcuts-reference.html",
+  "icon": "icons/adobe-after-effects.png",
+  "keymaps": [
+    {
+      "title": "Default",
+      "platforms": [
+        "macos"
+      ],
+      "sections": [
+        {
+          "title": "General",
+          "shortcuts": [
+            {
+              "title": "Select all",
+              "key": "cmd+a"
+            },
+            {
+              "title": "Rename selected item",
+              "key": "enter"
+            },
+            {
+              "title": "Open selected layer, composition, or footage item",
+              "key": "enter",
+              "comment": "On numeric keypad"
+            },
+            {
+              "title": "Move selected items in stack order in stacking ...",
+              "key": "opt+cmd+down"
+            },
+            {
+              "title": "Move selected items to top/bottom",
+              "key": "shift+opt+cmd+down"
+            },
+            {
+              "title": "Select next item in panel",
+              "key": "shift+down"
+            },
+            {
+              "title": "Select previous item in panel",
+              "key": "shift+up"
+            },
+            {
+              "title": "Duplicate selected items",
+              "key": "cmd+d"
+            },
+            {
+              "title": "Quit",
+              "key": "cmd+q"
+            },
+            {
+              "title": "Undo",
+              "key": "cmd+z"
+            },
+            {
+              "title": "Redo",
+              "key": "shift+cmd+z"
+            },
+            {
+              "title": "Interrupt running a script",
+              "key": "esc"
+            },
+            {
+              "title": "Display filename corresponding to the frame at ...",
+              "key": "opt+cmd+e"
+            }
+          ]
+        },
+        {
+          "title": "Projects",
+          "shortcuts": [
+            {
+              "title": "New project",
+              "key": "opt+cmd+n"
+            },
+            {
+              "title": "Open project",
+              "key": "cmd+o"
+            },
+            {
+              "title": "Open most recent project",
+              "key": "shift+opt+cmd+p"
+            },
+            {
+              "title": "New folder in Project panel",
+              "key": "shift+opt+cmd+n"
+            },
+            {
+              "title": "Open Project Settings dialog box",
+              "key": "shift+opt+cmd+k"
+            },
+            {
+              "title": "Find in Project panel",
+              "key": "cmd+f"
+            }
+          ]
+        },
+        {
+          "title": "Preferences",
+          "shortcuts": [
+            {
+              "title": "Open Preferences dialog box",
+              "key": "opt+cmd+;"
+            }
+          ]
+        },
+        {
+          "title": "Panels, viewers, workspaces",
+          "shortcuts": [
+            {
+              "title": "Open or close Project panel",
+              "key": "cmd+0"
+            },
+            {
+              "title": "Open or close Render Queue panel",
+              "key": "opt+cmd+0"
+            },
+            {
+              "title": "Open or close Tools panel",
+              "key": "cmd+1"
+            },
+            {
+              "title": "Open or close Info panel",
+              "key": "cmd+2"
+            },
+            {
+              "title": "Open or close Preview panel",
+              "key": "cmd+3"
+            },
+            {
+              "title": "Open or close Audio panel",
+              "key": "cmd+4"
+            },
+            {
+              "title": "Open or close Effects & Presets panel",
+              "key": "cmd+5"
+            },
+            {
+              "title": "Open or close Character panel",
+              "key": "cmd+6"
+            },
+            {
+              "title": "Open or close Paragraph panel",
+              "key": "cmd+7"
+            },
+            {
+              "title": "Open or close Paint panel",
+              "key": "cmd+8"
+            },
+            {
+              "title": "Open or close Brushes panel",
+              "key": "cmd+9"
+            },
+            {
+              "title": "Close active viewer or panel (closes content fi...",
+              "key": "cmd+w"
+            },
+            {
+              "title": "Close active panel or all viewers of type of ac...",
+              "key": "shift+cmd+w"
+            },
+            {
+              "title": "Split the frame containing the active viewer an...",
+              "key": "shift+opt+cmd+n"
+            },
+            {
+              "title": "Cycle to previous or next item in active viewer...",
+              "key": "shift"
+            },
+            {
+              "title": "Cycle to previous or next panel in active frame...",
+              "key": "shift+opt"
+            }
+          ]
+        },
+        {
+          "title": "Activate",
+          "shortcuts": [
+            {
+              "title": "Activate Selection tool",
+              "key": "v"
+            },
+            {
+              "title": "Activate Hand tool",
+              "key": "h"
+            },
+            {
+              "title": "Temporarily activate Hand tool",
+              "key": "space",
+              "comment": "Hold down to temporarily switch to Hand tool"
+            },
+            {
+              "title": "Activate Zoom In tool",
+              "key": "z"
+            },
+            {
+              "title": "Activate Zoom Out tool",
+              "key": "opt"
+            },
+            {
+              "title": "Activate Rotation tool",
+              "key": "w"
+            },
+            {
+              "title": "Activate Roto Brush tool",
+              "key": "opt+w"
+            },
+            {
+              "title": "Activate Refine Edge tool",
+              "key": "opt+w"
+            },
+            {
+              "title": "Activate and cycle through Camera tools (Unifie...",
+              "key": "c"
+            },
+            {
+              "title": "Activate Pan Behind tool",
+              "key": "y"
+            },
+            {
+              "title": "Activate and cycle through mask and shape tools...",
+              "key": "q"
+            },
+            {
+              "title": "Activate and cycle through Type tools (Horizont...",
+              "key": "cmd+t"
+            },
+            {
+              "title": "Activate and cycle between the Pen and Mask Fea...",
+              "key": "g"
+            },
+            {
+              "title": "Temporarily activate Selection tool when a pen ...",
+              "key": "cmd"
+            },
+            {
+              "title": "Temporarily activate Pen tool when the Selectio...",
+              "key": "cmd+opt"
+            },
+            {
+              "title": "Activate and cycle through Brush, Clone Stamp, ...",
+              "key": "cmd+b"
+            },
+            {
+              "title": "Activate and cycle through Puppet tools",
+              "key": "cmd+p"
+            },
+            {
+              "title": "Temporarily convert Selection tool to Shape Dup...",
+              "key": "opt"
+            },
+            {
+              "title": "Temporarily convert Selection tool to Direct Se...",
+              "key": "cmd"
+            }
+          ]
+        },
+        {
+          "title": "Composition",
+          "shortcuts": [
+            {
+              "title": "New composition",
+              "key": "cmd+n"
+            },
+            {
+              "title": "Open Composition Settings dialog box for select...",
+              "key": "cmd+k"
+            },
+            {
+              "title": "Set beginning or end of work area to current time",
+              "key": "b"
+            },
+            {
+              "title": "Set work area to duration of selected layers or...",
+              "key": "opt+cmd+b"
+            },
+            {
+              "title": "Open Composition Mini-Flowchart for active comp...",
+              "key": "tab"
+            },
+            {
+              "title": "Activate the most recently active composition t...",
+              "key": "shift+esc"
+            },
+            {
+              "title": "Trim Composition to work area",
+              "key": "shift+cmd+x"
+            }
+          ]
+        },
+        {
+          "title": "Time navigation",
+          "shortcuts": [
+            {
+              "title": "Go to specific time",
+              "key": "shift+opt+j"
+            },
+            {
+              "title": "Go to beginning or end of work area",
+              "key": "shift+home"
+            },
+            {
+              "title": "Go to previous or next visible item in time rul...",
+              "key": "j"
+            },
+            {
+              "title": "Go to beginning of composition, layer, or foota...",
+              "key": "home"
+            },
+            {
+              "title": "Go to end of composition, layer, or footage item",
+              "key": "end"
+            },
+            {
+              "title": "Go forward 1 frame",
+              "key": "pagedown"
+            },
+            {
+              "title": "Go forward 10 frames",
+              "key": "shift+pagedown"
+            },
+            {
+              "title": "Go backward 1 frame",
+              "key": "pageup"
+            },
+            {
+              "title": "Go backward 10 frames",
+              "key": "shift+pageup"
+            },
+            {
+              "title": "Go to layer In point",
+              "key": "i"
+            },
+            {
+              "title": "Go to layer Out point",
+              "key": "o"
+            },
+            {
+              "title": "Go to previous In point or Out point",
+              "key": "shift+opt+cmd+left"
+            },
+            {
+              "title": "Go to next In point or Out point",
+              "key": "shift+opt+cmd+right"
+            },
+            {
+              "title": "Scroll to current time in Timeline panel",
+              "key": "d"
+            }
+          ]
+        },
+        {
+          "title": "Previews",
+          "shortcuts": [
+            {
+              "title": "Start or stop preview",
+              "key": "shift+space"
+            },
+            {
+              "title": "Preview only audio, in work area",
+              "key": "opt+.",
+              "comment": "On numeric keypad"
+            },
+            {
+              "title": "Preview number of frames specified by Alternate...",
+              "key": "opt+0",
+              "comment": "On numeric keypad"
+            },
+            {
+              "title": "Fast Previews > Off",
+              "key": "opt+cmd+1"
+            },
+            {
+              "title": "Fast Previews > Adaptive Resolution",
+              "key": "opt+cmd+2"
+            },
+            {
+              "title": "Fast Previews > Draft",
+              "key": "opt+cmd+3"
+            },
+            {
+              "title": "Fast Previews > Fast Draft",
+              "key": "opt+cmd+4"
+            },
+            {
+              "title": "Fast Previews > Wireframe",
+              "key": "opt+cmd+5"
+            }
+          ]
+        },
+        {
+          "title": "Views",
+          "shortcuts": [
+            {
+              "title": "Show red, green, blue, or alpha channel as gray...",
+              "key": "opt+1"
+            },
+            {
+              "title": "Show colorized red, green, or blue channel",
+              "key": "shift+opt+1"
+            },
+            {
+              "title": "Toggle showing straight RGB color",
+              "key": "shift+opt+4"
+            },
+            {
+              "title": "Show alpha boundary (outline between transparen...",
+              "key": "opt+5"
+            },
+            {
+              "title": "Show alpha overlay (colored overlay on transpar...",
+              "key": "opt+6"
+            },
+            {
+              "title": "Show Refine Edge X-ray",
+              "key": "opt+x"
+            },
+            {
+              "title": "Zoom-in in Composition, Layer, or Footage panel",
+              "key": ".",
+              "comment": "On main keyboard"
+            },
+            {
+              "title": "Set resolution to Full, Half, or Custom in Comp...",
+              "key": "shift+opt+cmd+j"
+            },
+            {
+              "title": "Open View Options dialog box for active Composi...",
+              "key": "opt+cmd+u"
+            },
+            {
+              "title": "Zoom out time",
+              "key": "plus",
+              "comment": "On main keyboard"
+            },
+            {
+              "title": "Zoom in Timeline panel to single-frame units (P...",
+              "key": ";"
+            },
+            {
+              "title": "Zoom out in Timeline panel to show the entire c...",
+              "key": "shift+;"
+            },
+            {
+              "title": "Prevent images from being rendered for previews...",
+              "key": "capslock"
+            },
+            {
+              "title": "Show or hide rulers",
+              "key": "cmd+r"
+            },
+            {
+              "title": "Show or hide guides",
+              "key": "cmd+;"
+            },
+            {
+              "title": "Turn snapping to guides on or off",
+              "key": "shift+cmd+;"
+            },
+            {
+              "title": "Lock or unlock guides",
+              "key": "shift+opt+cmd+;"
+            },
+            {
+              "title": "Show or hide layer controls (masks, motion path...",
+              "key": "shift+cmd+h"
+            }
+          ]
+        },
+        {
+          "title": "Footage",
+          "shortcuts": [
+            {
+              "title": "Import one file or image sequence",
+              "key": "cmd+i"
+            },
+            {
+              "title": "Import multiple files or image sequences",
+              "key": "opt+cmd+i"
+            },
+            {
+              "title": "Delete a footage item without a warning",
+              "key": "cmd+backspace"
+            },
+            {
+              "title": "Open Interpret Footage dialog box for selected ...",
+              "key": "opt+cmd+g"
+            },
+            {
+              "title": "Remember footage interpretation",
+              "key": "opt+cmd+c"
+            },
+            {
+              "title": "Edit selected footage item in application with ...",
+              "key": "cmd+e"
+            },
+            {
+              "title": "Replace selected footage item",
+              "key": "cmd+h"
+            },
+            {
+              "title": "Reload selected footage items",
+              "key": "opt+cmd+l"
+            },
+            {
+              "title": "Set proxy for selected footage item",
+              "key": "opt+cmd+p"
+            }
+          ]
+        },
+        {
+          "title": "Effects and animation presets",
+          "shortcuts": [
+            {
+              "title": "Delete all effects from selected layers",
+              "key": "shift+cmd+e"
+            },
+            {
+              "title": "Apply most recently applied effect to selected ...",
+              "key": "shift+opt+cmd+e"
+            },
+            {
+              "title": "Apply most recently applied animation preset to...",
+              "key": "shift+opt+cmd+f"
+            }
+          ]
+        },
+        {
+          "title": "Layers",
+          "shortcuts": [
+            {
+              "title": "New solid layer",
+              "key": "cmd+y"
+            },
+            {
+              "title": "New null layer",
+              "key": "shift+opt+cmd+y"
+            },
+            {
+              "title": "New adjustment layer",
+              "key": "opt+cmd+y"
+            },
+            {
+              "title": "Select next layer in stacking order",
+              "key": "cmd+down"
+            },
+            {
+              "title": "Select previous layer in stacking order",
+              "key": "cmd+up"
+            },
+            {
+              "title": "Extend selection to next layer in stacking order",
+              "key": "shift+cmd+down"
+            },
+            {
+              "title": "Extend selection to previous layer in stacking ...",
+              "key": "shift+cmd+up"
+            },
+            {
+              "title": "Deselect all layers",
+              "key": "shift+cmd+a"
+            },
+            {
+              "title": "Scroll topmost selected layer to top of Timelin...",
+              "key": "x"
+            },
+            {
+              "title": "Setting the sampling method for selected layers...",
+              "key": "opt+b"
+            },
+            {
+              "title": "Setting the sampling method for selected layers...",
+              "key": "shift+opt+b"
+            },
+            {
+              "title": "Turn Video (eyeball) switch on or off for selec...",
+              "key": "shift+opt+cmd+v"
+            },
+            {
+              "title": "Turn off Video switch for all video layers othe...",
+              "key": "shift+cmd+v"
+            },
+            {
+              "title": "Open settings dialog box for selected solid, li...",
+              "key": "shift+cmd+y"
+            },
+            {
+              "title": "Paste layers at current time",
+              "key": "opt+cmd+v"
+            },
+            {
+              "title": "Split selected layers. (If no layers are select...",
+              "key": "shift+cmd+d"
+            },
+            {
+              "title": "Precompose selected layers",
+              "key": "shift+cmd+c"
+            },
+            {
+              "title": "Open Effect Controls panel for selected layers",
+              "key": "shift+cmd+t"
+            },
+            {
+              "title": "Reverse selected layers in time",
+              "key": "opt+cmd+r"
+            },
+            {
+              "title": "Enable time remapping for selected layers",
+              "key": "opt+cmd+t"
+            },
+            {
+              "title": "Set In point or Out point by time-stretching",
+              "key": "shift+cmd"
+            },
+            {
+              "title": "Move selected layers so that their In point is ...",
+              "key": "opt+home"
+            },
+            {
+              "title": "Move selected layers so that their Out point is...",
+              "key": "opt+end"
+            },
+            {
+              "title": "Lock selected layers",
+              "key": "cmd+l"
+            },
+            {
+              "title": "Unlock all layers",
+              "key": "shift+cmd+l"
+            },
+            {
+              "title": "Set Quality to Best, Draft, or Wireframe for se...",
+              "key": "shift+opt+cmd+u"
+            },
+            {
+              "title": "Find in Timeline panel",
+              "key": "cmd+f"
+            }
+          ]
+        },
+        {
+          "title": "Showing properties and groups in the Timeline panel",
+          "shortcuts": [
+            {
+              "title": "Find in Timeline panel",
+              "key": "cmd+f"
+            },
+            {
+              "title": "Show only Anchor Point property (for lights and...",
+              "key": "a"
+            },
+            {
+              "title": "Show only Audio Levels property",
+              "key": "l"
+            },
+            {
+              "title": "Show only Mask Feather property",
+              "key": "f"
+            },
+            {
+              "title": "Show only Mask Path property",
+              "key": "m"
+            },
+            {
+              "title": "Show only Mask Opacity property",
+              "key": "t t"
+            },
+            {
+              "title": "Show only Opacity property (for lights, Intensity)",
+              "key": "t"
+            },
+            {
+              "title": "Show only Position property",
+              "key": "p"
+            },
+            {
+              "title": "Show only Rotation and Orientation properties",
+              "key": "r"
+            },
+            {
+              "title": "Show only Scale property",
+              "key": "s"
+            },
+            {
+              "title": "Show only Time Remap property",
+              "key": "r r"
+            },
+            {
+              "title": "Show only instances of missing effects",
+              "key": "f f"
+            },
+            {
+              "title": "Show only Effects property group",
+              "key": "e"
+            },
+            {
+              "title": "Show only mask property groups",
+              "key": "m m"
+            },
+            {
+              "title": "Show only Material Options property group",
+              "key": "a a"
+            },
+            {
+              "title": "Show only expressions",
+              "key": "e e"
+            },
+            {
+              "title": "Show properties with keyframes",
+              "key": "u"
+            },
+            {
+              "title": "Show only modified properties",
+              "key": "u u"
+            },
+            {
+              "title": "Show only paint strokes, Roto Brush strokes, an...",
+              "key": "p p"
+            },
+            {
+              "title": "Show only audio waveform",
+              "key": "l l"
+            },
+            {
+              "title": "Show only selected properties and groups",
+              "key": "s s"
+            }
+          ]
+        },
+        {
+          "title": "Modifying layer properties",
+          "shortcuts": [
+            {
+              "title": "Open Auto-Orientation dialog box for selected l...",
+              "key": "opt+cmd+o"
+            },
+            {
+              "title": "Open Opacity dialog box for selected layers",
+              "key": "shift+cmd+o"
+            },
+            {
+              "title": "Open Rotation dialog box for selected layers",
+              "key": "shift+cmd+r"
+            },
+            {
+              "title": "Open Position dialog box for selected layers",
+              "key": "shift+cmd+p"
+            },
+            {
+              "title": "Center-selected layers in view (modifies Positi...",
+              "key": "cmd+home"
+            },
+            {
+              "title": "Center anchor point in the visible content",
+              "key": "opt+cmd+home"
+            },
+            {
+              "title": "Move selected layers 1 frame earlier or later",
+              "key": "opt+pageup"
+            },
+            {
+              "title": "Move selected layers 10 frames earlier or later",
+              "key": "shift+opt+pageup"
+            },
+            {
+              "title": "Scale and reposition selected layers to fit com...",
+              "key": "opt+cmd+f"
+            },
+            {
+              "title": "Scale and reposition selected layers to fit com...",
+              "key": "shift+opt+cmd+h"
+            },
+            {
+              "title": "Scale and reposition selected layers to fit com...",
+              "key": "shift+opt+cmd+g"
+            }
+          ]
+        },
+        {
+          "title": "3D Layers",
+          "shortcuts": [
+            {
+              "title": "Return to previous view",
+              "key": "esc"
+            },
+            {
+              "title": "New light",
+              "key": "shift+opt+cmd+l"
+            },
+            {
+              "title": "New camera",
+              "key": "shift+opt+cmd+c"
+            },
+            {
+              "title": "With a camera tool selected, move the camera an...",
+              "key": "f"
+            },
+            {
+              "title": "With a camera tool selected, move the camera an...",
+              "key": "shift+cmd+f"
+            },
+            {
+              "title": "Turn Casts Shadows property on or off for selec...",
+              "key": "shift+opt+c"
+            }
+          ]
+        },
+        {
+          "title": "Keyframes and the Graph Editor",
+          "shortcuts": [
+            {
+              "title": "Select all visible keyframes and properties",
+              "key": "opt+cmd+a"
+            },
+            {
+              "title": "Move keyframe 1 frame later or earlier",
+              "key": "opt+right"
+            },
+            {
+              "title": "Move keyframe 10 frames later or earlier",
+              "key": "shift+opt+right"
+            },
+            {
+              "title": "Set interpolation for selected keyframes (layer...",
+              "key": "opt+cmd+k"
+            },
+            {
+              "title": "Set keyframe interpolation method to hold or Au...",
+              "key": "opt+cmd+h"
+            },
+            {
+              "title": "Set velocity for selected keyframes",
+              "key": "shift+cmd+k"
+            }
+          ]
+        },
+        {
+          "title": "Text",
+          "shortcuts": [
+            {
+              "title": "New text layer",
+              "key": "shift+opt+cmd+t"
+            },
+            {
+              "title": "Align selected horizontal text left, center, or...",
+              "key": "shift+cmd+l"
+            },
+            {
+              "title": "Align selected vertical text top, center, or bo...",
+              "key": "shift+cmd+l"
+            },
+            {
+              "title": "Extend or reduce selection by one character to ...",
+              "key": "shift+right"
+            },
+            {
+              "title": "Extend or reduce selection by one word to right...",
+              "key": "shift+cmd+right"
+            },
+            {
+              "title": "Extend or reduce selection by one line up or do...",
+              "key": "shift+up"
+            },
+            {
+              "title": "Extend or reduce selection by one line to right...",
+              "key": "shift+right"
+            },
+            {
+              "title": "Extend or reduce selection one word up or down ...",
+              "key": "shift+cmd+up"
+            },
+            {
+              "title": "Extend or reduce selection by one character up ...",
+              "key": "shift+up"
+            },
+            {
+              "title": "Select text from insertion point to beginning o...",
+              "key": "shift+home"
+            },
+            {
+              "title": "Move insertion point to beginning or end of line",
+              "key": "home"
+            },
+            {
+              "title": "Select text from insertion point to beginning o...",
+              "key": "shift+cmd+home"
+            },
+            {
+              "title": "In horizontal text, move insertion point one ch...",
+              "key": "left"
+            },
+            {
+              "title": "In vertical text, move insertion point one char...",
+              "key": "up"
+            },
+            {
+              "title": "Turn All Caps on or off for selected text",
+              "key": "shift+cmd+k"
+            },
+            {
+              "title": "Turn Small Caps on or off for selected text",
+              "key": "shift+opt+cmd+k"
+            },
+            {
+              "title": "Set horizontal scale to 100% for selected text",
+              "key": "shift+cmd+x"
+            },
+            {
+              "title": "Set vertical scale to 100% for selected text",
+              "key": "shift+opt+cmd+x"
+            },
+            {
+              "title": "Auto leading for selected text",
+              "key": "shift+opt+cmd+a"
+            },
+            {
+              "title": "Reset tracking to 0 for selected text",
+              "key": "ctrl+shift+cmd+q"
+            },
+            {
+              "title": "Justify paragraph; left align last line",
+              "key": "shift+cmd+j"
+            },
+            {
+              "title": "Justify paragraph; right align last line",
+              "key": "shift+opt+cmd+j"
+            },
+            {
+              "title": "Justify paragraph; force last line",
+              "key": "shift+cmd+f"
+            },
+            {
+              "title": "Decrease or increase font size of selected text...",
+              "key": "shift+cmd"
+            },
+            {
+              "title": "Decrease or increase font size of selected text...",
+              "key": "shift+opt+cmd"
+            },
+            {
+              "title": "Increase or decrease leading by 2 units",
+              "key": "opt+down"
+            },
+            {
+              "title": "Increase or decrease leading by 10 units",
+              "key": "opt+cmd+down"
+            },
+            {
+              "title": "Decrease or increase baseline shift by 2 units",
+              "key": "shift+opt+down"
+            },
+            {
+              "title": "Decrease or increase baseline shift by 10 units",
+              "key": "shift+opt+cmd+down"
+            },
+            {
+              "title": "Decrease or increase kerning or tracking 20 uni...",
+              "key": "opt+left"
+            },
+            {
+              "title": "Decrease or increase kerning or tracking 100 un...",
+              "key": "opt+cmd+left"
+            },
+            {
+              "title": "Toggle paragraph composer",
+              "key": "shift+opt+cmd+t"
+            }
+          ]
+        },
+        {
+          "title": "Masks",
+          "shortcuts": [
+            {
+              "title": "New mask",
+              "key": "shift+cmd+n"
+            },
+            {
+              "title": "Exit free-transform mask editing mode",
+              "key": "esc"
+            },
+            {
+              "title": "Invert selected mask",
+              "key": "shift+cmd+i"
+            },
+            {
+              "title": "Open Mask Feather dialog box for selected mask",
+              "key": "shift+cmd+f"
+            },
+            {
+              "title": "Open Mask Shape dialog box for selected mask",
+              "key": "shift+cmd+m"
+            },
+            {
+              "title": "Subtract mode",
+              "key": "s"
+            },
+            {
+              "title": "Darken mode",
+              "key": "d"
+            },
+            {
+              "title": "Difference mode",
+              "key": "f"
+            },
+            {
+              "title": "Add mode",
+              "key": "s"
+            },
+            {
+              "title": "Intersect mode",
+              "key": "i"
+            },
+            {
+              "title": "None",
+              "key": "n"
+            }
+          ]
+        },
+        {
+          "title": "Paint tools",
+          "shortcuts": [
+            {
+              "title": "Swap paint background color and foreground colors",
+              "key": "x"
+            },
+            {
+              "title": "Set paint foreground color to black and backgro...",
+              "key": "d"
+            },
+            {
+              "title": "Momentarily activate Eraser tool with Last Stro...",
+              "key": "cmd+shift"
+            },
+            {
+              "title": "Activate a specific Clone Stamp tool preset",
+              "key": "3"
+            },
+            {
+              "title": "Set flow for a paint tool to 100%",
+              "key": "shift+.",
+              "comment": "On numeric keypad"
+            },
+            {
+              "title": "Move earlier or later by number of frames speci...",
+              "key": "cmd+pageup"
+            }
+          ]
+        },
+        {
+          "title": "Shape Layers",
+          "shortcuts": [
+            {
+              "title": "Group selected shapes",
+              "key": "cmd+g"
+            },
+            {
+              "title": "Ungroup selected shapes",
+              "key": "shift+cmd+g"
+            }
+          ]
+        },
+        {
+          "title": "Saving, exporting, and rendering",
+          "shortcuts": [
+            {
+              "title": "Save project",
+              "key": "cmd+s"
+            },
+            {
+              "title": "Increment and save project",
+              "key": "shift+opt+cmd+s"
+            },
+            {
+              "title": "Save As",
+              "key": "shift+cmd+s"
+            },
+            {
+              "title": "Add current frame to render queue",
+              "key": "opt+cmd+s"
+            },
+            {
+              "title": "Duplicate render item with same output filename...",
+              "key": "shift+cmd+d"
+            },
+            {
+              "title": "Add a composition to the Adobe Media Encoder en...",
+              "key": "opt+cmd+m"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Default (Windows)",
+      "platforms": [
+        "windows"
+      ],
+      "sections": [
+        {
+          "title": "General",
+          "shortcuts": [
+            {
+              "title": "Select all",
+              "key": "ctrl+a"
+            },
+            {
+              "title": "Open selected layer, composition, or footage item",
+              "key": "enter",
+              "comment": "On numeric keypad"
+            },
+            {
+              "title": "Move selected items in stack order in stacking ...",
+              "key": "ctrl+alt+down"
+            },
+            {
+              "title": "Move selected items to top/bottom",
+              "key": "ctrl+shift+alt+down"
+            },
+            {
+              "title": "Select next item in panel",
+              "key": "shift+down"
+            },
+            {
+              "title": "Select previous item in panel",
+              "key": "shift+up"
+            },
+            {
+              "title": "Duplicate selected items",
+              "key": "ctrl+d"
+            },
+            {
+              "title": "Quit",
+              "key": "ctrl+q"
+            },
+            {
+              "title": "Undo",
+              "key": "ctrl+z"
+            },
+            {
+              "title": "Redo",
+              "key": "ctrl+shift+z"
+            },
+            {
+              "title": "Interrupt running a script",
+              "key": "esc"
+            },
+            {
+              "title": "Display filename corresponding to the frame at ...",
+              "key": "ctrl+alt+e"
+            }
+          ]
+        },
+        {
+          "title": "Projects",
+          "shortcuts": [
+            {
+              "title": "New project",
+              "key": "ctrl+alt+n"
+            },
+            {
+              "title": "Open project",
+              "key": "ctrl+o"
+            },
+            {
+              "title": "Open most recent project",
+              "key": "ctrl+shift+alt+p"
+            },
+            {
+              "title": "New folder in Project panel",
+              "key": "ctrl+shift+alt+n"
+            },
+            {
+              "title": "Open Project Settings dialog box",
+              "key": "ctrl+shift+alt+k"
+            },
+            {
+              "title": "Find in Project panel",
+              "key": "ctrl+f"
+            }
+          ]
+        },
+        {
+          "title": "Preferences",
+          "shortcuts": [
+            {
+              "title": "Open Preferences dialog box",
+              "key": "ctrl+alt+;"
+            }
+          ]
+        },
+        {
+          "title": "Panels, viewers, workspaces",
+          "shortcuts": [
+            {
+              "title": "Open or close Project panel",
+              "key": "ctrl+0"
+            },
+            {
+              "title": "Open or close Render Queue panel",
+              "key": "ctrl+alt+0"
+            },
+            {
+              "title": "Open or close Tools panel",
+              "key": "ctrl+1"
+            },
+            {
+              "title": "Open or close Info panel",
+              "key": "ctrl+2"
+            },
+            {
+              "title": "Open or close Preview panel",
+              "key": "ctrl+3"
+            },
+            {
+              "title": "Open or close Audio panel",
+              "key": "ctrl+4"
+            },
+            {
+              "title": "Open or close Effects & Presets panel",
+              "key": "ctrl+5"
+            },
+            {
+              "title": "Open or close Character panel",
+              "key": "ctrl+6"
+            },
+            {
+              "title": "Open or close Paragraph panel",
+              "key": "ctrl+7"
+            },
+            {
+              "title": "Open or close Paint panel",
+              "key": "ctrl+8"
+            },
+            {
+              "title": "Open or close Brushes panel",
+              "key": "ctrl+9"
+            },
+            {
+              "title": "Close active viewer or panel (closes content fi...",
+              "key": "ctrl+w"
+            },
+            {
+              "title": "Close active panel or all viewers of type of ac...",
+              "key": "ctrl+shift+w"
+            },
+            {
+              "title": "Split the frame containing the active viewer an...",
+              "key": "ctrl+shift+alt+n"
+            },
+            {
+              "title": "Cycle to previous or next item in active viewer...",
+              "key": "shift"
+            },
+            {
+              "title": "Cycle to previous or next panel in active frame...",
+              "key": "shift+alt"
+            }
+          ]
+        },
+        {
+          "title": "Activate",
+          "shortcuts": [
+            {
+              "title": "Activate Selection tool",
+              "key": "v"
+            },
+            {
+              "title": "Activate Hand tool",
+              "key": "h"
+            },
+            {
+              "title": "Temporarily activate Hand tool",
+              "key": "space",
+              "comment": "Hold down to temporarily switch to Hand tool"
+            },
+            {
+              "title": "Activate Zoom In tool",
+              "key": "z"
+            },
+            {
+              "title": "Activate Zoom Out tool",
+              "key": "alt"
+            },
+            {
+              "title": "Activate Rotation tool",
+              "key": "w"
+            },
+            {
+              "title": "Activate Roto Brush tool",
+              "key": "alt+w"
+            },
+            {
+              "title": "Activate Refine Edge tool",
+              "key": "alt+w"
+            },
+            {
+              "title": "Activate and cycle through Camera tools (Unifie...",
+              "key": "c"
+            },
+            {
+              "title": "Activate Pan Behind tool",
+              "key": "y"
+            },
+            {
+              "title": "Activate and cycle through mask and shape tools...",
+              "key": "q"
+            },
+            {
+              "title": "Activate and cycle through Type tools (Horizont...",
+              "key": "ctrl+t"
+            },
+            {
+              "title": "Activate and cycle between the Pen and Mask Fea...",
+              "key": "g"
+            },
+            {
+              "title": "Temporarily activate Selection tool when a pen ...",
+              "key": "ctrl"
+            },
+            {
+              "title": "Temporarily activate Pen tool when the Selectio...",
+              "key": "ctrl+alt"
+            },
+            {
+              "title": "Activate and cycle through Brush, Clone Stamp, ...",
+              "key": "ctrl+b"
+            },
+            {
+              "title": "Activate and cycle through Puppet tools",
+              "key": "ctrl+p"
+            },
+            {
+              "title": "Temporarily convert Selection tool to Shape Dup...",
+              "key": "alt"
+            },
+            {
+              "title": "Temporarily convert Selection tool to Direct Se...",
+              "key": "ctrl"
+            }
+          ]
+        },
+        {
+          "title": "Composition",
+          "shortcuts": [
+            {
+              "title": "New composition",
+              "key": "ctrl+n"
+            },
+            {
+              "title": "Open Composition Settings dialog box for select...",
+              "key": "ctrl+k"
+            },
+            {
+              "title": "Set beginning or end of work area to current time",
+              "key": "b"
+            },
+            {
+              "title": "Set work area to duration of selected layers or...",
+              "key": "ctrl+alt+b"
+            },
+            {
+              "title": "Open Composition Mini-Flowchart for active comp...",
+              "key": "tab"
+            },
+            {
+              "title": "Activate the most recently active composition t...",
+              "key": "shift+esc"
+            },
+            {
+              "title": "Trim Composition to work area",
+              "key": "ctrl+shift+x"
+            }
+          ]
+        },
+        {
+          "title": "Time navigation",
+          "shortcuts": [
+            {
+              "title": "Go to specific time",
+              "key": "shift+alt+j"
+            },
+            {
+              "title": "Go to beginning or end of work area",
+              "key": "shift+home"
+            },
+            {
+              "title": "Go to previous or next visible item in time rul...",
+              "key": "j"
+            },
+            {
+              "title": "Go to beginning of composition, layer, or foota...",
+              "key": "home"
+            },
+            {
+              "title": "Go to end of composition, layer, or footage item",
+              "key": "end"
+            },
+            {
+              "title": "Go forward 1 frame",
+              "key": "pagedown"
+            },
+            {
+              "title": "Go forward 10 frames",
+              "key": "shift+pagedown"
+            },
+            {
+              "title": "Go backward 1 frame",
+              "key": "pageup"
+            },
+            {
+              "title": "Go backward 10 frames",
+              "key": "shift+pageup"
+            },
+            {
+              "title": "Go to layer In point",
+              "key": "i"
+            },
+            {
+              "title": "Go to layer Out point",
+              "key": "o"
+            },
+            {
+              "title": "Go to previous In point or Out point",
+              "key": "ctrl+shift+alt+left"
+            },
+            {
+              "title": "Go to next In point or Out point",
+              "key": "ctrl+shift+alt+right"
+            },
+            {
+              "title": "Scroll to current time in Timeline panel",
+              "key": "d"
+            }
+          ]
+        },
+        {
+          "title": "Previews",
+          "shortcuts": [
+            {
+              "title": "Start or stop preview",
+              "key": "shift+space"
+            },
+            {
+              "title": "Preview only audio, in work area",
+              "key": "alt+.",
+              "comment": "On numeric keypad"
+            },
+            {
+              "title": "Preview number of frames specified by Alternate...",
+              "key": "alt+0",
+              "comment": "On numeric keypad"
+            },
+            {
+              "title": "Fast Previews > Off",
+              "key": "ctrl+alt+1"
+            },
+            {
+              "title": "Fast Previews > Adaptive Resolution",
+              "key": "ctrl+alt+2"
+            },
+            {
+              "title": "Fast Previews > Draft",
+              "key": "ctrl+alt+3"
+            },
+            {
+              "title": "Fast Previews > Fast Draft",
+              "key": "ctrl+alt+4"
+            },
+            {
+              "title": "Fast Previews > Wireframe",
+              "key": "ctrl+alt+5"
+            }
+          ]
+        },
+        {
+          "title": "Views",
+          "shortcuts": [
+            {
+              "title": "Show red, green, blue, or alpha channel as gray...",
+              "key": "alt+1"
+            },
+            {
+              "title": "Show colorized red, green, or blue channel",
+              "key": "shift+alt+1"
+            },
+            {
+              "title": "Toggle showing straight RGB color",
+              "key": "shift+alt+4"
+            },
+            {
+              "title": "Show alpha boundary (outline between transparen...",
+              "key": "alt+5"
+            },
+            {
+              "title": "Show alpha overlay (colored overlay on transpar...",
+              "key": "alt+6"
+            },
+            {
+              "title": "Show Refine Edge X-ray",
+              "key": "alt+x"
+            },
+            {
+              "title": "Zoom-in in Composition, Layer, or Footage panel",
+              "key": ".",
+              "comment": "On main keyboard"
+            },
+            {
+              "title": "Set resolution to Full, Half, or Custom in Comp...",
+              "key": "ctrl+shift+alt+j"
+            },
+            {
+              "title": "Open View Options dialog box for active Composi...",
+              "key": "ctrl+alt+u"
+            },
+            {
+              "title": "Zoom out time",
+              "key": "plus",
+              "comment": "On main keyboard"
+            },
+            {
+              "title": "Zoom in Timeline panel to single-frame units (P...",
+              "key": ";"
+            },
+            {
+              "title": "Zoom out in Timeline panel to show the entire c...",
+              "key": "shift+;"
+            },
+            {
+              "title": "Prevent images from being rendered for previews...",
+              "key": "capslock"
+            },
+            {
+              "title": "Show or hide rulers",
+              "key": "ctrl+r"
+            },
+            {
+              "title": "Show or hide guides",
+              "key": "ctrl+;"
+            },
+            {
+              "title": "Turn snapping to guides on or off",
+              "key": "ctrl+shift+;"
+            },
+            {
+              "title": "Lock or unlock guides",
+              "key": "ctrl+shift+alt+;"
+            },
+            {
+              "title": "Show or hide layer controls (masks, motion path...",
+              "key": "ctrl+shift+h"
+            }
+          ]
+        },
+        {
+          "title": "Footage",
+          "shortcuts": [
+            {
+              "title": "Import one file or image sequence",
+              "key": "ctrl+i"
+            },
+            {
+              "title": "Import multiple files or image sequences",
+              "key": "ctrl+alt+i"
+            },
+            {
+              "title": "Delete a footage item without a warning",
+              "key": "ctrl+backspace"
+            },
+            {
+              "title": "Open Interpret Footage dialog box for selected ...",
+              "key": "ctrl+alt+g"
+            },
+            {
+              "title": "Remember footage interpretation",
+              "key": "ctrl+alt+c"
+            },
+            {
+              "title": "Edit selected footage item in application with ...",
+              "key": "ctrl+e"
+            },
+            {
+              "title": "Replace selected footage item",
+              "key": "ctrl+h"
+            },
+            {
+              "title": "Reload selected footage items",
+              "key": "ctrl+alt+l"
+            },
+            {
+              "title": "Set proxy for selected footage item",
+              "key": "ctrl+alt+p"
+            }
+          ]
+        },
+        {
+          "title": "Effects and animation presets",
+          "shortcuts": [
+            {
+              "title": "Delete all effects from selected layers",
+              "key": "ctrl+shift+e"
+            },
+            {
+              "title": "Apply most recently applied effect to selected ...",
+              "key": "ctrl+shift+alt+e"
+            },
+            {
+              "title": "Apply most recently applied animation preset to...",
+              "key": "ctrl+shift+alt+f"
+            }
+          ]
+        },
+        {
+          "title": "Layers",
+          "shortcuts": [
+            {
+              "title": "New solid layer",
+              "key": "ctrl+y"
+            },
+            {
+              "title": "New null layer",
+              "key": "ctrl+shift+alt+y"
+            },
+            {
+              "title": "New adjustment layer",
+              "key": "ctrl+alt+y"
+            },
+            {
+              "title": "Select next layer in stacking order",
+              "key": "ctrl+down"
+            },
+            {
+              "title": "Select previous layer in stacking order",
+              "key": "ctrl+up"
+            },
+            {
+              "title": "Extend selection to next layer in stacking order",
+              "key": "ctrl+shift+down"
+            },
+            {
+              "title": "Extend selection to previous layer in stacking ...",
+              "key": "ctrl+shift+up"
+            },
+            {
+              "title": "Deselect all layers",
+              "key": "ctrl+shift+a"
+            },
+            {
+              "title": "Scroll topmost selected layer to top of Timelin...",
+              "key": "x"
+            },
+            {
+              "title": "Setting the sampling method for selected layers...",
+              "key": "alt+b"
+            },
+            {
+              "title": "Setting the sampling method for selected layers...",
+              "key": "shift+alt+b"
+            },
+            {
+              "title": "Turn Video (eyeball) switch on or off for selec...",
+              "key": "ctrl+shift+alt+v"
+            },
+            {
+              "title": "Turn off Video switch for all video layers othe...",
+              "key": "ctrl+shift+v"
+            },
+            {
+              "title": "Open settings dialog box for selected solid, li...",
+              "key": "ctrl+shift+y"
+            },
+            {
+              "title": "Paste layers at current time",
+              "key": "ctrl+alt+v"
+            },
+            {
+              "title": "Split selected layers. (If no layers are select...",
+              "key": "ctrl+shift+d"
+            },
+            {
+              "title": "Precompose selected layers",
+              "key": "ctrl+shift+c"
+            },
+            {
+              "title": "Open Effect Controls panel for selected layers",
+              "key": "ctrl+shift+t"
+            },
+            {
+              "title": "Reverse selected layers in time",
+              "key": "ctrl+alt+r"
+            },
+            {
+              "title": "Enable time remapping for selected layers",
+              "key": "ctrl+alt+t"
+            },
+            {
+              "title": "Set In point or Out point by time-stretching",
+              "key": "ctrl+shift"
+            },
+            {
+              "title": "Move selected layers so that their In point is ...",
+              "key": "alt+home"
+            },
+            {
+              "title": "Move selected layers so that their Out point is...",
+              "key": "alt+end"
+            },
+            {
+              "title": "Lock selected layers",
+              "key": "ctrl+l"
+            },
+            {
+              "title": "Unlock all layers",
+              "key": "ctrl+shift+l"
+            },
+            {
+              "title": "Set Quality to Best, Draft, or Wireframe for se...",
+              "key": "ctrl+shift+u"
+            },
+            {
+              "title": "Find in Timeline panel",
+              "key": "ctrl+f"
+            }
+          ]
+        },
+        {
+          "title": "Showing properties and groups in the Timeline panel",
+          "shortcuts": [
+            {
+              "title": "Find in Timeline panel",
+              "key": "ctrl+f"
+            },
+            {
+              "title": "Show only Anchor Point property (for lights and...",
+              "key": "a"
+            },
+            {
+              "title": "Show only Audio Levels property",
+              "key": "l"
+            },
+            {
+              "title": "Show only Mask Feather property",
+              "key": "f"
+            },
+            {
+              "title": "Show only Mask Path property",
+              "key": "m"
+            },
+            {
+              "title": "Show only Mask Opacity property",
+              "key": "t t"
+            },
+            {
+              "title": "Show only Opacity property (for lights, Intensity)",
+              "key": "t"
+            },
+            {
+              "title": "Show only Position property",
+              "key": "p"
+            },
+            {
+              "title": "Show only Rotation and Orientation properties",
+              "key": "r"
+            },
+            {
+              "title": "Show only Scale property",
+              "key": "s"
+            },
+            {
+              "title": "Show only Time Remap property",
+              "key": "r r"
+            },
+            {
+              "title": "Show only instances of missing effects",
+              "key": "f f"
+            },
+            {
+              "title": "Show only Effects property group",
+              "key": "e"
+            },
+            {
+              "title": "Show only mask property groups",
+              "key": "m m"
+            },
+            {
+              "title": "Show only Material Options property group",
+              "key": "a a"
+            },
+            {
+              "title": "Show only expressions",
+              "key": "e e"
+            },
+            {
+              "title": "Show properties with keyframes",
+              "key": "u"
+            },
+            {
+              "title": "Show only modified properties",
+              "key": "u u"
+            },
+            {
+              "title": "Show only paint strokes, Roto Brush strokes, an...",
+              "key": "p p"
+            },
+            {
+              "title": "Show only audio waveform",
+              "key": "l l"
+            },
+            {
+              "title": "Show only selected properties and groups",
+              "key": "s s"
+            }
+          ]
+        },
+        {
+          "title": "Modifying layer properties",
+          "shortcuts": [
+            {
+              "title": "Open Auto-Orientation dialog box for selected l...",
+              "key": "ctrl+alt+o"
+            },
+            {
+              "title": "Open Opacity dialog box for selected layers",
+              "key": "ctrl+shift+o"
+            },
+            {
+              "title": "Open Rotation dialog box for selected layers",
+              "key": "ctrl+shift+r"
+            },
+            {
+              "title": "Open Position dialog box for selected layers",
+              "key": "ctrl+shift+p"
+            },
+            {
+              "title": "Center-selected layers in view (modifies Positi...",
+              "key": "ctrl+home"
+            },
+            {
+              "title": "Center anchor point in the visible content",
+              "key": "ctrl+alt+home"
+            },
+            {
+              "title": "Move selected layers 1 frame earlier or later",
+              "key": "alt+pageup"
+            },
+            {
+              "title": "Move selected layers 10 frames earlier or later",
+              "key": "shift+alt+pageup"
+            },
+            {
+              "title": "Increase or decrease Rotation (Z Rotation) of s...",
+              "key": "shift"
+            },
+            {
+              "title": "Increase or decrease Opacity (or Intensity for ...",
+              "key": "ctrl+alt"
+            },
+            {
+              "title": "Increase or decrease Opacity (or Intensity for ...",
+              "key": "ctrl+shift+alt"
+            },
+            {
+              "title": "Increase Scale of selected layers by 1%",
+              "key": "ctrl"
+            },
+            {
+              "title": "Increase Scale of selected layers by 10%",
+              "key": "ctrl+shift"
+            },
+            {
+              "title": "Scale and reposition selected layers to fit com...",
+              "key": "ctrl+alt+f"
+            },
+            {
+              "title": "Scale and reposition selected layers to fit com...",
+              "key": "ctrl+shift+alt+h"
+            },
+            {
+              "title": "Scale and reposition selected layers to fit com...",
+              "key": "ctrl+shift+alt+g"
+            }
+          ]
+        },
+        {
+          "title": "3D Layers",
+          "shortcuts": [
+            {
+              "title": "Return to previous view",
+              "key": "esc"
+            },
+            {
+              "title": "New light",
+              "key": "ctrl+shift+alt+l"
+            },
+            {
+              "title": "New camera",
+              "key": "ctrl+shift+alt+c"
+            },
+            {
+              "title": "With a camera tool selected, move the camera an...",
+              "key": "f"
+            },
+            {
+              "title": "With a camera tool selected, move the camera an...",
+              "key": "ctrl+shift+f"
+            },
+            {
+              "title": "Turn Casts Shadows property on or off for selec...",
+              "key": "shift+alt+c"
+            }
+          ]
+        },
+        {
+          "title": "Keyframes and the Graph Editor",
+          "shortcuts": [
+            {
+              "title": "Select all visible keyframes and properties",
+              "key": "ctrl+alt+a"
+            },
+            {
+              "title": "Move keyframe 1 frame later or earlier",
+              "key": "alt+right"
+            },
+            {
+              "title": "Move keyframe 10 frames later or earlier",
+              "key": "shift+alt+right"
+            },
+            {
+              "title": "Set interpolation for selected keyframes (layer...",
+              "key": "ctrl+alt+k"
+            },
+            {
+              "title": "Set keyframe interpolation method to hold or Au...",
+              "key": "ctrl+alt+h"
+            },
+            {
+              "title": "Set velocity for selected keyframes",
+              "key": "ctrl+shift+k"
+            }
+          ]
+        },
+        {
+          "title": "Text",
+          "shortcuts": [
+            {
+              "title": "New text layer",
+              "key": "ctrl+shift+alt+t"
+            },
+            {
+              "title": "Align selected horizontal text left, center, or...",
+              "key": "ctrl+shift+l"
+            },
+            {
+              "title": "Align selected vertical text top, center, or bo...",
+              "key": "ctrl+shift+l"
+            },
+            {
+              "title": "Extend or reduce selection by one character to ...",
+              "key": "shift+right"
+            },
+            {
+              "title": "Extend or reduce selection by one word to right...",
+              "key": "ctrl+shift+right"
+            },
+            {
+              "title": "Extend or reduce selection by one line up or do...",
+              "key": "shift+up"
+            },
+            {
+              "title": "Extend or reduce selection by one line to right...",
+              "key": "shift+right"
+            },
+            {
+              "title": "Extend or reduce selection one word up or down ...",
+              "key": "ctrl+shift+up"
+            },
+            {
+              "title": "Extend or reduce selection by one character up ...",
+              "key": "shift+up"
+            },
+            {
+              "title": "Select text from insertion point to beginning o...",
+              "key": "shift+home"
+            },
+            {
+              "title": "Move insertion point to beginning or end of line",
+              "key": "home"
+            },
+            {
+              "title": "Select text from insertion point to beginning o...",
+              "key": "ctrl+shift+home"
+            },
+            {
+              "title": "In horizontal text, move insertion point one ch...",
+              "key": "left"
+            },
+            {
+              "title": "In vertical text, move insertion point one char...",
+              "key": "up"
+            },
+            {
+              "title": "Turn All Caps on or off for selected text",
+              "key": "ctrl+shift+k"
+            },
+            {
+              "title": "Turn Small Caps on or off for selected text",
+              "key": "ctrl+shift+alt+k"
+            },
+            {
+              "title": "Set horizontal scale to 100% for selected text",
+              "key": "ctrl+shift+x"
+            },
+            {
+              "title": "Set vertical scale to 100% for selected text",
+              "key": "ctrl+shift+alt+x"
+            },
+            {
+              "title": "Auto leading for selected text",
+              "key": "ctrl+shift+alt+a"
+            },
+            {
+              "title": "Reset tracking to 0 for selected text",
+              "key": "ctrl+shift+q"
+            },
+            {
+              "title": "Justify paragraph; left align last line",
+              "key": "ctrl+shift+j"
+            },
+            {
+              "title": "Justify paragraph; right align last line",
+              "key": "ctrl+shift+alt+j"
+            },
+            {
+              "title": "Justify paragraph; force last line",
+              "key": "ctrl+shift+f"
+            },
+            {
+              "title": "Decrease or increase font size of selected text...",
+              "key": "ctrl+shift"
+            },
+            {
+              "title": "Decrease or increase font size of selected text...",
+              "key": "ctrl+shift+alt"
+            },
+            {
+              "title": "Increase or decrease leading by 2 units",
+              "key": "alt+down"
+            },
+            {
+              "title": "Increase or decrease leading by 10 units",
+              "key": "ctrl+alt+down"
+            },
+            {
+              "title": "Decrease or increase baseline shift by 2 units",
+              "key": "shift+alt+down"
+            },
+            {
+              "title": "Decrease or increase baseline shift by 10 units",
+              "key": "ctrl+shift+alt+down"
+            },
+            {
+              "title": "Decrease or increase kerning or tracking 20 uni...",
+              "key": "alt+left"
+            },
+            {
+              "title": "Decrease or increase kerning or tracking 100 un...",
+              "key": "ctrl+alt+left"
+            },
+            {
+              "title": "Toggle paragraph composer",
+              "key": "ctrl+shift+alt+t"
+            }
+          ]
+        },
+        {
+          "title": "Masks",
+          "shortcuts": [
+            {
+              "title": "New mask",
+              "key": "ctrl+shift+n"
+            },
+            {
+              "title": "Exit free-transform mask editing mode",
+              "key": "esc"
+            },
+            {
+              "title": "Invert selected mask",
+              "key": "ctrl+shift+i"
+            },
+            {
+              "title": "Open Mask Feather dialog box for selected mask",
+              "key": "ctrl+shift+f"
+            },
+            {
+              "title": "Open Mask Shape dialog box for selected mask",
+              "key": "ctrl+shift+m"
+            },
+            {
+              "title": "Subtract mode",
+              "key": "s"
+            },
+            {
+              "title": "Darken mode",
+              "key": "d"
+            },
+            {
+              "title": "Difference mode",
+              "key": "f"
+            },
+            {
+              "title": "Add mode",
+              "key": "a"
+            },
+            {
+              "title": "Intersect mode",
+              "key": "i"
+            },
+            {
+              "title": "None",
+              "key": "n"
+            }
+          ]
+        },
+        {
+          "title": "Paint tools",
+          "shortcuts": [
+            {
+              "title": "Swap paint background color and foreground colors",
+              "key": "x"
+            },
+            {
+              "title": "Set paint foreground color to black and backgro...",
+              "key": "d"
+            },
+            {
+              "title": "Momentarily activate Eraser tool with Last Stro...",
+              "key": "ctrl+shift"
+            },
+            {
+              "title": "Activate a specific Clone Stamp tool preset",
+              "key": "3"
+            },
+            {
+              "title": "Set flow for a paint tool to 100%",
+              "key": "shift+.",
+              "comment": "On numeric keypad"
+            },
+            {
+              "title": "Move earlier or later by number of frames speci...",
+              "key": "ctrl+pageup"
+            }
+          ]
+        },
+        {
+          "title": "Shape Layers",
+          "shortcuts": [
+            {
+              "title": "Group selected shapes",
+              "key": "ctrl+g"
+            },
+            {
+              "title": "Ungroup selected shapes",
+              "key": "ctrl+shift+g"
+            }
+          ]
+        },
+        {
+          "title": "Saving, exporting, and rendering",
+          "shortcuts": [
+            {
+              "title": "Save project",
+              "key": "ctrl+s"
+            },
+            {
+              "title": "Increment and save project",
+              "key": "ctrl+shift+alt+s"
+            },
+            {
+              "title": "Save As",
+              "key": "ctrl+shift+s"
+            },
+            {
+              "title": "Add current frame to render queue",
+              "key": "ctrl+alt+s"
+            },
+            {
+              "title": "Duplicate render item with same output filename...",
+              "key": "ctrl+shift+d"
+            },
+            {
+              "title": "Add a composition to the Adobe Media Encoder en...",
+              "key": "ctrl+alt+m"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

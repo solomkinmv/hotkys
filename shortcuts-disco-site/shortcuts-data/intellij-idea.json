@@ -3,6 +3,7 @@
   "bundleId": "com.jetbrains.intellij",
   "name": "IntelliJ IDEA",
   "slug": "intellij-idea",
+  "icon": "icons/intellij-idea.png",
   "keymaps": [
     {
       "title": "Default",

@@ -3,6 +3,7 @@
   "bundleId": "com.omnigroup.OmniFocus3",
   "name": "OmniFocus 3",
   "slug": "omnifocus3",
+  "icon": "icons/omnifocus3.png",
   "keymaps": [
     {
       "title": "Default",

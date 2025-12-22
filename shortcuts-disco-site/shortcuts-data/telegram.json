@@ -3,6 +3,7 @@
   "bundleId": "ru.keepcoder.Telegram",
   "name": "Telegram",
   "slug": "telegram",
+  "icon": "icons/telegram.png",
   "keymaps": [
     {
       "title": "Default",

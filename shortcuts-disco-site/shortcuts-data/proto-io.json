@@ -1,0 +1,460 @@
+{
+  "$schema": "schema/shortcut.schema.json",
+  "hostname": "proto.io",
+  "name": "Proto.io",
+  "slug": "proto-io",
+  "source": "https://support.proto.io/hc/en-us/articles/115001423511-Keyboard-shortcuts",
+  "icon": "icons/protoio.png",
+  "keymaps": [
+    {
+      "title": "Default",
+      "platforms": [
+        "macos"
+      ],
+      "sections": [
+        {
+          "title": "Main",
+          "shortcuts": [
+            {
+              "title": "Show keyboard shortcuts",
+              "key": "cmd+k"
+            },
+            {
+              "title": "Save",
+              "key": "cmd+s"
+            },
+            {
+              "title": "Close modal windows",
+              "key": "esc"
+            },
+            {
+              "title": "Preview",
+              "key": "shift+p"
+            },
+            {
+              "title": "Save & Preview",
+              "key": "shift+cmd+s"
+            }
+          ]
+        },
+        {
+          "title": "History",
+          "shortcuts": [
+            {
+              "title": "Undo",
+              "key": "cmd+z"
+            },
+            {
+              "title": "Redo",
+              "key": "cmd+y"
+            }
+          ]
+        },
+        {
+          "title": "Edit",
+          "shortcuts": [
+            {
+              "title": "Select all",
+              "key": "cmd+a"
+            },
+            {
+              "title": "Cut",
+              "key": "cmd+x"
+            },
+            {
+              "title": "Copy",
+              "key": "cmd+c"
+            },
+            {
+              "title": "Paste",
+              "key": "cmd+v"
+            },
+            {
+              "title": "Duplicate",
+              "key": "cmd+d"
+            },
+            {
+              "title": "Delete",
+              "key": "backspace"
+            }
+          ]
+        },
+        {
+          "title": "Grid",
+          "shortcuts": [
+            {
+              "title": "Toggle custom guides",
+              "key": "cmd+;"
+            },
+            {
+              "title": "Toggle smart guides",
+              "key": "cmd+u"
+            },
+            {
+              "title": "Toggle devices guides",
+              "key": "cmd+i"
+            },
+            {
+              "title": "Toggle “snap to grid” on drag/resize",
+              "key": "opt"
+            }
+          ]
+        },
+        {
+          "title": "View",
+          "shortcuts": [
+            {
+              "title": "Zoom to 100%",
+              "key": "cmd+0"
+            },
+            {
+              "title": "Zoom to all elements on Canvas",
+              "key": "cmd+1"
+            },
+            {
+              "title": "Zoom to selected layer",
+              "key": "cmd+2"
+            },
+            {
+              "title": "Center selected layer in the Canvas",
+              "key": "cmd+3"
+            },
+            {
+              "title": "Toggle right pane",
+              "key": "cmd+right"
+            },
+            {
+              "title": "Toggle left pane",
+              "key": "cmd+left"
+            },
+            {
+              "title": "Pan canvas while keydown",
+              "key": "space"
+            }
+          ]
+        },
+        {
+          "title": "Item",
+          "shortcuts": [
+            {
+              "title": "Bring to front",
+              "key": "cmd+up"
+            },
+            {
+              "title": "Send to back",
+              "key": "cmd+down"
+            },
+            {
+              "title": "Bring forward",
+              "key": "shift+cmd+up"
+            },
+            {
+              "title": "Send backwards",
+              "key": "shift+cmd+down"
+            },
+            {
+              "title": "Select multiple items on click",
+              "key": "cmd"
+            },
+            {
+              "title": "Insert rectangle",
+              "key": "r"
+            },
+            {
+              "title": "Insert oval",
+              "key": "o"
+            },
+            {
+              "title": "Insert line",
+              "key": "l"
+            },
+            {
+              "title": "Insert text",
+              "key": "t"
+            },
+            {
+              "title": "Insert interaction area",
+              "key": "i"
+            },
+            {
+              "title": "Edit selected container",
+              "key": "enter"
+            }
+          ]
+        },
+        {
+          "title": "Group",
+          "shortcuts": [
+            {
+              "title": "Group selected",
+              "key": "cmd+g"
+            },
+            {
+              "title": "Ungroup selected",
+              "key": "shift+cmd+g"
+            }
+          ]
+        },
+        {
+          "title": "States Preview",
+          "shortcuts": [
+            {
+              "title": "Play/ Pause state transition",
+              "key": "space"
+            },
+            {
+              "title": "Forward state transition",
+              "key": "."
+            }
+          ]
+        },
+        {
+          "title": "Preview",
+          "shortcuts": [
+            {
+              "title": "Previous screen",
+              "key": "left"
+            },
+            {
+              "title": "Next screen",
+              "key": "right"
+            },
+            {
+              "title": "View hotspots while keydown",
+              "key": "shift"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Default (Windows)",
+      "platforms": [
+        "windows"
+      ],
+      "sections": [
+        {
+          "title": "Main",
+          "shortcuts": [
+            {
+              "title": "Find",
+              "key": "ctrl+f"
+            },
+            {
+              "title": "Show keyboard shortcuts",
+              "key": "ctrl+k"
+            },
+            {
+              "title": "Save",
+              "key": "ctrl+s"
+            },
+            {
+              "title": "Close modal windows",
+              "key": "esc"
+            },
+            {
+              "title": "Preview",
+              "key": "shift+p"
+            },
+            {
+              "title": "Save & Preview",
+              "key": "ctrl+shift+s"
+            }
+          ]
+        },
+        {
+          "title": "History",
+          "shortcuts": [
+            {
+              "title": "Undo",
+              "key": "ctrl+z"
+            },
+            {
+              "title": "Redo",
+              "key": "ctrl+y"
+            },
+            {
+              "title": "Go to previous canvas",
+              "key": "alt+left"
+            },
+            {
+              "title": "Go to next canvas",
+              "key": "alt+right"
+            }
+          ]
+        },
+        {
+          "title": "Edit",
+          "shortcuts": [
+            {
+              "title": "Select all",
+              "key": "ctrl+a"
+            },
+            {
+              "title": "Cut",
+              "key": "ctrl+x"
+            },
+            {
+              "title": "Copy",
+              "key": "ctrl+c"
+            },
+            {
+              "title": "Paste",
+              "key": "ctrl+v"
+            },
+            {
+              "title": "Duplicate",
+              "key": "ctrl+d"
+            }
+          ]
+        },
+        {
+          "title": "Grid",
+          "shortcuts": [
+            {
+              "title": "Toggle custom guides",
+              "key": "ctrl+;"
+            },
+            {
+              "title": "Toggle smart guides",
+              "key": "ctrl+u"
+            },
+            {
+              "title": "Toggle devices guides",
+              "key": "ctrl+i"
+            },
+            {
+              "title": "Toggle “snap to grid” on drag/resize",
+              "key": "alt"
+            }
+          ]
+        },
+        {
+          "title": "View",
+          "shortcuts": [
+            {
+              "title": "Zoom to 100%",
+              "key": "ctrl+0"
+            },
+            {
+              "title": "Zoom to all elements on Canvas",
+              "key": "ctrl+1"
+            },
+            {
+              "title": "Zoom to selected layer",
+              "key": "ctrl+2"
+            },
+            {
+              "title": "Center selected layer in the Canvas",
+              "key": "ctrl+3"
+            },
+            {
+              "title": "Toggle right pane",
+              "key": "ctrl+right"
+            },
+            {
+              "title": "Toggle left pane",
+              "key": "ctrl+left"
+            },
+            {
+              "title": "Pan canvas while keydown",
+              "key": "space"
+            }
+          ]
+        },
+        {
+          "title": "Item",
+          "shortcuts": [
+            {
+              "title": "Bring to front",
+              "key": "ctrl+up"
+            },
+            {
+              "title": "Send to back",
+              "key": "ctrl+down"
+            },
+            {
+              "title": "Bring forward",
+              "key": "ctrl+shift+up"
+            },
+            {
+              "title": "Send backwards",
+              "key": "shift+cmd+down"
+            },
+            {
+              "title": "Select multiple items on click",
+              "key": "ctrl"
+            },
+            {
+              "title": "Insert rectangle",
+              "key": "r"
+            },
+            {
+              "title": "Insert oval",
+              "key": "o"
+            },
+            {
+              "title": "Insert line",
+              "key": "l"
+            },
+            {
+              "title": "Insert text",
+              "key": "t"
+            },
+            {
+              "title": "Insert interaction area",
+              "key": "i"
+            },
+            {
+              "title": "Edit selected container",
+              "key": "enter"
+            }
+          ]
+        },
+        {
+          "title": "Group",
+          "shortcuts": [
+            {
+              "title": "Group selected",
+              "key": "ctrl+g"
+            },
+            {
+              "title": "Ungroup selected",
+              "key": "ctrl+shift+g"
+            }
+          ]
+        },
+        {
+          "title": "States Preview",
+          "shortcuts": [
+            {
+              "title": "Play/ Pause state transition",
+              "key": "space"
+            },
+            {
+              "title": "Forward state transition",
+              "key": "."
+            }
+          ]
+        },
+        {
+          "title": "Preview",
+          "shortcuts": [
+            {
+              "title": "Previous screen",
+              "key": "left"
+            },
+            {
+              "title": "Next screen",
+              "key": "right"
+            },
+            {
+              "title": "View hotspots while keydown",
+              "key": "shift"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

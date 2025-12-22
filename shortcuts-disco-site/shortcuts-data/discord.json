@@ -2,6 +2,7 @@
   "$schema": "schema/shortcut.schema.json",
   "name": "Discord",
   "slug": "discord",
+  "icon": "icons/discord.png",
   "bundleId": "com.hnc.Discord",
   "keymaps": [
     {

@@ -1,0 +1,1420 @@
+{
+  "$schema": "schema/shortcut.schema.json",
+  "bundleId": "com.seriflabs.affinityphoto",
+  "name": "Affinity Photo",
+  "slug": "affinity-photo",
+  "source": "https://support.affinity.co/s/article/Keyboard-Shortcuts",
+  "icon": "icons/affinityphoto.png",
+  "keymaps": [
+    {
+      "title": "Default",
+      "platforms": [
+        "macos"
+      ],
+      "sections": [
+        {
+          "title": "Editing",
+          "shortcuts": [
+            {
+              "title": "Resize Document",
+              "key": "opt+cmd+i"
+            },
+            {
+              "title": "Resize Canvas",
+              "key": "opt+cmd+c"
+            },
+            {
+              "title": "Reset Selection Box",
+              "key": "."
+            },
+            {
+              "title": "Toggle Snapping",
+              "key": ";"
+            },
+            {
+              "title": "Erase with Pixel Tool on current layer",
+              "key": "cmd"
+            },
+            {
+              "title": "Switch between Stroke/Fill colour selectors",
+              "key": "x"
+            },
+            {
+              "title": "Swap Stroke/Fill colour selectors",
+              "key": "shift+x"
+            },
+            {
+              "title": "Toggle between Crop Tool overlays",
+              "key": "o"
+            },
+            {
+              "title": "Flip golden spiral overlay (crop tool enabled)",
+              "key": "shift+o"
+            },
+            {
+              "title": "Cancel a sizing, moving, or creating operation",
+              "key": "esc"
+            }
+          ]
+        },
+        {
+          "title": "Vector graphics",
+          "shortcuts": [
+            {
+              "title": "Edit curves as you draw using node editing",
+              "key": "cmd"
+            }
+          ]
+        },
+        {
+          "title": "File",
+          "shortcuts": [
+            {
+              "title": "New Document",
+              "key": "cmd+n"
+            },
+            {
+              "title": "New From Clipboard",
+              "key": "shift+opt+cmd+n"
+            },
+            {
+              "title": "Open Document",
+              "key": "cmd+o"
+            },
+            {
+              "title": "Close Document/Close App (when no documents open)",
+              "key": "cmd+w"
+            },
+            {
+              "title": "Switch Document/View",
+              "key": "ctrl+tab"
+            },
+            {
+              "title": "Save",
+              "key": "cmd+s"
+            },
+            {
+              "title": "Save As",
+              "key": "shift+cmd+s"
+            },
+            {
+              "title": "Export",
+              "key": "shift+opt+cmd+s"
+            },
+            {
+              "title": "Print",
+              "key": "cmd+p"
+            }
+          ]
+        },
+        {
+          "title": "Tools",
+          "shortcuts": [
+            {
+              "title": "Flood Fill Tool / Gradient cycle",
+              "key": "g"
+            },
+            {
+              "title": "View Tool",
+              "key": "h"
+            },
+            {
+              "title": "Move Tool",
+              "key": "v"
+            },
+            {
+              "title": "Crop Tool",
+              "key": "c"
+            },
+            {
+              "title": "Selection Tools cycle",
+              "key": "w"
+            },
+            {
+              "title": "Pen and Node Tool cycle",
+              "key": "p"
+            },
+            {
+              "title": "Zoom Tool",
+              "key": "z"
+            },
+            {
+              "title": "Clone Tool",
+              "key": "s"
+            },
+            {
+              "title": "Shape Tools cycle",
+              "key": "u"
+            },
+            {
+              "title": "Text Tools cycle",
+              "key": "t"
+            },
+            {
+              "title": "Dodge, Burn and Sponge Brush Tool cycle",
+              "key": "o"
+            },
+            {
+              "title": "Retouch Tools cycle",
+              "key": "j"
+            },
+            {
+              "title": "Painting Tools cycle",
+              "key": "b"
+            },
+            {
+              "title": "Erase Tools cycle",
+              "key": "e"
+            },
+            {
+              "title": "Marquee Selection Tools cycle",
+              "key": "m"
+            },
+            {
+              "title": "Free Hand Selection Tool",
+              "key": "l"
+            }
+          ]
+        },
+        {
+          "title": "Liquify",
+          "shortcuts": [
+            {
+              "title": "Liquify Push Forward Tool",
+              "key": "p"
+            },
+            {
+              "title": "Liquify Push Left Tool",
+              "key": "l"
+            },
+            {
+              "title": "Liquify Twirl Tool",
+              "key": "t"
+            },
+            {
+              "title": "Liquify Pinch Tool",
+              "key": "u"
+            },
+            {
+              "title": "Liquify Turbulence Tool",
+              "key": "b"
+            },
+            {
+              "title": "Liquify Mesh Clone Tool",
+              "key": "c"
+            },
+            {
+              "title": "Liquify Reconstruct Tool",
+              "key": "r"
+            },
+            {
+              "title": "Liquify Freeze Tool",
+              "key": "f"
+            },
+            {
+              "title": "Liquify Thaw Tool",
+              "key": "w"
+            },
+            {
+              "title": "Liquify Zoom Tool",
+              "key": "z"
+            },
+            {
+              "title": "Liquify View Tool",
+              "key": "h"
+            }
+          ]
+        },
+        {
+          "title": "Develop",
+          "shortcuts": [
+            {
+              "title": "Sampler Tool",
+              "key": "s"
+            },
+            {
+              "title": "White Balance Tool",
+              "key": "w"
+            },
+            {
+              "title": "Red Eye Removal Tool",
+              "key": "r"
+            },
+            {
+              "title": "Blemish Removal Tool",
+              "key": "l"
+            },
+            {
+              "title": "Overlay Paint Tool",
+              "key": "b"
+            },
+            {
+              "title": "Overlay Erase Tool",
+              "key": "e"
+            },
+            {
+              "title": "Overlay Gradient Tool",
+              "key": "g"
+            },
+            {
+              "title": "Crop Tool",
+              "key": "c"
+            },
+            {
+              "title": "Zoom Tool",
+              "key": "z"
+            },
+            {
+              "title": "View Tool",
+              "key": "h"
+            }
+          ]
+        },
+        {
+          "title": "Export",
+          "shortcuts": [
+            {
+              "title": "Slice Tool",
+              "key": "s"
+            },
+            {
+              "title": "Layer Select tool",
+              "key": "l"
+            }
+          ]
+        },
+        {
+          "title": "Panorama",
+          "shortcuts": [
+            {
+              "title": "Transform Source Image Tool",
+              "key": "a"
+            },
+            {
+              "title": "Add to Source Image Mask Tool",
+              "key": "l"
+            },
+            {
+              "title": "Erase From Source Image Mask Tool",
+              "key": "u"
+            }
+          ]
+        },
+        {
+          "title": "Tone mapping",
+          "shortcuts": [
+            {
+              "title": "View Tool",
+              "key": "h"
+            },
+            {
+              "title": "Zoom Tool",
+              "key": "z"
+            },
+            {
+              "title": "Overlay Paint Tool",
+              "key": "b"
+            },
+            {
+              "title": "Overlay Erase Tool",
+              "key": "e"
+            },
+            {
+              "title": "Overlay Gradient Tool",
+              "key": "g"
+            }
+          ]
+        },
+        {
+          "title": "Edit",
+          "shortcuts": [
+            {
+              "title": "Undo",
+              "key": "cmd+z"
+            },
+            {
+              "title": "Redo",
+              "key": "shift+cmd+z"
+            },
+            {
+              "title": "Copy Merged",
+              "key": "shift+cmd+c"
+            },
+            {
+              "title": "Paste Style",
+              "key": "shift+cmd+v"
+            },
+            {
+              "title": "Paste FX",
+              "key": "ctrl+cmd+v"
+            },
+            {
+              "title": "Paste without Format",
+              "key": "shift+opt+cmd+v"
+            },
+            {
+              "title": "Paste Inside",
+              "key": "opt+cmd+v"
+            },
+            {
+              "title": "Inpaint",
+              "key": "opt+tab"
+            }
+          ]
+        },
+        {
+          "title": "Layer operations",
+          "shortcuts": [
+            {
+              "title": "Select All Layers",
+              "key": "opt+cmd+a"
+            },
+            {
+              "title": "Group",
+              "key": "cmd+g"
+            },
+            {
+              "title": "Ungroup",
+              "key": "shift+cmd+g"
+            },
+            {
+              "title": "Duplicate",
+              "key": "cmd+j"
+            },
+            {
+              "title": "Invert",
+              "key": "cmd+i"
+            },
+            {
+              "title": "New Layer",
+              "key": "shift+cmd+n"
+            },
+            {
+              "title": "Merge Down",
+              "key": "cmd+e"
+            },
+            {
+              "title": "Merge Selected",
+              "key": "shift+cmd+e"
+            },
+            {
+              "title": "Merge Visible",
+              "key": "shift+opt+cmd+e"
+            },
+            {
+              "title": "Toggle between Frequency Separation layers",
+              "key": "f"
+            }
+          ]
+        },
+        {
+          "title": "Live projection",
+          "shortcuts": [
+            {
+              "title": "Edit Live Projection",
+              "key": "ctrl+cmd+p"
+            }
+          ]
+        },
+        {
+          "title": "Text",
+          "shortcuts": [
+            {
+              "title": "Bigger text",
+              "key": "cmd+."
+            },
+            {
+              "title": "Precise bigger text",
+              "key": "opt+cmd+."
+            },
+            {
+              "title": "Tighten",
+              "key": "opt+left"
+            },
+            {
+              "title": "Loosen",
+              "key": "opt+right"
+            },
+            {
+              "title": "Tighten More",
+              "key": "opt+cmd+left"
+            },
+            {
+              "title": "Loosen More",
+              "key": "opt+cmd+right"
+            },
+            {
+              "title": "Bold",
+              "key": "cmd+b"
+            },
+            {
+              "title": "Italic",
+              "key": "cmd+i"
+            },
+            {
+              "title": "Underline",
+              "key": "cmd+u"
+            },
+            {
+              "title": "Show Character",
+              "key": "cmd+t"
+            },
+            {
+              "title": "Show Typography",
+              "key": "shift+cmd+t"
+            },
+            {
+              "title": "Align Left",
+              "key": "opt+cmd+l"
+            },
+            {
+              "title": "Align Right",
+              "key": "opt+cmd+r"
+            },
+            {
+              "title": "Align Centre",
+              "key": "opt+cmd+c"
+            },
+            {
+              "title": "Justify Left",
+              "key": "opt+cmd+i"
+            },
+            {
+              "title": "Increase Paragraph Leading",
+              "key": "opt+down"
+            },
+            {
+              "title": "Decrease Paragraph Leading",
+              "key": "opt+up"
+            },
+            {
+              "title": "Precise Paragraph Increase Leading",
+              "key": "opt+cmd+down"
+            },
+            {
+              "title": "Precise Paragraph Decrease Leading",
+              "key": "opt+cmd+up"
+            },
+            {
+              "title": "Raise Baseline",
+              "key": "shift+opt+up"
+            },
+            {
+              "title": "Lower Baseline",
+              "key": "shift+opt+down"
+            },
+            {
+              "title": "Precise Raise Baseline",
+              "key": "shift+opt+cmd+up"
+            },
+            {
+              "title": "Precise Lower Baseline",
+              "key": "shift+opt+cmd+down"
+            },
+            {
+              "title": "Special Characters",
+              "key": "ctrl+cmd+space"
+            },
+            {
+              "title": "Spelling Options",
+              "key": "shift+cmd+;"
+            },
+            {
+              "title": "Non Breaking Space",
+              "key": "opt+space"
+            }
+          ]
+        },
+        {
+          "title": "View",
+          "shortcuts": [
+            {
+              "title": "Zoom to Fit",
+              "key": "cmd+0"
+            },
+            {
+              "title": "(Zoom to) 100%",
+              "key": "cmd+1"
+            },
+            {
+              "title": "(Zoom to) 200%",
+              "key": "cmd+2"
+            },
+            {
+              "title": "(Zoom to) 400%",
+              "key": "cmd+3"
+            },
+            {
+              "title": "(Zoom to) 800%",
+              "key": "cmd+4"
+            },
+            {
+              "title": "(Zoom to) Actual Size",
+              "key": "cmd+8"
+            },
+            {
+              "title": "(Zoom to) Pixel Size",
+              "key": "cmd+9"
+            },
+            {
+              "title": "Hot key panning",
+              "key": "space"
+            },
+            {
+              "title": "View Tool",
+              "key": "h"
+            },
+            {
+              "title": "Toggle Full Screen",
+              "key": "ctrl+cmd+f"
+            },
+            {
+              "title": "Show Rulers",
+              "key": "cmd+r"
+            },
+            {
+              "title": "Show Guides",
+              "key": "cmd+;"
+            }
+          ]
+        },
+        {
+          "title": "Pixel selection/Mask",
+          "shortcuts": [
+            {
+              "title": "Select All",
+              "key": "cmd+a"
+            },
+            {
+              "title": "Deselect",
+              "key": "cmd+d"
+            },
+            {
+              "title": "Invert Pixel Selection",
+              "key": "shift+cmd+i"
+            },
+            {
+              "title": "Add to selection",
+              "key": "ctrl"
+            },
+            {
+              "title": "Remove from selection",
+              "key": "opt"
+            },
+            {
+              "title": "Grow/Shrink",
+              "key": "cmd+b"
+            },
+            {
+              "title": "Refine Edges",
+              "key": "opt+cmd+r"
+            },
+            {
+              "title": "Quick Mask",
+              "key": "q"
+            },
+            {
+              "title": "Invert Mask",
+              "key": "cmd+i"
+            }
+          ]
+        },
+        {
+          "title": "Workspace",
+          "shortcuts": [
+            {
+              "title": "Show/Hide Studio (panels)",
+              "key": "shift+cmd+h"
+            },
+            {
+              "title": "Show/Hide Toolbar",
+              "key": "opt+cmd+t"
+            },
+            {
+              "title": "Toggle UI",
+              "key": "tab"
+            },
+            {
+              "title": "Hide Workspace",
+              "key": "cmd+h"
+            }
+          ]
+        },
+        {
+          "title": "Adjustment and filter",
+          "shortcuts": [
+            {
+              "title": "Levels (Adjustment)",
+              "key": "cmd+l"
+            },
+            {
+              "title": "HSL (Adjustment)",
+              "key": "cmd+u"
+            },
+            {
+              "title": "Invert (Adjustment)",
+              "key": "cmd+i"
+            },
+            {
+              "title": "Curves (Adjustment)",
+              "key": "cmd+m"
+            },
+            {
+              "title": "Black and White (Adjustment)",
+              "key": "shift+opt+cmd+b"
+            },
+            {
+              "title": "Repeat Filter",
+              "key": "cmd+f"
+            }
+          ]
+        },
+        {
+          "title": "Liquify Masks",
+          "shortcuts": [
+            {
+              "title": "Mask All",
+              "key": "cmd+d"
+            },
+            {
+              "title": "Invert Mask",
+              "key": "cmd+i"
+            },
+            {
+              "title": "Clear Mask",
+              "key": "cmd+a"
+            }
+          ]
+        },
+        {
+          "title": "Miscellaneous",
+          "shortcuts": [
+            {
+              "title": "Liquify Persona",
+              "key": "opt+cmd+l"
+            },
+            {
+              "title": "Export Persona",
+              "key": "opt+cmd+e"
+            },
+            {
+              "title": "Develop Persona",
+              "key": "opt+cmd+r"
+            },
+            {
+              "title": "Hide Others (applications)",
+              "key": "opt+cmd+h"
+            },
+            {
+              "title": "Media Browser",
+              "key": "shift+cmd+m"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Default (Windows)",
+      "platforms": [
+        "windows"
+      ],
+      "sections": [
+        {
+          "title": "Editing",
+          "shortcuts": [
+            {
+              "title": "Resize Document",
+              "key": "ctrl+alt+i"
+            },
+            {
+              "title": "Resize Canvas",
+              "key": "ctrl+alt+c"
+            },
+            {
+              "title": "Reset Selection Box",
+              "key": "."
+            },
+            {
+              "title": "Toggle Snapping",
+              "key": ";"
+            },
+            {
+              "title": "Erase with Pixel Tool on current layer",
+              "key": "ctrl"
+            },
+            {
+              "title": "Switch between Stroke/Fill colour selectors",
+              "key": "x"
+            },
+            {
+              "title": "Swap Stroke/Fill colour selectors",
+              "key": "shift+x"
+            },
+            {
+              "title": "Toggle between Crop Tool overlays",
+              "key": "o"
+            },
+            {
+              "title": "Flip golden spiral overlay (crop tool enabled)",
+              "key": "shift+o"
+            },
+            {
+              "title": "Cancel a sizing, moving, or creating operation",
+              "key": "esc"
+            }
+          ]
+        },
+        {
+          "title": "Vector graphics",
+          "shortcuts": [
+            {
+              "title": "Edit curves as you draw using node editing",
+              "key": "ctrl"
+            }
+          ]
+        },
+        {
+          "title": "File",
+          "shortcuts": [
+            {
+              "title": "New Document",
+              "key": "ctrl+n"
+            },
+            {
+              "title": "New From Clipboard",
+              "key": "ctrl+shift+alt+n"
+            },
+            {
+              "title": "Open Document",
+              "key": "ctrl+o"
+            },
+            {
+              "title": "Close Document/Close App (when no documents open)",
+              "key": "ctrl+w"
+            },
+            {
+              "title": "Switch Document/View",
+              "key": "ctrl+tab"
+            },
+            {
+              "title": "Save",
+              "key": "ctrl+s"
+            },
+            {
+              "title": "Save As",
+              "key": "ctrl+shift+s"
+            },
+            {
+              "title": "Export",
+              "key": "ctrl+shift+alt+s"
+            },
+            {
+              "title": "Print",
+              "key": "ctrl+p"
+            }
+          ]
+        },
+        {
+          "title": "Tools",
+          "shortcuts": [
+            {
+              "title": "Flood Fill Tool / Gradient cycle",
+              "key": "g"
+            },
+            {
+              "title": "View Tool",
+              "key": "h"
+            },
+            {
+              "title": "Move Tool",
+              "key": "v"
+            },
+            {
+              "title": "Crop Tool",
+              "key": "c"
+            },
+            {
+              "title": "Selection Tools cycle",
+              "key": "w"
+            },
+            {
+              "title": "Pen and Node Tool cycle",
+              "key": "p"
+            },
+            {
+              "title": "Zoom Tool",
+              "key": "z"
+            },
+            {
+              "title": "Clone Tool",
+              "key": "s"
+            },
+            {
+              "title": "Shape Tools cycle",
+              "key": "u"
+            },
+            {
+              "title": "Text Tools cycle",
+              "key": "t"
+            },
+            {
+              "title": "Dodge, Burn and Sponge Brush Tool cycle",
+              "key": "o"
+            },
+            {
+              "title": "Retouch Tools cycle",
+              "key": "j"
+            },
+            {
+              "title": "Painting Tools cycle",
+              "key": "b"
+            },
+            {
+              "title": "Erase Tools cycle",
+              "key": "e"
+            },
+            {
+              "title": "Marquee Selection Tools cycle",
+              "key": "m"
+            },
+            {
+              "title": "Free Hand Selection Tool",
+              "key": "l"
+            }
+          ]
+        },
+        {
+          "title": "Liquify",
+          "shortcuts": [
+            {
+              "title": "Liquify Push Forward Tool",
+              "key": "p"
+            },
+            {
+              "title": "Liquify Push Left Tool",
+              "key": "l"
+            },
+            {
+              "title": "Liquify Twirl Tool",
+              "key": "t"
+            },
+            {
+              "title": "Liquify Pinch Tool",
+              "key": "u"
+            },
+            {
+              "title": "Liquify Turbulence Tool",
+              "key": "b"
+            },
+            {
+              "title": "Liquify Mesh Clone Tool",
+              "key": "c"
+            },
+            {
+              "title": "Liquify Reconstruct Tool",
+              "key": "r"
+            },
+            {
+              "title": "Liquify Freeze Tool",
+              "key": "f"
+            },
+            {
+              "title": "Liquify Thaw Tool",
+              "key": "w"
+            },
+            {
+              "title": "Liquify Zoom Tool",
+              "key": "z"
+            },
+            {
+              "title": "Liquify View Tool",
+              "key": "h"
+            }
+          ]
+        },
+        {
+          "title": "Develop",
+          "shortcuts": [
+            {
+              "title": "Sampler Tool",
+              "key": "s"
+            },
+            {
+              "title": "White Balance Tool",
+              "key": "w"
+            },
+            {
+              "title": "Red Eye Removal Tool",
+              "key": "r"
+            },
+            {
+              "title": "Blemish Removal Tool",
+              "key": "l"
+            },
+            {
+              "title": "Overlay Paint Tool",
+              "key": "b"
+            },
+            {
+              "title": "Overlay Erase Tool",
+              "key": "e"
+            },
+            {
+              "title": "Overlay Gradient Tool",
+              "key": "g"
+            },
+            {
+              "title": "Crop Tool",
+              "key": "c"
+            },
+            {
+              "title": "Zoom Tool",
+              "key": "z"
+            },
+            {
+              "title": "View Tool",
+              "key": "h"
+            }
+          ]
+        },
+        {
+          "title": "Export",
+          "shortcuts": [
+            {
+              "title": "Slice Tool",
+              "key": "s"
+            },
+            {
+              "title": "Layer Select tool",
+              "key": "l"
+            }
+          ]
+        },
+        {
+          "title": "Panorama",
+          "shortcuts": [
+            {
+              "title": "Transform Source Image Tool",
+              "key": "a"
+            },
+            {
+              "title": "Add to Source Image Mask Tool",
+              "key": "l"
+            },
+            {
+              "title": "Erase From Source Image Mask Tool",
+              "key": "u"
+            }
+          ]
+        },
+        {
+          "title": "Tone mapping",
+          "shortcuts": [
+            {
+              "title": "View Tool",
+              "key": "h"
+            },
+            {
+              "title": "Zoom Tool",
+              "key": "z"
+            },
+            {
+              "title": "Overlay Paint Tool",
+              "key": "b"
+            },
+            {
+              "title": "Overlay Erase Tool",
+              "key": "e"
+            },
+            {
+              "title": "Overlay Gradient Tool",
+              "key": "g"
+            }
+          ]
+        },
+        {
+          "title": "Edit",
+          "shortcuts": [
+            {
+              "title": "Undo",
+              "key": "ctrl+z"
+            },
+            {
+              "title": "Redo",
+              "key": "ctrl+shift+z"
+            },
+            {
+              "title": "Copy Merged",
+              "key": "ctrl+shift+c"
+            },
+            {
+              "title": "Paste Style",
+              "key": "ctrl+shift+v"
+            },
+            {
+              "title": "Paste FX",
+              "key": "ctrl+alt+v"
+            },
+            {
+              "title": "Paste without Format",
+              "key": "ctrl+shift+alt+v"
+            },
+            {
+              "title": "Paste Inside",
+              "key": "ctrl+alt+v"
+            },
+            {
+              "title": "Inpaint",
+              "key": "alt+tab"
+            }
+          ]
+        },
+        {
+          "title": "Layer operations",
+          "shortcuts": [
+            {
+              "title": "Select All Layers",
+              "key": "ctrl+alt+a"
+            },
+            {
+              "title": "Group",
+              "key": "ctrl+g"
+            },
+            {
+              "title": "Ungroup",
+              "key": "ctrl+shift+g"
+            },
+            {
+              "title": "Duplicate",
+              "key": "ctrl+j"
+            },
+            {
+              "title": "Invert",
+              "key": "ctrl+i"
+            },
+            {
+              "title": "New Layer",
+              "key": "ctrl+shift+n"
+            },
+            {
+              "title": "Merge Down",
+              "key": "ctrl+e"
+            },
+            {
+              "title": "Merge Selected",
+              "key": "ctrl+shift+e"
+            },
+            {
+              "title": "Merge Visible",
+              "key": "ctrl+shift+alt+e"
+            },
+            {
+              "title": "Toggle between Frequency Separation layers",
+              "key": "f"
+            }
+          ]
+        },
+        {
+          "title": "Live projection",
+          "shortcuts": [
+            {
+              "title": "Edit Live Projection",
+              "key": "ctrl+alt+p"
+            }
+          ]
+        },
+        {
+          "title": "Text",
+          "shortcuts": [
+            {
+              "title": "Bigger text",
+              "key": "ctrl+."
+            },
+            {
+              "title": "Precise bigger text",
+              "key": "ctrl+alt+."
+            },
+            {
+              "title": "Tighten",
+              "key": "alt+left"
+            },
+            {
+              "title": "Loosen",
+              "key": "alt+right"
+            },
+            {
+              "title": "Tighten More",
+              "key": "shift+alt+left"
+            },
+            {
+              "title": "Loosen More",
+              "key": "shift+alt+right"
+            },
+            {
+              "title": "Bold",
+              "key": "ctrl+b"
+            },
+            {
+              "title": "Italic",
+              "key": "ctrl+i"
+            },
+            {
+              "title": "Underline",
+              "key": "ctrl+u"
+            },
+            {
+              "title": "Show Character",
+              "key": "ctrl+t"
+            },
+            {
+              "title": "Show Typography",
+              "key": "ctrl+shift+t"
+            },
+            {
+              "title": "Align Left",
+              "key": "ctrl+alt+l"
+            },
+            {
+              "title": "Align Right",
+              "key": "ctrl+alt+r"
+            },
+            {
+              "title": "Align Centre",
+              "key": "ctrl+alt+c"
+            },
+            {
+              "title": "Increase Paragraph Leading",
+              "key": "alt+down"
+            },
+            {
+              "title": "Decrease Paragraph Leading",
+              "key": "alt+up"
+            },
+            {
+              "title": "Precise Paragraph Increase Leading",
+              "key": "ctrl+shift+down"
+            },
+            {
+              "title": "Precise Paragraph Decrease Leading",
+              "key": "ctrl+shift+up"
+            },
+            {
+              "title": "Raise Baseline",
+              "key": "shift+alt+up"
+            },
+            {
+              "title": "Lower Baseline",
+              "key": "shift+alt+down"
+            },
+            {
+              "title": "Precise Raise Baseline",
+              "key": "ctrl+shift+alt+up"
+            },
+            {
+              "title": "Precise Lower Baseline",
+              "key": "ctrl+shift+alt+down"
+            },
+            {
+              "title": "Special Characters",
+              "key": "ctrl+alt+space"
+            },
+            {
+              "title": "Spelling Options",
+              "key": "ctrl+shift+;"
+            },
+            {
+              "title": "Non Breaking Space",
+              "key": "alt+space"
+            }
+          ]
+        },
+        {
+          "title": "View",
+          "shortcuts": [
+            {
+              "title": "Zoom to Fit",
+              "key": "ctrl+0"
+            },
+            {
+              "title": "(Zoom to) 100%",
+              "key": "ctrl+1"
+            },
+            {
+              "title": "(Zoom to) 200%",
+              "key": "ctrl+2"
+            },
+            {
+              "title": "(Zoom to) 400%",
+              "key": "ctrl+3"
+            },
+            {
+              "title": "(Zoom to) 800%",
+              "key": "ctrl+4"
+            },
+            {
+              "title": "(Zoom to) Actual Size",
+              "key": "ctrl+8"
+            },
+            {
+              "title": "(Zoom to) Pixel Size",
+              "key": "ctrl+9"
+            },
+            {
+              "title": "Hot key panning",
+              "key": "space"
+            },
+            {
+              "title": "View Tool",
+              "key": "h"
+            },
+            {
+              "title": "Switch between views",
+              "key": "ctrl+tab"
+            },
+            {
+              "title": "Show Rulers",
+              "key": "ctrl+r"
+            },
+            {
+              "title": "Show Guides",
+              "key": "ctrl+;"
+            }
+          ]
+        },
+        {
+          "title": "Pixel selection/Mask",
+          "shortcuts": [
+            {
+              "title": "Select All",
+              "key": "ctrl+a"
+            },
+            {
+              "title": "Deselect",
+              "key": "ctrl+d"
+            },
+            {
+              "title": "Invert Pixel Selection",
+              "key": "ctrl+shift+i"
+            },
+            {
+              "title": "Add to selection",
+              "key": "ctrl"
+            },
+            {
+              "title": "Remove from selection",
+              "key": "opt"
+            },
+            {
+              "title": "Grow/Shrink",
+              "key": "ctrl+b"
+            },
+            {
+              "title": "Refine Edges",
+              "key": "ctrl+alt+r"
+            },
+            {
+              "title": "Quick Mask",
+              "key": "q"
+            },
+            {
+              "title": "Invert Mask",
+              "key": "ctrl+i"
+            }
+          ]
+        },
+        {
+          "title": "Workspace",
+          "shortcuts": [
+            {
+              "title": "Show/Hide Studio (panels)",
+              "key": "ctrl+shift+h"
+            },
+            {
+              "title": "Show/Hide Toolbar",
+              "key": "ctrl+alt+t"
+            },
+            {
+              "title": "Toggle UI",
+              "key": "tab"
+            },
+            {
+              "title": "Hide Workspace",
+              "key": "ctrl+h"
+            }
+          ]
+        },
+        {
+          "title": "Adjustment and filter",
+          "shortcuts": [
+            {
+              "title": "Levels (Adjustment)",
+              "key": "ctrl+l"
+            },
+            {
+              "title": "HSL (Adjustment)",
+              "key": "ctrl+u"
+            },
+            {
+              "title": "Invert (Adjustment)",
+              "key": "ctrl+i"
+            },
+            {
+              "title": "Curves (Adjustment)",
+              "key": "ctrl+m"
+            },
+            {
+              "title": "Black and White (Adjustment)",
+              "key": "ctrl+shift+alt+b"
+            },
+            {
+              "title": "Repeat Filter",
+              "key": "ctrl+f"
+            }
+          ]
+        },
+        {
+          "title": "Liquify Masks",
+          "shortcuts": [
+            {
+              "title": "Mask All",
+              "key": "ctrl+d"
+            },
+            {
+              "title": "Invert Mask",
+              "key": "ctrl+i"
+            },
+            {
+              "title": "Clear Mask",
+              "key": "ctrl+a"
+            }
+          ]
+        },
+        {
+          "title": "Miscellaneous",
+          "shortcuts": [
+            {
+              "title": "Liquify Persona",
+              "key": "ctrl+alt+l"
+            },
+            {
+              "title": "Export Persona",
+              "key": "ctrl+alt+e"
+            },
+            {
+              "title": "Develop Persona",
+              "key": "ctrl+alt+r"
+            },
+            {
+              "title": "Hide Others (applications)",
+              "key": "ctrl+alt+h"
+            },
+            {
+              "title": "Media Browser",
+              "key": "ctrl+alt+m"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

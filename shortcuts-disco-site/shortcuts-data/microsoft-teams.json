@@ -1,0 +1,427 @@
+{
+  "$schema": "schema/shortcut.schema.json",
+  "bundleId": "com.microsoft.teams",
+  "name": "Microsoft Teams",
+  "slug": "microsoft-teams",
+  "source": "https://support.microsoft.com/en-us/office/keyboard-shortcuts-for-microsoft-teams-2e8e2a70-e8d8-4a19-949b-4c36dd5292d2",
+  "icon": "icons/microsoftteams.png",
+  "keymaps": [
+    {
+      "title": "Default",
+      "platforms": [
+        "macos"
+      ],
+      "sections": [
+        {
+          "title": "General",
+          "shortcuts": [
+            {
+              "title": "Go to Search",
+              "key": "cmd+e"
+            },
+            {
+              "title": "Open filter",
+              "key": "shift+cmd+f"
+            },
+            {
+              "title": "Goto",
+              "key": "cmd+g"
+            },
+            {
+              "title": "Start a new chat",
+              "key": "cmd+n"
+            },
+            {
+              "title": "Open settings",
+              "key": "cmd"
+            },
+            {
+              "title": "Reset Zoom level",
+              "key": "cmd+0"
+            },
+            {
+              "title": "Close",
+              "key": "esc"
+            }
+          ]
+        },
+        {
+          "title": "Navigation",
+          "shortcuts": [
+            {
+              "title": "Open Activity",
+              "key": "cmd+1"
+            },
+            {
+              "title": "Open Chat",
+              "key": "cmd+2"
+            },
+            {
+              "title": "Open Teams",
+              "key": "cmd+3"
+            },
+            {
+              "title": "Open Calendar",
+              "key": "cmd+4"
+            },
+            {
+              "title": "Open Calls",
+              "key": "cmd+5"
+            },
+            {
+              "title": "Open Files",
+              "key": "cmd+6"
+            },
+            {
+              "title": "Move selected team up",
+              "key": "shift+cmd+up"
+            },
+            {
+              "title": "Move selected team down",
+              "key": "shift+cmd+down"
+            },
+            {
+              "title": "Open the History menu",
+              "key": "shift+cmd+h"
+            }
+          ]
+        },
+        {
+          "title": "Messaging",
+          "shortcuts": [
+            {
+              "title": "Send (expanded compose box)",
+              "key": "cmd+enter"
+            },
+            {
+              "title": "Attach file",
+              "key": "cmd+o"
+            },
+            {
+              "title": "Start new line",
+              "key": "shift+enter"
+            },
+            {
+              "title": "Mark as important",
+              "key": "shift+cmd+i"
+            },
+            {
+              "title": "Search current Chat/Channel messages",
+              "key": "cmd+f"
+            }
+          ]
+        },
+        {
+          "title": "Meeting and Calls",
+          "shortcuts": [
+            {
+              "title": "Accept video call",
+              "key": "shift+cmd+a"
+            },
+            {
+              "title": "Accept audio call",
+              "key": "shift+cmd+s"
+            },
+            {
+              "title": "Decline call",
+              "key": "shift+cmd+d"
+            },
+            {
+              "title": "Start audio call",
+              "key": "shift+cmd+c"
+            },
+            {
+              "title": "Start video call",
+              "key": "shift+cmd+u"
+            },
+            {
+              "title": "Toggle mute",
+              "key": "shift+cmd+m"
+            },
+            {
+              "title": "Announce raised hands (screen reader)",
+              "key": "shift+cmd+l"
+            },
+            {
+              "title": "Raise or lower your hand",
+              "key": "shift+cmd+k"
+            },
+            {
+              "title": "Start screen share session",
+              "key": "shift+cmd+e"
+            },
+            {
+              "title": "Toggle video",
+              "key": "shift+cmd+o"
+            },
+            {
+              "title": "Filter current list",
+              "key": "shift+cmd+f"
+            },
+            {
+              "title": "Go to sharing toolbar",
+              "key": "shift+cmd+space"
+            },
+            {
+              "title": "Decline screen share",
+              "key": "shift+cmd+d"
+            },
+            {
+              "title": "Accept screen share",
+              "key": "shift+cmd+a"
+            },
+            {
+              "title": "Admit people from lobby notification",
+              "key": "shift+cmd+y"
+            },
+            {
+              "title": "Toggle background blur",
+              "key": "shift+cmd+p"
+            },
+            {
+              "title": "Save/send meeting request",
+              "key": "cmd+s"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Default (Windows)",
+      "platforms": [
+        "windows"
+      ],
+      "sections": [
+        {
+          "title": "General",
+          "shortcuts": [
+            {
+              "title": "Go to Search",
+              "key": "ctrl+e"
+            },
+            {
+              "title": "Open filter",
+              "key": "ctrl+shift+f"
+            },
+            {
+              "title": "Goto",
+              "key": "ctrl+g"
+            },
+            {
+              "title": "Start a new chat",
+              "key": "ctrl+n"
+            },
+            {
+              "title": "Open settings",
+              "key": "ctrl"
+            },
+            {
+              "title": "Reset Zoom level",
+              "key": "ctrl+0"
+            },
+            {
+              "title": "Close",
+              "key": "esc"
+            }
+          ]
+        },
+        {
+          "title": "Navigation",
+          "shortcuts": [
+            {
+              "title": "Open Activity",
+              "key": "ctrl+1"
+            },
+            {
+              "title": "Open Chat",
+              "key": "ctrl+2"
+            },
+            {
+              "title": "Open Teams",
+              "key": "ctrl+3"
+            },
+            {
+              "title": "Open Calendar",
+              "key": "ctrl+4"
+            },
+            {
+              "title": "Open Calls",
+              "key": "ctrl+5"
+            },
+            {
+              "title": "Open Files",
+              "key": "ctrl+6"
+            },
+            {
+              "title": "Move selected team up",
+              "key": "ctrl+shift+up"
+            },
+            {
+              "title": "Move selected team down",
+              "key": "ctrl+shift+down"
+            },
+            {
+              "title": "Open the History menu",
+              "key": "ctrl+shift+h"
+            }
+          ]
+        },
+        {
+          "title": "Messaging",
+          "shortcuts": [
+            {
+              "title": "Start a new conversation",
+              "key": "shift+alt+c"
+            },
+            {
+              "title": "Go to compose box",
+              "key": "shift+alt+c"
+            },
+            {
+              "title": "Expand compose box",
+              "key": "shift+alt+x"
+            },
+            {
+              "title": "Send (expanded compose box)",
+              "key": "ctrl+enter"
+            },
+            {
+              "title": "Attach file",
+              "key": "ctrl+o"
+            },
+            {
+              "title": "Start new line",
+              "key": "shift+enter"
+            },
+            {
+              "title": "Mark as important",
+              "key": "ctrl+shift+i"
+            },
+            {
+              "title": "Search current Chat/Channel messages",
+              "key": "ctrl+f"
+            }
+          ]
+        },
+        {
+          "title": "Meeting and Calls",
+          "shortcuts": [
+            {
+              "title": "Accept video call",
+              "key": "ctrl+shift+a"
+            },
+            {
+              "title": "Accept audio call",
+              "key": "ctrl+shift+s"
+            },
+            {
+              "title": "Decline call",
+              "key": "ctrl+shift+d"
+            },
+            {
+              "title": "Start audio call",
+              "key": "ctrl+shift+c"
+            },
+            {
+              "title": "Start video call",
+              "key": "ctrl+shift+u"
+            },
+            {
+              "title": "Toggle mute",
+              "key": "ctrl+shift+m"
+            },
+            {
+              "title": "Announce raised hands (screen reader)",
+              "key": "ctrl+shift+l"
+            },
+            {
+              "title": "Raise or lower your hand",
+              "key": "ctrl+shift+k"
+            },
+            {
+              "title": "Start screen share session",
+              "key": "ctrl+shift+e"
+            },
+            {
+              "title": "Toggle video",
+              "key": "ctrl+shift+o"
+            },
+            {
+              "title": "Filter current list",
+              "key": "ctrl+shift+f"
+            },
+            {
+              "title": "Go to sharing toolbar",
+              "key": "ctrl+shift+space"
+            },
+            {
+              "title": "Decline screen share",
+              "key": "ctrl+shift+d"
+            },
+            {
+              "title": "Accept screen share",
+              "key": "ctrl+shift+a"
+            },
+            {
+              "title": "Admit people from lobby notification",
+              "key": "ctrl+shift+y"
+            },
+            {
+              "title": "Toggle background blur",
+              "key": "ctrl+shift+p"
+            },
+            {
+              "title": "Schedule a meeting",
+              "key": "shift+alt+n"
+            },
+            {
+              "title": "Go to current time",
+              "key": "alt+."
+            },
+            {
+              "title": "Go to previous day/week",
+              "key": "ctrl+alt+left"
+            },
+            {
+              "title": "Go to next day/week",
+              "key": "ctrl+alt+right"
+            },
+            {
+              "title": "View day",
+              "key": "ctrl+alt+1"
+            },
+            {
+              "title": "View workweek",
+              "key": "ctrl+alt+2"
+            },
+            {
+              "title": "View week",
+              "key": "ctrl+alt+3"
+            },
+            {
+              "title": "Save/send meeting request",
+              "key": "ctrl+s"
+            },
+            {
+              "title": "Join from meeting details",
+              "key": "shift+alt+j"
+            },
+            {
+              "title": "Go to suggested time",
+              "key": "shift+alt+s"
+            }
+          ]
+        },
+        {
+          "title": "Debug",
+          "shortcuts": [
+            {
+              "title": "Download diagnostic logs",
+              "key": "ctrl+shift+alt+1"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

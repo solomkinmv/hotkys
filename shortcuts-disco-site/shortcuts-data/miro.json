@@ -1,0 +1,346 @@
+{
+  "$schema": "schema/shortcut.schema.json",
+  "name": "Miro",
+  "slug": "miro",
+  "hostname": "miro.com",
+  "source": "https://help.miro.com/hc/en-us/articles/360017731033-Shortcuts-and-hotkeys",
+  "icon": "icons/miro.png",
+  "keymaps": [
+    {
+      "title": "Default",
+      "platforms": [
+        "macos"
+      ],
+      "sections": [
+        {
+          "title": "Tools",
+          "shortcuts": [
+            {
+              "title": "Text",
+              "key": "t"
+            },
+            {
+              "title": "Sticky note",
+              "key": "n"
+            },
+            {
+              "title": "Shapes",
+              "key": "s"
+            },
+            {
+              "title": "Rectangle",
+              "key": "r"
+            },
+            {
+              "title": "Oval",
+              "key": "o"
+            },
+            {
+              "title": "Connection Line, arrow",
+              "key": "l"
+            },
+            {
+              "title": "Card",
+              "key": "d"
+            },
+            {
+              "title": "Pen",
+              "key": "p"
+            },
+            {
+              "title": "Eraser",
+              "key": "e"
+            },
+            {
+              "title": "Comment",
+              "key": "c"
+            },
+            {
+              "title": "Undo",
+              "key": "cmd+z"
+            },
+            {
+              "title": "Redo",
+              "key": "shift+cmd+z"
+            },
+            {
+              "title": "Frames",
+              "key": "f"
+            },
+            {
+              "title": "Minimap",
+              "key": "m"
+            },
+            {
+              "title": "Link to",
+              "key": "cmd+k"
+            },
+            {
+              "title": "New sticky note in bulk mode",
+              "key": "enter"
+            },
+            {
+              "title": "Exit sticky note bulk mode",
+              "key": "esc"
+            }
+          ]
+        },
+        {
+          "title": "General",
+          "shortcuts": [
+            {
+              "title": "Cut",
+              "key": "cmd+x"
+            },
+            {
+              "title": "Duplicate",
+              "key": "cmd+d"
+            },
+            {
+              "title": "Select all",
+              "key": "cmd+a"
+            },
+            {
+              "title": "Edit selected item",
+              "key": "enter"
+            },
+            {
+              "title": "Deselect, quit edit, switch to cursor",
+              "key": "esc"
+            },
+            {
+              "title": "Delete",
+              "key": "backspace"
+            },
+            {
+              "title": "Group",
+              "key": "cmd+g"
+            },
+            {
+              "title": "Ungroup",
+              "key": "shift+cmd+g"
+            },
+            {
+              "title": "Lock / Unlock",
+              "key": "cmd+l"
+            },
+            {
+              "title": "Protected lock/unprotected lock",
+              "key": "shift+cmd+l"
+            }
+          ]
+        },
+        {
+          "title": "Navigation",
+          "shortcuts": [
+            {
+              "title": "Zoom to 100%",
+              "key": "cmd+0"
+            },
+            {
+              "title": "Zoom to fit",
+              "key": "opt+1"
+            },
+            {
+              "title": "Zoom to selected item",
+              "key": "opt+2"
+            },
+            {
+              "title": "Toggle grid",
+              "key": "g"
+            },
+            {
+              "title": "Search",
+              "key": "cmd+f"
+            }
+          ]
+        },
+        {
+          "title": "Text",
+          "shortcuts": [
+            {
+              "title": "Bold",
+              "key": "cmd+b"
+            },
+            {
+              "title": "Italic",
+              "key": "cmd+i"
+            },
+            {
+              "title": "Underline",
+              "key": "cmd+u"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Default (Windows)",
+      "platforms": [
+        "windows"
+      ],
+      "sections": [
+        {
+          "title": "Tools",
+          "shortcuts": [
+            {
+              "title": "Text",
+              "key": "t"
+            },
+            {
+              "title": "Sticky note",
+              "key": "n"
+            },
+            {
+              "title": "Shapes",
+              "key": "s"
+            },
+            {
+              "title": "Rectangle",
+              "key": "r"
+            },
+            {
+              "title": "Oval",
+              "key": "o"
+            },
+            {
+              "title": "Connection Line, arrow",
+              "key": "l"
+            },
+            {
+              "title": "Card",
+              "key": "d"
+            },
+            {
+              "title": "Pen",
+              "key": "p"
+            },
+            {
+              "title": "Eraser",
+              "key": "e"
+            },
+            {
+              "title": "Comment",
+              "key": "c"
+            },
+            {
+              "title": "Undo",
+              "key": "ctrl+z"
+            },
+            {
+              "title": "Redo",
+              "key": "ctrl+shift+z"
+            },
+            {
+              "title": "Frame",
+              "key": "f"
+            },
+            {
+              "title": "Minimap",
+              "key": "m"
+            },
+            {
+              "title": "Link to",
+              "key": "ctrl+k"
+            },
+            {
+              "title": "New sticky note in bulk mode",
+              "key": "enter"
+            },
+            {
+              "title": "Exit sticky note bulk mode",
+              "key": "esc"
+            }
+          ]
+        },
+        {
+          "title": "General",
+          "shortcuts": [
+            {
+              "title": "Cut",
+              "key": "ctrl+x"
+            },
+            {
+              "title": "Duplicate",
+              "key": "ctrl+d"
+            },
+            {
+              "title": "Select all",
+              "key": "ctrl+a"
+            },
+            {
+              "title": "Edit selected item",
+              "key": "enter"
+            },
+            {
+              "title": "Deselect, quit edit, switch to cursor",
+              "key": "esc"
+            },
+            {
+              "title": "Delete",
+              "key": "backspace"
+            },
+            {
+              "title": "Group",
+              "key": "ctrl+g"
+            },
+            {
+              "title": "Ungroup",
+              "key": "ctrl+shift+g"
+            },
+            {
+              "title": "Lock / Unlock",
+              "key": "ctrl+l"
+            },
+            {
+              "title": "Protected lock/unprotected lock",
+              "key": "ctrl+shift+l"
+            }
+          ]
+        },
+        {
+          "title": "Navigation",
+          "shortcuts": [
+            {
+              "title": "Zoom to 100%",
+              "key": "ctrl+0"
+            },
+            {
+              "title": "Zoom to fit",
+              "key": "ctrl+1"
+            },
+            {
+              "title": "Zoom to selected item",
+              "key": "ctrl+2"
+            },
+            {
+              "title": "Toggle grid",
+              "key": "g"
+            },
+            {
+              "title": "Search",
+              "key": "ctrl+f"
+            }
+          ]
+        },
+        {
+          "title": "Text",
+          "shortcuts": [
+            {
+              "title": "Bold",
+              "key": "ctrl+b"
+            },
+            {
+              "title": "Italic",
+              "key": "ctrl+i"
+            },
+            {
+              "title": "Underline",
+              "key": "ctrl+u"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

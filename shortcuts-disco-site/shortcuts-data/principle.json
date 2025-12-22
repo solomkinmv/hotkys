@@ -1,0 +1,119 @@
+{
+  "$schema": "schema/shortcut.schema.json",
+  "bundleId": "com.danielhooper.principle",
+  "name": "Principle",
+  "slug": "principle",
+  "source": "https://principleformac.com/docs.html",
+  "icon": "icons/principle.png",
+  "keymaps": [
+    {
+      "title": "Default",
+      "platforms": [
+        "macos"
+      ],
+      "sections": [
+        {
+          "title": "Layers",
+          "shortcuts": [
+            {
+              "title": "Add rectangle",
+              "key": "r"
+            },
+            {
+              "title": "Add Text",
+              "key": "t"
+            },
+            {
+              "title": "Add Artboard",
+              "key": "a"
+            },
+            {
+              "title": "Group",
+              "key": "cmd+g"
+            },
+            {
+              "title": "Ungroup",
+              "key": "shift+cmd+g"
+            }
+          ]
+        },
+        {
+          "title": "Editing",
+          "shortcuts": [
+            {
+              "title": "Duplicate",
+              "key": "cmd+d"
+            },
+            {
+              "title": "Rename Layer",
+              "key": "cmd+r"
+            }
+          ]
+        },
+        {
+          "title": "Canvas Navigation",
+          "shortcuts": [
+            {
+              "title": "Zoom All",
+              "key": "cmd+1"
+            },
+            {
+              "title": "Zoom Selection",
+              "key": "cmd+2"
+            },
+            {
+              "title": "Center Selection",
+              "key": "cmd+3"
+            },
+            {
+              "title": "Actual Size",
+              "key": "cmd+0"
+            }
+          ]
+        },
+        {
+          "title": "Selection",
+          "shortcuts": [
+            {
+              "title": "Select Parent",
+              "key": "esc"
+            },
+            {
+              "title": "Select Child",
+              "key": "enter"
+            },
+            {
+              "title": "Select Next Sibling",
+              "key": "tab"
+            },
+            {
+              "title": "Select Previous Sibling",
+              "key": "shift+tab"
+            },
+            {
+              "title": "Select all Siblings",
+              "key": "cmd+a"
+            }
+          ]
+        },
+        {
+          "title": "Preview",
+          "shortcuts": [
+            {
+              "title": "Rewind Prototype",
+              "key": "w"
+            },
+            {
+              "title": "Start recording video",
+              "key": "ctrl+v"
+            },
+            {
+              "title": "Start recording video without cursor",
+              "key": "ctrl+opt+v"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1789 @@
+{
+  "$schema": "schema/shortcut.schema.json",
+  "bundleId": "com.adobe.Illustrator",
+  "name": "Adobe Illustrator",
+  "slug": "adobe-illustrator",
+  "source": "https://helpx.adobe.com/illustrator/using/default-keyboard-shortcuts.html",
+  "icon": "icons/adobe-illustrator.png",
+  "keymaps": [
+    {
+      "title": "Default",
+      "platforms": [
+        "macos"
+      ],
+      "sections": [
+        {
+          "title": "Popular shortcuts",
+          "shortcuts": [
+            {
+              "title": "Undo",
+              "key": "cmd+z"
+            },
+            {
+              "title": "Redo",
+              "key": "shift+cmd+z"
+            },
+            {
+              "title": "Cut",
+              "key": "cmd+x"
+            },
+            {
+              "title": "Copy",
+              "key": "cmd+c"
+            },
+            {
+              "title": "Paste",
+              "key": "cmd+v"
+            },
+            {
+              "title": "Paste in front",
+              "key": "cmd+f"
+            },
+            {
+              "title": "Paste at back",
+              "key": "cmd+b"
+            },
+            {
+              "title": "Paste in place",
+              "key": "shift+cmd+b"
+            },
+            {
+              "title": "Paste on all artboards",
+              "key": "shift+opt+cmd+b"
+            },
+            {
+              "title": "Check spelling",
+              "key": "cmd+i"
+            },
+            {
+              "title": "Open the Color Settings dialog box",
+              "key": "shift+cmd+k"
+            },
+            {
+              "title": "Open the Keyboard Shortcuts dialog box",
+              "key": "shift+opt+cmd+k"
+            },
+            {
+              "title": "Open the Preferences dialog box",
+              "key": "cmd+k"
+            }
+          ]
+        },
+        {
+          "title": "Work with documents",
+          "shortcuts": [
+            {
+              "title": "Create a document",
+              "key": "cmd+n"
+            },
+            {
+              "title": "Create a document from a template",
+              "key": "shift+cmd+n"
+            },
+            {
+              "title": "Create document without dialog",
+              "key": "opt+cmd+n"
+            },
+            {
+              "title": "Open a document",
+              "key": "cmd+o"
+            },
+            {
+              "title": "Place a file in the document",
+              "key": "shift+cmd+p"
+            },
+            {
+              "title": "Open the File Information dialog box",
+              "key": "shift+opt+cmd+i"
+            },
+            {
+              "title": "Open the Document Setup dialog box",
+              "key": "opt+cmd+p"
+            },
+            {
+              "title": "Browse in Adobe Bridge",
+              "key": "opt+cmd+o"
+            },
+            {
+              "title": "Close the document window",
+              "key": "cmd+w"
+            },
+            {
+              "title": "Save changes made to the document",
+              "key": "cmd+s"
+            },
+            {
+              "title": "Open the Save As dialog box",
+              "key": "shift+cmd+s"
+            },
+            {
+              "title": "Save a copy of the document",
+              "key": "opt+cmd+s"
+            },
+            {
+              "title": "Open the Export for screens dialog box",
+              "key": "opt+cmd+e"
+            },
+            {
+              "title": "Open the Save For Web dialog box",
+              "key": "shift+opt+cmd+s"
+            },
+            {
+              "title": "Package the document",
+              "key": "shift+opt+cmd+p"
+            },
+            {
+              "title": "Print",
+              "key": "cmd+p"
+            },
+            {
+              "title": "Exit the application",
+              "key": "cmd+q"
+            }
+          ]
+        },
+        {
+          "title": "Select tools",
+          "shortcuts": [
+            {
+              "title": "Artboard tool",
+              "key": "shift+o"
+            },
+            {
+              "title": "Selection tool",
+              "key": "v"
+            },
+            {
+              "title": "Direct Selection tool",
+              "key": "a"
+            },
+            {
+              "title": "Magic Wand tool",
+              "key": "y"
+            },
+            {
+              "title": "Lasso tool",
+              "key": "q"
+            },
+            {
+              "title": "Pen tool",
+              "key": "p"
+            },
+            {
+              "title": "Blob Brush tool",
+              "key": "shift+b"
+            },
+            {
+              "title": "Delete Anchor Point tool",
+              "key": "plus"
+            },
+            {
+              "title": "Switch to Anchor Point tool",
+              "key": "shift+c"
+            },
+            {
+              "title": "Type tool",
+              "key": "t"
+            },
+            {
+              "title": "Touch Type tool",
+              "key": "shift+t"
+            },
+            {
+              "title": "Rectangle tool",
+              "key": "m"
+            },
+            {
+              "title": "Ellipse tool",
+              "key": "l"
+            },
+            {
+              "title": "Paintbrush tool",
+              "key": "b"
+            },
+            {
+              "title": "Pencil tool",
+              "key": "n"
+            },
+            {
+              "title": "Shaper tool",
+              "key": "shift+n"
+            },
+            {
+              "title": "Rotate tool",
+              "key": "r"
+            },
+            {
+              "title": "Reflect tool",
+              "key": "o"
+            },
+            {
+              "title": "Scale tool",
+              "key": "s"
+            },
+            {
+              "title": "Warp tool",
+              "key": "shift+r"
+            },
+            {
+              "title": "Width Tool",
+              "key": "shift+w"
+            },
+            {
+              "title": "Free Transform tool",
+              "key": "e"
+            },
+            {
+              "title": "Shape Builder Tool",
+              "key": "shift+m"
+            },
+            {
+              "title": "Perspective Grid Tool",
+              "key": "shift+p"
+            },
+            {
+              "title": "Perspective Selection Tool",
+              "key": "shift+v"
+            },
+            {
+              "title": "Symbol Sprayer tool",
+              "key": "shift+s"
+            },
+            {
+              "title": "Column Graph tool",
+              "key": "j"
+            },
+            {
+              "title": "Mesh tool",
+              "key": "u"
+            },
+            {
+              "title": "Gradient tool",
+              "key": "g"
+            },
+            {
+              "title": "Eyedropper tool",
+              "key": "i"
+            },
+            {
+              "title": "Blend tool",
+              "key": "w"
+            },
+            {
+              "title": "Live Paint Bucket tool",
+              "key": "k"
+            },
+            {
+              "title": "Live Paint Selection tool",
+              "key": "shift+l"
+            },
+            {
+              "title": "Slice tool",
+              "key": "shift+k"
+            },
+            {
+              "title": "Eraser tool",
+              "key": "shift+e"
+            },
+            {
+              "title": "Scissors tool",
+              "key": "c"
+            },
+            {
+              "title": "Hand tool",
+              "key": "h"
+            },
+            {
+              "title": "Zoom tool",
+              "key": "z"
+            }
+          ]
+        },
+        {
+          "title": "View artwork",
+          "shortcuts": [
+            {
+              "title": "Toggle screen modes",
+              "key": "f"
+            },
+            {
+              "title": "Switch to Hand tool (when not in text-edit mode)",
+              "key": "space"
+            },
+            {
+              "title": "Switch to Zoom tool in magnify mode",
+              "key": "cmd+space"
+            },
+            {
+              "title": "Switch to Zoom tool in reduce mode",
+              "key": "opt+cmd+space"
+            },
+            {
+              "title": "Move zoom marquee",
+              "key": "space"
+            },
+            {
+              "title": "Hide bounding box",
+              "key": "ctrl+shift+b"
+            },
+            {
+              "title": "Hide unselected artwork",
+              "key": "shift+opt+cmd+3"
+            },
+            {
+              "title": "Show document template",
+              "key": "cmd+h"
+            },
+            {
+              "title": "Show/Hide artboards",
+              "key": "shift+cmd+h"
+            },
+            {
+              "title": "Show/Hide artboard rulers",
+              "key": "opt+cmd+r"
+            },
+            {
+              "title": "Show transparency grid",
+              "key": "shift+cmd+d"
+            },
+            {
+              "title": "View all artboards in window",
+              "key": "opt+cmd+0"
+            },
+            {
+              "title": "Paste in place on the active artboard",
+              "key": "shift+cmd+v"
+            },
+            {
+              "title": "Exit Artboard tool mode",
+              "key": "esc"
+            },
+            {
+              "title": "Toggle outline/GPU preview",
+              "key": "cmd+y"
+            },
+            {
+              "title": "Toggle between GPU and CPU Preview of the document",
+              "key": "cmd+e"
+            },
+            {
+              "title": "View the document in Overprint Preview mode",
+              "key": "shift+opt+cmd+y"
+            },
+            {
+              "title": "View the document in Pixel Preview mode",
+              "key": "opt+cmd+y"
+            },
+            {
+              "title": "Exit Full Screen mode",
+              "key": "esc"
+            },
+            {
+              "title": "Hide guides",
+              "key": "cmd+;"
+            },
+            {
+              "title": "Lock guides",
+              "key": "opt+cmd+;"
+            },
+            {
+              "title": "Make guides",
+              "key": "cmd+5"
+            },
+            {
+              "title": "Release guides",
+              "key": "ctrl+opt+5"
+            },
+            {
+              "title": "Show/ hide smart guides",
+              "key": "cmd+u"
+            },
+            {
+              "title": "Show/ hide perspective grid",
+              "key": "shift+cmd+i"
+            }
+          ]
+        },
+        {
+          "title": "Work with selections",
+          "shortcuts": [
+            {
+              "title": "Switch selection tools",
+              "key": "opt"
+            },
+            {
+              "title": "Change pointer to cross hair for Lasso tool",
+              "key": "capslock"
+            },
+            {
+              "title": "Select artwork in active artboard",
+              "key": "opt+cmd+a"
+            },
+            {
+              "title": "Select all",
+              "key": "cmd+a"
+            },
+            {
+              "title": "Deselect",
+              "key": "shift+cmd+a"
+            },
+            {
+              "title": "Reselect",
+              "key": "cmd+6"
+            },
+            {
+              "title": "Group the selected artwork",
+              "key": "cmd+g"
+            },
+            {
+              "title": "Ungroup the selected artwork",
+              "key": "shift+cmd+g"
+            },
+            {
+              "title": "Lock a selection",
+              "key": "cmd+2"
+            },
+            {
+              "title": "Unlock a selection",
+              "key": "opt+cmd+2"
+            },
+            {
+              "title": "Hide a selection",
+              "key": "cmd+3"
+            },
+            {
+              "title": "Show all selections",
+              "key": "opt+cmd+3"
+            },
+            {
+              "title": "Move selection in user-defined increments",
+              "key": "right"
+            },
+            {
+              "title": "Move selection in 10x user-defined increments",
+              "key": "shift+right"
+            },
+            {
+              "title": "Lock all deselected artwork",
+              "key": "shift+opt+cmd+2"
+            }
+          ]
+        },
+        {
+          "title": "Draw",
+          "shortcuts": [
+            {
+              "title": "Constrain Blob Brush path",
+              "key": "shift"
+            },
+            {
+              "title": "Switch through drawing modes",
+              "key": "shift+d"
+            },
+            {
+              "title": "Create a compound path",
+              "key": "cmd+8"
+            },
+            {
+              "title": "Release a compound path",
+              "key": "shift+opt+cmd+8"
+            },
+            {
+              "title": "Perspective Grid Tool",
+              "key": "shift+p"
+            },
+            {
+              "title": "Perspective Selection Tool",
+              "key": "shift+v"
+            },
+            {
+              "title": "Perspective Grid",
+              "key": "shift+cmd+i"
+            },
+            {
+              "title": "Repeat transforming objects in perspective",
+              "key": "cmd+d"
+            },
+            {
+              "title": "Switching between drawing modes",
+              "key": "shift+d"
+            }
+          ]
+        },
+        {
+          "title": "Edit shapes",
+          "shortcuts": [
+            {
+              "title": "Switch Pen tool to Convert Anchor Point tool",
+              "key": "opt"
+            },
+            {
+              "title": "Switch between anchor point tools",
+              "key": "opt"
+            },
+            {
+              "title": "Switch Scissors tool to Add Anchor Point tool",
+              "key": "opt"
+            },
+            {
+              "title": "Switch Pencil tool to Smooth tool",
+              "key": "opt"
+            },
+            {
+              "title": "Select the Shape Builder tool",
+              "key": "shift+m"
+            },
+            {
+              "title": "Blend objects",
+              "key": "opt+cmd+b"
+            },
+            {
+              "title": "Finish adding objects to the blend",
+              "key": "shift+opt+cmd+b"
+            },
+            {
+              "title": "Distort objects using a warp-shaped envelope",
+              "key": "shift+opt+cmd+w"
+            },
+            {
+              "title": "Distort with mesh envelope",
+              "key": "opt+cmd+m"
+            },
+            {
+              "title": "Distort with object envelope",
+              "key": "opt+cmd+c"
+            }
+          ]
+        },
+        {
+          "title": "Work with objects",
+          "shortcuts": [
+            {
+              "title": "Reapply a transformation to an object",
+              "key": "cmd+d"
+            },
+            {
+              "title": "Apply last pathfinder",
+              "key": "cmd+4"
+            },
+            {
+              "title": "Move an object",
+              "key": "shift+cmd+m"
+            },
+            {
+              "title": "Open the Transform Each dialog box",
+              "key": "shift+opt+cmd+d"
+            },
+            {
+              "title": "Make a clipping mask",
+              "key": "cmd+7"
+            },
+            {
+              "title": "Release a clipping mask",
+              "key": "opt+cmd+7"
+            },
+            {
+              "title": "Toggle between fill and stroke",
+              "key": "x"
+            },
+            {
+              "title": "Set fill and stroke to default",
+              "key": "d"
+            },
+            {
+              "title": "Swap fill and stroke",
+              "key": "shift+x"
+            },
+            {
+              "title": "Select gradient fill mode",
+              "key": "shift+."
+            },
+            {
+              "title": "Hide gradient annotator (the Gradient tool)",
+              "key": "opt+cmd+g"
+            },
+            {
+              "title": "Make Live Paint (when using the Paint Bucket tool)",
+              "key": "opt+cmd+x"
+            }
+          ]
+        },
+        {
+          "title": "Create variable width points",
+          "shortcuts": [
+            {
+              "title": "Delete selected width point",
+              "key": "backspace"
+            },
+            {
+              "title": "Deselect a width point",
+              "key": "esc"
+            }
+          ]
+        },
+        {
+          "title": "Work with type",
+          "shortcuts": [
+            {
+              "title": "Move one character right or left",
+              "key": "right"
+            },
+            {
+              "title": "Move up or down one line",
+              "key": "up"
+            },
+            {
+              "title": "Move one word right or left",
+              "key": "cmd+right"
+            },
+            {
+              "title": "Move up or down one paragraph",
+              "key": "cmd+up"
+            },
+            {
+              "title": "Select one word right or left",
+              "key": "shift+cmd+right"
+            },
+            {
+              "title": "Select one paragraph before or after",
+              "key": "shift+cmd+up"
+            },
+            {
+              "title": "Align paragraph left, right, or center",
+              "key": "shift+cmd+l"
+            },
+            {
+              "title": "Justify text left",
+              "key": "shift+cmd+j"
+            },
+            {
+              "title": "Justify all lines",
+              "key": "shift+cmd+f"
+            },
+            {
+              "title": "Insert soft return",
+              "key": "shift+enter"
+            },
+            {
+              "title": "Highlight kerning",
+              "key": "opt+cmd+k"
+            },
+            {
+              "title": "Reset horizontal scale to 100%",
+              "key": "shift+cmd+x"
+            },
+            {
+              "title": "Increase or decrease font size",
+              "key": "shift+cmd+."
+            },
+            {
+              "title": "Increase or decrease font size by steps",
+              "key": "shift+opt+cmd+."
+            },
+            {
+              "title": "Increase or decrease leading",
+              "key": "opt+up"
+            },
+            {
+              "title": "Select tracking value",
+              "key": "opt+cmd+k"
+            },
+            {
+              "title": "Reset tracking/kerning to 0",
+              "key": "opt+cmd+q"
+            },
+            {
+              "title": "Increase or decrease kerning and tracking",
+              "key": "opt+right"
+            },
+            {
+              "title": "Adjust kerning/tracking 5x",
+              "key": "opt+cmd+right"
+            },
+            {
+              "title": "Increase or decrease baseline ⇧",
+              "key": "shift+opt+up"
+            },
+            {
+              "title": "Switch between type tools",
+              "key": "shift"
+            },
+            {
+              "title": "Switch between area/path type tools",
+              "key": "opt"
+            },
+            {
+              "title": "Create outlines",
+              "key": "shift+cmd+o"
+            },
+            {
+              "title": "Open the Character panel",
+              "key": "cmd+t"
+            },
+            {
+              "title": "Open the Paragraph panel",
+              "key": "opt+cmd+t"
+            },
+            {
+              "title": "Open the Tabs panel",
+              "key": "shift+cmd+t"
+            },
+            {
+              "title": "Open the OpenType panel",
+              "key": "shift+opt+cmd+t"
+            },
+            {
+              "title": "Insert bullets",
+              "key": "opt+8"
+            },
+            {
+              "title": "Insert copyright symbol",
+              "key": "opt+g"
+            },
+            {
+              "title": "Insert ellipsis",
+              "key": "opt+;"
+            },
+            {
+              "title": "Insert paragraph symbol",
+              "key": "opt+7"
+            },
+            {
+              "title": "Insert section symbol",
+              "key": "opt+6"
+            },
+            {
+              "title": "Insert trademark symbol",
+              "key": "opt+2"
+            },
+            {
+              "title": "Insert registered trademark symbol",
+              "key": "opt+r"
+            },
+            {
+              "title": "Toggle auto-hyphenation",
+              "key": "shift+opt+cmd+h"
+            },
+            {
+              "title": "Insert em space",
+              "key": "shift+cmd+m"
+            },
+            {
+              "title": "Insert en space",
+              "key": "shift+cmd+n"
+            },
+            {
+              "title": "Insert thin space",
+              "key": "shift+opt+cmd+m"
+            },
+            {
+              "title": "Show hidden characters",
+              "key": "opt+cmd+i"
+            }
+          ]
+        },
+        {
+          "title": "Use panels",
+          "shortcuts": [
+            {
+              "title": "Switch units of measurement",
+              "key": "shift+opt+cmd+u"
+            },
+            {
+              "title": "Apply value and keep text box active",
+              "key": "shift+enter"
+            },
+            {
+              "title": "Show/Hide all panels",
+              "key": "tab"
+            },
+            {
+              "title": "Show/Hide all panels excl. Tools & Control panels",
+              "key": "shift+tab"
+            },
+            {
+              "title": "Adjust values in logical fractions of the measu...",
+              "key": "cmd+up"
+            },
+            {
+              "title": "Increase/ decrease measurement unit by 10x",
+              "key": "shift+up"
+            }
+          ]
+        },
+        {
+          "title": "Character and Paragraph panels",
+          "shortcuts": [
+            {
+              "title": "Open the Character panel",
+              "key": "cmd+t"
+            },
+            {
+              "title": "Open the Paragraph panel",
+              "key": "opt+cmd+t"
+            },
+            {
+              "title": "Adjust value (small)",
+              "key": "up"
+            },
+            {
+              "title": "Increase/decreases value (large)",
+              "key": "shift+up"
+            },
+            {
+              "title": "Increase/decrease the selected value by a fraction",
+              "key": "cmd+up"
+            },
+            {
+              "title": "Highlight font name field",
+              "key": "shift+opt+cmd+f"
+            }
+          ]
+        },
+        {
+          "title": "Gradient panel",
+          "shortcuts": [
+            {
+              "title": "Show/Hide gradient arrow",
+              "key": "opt+cmd+g"
+            },
+            {
+              "title": "View gradient annotator",
+              "key": "g"
+            }
+          ]
+        },
+        {
+          "title": "Layers panel",
+          "shortcuts": [
+            {
+              "title": "Add a layer",
+              "key": "cmd+l"
+            },
+            {
+              "title": "Add a layer while opening the New Layer dialog box",
+              "key": "opt+cmd+l"
+            }
+          ]
+        },
+        {
+          "title": "Transform panel",
+          "shortcuts": [
+            {
+              "title": "Apply a value and keep focus in edit field",
+              "key": "shift+enter"
+            },
+            {
+              "title": "Apply a value and copy object",
+              "key": "opt+enter"
+            },
+            {
+              "title": "Apply & scale proportionately",
+              "key": "cmd+enter"
+            }
+          ]
+        },
+        {
+          "title": "Transparency panel",
+          "shortcuts": [
+            {
+              "title": "Apply last effect to the selected object",
+              "key": "shift+cmd+e"
+            },
+            {
+              "title": "Apply last effect w/ dialog",
+              "key": "shift+opt+cmd+e"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Default (Windows)",
+      "platforms": [
+        "windows"
+      ],
+      "sections": [
+        {
+          "title": "Popular shortcuts",
+          "shortcuts": [
+            {
+              "title": "Undo",
+              "key": "ctrl+z"
+            },
+            {
+              "title": "Redo",
+              "key": "ctrl+shift+z"
+            },
+            {
+              "title": "Cut",
+              "key": "ctrl+x"
+            },
+            {
+              "title": "Copy",
+              "key": "ctrl+c"
+            },
+            {
+              "title": "Paste",
+              "key": "ctrl+v"
+            },
+            {
+              "title": "Paste in front",
+              "key": "ctrl+f"
+            },
+            {
+              "title": "Paste at back",
+              "key": "ctrl+b"
+            },
+            {
+              "title": "Paste in place",
+              "key": "ctrl+shift+b"
+            },
+            {
+              "title": "Paste on all artboards",
+              "key": "ctrl+shift+alt+b"
+            },
+            {
+              "title": "Check spelling",
+              "key": "ctrl+i"
+            },
+            {
+              "title": "Open the Color Settings dialog box",
+              "key": "ctrl+shift+k"
+            },
+            {
+              "title": "Open the Keyboard Shortcuts dialog box",
+              "key": "ctrl+shift+alt+k"
+            },
+            {
+              "title": "Open the Preferences dialog box",
+              "key": "ctrl+k"
+            }
+          ]
+        },
+        {
+          "title": "Work with documents",
+          "shortcuts": [
+            {
+              "title": "Create a document",
+              "key": "ctrl+n"
+            },
+            {
+              "title": "Create a document from a template",
+              "key": "ctrl+shift+n"
+            },
+            {
+              "title": "Create document w/o dialog",
+              "key": "ctrl+alt+n"
+            },
+            {
+              "title": "Open a document",
+              "key": "ctrl+o"
+            },
+            {
+              "title": "Place a file in the document",
+              "key": "ctrl+shift+p"
+            },
+            {
+              "title": "Open the File Information dialog box",
+              "key": "ctrl+shift+alt+i"
+            },
+            {
+              "title": "Open the Document Setup dialog box",
+              "key": "ctrl+alt+p"
+            },
+            {
+              "title": "Browse in Adobe Bridge",
+              "key": "ctrl+alt+o"
+            },
+            {
+              "title": "Close the document window",
+              "key": "ctrl+w"
+            },
+            {
+              "title": "Save changes made to the document",
+              "key": "ctrl+s"
+            },
+            {
+              "title": "Open the Save As dialog box",
+              "key": "ctrl+shift+s"
+            },
+            {
+              "title": "Save a copy of the document",
+              "key": "ctrl+alt+s"
+            },
+            {
+              "title": "Open the Export for screens dialog box",
+              "key": "ctrl+alt+e"
+            },
+            {
+              "title": "Open the Save For Web dialog box",
+              "key": "ctrl+shift+alt+s"
+            },
+            {
+              "title": "Package the document",
+              "key": "ctrl+shift+alt+p"
+            },
+            {
+              "title": "Print",
+              "key": "ctrl+p"
+            },
+            {
+              "title": "Exit the application",
+              "key": "ctrl+q"
+            }
+          ]
+        },
+        {
+          "title": "Select tools",
+          "shortcuts": [
+            {
+              "title": "Artboard tool",
+              "key": "shift+o"
+            },
+            {
+              "title": "Selection tool",
+              "key": "v"
+            },
+            {
+              "title": "Direct Selection tool",
+              "key": "a"
+            },
+            {
+              "title": "Magic Wand tool",
+              "key": "y"
+            },
+            {
+              "title": "Lasso tool",
+              "key": "q"
+            },
+            {
+              "title": "Pen tool",
+              "key": "p"
+            },
+            {
+              "title": "Blob Brush tool",
+              "key": "shift+b"
+            },
+            {
+              "title": "Delete Anchor Point tool",
+              "key": "plus"
+            },
+            {
+              "title": "Switch to Anchor Point tool",
+              "key": "shift+c"
+            },
+            {
+              "title": "Type tool",
+              "key": "t"
+            },
+            {
+              "title": "Touch Type tool",
+              "key": "shift+t"
+            },
+            {
+              "title": "Rectangle tool",
+              "key": "m"
+            },
+            {
+              "title": "Ellipse tool",
+              "key": "l"
+            },
+            {
+              "title": "Paintbrush tool",
+              "key": "b"
+            },
+            {
+              "title": "Pencil tool",
+              "key": "n"
+            },
+            {
+              "title": "Shaper tool",
+              "key": "shift+n"
+            },
+            {
+              "title": "Rotate tool",
+              "key": "r"
+            },
+            {
+              "title": "Reflect tool",
+              "key": "o"
+            },
+            {
+              "title": "Scale tool",
+              "key": "s"
+            },
+            {
+              "title": "Warp tool",
+              "key": "shift+r"
+            },
+            {
+              "title": "Width Tool",
+              "key": "shift+w"
+            },
+            {
+              "title": "Free Transform tool",
+              "key": "e"
+            },
+            {
+              "title": "Shape Builder Tool",
+              "key": "shift+m"
+            },
+            {
+              "title": "Perspective Grid Tool",
+              "key": "shift+p"
+            },
+            {
+              "title": "Perspective Selection Tool",
+              "key": "shift+v"
+            },
+            {
+              "title": "Symbol Sprayer tool",
+              "key": "shift+s"
+            },
+            {
+              "title": "Column Graph tool",
+              "key": "j"
+            },
+            {
+              "title": "Mesh tool",
+              "key": "u"
+            },
+            {
+              "title": "Gradient tool",
+              "key": "g"
+            },
+            {
+              "title": "Eyedropper tool",
+              "key": "i"
+            },
+            {
+              "title": "Blend tool",
+              "key": "w"
+            },
+            {
+              "title": "Live Paint Bucket tool",
+              "key": "k"
+            },
+            {
+              "title": "Live Paint Selection tool",
+              "key": "shift+l"
+            },
+            {
+              "title": "Slice tool",
+              "key": "shift+k"
+            },
+            {
+              "title": "Eraser tool",
+              "key": "shift+e"
+            },
+            {
+              "title": "Scissors tool",
+              "key": "c"
+            },
+            {
+              "title": "Hand tool",
+              "key": "h"
+            },
+            {
+              "title": "Zoom tool",
+              "key": "z"
+            }
+          ]
+        },
+        {
+          "title": "View artwork",
+          "shortcuts": [
+            {
+              "title": "Toggle screen modes",
+              "key": "f"
+            },
+            {
+              "title": "Switch to Hand tool (when not in text-edit mode)",
+              "key": "space"
+            },
+            {
+              "title": "Switch to Zoom tool in magnify mode",
+              "key": "ctrl+space"
+            },
+            {
+              "title": "Switch to Zoom tool in reduce mode",
+              "key": "ctrl+alt+space"
+            },
+            {
+              "title": "Move zoom marquee",
+              "key": "space"
+            },
+            {
+              "title": "Hide bounding box",
+              "key": "ctrl+shift+b"
+            },
+            {
+              "title": "Hide unselected artwork",
+              "key": "ctrl+shift+alt+3"
+            },
+            {
+              "title": "Show document template",
+              "key": "ctrl+h"
+            },
+            {
+              "title": "Show/Hide artboards",
+              "key": "ctrl+shift+h"
+            },
+            {
+              "title": "Show/Hide artboard rulers",
+              "key": "ctrl+r"
+            },
+            {
+              "title": "Show transparency grid",
+              "key": "ctrl+shift+d"
+            },
+            {
+              "title": "View all artboards in window",
+              "key": "ctrl+alt+0"
+            },
+            {
+              "title": "Paste in place on the active artboard",
+              "key": "ctrl+shift+v"
+            },
+            {
+              "title": "Exit Artboard tool mode",
+              "key": "esc"
+            },
+            {
+              "title": "Toggle outline/GPU preview",
+              "key": "ctrl+y"
+            },
+            {
+              "title": "Toggle between GPU and CPU Preview of the document",
+              "key": "ctrl+e"
+            },
+            {
+              "title": "View the document in Overprint Preview mode",
+              "key": "ctrl+shift+alt+y"
+            },
+            {
+              "title": "View the document in Pixel Preview mode",
+              "key": "ctrl+alt+y"
+            },
+            {
+              "title": "Exit Full Screen mode",
+              "key": "esc"
+            },
+            {
+              "title": "Hide guides",
+              "key": "ctrl+;"
+            },
+            {
+              "title": "Lock guides",
+              "key": "ctrl+alt+;"
+            },
+            {
+              "title": "Make guides",
+              "key": "ctrl+5"
+            },
+            {
+              "title": "Release guides",
+              "key": "ctrl+alt+5"
+            },
+            {
+              "title": "Show/ hide smart guides",
+              "key": "ctrl+u"
+            },
+            {
+              "title": "Show/ hide perspective grid",
+              "key": "ctrl+shift+i"
+            }
+          ]
+        },
+        {
+          "title": "Work with selections",
+          "shortcuts": [
+            {
+              "title": "Switch selection tools",
+              "key": "alt"
+            },
+            {
+              "title": "Change pointer to cross hair for Lasso tool",
+              "key": "capslock"
+            },
+            {
+              "title": "Select artwork in active artboard",
+              "key": "ctrl+alt+a"
+            },
+            {
+              "title": "Create crop marks around selected object",
+              "key": "alt+c o"
+            },
+            {
+              "title": "Select all",
+              "key": "ctrl+a"
+            },
+            {
+              "title": "Deselect",
+              "key": "ctrl+shift+a"
+            },
+            {
+              "title": "Reselect",
+              "key": "ctrl+6"
+            },
+            {
+              "title": "Group the selected artwork",
+              "key": "ctrl+g"
+            },
+            {
+              "title": "Ungroup the selected artwork",
+              "key": "ctrl+shift+g"
+            },
+            {
+              "title": "Lock a selection",
+              "key": "ctrl+2"
+            },
+            {
+              "title": "Unlock a selection",
+              "key": "ctrl+alt+2"
+            },
+            {
+              "title": "Hide a selection",
+              "key": "ctrl+3"
+            },
+            {
+              "title": "Show all selections",
+              "key": "ctrl+alt+3"
+            },
+            {
+              "title": "Move selection in user-defined increments",
+              "key": "right"
+            },
+            {
+              "title": "Move selection in 10x user-defined increments",
+              "key": "shift+right"
+            },
+            {
+              "title": "Lock all deselected artwork",
+              "key": "ctrl+shift+alt+2"
+            }
+          ]
+        },
+        {
+          "title": "Draw",
+          "shortcuts": [
+            {
+              "title": "Constrain Blob Brush path",
+              "key": "shift"
+            },
+            {
+              "title": "Switch through drawing modes",
+              "key": "shift+d"
+            },
+            {
+              "title": "Create a compound path",
+              "key": "ctrl+8"
+            },
+            {
+              "title": "Release a compound path",
+              "key": "ctrl+shift+alt+8"
+            },
+            {
+              "title": "Perspective Grid Tool",
+              "key": "shift+p"
+            },
+            {
+              "title": "Perspective Selection Tool",
+              "key": "shift+v"
+            },
+            {
+              "title": "Perspective Grid",
+              "key": "ctrl+shift+i"
+            },
+            {
+              "title": "Repeat transforming objects in perspective",
+              "key": "ctrl+d"
+            },
+            {
+              "title": "Switching between drawing modes",
+              "key": "shift+d"
+            }
+          ]
+        },
+        {
+          "title": "Edit shapes",
+          "shortcuts": [
+            {
+              "title": "Switch Pen tool to Convert Anchor Point tool",
+              "key": "alt"
+            },
+            {
+              "title": "Switch between anchor point tools",
+              "key": "alt"
+            },
+            {
+              "title": "Switch Scissors tool to Add Anchor Point tool",
+              "key": "alt"
+            },
+            {
+              "title": "Switch Pencil tool to Smooth tool",
+              "key": "alt"
+            },
+            {
+              "title": "Select the Shape Builder tool",
+              "key": "shift+m"
+            },
+            {
+              "title": "Blend objects",
+              "key": "ctrl+alt+b"
+            },
+            {
+              "title": "Finish adding objects to the blend",
+              "key": "ctrl+shift+alt+b"
+            },
+            {
+              "title": "Distort objects using a warp-shaped envelope",
+              "key": "ctrl+shift+alt+w"
+            },
+            {
+              "title": "Distort with mesh envelope",
+              "key": "ctrl+alt+m"
+            },
+            {
+              "title": "Distort with object envelope",
+              "key": "ctrl+alt+c"
+            }
+          ]
+        },
+        {
+          "title": "Work with objects",
+          "shortcuts": [
+            {
+              "title": "Reapply a transformation to an object",
+              "key": "ctrl+d"
+            },
+            {
+              "title": "Apply last pathfinder",
+              "key": "ctrl+4"
+            },
+            {
+              "title": "Move an object",
+              "key": "ctrl+shift+m"
+            },
+            {
+              "title": "Open the Transform Each dialog box",
+              "key": "ctrl+shift+alt+d"
+            },
+            {
+              "title": "Make a clipping mask",
+              "key": "ctrl+7"
+            },
+            {
+              "title": "Release a clipping mask",
+              "key": "ctrl+alt+7"
+            },
+            {
+              "title": "Toggle between fill and stroke",
+              "key": "x"
+            },
+            {
+              "title": "Set fill and stroke to default",
+              "key": "d"
+            },
+            {
+              "title": "Swap fill and stroke",
+              "key": "shift+x"
+            },
+            {
+              "title": "Select gradient fill mode",
+              "key": "shift+."
+            },
+            {
+              "title": "Hide gradient annotator (the Gradient tool)",
+              "key": "ctrl+alt+g"
+            },
+            {
+              "title": "Make Live Paint (when using the Paint Bucket tool)",
+              "key": "ctrl+alt+x"
+            }
+          ]
+        },
+        {
+          "title": "Create variable width points",
+          "shortcuts": [
+            {
+              "title": "Delete selected width point",
+              "key": "backspace"
+            },
+            {
+              "title": "Deselect a width point",
+              "key": "esc"
+            }
+          ]
+        },
+        {
+          "title": "Work with type",
+          "shortcuts": [
+            {
+              "title": "Move one character right or left",
+              "key": "right"
+            },
+            {
+              "title": "Move up or down one line",
+              "key": "up"
+            },
+            {
+              "title": "Move one word right or left",
+              "key": "ctrl+right"
+            },
+            {
+              "title": "Move up or down one paragraph",
+              "key": "ctrl+up"
+            },
+            {
+              "title": "Select one word right or left",
+              "key": "ctrl+shift+right"
+            },
+            {
+              "title": "Select one paragraph before or after",
+              "key": "ctrl+shift+up"
+            },
+            {
+              "title": "Align paragraph left, right, or center",
+              "key": "ctrl+shift+l"
+            },
+            {
+              "title": "Justify text left",
+              "key": "ctrl+shift+j"
+            },
+            {
+              "title": "Justify all lines",
+              "key": "ctrl+shift+f"
+            },
+            {
+              "title": "Toggle line composer",
+              "key": "ctrl+shift+alt+c"
+            },
+            {
+              "title": "Insert soft return",
+              "key": "shift+enter"
+            },
+            {
+              "title": "Highlight kerning",
+              "key": "ctrl+alt+k"
+            },
+            {
+              "title": "Reset horizontal scale to 100%",
+              "key": "ctrl+shift+x"
+            },
+            {
+              "title": "Increase or decrease font size",
+              "key": "ctrl+shift+."
+            },
+            {
+              "title": "Increase or decrease font size by steps",
+              "key": "ctrl+shift+alt+."
+            },
+            {
+              "title": "Increase or decrease leading",
+              "key": "alt+up"
+            },
+            {
+              "title": "Select tracking value",
+              "key": "ctrl+alt+k"
+            },
+            {
+              "title": "Reset tracking/kerning to 0",
+              "key": "ctrl+alt+q"
+            },
+            {
+              "title": "Increase or decrease kerning and tracking",
+              "key": "alt+right"
+            },
+            {
+              "title": "Adjust kerning/tracking 5x",
+              "key": "ctrl+alt+right"
+            },
+            {
+              "title": "Increase or decrease baseline shift",
+              "key": "shift+alt+up"
+            },
+            {
+              "title": "Switch between type tools",
+              "key": "shift"
+            },
+            {
+              "title": "Switch between area/path type tools",
+              "key": "alt"
+            },
+            {
+              "title": "Create outlines",
+              "key": "ctrl+shift+o"
+            },
+            {
+              "title": "Open the Character panel",
+              "key": "ctrl+t"
+            },
+            {
+              "title": "Open the Paragraph panel",
+              "key": "ctrl+alt+t"
+            },
+            {
+              "title": "Open the Tabs panel",
+              "key": "ctrl+shift+t"
+            },
+            {
+              "title": "Open the OpenType panel",
+              "key": "ctrl+shift+alt+t"
+            },
+            {
+              "title": "Insert bullets",
+              "key": "alt+8"
+            },
+            {
+              "title": "Insert copyright symbol",
+              "key": "alt+g"
+            },
+            {
+              "title": "Insert ellipsis",
+              "key": "alt+;"
+            },
+            {
+              "title": "Insert paragraph symbol",
+              "key": "alt+7"
+            },
+            {
+              "title": "Insert section symbol",
+              "key": "alt+6"
+            },
+            {
+              "title": "Insert trademark symbol",
+              "key": "alt+2"
+            },
+            {
+              "title": "Insert registered trademark symbol",
+              "key": "alt+r"
+            },
+            {
+              "title": "Toggle auto-hyphenation",
+              "key": "ctrl+shift+alt+h"
+            },
+            {
+              "title": "Insert em space",
+              "key": "ctrl+shift+m"
+            },
+            {
+              "title": "Insert en space",
+              "key": "ctrl+shift+n"
+            },
+            {
+              "title": "Insert thin space",
+              "key": "ctrl+shift+alt+m"
+            },
+            {
+              "title": "Show hidden characters",
+              "key": "ctrl+alt+i"
+            }
+          ]
+        },
+        {
+          "title": "Use panels",
+          "shortcuts": [
+            {
+              "title": "Switch units of measurement",
+              "key": "ctrl+shift+alt+u"
+            },
+            {
+              "title": "Apply value and keep text box active",
+              "key": "shift+enter"
+            },
+            {
+              "title": "Show/Hide all panels",
+              "key": "tab"
+            },
+            {
+              "title": "Show/Hide all panels excl. Tools & Control panels",
+              "key": "shift+tab"
+            },
+            {
+              "title": "Adjust values in logical fractions of the measu...",
+              "key": "ctrl+up"
+            },
+            {
+              "title": "Increase/ decrease measurement unit by 10x",
+              "key": "shift+up"
+            }
+          ]
+        },
+        {
+          "title": "Character and Paragraph panels",
+          "shortcuts": [
+            {
+              "title": "Open the Character panel",
+              "key": "ctrl+t"
+            },
+            {
+              "title": "Open the Paragraph panel",
+              "key": "ctrl+alt+t"
+            },
+            {
+              "title": "Adjust value (small)",
+              "key": "up"
+            },
+            {
+              "title": "Increase/decreases value (large)",
+              "key": "shift+up"
+            },
+            {
+              "title": "Increase/decrease the selected value by a fraction",
+              "key": "ctrl+up"
+            },
+            {
+              "title": "Highlight font name field",
+              "key": "ctrl+shift+alt+f"
+            }
+          ]
+        },
+        {
+          "title": "Layers panel",
+          "shortcuts": [
+            {
+              "title": "Add a layer",
+              "key": "ctrl+l"
+            },
+            {
+              "title": "Add a layer while opening the New Layer dialog box",
+              "key": "ctrl+alt+l"
+            }
+          ]
+        },
+        {
+          "title": "Transform panel",
+          "shortcuts": [
+            {
+              "title": "Apply a value and keep focus in edit field",
+              "key": "shift+enter"
+            },
+            {
+              "title": "Apply a value and copy object",
+              "key": "alt+enter"
+            },
+            {
+              "title": "Apply & scale proportionately",
+              "key": "ctrl+enter"
+            }
+          ]
+        },
+        {
+          "title": "Transparency panel",
+          "shortcuts": [
+            {
+              "title": "Apply last effect to the selected object",
+              "key": "ctrl+shift+e"
+            },
+            {
+              "title": "Apply last effect w/ dialog",
+              "key": "ctrl+shift+alt+e"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

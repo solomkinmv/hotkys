@@ -1,0 +1,228 @@
+{
+  "$schema": "schema/shortcut.schema.json",
+  "bundleId": "com.readdle.smartemail-Mac",
+  "name": "Spark",
+  "slug": "spark",
+  "source": "https://sparkmailapp.com/help/tips-tricks/use-keyboard-shortcuts",
+  "icon": "icons/spark.png",
+  "keymaps": [
+    {
+      "title": "Default",
+      "platforms": [
+        "macos"
+      ],
+      "sections": [
+        {
+          "title": "Message",
+          "shortcuts": [
+            {
+              "title": "Get new mail",
+              "key": "shift+cmd+n"
+            },
+            {
+              "title": "Send",
+              "key": "cmd+enter"
+            },
+            {
+              "title": "Send and archivbe",
+              "key": "shift+cmd+enter"
+            },
+            {
+              "title": "Reply all",
+              "key": "shift+cmd+r"
+            },
+            {
+              "title": "Reply",
+              "key": "cmd+r"
+            },
+            {
+              "title": "Forward",
+              "key": "shift+cmd+f"
+            },
+            {
+              "title": "Mark as read",
+              "key": "shift+cmd+u"
+            },
+            {
+              "title": "Pin",
+              "key": "shift+cmd+p"
+            },
+            {
+              "title": "Snooze",
+              "key": "cmd+d"
+            },
+            {
+              "title": "Mark as spam",
+              "key": "shift+cmd+j"
+            },
+            {
+              "title": "Archive",
+              "key": "ctrl+cmd+a"
+            },
+            {
+              "title": "Edit",
+              "key": "shift+cmd+e"
+            },
+            {
+              "title": "Move to inbox",
+              "key": "shift+cmd+i"
+            },
+            {
+              "title": "Move",
+              "key": "shift+cmd+m"
+            },
+            {
+              "title": "Create link",
+              "key": "cmd+l"
+            },
+            {
+              "title": "Delete",
+              "key": "cmd+backspace"
+            }
+          ]
+        },
+        {
+          "title": "File",
+          "shortcuts": [
+            {
+              "title": "New mail",
+              "key": "cmd+n"
+            },
+            {
+              "title": "New event",
+              "key": "cmd+e"
+            },
+            {
+              "title": "Attach files",
+              "key": "shift+cmd+a"
+            }
+          ]
+        },
+        {
+          "title": "Edit",
+          "shortcuts": [
+            {
+              "title": "Paste and match style",
+              "key": "shift+cmd+v"
+            },
+            {
+              "title": "Search mailbox",
+              "key": "opt+cmd+f"
+            }
+          ]
+        },
+        {
+          "title": "Composer",
+          "shortcuts": [
+            {
+              "title": "Cc",
+              "key": "shift+cmd+c"
+            },
+            {
+              "title": "Bcc",
+              "key": "shift+cmd+b"
+            },
+            {
+              "title": "Bold",
+              "key": "cmd+b"
+            },
+            {
+              "title": "Italic",
+              "key": "cmd+i"
+            },
+            {
+              "title": "Underline",
+              "key": "cmd+u"
+            },
+            {
+              "title": "Strikethrough",
+              "key": "shift+cmd+x"
+            },
+            {
+              "title": "Bullet list",
+              "key": "shift+cmd+7"
+            },
+            {
+              "title": "Numbered list",
+              "key": "shift+cmd+8"
+            },
+            {
+              "title": "Add link",
+              "key": "cmd+k"
+            },
+            {
+              "title": "Pick template",
+              "key": "shift+cmd+t"
+            }
+          ]
+        },
+        {
+          "title": "View",
+          "shortcuts": [
+            {
+              "title": "Previous message",
+              "key": "j"
+            },
+            {
+              "title": "Next message",
+              "key": "k"
+            },
+            {
+              "title": "1 day",
+              "key": "d"
+            },
+            {
+              "title": "3 days",
+              "key": "x"
+            },
+            {
+              "title": "Week",
+              "key": "w"
+            },
+            {
+              "title": "Month",
+              "key": "m"
+            },
+            {
+              "title": "Next date",
+              "key": "cmd+right"
+            },
+            {
+              "title": "Previous date",
+              "key": "cmd+left"
+            },
+            {
+              "title": "Go to today",
+              "key": "cmd+t"
+            },
+            {
+              "title": "Toggle fullscreen",
+              "key": "ctrl+cmd+f"
+            }
+          ]
+        },
+        {
+          "title": "Window",
+          "shortcuts": [
+            {
+              "title": "Minimize",
+              "key": "cmd+m"
+            },
+            {
+              "title": "Inbox",
+              "key": "cmd+1"
+            },
+            {
+              "title": "Calendar",
+              "key": "cmd+2"
+            },
+            {
+              "title": "Message viewer",
+              "key": "cmd+0"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

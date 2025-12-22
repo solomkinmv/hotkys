@@ -3,6 +3,7 @@
   "bundleId": "com.jetbrains.intellij-EAP",
   "name": "IntelliJ IDEA EAP",
   "slug": "intellij-idea-eap",
+  "icon": "icons/intellij-idea-eap.png",
   "keymaps": [
     {
       "title": "Default",

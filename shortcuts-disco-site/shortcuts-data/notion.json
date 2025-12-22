@@ -1,9 +1,10 @@
 {
   "$schema": "schema/shortcut.schema.json",
   "bundleId": "notion.id",
-  "slug": "notion",
   "name": "Notion",
-  "source": "https://www.notion.so/help/keyboard-shortcuts",
+  "slug": "notion",
+  "source": "https://www.notion.com/help/keyboard-shortcuts",
+  "icon": "icons/notion.png",
   "keymaps": [
     {
       "title": "Default",
@@ -12,201 +13,304 @@
       ],
       "sections": [
         {
-          "title": "Popular",
+          "title": "Most popular",
           "shortcuts": [
             {
-              "title": "Create new page",
+              "title": "Create a new page (desktop only)",
               "key": "cmd+n"
             },
             {
-              "title": "Open new Notion window",
+              "title": "Open a new Notion window",
               "key": "shift+cmd+n"
             },
             {
-              "title": "Open a page as a new window",
-              "comment": "⇧⌥(click)"
-            },
-            {
-              "title": "Open a link as a new tab",
-              "comment": "⌘(click)"
-            },
-            {
-              "title": "Create a new Notion tab",
-              "key": "cmd+t"
-            },
-            {
-              "title": "Open search or jump to a recently viewed page",
+              "title": "Open search",
               "key": "cmd+p"
             },
             {
-              "title": "Copy page url",
-              "key": "cmd+l"
-            },
-            {
-              "title": "Go back a page",
-              "key": "cmd+["
-            },
-            {
-              "title": "Go forward a page",
-              "key": "cmd+]"
-            },
-            {
-              "title": "Go to the previous database page in database peek",
-              "key": "ctrl+shift+k"
-            },
-            {
-              "title": "Go to the next database page in database peek",
-              "key": "ctrl+shift+j"
-            },
-            {
-              "title": "Toggle between dark mode and light mode",
+              "title": "Switch dark mode / light mode",
               "key": "shift+cmd+l"
             }
           ]
         },
         {
-          "title": "General",
+          "title": "Markdown",
           "shortcuts": [
             {
-              "title": "Expand or close the sidebar",
-              "key": "cmd+\\"
-            },
-            {
-              "title": "Move the current page",
-              "key": "shift+cmd+p"
-            },
-            {
-              "title": "Share or publish to the web",
-              "key": "shift+cmd+o"
-            },
-            {
-              "title": "Dictate text",
-              "key": "cmd+o"
-            },
-            {
-              "title": "Open page side/center-peek fully",
-              "key": "cmd+enter"
+              "title": "Bullet list",
+              "key": "plus"
             }
           ]
         },
         {
-          "title": "Content creation",
+          "title": "Create and style your content",
           "shortcuts": [
             {
-              "title": "Create body text",
-              "key": "opt+cmd+0"
+              "title": "Insert a line of text",
+              "key": "enter"
             },
             {
-              "title": "Create H1 heading",
-              "key": "opt+cmd+1"
+              "title": "Create a line break within a block of text",
+              "key": "shift+enter"
             },
             {
-              "title": "Create H2 heading",
-              "key": "opt+cmd+2"
+              "title": "Create a comment",
+              "key": "shift+cmd+m"
             },
             {
-              "title": "Create H3 heading",
-              "key": "opt+cmd+3"
-            },
-            {
-              "title": "Create to-do checkbox",
-              "key": "opt+cmd+4"
-            },
-            {
-              "title": "Create bulleted list",
-              "key": "opt+cmd+5"
-            },
-            {
-              "title": "Create numbered list",
-              "key": "opt+cmd+6"
-            },
-            {
-              "title": "Create toggle list",
-              "key": "opt+cmd+7"
-            },
-            {
-              "title": "Create code block",
-              "key": "opt+cmd+8"
-            },
-            {
-              "title": "Create or convert to a new page",
-              "key": "opt+cmd+9"
-            }
-          ]
-        },
-        {
-          "title": "Text formatting",
-          "shortcuts": [
-            {
-              "title": "Bold",
+              "title": "Bold (when text selected)",
               "key": "cmd+b"
             },
             {
-              "title": "Italic",
+              "title": "Italicize (when text selected)",
               "key": "cmd+i"
             },
             {
-              "title": "Underline",
+              "title": "Underline (when text selected)",
               "key": "cmd+u"
             },
             {
-              "title": "Strikethrough",
+              "title": "Strikethrough (when text selected)",
               "key": "shift+cmd+s"
             },
             {
-              "title": "Inline code",
+              "title": "Add a link (when text selected)",
+              "key": "cmd+k"
+            },
+            {
+              "title": "Paste over a link (when text selected)",
+              "key": "cmd+v"
+            },
+            {
+              "title": "Inline code (when text selected)",
               "key": "cmd+e"
             },
             {
-              "title": "Apply last text or highlight color",
-              "key": "shift+cmd+h"
+              "title": "Indent / nest content",
+              "key": "tab"
+            },
+            {
+              "title": "Un-indent / Un-nest content",
+              "key": "shift+tab"
             }
           ]
         },
         {
-          "title": "Block Actions",
+          "title": "Edit and move blocks",
           "shortcuts": [
             {
-              "title": "Select current block",
+              "title": "Select block you’re currently in",
               "key": "esc"
             },
             {
-              "title": "Stop selecting blocks",
-              "comment": "When blocks are selected",
-              "key": "esc"
+              "title": "Select the block your cursor is in",
+              "key": "cmd+a"
             },
             {
-              "title": "Move selected blocks",
-              "comment": "Up or down",
-              "key": "shift+cmd+up"
+              "title": "Open selected image fullscreen",
+              "key": "space"
             },
             {
               "title": "Delete selected blocks",
               "key": "backspace"
             },
             {
-              "title": "Duplicate selected blocks",
+              "title": "Duplicate the block(s) you’ve selected",
               "key": "cmd+d"
             },
             {
-              "title": "Edit selected block",
+              "title": "Edit any text inside a selected block",
               "key": "enter"
             },
             {
-              "title": "Edit or change selected blocks",
-              "key": "cmd+/"
+              "title": "Open a page inside a page",
+              "key": "enter"
             },
             {
-              "title": "Edit multiple database rows or cards",
-              "key": "cmd+/"
-            },
-            {
-              "title": "Expand or close all toggles",
+              "title": "Expand or close all toggles in a toggle list",
               "key": "opt+cmd+t"
             },
             {
-              "title": "Toggle full-screen on selected image",
+              "title": "Apply the last color or highlight color you used",
+              "key": "shift+cmd+h"
+            },
+            {
+              "title": "Modify the current block you’re in",
+              "key": "cmd+enter"
+            },
+            {
+              "title": "Dismiss @-menu",
+              "key": "esc"
+            },
+            {
+              "title": "Move page to",
+              "key": "shift+cmd+p"
+            }
+          ]
+        },
+        {
+          "title": "/Slash commands",
+          "shortcuts": [
+            {
+              "title": "Clears the / menu when writing a /",
+              "key": "esc"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Default (Windows)",
+      "platforms": [
+        "windows"
+      ],
+      "sections": [
+        {
+          "title": "Most popular",
+          "shortcuts": [
+            {
+              "title": "Create a new page (desktop only)",
+              "key": "ctrl+n"
+            },
+            {
+              "title": "Open a new Notion window",
+              "key": "ctrl+shift+n"
+            },
+            {
+              "title": "Open search",
+              "key": "ctrl+p"
+            },
+            {
+              "title": "Switch dark mode / light mode",
+              "key": "ctrl+shift+l"
+            }
+          ]
+        },
+        {
+          "title": "Markdown",
+          "shortcuts": [
+            {
+              "title": "Bullet list",
+              "key": "plus"
+            },
+            {
+              "title": "Toggle list",
+              "key": "shift+."
+            }
+          ]
+        },
+        {
+          "title": "Create and style your content",
+          "shortcuts": [
+            {
+              "title": "Insert a line of text",
+              "key": "enter"
+            },
+            {
+              "title": "Create a line break within a block of text",
+              "key": "shift+enter"
+            },
+            {
+              "title": "Create a comment",
+              "key": "ctrl+shift+m"
+            },
+            {
+              "title": "Bold (when text selected)",
+              "key": "ctrl+b"
+            },
+            {
+              "title": "Italicize (when text selected)",
+              "key": "ctrl+i"
+            },
+            {
+              "title": "Underline (when text selected)",
+              "key": "ctrl+u"
+            },
+            {
+              "title": "Strikethrough (when text selected)",
+              "key": "ctrl+shift+s"
+            },
+            {
+              "title": "Add a link (when text selected)",
+              "key": "ctrl+k"
+            },
+            {
+              "title": "Paste over a link (when text selected)",
+              "key": "ctrl+v"
+            },
+            {
+              "title": "Inline code (when text selected)",
+              "key": "ctrl+e"
+            },
+            {
+              "title": "Indent / nest content",
+              "key": "tab"
+            },
+            {
+              "title": "Un-indent / Un-nest content",
+              "key": "shift+tab"
+            }
+          ]
+        },
+        {
+          "title": "Edit and move blocks",
+          "shortcuts": [
+            {
+              "title": "Select block you’re currently in",
+              "key": "esc"
+            },
+            {
+              "title": "Select the block your cursor is in",
+              "key": "ctrl+a"
+            },
+            {
+              "title": "Open selected image fullscreen",
               "key": "space"
+            },
+            {
+              "title": "Delete selected blocks",
+              "key": "backspace"
+            },
+            {
+              "title": "Duplicate the block(s) you’ve selected",
+              "key": "ctrl+d"
+            },
+            {
+              "title": "Edit any text inside a selected block",
+              "key": "enter"
+            },
+            {
+              "title": "Open a page inside a page",
+              "key": "enter"
+            },
+            {
+              "title": "Expand or close all toggles in a toggle list",
+              "key": "ctrl+opt+t"
+            },
+            {
+              "title": "Apply the last color or highlight color you used",
+              "key": "ctrl+shift+h"
+            },
+            {
+              "title": "Modify the current block you’re in",
+              "key": "ctrl+enter"
+            },
+            {
+              "title": "Dismiss @-menu",
+              "key": "esc"
+            },
+            {
+              "title": "Move page to",
+              "key": "ctrl+shift+p"
+            }
+          ]
+        },
+        {
+          "title": "/Slash commands",
+          "shortcuts": [
+            {
+              "title": "Clears the / menu when writing a /",
+              "key": "esc"
             }
           ]
         }

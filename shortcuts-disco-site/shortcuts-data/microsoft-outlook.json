@@ -3,6 +3,7 @@
   "bundleId": "com.microsoft.Outlook",
   "name": "Microsoft Outlook",
   "slug": "microsoft-outlook",
+  "icon": "icons/microsoft-outlook.png",
   "keymaps": [
     {
       "title": "Default",

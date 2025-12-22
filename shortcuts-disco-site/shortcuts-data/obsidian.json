@@ -3,6 +3,7 @@
   "name": "Obsidian",
   "bundleId": "md.obsidian",
   "slug": "obsidian",
+  "icon": "icons/obsidian.png",
   "keymaps": [
     {
       "title": "Default",

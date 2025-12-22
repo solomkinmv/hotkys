@@ -4,6 +4,7 @@
   "name": "Signal",
   "slug": "signal",
   "source": "https://support.signal.org/hc/en-us/articles/360036517511-Signal-Desktop-Keyboard-Shortcuts",
+  "icon": "icons/signal.png",
   "keymaps": [
     {
       "title": "Default",

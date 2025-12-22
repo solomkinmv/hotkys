@@ -11,37 +11,43 @@ interface AppIconProps {
   className?: string;
 }
 
-/**
- * Renders an app icon with fallback to first letter if icon is missing or fails to load.
- */
+function getInitials(name: string): string {
+  return name
+    .split(/\s+/)
+    .slice(0, 2)
+    .map((word) => word.charAt(0).toUpperCase())
+    .join("");
+}
+
 export function AppIcon({ icon, appName, size = "sm", className }: AppIconProps) {
-  const [hasError, setHasError] = useState(false);
   const iconUrl = getIconUrl(icon);
+  const [imgError, setImgError] = useState(false);
 
-  const sizeClasses = size === "sm" ? "w-4 h-4" : "w-8 h-8";
-  const textSize = size === "sm" ? "text-[10px]" : "text-sm";
+  const sizeClasses = size === "sm" ? "h-4 w-4" : "h-8 w-8";
+  const textSize = size === "sm" ? "text-[8px]" : "text-sm";
 
-  if (!iconUrl || hasError) {
-    return (
-      <span
-        className={cn(
-          sizeClasses,
-          "rounded bg-muted flex items-center justify-center font-medium text-muted-foreground shrink-0",
-          textSize,
-          className
-        )}
-      >
-        {appName.charAt(0).toUpperCase()}
-      </span>
-    );
-  }
+  const showFallback = !iconUrl || imgError;
 
   return (
-    <img
-      src={iconUrl}
-      alt={`${appName} icon`}
-      className={cn(sizeClasses, "rounded shrink-0", className)}
-      onError={() => setHasError(true)}
-    />
+    <div
+      className={cn(
+        sizeClasses,
+        "rounded-sm bg-muted flex items-center justify-center overflow-hidden shrink-0",
+        className
+      )}
+    >
+      {!showFallback ? (
+        <img
+          src={iconUrl}
+          alt={`${appName} icon`}
+          className="h-full w-full object-cover rounded-sm"
+          onError={() => setImgError(true)}
+        />
+      ) : (
+        <span className={cn("text-muted-foreground font-medium", textSize)}>
+          {getInitials(appName)}
+        </span>
+      )}
+    </div>
   );
 }

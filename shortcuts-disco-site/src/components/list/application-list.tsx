@@ -7,7 +7,7 @@ import { Kbd } from "@/components/ui/kbd";
 import { InputProps } from "@/components/ui/input";
 import { SearchBar } from "@/components/ui/search-bar";
 import { LinkableListItem } from "@/components/ui/list";
-import { HeaderCompact1 } from "@/components/ui/typography";
+import { HeaderCompact1, TypographyMuted } from "@/components/ui/typography";
 import { useKeyboardNavigation } from "@/lib/hooks/use-keyboard-navigation";
 import { Badge } from "@/components/ui/badge";
 import { getAppPlatforms, getPlatformIcon, appMatchesPlatformFilter } from "@/lib/utils/platform-helpers";
@@ -77,9 +77,9 @@ export const ApplicationList = ({
       <SearchBar onChange={onChange} />
       <div className="mt-2">
         {appShortcuts.length === 0 ? (
-          <p className="text-center text-muted-foreground py-8">
+          <TypographyMuted className="text-center py-8">
             No applications found matching your filter criteria.
-          </p>
+          </TypographyMuted>
         ) : (
           appShortcuts.map((app, index) => {
             const platforms = getAppPlatforms(app);

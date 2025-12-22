@@ -1,5 +1,5 @@
 import {Metadata} from "next";
-import {Header1, Paragraph, TypographyLink} from "@/components/ui/typography";
+import {Header1, Paragraph, TypographyH3, TypographyInlineCode, TypographyLink} from "@/components/ui/typography";
 
 export const metadata: Metadata = {
     title: "About",
@@ -15,11 +15,11 @@ export default function About() {
                 Note: currently support only macOs. Please vote for this feature <TypographyLink
                 href="https://github.com/solomkinmv/hotkys/issues/2">here</TypographyLink>
             </Paragraph>
-            <h3>Contribution</h3>
+            <TypographyH3 className="border-0">Contribution</TypographyH3>
             <Paragraph>
-                Create PR with shortcuts in <kbd>shortcuts-data</kbd> on <TypographyLink
+                Create PR with shortcuts in <TypographyInlineCode>shortcuts-data</TypographyInlineCode> on <TypographyLink
                 href="https://github.com/solomkinmv/hotkys/tree/main/shortcuts-disco-site/shortcuts-data">GitHub</TypographyLink>.</Paragraph>
-            <Paragraph>Include schema for each application <kbd>{code}</kbd> as a first JSON
+            <Paragraph>Include schema for each application <TypographyInlineCode>{code}</TypographyInlineCode> as a first JSON
                 property.</Paragraph>
             <Paragraph>See full contribution guide on <TypographyLink href="https://github.com/solomkinmv/hotkys">GitHub</TypographyLink></Paragraph>
         </section>

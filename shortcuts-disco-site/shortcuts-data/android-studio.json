@@ -1,0 +1,615 @@
+{
+  "$schema": "schema/shortcut.schema.json",
+  "bundleId": "com.google.android.studio",
+  "name": "Android Studio",
+  "slug": "android-studio",
+  "source": "https://developer.android.com/studio/intro/keyboard-shortcuts",
+  "icon": "icons/android-studio.png",
+  "keymaps": [
+    {
+      "title": "Default",
+      "platforms": [
+        "macos"
+      ],
+      "sections": [
+        {
+          "title": "General",
+          "shortcuts": [
+            {
+              "title": "Save all",
+              "key": "cmd+s"
+            },
+            {
+              "title": "Synchronize",
+              "key": "opt+cmd+y"
+            },
+            {
+              "title": "Add to favorites",
+              "key": "shift+opt+f"
+            },
+            {
+              "title": "Inspect current file with current profile",
+              "key": "shift+opt+i"
+            },
+            {
+              "title": "Open project structure dialog",
+              "key": "cmd+;"
+            },
+            {
+              "title": "Switch between tabs and tool window",
+              "key": "ctrl+tab"
+            }
+          ]
+        },
+        {
+          "title": "Navigating and Searching Within Studio",
+          "shortcuts": [
+            {
+              "title": "Find",
+              "key": "cmd+f"
+            },
+            {
+              "title": "Find next",
+              "key": "cmd+g"
+            },
+            {
+              "title": "Find previous",
+              "key": "shift+cmd+g"
+            },
+            {
+              "title": "Replace",
+              "key": "cmd+r"
+            },
+            {
+              "title": "Find action",
+              "key": "shift+cmd+a"
+            },
+            {
+              "title": "Search by symbol name",
+              "key": "opt+cmd+o"
+            },
+            {
+              "title": "Find class",
+              "key": "cmd+o"
+            },
+            {
+              "title": "Find file (instead of class)",
+              "key": "shift+cmd+o"
+            },
+            {
+              "title": "Find in path",
+              "key": "shift+cmd+f"
+            },
+            {
+              "title": "Recently opened files pop-up",
+              "key": "cmd+e"
+            },
+            {
+              "title": "Recently edited files pop-up",
+              "key": "shift+cmd+e"
+            },
+            {
+              "title": "Go to last edit location",
+              "key": "shift+cmd+backspace"
+            },
+            {
+              "title": "Close active editor tab",
+              "key": "cmd+w"
+            },
+            {
+              "title": "Return to editor window from a tool window",
+              "key": "esc"
+            },
+            {
+              "title": "Hide active or last active tool window",
+              "key": "shift+esc"
+            },
+            {
+              "title": "Go to line",
+              "key": "cmd+l"
+            },
+            {
+              "title": "Open type hierarchy",
+              "key": "ctrl+h"
+            },
+            {
+              "title": "Open method hierarchy",
+              "key": "shift+cmd+h"
+            },
+            {
+              "title": "Open call hierarchy",
+              "key": "ctrl+opt+h"
+            }
+          ]
+        },
+        {
+          "title": "Writing Code",
+          "shortcuts": [
+            {
+              "title": "Generate code",
+              "key": "cmd+n"
+            },
+            {
+              "title": "Override methods",
+              "key": "ctrl+o"
+            },
+            {
+              "title": "Implement methods",
+              "key": "ctrl+i"
+            },
+            {
+              "title": "Surround with (if...else / try...catch / etc.)",
+              "key": "opt+cmd+t"
+            },
+            {
+              "title": "Delete line at caret",
+              "key": "cmd+backspace"
+            },
+            {
+              "title": "Duplicate current line or selection",
+              "key": "cmd+d"
+            },
+            {
+              "title": "Basic code completion",
+              "key": "ctrl+space"
+            },
+            {
+              "title": "Smart code completion",
+              "key": "ctrl+shift+space"
+            },
+            {
+              "title": "Complete statement",
+              "key": "shift+cmd+enter"
+            },
+            {
+              "title": "Quick documentation lookup",
+              "key": "ctrl+j"
+            },
+            {
+              "title": "Show parameters for selected method",
+              "key": "cmd+p"
+            },
+            {
+              "title": "Go to declaration (directly)",
+              "key": "cmd+b"
+            },
+            {
+              "title": "Go to implementations",
+              "key": "alt+cmd+b"
+            },
+            {
+              "title": "Go to super-method/super-class",
+              "key": "cmd+u"
+            },
+            {
+              "title": "Open quick definition lookup",
+              "key": "cmd+y"
+            },
+            {
+              "title": "Toggle project tool window visibility",
+              "key": "cmd+1"
+            },
+            {
+              "title": "Select successively increasing code blocks",
+              "key": "opt+up"
+            },
+            {
+              "title": "Decrease current selection to previous state",
+              "key": "opt+down"
+            },
+            {
+              "title": "Delete to end of word",
+              "key": "opt+backspace"
+            },
+            {
+              "title": "Delete to start of word",
+              "key": "opt+backspace"
+            },
+            {
+              "title": "Optimize imports",
+              "key": "ctrl+opt+o"
+            },
+            {
+              "title": "Project quick fix",
+              "key": "opt+enter"
+            },
+            {
+              "title": "Reformat code",
+              "key": "opt+cmd+l"
+            },
+            {
+              "title": "Auto-indent lines",
+              "key": "ctrl+opt+i"
+            },
+            {
+              "title": "Smart line join",
+              "key": "ctrl+shift+j"
+            },
+            {
+              "title": "Smart line split",
+              "key": "cmd+enter"
+            },
+            {
+              "title": "Start new line",
+              "key": "shift+enter"
+            }
+          ]
+        },
+        {
+          "title": "Build and Run",
+          "shortcuts": [
+            {
+              "title": "Build and run",
+              "key": "ctrl+r"
+            },
+            {
+              "title": "Apply changes (with Instant Run)",
+              "key": "ctrl+cmd+r"
+            }
+          ]
+        },
+        {
+          "title": "Debugging",
+          "shortcuts": [
+            {
+              "title": "Debug",
+              "key": "ctrl+d"
+            },
+            {
+              "title": "Resume progra",
+              "key": "opt+cmd+r"
+            }
+          ]
+        },
+        {
+          "title": "Refactoring",
+          "shortcuts": [
+            {
+              "title": "Safe delete",
+              "key": "cmd+backspace"
+            },
+            {
+              "title": "Inline",
+              "key": "opt+cmd+n"
+            },
+            {
+              "title": "Extract method",
+              "key": "opt+cmd+m"
+            },
+            {
+              "title": "Extract variable",
+              "key": "opt+cmd+v"
+            },
+            {
+              "title": "Extract field",
+              "key": "opt+cmd+f"
+            },
+            {
+              "title": "Extract constant",
+              "key": "opt+cmd+c"
+            },
+            {
+              "title": "Extract parameter",
+              "key": "opt+cmd+p"
+            }
+          ]
+        },
+        {
+          "title": "Version Control / Local History",
+          "shortcuts": [
+            {
+              "title": "Commit project to VCS",
+              "key": "cmd+k"
+            },
+            {
+              "title": "Update project from VCS",
+              "key": "cmd+t"
+            },
+            {
+              "title": "View recent changes",
+              "key": "shift+opt+c"
+            },
+            {
+              "title": "Open VCS popup",
+              "key": "ctrl+v"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Default (Windows)",
+      "platforms": [
+        "windows"
+      ],
+      "sections": [
+        {
+          "title": "General",
+          "shortcuts": [
+            {
+              "title": "Save all",
+              "key": "ctrl+s"
+            },
+            {
+              "title": "Synchronize",
+              "key": "ctrl+alt+y"
+            },
+            {
+              "title": "Add to favorites",
+              "key": "ctrl+shift+up"
+            },
+            {
+              "title": "Inspect current file with current profile",
+              "key": "shift+alt+i"
+            },
+            {
+              "title": "Open settings dialogue",
+              "key": "ctrl+alt+s"
+            },
+            {
+              "title": "Open project structure dialog",
+              "key": "ctrl+shift+alt+s"
+            },
+            {
+              "title": "Switch between tabs and tool window",
+              "key": "ctrl+tab"
+            }
+          ]
+        },
+        {
+          "title": "Navigating and Searching Within Studio",
+          "shortcuts": [
+            {
+              "title": "Find",
+              "key": "ctrl+f"
+            },
+            {
+              "title": "Replace",
+              "key": "ctrl+r"
+            },
+            {
+              "title": "Find action",
+              "key": "ctrl+shift+a"
+            },
+            {
+              "title": "Search by symbol name",
+              "key": "ctrl+shift+alt+n"
+            },
+            {
+              "title": "Find class",
+              "key": "ctrl+n"
+            },
+            {
+              "title": "Find file (instead of class)",
+              "key": "ctrl+shift+n"
+            },
+            {
+              "title": "Find in path",
+              "key": "ctrl+shift+f"
+            },
+            {
+              "title": "Recently opened files pop-up",
+              "key": "ctrl+e"
+            },
+            {
+              "title": "Recently edited files pop-up",
+              "key": "ctrl+shift+e"
+            },
+            {
+              "title": "Go to last edit location",
+              "key": "ctrl+shift+backspace"
+            },
+            {
+              "title": "Return to editor window from a tool window",
+              "key": "esc"
+            },
+            {
+              "title": "Hide active or last active tool window",
+              "key": "shift+esc"
+            },
+            {
+              "title": "Go to line",
+              "key": "ctrl+g"
+            },
+            {
+              "title": "Open type hierarchy",
+              "key": "ctrl+h"
+            },
+            {
+              "title": "Open method hierarchy",
+              "key": "ctrl+shift+h"
+            },
+            {
+              "title": "Open call hierarchy",
+              "key": "ctrl+alt+h"
+            }
+          ]
+        },
+        {
+          "title": "Writing Code",
+          "shortcuts": [
+            {
+              "title": "Override methods",
+              "key": "ctrl+o"
+            },
+            {
+              "title": "Implement methods",
+              "key": "ctrl+i"
+            },
+            {
+              "title": "Surround with (if...else / try...catch / etc.)",
+              "key": "ctrl+alt+t"
+            },
+            {
+              "title": "Delete line at caret",
+              "key": "ctrl+y"
+            },
+            {
+              "title": "Duplicate current line or selection",
+              "key": "ctrl+d"
+            },
+            {
+              "title": "Basic code completion",
+              "key": "ctrl+space"
+            },
+            {
+              "title": "Smart code completion",
+              "key": "ctrl+shift+space"
+            },
+            {
+              "title": "Complete statement",
+              "key": "ctrl+shift+enter"
+            },
+            {
+              "title": "Quick documentation lookup",
+              "key": "ctrl+q"
+            },
+            {
+              "title": "Show parameters for selected method",
+              "key": "ctrl+p"
+            },
+            {
+              "title": "Go to implementations",
+              "key": "ctrl+alt+b"
+            },
+            {
+              "title": "Go to super-method/super-class",
+              "key": "ctrl+u"
+            },
+            {
+              "title": "Open quick definition lookup",
+              "key": "ctrl+shift+i"
+            },
+            {
+              "title": "Toggle project tool window visibility",
+              "key": "alt+1"
+            },
+            {
+              "title": "Select successively increasing code blocks",
+              "key": "ctrl+w"
+            },
+            {
+              "title": "Decrease current selection to previous state",
+              "key": "ctrl+shift+w"
+            },
+            {
+              "title": "Delete to end of word",
+              "key": "ctrl+backspace"
+            },
+            {
+              "title": "Delete to start of word",
+              "key": "ctrl+backspace"
+            },
+            {
+              "title": "Optimize imports",
+              "key": "ctrl+alt+o"
+            },
+            {
+              "title": "Project quick fix",
+              "key": "alt+enter"
+            },
+            {
+              "title": "Reformat code",
+              "key": "ctrl+alt+l"
+            },
+            {
+              "title": "Auto-indent lines",
+              "key": "ctrl+alt+i"
+            },
+            {
+              "title": "Smart line join",
+              "key": "ctrl+shift+j"
+            },
+            {
+              "title": "Smart line split",
+              "key": "ctrl+enter"
+            },
+            {
+              "title": "Start new line",
+              "key": "shift+enter"
+            }
+          ]
+        },
+        {
+          "title": "Split window",
+          "shortcuts": [
+            {
+              "title": "Revert view to single column",
+              "key": "shift+alt+1"
+            },
+            {
+              "title": "Split view into two columns",
+              "key": "shift+alt+2"
+            },
+            {
+              "title": "Split view into three columns",
+              "key": "shift+alt+3"
+            },
+            {
+              "title": "Split view into four columns",
+              "key": "shift+alt+4"
+            },
+            {
+              "title": "Set view to grid (4 groups)",
+              "key": "shift+alt+5"
+            },
+            {
+              "title": "Split view into two rows",
+              "key": "shift+alt+8"
+            }
+          ]
+        },
+        {
+          "title": "Refactoring",
+          "shortcuts": [
+            {
+              "title": "Safe delete",
+              "key": "alt+backspace"
+            },
+            {
+              "title": "Inline",
+              "key": "ctrl+alt+n"
+            },
+            {
+              "title": "Extract method",
+              "key": "ctrl+alt+m"
+            },
+            {
+              "title": "Extract variable",
+              "key": "ctrl+alt+v"
+            },
+            {
+              "title": "Extract field",
+              "key": "ctrl+alt+f"
+            },
+            {
+              "title": "Extract constant",
+              "key": "ctrl+alt+c"
+            },
+            {
+              "title": "Extract parameter",
+              "key": "ctrl+alt+p"
+            }
+          ]
+        },
+        {
+          "title": "Version Control / Local History",
+          "shortcuts": [
+            {
+              "title": "Commit project to VCS",
+              "key": "ctrl+k"
+            },
+            {
+              "title": "Update project from VCS",
+              "key": "ctrl+t"
+            },
+            {
+              "title": "View recent changes",
+              "key": "shift+alt+c"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

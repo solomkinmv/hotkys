@@ -3,6 +3,7 @@
   "bundleId": "com.pixelmatorteam.pixelmator.x",
   "name": "Pixelmator Pro",
   "slug": "pixelmator-pro",
+  "icon": "icons/pixelmator-pro.png",
   "keymaps": [
     {
       "title": "Default",
@@ -261,7 +262,7 @@
           "shortcuts": [
             {
               "title": "Zoom In",
-              "key": "cmd++"
+              "key": "shift+cmd+plus"
             },
             {
               "title": "Zoom Out",

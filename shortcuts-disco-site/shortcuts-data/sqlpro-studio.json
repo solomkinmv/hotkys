@@ -4,6 +4,7 @@
   "name": "SQLPro Studio",
   "slug": "sqlpro-studio",
   "source": "https://github.com/hankinsoft/SQLPro/wiki/Keyboard-shortcuts",
+  "icon": "icons/sqlpro-studio.png",
   "keymaps": [
     {
       "title": "Default",

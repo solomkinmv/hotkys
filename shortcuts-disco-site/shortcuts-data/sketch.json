@@ -1,0 +1,440 @@
+{
+  "$schema": "schema/shortcut.schema.json",
+  "bundleId": "com.bohemiancoding.sketch3",
+  "name": "Sketch",
+  "slug": "sketch",
+  "source": "https://www.sketch.com/docs/shortcuts/mac/",
+  "icon": "icons/sketch.png",
+  "keymaps": [
+    {
+      "title": "Default",
+      "platforms": [
+        "macos"
+      ],
+      "sections": [
+        {
+          "title": "General",
+          "shortcuts": [
+            {
+              "title": "Copy",
+              "key": "cmd+c"
+            },
+            {
+              "title": "Cut",
+              "key": "cmd+x"
+            },
+            {
+              "title": "Paste",
+              "key": "cmd+v"
+            },
+            {
+              "title": "Paste over selection",
+              "key": "shift+cmd+v"
+            },
+            {
+              "title": "New page",
+              "key": "shift+cmd+n"
+            },
+            {
+              "title": "Toggle rulers",
+              "key": "ctrl+r"
+            },
+            {
+              "title": "Toggle pixels",
+              "key": "ctrl+p"
+            },
+            {
+              "title": "Toggle pixel grid",
+              "key": "ctrl+x"
+            },
+            {
+              "title": "Toggle grid",
+              "key": "ctrl+g"
+            },
+            {
+              "title": "Toggle layout guides",
+              "key": "ctrl+l"
+            },
+            {
+              "title": "Undo",
+              "key": "cmd+z"
+            },
+            {
+              "title": "Redo",
+              "key": "shift+cmd+z"
+            },
+            {
+              "title": "New document",
+              "key": "cmd+n"
+            },
+            {
+              "title": "Open document",
+              "key": "cmd+o"
+            },
+            {
+              "title": "Close window",
+              "key": "cmd+w"
+            },
+            {
+              "title": "Save document",
+              "key": "cmd+s"
+            },
+            {
+              "title": "Duplicate document",
+              "key": "shift+cmd+s"
+            },
+            {
+              "title": "Save document as…",
+              "key": "shift+opt+cmd+s"
+            },
+            {
+              "title": "Page setup",
+              "key": "shift+cmd+p"
+            },
+            {
+              "title": "Open Preferences window",
+              "key": "cmd"
+            },
+            {
+              "title": "Hide Sketch",
+              "key": "cmd+h"
+            },
+            {
+              "title": "Quit Sketch",
+              "key": "cmd+q"
+            }
+          ]
+        },
+        {
+          "title": "Inserting Layers",
+          "shortcuts": [
+            {
+              "title": "Rectangle",
+              "key": "r"
+            },
+            {
+              "title": "Oval",
+              "key": "o"
+            },
+            {
+              "title": "Line",
+              "key": "l"
+            },
+            {
+              "title": "Rounded rectangle",
+              "key": "u"
+            },
+            {
+              "title": "Vector tool",
+              "key": "v"
+            },
+            {
+              "title": "Pencil tool",
+              "key": "p"
+            },
+            {
+              "title": "Text tool",
+              "key": "t"
+            },
+            {
+              "title": "Artboard",
+              "key": "a"
+            },
+            {
+              "title": "Slice tool",
+              "key": "s"
+            }
+          ]
+        },
+        {
+          "title": "Selecting Layers",
+          "shortcuts": [
+            {
+              "title": "Select all",
+              "key": "cmd+a"
+            },
+            {
+              "title": "Select all Artboards",
+              "key": "shift+cmd+a"
+            },
+            {
+              "title": "Filter in Layer List",
+              "key": "cmd+f"
+            }
+          ]
+        },
+        {
+          "title": "Moving and Resizing Layers",
+          "shortcuts": [
+            {
+              "title": "Duplicate (repeat with ⌘D)",
+              "key": "cmd+d"
+            },
+            {
+              "title": "Scale layer",
+              "key": "cmd+k"
+            }
+          ]
+        },
+        {
+          "title": "Editing Layers",
+          "shortcuts": [
+            {
+              "title": "Edit layer",
+              "key": "enter"
+            },
+            {
+              "title": "Finish editing",
+              "key": "esc"
+            },
+            {
+              "title": "Delete layer",
+              "key": "backspace"
+            },
+            {
+              "title": "Copy style",
+              "key": "opt+cmd+c"
+            },
+            {
+              "title": "Paste style",
+              "key": "opt+cmd+v"
+            },
+            {
+              "title": "Toggle fill",
+              "key": "f"
+            },
+            {
+              "title": "Toggle border",
+              "key": "b"
+            },
+            {
+              "title": "Pick color",
+              "key": "ctrl+c"
+            },
+            {
+              "title": "Transform shape",
+              "key": "shift+cmd+t"
+            },
+            {
+              "title": "Rotate layer",
+              "key": "shift+cmd+r"
+            },
+            {
+              "title": "Use as mask",
+              "key": "ctrl+cmd+m"
+            },
+            {
+              "title": "Return to instance",
+              "key": "cmd+esc"
+            },
+            {
+              "title": "Union multiple layers",
+              "key": "opt+cmd+u"
+            },
+            {
+              "title": "Subtract multiple layers",
+              "key": "opt+cmd+s"
+            },
+            {
+              "title": "Intersect multiple layers",
+              "key": "opt+cmd+i"
+            },
+            {
+              "title": "Show Difference between multiple layers",
+              "key": "ctrl+cmd+x"
+            }
+          ]
+        },
+        {
+          "title": "Vector Editing",
+          "shortcuts": [
+            {
+              "title": "Open/close path",
+              "key": "opt+cmd+o"
+            },
+            {
+              "title": "Selects next point",
+              "key": "tab"
+            },
+            {
+              "title": "Show all handle control points",
+              "key": "opt"
+            },
+            {
+              "title": "Change vector point type",
+              "key": "1"
+            }
+          ]
+        },
+        {
+          "title": "Text Editing",
+          "shortcuts": [
+            {
+              "title": "Paste as rich text",
+              "key": "shift+opt+cmd+v"
+            },
+            {
+              "title": "Change typeface",
+              "key": "cmd+t"
+            },
+            {
+              "title": "Bold",
+              "key": "cmd+b"
+            },
+            {
+              "title": "Italic",
+              "key": "cmd+i"
+            },
+            {
+              "title": "Underline",
+              "key": "cmd+u"
+            },
+            {
+              "title": "Decrease font size",
+              "key": "opt+cmd"
+            },
+            {
+              "title": "Increase character spacing",
+              "key": "ctrl+opt+l"
+            },
+            {
+              "title": "Decrease character spacing",
+              "key": "ctrl+opt+t"
+            },
+            {
+              "title": "Emoji & symbols",
+              "key": "ctrl+cmd+space"
+            },
+            {
+              "title": "Convert to outlines",
+              "key": "shift+cmd+o"
+            },
+            {
+              "title": "Insert a line break",
+              "key": "shift+enter"
+            }
+          ]
+        },
+        {
+          "title": "Arranging Layers",
+          "shortcuts": [
+            {
+              "title": "Group",
+              "key": "cmd+g"
+            },
+            {
+              "title": "Ungroup",
+              "key": "shift+cmd+g"
+            },
+            {
+              "title": "Rename layer",
+              "key": "cmd+r"
+            },
+            {
+              "title": "Select next layer in group",
+              "key": "tab"
+            },
+            {
+              "title": "Select previous layer in group",
+              "key": "shift+tab"
+            },
+            {
+              "title": "Selects layer inside group",
+              "key": "enter"
+            },
+            {
+              "title": "Selects parent group",
+              "key": "esc"
+            },
+            {
+              "title": "Bring forward",
+              "key": "opt+cmd+up"
+            },
+            {
+              "title": "Bring to front",
+              "key": "ctrl+opt+cmd+up"
+            },
+            {
+              "title": "Send backward",
+              "key": "opt+cmd+down"
+            },
+            {
+              "title": "Send to back",
+              "key": "ctrl+opt+cmd+down"
+            },
+            {
+              "title": "Move up (out of group/Artboard)",
+              "key": "shift+opt+cmd+up"
+            },
+            {
+              "title": "Distribute horizontally",
+              "key": "ctrl+cmd+h"
+            },
+            {
+              "title": "Distribute vertically",
+              "key": "ctrl+cmd+v"
+            },
+            {
+              "title": "Hide/show layer",
+              "key": "shift+cmd+h"
+            },
+            {
+              "title": "Lock/unlock layer",
+              "key": "shift+cmd+l"
+            }
+          ]
+        },
+        {
+          "title": "Exporting Layers",
+          "shortcuts": [
+            {
+              "title": "Export layer",
+              "key": "shift+cmd+e"
+            }
+          ]
+        },
+        {
+          "title": "Zoom and Focus",
+          "shortcuts": [
+            {
+              "title": "Zoom to 100%",
+              "key": "cmd+0"
+            },
+            {
+              "title": "Zoom to all elements on Canvas",
+              "key": "cmd+1"
+            },
+            {
+              "title": "Zoom to selected layer(s)",
+              "key": "cmd+2"
+            },
+            {
+              "title": "Center selected layer(s) in the Canvas",
+              "key": "cmd+3"
+            },
+            {
+              "title": "Toggle full screen",
+              "key": "ctrl+cmd+f"
+            },
+            {
+              "title": "Show/hide Layer List",
+              "key": "opt+cmd+1"
+            },
+            {
+              "title": "Show/hide Inspector",
+              "key": "opt+cmd+2"
+            },
+            {
+              "title": "Enter presentation mode",
+              "key": "cmd+."
+            },
+            {
+              "title": "Show/hide Toolbar",
+              "key": "opt+cmd+t"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

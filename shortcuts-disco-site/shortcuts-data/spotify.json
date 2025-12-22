@@ -4,6 +4,7 @@
   "slug": "spotify",
   "bundleId": "com.spotify.client",
   "source": "https://support.spotify.com/is-en/using_spotify/system_settings/keyboard-shortcuts/",
+  "icon": "icons/spotify.png",
   "keymaps": [
     {
       "title": "Default",

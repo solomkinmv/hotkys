@@ -1,0 +1,699 @@
+{
+  "$schema": "schema/shortcut.schema.json",
+  "bundleId": "com.adobe.xd",
+  "name": "Adobe XD",
+  "slug": "adobe-xd",
+  "source": "https://helpx.adobe.com/xd/help/keyboard-shortcuts.html",
+  "icon": "icons/adobe-xd.png",
+  "keymaps": [
+    {
+      "title": "Default",
+      "platforms": [
+        "macos"
+      ],
+      "sections": [
+        {
+          "title": "General",
+          "shortcuts": [
+            {
+              "title": "Quit",
+              "key": "cmd+q"
+            }
+          ]
+        },
+        {
+          "title": "Edit menu",
+          "shortcuts": [
+            {
+              "title": "Undo",
+              "key": "cmd+z"
+            },
+            {
+              "title": "Redo",
+              "key": "shift+cmd+z"
+            },
+            {
+              "title": "Cut",
+              "key": "cmd+x"
+            },
+            {
+              "title": "Copy",
+              "key": "cmd+c"
+            },
+            {
+              "title": "Paste",
+              "key": "cmd+v"
+            },
+            {
+              "title": "Paste Appearance (in Design mode), and",
+              "key": "opt+cmd+v"
+            },
+            {
+              "title": "Duplicate",
+              "key": "cmd+d"
+            },
+            {
+              "title": "Select All",
+              "key": "cmd+a"
+            },
+            {
+              "title": "Deselect All",
+              "key": "shift+cmd+a"
+            }
+          ]
+        },
+        {
+          "title": "File menu",
+          "shortcuts": [
+            {
+              "title": "New",
+              "key": "cmd+n"
+            },
+            {
+              "title": "Open...",
+              "key": "cmd+o"
+            },
+            {
+              "title": "Close",
+              "key": "cmd+w"
+            },
+            {
+              "title": "Save...",
+              "key": "cmd+s"
+            },
+            {
+              "title": "Save As...",
+              "key": "shift+cmd+s"
+            },
+            {
+              "title": "Export Batch",
+              "key": "shift+cmd+e"
+            },
+            {
+              "title": "Export Selected",
+              "key": "cmd+e"
+            },
+            {
+              "title": "Export to an integrated third-party application",
+              "key": "opt+cmd+e"
+            },
+            {
+              "title": "Import",
+              "key": "shift+cmd+i"
+            }
+          ]
+        },
+        {
+          "title": "Path/Pen",
+          "shortcuts": [
+            {
+              "title": "Switch to Pen tool",
+              "key": "p"
+            },
+            {
+              "title": "Asymmetric Control Point",
+              "key": "opt"
+            },
+            {
+              "title": "Snap Control Point Angle",
+              "key": "shift"
+            },
+            {
+              "title": "Snap Anchor Point Angle",
+              "key": "shift"
+            },
+            {
+              "title": "Add",
+              "key": "opt+cmd+u"
+            },
+            {
+              "title": "Subtract",
+              "key": "opt+cmd+s"
+            },
+            {
+              "title": "Intersect",
+              "key": "opt+cmd+i"
+            },
+            {
+              "title": "Exclude Overlap",
+              "key": "opt+cmd+x"
+            },
+            {
+              "title": "Convert to Path",
+              "key": "cmd+8"
+            }
+          ]
+        },
+        {
+          "title": "Object",
+          "shortcuts": [
+            {
+              "title": "Group",
+              "key": "cmd+g"
+            },
+            {
+              "title": "Ungroup",
+              "key": "shift+cmd+g"
+            },
+            {
+              "title": "Make Symbol",
+              "key": "cmd+k"
+            },
+            {
+              "title": "Lock/Unlock",
+              "key": "cmd+l"
+            },
+            {
+              "title": "Hide",
+              "key": "cmd+;"
+            },
+            {
+              "title": "Mask with Shape",
+              "key": "shift+cmd+m"
+            },
+            {
+              "title": "Make Repeat Grid",
+              "key": "cmd+r"
+            }
+          ]
+        },
+        {
+          "title": "Align",
+          "shortcuts": [
+            {
+              "title": "Left",
+              "key": "ctrl+cmd+left"
+            },
+            {
+              "title": "Center (horizontally)",
+              "key": "ctrl+cmd+c"
+            },
+            {
+              "title": "Right",
+              "key": "ctrl+cmd+right"
+            },
+            {
+              "title": "Top",
+              "key": "ctrl+cmd+up"
+            },
+            {
+              "title": "Middle (vertically)",
+              "key": "ctrl+cmd+m"
+            },
+            {
+              "title": "Bottom",
+              "key": "ctrl+cmd+down"
+            }
+          ]
+        },
+        {
+          "title": "Distribute",
+          "shortcuts": [
+            {
+              "title": "Horizontal",
+              "key": "ctrl+cmd+h"
+            },
+            {
+              "title": "Vertical",
+              "key": "ctrl+cmd+v"
+            }
+          ]
+        },
+        {
+          "title": "Text",
+          "shortcuts": [
+            {
+              "title": "Bold",
+              "key": "cmd+b"
+            },
+            {
+              "title": "Italic",
+              "key": "cmd+i"
+            }
+          ]
+        },
+        {
+          "title": "Operations",
+          "shortcuts": [
+            {
+              "title": "From Center",
+              "key": "opt"
+            },
+            {
+              "title": "Constrain",
+              "key": "shift"
+            },
+            {
+              "title": "Edit Text",
+              "key": "enter"
+            },
+            {
+              "title": "Constrain Rotate",
+              "key": "shift"
+            },
+            {
+              "title": "Line Constrain Rotate",
+              "key": "shift"
+            },
+            {
+              "title": "Constrain From Center",
+              "key": "shift+opt"
+            },
+            {
+              "title": "Direct Select",
+              "key": "cmd"
+            },
+            {
+              "title": "Switch between Design and Prototype mode",
+              "key": "ctrl+tab"
+            }
+          ]
+        },
+        {
+          "title": "Tools",
+          "shortcuts": [
+            {
+              "title": "Select",
+              "key": "v"
+            },
+            {
+              "title": "Rectangle",
+              "key": "r"
+            },
+            {
+              "title": "Ellipse",
+              "key": "e"
+            },
+            {
+              "title": "Line",
+              "key": "l"
+            },
+            {
+              "title": "Pen",
+              "key": "p"
+            },
+            {
+              "title": "Text",
+              "key": "t"
+            },
+            {
+              "title": "Artboard",
+              "key": "a"
+            },
+            {
+              "title": "Zoom to Selection",
+              "key": "cmd+3"
+            }
+          ]
+        },
+        {
+          "title": "View",
+          "shortcuts": [
+            {
+              "title": "Zoom to Fit",
+              "key": "cmd+0"
+            },
+            {
+              "title": "Pan",
+              "key": "space"
+            },
+            {
+              "title": "Assets",
+              "key": "shift+cmd+y"
+            },
+            {
+              "title": "Layers",
+              "key": "cmd+y"
+            }
+          ]
+        },
+        {
+          "title": "Design Specs",
+          "shortcuts": [
+            {
+              "title": "Reset zoom",
+              "key": "cmd+0"
+            },
+            {
+              "title": "Faster pan",
+              "key": "shift+up"
+            },
+            {
+              "title": "Go from Spec view to UX flow view",
+              "key": "esc"
+            },
+            {
+              "title": "Remove focus from artboard in UX flow view",
+              "key": "esc"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Default (Windows)",
+      "platforms": [
+        "windows"
+      ],
+      "sections": [
+        {
+          "title": "Edit menu",
+          "shortcuts": [
+            {
+              "title": "Undo",
+              "key": "ctrl+z"
+            },
+            {
+              "title": "Redo",
+              "key": "ctrl+shift+z"
+            },
+            {
+              "title": "Cut",
+              "key": "ctrl+x"
+            },
+            {
+              "title": "Copy",
+              "key": "ctrl+c"
+            },
+            {
+              "title": "Paste",
+              "key": "ctrl+v"
+            },
+            {
+              "title": "Paste Appearance (in Design mode), and",
+              "key": "ctrl+alt+v"
+            },
+            {
+              "title": "Duplicate",
+              "key": "ctrl+d"
+            },
+            {
+              "title": "Select All",
+              "key": "ctrl+a"
+            },
+            {
+              "title": "Deselect All",
+              "key": "ctrl+shift+a"
+            }
+          ]
+        },
+        {
+          "title": "File menu",
+          "shortcuts": [
+            {
+              "title": "New",
+              "key": "ctrl+n"
+            },
+            {
+              "title": "Open...",
+              "key": "ctrl+o"
+            },
+            {
+              "title": "Save...",
+              "key": "ctrl+s"
+            },
+            {
+              "title": "Save As...",
+              "key": "ctrl+shift+s"
+            },
+            {
+              "title": "Export Batch",
+              "key": "ctrl+shift+e"
+            },
+            {
+              "title": "Export Selected",
+              "key": "ctrl+e"
+            },
+            {
+              "title": "Import",
+              "key": "ctrl+shift+i"
+            }
+          ]
+        },
+        {
+          "title": "Path/Pen",
+          "shortcuts": [
+            {
+              "title": "Switch to Pen tool",
+              "key": "p"
+            },
+            {
+              "title": "Asymmetric Control Point",
+              "key": "alt"
+            },
+            {
+              "title": "Snap Control Point Angle",
+              "key": "shift"
+            },
+            {
+              "title": "Snap Anchor Point Angle",
+              "key": "shift"
+            },
+            {
+              "title": "Add",
+              "key": "ctrl+alt+u"
+            },
+            {
+              "title": "Subtract",
+              "key": "ctrl+alt+s"
+            },
+            {
+              "title": "Intersect",
+              "key": "ctrl+alt+i"
+            },
+            {
+              "title": "Exclude Overlap",
+              "key": "ctrl+alt+x"
+            },
+            {
+              "title": "Convert to Path",
+              "key": "ctrl+8"
+            }
+          ]
+        },
+        {
+          "title": "Object",
+          "shortcuts": [
+            {
+              "title": "Group",
+              "key": "ctrl+g"
+            },
+            {
+              "title": "Ungroup",
+              "key": "ctrl+shift+g"
+            },
+            {
+              "title": "Make Symbol",
+              "key": "ctrl+k"
+            },
+            {
+              "title": "Lock/Unlock",
+              "key": "ctrl+l"
+            },
+            {
+              "title": "Hide",
+              "key": "ctrl+;"
+            },
+            {
+              "title": "Mask with Shape",
+              "key": "ctrl+shift+m"
+            },
+            {
+              "title": "Make Repeat Grid",
+              "key": "ctrl+r"
+            }
+          ]
+        },
+        {
+          "title": "Align",
+          "shortcuts": [
+            {
+              "title": "Left",
+              "key": "ctrl+shift+left"
+            },
+            {
+              "title": "Center (horizontally)",
+              "key": "shift+c"
+            },
+            {
+              "title": "Right",
+              "key": "ctrl+shift+right"
+            },
+            {
+              "title": "Top",
+              "key": "ctrl+shift+up"
+            },
+            {
+              "title": "Middle (vertically)",
+              "key": "shift+m"
+            },
+            {
+              "title": "Bottom",
+              "key": "ctrl+shift+down"
+            }
+          ]
+        },
+        {
+          "title": "Distribute",
+          "shortcuts": [
+            {
+              "title": "Horizontal",
+              "key": "ctrl+shift+h"
+            },
+            {
+              "title": "Vertical",
+              "key": "ctrl+shift+v"
+            }
+          ]
+        },
+        {
+          "title": "Text",
+          "shortcuts": [
+            {
+              "title": "Bold",
+              "key": "ctrl+b"
+            },
+            {
+              "title": "Italic",
+              "key": "ctrl+i"
+            }
+          ]
+        },
+        {
+          "title": "Operations",
+          "shortcuts": [
+            {
+              "title": "From Center",
+              "key": "alt"
+            },
+            {
+              "title": "Constrain",
+              "key": "shift"
+            },
+            {
+              "title": "Edit Text",
+              "key": "enter"
+            },
+            {
+              "title": "Constrain Rotate",
+              "key": "shift"
+            },
+            {
+              "title": "Line Constrain Rotate",
+              "key": "shift"
+            },
+            {
+              "title": "Constrain From Center",
+              "key": "shift+alt"
+            },
+            {
+              "title": "Direct Select",
+              "key": "ctrl"
+            },
+            {
+              "title": "Switch between Design and Prototype mode",
+              "key": "ctrl+tab"
+            }
+          ]
+        },
+        {
+          "title": "Tools",
+          "shortcuts": [
+            {
+              "title": "Select",
+              "key": "v"
+            },
+            {
+              "title": "Rectangle",
+              "key": "r"
+            },
+            {
+              "title": "Ellipse",
+              "key": "e"
+            },
+            {
+              "title": "Line",
+              "key": "l"
+            },
+            {
+              "title": "Pen",
+              "key": "p"
+            },
+            {
+              "title": "Text",
+              "key": "t"
+            },
+            {
+              "title": "Artboard",
+              "key": "a"
+            },
+            {
+              "title": "Zoom to Selection",
+              "key": "ctrl+3"
+            }
+          ]
+        },
+        {
+          "title": "View",
+          "shortcuts": [
+            {
+              "title": "Zoom to Fit",
+              "key": "ctrl+0"
+            },
+            {
+              "title": "Pan",
+              "key": "space"
+            },
+            {
+              "title": "Assets",
+              "key": "ctrl+shift+y"
+            },
+            {
+              "title": "Layers",
+              "key": "ctrl+y"
+            }
+          ]
+        },
+        {
+          "title": "Window",
+          "shortcuts": [
+            {
+              "title": "Preview",
+              "key": "ctrl+enter"
+            }
+          ]
+        },
+        {
+          "title": "Selection command",
+          "shortcuts": [
+            {
+              "title": "Enable measurements",
+              "key": "alt"
+            }
+          ]
+        },
+        {
+          "title": "Design Specs",
+          "shortcuts": [
+            {
+              "title": "Reset zoom",
+              "key": "ctrl+0"
+            },
+            {
+              "title": "Faster pan",
+              "key": "shift+up"
+            },
+            {
+              "title": "Go from Spec view to UX flow view",
+              "key": "esc"
+            },
+            {
+              "title": "Remove focus from artboard in UX flow view",
+              "key": "esc"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

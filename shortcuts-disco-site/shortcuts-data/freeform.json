@@ -3,6 +3,7 @@
   "bundleId": "com.apple.freeform",
   "name": "Freeform",
   "slug": "freeform",
+  "icon": "icons/freeform.png",
   "keymaps": [
     {
       "title": "Default",
@@ -40,7 +41,7 @@
             },
             {
               "title": "Zoom in",
-              "key": "cmd++"
+              "key": "shift+cmd+plus"
             },
             {
               "title": "Zoom out",
