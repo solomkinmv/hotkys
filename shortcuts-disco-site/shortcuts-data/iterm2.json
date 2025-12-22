@@ -1,0 +1,217 @@
+{
+  "$schema": "schema/shortcut.schema.json",
+  "bundleId": "com.googlecode.iterm2",
+  "name": "iTerm2",
+  "slug": "iterm2",
+  "source": "https://gist.github.com/squarism/ae3613daf5c01a98ba3a",
+  "icon": "icons/iterm2.png",
+  "keymaps": [
+    {
+      "title": "Default",
+      "platforms": [
+        "macos"
+      ],
+      "sections": [
+        {
+          "title": "Tabs and Windows",
+          "shortcuts": [
+            {
+              "title": "New Tab",
+              "key": "cmd+t"
+            },
+            {
+              "title": "Close Tab or Window",
+              "key": "cmd+w"
+            },
+            {
+              "title": "Go to Tab",
+              "key": "cmd+1",
+              "comment": "cmd + number (1-9)"
+            },
+            {
+              "title": "Go to Split Pane by Direction",
+              "key": "opt+cmd+up",
+              "comment": "opt + cmd + arrow"
+            },
+            {
+              "title": "Cycle iTerm Windows",
+              "key": "cmd+`"
+            }
+          ]
+        },
+        {
+          "title": "Splitting",
+          "shortcuts": [
+            {
+              "title": "Split Window Vertically",
+              "key": "cmd+d"
+            },
+            {
+              "title": "Split Window Horizontally",
+              "key": "shift+cmd+d"
+            },
+            {
+              "title": "Split Horizontally (new profile)",
+              "key": "opt+cmd+h"
+            },
+            {
+              "title": "Split Vertically (new profile)",
+              "key": "opt+cmd+v"
+            }
+          ]
+        },
+        {
+          "title": "Moving and Resizing",
+          "shortcuts": [
+            {
+              "title": "Move Pane with Mouse",
+              "comment": "cmd + opt + shift + drag"
+            },
+            {
+              "title": "Move to Next Split Pane",
+              "key": "cmd+]"
+            },
+            {
+              "title": "Move to Previous Split Pane",
+              "key": "cmd+["
+            },
+            {
+              "title": "Resize Pane",
+              "key": "ctrl+cmd+up",
+              "comment": "ctrl + cmd + arrow"
+            }
+          ]
+        },
+        {
+          "title": "Fullscreen",
+          "shortcuts": [
+            {
+              "title": "Toggle Fullscreen",
+              "key": "cmd+enter"
+            },
+            {
+              "title": "Maximize a Pane",
+              "key": "shift+cmd+enter"
+            }
+          ]
+        },
+        {
+          "title": "Tab Navigation",
+          "shortcuts": [
+            {
+              "title": "Previous Tab",
+              "key": "cmd+left"
+            },
+            {
+              "title": "Next Tab",
+              "key": "cmd+right"
+            },
+            {
+              "title": "Go to Window",
+              "key": "opt+cmd+1",
+              "comment": "opt + cmd + number"
+            }
+          ]
+        },
+        {
+          "title": "Copy and Paste",
+          "shortcuts": [
+            {
+              "title": "Enter Copy Mode",
+              "key": "shift+cmd+c"
+            },
+            {
+              "title": "Character Selection in Copy Mode",
+              "key": "ctrl+v"
+            },
+            {
+              "title": "Copy in Copy Mode",
+              "key": "ctrl+k"
+            },
+            {
+              "title": "Paste History",
+              "key": "shift+cmd+h"
+            }
+          ]
+        },
+        {
+          "title": "Search",
+          "shortcuts": [
+            {
+              "title": "Find Text",
+              "key": "cmd+f"
+            },
+            {
+              "title": "Autocomplete",
+              "key": "cmd+;"
+            }
+          ]
+        },
+        {
+          "title": "Navigation",
+          "shortcuts": [
+            {
+              "title": "Set Mark",
+              "key": "shift+cmd+m"
+            },
+            {
+              "title": "Jump to Mark",
+              "key": "shift+cmd+j"
+            },
+            {
+              "title": "Navigate to Previous Prompt",
+              "key": "shift+cmd+up"
+            },
+            {
+              "title": "Navigate to Next Prompt",
+              "key": "shift+cmd+down"
+            }
+          ]
+        },
+        {
+          "title": "Advanced Features",
+          "shortcuts": [
+            {
+              "title": "Instant Replay",
+              "key": "opt+cmd+b"
+            }
+          ]
+        },
+        {
+          "title": "Display",
+          "shortcuts": [
+            {
+              "title": "Increase Font Size",
+              "key": "cmd+plus"
+            },
+            {
+              "title": "Decrease Font Size",
+              "key": "cmd+-"
+            },
+            {
+              "title": "Reset Font Size",
+              "key": "cmd+0"
+            }
+          ]
+        },
+        {
+          "title": "Miscellaneous",
+          "shortcuts": [
+            {
+              "title": "Clear Screen/Pane",
+              "key": "cmd+k"
+            },
+            {
+              "title": "Broadcast to All Panes",
+              "key": "opt+cmd+i"
+            },
+            {
+              "title": "Find Cursor",
+              "key": "cmd+/"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
