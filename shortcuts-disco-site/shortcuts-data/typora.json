@@ -4,6 +4,7 @@
   "name": "Typora",
   "slug": "typora",
   "source": "https://support.typora.io/Shortcut-Keys/",
+  "icon": "icons/typora.png",
   "keymaps": [
     {
       "title": "Default",

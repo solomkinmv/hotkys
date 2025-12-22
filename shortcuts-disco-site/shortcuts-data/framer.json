@@ -1,0 +1,468 @@
+{
+  "$schema": "schema/shortcut.schema.json",
+  "bundleId": "com.framer.Framer",
+  "name": "Framer",
+  "slug": "framer",
+  "source": "https://www.framer.com/help/articles/keyboard-shortcuts/",
+  "icon": "icons/framer.png",
+  "keymaps": [
+    {
+      "title": "Default",
+      "platforms": [
+        "macos"
+      ],
+      "sections": [
+        {
+          "title": "File",
+          "shortcuts": [
+            {
+              "title": "New",
+              "key": "opt+cmd+n"
+            },
+            {
+              "title": "Upload image",
+              "key": "opt+cmd+i"
+            }
+          ]
+        },
+        {
+          "title": "Layout",
+          "shortcuts": [
+            {
+              "title": "Add Frame",
+              "key": "cmd+enter"
+            },
+            {
+              "title": "Add Stack",
+              "key": "opt+cmd+enter"
+            },
+            {
+              "title": "Remove Wrapper",
+              "key": "opt+backspace"
+            },
+            {
+              "title": "Move Forward",
+              "key": "opt+cmd+up"
+            },
+            {
+              "title": "Move Backward",
+              "key": "opt+cmd+down"
+            }
+          ]
+        },
+        {
+          "title": "Publish",
+          "shortcuts": [
+            {
+              "title": "Add Frame",
+              "key": "opt+s"
+            }
+          ]
+        },
+        {
+          "title": "Edit",
+          "shortcuts": [
+            {
+              "title": "Undo",
+              "key": "cmd+z"
+            },
+            {
+              "title": "Redo",
+              "key": "shift+cmd+z"
+            },
+            {
+              "title": "Copy style",
+              "key": "opt+cmd+c"
+            },
+            {
+              "title": "Paste style",
+              "key": "opt+cmd+v"
+            },
+            {
+              "title": "Duplicate",
+              "key": "cmd+d"
+            },
+            {
+              "title": "Delete",
+              "key": "backspace"
+            },
+            {
+              "title": "Lock",
+              "key": "cmd+l"
+            },
+            {
+              "title": "Hide",
+              "key": "cmd+;"
+            },
+            {
+              "title": "Rename",
+              "key": "cmd+r"
+            },
+            {
+              "title": "Select all",
+              "key": "cmd+a"
+            },
+            {
+              "title": "Select all siblings",
+              "key": "shift+cmd+a"
+            },
+            {
+              "title": "Select all children",
+              "key": "opt+cmd+a"
+            }
+          ]
+        },
+        {
+          "title": "Graphic",
+          "shortcuts": [
+            {
+              "title": "Group",
+              "key": "cmd+g"
+            },
+            {
+              "title": "Ungroup",
+              "key": "shift+cmd+g"
+            }
+          ]
+        },
+        {
+          "title": "Tools",
+          "shortcuts": [
+            {
+              "title": "Insert",
+              "key": "i"
+            },
+            {
+              "title": "Web page Stack",
+              "key": "shift+s"
+            },
+            {
+              "title": "Frame",
+              "key": "f"
+            },
+            {
+              "title": "Round",
+              "key": "u"
+            },
+            {
+              "title": "Text",
+              "key": "t"
+            },
+            {
+              "title": "Interaction",
+              "key": "l"
+            },
+            {
+              "title": "Graphic",
+              "key": "g"
+            },
+            {
+              "title": "Comment",
+              "key": "c"
+            },
+            {
+              "title": "Zoom",
+              "key": "z"
+            },
+            {
+              "title": "Sample Color",
+              "key": "ctrl+c"
+            }
+          ]
+        },
+        {
+          "title": "View",
+          "shortcuts": [
+            {
+              "title": "Night Mode",
+              "key": "ctrl+cmd+n"
+            },
+            {
+              "title": "Zoom to 100%",
+              "key": "cmd+0"
+            },
+            {
+              "title": "Zoom to fit",
+              "key": "cmd+1"
+            },
+            {
+              "title": "Zoom to selection",
+              "key": "cmd+2"
+            },
+            {
+              "title": "Toggle Interface",
+              "key": "l"
+            },
+            {
+              "title": "Show rulers",
+              "key": "cmd+r"
+            },
+            {
+              "title": "Show layout grids",
+              "key": "ctrl+g"
+            }
+          ]
+        },
+        {
+          "title": "Component",
+          "shortcuts": [
+            {
+              "title": "Create component",
+              "key": "cmd+k"
+            },
+            {
+              "title": "Create from code",
+              "key": "shift+cmd+k"
+            }
+          ]
+        },
+        {
+          "title": "Text",
+          "shortcuts": [
+            {
+              "title": "Bold",
+              "key": "cmd+b"
+            },
+            {
+              "title": "Italic",
+              "key": "cmd+i"
+            },
+            {
+              "title": "Underline",
+              "key": "cmd+u"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Default (Windows)",
+      "platforms": [
+        "windows"
+      ],
+      "sections": [
+        {
+          "title": "File",
+          "shortcuts": [
+            {
+              "title": "New",
+              "key": "ctrl+alt+n"
+            },
+            {
+              "title": "Upload image",
+              "key": "ctrl+alt+i"
+            }
+          ]
+        },
+        {
+          "title": "Layout",
+          "shortcuts": [
+            {
+              "title": "Add Frame",
+              "key": "ctrl+enter"
+            },
+            {
+              "title": "Add Stack",
+              "key": "ctrl+alt+enter"
+            },
+            {
+              "title": "Remove Wrapper",
+              "key": "alt+backspace"
+            },
+            {
+              "title": "Move Forward",
+              "key": "ctrl+alt+up"
+            },
+            {
+              "title": "Move Backward",
+              "key": "ctrl+alt+down"
+            }
+          ]
+        },
+        {
+          "title": "Publish",
+          "shortcuts": [
+            {
+              "title": "Add Frame",
+              "key": "alt+s"
+            }
+          ]
+        },
+        {
+          "title": "Edit",
+          "shortcuts": [
+            {
+              "title": "Undo",
+              "key": "ctrl+z"
+            },
+            {
+              "title": "Redo",
+              "key": "ctrl+shift+z"
+            },
+            {
+              "title": "Copy style",
+              "key": "ctrl+alt+c"
+            },
+            {
+              "title": "Paste style",
+              "key": "ctrl+alt+v"
+            },
+            {
+              "title": "Duplicate",
+              "key": "ctrl+d"
+            },
+            {
+              "title": "Delete",
+              "key": "backspace"
+            },
+            {
+              "title": "Lock",
+              "key": "ctrl+l"
+            },
+            {
+              "title": "Hide",
+              "key": "ctrl+;"
+            },
+            {
+              "title": "Rename",
+              "key": "ctrl+r"
+            },
+            {
+              "title": "Select all",
+              "key": "ctrl+a"
+            },
+            {
+              "title": "Select all siblings",
+              "key": "ctrl+shift+a"
+            },
+            {
+              "title": "Select all children",
+              "key": "ctrl+alt+a"
+            }
+          ]
+        },
+        {
+          "title": "Graphic",
+          "shortcuts": [
+            {
+              "title": "Group",
+              "key": "ctrl+g"
+            },
+            {
+              "title": "Ungroup",
+              "key": "ctrl+shift+g"
+            }
+          ]
+        },
+        {
+          "title": "Tools",
+          "shortcuts": [
+            {
+              "title": "Insert",
+              "key": "i"
+            },
+            {
+              "title": "Web page Stack",
+              "key": "shift+s"
+            },
+            {
+              "title": "Frame",
+              "key": "f"
+            },
+            {
+              "title": "Round",
+              "key": "u"
+            },
+            {
+              "title": "Text",
+              "key": "t"
+            },
+            {
+              "title": "Interaction",
+              "key": "l"
+            },
+            {
+              "title": "Graphic",
+              "key": "g"
+            },
+            {
+              "title": "Comment",
+              "key": "c"
+            },
+            {
+              "title": "Zoom",
+              "key": "z"
+            },
+            {
+              "title": "Sample Color",
+              "key": "ctrl+c"
+            }
+          ]
+        },
+        {
+          "title": "View",
+          "shortcuts": [
+            {
+              "title": "Night Mode",
+              "key": "ctrl+n"
+            },
+            {
+              "title": "Zoom to 100%",
+              "key": "ctrl+0"
+            },
+            {
+              "title": "Zoom to fit",
+              "key": "ctrl+1"
+            },
+            {
+              "title": "Zoom to selection",
+              "key": "ctrl+2"
+            },
+            {
+              "title": "Toggle Interface",
+              "key": "l"
+            },
+            {
+              "title": "Show rulers",
+              "key": "ctrl+r"
+            },
+            {
+              "title": "Show layout grids",
+              "key": "ctrl+g"
+            }
+          ]
+        },
+        {
+          "title": "Component",
+          "shortcuts": [
+            {
+              "title": "Create component",
+              "key": "ctrl+k"
+            },
+            {
+              "title": "Create from code",
+              "key": "ctrl+shift+k"
+            }
+          ]
+        },
+        {
+          "title": "Text",
+          "shortcuts": [
+            {
+              "title": "Bold",
+              "key": "ctrl+b"
+            },
+            {
+              "title": "Italic",
+              "key": "ctrl+i"
+            },
+            {
+              "title": "Underline",
+              "key": "ctrl+u"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

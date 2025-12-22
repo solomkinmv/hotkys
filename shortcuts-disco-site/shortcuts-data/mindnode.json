@@ -1,0 +1,586 @@
+{
+  "$schema": "schema/shortcut.schema.json",
+  "bundleId": "com.ideasoncanvas.mindnode.macos",
+  "name": "MindNode",
+  "slug": "mindnode",
+  "source": "https://www.mindnode.com/article/shortcuts-mac",
+  "icon": "icons/mindnode.png",
+  "keymaps": [
+    {
+      "title": "Default",
+      "platforms": [
+        "macos"
+      ],
+      "sections": [
+        {
+          "title": "Node Creation",
+          "shortcuts": [
+            {
+              "title": "Create new child node",
+              "key": "tab"
+            },
+            {
+              "title": "Create new parent node",
+              "key": "opt+tab"
+            },
+            {
+              "title": "Create new sibling node",
+              "key": "enter"
+            },
+            {
+              "title": "Create new sibling node above current node",
+              "key": "opt+enter"
+            },
+            {
+              "title": "Create new main node",
+              "key": "shift+enter"
+            }
+          ]
+        },
+        {
+          "title": "Edit node",
+          "shortcuts": [
+            {
+              "title": "Edit Node Title",
+              "key": "cmd+enter"
+            },
+            {
+              "title": "Add Link",
+              "key": "cmd+k"
+            },
+            {
+              "title": "Open Link",
+              "key": "opt+cmd+k"
+            },
+            {
+              "title": "Add/Remove Task",
+              "key": "shift+cmd+t"
+            },
+            {
+              "title": "Check/Uncheck Task",
+              "key": "ctrl+cmd+t"
+            }
+          ]
+        },
+        {
+          "title": "Navigation",
+          "shortcuts": [
+            {
+              "title": "Zoom to Actual Size (100%)",
+              "key": "cmd+0"
+            },
+            {
+              "title": "Go to Main Node",
+              "key": "cmd+r"
+            },
+            {
+              "title": "Center Selection",
+              "key": "ctrl+cmd+r"
+            },
+            {
+              "title": "Scroll Canvas Right",
+              "key": "shift+cmd+right"
+            },
+            {
+              "title": "Scroll Canvas Down",
+              "key": "shift+cmd+down"
+            },
+            {
+              "title": "Scroll Canvas Left",
+              "key": "shift+cmd+left"
+            },
+            {
+              "title": "Scroll Canvas Up",
+              "key": "shift+cmd+up"
+            }
+          ]
+        },
+        {
+          "title": "Folding",
+          "shortcuts": [
+            {
+              "title": "Fold/Unfold Branch",
+              "key": "opt+."
+            }
+          ]
+        },
+        {
+          "title": "Connections",
+          "shortcuts": [
+            {
+              "title": "Create Cross Connection",
+              "key": "cmd+l"
+            },
+            {
+              "title": "Show Start Node of Cross Connection",
+              "key": "ctrl+cmd+l"
+            },
+            {
+              "title": "Show End Node of Cross Connection",
+              "key": "shift+cmd+l"
+            },
+            {
+              "title": "Reset Waypoint of Cross Connection",
+              "key": "opt+cmd+l"
+            },
+            {
+              "title": "Hide All Cross Connections",
+              "key": "ctrl+opt+cmd+l"
+            }
+          ]
+        },
+        {
+          "title": "Focus",
+          "shortcuts": [
+            {
+              "title": "Enter/Exit Focus Mode",
+              "key": "shift+cmd+f"
+            }
+          ]
+        },
+        {
+          "title": "Node Selection",
+          "shortcuts": [
+            {
+              "title": "Move right",
+              "key": "right"
+            },
+            {
+              "title": "Move down",
+              "key": "down"
+            },
+            {
+              "title": "Move left",
+              "key": "left"
+            },
+            {
+              "title": "Move up",
+              "key": "up"
+            },
+            {
+              "title": "Select Next Node in → Direction",
+              "key": "shift+right"
+            },
+            {
+              "title": "Select Next Node in ↓ Direction",
+              "key": "shift+down"
+            },
+            {
+              "title": "Select Next Node in ← Direction",
+              "key": "shift+left"
+            },
+            {
+              "title": "Select Next Node in ↑ Direction",
+              "key": "shift+up"
+            },
+            {
+              "title": "Select All",
+              "key": "cmd+a"
+            },
+            {
+              "title": "Deselect All",
+              "key": "shift+cmd+a"
+            },
+            {
+              "title": "Select All Child Nodes",
+              "key": "opt+cmd+a"
+            },
+            {
+              "title": "Forward Cycle through Main Nodes",
+              "key": "opt"
+            },
+            {
+              "title": "Backward Cycle through Main Nodes",
+              "key": "opt+."
+            }
+          ]
+        },
+        {
+          "title": "Move Node Selection",
+          "shortcuts": [
+            {
+              "title": "Move 1pt in → Direction",
+              "key": "opt+right"
+            },
+            {
+              "title": "Move 1pt in ↓ Direction",
+              "key": "opt+down"
+            },
+            {
+              "title": "Move 1pt in ← Direction",
+              "key": "opt+left"
+            },
+            {
+              "title": "Move 1pt in ↑ Direction",
+              "key": "opt+up"
+            },
+            {
+              "title": "Move 20pt in → Direction",
+              "key": "shift+opt+right"
+            },
+            {
+              "title": "Move 20pt in ↓ Direction",
+              "key": "shift+opt+down"
+            },
+            {
+              "title": "Move 20pt in ← Direction",
+              "key": "shift+opt+left"
+            },
+            {
+              "title": "Move 20pt in ↑ Direction",
+              "key": "shift+opt+up"
+            }
+          ]
+        },
+        {
+          "title": "Organize Nodes",
+          "shortcuts": [
+            {
+              "title": "Reorganize Nodes",
+              "key": "opt+cmd+r"
+            },
+            {
+              "title": "Balance Nodes",
+              "key": "opt+cmd+b"
+            },
+            {
+              "title": "Move All Nodes to the Right/Bottom",
+              "key": "ctrl+opt+cmd+."
+            },
+            {
+              "title": "Move All Nodes to Left/Top",
+              "key": "ctrl+opt+cmd"
+            },
+            {
+              "title": "Sort Nodes by Task State",
+              "key": "ctrl+opt+cmd+t"
+            },
+            {
+              "title": "Sort Nodes Alphabetically",
+              "key": "ctrl+opt+cmd+a"
+            },
+            {
+              "title": "Detach Node",
+              "key": "shift+cmd+d"
+            }
+          ]
+        },
+        {
+          "title": "Search in mindmap",
+          "shortcuts": [
+            {
+              "title": "Find",
+              "key": "cmd+f"
+            },
+            {
+              "title": "Find & Replace",
+              "key": "opt+cmd+f"
+            },
+            {
+              "title": "Find Next",
+              "key": "cmd+g"
+            },
+            {
+              "title": "Find Previous",
+              "key": "shift+cmd+g"
+            }
+          ]
+        },
+        {
+          "title": "Sidebars, Pickers & Popovers",
+          "shortcuts": [
+            {
+              "title": "Show/Hide Toolbar",
+              "key": "cmd+1"
+            },
+            {
+              "title": "Show Sticker Picker",
+              "key": "cmd+2"
+            },
+            {
+              "title": "Show Photo Picker",
+              "key": "opt+cmd+2"
+            },
+            {
+              "title": "Show/Hide Style",
+              "key": "cmd+3"
+            },
+            {
+              "title": "Show/Hide Themes",
+              "key": "cmd+4"
+            },
+            {
+              "title": "Show Notes Popover",
+              "key": "shift+cmd+k"
+            },
+            {
+              "title": "Show/Hide Notes",
+              "key": "cmd+5"
+            },
+            {
+              "title": "Show/Hide Tags",
+              "key": "cmd+6"
+            },
+            {
+              "title": "Show/Hide Outline",
+              "key": "cmd+7"
+            }
+          ]
+        },
+        {
+          "title": "Edit Mind Map",
+          "shortcuts": [
+            {
+              "title": "Delete",
+              "key": "backspace"
+            },
+            {
+              "title": "Delete Single Node",
+              "key": "opt+backspace"
+            },
+            {
+              "title": "Cut",
+              "key": "cmd+x"
+            },
+            {
+              "title": "Copy",
+              "key": "cmd+c"
+            },
+            {
+              "title": "Copy Single Node",
+              "key": "shift+opt+cmd+c"
+            },
+            {
+              "title": "Copy Style",
+              "key": "opt+cmd+c"
+            },
+            {
+              "title": "Paste",
+              "key": "cmd+v"
+            },
+            {
+              "title": "Paste Style",
+              "key": "opt+cmd+v"
+            },
+            {
+              "title": "Paste and Preserve Style",
+              "key": "shift+opt+cmd+v"
+            },
+            {
+              "title": "Duplicate",
+              "key": "cmd+d"
+            },
+            {
+              "title": "Duplicate Single Node",
+              "key": "shift+opt+cmd+d"
+            },
+            {
+              "title": "Undo",
+              "key": "cmd+z"
+            },
+            {
+              "title": "Redo",
+              "key": "shift+cmd+z"
+            }
+          ]
+        },
+        {
+          "title": "Edit Outline",
+          "shortcuts": [
+            {
+              "title": "Add New Sibling Node",
+              "key": "enter"
+            },
+            {
+              "title": "Delete Node",
+              "key": "backspace"
+            },
+            {
+              "title": "Fold Node",
+              "key": "left"
+            },
+            {
+              "title": "Unfold Node",
+              "key": "right"
+            },
+            {
+              "title": "Indent Node",
+              "key": "tab"
+            },
+            {
+              "title": "Outdent Node",
+              "key": "shift+tab"
+            },
+            {
+              "title": "Navigate Up and Down",
+              "key": "up"
+            },
+            {
+              "title": "Expand Selection Up",
+              "key": "shift+up"
+            },
+            {
+              "title": "Expand Selection Down",
+              "key": "shift+down"
+            },
+            {
+              "title": "Move Selection Up",
+              "key": "cmd+up"
+            },
+            {
+              "title": "Move Selection Down",
+              "key": "cmd+down"
+            }
+          ]
+        },
+        {
+          "title": "Text Editing",
+          "shortcuts": [
+            {
+              "title": "Enter Text Editing",
+              "key": "cmd+enter"
+            },
+            {
+              "title": "Exit Text Editing",
+              "key": "esc"
+            },
+            {
+              "title": "Delete Node",
+              "key": "cmd+backspace"
+            },
+            {
+              "title": "At the beginning of a Node Merges the Node with...",
+              "key": "backspace"
+            },
+            {
+              "title": "Split Node",
+              "key": "shift+enter"
+            }
+          ]
+        },
+        {
+          "title": "Text Formating",
+          "shortcuts": [
+            {
+              "title": "Toggle Bold",
+              "key": "cmd+b"
+            },
+            {
+              "title": "Toggle Italic",
+              "key": "cmd+i"
+            },
+            {
+              "title": "Toggle Underline",
+              "key": "cmd+u"
+            },
+            {
+              "title": "Toggle Strikethrough",
+              "key": "opt+cmd+u"
+            },
+            {
+              "title": "Show Colors",
+              "key": "shift+cmd+c"
+            },
+            {
+              "title": "Emoji & Symbols",
+              "key": "ctrl+cmd+space"
+            }
+          ]
+        },
+        {
+          "title": "Document",
+          "shortcuts": [
+            {
+              "title": "Show Toolbar",
+              "key": "opt+cmd+t"
+            },
+            {
+              "title": "Check Document Now",
+              "key": "cmd+;"
+            },
+            {
+              "title": "Export",
+              "key": "opt+cmd+e"
+            },
+            {
+              "title": "New",
+              "key": "cmd+n"
+            },
+            {
+              "title": "Open",
+              "key": "cmd+o"
+            },
+            {
+              "title": "Close",
+              "key": "cmd+w"
+            },
+            {
+              "title": "Close All Documents",
+              "key": "opt+cmd+w"
+            },
+            {
+              "title": "Enter/ Leave Full Screen",
+              "key": "ctrl+cmd+f"
+            },
+            {
+              "title": "Minimize",
+              "key": "cmd+m"
+            },
+            {
+              "title": "Minimize All",
+              "key": "opt+cmd+m"
+            },
+            {
+              "title": "Hide App",
+              "key": "cmd+h"
+            },
+            {
+              "title": "Hide Other Apps",
+              "key": "opt+cmd+h"
+            },
+            {
+              "title": "Save",
+              "key": "cmd+s"
+            },
+            {
+              "title": "Save As…",
+              "key": "shift+opt+cmd+s"
+            },
+            {
+              "title": "Duplicate",
+              "key": "shift+cmd+s"
+            },
+            {
+              "title": "Print",
+              "key": "cmd+p"
+            },
+            {
+              "title": "Quit App",
+              "key": "cmd+q"
+            },
+            {
+              "title": "Quit and Keep Windows",
+              "key": "opt+cmd+q"
+            },
+            {
+              "title": "Page Setup…",
+              "key": "shift+cmd+p"
+            },
+            {
+              "title": "Show Previous Tab",
+              "key": "ctrl+shift+tab"
+            },
+            {
+              "title": "Show Next Tab",
+              "key": "ctrl+tab"
+            },
+            {
+              "title": "Show Quick Look",
+              "key": "space"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

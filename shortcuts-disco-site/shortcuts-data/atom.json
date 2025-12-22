@@ -1,0 +1,354 @@
+{
+  "$schema": "schema/shortcut.schema.json",
+  "bundleId": "com.github.atom",
+  "name": "Atom",
+  "slug": "atom",
+  "source": "https://github.com/atom/atom",
+  "icon": "icons/atom.png",
+  "keymaps": [
+    {
+      "title": "Default",
+      "platforms": [
+        "macos",
+        "windows"
+      ],
+      "sections": [
+        {
+          "title": "Application Tasks",
+          "shortcuts": [
+            {
+              "title": "Hide Application",
+              "key": "cmd+h"
+            },
+            {
+              "title": "Hide Other Applications",
+              "key": "opt+cmd+h"
+            },
+            {
+              "title": "Minimize Application",
+              "key": "cmd+m"
+            },
+            {
+              "title": "New File",
+              "key": "cmd+n"
+            },
+            {
+              "title": "New Window",
+              "key": "shift+cmd+n"
+            },
+            {
+              "title": "Open Application",
+              "key": "cmd+o"
+            },
+            {
+              "title": "Open Dev",
+              "key": "shift+cmd+o"
+            },
+            {
+              "title": "Quit",
+              "key": "cmd+q"
+            }
+          ]
+        },
+        {
+          "title": "Autocomplete",
+          "shortcuts": [
+            {
+              "title": "Toggle Autocomplete",
+              "key": "ctrl+space"
+            }
+          ]
+        },
+        {
+          "title": "Brackets",
+          "shortcuts": [
+            {
+              "title": "Find Matching Bracket",
+              "key": "ctrl+m"
+            }
+          ]
+        },
+        {
+          "title": "Code folding",
+          "shortcuts": [
+            {
+              "title": "Fold at Indentation Level (N)",
+              "key": "cmd+k n"
+            },
+            {
+              "title": "Fold Selected Text",
+              "key": "ctrl+opt+cmd+f"
+            }
+          ]
+        },
+        {
+          "title": "Code navigation & Management",
+          "shortcuts": [
+            {
+              "title": "Cut to End of Line",
+              "key": "ctrl+k"
+            },
+            {
+              "title": "Delete to Beginning of Word",
+              "key": "opt+backspace"
+            },
+            {
+              "title": "Delete to End of Word",
+              "key": "opt+d"
+            },
+            {
+              "title": "Delete Line",
+              "key": "ctrl+shift+k"
+            },
+            {
+              "title": "Duplicate Line",
+              "key": "shift+cmd+d"
+            },
+            {
+              "title": "Go to Line",
+              "key": "ctrl+g"
+            },
+            {
+              "title": "Go to Matching Bracket",
+              "key": "ctrl+m"
+            },
+            {
+              "title": "Join Lines",
+              "key": "cmd+j"
+            },
+            {
+              "title": "Move to Beginning of Word",
+              "key": "opt+b"
+            },
+            {
+              "title": "Move to End of Word",
+              "key": "opt+f"
+            },
+            {
+              "title": "Move to Beginning of Line",
+              "key": "ctrl+a"
+            },
+            {
+              "title": "Move to End of Line",
+              "key": "ctrl+e"
+            },
+            {
+              "title": "Move Line Up",
+              "key": "ctrl+cmd+up"
+            },
+            {
+              "title": "Move Line Down",
+              "key": "ctrl+cmd+down"
+            },
+            {
+              "title": "Move to Top of File",
+              "key": "cmd+up"
+            },
+            {
+              "title": "Move to Bottom of File",
+              "key": "cmd+down"
+            },
+            {
+              "title": "Move to First Character of Line",
+              "key": "cmd+left"
+            },
+            {
+              "title": "Move to Last Character of Line",
+              "key": "cmd+right"
+            },
+            {
+              "title": "Select Left Character",
+              "key": "ctrl+cmd+b"
+            },
+            {
+              "title": "Select Right Character",
+              "key": "ctrl+cmd+f"
+            },
+            {
+              "title": "Select to Beginning of Word",
+              "key": "shift+opt+b"
+            },
+            {
+              "title": "Select to End of Word",
+              "key": "shift+opt+f"
+            },
+            {
+              "title": "Select Entire Word",
+              "key": "ctrl+shift+w"
+            },
+            {
+              "title": "Select to First Character of Line",
+              "key": "shift+opt+a"
+            },
+            {
+              "title": "Select to Last Character of Line",
+              "key": "shift+opt+e"
+            },
+            {
+              "title": "Select to Same Position, Next Line",
+              "key": "shift+opt+n"
+            },
+            {
+              "title": "Select to Same Position, Previous Line",
+              "key": "shift+opt+p"
+            },
+            {
+              "title": "Select to Top of File",
+              "key": "shift+cmd+up"
+            },
+            {
+              "title": "Select to Bottom of File",
+              "key": "shift+cmd+down"
+            },
+            {
+              "title": "Select All",
+              "key": "cmd+a"
+            },
+            {
+              "title": "Select Next",
+              "key": "cmd+d"
+            },
+            {
+              "title": "Select Line",
+              "key": "cmd+l"
+            }
+          ]
+        },
+        {
+          "title": "Character transformations",
+          "shortcuts": [
+            {
+              "title": "Convert to Upper Case",
+              "key": "cmd+k u"
+            },
+            {
+              "title": "Convert to Lower Case",
+              "key": "cmd+k l"
+            }
+          ]
+        },
+        {
+          "title": "Editor view tasks",
+          "shortcuts": [
+            {
+              "title": "Split Panes Vertically",
+              "key": "cmd+k down"
+            },
+            {
+              "title": "Split Panes Horizontally",
+              "key": "cmd+k right"
+            },
+            {
+              "title": "Vertical Navigation Panes",
+              "key": "cmd+k down"
+            },
+            {
+              "title": "Horizontal Navigation Panes",
+              "key": "cmd+k right"
+            },
+            {
+              "title": "Toggle Full Screen",
+              "key": "ctrl+cmd+f"
+            }
+          ]
+        },
+        {
+          "title": "File tasks",
+          "shortcuts": [
+            {
+              "title": "Fuzzy Find Files",
+              "key": "cmd+t"
+            },
+            {
+              "title": "Find Open File",
+              "key": "cmd+b"
+            },
+            {
+              "title": "Find Modified, Untracked (git) File",
+              "key": "shift+cmd+b"
+            },
+            {
+              "title": "Open Tree View",
+              "key": "ctrl+0"
+            },
+            {
+              "title": "Add a File",
+              "key": "a"
+            },
+            {
+              "title": "Move a File",
+              "key": "m"
+            },
+            {
+              "title": "Delete a File",
+              "key": "backspace"
+            },
+            {
+              "title": "Reopen Last File",
+              "key": "shift+cmd+t"
+            },
+            {
+              "title": "Toggle display of ignored files",
+              "key": "i"
+            }
+          ]
+        },
+        {
+          "title": "Find & replace",
+          "shortcuts": [
+            {
+              "title": "Find String in Current File",
+              "key": "cmd+f"
+            },
+            {
+              "title": "Find String in All Project Files",
+              "key": "shift+cmd+f"
+            },
+            {
+              "title": "Find Next Matching String",
+              "key": "cmd+g"
+            },
+            {
+              "title": "Find Previous Matching String",
+              "key": "shift+cmd+g"
+            },
+            {
+              "title": "Select Next Matching String",
+              "key": "cmd+d"
+            },
+            {
+              "title": "Select All Matching Strings",
+              "key": "ctrl+cmd+g"
+            },
+            {
+              "title": "Replace String in Current File",
+              "key": "opt+cmd+f"
+            }
+          ]
+        },
+        {
+          "title": "Grammar",
+          "shortcuts": [
+            {
+              "title": "Select Grammar",
+              "key": "ctrl+shift+l"
+            }
+          ]
+        },
+        {
+          "title": "Search tasks",
+          "shortcuts": [
+            {
+              "title": "Search for Symbol",
+              "key": "cmd+r"
+            },
+            {
+              "title": "Search for Symbol Across Project",
+              "key": "shift+cmd+r"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

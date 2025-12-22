@@ -2,6 +2,7 @@
   "$schema": "schema/shortcut.schema.json",
   "name": "MacOS",
   "slug": "macos",
+  "icon": "icons/macos.png",
   "keymaps": [
     {
       "title": "Default",

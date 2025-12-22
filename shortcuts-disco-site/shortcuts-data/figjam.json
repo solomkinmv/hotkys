@@ -1,0 +1,412 @@
+{
+  "$schema": "schema/shortcut.schema.json",
+  "bundleId": "com.figma.FigJam",
+  "name": "FigJam",
+  "slug": "figjam",
+  "source": "https://help.figma.com/hc/en-us/articles/360040328653-Use-shortcuts-and-quick-actions",
+  "icon": "icons/figjam.png",
+  "keymaps": [
+    {
+      "title": "Default",
+      "platforms": [
+        "macos"
+      ],
+      "sections": [
+        {
+          "title": "Tools",
+          "shortcuts": [
+            {
+              "title": "Move tool",
+              "key": "v"
+            },
+            {
+              "title": "Sticky note",
+              "key": "s"
+            },
+            {
+              "title": "Line",
+              "key": "l"
+            },
+            {
+              "title": "Connector",
+              "key": "shift+c"
+            },
+            {
+              "title": "Marker",
+              "key": "m"
+            },
+            {
+              "title": "Text tool",
+              "key": "t"
+            },
+            {
+              "title": "Open assets panel",
+              "key": "opt+2"
+            },
+            {
+              "title": "Place image",
+              "key": "shift+cmd+k"
+            },
+            {
+              "title": "Emote / Stamp wheel",
+              "key": "e"
+            },
+            {
+              "title": "Add / Show comments",
+              "key": "c"
+            }
+          ]
+        },
+        {
+          "title": "View",
+          "shortcuts": [
+            {
+              "title": "Zoom out",
+              "key": "plus"
+            },
+            {
+              "title": "Zoom to 100%",
+              "key": "shift+0"
+            },
+            {
+              "title": "Zoom to fit",
+              "key": "shift+1"
+            },
+            {
+              "title": "Zoom to selection",
+              "key": "shift+2"
+            }
+          ]
+        },
+        {
+          "title": "Text",
+          "shortcuts": [
+            {
+              "title": "Bold",
+              "key": "cmd+b"
+            },
+            {
+              "title": "Italic",
+              "key": "cmd+i"
+            },
+            {
+              "title": "Underline",
+              "key": "cmd+u"
+            },
+            {
+              "title": "Create link",
+              "key": "cmd+k"
+            },
+            {
+              "title": "Strikethrough",
+              "key": "shift+cmd+x"
+            },
+            {
+              "title": "Text align left",
+              "key": "opt+cmd+l"
+            },
+            {
+              "title": "Text align center",
+              "key": "opt+cmd+t"
+            },
+            {
+              "title": "Text align right",
+              "key": "opt+cmd+r"
+            },
+            {
+              "title": "Text align justified",
+              "key": "opt+cmd+j"
+            },
+            {
+              "title": "Numbered list",
+              "key": "shift+cmd+7"
+            },
+            {
+              "title": "Bulleted list",
+              "key": "shift+cmd+8"
+            }
+          ]
+        },
+        {
+          "title": "Edit",
+          "shortcuts": [
+            {
+              "title": "Copy",
+              "key": "cmd+c"
+            },
+            {
+              "title": "Cut",
+              "key": "cmd+x"
+            },
+            {
+              "title": "Paste",
+              "key": "cmd+v"
+            },
+            {
+              "title": "Paste over selection",
+              "key": "shift+cmd+v"
+            },
+            {
+              "title": "Group selection",
+              "key": "cmd+g"
+            },
+            {
+              "title": "Lock / Unlock selection",
+              "key": "shift+cmd+l"
+            },
+            {
+              "title": "Flip horizontal",
+              "key": "shift+h"
+            },
+            {
+              "title": "Flip vertical",
+              "key": "shift+v"
+            },
+            {
+              "title": "Undo",
+              "key": "cmd+z"
+            },
+            {
+              "title": "Redo",
+              "key": "shift+cmd+z"
+            }
+          ]
+        },
+        {
+          "title": "Advanced",
+          "shortcuts": [
+            {
+              "title": "New shape or sticky (while editing)",
+              "key": "cmd+enter"
+            },
+            {
+              "title": "Edit text (while editing)",
+              "key": "cmd"
+            },
+            {
+              "title": "Align left",
+              "key": "opt+a"
+            },
+            {
+              "title": "Align right",
+              "key": "opt+d"
+            },
+            {
+              "title": "Align top",
+              "key": "opt+w"
+            },
+            {
+              "title": "Align bottom",
+              "key": "opt+s"
+            },
+            {
+              "title": "Tidy Up",
+              "key": "ctrl+opt+t"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Default (Windows)",
+      "platforms": [
+        "windows"
+      ],
+      "sections": [
+        {
+          "title": "Tools",
+          "shortcuts": [
+            {
+              "title": "Move tool",
+              "key": "v"
+            },
+            {
+              "title": "Sticky note",
+              "key": "s"
+            },
+            {
+              "title": "Line",
+              "key": "l"
+            },
+            {
+              "title": "Connector",
+              "key": "shift+c"
+            },
+            {
+              "title": "Marker",
+              "key": "m"
+            },
+            {
+              "title": "Text tool",
+              "key": "t"
+            },
+            {
+              "title": "Open assets panel",
+              "key": "alt+2"
+            },
+            {
+              "title": "Place image",
+              "key": "ctrl+shift+k"
+            },
+            {
+              "title": "Emote / Stamp wheel",
+              "key": "e"
+            },
+            {
+              "title": "Add / Show comments",
+              "key": "c"
+            }
+          ]
+        },
+        {
+          "title": "View",
+          "shortcuts": [
+            {
+              "title": "Zoom out",
+              "key": "plus"
+            },
+            {
+              "title": "Zoom to 100%",
+              "key": "shift+0"
+            },
+            {
+              "title": "Zoom to fit",
+              "key": "shift+1"
+            },
+            {
+              "title": "Zoom to selection",
+              "key": "shift+2"
+            }
+          ]
+        },
+        {
+          "title": "Text",
+          "shortcuts": [
+            {
+              "title": "Bold",
+              "key": "ctrl+b"
+            },
+            {
+              "title": "Italic",
+              "key": "ctrl+i"
+            },
+            {
+              "title": "Underline",
+              "key": "ctrl+u"
+            },
+            {
+              "title": "Create link",
+              "key": "ctrl+k"
+            },
+            {
+              "title": "Strikethrough",
+              "key": "ctrl+shift+x"
+            },
+            {
+              "title": "Text align left",
+              "key": "ctrl+alt+l"
+            },
+            {
+              "title": "Text align center",
+              "key": "ctrl+alt+t"
+            },
+            {
+              "title": "Text align right",
+              "key": "ctrl+alt+r"
+            },
+            {
+              "title": "Text align justified",
+              "key": "ctrl+alt+j"
+            },
+            {
+              "title": "Numbered list",
+              "key": "ctrl+shift+7"
+            },
+            {
+              "title": "Bulleted list",
+              "key": "ctrl+shift+8"
+            }
+          ]
+        },
+        {
+          "title": "Edit",
+          "shortcuts": [
+            {
+              "title": "Copy",
+              "key": "ctrl+c"
+            },
+            {
+              "title": "Cut",
+              "key": "ctrl+x"
+            },
+            {
+              "title": "Paste",
+              "key": "ctrl+v"
+            },
+            {
+              "title": "Paste over selection",
+              "key": "ctrl+shift+v"
+            },
+            {
+              "title": "Group selection",
+              "key": "ctrl+g"
+            },
+            {
+              "title": "Lock / Unlock selection",
+              "key": "ctrl+shift+l"
+            },
+            {
+              "title": "Flip horizontal",
+              "key": "shift+h"
+            },
+            {
+              "title": "Flip vertical",
+              "key": "shift+v"
+            },
+            {
+              "title": "Undo",
+              "key": "ctrl+z"
+            },
+            {
+              "title": "Redo",
+              "key": "ctrl+shift+z"
+            }
+          ]
+        },
+        {
+          "title": "Advanced",
+          "shortcuts": [
+            {
+              "title": "New shape or sticky (while editing)",
+              "key": "ctrl+enter"
+            },
+            {
+              "title": "Edit text (while editing)",
+              "key": "ctrl"
+            },
+            {
+              "title": "Align left",
+              "key": "alt+a"
+            },
+            {
+              "title": "Align right",
+              "key": "alt+d"
+            },
+            {
+              "title": "Align top",
+              "key": "alt+w"
+            },
+            {
+              "title": "Align bottom",
+              "key": "alt+s"
+            },
+            {
+              "title": "Tidy Up",
+              "key": "ctrl+alt+t"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

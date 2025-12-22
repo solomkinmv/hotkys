@@ -5,6 +5,7 @@
   "hostname": "app.fastmail.com",
   "slug": "fastmail",
   "source": "https://www.fastmail.help/hc/en-us/articles/360058753534-Keyboard-shortcuts",
+  "icon": "icons/fastmail.png",
   "keymaps": [
     {
       "title": "macOS",

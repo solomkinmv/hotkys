@@ -1,0 +1,336 @@
+{
+  "$schema": "schema/shortcut.schema.json",
+  "bundleId": "com.microsoft.VSCode",
+  "name": "Visual Studio Code",
+  "slug": "visual-studio-code",
+  "source": "https://code.visualstudio.com/docs/configure/keybindings",
+  "icon": "icons/visual-studio-code.png",
+  "keymaps": [
+    {
+      "title": "Default",
+      "platforms": [
+        "macos"
+      ],
+      "sections": [
+        {
+          "title": "General",
+          "shortcuts": [
+            {
+              "title": "Show Command Palette",
+              "key": "shift+cmd+p"
+            },
+            {
+              "title": "Quick Open, Go to File…",
+              "key": "cmd+p"
+            },
+            {
+              "title": "New window/instance",
+              "key": "shift+cmd+n"
+            },
+            {
+              "title": "Close window/instance",
+              "key": "cmd+w"
+            },
+            {
+              "title": "User Settings",
+              "key": "cmd"
+            }
+          ]
+        },
+        {
+          "title": "Basic editing",
+          "shortcuts": [
+            {
+              "title": "Cut line (empty selection)",
+              "key": "cmd+x"
+            },
+            {
+              "title": "Copy line (empty selection)",
+              "key": "cmd+c"
+            },
+            {
+              "title": "Delete line",
+              "key": "shift+cmd+k"
+            },
+            {
+              "title": "Toggle block comment",
+              "key": "shift+opt+a"
+            },
+            {
+              "title": "Toggle word wrap",
+              "key": "opt+z"
+            }
+          ]
+        },
+        {
+          "title": "Rich language editing",
+          "shortcuts": [
+            {
+              "title": "Trigger suggestion",
+              "key": "ctrl+space"
+            },
+            {
+              "title": "Trigger parameter hints",
+              "key": "shift+cmd+space"
+            },
+            {
+              "title": "Format document",
+              "key": "shift+opt+f"
+            },
+            {
+              "title": "Quick Fix",
+              "key": "cmd+."
+            }
+          ]
+        },
+        {
+          "title": "Navigation",
+          "shortcuts": [
+            {
+              "title": "Show all Symbols",
+              "key": "cmd+t"
+            },
+            {
+              "title": "Go to Line...",
+              "key": "ctrl+g"
+            },
+            {
+              "title": "Go to File...",
+              "key": "cmd+p"
+            },
+            {
+              "title": "Go to Symbol...",
+              "key": "shift+cmd+o"
+            },
+            {
+              "title": "Show Problems panel",
+              "key": "shift+cmd+m"
+            },
+            {
+              "title": "Navigate editor group history",
+              "key": "ctrl+shift+tab"
+            },
+            {
+              "title": "Toggle Tab moves focus",
+              "key": "ctrl+shift+m"
+            }
+          ]
+        },
+        {
+          "title": "Editor management",
+          "shortcuts": [
+            {
+              "title": "Close editor",
+              "key": "cmd+w"
+            }
+          ]
+        },
+        {
+          "title": "Search and replace",
+          "shortcuts": [
+            {
+              "title": "Find",
+              "key": "cmd+f"
+            },
+            {
+              "title": "Replace",
+              "key": "opt+cmd+f"
+            },
+            {
+              "title": "Select all occurrences of Find match",
+              "key": "opt+enter"
+            },
+            {
+              "title": "Add selection to next Find match",
+              "key": "cmd+d"
+            }
+          ]
+        },
+        {
+          "title": "Display",
+          "shortcuts": [
+            {
+              "title": "Toggle full screen",
+              "key": "ctrl+cmd+f"
+            },
+            {
+              "title": "Toggle editor layout (horizontal/vertical)",
+              "key": "opt+cmd+0"
+            },
+            {
+              "title": "Toggle Sidebar visibility",
+              "key": "cmd+b"
+            },
+            {
+              "title": "Show Explorer / Toggle focus",
+              "key": "shift+cmd+e"
+            },
+            {
+              "title": "Show Search",
+              "key": "shift+cmd+f"
+            },
+            {
+              "title": "Show Source Control",
+              "key": "ctrl+shift+g"
+            },
+            {
+              "title": "Show Debug",
+              "key": "shift+cmd+d"
+            },
+            {
+              "title": "Show Extensions",
+              "key": "shift+cmd+x"
+            },
+            {
+              "title": "Replace in files",
+              "key": "shift+cmd+h"
+            },
+            {
+              "title": "Toggle Search details",
+              "key": "shift+cmd+j"
+            },
+            {
+              "title": "Show Output panel",
+              "key": "shift+cmd+u"
+            },
+            {
+              "title": "Open Markdown preview",
+              "key": "shift+cmd+v"
+            }
+          ]
+        },
+        {
+          "title": "File management",
+          "shortcuts": [
+            {
+              "title": "New File",
+              "key": "cmd+n"
+            },
+            {
+              "title": "Open File...",
+              "key": "cmd+o"
+            },
+            {
+              "title": "Save",
+              "key": "cmd+s"
+            },
+            {
+              "title": "Save As...",
+              "key": "shift+cmd+s"
+            },
+            {
+              "title": "Save All",
+              "key": "opt+cmd+s"
+            },
+            {
+              "title": "Close",
+              "key": "cmd+w"
+            },
+            {
+              "title": "Reopen closed editor",
+              "key": "shift+cmd+t"
+            }
+          ]
+        },
+        {
+          "title": "Integrated terminal",
+          "shortcuts": [
+            {
+              "title": "Copy selection",
+              "key": "cmd+c"
+            }
+          ]
+        },
+        {
+          "title": "Multi-cursor selection",
+          "shortcuts": [
+            {
+              "title": "Insert cursor above",
+              "key": "opt+cmd+up"
+            },
+            {
+              "title": "Insert cursor below",
+              "key": "opt+cmd+down"
+            },
+            {
+              "title": "Undo last cursor operation",
+              "key": "cmd+u"
+            },
+            {
+              "title": "Insert cursor at end of each line selected",
+              "key": "shift+opt+i"
+            },
+            {
+              "title": "Select current line",
+              "key": "cmd+i"
+            },
+            {
+              "title": "Select all occurrences of current selection",
+              "key": "shift+cmd+l"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Default (Windows)",
+      "platforms": [
+        "windows"
+      ],
+      "sections": [
+        {
+          "title": "Format",
+          "shortcuts": [
+            {
+              "title": "Format Document",
+              "key": "shift+opt+f"
+            }
+          ]
+        },
+        {
+          "title": "Editor",
+          "shortcuts": [
+            {
+              "title": "Open Editor Tab",
+              "key": "shift+cmd+e"
+            },
+            {
+              "title": "Shrink Selection",
+              "key": "ctrl+shift+left"
+            },
+            {
+              "title": "Increase Selection",
+              "key": "ctrl+shift+right"
+            },
+            {
+              "title": "Cursor Selection PageUp",
+              "key": "shift+pageup"
+            },
+            {
+              "title": "Cursor Selection PageDown",
+              "key": "shift+pagedown"
+            }
+          ]
+        },
+        {
+          "title": "Refactor",
+          "shortcuts": [
+            {
+              "title": "Rename",
+              "key": "f2"
+            }
+          ]
+        },
+        {
+          "title": "Navigation",
+          "shortcuts": [
+            {
+              "title": "Open Global Keybindings",
+              "key": "cmd+k cmd+s"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,2087 @@
+{
+  "$schema": "schema/shortcut.schema.json",
+  "bundleId": "com.adobe.Photoshop",
+  "name": "Adobe Photoshop",
+  "slug": "adobe-photoshop",
+  "source": "https://helpx.adobe.com/photoshop/desktop/get-started/settings-and-preferences/view-keyboard-shortcuts.html",
+  "icon": "icons/adobe-photoshop.png",
+  "keymaps": [
+    {
+      "title": "Default",
+      "platforms": [
+        "macos"
+      ],
+      "sections": [
+        {
+          "title": "Popular shortcuts",
+          "shortcuts": [
+            {
+              "title": "Free Transform",
+              "key": "cmd+t"
+            },
+            {
+              "title": "Default Foreground/Background colors",
+              "key": "d"
+            },
+            {
+              "title": "Switch Foreground/Background colors",
+              "key": "x"
+            },
+            {
+              "title": "New layer via copy",
+              "key": "cmd+j"
+            },
+            {
+              "title": "New layer via cut",
+              "key": "shift+cmd+j"
+            },
+            {
+              "title": "Cancel any modal dialog window",
+              "key": "esc"
+            },
+            {
+              "title": "Navigate between fields",
+              "key": "tab"
+            },
+            {
+              "title": "Navigate between fields in opposite direction",
+              "key": "shift+tab"
+            },
+            {
+              "title": "Change Cancel to Reset",
+              "key": "opt"
+            },
+            {
+              "title": "Zoom 2x (temporary)",
+              "key": "x"
+            }
+          ]
+        },
+        {
+          "title": "Function keys",
+          "shortcuts": [
+            {
+              "title": "Inverse Selection",
+              "key": "shift+cmd+i"
+            }
+          ]
+        },
+        {
+          "title": "Select tools",
+          "shortcuts": [
+            {
+              "title": "Move tool",
+              "key": "v"
+            },
+            {
+              "title": "Rectangular Marquee tool / Elliptical Marquee tool",
+              "key": "m"
+            },
+            {
+              "title": "Lasso tools",
+              "key": "l"
+            },
+            {
+              "title": "Magic Wand tool / Quick Selection tool",
+              "key": "w"
+            },
+            {
+              "title": "Crop tool / Slice tool / Slice Select tool",
+              "key": "c"
+            },
+            {
+              "title": "Eyedropper tools",
+              "key": "i"
+            },
+            {
+              "title": "Healing tools",
+              "key": "j"
+            },
+            {
+              "title": "Brush tools",
+              "key": "b"
+            },
+            {
+              "title": "Clone Stamp tool / Pattern Stamp tool",
+              "key": "s"
+            },
+            {
+              "title": "History Brush tool / Art History Brush tool",
+              "key": "y"
+            },
+            {
+              "title": "Eraser tools",
+              "key": "e"
+            },
+            {
+              "title": "Gradient tool / Paint Bucket tool",
+              "key": "g"
+            },
+            {
+              "title": "Dodge tool / Burn tool / Sponge tool",
+              "key": "o"
+            },
+            {
+              "title": "Pen tool / Freeform Pen tool",
+              "key": "p"
+            },
+            {
+              "title": "Type tools",
+              "key": "t"
+            },
+            {
+              "title": "Path Selection tool / Direct Selection tool",
+              "key": "a"
+            },
+            {
+              "title": "Shape tools",
+              "key": "u"
+            },
+            {
+              "title": "Hand tool",
+              "key": "h"
+            },
+            {
+              "title": "Rotate View tool",
+              "key": "r"
+            },
+            {
+              "title": "Zoom tool",
+              "key": "z"
+            },
+            {
+              "title": "Default Foreground/Background colors",
+              "key": "d"
+            },
+            {
+              "title": "Switch Foreground/Background colors",
+              "key": "x"
+            },
+            {
+              "title": "Toggle Standard/Quick Mask modes",
+              "key": "q"
+            },
+            {
+              "title": "Content-Aware Move tool",
+              "key": "j"
+            },
+            {
+              "title": "Perspective Crop tool",
+              "key": "c"
+            },
+            {
+              "title": "Artboard tool",
+              "key": "v"
+            },
+            {
+              "title": "Rotate View tool",
+              "key": "r"
+            },
+            {
+              "title": "Next Brush",
+              "key": "."
+            },
+            {
+              "title": "Last Brush",
+              "key": "shift+."
+            }
+          ]
+        },
+        {
+          "title": "Images",
+          "shortcuts": [
+            {
+              "title": "Cycle through open documents",
+              "key": "ctrl+tab"
+            },
+            {
+              "title": "Toggle screen modes",
+              "key": "f"
+            },
+            {
+              "title": "Toggle between Standard screen mode, Full scree...",
+              "key": "shift+f"
+            },
+            {
+              "title": "Toggle (backward) canvas color",
+              "key": "shift+space f"
+            },
+            {
+              "title": "Switch to Hand tool (when not in text-edit mode)",
+              "key": "space"
+            },
+            {
+              "title": "Switch to Zoom In tool",
+              "key": "cmd+space"
+            },
+            {
+              "title": "Switch to Zoom Out tool",
+              "key": "opt+space"
+            },
+            {
+              "title": "Move view to upper-left corner or lower-right c...",
+              "key": "home"
+            }
+          ]
+        },
+        {
+          "title": "Refine Edge",
+          "shortcuts": [
+            {
+              "title": "Open the Refine Edge dialog box",
+              "key": "opt+cmd+r"
+            },
+            {
+              "title": "Cycle (forward) through preview modes",
+              "key": "f"
+            },
+            {
+              "title": "Cycle (backward) through preview modes",
+              "key": "shift+f"
+            },
+            {
+              "title": "Toggle between original image and selection pre...",
+              "key": "x"
+            },
+            {
+              "title": "Toggle between original selection and refined v...",
+              "key": "p"
+            },
+            {
+              "title": "Toggle radius preview on and off",
+              "key": "j"
+            },
+            {
+              "title": "Toggle between Refine Radius and Erase Refineme...",
+              "key": "shift+e"
+            }
+          ]
+        },
+        {
+          "title": "Filter Gallery",
+          "shortcuts": [
+            {
+              "title": "Reapply last-used filter",
+              "key": "ctrl+cmd+f"
+            },
+            {
+              "title": "Change Cancel button to Default",
+              "key": "cmd"
+            },
+            {
+              "title": "Change Cancel button to Reset",
+              "key": "opt"
+            },
+            {
+              "title": "Undo/Redo",
+              "key": "cmd+z"
+            },
+            {
+              "title": "Step forward",
+              "key": "shift+cmd+z"
+            },
+            {
+              "title": "Step backward",
+              "key": "opt+cmd+z"
+            }
+          ]
+        },
+        {
+          "title": "Liquify filter",
+          "shortcuts": [
+            {
+              "title": "Forward Warp tool",
+              "key": "w"
+            },
+            {
+              "title": "Reconstruct tool",
+              "key": "r"
+            },
+            {
+              "title": "Twirl Clockwise tool",
+              "key": "c"
+            },
+            {
+              "title": "Pucker tool",
+              "key": "s"
+            },
+            {
+              "title": "Bloat tool",
+              "key": "b"
+            },
+            {
+              "title": "Push Left tool",
+              "key": "o"
+            },
+            {
+              "title": "Mirror tool",
+              "key": "m"
+            },
+            {
+              "title": "Turbulence tool",
+              "key": "t"
+            },
+            {
+              "title": "Freeze Mask tool",
+              "key": "f"
+            },
+            {
+              "title": "Thaw Mask tool",
+              "key": "d"
+            },
+            {
+              "title": "Cycle through controls on right from top",
+              "key": "tab"
+            },
+            {
+              "title": "Cycle through controls on right from bottom",
+              "key": "shift+tab"
+            },
+            {
+              "title": "Change Cancel to Reset",
+              "key": "opt"
+            }
+          ]
+        },
+        {
+          "title": "Vanishing Point",
+          "shortcuts": [
+            {
+              "title": "Undo last action",
+              "key": "cmd+z"
+            },
+            {
+              "title": "Redo last action",
+              "key": "shift+cmd+z"
+            },
+            {
+              "title": "Deselect all",
+              "key": "cmd+d"
+            },
+            {
+              "title": "Hide selection and planes",
+              "key": "cmd+h"
+            },
+            {
+              "title": "Copy",
+              "key": "cmd+c"
+            },
+            {
+              "title": "Paste",
+              "key": "cmd+v"
+            },
+            {
+              "title": "Repeat last duplicate and move",
+              "key": "shift+cmd+t"
+            },
+            {
+              "title": "Delete last node while creating plane",
+              "key": "backspace"
+            }
+          ]
+        },
+        {
+          "title": "Camera Raw dialog box",
+          "shortcuts": [
+            {
+              "title": "Zoom tool",
+              "key": "z"
+            },
+            {
+              "title": "Hand tool",
+              "key": "h"
+            },
+            {
+              "title": "White Balance tool",
+              "key": "i"
+            },
+            {
+              "title": "Color Sampler tool",
+              "key": "s"
+            },
+            {
+              "title": "Crop tool",
+              "key": "c"
+            },
+            {
+              "title": "Straighten tool",
+              "key": "a"
+            },
+            {
+              "title": "Spot Removal tool",
+              "key": "b"
+            },
+            {
+              "title": "Red Eye Removal tool",
+              "key": "e"
+            },
+            {
+              "title": "Basic panel",
+              "key": "opt+cmd+1"
+            },
+            {
+              "title": "Tone Curve panel",
+              "key": "opt+cmd+2"
+            },
+            {
+              "title": "Detail panel",
+              "key": "opt+cmd+3"
+            },
+            {
+              "title": "HSL/Grayscale panel",
+              "key": "opt+cmd+4"
+            },
+            {
+              "title": "Split Toning panel",
+              "key": "opt+cmd+5"
+            },
+            {
+              "title": "Lens Corrections panel",
+              "key": "opt+cmd+6"
+            },
+            {
+              "title": "Camera Calibration panel",
+              "key": "opt+cmd+7"
+            },
+            {
+              "title": "Presets panel",
+              "key": "opt+cmd+9"
+            },
+            {
+              "title": "Open Snapshots panel",
+              "key": "opt+cmd+9"
+            },
+            {
+              "title": "Parametric Curve Targeted Adjustment tool",
+              "key": "shift+opt+cmd+t"
+            },
+            {
+              "title": "Hue Targeted Adjustment tool",
+              "key": "shift+opt+cmd+h"
+            },
+            {
+              "title": "Saturation Targeted Adjustment tool",
+              "key": "shift+opt+cmd+s"
+            },
+            {
+              "title": "Luminance Targeted Adjustment tool",
+              "key": "shift+opt+cmd+l"
+            },
+            {
+              "title": "Grayscale Mix Targeted Adjustment tool",
+              "key": "shift+opt+cmd+g"
+            },
+            {
+              "title": "Last-used Targeted Adjustment tool",
+              "key": "t"
+            },
+            {
+              "title": "Adjustment Brush tool",
+              "key": "k"
+            },
+            {
+              "title": "Graduated Filter tool",
+              "key": "g"
+            },
+            {
+              "title": "Temporarily switch from Add to Erase mode for t...",
+              "key": "opt"
+            },
+            {
+              "title": "Switch to New mode from Add or Erase mode of th...",
+              "key": "n"
+            },
+            {
+              "title": "Toggle Auto Mask for Adjustment Brush tool",
+              "key": "m"
+            },
+            {
+              "title": "Toggle Show Mask for Adjustment Brush tool",
+              "key": "y"
+            },
+            {
+              "title": "Toggle pins for Adjustment Brush tool",
+              "key": "v"
+            },
+            {
+              "title": "Toggle overlay for Graduated Filter, Spot Remov...",
+              "key": "v"
+            },
+            {
+              "title": "Rotate image left",
+              "key": "l"
+            },
+            {
+              "title": "Rotate image right",
+              "key": "r"
+            },
+            {
+              "title": "Temporarily switch to Zoom In tool",
+              "key": "cmd"
+            },
+            {
+              "title": "Temporarily switch to Zoom Out tool and change ...",
+              "key": "opt"
+            },
+            {
+              "title": "Toggle preview",
+              "key": "p"
+            },
+            {
+              "title": "Full screen mode",
+              "key": "f"
+            },
+            {
+              "title": "Temporarily activate the White Balance tool and...",
+              "key": "shift"
+            },
+            {
+              "title": "Open selected images in Camera Raw dialog box f...",
+              "key": "cmd+r"
+            },
+            {
+              "title": "Highlight clipping warning",
+              "key": "o"
+            },
+            {
+              "title": "Shadows clipping warning",
+              "key": "u"
+            },
+            {
+              "title": "(Filmstrip mode) Add red label",
+              "key": "cmd+6"
+            },
+            {
+              "title": "(Filmstrip mode) Add yellow label",
+              "key": "cmd+7"
+            },
+            {
+              "title": "(Filmstrip mode) Add green label",
+              "key": "cmd+8"
+            },
+            {
+              "title": "(Filmstrip mode) Add blue label",
+              "key": "cmd+9"
+            },
+            {
+              "title": "(Filmstrip mode) Add purple label",
+              "key": "shift+cmd+0"
+            },
+            {
+              "title": "Camera Raw preferences",
+              "key": "cmd+k"
+            },
+            {
+              "title": "Deletes Adobe Camera Raw preferences",
+              "key": "opt+shift"
+            }
+          ]
+        },
+        {
+          "title": "Black-and-White dialog box",
+          "shortcuts": [
+            {
+              "title": "Open the Black-and-White dialog box",
+              "key": "shift+opt+cmd+b"
+            }
+          ]
+        },
+        {
+          "title": "Curves",
+          "shortcuts": [
+            {
+              "title": "Open the Curves dialog box",
+              "key": "cmd+m"
+            },
+            {
+              "title": "Deselect a point",
+              "key": "cmd+d"
+            }
+          ]
+        },
+        {
+          "title": "Select and move objects",
+          "shortcuts": [
+            {
+              "title": "Move layer 1 pixel when nothing selected on layer",
+              "key": "cmd+right"
+            }
+          ]
+        },
+        {
+          "title": "Transform selections, selection borders, and paths",
+          "shortcuts": [
+            {
+              "title": "Transform from center or reflect",
+              "key": "opt"
+            },
+            {
+              "title": "Constrain",
+              "key": "shift"
+            },
+            {
+              "title": "Distort",
+              "key": "cmd"
+            },
+            {
+              "title": "Apply",
+              "key": "enter"
+            },
+            {
+              "title": "Cancel",
+              "key": "cmd+."
+            },
+            {
+              "title": "Free transform with duplicate data",
+              "key": "opt+cmd+t"
+            },
+            {
+              "title": "Transform again with duplicate data",
+              "key": "shift+opt+cmd+t"
+            }
+          ]
+        },
+        {
+          "title": "Edit paths",
+          "shortcuts": [
+            {
+              "title": "Switch from Path Selection, Pen, Add Anchor Poi...",
+              "key": "cmd"
+            },
+            {
+              "title": "Switch from Pen tool or Freeform Pen tool to Co...",
+              "key": "opt"
+            }
+          ]
+        },
+        {
+          "title": "Painting",
+          "shortcuts": [
+            {
+              "title": "Mixer Brush changes Wet and Mix to zero",
+              "key": "0"
+            },
+            {
+              "title": "Fill with foreground or background color",
+              "key": "opt+backspace"
+            },
+            {
+              "title": "Fill from history",
+              "key": "opt+cmd+backspace"
+            },
+            {
+              "title": "Displays Fill dialog box",
+              "key": "shift+backspace"
+            }
+          ]
+        },
+        {
+          "title": "Blending modes",
+          "shortcuts": [
+            {
+              "title": "Normal",
+              "key": "shift+opt+n"
+            },
+            {
+              "title": "Dissolve",
+              "key": "shift+opt+i"
+            },
+            {
+              "title": "Behind (Brush tool only)",
+              "key": "shift+opt+q"
+            },
+            {
+              "title": "Clear (Brush tool only)",
+              "key": "shift+opt+r"
+            },
+            {
+              "title": "Darken",
+              "key": "shift+opt+k"
+            },
+            {
+              "title": "Multiply",
+              "key": "shift+opt+m"
+            },
+            {
+              "title": "Color Burn",
+              "key": "shift+opt+b"
+            },
+            {
+              "title": "Linear Burn",
+              "key": "shift+opt+a"
+            },
+            {
+              "title": "Lighten",
+              "key": "shift+opt+g"
+            },
+            {
+              "title": "Screen",
+              "key": "shift+opt+s"
+            },
+            {
+              "title": "Color Dodge",
+              "key": "shift+opt+d"
+            },
+            {
+              "title": "Linear Dodge",
+              "key": "shift+opt+w"
+            },
+            {
+              "title": "Overlay",
+              "key": "shift+opt+o"
+            },
+            {
+              "title": "Soft Light",
+              "key": "shift+opt+f"
+            },
+            {
+              "title": "Hard Light",
+              "key": "shift+opt+h"
+            },
+            {
+              "title": "Vivid Light",
+              "key": "shift+opt+v"
+            },
+            {
+              "title": "Linear Light",
+              "key": "shift+opt+j"
+            },
+            {
+              "title": "Pin Light",
+              "key": "shift+opt+z"
+            },
+            {
+              "title": "Hard Mix",
+              "key": "shift+opt+l"
+            },
+            {
+              "title": "Difference",
+              "key": "shift+opt+e"
+            },
+            {
+              "title": "Exclusion",
+              "key": "shift+opt+x"
+            },
+            {
+              "title": "Hue",
+              "key": "shift+opt+u"
+            },
+            {
+              "title": "Saturation",
+              "key": "shift+opt+t"
+            },
+            {
+              "title": "Color",
+              "key": "shift+opt+c"
+            },
+            {
+              "title": "Luminosity",
+              "key": "shift+opt+y"
+            },
+            {
+              "title": "Set blending mode to Threshold for bitmap image...",
+              "key": "shift+opt+n"
+            }
+          ]
+        },
+        {
+          "title": "Select and edit text",
+          "shortcuts": [
+            {
+              "title": "Show/Hide selection on selected type",
+              "key": "cmd+h"
+            },
+            {
+              "title": "Display the bounding box for transforming text ...",
+              "key": "cmd"
+            }
+          ]
+        },
+        {
+          "title": "Format type",
+          "shortcuts": [
+            {
+              "title": "Choose 100% horizontal scale",
+              "key": "shift+cmd+x"
+            },
+            {
+              "title": "Choose 100% vertical scale",
+              "key": "shift+opt+cmd+x"
+            },
+            {
+              "title": "Choose Auto leading",
+              "key": "shift+opt+cmd+a"
+            },
+            {
+              "title": "Choose 0 for tracking",
+              "key": "ctrl+shift+cmd+q"
+            },
+            {
+              "title": "Justify paragraph, left aligns last line",
+              "key": "shift+cmd+j"
+            },
+            {
+              "title": "Justify paragraph, justifies all",
+              "key": "shift+cmd+f"
+            },
+            {
+              "title": "Toggle paragraph hyphenation on/off",
+              "key": "ctrl+shift+opt+cmd+h"
+            },
+            {
+              "title": "Toggle single/every-line composer on/off",
+              "key": "shift+opt+cmd+t"
+            },
+            {
+              "title": "Decrease or increase leading 2 points or pixels",
+              "key": "opt+down"
+            },
+            {
+              "title": "Decrease or increase baseline 2 points or pixels",
+              "key": "shift+opt+down"
+            },
+            {
+              "title": "Decrease or increase kerning/tracking 20/1000 ems",
+              "key": "opt+left"
+            }
+          ]
+        },
+        {
+          "title": "Panels",
+          "shortcuts": [
+            {
+              "title": "Apply value and keep text box active",
+              "key": "shift+enter"
+            },
+            {
+              "title": "Show/Hide all panels",
+              "key": "tab"
+            },
+            {
+              "title": "Show/Hide all panels except the toolbox and opt...",
+              "key": "shift+tab"
+            }
+          ]
+        },
+        {
+          "title": "Adjustment layers",
+          "shortcuts": [
+            {
+              "title": "Choose specific channel for adjustment",
+              "key": "opt+3"
+            },
+            {
+              "title": "Choose composite channel for adjustment",
+              "key": "opt+2"
+            },
+            {
+              "title": "Delete adjustment layer",
+              "key": "backspace"
+            }
+          ]
+        },
+        {
+          "title": "Brush panel",
+          "shortcuts": [
+            {
+              "title": "Display precise cross hair for brushes",
+              "key": "capslock"
+            },
+            {
+              "title": "Toggle airbrush option",
+              "key": "shift+opt+p"
+            }
+          ]
+        },
+        {
+          "title": "Clone Source panel",
+          "shortcuts": [
+            {
+              "title": "Show Clone Source (overlays image)",
+              "key": "opt+shift"
+            }
+          ]
+        },
+        {
+          "title": "History panel",
+          "shortcuts": [
+            {
+              "title": "Step forward through image states",
+              "key": "shift+cmd+z"
+            },
+            {
+              "title": "Step backward through image states",
+              "key": "opt+cmd+z"
+            }
+          ]
+        },
+        {
+          "title": "Layers panel",
+          "shortcuts": [
+            {
+              "title": "New layer",
+              "key": "shift+cmd+n"
+            },
+            {
+              "title": "New layer via copy",
+              "key": "cmd+j"
+            },
+            {
+              "title": "New layer via cut",
+              "key": "shift+cmd+j"
+            },
+            {
+              "title": "Group layers",
+              "key": "cmd+g"
+            },
+            {
+              "title": "Ungroup layers",
+              "key": "shift+cmd+g"
+            },
+            {
+              "title": "Create/release clipping mask",
+              "key": "opt+cmd+g"
+            },
+            {
+              "title": "Select all layers",
+              "key": "opt+cmd+a"
+            },
+            {
+              "title": "Merge visible layers",
+              "key": "shift+cmd+e"
+            },
+            {
+              "title": "Select top layer",
+              "key": "opt+."
+            },
+            {
+              "title": "Merge a copy of all visible layers into target ...",
+              "key": "shift+opt+cmd+e"
+            }
+          ]
+        },
+        {
+          "title": "Paths panel",
+          "shortcuts": [
+            {
+              "title": "Hide path",
+              "key": "shift+cmd+h"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Default (Windows)",
+      "platforms": [
+        "windows"
+      ],
+      "sections": [
+        {
+          "title": "Popular shortcuts",
+          "shortcuts": [
+            {
+              "title": "Free Transform",
+              "key": "ctrl+t"
+            },
+            {
+              "title": "Default Foreground/Background colors",
+              "key": "d"
+            },
+            {
+              "title": "Switch Foreground/Background colors",
+              "key": "x"
+            },
+            {
+              "title": "New layer via copy",
+              "key": "ctrl+j"
+            },
+            {
+              "title": "New layer via cut",
+              "key": "ctrl+shift+j"
+            },
+            {
+              "title": "Cancel any modal dialog window",
+              "key": "esc"
+            },
+            {
+              "title": "Select the first edit field of the tool bar",
+              "key": "enter"
+            },
+            {
+              "title": "Navigate between fields",
+              "key": "tab"
+            },
+            {
+              "title": "Navigate between fields in opposite direction",
+              "key": "shift+tab"
+            },
+            {
+              "title": "Change Cancel to Reset",
+              "key": "alt"
+            }
+          ]
+        },
+        {
+          "title": "Select tools",
+          "shortcuts": [
+            {
+              "title": "Move tool",
+              "key": "v"
+            },
+            {
+              "title": "Rectangular Marquee tool",
+              "key": "m"
+            },
+            {
+              "title": "Elliptical Marquee tool",
+              "key": "m"
+            },
+            {
+              "title": "Lasso tool",
+              "key": "l"
+            },
+            {
+              "title": "Polygonal Lasso tool",
+              "key": "l"
+            },
+            {
+              "title": "Magnetic Lasso tool",
+              "key": "l"
+            },
+            {
+              "title": "Magic Wand tool",
+              "key": "w"
+            },
+            {
+              "title": "Quick Selection tool",
+              "key": "w"
+            },
+            {
+              "title": "Crop tool",
+              "key": "c"
+            },
+            {
+              "title": "Slice tool",
+              "key": "c"
+            },
+            {
+              "title": "Slice Select tool",
+              "key": "c"
+            },
+            {
+              "title": "Eyedropper tool",
+              "key": "i"
+            },
+            {
+              "title": "Color Sampler tool",
+              "key": "i"
+            },
+            {
+              "title": "Ruler tool",
+              "key": "i"
+            },
+            {
+              "title": "Note tool",
+              "key": "i"
+            },
+            {
+              "title": "Spot Healing Brush tool",
+              "key": "j"
+            },
+            {
+              "title": "Healing Brush tool",
+              "key": "j"
+            },
+            {
+              "title": "Patch tool",
+              "key": "j"
+            },
+            {
+              "title": "Red Eye tool",
+              "key": "j"
+            },
+            {
+              "title": "Brush tool",
+              "key": "b"
+            },
+            {
+              "title": "Pencil tool",
+              "key": "b"
+            },
+            {
+              "title": "Color Replacement tool",
+              "key": "b"
+            },
+            {
+              "title": "Mixer Brush tool",
+              "key": "b"
+            },
+            {
+              "title": "Clone Stamp tool",
+              "key": "s"
+            },
+            {
+              "title": "Pattern Stamp tool",
+              "key": "s"
+            },
+            {
+              "title": "History Brush tool",
+              "key": "y"
+            },
+            {
+              "title": "Art History Brush tool",
+              "key": "y"
+            },
+            {
+              "title": "Eraser tool",
+              "key": "e"
+            },
+            {
+              "title": "Background Eraser tool",
+              "key": "e"
+            },
+            {
+              "title": "Magic Eraser tool",
+              "key": "e"
+            },
+            {
+              "title": "Gradient tool",
+              "key": "g"
+            },
+            {
+              "title": "Paint Bucket tool",
+              "key": "g"
+            },
+            {
+              "title": "Dodge tool",
+              "key": "o"
+            },
+            {
+              "title": "Burn tool",
+              "key": "o"
+            },
+            {
+              "title": "Sponge tool",
+              "key": "o"
+            },
+            {
+              "title": "Pen tool",
+              "key": "p"
+            },
+            {
+              "title": "Freeform Pen tool",
+              "key": "p"
+            },
+            {
+              "title": "Horizontal Type tool",
+              "key": "t"
+            },
+            {
+              "title": "Vertical Type tool",
+              "key": "t"
+            },
+            {
+              "title": "Horizontal Type mask tool",
+              "key": "t"
+            },
+            {
+              "title": "Vertical Type mask tool",
+              "key": "t"
+            },
+            {
+              "title": "Path Selection tool",
+              "key": "a"
+            },
+            {
+              "title": "Direct Selection tool",
+              "key": "a"
+            },
+            {
+              "title": "Rectangle tool",
+              "key": "u"
+            },
+            {
+              "title": "Rounded Rectangle tool",
+              "key": "u"
+            },
+            {
+              "title": "Ellipse tool",
+              "key": "u"
+            },
+            {
+              "title": "Polygon tool",
+              "key": "u"
+            },
+            {
+              "title": "Line tool",
+              "key": "u"
+            },
+            {
+              "title": "Custom Shape tool",
+              "key": "u"
+            },
+            {
+              "title": "Hand tool",
+              "key": "h"
+            },
+            {
+              "title": "Rotate View tool",
+              "key": "r"
+            },
+            {
+              "title": "Zoom tool",
+              "key": "z"
+            },
+            {
+              "title": "Default Foreground/Background colors",
+              "key": "d"
+            },
+            {
+              "title": "Switch Foreground/Background colors",
+              "key": "x"
+            },
+            {
+              "title": "Toggle Standard/Quick Mask modes",
+              "key": "q"
+            },
+            {
+              "title": "Content-Aware Move tool",
+              "key": "j"
+            },
+            {
+              "title": "Perspective Crop tool",
+              "key": "c"
+            },
+            {
+              "title": "Artboard tool",
+              "key": "v"
+            },
+            {
+              "title": "Rotate View tool",
+              "key": "r"
+            },
+            {
+              "title": "Next Brush",
+              "key": "."
+            },
+            {
+              "title": "Last Brush",
+              "key": "shift+."
+            }
+          ]
+        },
+        {
+          "title": "Images",
+          "shortcuts": [
+            {
+              "title": "Cycle through open documents",
+              "key": "ctrl+tab"
+            },
+            {
+              "title": "Switch to previous document",
+              "key": "ctrl+shift+tab"
+            },
+            {
+              "title": "Close a file in Photoshop and open Bridge",
+              "key": "ctrl+shift+w"
+            },
+            {
+              "title": "Toggle between Standard mode and Quick Mask mode",
+              "key": "q"
+            },
+            {
+              "title": "Toggle screen modes",
+              "key": "f"
+            },
+            {
+              "title": "Toggle between Standard screen mode, Full scree...",
+              "key": "shift+f"
+            },
+            {
+              "title": "Toggle (backward) canvas color",
+              "key": "shift+space f"
+            },
+            {
+              "title": "Switch to Hand tool (when not in text-edit mode)",
+              "key": "space"
+            },
+            {
+              "title": "Switch to Zoom In tool",
+              "key": "ctrl+space"
+            },
+            {
+              "title": "Switch to Zoom Out tool",
+              "key": "alt+space"
+            },
+            {
+              "title": "Scroll up or down 1 screen",
+              "key": "pageup"
+            },
+            {
+              "title": "Scroll up or down 10 units",
+              "key": "shift+pageup"
+            },
+            {
+              "title": "Move view to upper-left corner or lower-right c...",
+              "key": "home"
+            }
+          ]
+        },
+        {
+          "title": "Refine Edge",
+          "shortcuts": [
+            {
+              "title": "Open the Refine Edge dialog box",
+              "key": "ctrl+alt+r"
+            },
+            {
+              "title": "Cycle (forward) through preview modes",
+              "key": "f"
+            },
+            {
+              "title": "Cycle (backward) through preview modes",
+              "key": "shift+f"
+            },
+            {
+              "title": "Toggle between original image and selection pre...",
+              "key": "x"
+            },
+            {
+              "title": "Toggle between original selection and refined v...",
+              "key": "p"
+            },
+            {
+              "title": "Toggle radius preview on and off",
+              "key": "j"
+            },
+            {
+              "title": "Toggle between Refine Radius and Erase Refineme...",
+              "key": "shift+e"
+            }
+          ]
+        },
+        {
+          "title": "Filter Gallery",
+          "shortcuts": [
+            {
+              "title": "Reapply last-used filter",
+              "key": "ctrl+alt+f"
+            },
+            {
+              "title": "Change Cancel button to Default",
+              "key": "ctrl"
+            },
+            {
+              "title": "Change Cancel button to Reset",
+              "key": "alt"
+            },
+            {
+              "title": "Undo/Redo",
+              "key": "ctrl+z"
+            },
+            {
+              "title": "Step forward",
+              "key": "ctrl+shift+z"
+            },
+            {
+              "title": "Step backward",
+              "key": "ctrl+alt+z"
+            }
+          ]
+        },
+        {
+          "title": "Liquify filter",
+          "shortcuts": [
+            {
+              "title": "Forward Warp tool",
+              "key": "w"
+            },
+            {
+              "title": "Reconstruct tool",
+              "key": "r"
+            },
+            {
+              "title": "Twirl Clockwise tool",
+              "key": "c"
+            },
+            {
+              "title": "Pucker tool",
+              "key": "s"
+            },
+            {
+              "title": "Bloat tool",
+              "key": "b"
+            },
+            {
+              "title": "Push Left tool",
+              "key": "o"
+            },
+            {
+              "title": "Mirror tool",
+              "key": "m"
+            },
+            {
+              "title": "Turbulence tool",
+              "key": "t"
+            },
+            {
+              "title": "Freeze Mask tool",
+              "key": "f"
+            },
+            {
+              "title": "Thaw Mask tool",
+              "key": "d"
+            },
+            {
+              "title": "Cycle through controls on right from top",
+              "key": "tab"
+            },
+            {
+              "title": "Cycle through controls on right from bottom",
+              "key": "shift+tab"
+            },
+            {
+              "title": "Change Cancel to Reset",
+              "key": "alt"
+            }
+          ]
+        },
+        {
+          "title": "Vanishing Point",
+          "shortcuts": [
+            {
+              "title": "Zoom 2x (temporary)",
+              "key": "x"
+            },
+            {
+              "title": "Undo last action",
+              "key": "ctrl+z"
+            },
+            {
+              "title": "Redo last action",
+              "key": "ctrl+shift+z"
+            },
+            {
+              "title": "Deselect all",
+              "key": "ctrl+d"
+            },
+            {
+              "title": "Hide selection and planes",
+              "key": "ctrl+h"
+            },
+            {
+              "title": "Copy",
+              "key": "ctrl+c"
+            },
+            {
+              "title": "Paste",
+              "key": "ctrl+v"
+            },
+            {
+              "title": "Repeat last duplicate and move",
+              "key": "ctrl+shift+t"
+            },
+            {
+              "title": "Create a floating selection from the current se...",
+              "key": "ctrl+alt+t"
+            },
+            {
+              "title": "Delete last node while creating plane",
+              "key": "backspace"
+            }
+          ]
+        },
+        {
+          "title": "Camera Raw dialog box",
+          "shortcuts": [
+            {
+              "title": "Zoom tool",
+              "key": "z"
+            },
+            {
+              "title": "Hand tool",
+              "key": "h"
+            },
+            {
+              "title": "White Balance tool",
+              "key": "i"
+            },
+            {
+              "title": "Color Sampler tool",
+              "key": "s"
+            },
+            {
+              "title": "Crop tool",
+              "key": "c"
+            },
+            {
+              "title": "Straighten tool",
+              "key": "a"
+            },
+            {
+              "title": "Spot Removal tool",
+              "key": "b"
+            },
+            {
+              "title": "Red Eye Removal tool",
+              "key": "e"
+            },
+            {
+              "title": "Basic panel",
+              "key": "ctrl+alt+1"
+            },
+            {
+              "title": "Tone Curve panel",
+              "key": "ctrl+alt+2"
+            },
+            {
+              "title": "Detail panel",
+              "key": "ctrl+alt+3"
+            },
+            {
+              "title": "HSL/Grayscale panel",
+              "key": "ctrl+alt+4"
+            },
+            {
+              "title": "Split Toning panel",
+              "key": "ctrl+alt+5"
+            },
+            {
+              "title": "Lens Corrections panel",
+              "key": "ctrl+alt+6"
+            },
+            {
+              "title": "Camera Calibration panel",
+              "key": "ctrl+alt+7"
+            },
+            {
+              "title": "Presets panel",
+              "key": "ctrl+alt+9"
+            },
+            {
+              "title": "Open Snapshots panel",
+              "key": "ctrl+alt+9"
+            },
+            {
+              "title": "Parametric Curve Targeted Adjustment tool",
+              "key": "ctrl+shift+alt+t"
+            },
+            {
+              "title": "Hue Targeted Adjustment tool",
+              "key": "ctrl+shift+alt+h"
+            },
+            {
+              "title": "Saturation Targeted Adjustment tool",
+              "key": "ctrl+shift+alt+s"
+            },
+            {
+              "title": "Luminance Targeted Adjustment tool",
+              "key": "ctrl+shift+alt+l"
+            },
+            {
+              "title": "Grayscale Mix Targeted Adjustment tool",
+              "key": "ctrl+shift+alt+g"
+            },
+            {
+              "title": "Last-used Targeted Adjustment tool",
+              "key": "t"
+            },
+            {
+              "title": "Adjustment Brush tool",
+              "key": "k"
+            },
+            {
+              "title": "Graduated Filter tool",
+              "key": "g"
+            },
+            {
+              "title": "Temporarily switch from Add to Erase mode for t...",
+              "key": "alt"
+            },
+            {
+              "title": "Switch to New mode from Add or Erase mode of th...",
+              "key": "n"
+            },
+            {
+              "title": "Toggle Auto Mask for Adjustment Brush tool",
+              "key": "m"
+            },
+            {
+              "title": "Toggle Show Mask for Adjustment Brush tool",
+              "key": "y"
+            },
+            {
+              "title": "Toggle pins for Adjustment Brush tool",
+              "key": "v"
+            },
+            {
+              "title": "Toggle overlay for Graduated Filter, Spot Remov...",
+              "key": "v"
+            },
+            {
+              "title": "Rotate image left",
+              "key": "l"
+            },
+            {
+              "title": "Rotate image right",
+              "key": "r"
+            },
+            {
+              "title": "Temporarily switch to Zoom In tool",
+              "key": "ctrl"
+            },
+            {
+              "title": "Temporarily switch to Zoom Out tool and change ...",
+              "key": "alt"
+            },
+            {
+              "title": "Toggle preview",
+              "key": "p"
+            },
+            {
+              "title": "Full screen mode",
+              "key": "f"
+            },
+            {
+              "title": "Temporarily activate the White Balance tool and...",
+              "key": "shift"
+            },
+            {
+              "title": "Open selected images in Camera Raw dialog box f...",
+              "key": "ctrl+r"
+            },
+            {
+              "title": "Highlight clipping warning",
+              "key": "o"
+            },
+            {
+              "title": "Shadows clipping warning",
+              "key": "u"
+            },
+            {
+              "title": "(Filmstrip mode) Add red label",
+              "key": "ctrl+6"
+            },
+            {
+              "title": "(Filmstrip mode) Add yellow label",
+              "key": "ctrl+7"
+            },
+            {
+              "title": "(Filmstrip mode) Add green label",
+              "key": "ctrl+8"
+            },
+            {
+              "title": "(Filmstrip mode) Add blue label",
+              "key": "ctrl+9"
+            },
+            {
+              "title": "(Filmstrip mode) Add purple label",
+              "key": "ctrl+shift+0"
+            },
+            {
+              "title": "Camera Raw preferences",
+              "key": "ctrl+k"
+            },
+            {
+              "title": "Deletes Adobe Camera Raw preferences",
+              "key": "ctrl+alt"
+            }
+          ]
+        },
+        {
+          "title": "Black-and-White dialog box",
+          "shortcuts": [
+            {
+              "title": "Open the Black-and-White dialog box",
+              "key": "ctrl+shift+alt+b"
+            }
+          ]
+        },
+        {
+          "title": "Curves",
+          "shortcuts": [
+            {
+              "title": "Open the Curves dialog box",
+              "key": "ctrl+m"
+            },
+            {
+              "title": "Deselect a point",
+              "key": "ctrl+d"
+            }
+          ]
+        },
+        {
+          "title": "Select and move objects",
+          "shortcuts": [
+            {
+              "title": "Move layer 1 pixel when nothing selected on layer",
+              "key": "ctrl+right"
+            }
+          ]
+        },
+        {
+          "title": "Transform selections, selection borders, and paths",
+          "shortcuts": [
+            {
+              "title": "Transform from center or reflect",
+              "key": "alt"
+            },
+            {
+              "title": "Constrain",
+              "key": "shift"
+            },
+            {
+              "title": "Distort",
+              "key": "ctrl"
+            },
+            {
+              "title": "Apply",
+              "key": "enter"
+            },
+            {
+              "title": "Cancel",
+              "key": "ctrl+."
+            },
+            {
+              "title": "Free transform with duplicate data",
+              "key": "ctrl+alt+t"
+            },
+            {
+              "title": "Transform again with duplicate data",
+              "key": "ctrl+shift+alt+t"
+            }
+          ]
+        },
+        {
+          "title": "Edit paths",
+          "shortcuts": [
+            {
+              "title": "Switch from Path Selection, Pen, Add Anchor Poi...",
+              "key": "ctrl"
+            },
+            {
+              "title": "Switch from Pen tool or Freeform Pen tool to Co...",
+              "key": "alt"
+            }
+          ]
+        },
+        {
+          "title": "Painting",
+          "shortcuts": [
+            {
+              "title": "Mixer Brush changes Wet and Mix to zero",
+              "key": "0"
+            },
+            {
+              "title": "Fill with foreground or background color",
+              "key": "alt+backspace"
+            },
+            {
+              "title": "Fill from history",
+              "key": "ctrl+alt+backspace"
+            },
+            {
+              "title": "Displays Fill dialog box",
+              "key": "shift+backspace"
+            }
+          ]
+        },
+        {
+          "title": "Blending modes",
+          "shortcuts": [
+            {
+              "title": "Normal",
+              "key": "shift+alt+n"
+            },
+            {
+              "title": "Dissolve",
+              "key": "shift+alt+i"
+            },
+            {
+              "title": "Behind (Brush tool only)",
+              "key": "shift+alt+q"
+            },
+            {
+              "title": "Clear (Brush tool only)",
+              "key": "shift+alt+r"
+            },
+            {
+              "title": "Darken",
+              "key": "shift+alt+k"
+            },
+            {
+              "title": "Multiply",
+              "key": "shift+alt+m"
+            },
+            {
+              "title": "Color Burn",
+              "key": "shift+alt+b"
+            },
+            {
+              "title": "Linear Burn",
+              "key": "shift+alt+a"
+            },
+            {
+              "title": "Lighten",
+              "key": "shift+alt+g"
+            },
+            {
+              "title": "Screen",
+              "key": "shift+alt+s"
+            },
+            {
+              "title": "Color Dodge",
+              "key": "shift+alt+d"
+            },
+            {
+              "title": "Linear Dodge",
+              "key": "shift+alt+w"
+            },
+            {
+              "title": "Overlay",
+              "key": "shift+alt+o"
+            },
+            {
+              "title": "Soft Light",
+              "key": "shift+alt+f"
+            },
+            {
+              "title": "Hard Light",
+              "key": "shift+alt+h"
+            },
+            {
+              "title": "Vivid Light",
+              "key": "shift+alt+v"
+            },
+            {
+              "title": "Linear Light",
+              "key": "shift+alt+j"
+            },
+            {
+              "title": "Pin Light",
+              "key": "shift+alt+z"
+            },
+            {
+              "title": "Hard Mix",
+              "key": "shift+alt+l"
+            },
+            {
+              "title": "Difference",
+              "key": "shift+alt+e"
+            },
+            {
+              "title": "Exclusion",
+              "key": "shift+alt+x"
+            },
+            {
+              "title": "Hue",
+              "key": "shift+alt+u"
+            },
+            {
+              "title": "Saturation",
+              "key": "shift+alt+t"
+            },
+            {
+              "title": "Color",
+              "key": "shift+alt+c"
+            },
+            {
+              "title": "Luminosity",
+              "key": "shift+alt+y"
+            },
+            {
+              "title": "Set blending mode to Threshold for bitmap image...",
+              "key": "shift+alt+n"
+            }
+          ]
+        },
+        {
+          "title": "Select and edit text",
+          "shortcuts": [
+            {
+              "title": "Show/Hide selection on selected type",
+              "key": "ctrl+h"
+            },
+            {
+              "title": "Display the bounding box for transforming text ...",
+              "key": "ctrl"
+            }
+          ]
+        },
+        {
+          "title": "Format type",
+          "shortcuts": [
+            {
+              "title": "Choose 100% horizontal scale",
+              "key": "ctrl+shift+x"
+            },
+            {
+              "title": "Choose 100% vertical scale",
+              "key": "ctrl+shift+alt+x"
+            },
+            {
+              "title": "Choose Auto leading",
+              "key": "ctrl+shift+alt+a"
+            },
+            {
+              "title": "Choose 0 for tracking",
+              "key": "ctrl+shift+q"
+            },
+            {
+              "title": "Justify paragraph, left aligns last line",
+              "key": "ctrl+shift+j"
+            },
+            {
+              "title": "Justify paragraph, justifies all",
+              "key": "ctrl+shift+f"
+            },
+            {
+              "title": "Toggle paragraph hyphenation on/off",
+              "key": "ctrl+shift+alt+h"
+            },
+            {
+              "title": "Toggle single/every-line composer on/off",
+              "key": "ctrl+shift+alt+t"
+            },
+            {
+              "title": "Decrease or increase leading 2 points or pixels",
+              "key": "alt+down"
+            },
+            {
+              "title": "Decrease or increase baseline 2 points or pixels",
+              "key": "shift+alt+down"
+            },
+            {
+              "title": "Decrease or increase kerning/tracking 20/1000 ems",
+              "key": "alt+left"
+            }
+          ]
+        },
+        {
+          "title": "Panels",
+          "shortcuts": [
+            {
+              "title": "Apply value and keep text box active",
+              "key": "shift+enter"
+            },
+            {
+              "title": "Show/Hide all panels",
+              "key": "tab"
+            },
+            {
+              "title": "Show/Hide all panels except the toolbox and opt...",
+              "key": "shift+tab"
+            }
+          ]
+        },
+        {
+          "title": "Adjustment layers",
+          "shortcuts": [
+            {
+              "title": "Choose specific channel for adjustment",
+              "key": "alt+3"
+            },
+            {
+              "title": "Choose composite channel for adjustment",
+              "key": "alt+2"
+            },
+            {
+              "title": "Delete adjustment layer",
+              "key": "backspace"
+            }
+          ]
+        },
+        {
+          "title": "Brush panel",
+          "shortcuts": [
+            {
+              "title": "Display precise cross hair for brushes",
+              "key": "capslock"
+            },
+            {
+              "title": "Toggle airbrush option",
+              "key": "shift+alt+p"
+            }
+          ]
+        },
+        {
+          "title": "Clone Source panel",
+          "shortcuts": [
+            {
+              "title": "Show Clone Source (overlays image)",
+              "key": "opt+shift"
+            }
+          ]
+        },
+        {
+          "title": "History panel",
+          "shortcuts": [
+            {
+              "title": "Step forward through image states",
+              "key": "ctrl+shift+z"
+            },
+            {
+              "title": "Step backward through image states",
+              "key": "ctrl+alt+z"
+            }
+          ]
+        },
+        {
+          "title": "Layers panel",
+          "shortcuts": [
+            {
+              "title": "New layer",
+              "key": "ctrl+shift+n"
+            },
+            {
+              "title": "New layer via copy",
+              "key": "ctrl+j"
+            },
+            {
+              "title": "New layer via cut",
+              "key": "ctrl+shift+j"
+            },
+            {
+              "title": "Group layers",
+              "key": "ctrl+g"
+            },
+            {
+              "title": "Ungroup layers",
+              "key": "ctrl+shift+g"
+            },
+            {
+              "title": "Create/release clipping mask",
+              "key": "ctrl+alt+g"
+            },
+            {
+              "title": "Select all layers",
+              "key": "ctrl+alt+a"
+            },
+            {
+              "title": "Merge visible layers",
+              "key": "ctrl+shift+e"
+            },
+            {
+              "title": "Select top layer",
+              "key": "alt+."
+            },
+            {
+              "title": "Merge a copy of all visible layers into target ...",
+              "key": "ctrl+shift+alt+e"
+            }
+          ]
+        },
+        {
+          "title": "Paths panel",
+          "shortcuts": [
+            {
+              "title": "Hide path",
+              "key": "ctrl+shift+h"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

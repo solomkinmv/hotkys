@@ -3,6 +3,7 @@
   "bundleId": "org.mozilla.firefox",
   "name": "Firefox",
   "slug": "firefox",
+  "icon": "icons/firefox.png",
   "keymaps": [
     {
       "title": "Default",
@@ -114,7 +115,7 @@
             },
             {
               "title": "Zoom In",
-              "key": "cmd++"
+              "key": "shift+cmd+plus"
             },
             {
               "title": "Zoom Out",

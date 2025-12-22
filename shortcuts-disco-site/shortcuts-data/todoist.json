@@ -1,0 +1,244 @@
+{
+  "$schema": "schema/shortcut.schema.json",
+  "bundleId": "com.todoist.mac.Todoist",
+  "name": "Todoist",
+  "slug": "todoist",
+  "source": "https://www.todoist.com/help/articles/use-keyboard-shortcuts-in-todoist-Wyovn2",
+  "icon": "icons/todoist.png",
+  "keymaps": [
+    {
+      "title": "Default",
+      "platforms": [
+        "macos"
+      ],
+      "sections": [
+        {
+          "title": "Global",
+          "shortcuts": [
+            {
+              "title": "Show/hide Todoist",
+              "key": "ctrl+cmd+t"
+            },
+            {
+              "title": "Open task Quick Add",
+              "key": "ctrl+cmd+a"
+            }
+          ]
+        },
+        {
+          "title": "General",
+          "shortcuts": [
+            {
+              "title": "Open or close menu",
+              "key": "m"
+            },
+            {
+              "title": "Go to Home view",
+              "key": "h"
+            },
+            {
+              "title": "Add a task (with Quick Add)",
+              "key": "q"
+            },
+            {
+              "title": "Add a task at the bottom of the list",
+              "key": "a"
+            },
+            {
+              "title": "Add a task at the top of the list",
+              "comment": "Same key as bottom (verify with official docs)"
+            },
+            {
+              "title": "Add a section",
+              "key": "s"
+            },
+            {
+              "title": "Switch to the Board view",
+              "key": "shift+v"
+            }
+          ]
+        },
+        {
+          "title": "Adding and editing tasks",
+          "shortcuts": [
+            {
+              "title": "Cancel current changes",
+              "key": "esc"
+            },
+            {
+              "title": "Save a newly created task and create a new one ...",
+              "key": "enter"
+            },
+            {
+              "title": "Save changes to an existing task and create a n...",
+              "key": "shift+enter"
+            },
+            {
+              "title": "Save a new task or save changes to an existing ...",
+              "key": "ctrl+enter"
+            },
+            {
+              "title": "Move to the task above the task currently being...",
+              "key": "cmd+up"
+            },
+            {
+              "title": "Move to the task below the task currently being...",
+              "key": "cmd+down"
+            }
+          ]
+        },
+        {
+          "title": "Creating and completing sub-tasks",
+          "shortcuts": [
+            {
+              "title": "Increase task indent (only works inside projects)",
+              "key": "cmd+right"
+            },
+            {
+              "title": "Decrease task indent (only works inside projects)",
+              "key": "cmd+left"
+            }
+          ]
+        },
+        {
+          "title": "Sorting tasks inside a project",
+          "shortcuts": [
+            {
+              "title": "Sort by date",
+              "key": "d"
+            },
+            {
+              "title": "Sort by priority",
+              "key": "p"
+            },
+            {
+              "title": "Sort by name",
+              "key": "n"
+            },
+            {
+              "title": "Sort by assignee",
+              "key": "r"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Default (Windows)",
+      "platforms": [
+        "windows"
+      ],
+      "sections": [
+        {
+          "title": "Global",
+          "shortcuts": [
+            {
+              "title": "Show/hide Todoist",
+              "key": "alt+win+s"
+            },
+            {
+              "title": "Open task Quick Add",
+              "key": "alt+win+q"
+            }
+          ]
+        },
+        {
+          "title": "General",
+          "shortcuts": [
+            {
+              "title": "Open or close menu",
+              "key": "m"
+            },
+            {
+              "title": "Go to Home view",
+              "key": "h"
+            },
+            {
+              "title": "Add a task (with Quick Add)",
+              "key": "q"
+            },
+            {
+              "title": "Add a task at the bottom of the list",
+              "key": "a"
+            },
+            {
+              "title": "Add a task at the top of the list",
+              "comment": "Same key as bottom (verify with official docs)"
+            },
+            {
+              "title": "Add a section",
+              "key": "s"
+            },
+            {
+              "title": "Switch to the Board view",
+              "key": "shift+v"
+            }
+          ]
+        },
+        {
+          "title": "Adding and editing tasks",
+          "shortcuts": [
+            {
+              "title": "Cancel current changes",
+              "key": "esc"
+            },
+            {
+              "title": "Save a newly created task and create a new one ...",
+              "key": "enter"
+            },
+            {
+              "title": "Save changes to an existing task and create a n...",
+              "key": "shift+enter"
+            },
+            {
+              "title": "Save a new task or save changes to an existing ...",
+              "key": "ctrl+enter"
+            },
+            {
+              "title": "Move to the task above the task currently being...",
+              "key": "ctrl+up"
+            },
+            {
+              "title": "Move to the task below the task currently being...",
+              "key": "ctrl+down"
+            }
+          ]
+        },
+        {
+          "title": "Creating and completing sub-tasks",
+          "shortcuts": [
+            {
+              "title": "Increase task indent (only works inside projects)",
+              "key": "ctrl+right"
+            },
+            {
+              "title": "Decrease task indent (only works inside projects)",
+              "key": "ctrl+left"
+            }
+          ]
+        },
+        {
+          "title": "Sorting tasks inside a project",
+          "shortcuts": [
+            {
+              "title": "Sort by date",
+              "key": "d"
+            },
+            {
+              "title": "Sort by priority",
+              "key": "p"
+            },
+            {
+              "title": "Sort by name",
+              "key": "n"
+            },
+            {
+              "title": "Sort by assignee",
+              "key": "r"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

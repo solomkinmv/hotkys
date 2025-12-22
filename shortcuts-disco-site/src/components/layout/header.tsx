@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { GithubIcon, TwitterIcon } from "@/components/ui/icons";
 import { MAIN_NAV_LINKS, SOCIAL_LINKS } from "@/lib/constants/navigation";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { TypographyLarge } from "@/components/ui/typography";
 
 /**
  * Header component for the application
@@ -29,7 +30,7 @@ export const Header = () => {
               }
               href={link.href}
             >
-              {index === 0 ? <span className="text-lg font-semibold">{link.label}</span> : link.label}
+              {index === 0 ? <TypographyLarge>{link.label}</TypographyLarge> : link.label}
             </Link>
           ))}
         </nav>

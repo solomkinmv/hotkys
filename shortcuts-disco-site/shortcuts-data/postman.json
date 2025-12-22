@@ -3,6 +3,7 @@
   "bundleId": "com.postmanlabs.mac",
   "name": "Postman",
   "slug": "postman",
+  "icon": "icons/postman.png",
   "keymaps": [
     {
       "title": "Default",

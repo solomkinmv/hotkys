@@ -1,0 +1,136 @@
+{
+  "$schema": "schema/shortcut.schema.json",
+  "bundleId": "io.sipapp.Sip",
+  "name": "Sip",
+  "slug": "sip",
+  "source": "https://docs.sipapp.io/picker",
+  "icon": "icons/sip.png",
+  "keymaps": [
+    {
+      "title": "Default",
+      "platforms": [
+        "macos"
+      ],
+      "sections": [
+        {
+          "title": "General",
+          "shortcuts": [
+            {
+              "title": "Show picker",
+              "key": "ctrl+opt+cmd+p"
+            },
+            {
+              "title": "Show color panel",
+              "key": "ctrl+opt+cmd+c"
+            },
+            {
+              "title": "Show menu bar",
+              "key": "ctrl+opt+cmd+m"
+            },
+            {
+              "title": "Show contrast checker",
+              "key": "ctrl+opt+cmd+o"
+            },
+            {
+              "title": "Get primary color",
+              "key": "ctrl+opt+cmd+f"
+            },
+            {
+              "title": "Get secondary color",
+              "key": "ctrl+opt+cmd+b"
+            }
+          ]
+        },
+        {
+          "title": "Picker",
+          "shortcuts": [
+            {
+              "title": "Move picker left 1px",
+              "key": "left"
+            },
+            {
+              "title": "Move picker right 1px",
+              "key": "right"
+            },
+            {
+              "title": "Move picker up 1px",
+              "key": "up"
+            },
+            {
+              "title": "Move picker down 1px",
+              "key": "down"
+            },
+            {
+              "title": "Move picker left 10px",
+              "key": "shift+left"
+            },
+            {
+              "title": "Move picker right 10px",
+              "key": "shift+right"
+            },
+            {
+              "title": "Move picker up 10px",
+              "key": "shift+up"
+            },
+            {
+              "title": "Move picker down 10px",
+              "key": "shift+down"
+            }
+          ]
+        },
+        {
+          "title": "Zoom and size",
+          "shortcuts": [
+            {
+              "title": "Decrease picker size",
+              "key": "plus"
+            }
+          ]
+        },
+        {
+          "title": "Color and formats",
+          "shortcuts": [
+            {
+              "title": "Next color",
+              "key": "ctrl+opt+down"
+            },
+            {
+              "title": "Previous color",
+              "key": "ctrl+opt+up"
+            },
+            {
+              "title": "Next format",
+              "key": "ctrl+opt+right"
+            },
+            {
+              "title": "Previous format",
+              "key": "ctrl+opt+left"
+            }
+          ]
+        },
+        {
+          "title": "Colorspace",
+          "shortcuts": [
+            {
+              "title": "Next color space",
+              "key": "shift+opt+right"
+            },
+            {
+              "title": "Previous color space",
+              "key": "shift+opt+left"
+            }
+          ]
+        },
+        {
+          "title": "Color dock",
+          "shortcuts": [
+            {
+              "title": "Show / hide color dock",
+              "key": "ctrl+opt+cmd+d"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

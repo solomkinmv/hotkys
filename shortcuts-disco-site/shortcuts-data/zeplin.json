@@ -1,0 +1,276 @@
+{
+  "$schema": "schema/shortcut.schema.json",
+  "bundleId": "io.zeplin.osx",
+  "name": "Zeplin",
+  "slug": "zeplin",
+  "source": "https://support.zeplin.io/en/articles/9685993-keyboard-shortcuts",
+  "icon": "icons/zeplin.png",
+  "keymaps": [
+    {
+      "title": "Default",
+      "platforms": [
+        "macos"
+      ],
+      "sections": [
+        {
+          "title": "General",
+          "shortcuts": [
+            {
+              "title": "Hide",
+              "key": "cmd+h"
+            },
+            {
+              "title": "Hide others",
+              "key": "opt+cmd+h"
+            },
+            {
+              "title": "Quit",
+              "key": "cmd+q"
+            },
+            {
+              "title": "Undo",
+              "key": "cmd+z"
+            },
+            {
+              "title": "Redo",
+              "key": "shift+cmd+z"
+            },
+            {
+              "title": "Cut",
+              "key": "cmd+x"
+            },
+            {
+              "title": "Copy",
+              "key": "cmd+c"
+            },
+            {
+              "title": "Paste",
+              "key": "cmd+v"
+            },
+            {
+              "title": "Paste and Match Style",
+              "key": "shift+opt+cmd+v"
+            },
+            {
+              "title": "Select All",
+              "key": "cmd+a"
+            },
+            {
+              "title": "Emoji & Symbols",
+              "key": "ctrl+cmd+space"
+            },
+            {
+              "title": "Enter Fullscreen",
+              "key": "ctrl+cmd+f"
+            },
+            {
+              "title": "Close",
+              "key": "cmd+w"
+            },
+            {
+              "title": "Minimize",
+              "key": "cmd+m"
+            }
+          ]
+        },
+        {
+          "title": "Navigation",
+          "shortcuts": [
+            {
+              "title": "Go to Projects",
+              "key": "shift+cmd+a"
+            },
+            {
+              "title": "Jump to Screen",
+              "key": "cmd+j"
+            },
+            {
+              "title": "Go to Dashboard",
+              "key": "cmd+d"
+            },
+            {
+              "title": "Go to Styleguide",
+              "key": "cmd+g"
+            }
+          ]
+        },
+        {
+          "title": "Projects",
+          "shortcuts": [
+            {
+              "title": "New Project",
+              "key": "cmd+n"
+            },
+            {
+              "title": "Search",
+              "key": "cmd+f"
+            },
+            {
+              "title": "Open Selected Project",
+              "key": "enter"
+            },
+            {
+              "title": "Import PNGs",
+              "key": "shift+cmd+p"
+            }
+          ]
+        },
+        {
+          "title": "Dashboard",
+          "shortcuts": [
+            {
+              "title": "New Project",
+              "key": "cmd+n"
+            },
+            {
+              "title": "Search",
+              "key": "cmd+f"
+            },
+            {
+              "title": "Open Selected Project",
+              "key": "enter"
+            },
+            {
+              "title": "Import PNGs",
+              "key": "shift+cmd+p"
+            }
+          ]
+        },
+        {
+          "title": "Section",
+          "shortcuts": [
+            {
+              "title": "Create New Section from Selection",
+              "key": "ctrl+cmd+n"
+            },
+            {
+              "title": "Collapse All Sections",
+              "key": "ctrl+cmd+up"
+            },
+            {
+              "title": "Expand All Sections",
+              "key": "ctrl+cmd+down"
+            }
+          ]
+        },
+        {
+          "title": "Screen",
+          "shortcuts": [
+            {
+              "title": "Edit Name of Screen",
+              "key": "cmd+r"
+            },
+            {
+              "title": "Delete Screen",
+              "key": "cmd+backspace"
+            },
+            {
+              "title": "Actual Size",
+              "key": "cmd+0"
+            },
+            {
+              "title": "Zoom to Fit",
+              "key": "cmd+1"
+            },
+            {
+              "title": "Zoom to Selection",
+              "key": "cmd+2"
+            },
+            {
+              "title": "Pop Screen Out",
+              "key": "cmd+o"
+            },
+            {
+              "title": "Show/Hide Screen Grid",
+              "key": "opt+cmd+g"
+            },
+            {
+              "title": "Next Screen",
+              "key": "right"
+            },
+            {
+              "title": "Previous Screen",
+              "key": "left"
+            },
+            {
+              "title": "Manage Tags",
+              "key": "cmd+t"
+            },
+            {
+              "title": "Show/Hide Versions",
+              "key": "opt+cmd+v"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Default (Windows)",
+      "platforms": [
+        "windows"
+      ],
+      "sections": [
+        {
+          "title": "Navigation",
+          "shortcuts": [
+            {
+              "title": "Jump to Screen",
+              "key": "alt+j"
+            },
+            {
+              "title": "Go to Dashboard",
+              "key": "alt+d"
+            },
+            {
+              "title": "Go to Styleguide",
+              "key": "alt+s"
+            }
+          ]
+        },
+        {
+          "title": "Project",
+          "shortcuts": [
+            {
+              "title": "Search",
+              "key": "ctrl+f"
+            }
+          ]
+        },
+        {
+          "title": "Dashboard",
+          "shortcuts": [
+            {
+              "title": "Search",
+              "key": "ctrl+f"
+            }
+          ]
+        },
+        {
+          "title": "Screen",
+          "shortcuts": [
+            {
+              "title": "Actual Size",
+              "key": "alt+0"
+            },
+            {
+              "title": "Pop Screen Out",
+              "key": "alt+o"
+            },
+            {
+              "title": "Next Screen",
+              "key": "right"
+            },
+            {
+              "title": "Previous Screen",
+              "key": "left"
+            },
+            {
+              "title": "Manage Tags",
+              "key": "alt+t"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

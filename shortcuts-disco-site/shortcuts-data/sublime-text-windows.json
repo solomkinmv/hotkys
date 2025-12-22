@@ -1,0 +1,199 @@
+{
+  "$schema": "schema/shortcut.schema.json",
+  "name": "Sublime Text (Windows)",
+  "slug": "sublime-text-windows",
+  "source": "https://docs.sublimetext.io/reference/keyboard_shortcuts_win.html",
+  "icon": "icons/sublime-text-windows.png",
+  "keymaps": [
+    {
+      "title": "Default",
+      "platforms": [
+        "windows"
+      ],
+      "sections": [
+        {
+          "title": "Editing",
+          "shortcuts": [
+            {
+              "title": "Cut line",
+              "key": "ctrl+x"
+            },
+            {
+              "title": "Insert line after",
+              "key": "ctrl+enter"
+            },
+            {
+              "title": "Insert line before",
+              "key": "ctrl+shift+enter"
+            },
+            {
+              "title": "Move line/selection up",
+              "key": "ctrl+shift+up"
+            },
+            {
+              "title": "Move line/selection down",
+              "key": "ctrl+shift+down"
+            },
+            {
+              "title": "Select line - Repeat to select next lines",
+              "key": "ctrl+l"
+            },
+            {
+              "title": "Select word - Repeat select others occurrences",
+              "key": "ctrl+d"
+            },
+            {
+              "title": "Jump to closing parentheses Repeat to jump to o...",
+              "key": "ctrl+m"
+            },
+            {
+              "title": "Select all contents of the current parentheses",
+              "key": "ctrl+shift+m"
+            },
+            {
+              "title": "Delete Line",
+              "key": "ctrl+shift+k"
+            },
+            {
+              "title": "Duplicate line(s)",
+              "key": "ctrl+shift+d"
+            },
+            {
+              "title": "Join line below to the end of the current line",
+              "key": "ctrl+j"
+            },
+            {
+              "title": "Redo, or repeat last keyboard shortcut command",
+              "key": "ctrl+y"
+            },
+            {
+              "title": "Paste and indent correctly",
+              "key": "ctrl+shift+v"
+            },
+            {
+              "title": "Select next auto-complete suggestion",
+              "key": "ctrl+space"
+            },
+            {
+              "title": "soft undo; jumps to your last change before und...",
+              "key": "ctrl+u"
+            },
+            {
+              "title": "Wrap Selection in html tag",
+              "key": "shift+alt+w"
+            },
+            {
+              "title": "Close current html tag",
+              "key": "alt+."
+            },
+            {
+              "title": "Column selection up",
+              "key": "ctrl+alt+up"
+            },
+            {
+              "title": "Column selection down",
+              "key": "ctrl+alt+down"
+            }
+          ]
+        },
+        {
+          "title": "Navigation/Goto Anywhere",
+          "shortcuts": [
+            {
+              "title": "Quick-open files by name",
+              "key": "ctrl+p"
+            },
+            {
+              "title": "Goto symbol",
+              "key": "ctrl+r"
+            },
+            {
+              "title": "Goto word in current file",
+              "key": "ctrl+;"
+            },
+            {
+              "title": "Goto line in current file",
+              "key": "ctrl+g"
+            }
+          ]
+        },
+        {
+          "title": "General",
+          "shortcuts": [
+            {
+              "title": "Command prompt",
+              "key": "ctrl+shift+p"
+            },
+            {
+              "title": "Show scope in status bar",
+              "key": "ctrl+shift+alt+p"
+            }
+          ]
+        },
+        {
+          "title": "Find/Replace",
+          "shortcuts": [
+            {
+              "title": "Find",
+              "key": "ctrl+f"
+            },
+            {
+              "title": "Replace",
+              "key": "ctrl+h"
+            },
+            {
+              "title": "Find in files",
+              "key": "ctrl+shift+f"
+            }
+          ]
+        },
+        {
+          "title": "Tabs",
+          "shortcuts": [
+            {
+              "title": "Open last closed tab",
+              "key": "ctrl+shift+t"
+            },
+            {
+              "title": "Cycle up through tabs",
+              "key": "ctrl+pageup"
+            },
+            {
+              "title": "Close current tab",
+              "key": "ctrl+w"
+            }
+          ]
+        },
+        {
+          "title": "Split window",
+          "shortcuts": [
+            {
+              "title": "Revert view to single column",
+              "key": "shift+alt+1"
+            },
+            {
+              "title": "Split view into two columns",
+              "key": "shift+alt+2"
+            },
+            {
+              "title": "Split view into three columns",
+              "key": "shift+alt+3"
+            },
+            {
+              "title": "Split view into four columns",
+              "key": "shift+alt+4"
+            },
+            {
+              "title": "Set view to grid (4 groups)",
+              "key": "shift+alt+5"
+            },
+            {
+              "title": "Split view into two rows",
+              "key": "shift+alt+8"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

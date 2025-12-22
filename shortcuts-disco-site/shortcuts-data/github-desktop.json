@@ -1,0 +1,62 @@
+{
+  "$schema": "schema/shortcut.schema.json",
+  "bundleId": "com.github.GitHubClient",
+  "name": "GitHub Desktop",
+  "slug": "github-desktop",
+  "source": "https://docs.github.com/en/desktop/installing-and-configuring-github-desktop/overview/keyboard-shortcuts",
+  "icon": "icons/githubdesktop.png",
+  "keymaps": [
+    {
+      "title": "Default",
+      "platforms": [
+        "macos"
+      ],
+      "sections": [
+        {
+          "title": "General",
+          "shortcuts": [
+            {
+              "title": "Go to Preferences",
+              "key": "cmd"
+            }
+          ]
+        },
+        {
+          "title": "Branches",
+          "shortcuts": [
+            {
+              "title": "Select or deselect all highlighted files",
+              "key": "space"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Default (Windows)",
+      "platforms": [
+        "windows"
+      ],
+      "sections": [
+        {
+          "title": "General",
+          "shortcuts": [
+            {
+              "title": "Go to Options",
+              "key": "ctrl"
+            }
+          ]
+        },
+        {
+          "title": "Branches",
+          "shortcuts": [
+            {
+              "title": "Select or deselect all highlighted files",
+              "key": "space"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

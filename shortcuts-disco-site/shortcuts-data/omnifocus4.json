@@ -3,6 +3,7 @@
   "bundleId": "com.omnigroup.OmniFocus4",
   "name": "OmniFocus 4",
   "slug": "omnifocus4",
+  "icon": "icons/omnifocus4.png",
   "keymaps": [
     {
       "title": "Default",

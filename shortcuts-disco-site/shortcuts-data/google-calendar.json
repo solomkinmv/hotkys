@@ -1,0 +1,94 @@
+{
+  "$schema": "schema/shortcut.schema.json",
+  "name": "Google Calendar",
+  "slug": "google-calendar",
+  "hostname": "calendar.google.com",
+  "source": "https://support.google.com/calendar/answer/6143024",
+  "icon": "icons/googlecalendar.png",
+  "keymaps": [
+    {
+      "title": "Default",
+      "platforms": [
+        "macos"
+      ],
+      "sections": [
+        {
+          "title": "Move around the calendar",
+          "shortcuts": [
+            {
+              "title": "Refresh your calendar",
+              "key": "r"
+            },
+            {
+              "title": "Move to the current day",
+              "key": "t"
+            }
+          ]
+        },
+        {
+          "title": "Make changes to an event",
+          "shortcuts": [
+            {
+              "title": "Create a new event",
+              "key": "c"
+            },
+            {
+              "title": "See an event's details",
+              "key": "e"
+            },
+            {
+              "title": "Undo",
+              "key": "z"
+            },
+            {
+              "title": "Return to calendar grid from an event details page",
+              "key": "esc"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Default (Windows)",
+      "platforms": [
+        "windows"
+      ],
+      "sections": [
+        {
+          "title": "Move around the calendar",
+          "shortcuts": [
+            {
+              "title": "Refresh your calendar",
+              "key": "r"
+            },
+            {
+              "title": "Move to the current day",
+              "key": "t"
+            }
+          ]
+        },
+        {
+          "title": "Make changes to an event",
+          "shortcuts": [
+            {
+              "title": "Create a new event",
+              "key": "c"
+            },
+            {
+              "title": "See an event's details",
+              "key": "e"
+            },
+            {
+              "title": "Undo",
+              "key": "z"
+            },
+            {
+              "title": "Return to calendar grid from an event details page",
+              "key": "esc"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

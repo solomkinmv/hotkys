@@ -1,0 +1,341 @@
+{
+  "$schema": "schema/shortcut.schema.json",
+  "bundleId": "com.culturedcode.ThingsMac",
+  "name": "Things",
+  "slug": "things",
+  "source": "https://culturedcode.com/things/support/articles/2785159/",
+  "icon": "icons/things.png",
+  "keymaps": [
+    {
+      "title": "Default",
+      "platforms": [
+        "macos"
+      ],
+      "sections": [
+        {
+          "title": "Create new items",
+          "shortcuts": [
+            {
+              "title": "Create a new to-do",
+              "key": "cmd+n"
+            },
+            {
+              "title": "Create a new to-do below selection",
+              "key": "space"
+            },
+            {
+              "title": "Paste plain text to create new to-dos",
+              "key": "cmd+v"
+            },
+            {
+              "title": "Create a checklist in an open to-do",
+              "key": "shift+cmd+c"
+            },
+            {
+              "title": "Create a new heading",
+              "key": "shift+cmd+n"
+            },
+            {
+              "title": "New heading for selected to-dos",
+              "key": "shift+opt+cmd+n"
+            },
+            {
+              "title": "Create a new project",
+              "key": "opt+cmd+n"
+            },
+            {
+              "title": "Open Quick Entry",
+              "key": "ctrl+space"
+            },
+            {
+              "title": "Open Quick Entry with Autofill",
+              "key": "ctrl+opt+space"
+            }
+          ]
+        },
+        {
+          "title": "Edit items",
+          "shortcuts": [
+            {
+              "title": "Open a to-do or project",
+              "key": "enter"
+            },
+            {
+              "title": "Save and close",
+              "key": "cmd+enter"
+            },
+            {
+              "title": "Save and close",
+              "key": "esc"
+            },
+            {
+              "title": "Duplicate a to-do or project",
+              "key": "cmd+d"
+            },
+            {
+              "title": "Copy a to-do or project",
+              "key": "cmd+c"
+            },
+            {
+              "title": "Paste a to-do or project",
+              "key": "cmd+v"
+            },
+            {
+              "title": "Complete selected items",
+              "key": "cmd+k"
+            },
+            {
+              "title": "Cancel selected items",
+              "key": "opt+cmd+k"
+            },
+            {
+              "title": "Delete selected items",
+              "key": "backspace"
+            },
+            {
+              "title": "Move complete to Logbook",
+              "key": "cmd+l"
+            }
+          ]
+        },
+        {
+          "title": "Select items",
+          "shortcuts": [
+            {
+              "title": "Select item above",
+              "key": "up"
+            },
+            {
+              "title": "Select item below",
+              "key": "down"
+            },
+            {
+              "title": "Extend selection upwards",
+              "key": "shift+up"
+            },
+            {
+              "title": "Extend selection downwards",
+              "key": "shift+down"
+            },
+            {
+              "title": "Extend selection to the top",
+              "key": "shift+opt+up"
+            },
+            {
+              "title": "Extend selection to the bottom",
+              "key": "shift+opt+down"
+            },
+            {
+              "title": "Select everything",
+              "key": "cmd+a"
+            }
+          ]
+        },
+        {
+          "title": "Move items",
+          "shortcuts": [
+            {
+              "title": "Move selection to another list",
+              "key": "shift+cmd+m"
+            },
+            {
+              "title": "Move copied to-dos and projects",
+              "key": "opt+cmd+v"
+            },
+            {
+              "title": "Move selection up",
+              "key": "cmd+up"
+            },
+            {
+              "title": "Move selection down",
+              "key": "cmd+down"
+            },
+            {
+              "title": "Move selections to top of list",
+              "key": "opt+cmd+up"
+            },
+            {
+              "title": "Move selection to bottom of list",
+              "key": "opt+cmd+down"
+            }
+          ]
+        },
+        {
+          "title": "Edit dates",
+          "shortcuts": [
+            {
+              "title": "Show When",
+              "key": "cmd+s"
+            },
+            {
+              "title": "Start Today",
+              "key": "cmd+t"
+            },
+            {
+              "title": "Start This Evening",
+              "key": "cmd+e"
+            },
+            {
+              "title": "Start Anytime",
+              "key": "cmd+r"
+            },
+            {
+              "title": "Start Someday",
+              "key": "cmd+q"
+            },
+            {
+              "title": "Add a Deadline",
+              "key": "shift+cmd+d"
+            },
+            {
+              "title": "Deadline +1 day",
+              "key": "ctrl+."
+            },
+            {
+              "title": "Deadline -1 day",
+              "key": "ctrl"
+            },
+            {
+              "title": "Deadline +1 week",
+              "key": "ctrl+shift+."
+            },
+            {
+              "title": "Make to-do or project repeating",
+              "key": "shift+cmd+r"
+            }
+          ]
+        },
+        {
+          "title": "Control windows",
+          "shortcuts": [
+            {
+              "title": "Open new window",
+              "key": "ctrl+cmd+n"
+            },
+            {
+              "title": "Close current window",
+              "key": "cmd+w"
+            },
+            {
+              "title": "Close all windows",
+              "key": "opt+cmd+w"
+            },
+            {
+              "title": "Hide or show toolbar",
+              "key": "opt+cmd+t"
+            },
+            {
+              "title": "Full screen",
+              "key": "ctrl+cmd+f"
+            }
+          ]
+        },
+        {
+          "title": "Open in new window",
+          "shortcuts": [
+            {
+              "title": "Selected project",
+              "key": "cmd+enter"
+            }
+          ]
+        },
+        {
+          "title": "Navigate",
+          "shortcuts": [
+            {
+              "title": "Go to Inbox",
+              "key": "cmd+1"
+            },
+            {
+              "title": "Go to Today",
+              "key": "cmd+2"
+            },
+            {
+              "title": "Go to Upcoming",
+              "key": "cmd+3"
+            },
+            {
+              "title": "Go to Anytime",
+              "key": "cmd+4"
+            },
+            {
+              "title": "Go to Someday",
+              "key": "cmd+5"
+            },
+            {
+              "title": "Go to Logbook",
+              "key": "cmd+6"
+            },
+            {
+              "title": "Show to-do or project in context",
+              "key": "shift+cmd+l"
+            },
+            {
+              "title": "Enter a selected project",
+              "key": "right"
+            },
+            {
+              "title": "Return to previous list",
+              "key": "left"
+            },
+            {
+              "title": "Scroll to top",
+              "key": "opt+up"
+            },
+            {
+              "title": "Scroll to bottom",
+              "key": "opt+down"
+            },
+            {
+              "title": "Navigate up in the sidebar",
+              "key": "ctrl+opt+cmd+up"
+            },
+            {
+              "title": "Navigate down In the sidebar",
+              "key": "ctrl+opt+cmd+down"
+            }
+          ]
+        },
+        {
+          "title": "Search",
+          "shortcuts": [
+            {
+              "title": "Find",
+              "key": "cmd+f"
+            }
+          ]
+        },
+        {
+          "title": "Tags",
+          "shortcuts": [
+            {
+              "title": "Open tag window",
+              "key": "ctrl+cmd+t"
+            },
+            {
+              "title": "Close tag window",
+              "key": "esc"
+            },
+            {
+              "title": "Acces tag picker for selected to-dos",
+              "key": "shift+cmd+t"
+            },
+            {
+              "title": "Destroy previous filter",
+              "key": "ctrl+esc"
+            }
+          ]
+        },
+        {
+          "title": "Links",
+          "shortcuts": [
+            {
+              "title": "Open a link",
+              "key": "opt+cmd+enter"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

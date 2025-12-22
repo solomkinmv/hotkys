@@ -1,0 +1,128 @@
+{
+  "$schema": "schema/shortcut.schema.json",
+  "bundleId": "pro.writer.mac",
+  "name": "iA Writer",
+  "slug": "ia-writer",
+  "source": "https://ia.net/writer/support/basics/shortcuts",
+  "icon": "icons/iawriter.png",
+  "keymaps": [
+    {
+      "title": "Default",
+      "platforms": [
+        "macos"
+      ],
+      "sections": [
+        {
+          "title": "General",
+          "shortcuts": [
+            {
+              "title": "New",
+              "key": "cmd+n"
+            },
+            {
+              "title": "Close",
+              "key": "cmd+w"
+            },
+            {
+              "title": "Save",
+              "key": "cmd+s"
+            },
+            {
+              "title": "Undo",
+              "key": "cmd+z"
+            },
+            {
+              "title": "Redo",
+              "key": "shift+cmd+z"
+            },
+            {
+              "title": "Copy",
+              "key": "cmd+c"
+            },
+            {
+              "title": "Cut",
+              "key": "cmd+x"
+            },
+            {
+              "title": "Paste",
+              "key": "cmd+v"
+            },
+            {
+              "title": "Select All",
+              "key": "cmd+a"
+            },
+            {
+              "title": "Find",
+              "key": "cmd+f"
+            },
+            {
+              "title": "Show Library",
+              "key": "cmd+e"
+            },
+            {
+              "title": "Show Preview",
+              "key": "cmd+r"
+            },
+            {
+              "title": "Night Mode",
+              "key": "ctrl+cmd+n"
+            }
+          ]
+        },
+        {
+          "title": "Format",
+          "shortcuts": [
+            {
+              "title": "Heading 1",
+              "key": "cmd+1"
+            },
+            {
+              "title": "Heading 2",
+              "key": "cmd+2"
+            },
+            {
+              "title": "Heading 3",
+              "key": "cmd+3"
+            },
+            {
+              "title": "Heading 4",
+              "key": "cmd+4"
+            },
+            {
+              "title": "Heading 5",
+              "key": "cmd+5"
+            },
+            {
+              "title": "Heading 6",
+              "key": "cmd+6"
+            },
+            {
+              "title": "Unordered List",
+              "key": "cmd+l"
+            },
+            {
+              "title": "Mark Task Complete",
+              "key": "cmd+."
+            },
+            {
+              "title": "Emphasis (Italic)",
+              "key": "cmd+i"
+            },
+            {
+              "title": "Importance (Bold)",
+              "key": "cmd+b"
+            },
+            {
+              "title": "Add Link",
+              "key": "cmd+k"
+            },
+            {
+              "title": "Add Footnote",
+              "key": "ctrl+cmd+k"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

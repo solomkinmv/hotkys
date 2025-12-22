@@ -3,6 +3,7 @@
   "name": "Helix",
   "slug": "helix-editor",
   "source": "https://docs.helix-editor.com/keymap.html",
+  "icon": "icons/helix-editor.png",
   "keymaps": [
     {
       "title": "Normal",

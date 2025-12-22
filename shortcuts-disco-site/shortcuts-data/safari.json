@@ -3,6 +3,7 @@
   "bundleId": "com.apple.Safari",
   "name": "Safari",
   "slug": "safari",
+  "icon": "icons/safari.png",
   "keymaps": [
     {
       "title": "Default",

@@ -3,6 +3,7 @@
   "bundleId": "com.design.spline",
   "name": "Spline",
   "slug": "spline",
+  "icon": "icons/spline.png",
   "keymaps": [
     {
       "title": "Default",
@@ -27,7 +28,7 @@
             },
             {
               "title": "Zoom In",
-              "key": "cmd++"
+              "key": "shift+cmd+plus"
             },
             {
               "title": "Zoom Out",

@@ -3,6 +3,7 @@
   "bundleId": "com.apple.iWork.Numbers",
   "name": "Numbers",
   "slug": "numbers",
+  "icon": "icons/numbers.png",
   "keymaps": [
     {
       "title": "Default",

@@ -1,0 +1,136 @@
+{
+  "$schema": "schema/shortcut.schema.json",
+  "bundleId": "com.apple.iCal",
+  "name": "Apple Calendar",
+  "slug": "apple-calendar",
+  "source": "https://support.apple.com/guide/calendar/keyboard-shortcuts-ical002/mac",
+  "icon": "icons/apple-calendar.png",
+  "keymaps": [
+    {
+      "title": "Default",
+      "platforms": [
+        "macos"
+      ],
+      "sections": [
+        {
+          "title": "Calendar shortcuts",
+          "shortcuts": [
+            {
+              "title": "Go to the next day, week, month, or year",
+              "key": "cmd+right"
+            },
+            {
+              "title": "Go to the previous day, week, month, or year",
+              "key": "cmd+left"
+            },
+            {
+              "title": "Go to today’s date",
+              "key": "cmd+t"
+            },
+            {
+              "title": "Go to a specific date",
+              "key": "shift+cmd+t"
+            },
+            {
+              "title": "Switch to Day view",
+              "key": "cmd+1"
+            },
+            {
+              "title": "Switch to Week view",
+              "key": "cmd+2"
+            },
+            {
+              "title": "Switch to Month view",
+              "key": "cmd+3"
+            },
+            {
+              "title": "Switch to Year view",
+              "key": "cmd+4"
+            },
+            {
+              "title": "Switch to full-screen view",
+              "key": "ctrl+cmd+f"
+            },
+            {
+              "title": "Exit full-screen view",
+              "key": "esc"
+            },
+            {
+              "title": "Refresh all calendars",
+              "key": "cmd+r"
+            },
+            {
+              "title": "Add a new calendar group",
+              "key": "shift+cmd+n"
+            },
+            {
+              "title": "Add a new subscribed calendar",
+              "key": "opt+cmd+s"
+            },
+            {
+              "title": "Print a day, week, month, or year calendar",
+              "key": "cmd+p"
+            }
+          ]
+        },
+        {
+          "title": "Event shortcuts",
+          "shortcuts": [
+            {
+              "title": "Add a new event",
+              "key": "cmd+n"
+            },
+            {
+              "title": "Edit the selected event",
+              "key": "cmd+e"
+            },
+            {
+              "title": "Edit the selected event in the inspector window",
+              "key": "opt+cmd+i"
+            },
+            {
+              "title": "Go to the next field",
+              "key": "tab"
+            },
+            {
+              "title": "Go to the previous field",
+              "key": "shift+tab"
+            },
+            {
+              "title": "Close the event editor",
+              "key": "enter"
+            },
+            {
+              "title": "Select the next event",
+              "key": "tab"
+            },
+            {
+              "title": "Select the previous event",
+              "key": "shift+tab"
+            },
+            {
+              "title": "Search for events",
+              "key": "cmd+f"
+            },
+            {
+              "title": "Show information for a calendar or event",
+              "key": "cmd+i"
+            },
+            {
+              "title": "Print the selected events or events in a time r...",
+              "key": "cmd+p"
+            },
+            {
+              "title": "Show or hide the Availability panel",
+              "key": "shift+cmd+a"
+            },
+            {
+              "title": "Open Calendar preferences",
+              "key": "cmd"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

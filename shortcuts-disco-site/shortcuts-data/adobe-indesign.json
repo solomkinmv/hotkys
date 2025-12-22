@@ -1,0 +1,979 @@
+{
+  "$schema": "schema/shortcut.schema.json",
+  "bundleId": "com.adobe.InDesign",
+  "name": "Adobe InDesign",
+  "slug": "adobe-indesign",
+  "source": "https://helpx.adobe.com/indesign/using/default-keyboard-shortcuts.html",
+  "icon": "icons/adobe-indesign.png",
+  "keymaps": [
+    {
+      "title": "Default",
+      "platforms": [
+        "macos"
+      ],
+      "sections": [
+        {
+          "title": "Tools",
+          "shortcuts": [
+            {
+              "title": "Selection tool",
+              "key": "v"
+            },
+            {
+              "title": "Direct Selection tool",
+              "key": "a"
+            },
+            {
+              "title": "Toggle Selection and Direct Selection tool",
+              "key": "ctrl+cmd+tab"
+            },
+            {
+              "title": "Page tool",
+              "key": "shift+p"
+            },
+            {
+              "title": "Gap tool",
+              "key": "u"
+            },
+            {
+              "title": "Pen tool",
+              "key": "p"
+            },
+            {
+              "title": "Delete Anchor Point tool",
+              "key": "plus"
+            },
+            {
+              "title": "Convert Direction Point tool",
+              "key": "shift+c"
+            },
+            {
+              "title": "Type tool",
+              "key": "t"
+            },
+            {
+              "title": "Type On A Path tool",
+              "key": "shift+t"
+            },
+            {
+              "title": "Pencil tool (Note tool)",
+              "key": "n"
+            },
+            {
+              "title": "Rectangle Frame tool",
+              "key": "f"
+            },
+            {
+              "title": "Rectangle tool",
+              "key": "m"
+            },
+            {
+              "title": "Ellipse tool",
+              "key": "l"
+            },
+            {
+              "title": "Rotate tool",
+              "key": "r"
+            },
+            {
+              "title": "Scale tool",
+              "key": "s"
+            },
+            {
+              "title": "Shear tool",
+              "key": "o"
+            },
+            {
+              "title": "Free Transform tool",
+              "key": "e"
+            },
+            {
+              "title": "Eyedropper tool",
+              "key": "i"
+            },
+            {
+              "title": "Measure tool",
+              "key": "k"
+            },
+            {
+              "title": "Gradient tool",
+              "key": "g"
+            },
+            {
+              "title": "Scissors tool",
+              "key": "c"
+            },
+            {
+              "title": "Hand tool",
+              "key": "h"
+            },
+            {
+              "title": "Temporarily selects Hand tool",
+              "key": "opt+space"
+            },
+            {
+              "title": "Zoom tool",
+              "key": "z"
+            },
+            {
+              "title": "Temporarily selects Zoom In tool",
+              "key": "cmd+space"
+            },
+            {
+              "title": "Toggle Fill and Stroke",
+              "key": "x"
+            },
+            {
+              "title": "Swap Fill and Stroke",
+              "key": "shift+x"
+            },
+            {
+              "title": "Toggle formatting target",
+              "key": "j"
+            },
+            {
+              "title": "Switch between Normal View and Preview Mode",
+              "key": "w"
+            },
+            {
+              "title": "Frame Grid tool (horizontal)",
+              "key": "y"
+            },
+            {
+              "title": "Frame Grid tool (vertical)",
+              "key": "q"
+            },
+            {
+              "title": "Gradient Feather tool",
+              "key": "shift+g"
+            }
+          ]
+        },
+        {
+          "title": "Selecting and moving objects",
+          "shortcuts": [
+            {
+              "title": "Select container of selected content",
+              "key": "esc"
+            },
+            {
+              "title": "Select content of selected container",
+              "key": "shift+esc"
+            }
+          ]
+        },
+        {
+          "title": "Transforming objects",
+          "shortcuts": [
+            {
+              "title": "Decrease scale by 1%",
+              "key": "cmd"
+            },
+            {
+              "title": "Decrease scale by 5%",
+              "key": "opt+cmd"
+            },
+            {
+              "title": "Increase scale by 1%",
+              "key": "cmd+."
+            },
+            {
+              "title": "Increase scale by 5%",
+              "key": "opt+cmd+."
+            },
+            {
+              "title": "Toggle display quality",
+              "key": "shift+opt+cmd+z"
+            }
+          ]
+        },
+        {
+          "title": "Editing paths and frames",
+          "shortcuts": [
+            {
+              "title": "Temporarily switch between anchor point tools",
+              "key": "opt"
+            }
+          ]
+        },
+        {
+          "title": "Tables",
+          "shortcuts": [
+            {
+              "title": "Start row on next column",
+              "key": "enter"
+            },
+            {
+              "title": "Start row on next frame",
+              "key": "shift+enter"
+            },
+            {
+              "title": "Toggle between text selection and cell selection",
+              "key": "esc"
+            }
+          ]
+        },
+        {
+          "title": "Working with type",
+          "shortcuts": [
+            {
+              "title": "Bold (only for fonts with bold face)",
+              "key": "shift+cmd+b"
+            },
+            {
+              "title": "Italic (only for fonts with italic face)",
+              "key": "shift+cmd+i"
+            },
+            {
+              "title": "Normal",
+              "key": "shift+cmd+y"
+            },
+            {
+              "title": "Underline",
+              "key": "shift+cmd+u"
+            },
+            {
+              "title": "All caps (on/off)",
+              "key": "shift+cmd+k"
+            },
+            {
+              "title": "Asian language hyphenation",
+              "key": "shift+cmd+k"
+            },
+            {
+              "title": "Small caps (on/off)",
+              "key": "shift+cmd+h"
+            },
+            {
+              "title": "Tate-chu-yoko setting",
+              "key": "shift+cmd+h"
+            },
+            {
+              "title": "Reset horizontal or vertical scale to 100%",
+              "key": "shift+cmd+x"
+            },
+            {
+              "title": "Basic letter group setting or detail setting",
+              "key": "shift+cmd+x"
+            },
+            {
+              "title": "Align left, right, or center",
+              "key": "shift+cmd+l"
+            },
+            {
+              "title": "Justify all lines",
+              "key": "shift+cmd+f"
+            },
+            {
+              "title": "Align both ends or equal spacing",
+              "key": "shift+cmd+f"
+            },
+            {
+              "title": "Increase or decrease point size",
+              "key": "shift+cmd+."
+            },
+            {
+              "title": "Increase or decrease point size by five times",
+              "key": "shift+opt+cmd+."
+            },
+            {
+              "title": "Auto leading",
+              "key": "shift+opt+cmd+a"
+            },
+            {
+              "title": "Align to grid (on/off)",
+              "key": "shift+opt+cmd+g"
+            },
+            {
+              "title": "Auto-hyphenate (on/off)",
+              "key": "shift+opt+cmd+h"
+            },
+            {
+              "title": "Decrease kerning between words",
+              "key": "opt+cmd+backspace"
+            },
+            {
+              "title": "Clear all manual kerning and reset tracking to 0",
+              "key": "opt+cmd+q"
+            },
+            {
+              "title": "Insert current page number",
+              "key": "opt+cmd+n"
+            }
+          ]
+        },
+        {
+          "title": "Navigating through and selecting text",
+          "shortcuts": [
+            {
+              "title": "Select all in story",
+              "key": "cmd+a"
+            },
+            {
+              "title": "Delete word in front of insertion point",
+              "key": "cmd+backspace"
+            }
+          ]
+        },
+        {
+          "title": "Viewing documents and document workspaces",
+          "shortcuts": [
+            {
+              "title": "Temporarily select Zoom In tool",
+              "key": "cmd+space"
+            },
+            {
+              "title": "Temporarily select Zoom Out tool",
+              "key": "opt+cmd+space"
+            },
+            {
+              "title": "Zoom to 50%, 200%, or 400%",
+              "key": "cmd+5"
+            },
+            {
+              "title": "Open new default document",
+              "key": "opt+cmd+n"
+            },
+            {
+              "title": "Switch between current and previous zoom levels",
+              "key": "opt+cmd+2"
+            },
+            {
+              "title": "Activate the Go To command",
+              "key": "cmd+j"
+            },
+            {
+              "title": "Go to master page while \\ panel is closed",
+              "key": "cmd+j"
+            },
+            {
+              "title": "Cycle through units of measurement",
+              "key": "shift+opt+cmd+u"
+            },
+            {
+              "title": "Select all guides",
+              "key": "opt+cmd+g"
+            }
+          ]
+        },
+        {
+          "title": "Control panel",
+          "shortcuts": [
+            {
+              "title": "Toggle focus to/from Control panel",
+              "key": "cmd+6"
+            },
+            {
+              "title": "Toggle Character/Paragraph text attributes mode",
+              "key": "opt+cmd+7"
+            }
+          ]
+        },
+        {
+          "title": "Type panels and dialog boxes",
+          "shortcuts": [
+            {
+              "title": "Open Justification dialog box",
+              "key": "shift+opt+cmd+j"
+            },
+            {
+              "title": "Open Paragraph Rules dialog box",
+              "key": "opt+cmd+j"
+            },
+            {
+              "title": "Open Keep options dialog box",
+              "key": "opt+cmd+k"
+            },
+            {
+              "title": "Activate Character panel",
+              "key": "cmd+t"
+            },
+            {
+              "title": "Activate Paragraph panel",
+              "key": "opt+cmd+t"
+            }
+          ]
+        },
+        {
+          "title": "Tabs panel",
+          "shortcuts": [
+            {
+              "title": "Activate Tabs panel",
+              "key": "shift+cmd+t"
+            }
+          ]
+        },
+        {
+          "title": "Pages panel",
+          "shortcuts": [
+            {
+              "title": "Add new page after last page",
+              "key": "shift+cmd+p"
+            }
+          ]
+        },
+        {
+          "title": "Separations Preview panel",
+          "shortcuts": [
+            {
+              "title": "Turn on Overprint preview",
+              "key": "shift+opt+cmd+y"
+            },
+            {
+              "title": "Show Cyan plate",
+              "key": "shift+opt+cmd+1"
+            },
+            {
+              "title": "Show Magenta plate",
+              "key": "shift+opt+cmd+2"
+            },
+            {
+              "title": "Show Yellow plate",
+              "key": "shift+opt+cmd+3"
+            },
+            {
+              "title": "Show Black plate",
+              "key": "shift+opt+cmd+4"
+            },
+            {
+              "title": "Show 1st Spot plate",
+              "key": "shift+opt+cmd+5"
+            },
+            {
+              "title": "Show 2nd Spot plate",
+              "key": "shift+opt+cmd+6"
+            },
+            {
+              "title": "Show 3rd Spot plate",
+              "key": "shift+opt+cmd+7"
+            }
+          ]
+        },
+        {
+          "title": "Transform panel",
+          "shortcuts": [
+            {
+              "title": "Apply value and copy object",
+              "key": "opt+enter"
+            },
+            {
+              "title": "Apply width, height, or scale value proportionally",
+              "key": "cmd+enter"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Default (Windows)",
+      "platforms": [
+        "windows"
+      ],
+      "sections": [
+        {
+          "title": "Tools",
+          "shortcuts": [
+            {
+              "title": "Selection tool",
+              "key": "v"
+            },
+            {
+              "title": "Direct Selection tool",
+              "key": "a"
+            },
+            {
+              "title": "Toggle Selection and Direct Selection tool",
+              "key": "ctrl+tab"
+            },
+            {
+              "title": "Page tool",
+              "key": "shift+p"
+            },
+            {
+              "title": "Gap tool",
+              "key": "u"
+            },
+            {
+              "title": "Pen tool",
+              "key": "p"
+            },
+            {
+              "title": "Delete Anchor Point tool",
+              "key": "plus"
+            },
+            {
+              "title": "Convert Direction Point tool",
+              "key": "shift+c"
+            },
+            {
+              "title": "Type tool",
+              "key": "t"
+            },
+            {
+              "title": "Type On A Path tool",
+              "key": "shift+t"
+            },
+            {
+              "title": "Pencil tool (Note tool)",
+              "key": "n"
+            },
+            {
+              "title": "Rectangle Frame tool",
+              "key": "f"
+            },
+            {
+              "title": "Rectangle tool",
+              "key": "m"
+            },
+            {
+              "title": "Ellipse tool",
+              "key": "l"
+            },
+            {
+              "title": "Rotate tool",
+              "key": "r"
+            },
+            {
+              "title": "Scale tool",
+              "key": "s"
+            },
+            {
+              "title": "Shear tool",
+              "key": "o"
+            },
+            {
+              "title": "Free Transform tool",
+              "key": "e"
+            },
+            {
+              "title": "Eyedropper tool",
+              "key": "i"
+            },
+            {
+              "title": "Measure tool",
+              "key": "k"
+            },
+            {
+              "title": "Gradient tool",
+              "key": "g"
+            },
+            {
+              "title": "Scissors tool",
+              "key": "c"
+            },
+            {
+              "title": "Hand tool",
+              "key": "h"
+            },
+            {
+              "title": "Temporarily selects Hand tool",
+              "key": "alt+space"
+            },
+            {
+              "title": "Zoom tool",
+              "key": "z"
+            },
+            {
+              "title": "Temporarily selects Zoom In tool",
+              "key": "ctrl+space"
+            },
+            {
+              "title": "Toggle Fill and Stroke",
+              "key": "x"
+            },
+            {
+              "title": "Swap Fill and Stroke",
+              "key": "shift+x"
+            },
+            {
+              "title": "Toggle formatting target",
+              "key": "j"
+            },
+            {
+              "title": "Switch between Normal View and Preview Mode",
+              "key": "w"
+            },
+            {
+              "title": "Frame Grid tool (horizontal)",
+              "key": "y"
+            },
+            {
+              "title": "Frame Grid tool (vertical)",
+              "key": "q"
+            },
+            {
+              "title": "Gradient Feather tool",
+              "key": "shift+g"
+            }
+          ]
+        },
+        {
+          "title": "Selecting and moving objects",
+          "shortcuts": [
+            {
+              "title": "Select container of selected content",
+              "key": "esc"
+            },
+            {
+              "title": "Select content of selected container",
+              "key": "shift+esc"
+            },
+            {
+              "title": "Duplicate and offset selection",
+              "key": "alt+left"
+            },
+            {
+              "title": "Duplicate and offset selection by 10 times",
+              "key": "shift+alt+left"
+            },
+            {
+              "title": "Move selection",
+              "key": "left"
+            },
+            {
+              "title": "Move selection by 10th",
+              "key": "ctrl+shift+left"
+            },
+            {
+              "title": "Move selection by 10 times",
+              "key": "shift+left"
+            }
+          ]
+        },
+        {
+          "title": "Transforming objects",
+          "shortcuts": [
+            {
+              "title": "Decrease scale by 1%",
+              "key": "ctrl"
+            },
+            {
+              "title": "Decrease scale by 5%",
+              "key": "ctrl+alt"
+            },
+            {
+              "title": "Increase scale by 1%",
+              "key": "ctrl+."
+            },
+            {
+              "title": "Increase scale by 5%",
+              "key": "ctrl+alt+."
+            },
+            {
+              "title": "Toggle display quality",
+              "key": "ctrl+shift+alt+z"
+            }
+          ]
+        },
+        {
+          "title": "Editing paths and frames",
+          "shortcuts": [
+            {
+              "title": "Temporarily switch between anchor point tools",
+              "key": "alt"
+            },
+            {
+              "title": "Move anchor point and handles while drawing",
+              "key": "space"
+            }
+          ]
+        },
+        {
+          "title": "Tables",
+          "shortcuts": [
+            {
+              "title": "Start row on next column",
+              "key": "enter"
+            },
+            {
+              "title": "Start row on next frame",
+              "key": "shift+enter"
+            },
+            {
+              "title": "Toggle between text selection and cell selection",
+              "key": "esc"
+            }
+          ]
+        },
+        {
+          "title": "Working with type",
+          "shortcuts": [
+            {
+              "title": "Bold (only for fonts with bold face)",
+              "key": "ctrl+shift+b"
+            },
+            {
+              "title": "Italic (only for fonts with italic face)",
+              "key": "ctrl+shift+i"
+            },
+            {
+              "title": "Normal",
+              "key": "ctrl+shift+y"
+            },
+            {
+              "title": "Underline",
+              "key": "ctrl+shift+u"
+            },
+            {
+              "title": "All caps (on/off)",
+              "key": "ctrl+shift+k"
+            },
+            {
+              "title": "Asian language hyphenation",
+              "key": "ctrl+shift+k"
+            },
+            {
+              "title": "Small caps (on/off)",
+              "key": "ctrl+shift+h"
+            },
+            {
+              "title": "Tate-chu-yoko setting",
+              "key": "ctrl+shift+h"
+            },
+            {
+              "title": "Reset horizontal or vertical scale to 100%",
+              "key": "ctrl+shift+x"
+            },
+            {
+              "title": "Basic letter group setting or detail setting",
+              "key": "ctrl+shift+x"
+            },
+            {
+              "title": "Align left, right, or center",
+              "key": "ctrl+shift+l"
+            },
+            {
+              "title": "Justify all lines",
+              "key": "ctrl+shift+f"
+            },
+            {
+              "title": "Align both ends or equal spacing",
+              "key": "ctrl+shift+f"
+            },
+            {
+              "title": "Increase or decrease point size",
+              "key": "ctrl+shift+."
+            },
+            {
+              "title": "Increase or decrease point size by five times",
+              "key": "ctrl+shift+alt+."
+            },
+            {
+              "title": "Auto leading",
+              "key": "ctrl+shift+alt+a"
+            },
+            {
+              "title": "Align to grid (on/off)",
+              "key": "ctrl+shift+alt+g"
+            },
+            {
+              "title": "Auto-hyphenate (on/off)",
+              "key": "ctrl+shift+alt+h"
+            },
+            {
+              "title": "Decrease kerning between words",
+              "key": "ctrl+alt+backspace"
+            },
+            {
+              "title": "Clear all manual kerning and reset tracking to 0",
+              "key": "ctrl+alt+q"
+            },
+            {
+              "title": "Insert current page number",
+              "key": "ctrl+alt+n"
+            }
+          ]
+        },
+        {
+          "title": "Navigating through and selecting text",
+          "shortcuts": [
+            {
+              "title": "Select all in story",
+              "key": "ctrl+a"
+            },
+            {
+              "title": "Delete word in front of insertion point",
+              "key": "ctrl+backspace"
+            }
+          ]
+        },
+        {
+          "title": "Viewing documents and document workspaces",
+          "shortcuts": [
+            {
+              "title": "Temporarily select Zoom In tool",
+              "key": "ctrl+space"
+            },
+            {
+              "title": "Temporarily select Zoom Out tool",
+              "key": "ctrl+alt+space"
+            },
+            {
+              "title": "Zoom to 50%, 200%, or 400%",
+              "key": "ctrl+5"
+            },
+            {
+              "title": "Open new default document",
+              "key": "ctrl+alt+n"
+            },
+            {
+              "title": "Switch between current and previous zoom levels",
+              "key": "ctrl+alt+2"
+            },
+            {
+              "title": "Activate the Go To command",
+              "key": "ctrl+j"
+            },
+            {
+              "title": "Go to master page while \\ panel is closed",
+              "key": "ctrl+j"
+            },
+            {
+              "title": "Cycle through units of measurement",
+              "key": "ctrl+shift+alt+u"
+            },
+            {
+              "title": "Select all guides",
+              "key": "ctrl+alt+g"
+            }
+          ]
+        },
+        {
+          "title": "Control panel",
+          "shortcuts": [
+            {
+              "title": "Toggle focus to/from Control panel",
+              "key": "ctrl+6"
+            },
+            {
+              "title": "Toggle Character/Paragraph text attributes mode",
+              "key": "ctrl+alt+7"
+            },
+            {
+              "title": "Display the pop-up menu that has focus",
+              "key": "alt+down"
+            }
+          ]
+        },
+        {
+          "title": "Type panels and dialog boxes",
+          "shortcuts": [
+            {
+              "title": "Open Justification dialog box",
+              "key": "ctrl+shift+alt+j"
+            },
+            {
+              "title": "Open Paragraph Rules dialog box",
+              "key": "ctrl+alt+j"
+            },
+            {
+              "title": "Open Keep Options dialog box",
+              "key": "ctrl+alt+k"
+            },
+            {
+              "title": "Activate Character panel",
+              "key": "ctrl+t"
+            },
+            {
+              "title": "Activate Paragraph panel",
+              "key": "ctrl+alt+t"
+            }
+          ]
+        },
+        {
+          "title": "Character and paragraph styles",
+          "shortcuts": [
+            {
+              "title": "Open Justification dialog box",
+              "key": "ctrl+shift+alt+j"
+            },
+            {
+              "title": "Open Paragraph Rules dialog box",
+              "key": "ctrl+alt+j"
+            },
+            {
+              "title": "Open Keep Options dialog box",
+              "key": "ctrl+alt+k"
+            },
+            {
+              "title": "Activate Character panel",
+              "key": "ctrl+t"
+            },
+            {
+              "title": "Activate Paragraph panel",
+              "key": "ctrl+alt+t"
+            }
+          ]
+        },
+        {
+          "title": "Tabs panel",
+          "shortcuts": [
+            {
+              "title": "Activate Tabs panel",
+              "key": "ctrl+shift+t"
+            }
+          ]
+        },
+        {
+          "title": "Pages panel",
+          "shortcuts": [
+            {
+              "title": "Add new page after last page",
+              "key": "ctrl+shift+p"
+            }
+          ]
+        },
+        {
+          "title": "Separations Preview panel",
+          "shortcuts": [
+            {
+              "title": "Turn on Overprint preview",
+              "key": "ctrl+shift+alt+y"
+            },
+            {
+              "title": "Show Cyan plate",
+              "key": "ctrl+shift+alt+1"
+            },
+            {
+              "title": "Show Magenta plate",
+              "key": "ctrl+shift+alt+2"
+            },
+            {
+              "title": "Show Yellow plate",
+              "key": "ctrl+shift+alt+3"
+            },
+            {
+              "title": "Show Black plate",
+              "key": "ctrl+shift+alt+4"
+            },
+            {
+              "title": "Show 1st Spot plate",
+              "key": "ctrl+shift+alt+5"
+            },
+            {
+              "title": "Show 2nd Spot plate",
+              "key": "ctrl+shift+alt+6"
+            },
+            {
+              "title": "Show 3rd Spot plate",
+              "key": "ctrl+shift+alt+7"
+            }
+          ]
+        },
+        {
+          "title": "Transform panel",
+          "shortcuts": [
+            {
+              "title": "Apply value and copy object",
+              "key": "alt+enter"
+            },
+            {
+              "title": "Apply width, height, or scale value proportionally",
+              "key": "ctrl+enter"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

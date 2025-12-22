@@ -4,6 +4,7 @@
   "name": "Zoom",
   "slug": "zoom",
   "source": "https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0067050",
+  "icon": "icons/zoom.png",
   "keymaps": [
     {
       "title": "macOS",
@@ -276,7 +277,7 @@
             },
             {
               "title": "Increase chat display size",
-              "key": "cmd++"
+              "key": "shift+cmd+plus"
             },
             {
               "title": "Decrease chat display size",
@@ -445,7 +446,7 @@
             },
             {
               "title": "Increase chat display size",
-              "key": "ctrl++"
+              "key": "ctrl+shift+plus"
             },
             {
               "title": "Decrease chat display size",

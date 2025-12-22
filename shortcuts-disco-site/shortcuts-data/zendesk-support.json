@@ -4,6 +4,7 @@
   "slug": "zendesk-support",
   "hostname": "*.zendesk.com",
   "source": "https://zen-marketing-documentation.s3.amazonaws.com/docs/en/keyboard_shortcuts.pdf",
+  "icon": "icons/zendesk-support.png",
   "keymaps": [
     {
       "title": "macOS",
@@ -213,7 +214,7 @@
             },
             {
               "title": "Increase heading size",
-              "key": "shift+cmd++"
+              "key": "shift+cmd+plus"
             },
             {
               "title": "Decrease heading size",
@@ -447,7 +448,7 @@
             },
             {
               "title": "Increase heading size",
-              "key": "ctrl+shift++"
+              "key": "ctrl+shift+plus"
             },
             {
               "title": "Decrease heading size",

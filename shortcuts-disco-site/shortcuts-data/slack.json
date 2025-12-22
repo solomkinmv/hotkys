@@ -3,6 +3,8 @@
   "bundleId": "com.tinyspeck.slackmacgap",
   "name": "Slack",
   "slug": "slack",
+  "source": "https://slack.com/help/articles/201374536-Slack-keyboard-shortcuts",
+  "icon": "icons/slack.png",
   "keymaps": [
     {
       "title": "Default",
@@ -11,67 +13,229 @@
       ],
       "sections": [
         {
-          "title": "Basics",
+          "title": "Navigation",
           "shortcuts": [
             {
-              "title": "Compose a new message",
-              "key": "cmd+n"
+              "title": "Move focus to the next element",
+              "key": "tab"
             },
             {
-              "title": "Unsend a message",
-              "key": "cmd+z"
+              "title": "Move focus to the previous element",
+              "key": "shift+tab"
             },
             {
-              "title": "Set your status",
-              "key": "shift+cmd+y"
+              "title": "Take action or \"click\" on buttons",
+              "key": "space"
             },
             {
-              "title": "Open preferences",
-              "key": "cmd+,"
+              "title": "Take action or \"click\" on links",
+              "key": "enter"
             },
             {
-              "title": "Show or hide the left sidebar",
-              "key": "shift+cmd+d"
+              "title": "Close windows, menus, or the message input box",
+              "key": "esc"
             },
             {
-              "title": "Hide the right sidebar",
+              "title": "(This can be toggled in your Preferences.)",
+              "key": "pageup"
+            },
+            {
+              "title": "(This can be toggled in your Preferences.)",
+              "key": "pagedown"
+            },
+            {
+              "title": "Quick Switcher",
+              "key": "cmd+k"
+            },
+            {
+              "title": "(T is desktop app only.)",
+              "key": "cmd+t"
+            },
+            {
+              "title": "Open direct messages menu",
+              "key": "shift+cmd+k"
+            },
+            {
+              "title": "Open All Threads view",
+              "key": "shift+cmd+t"
+            },
+            {
+              "title": "Previous unread channel or DM",
+              "key": "shift+alt+up"
+            },
+            {
+              "title": "Preferences",
+              "key": "cmd"
+            },
+            {
+              "title": "Open or close right pane",
               "key": "cmd+."
             },
             {
-              "title": "Create a new canvas",
-              "key": "shift+cmd+n"
+              "title": "Channel info pane",
+              "key": "shift+cmd+i"
             },
+            {
+              "title": "Activity",
+              "key": "shift+cmd+m"
+            },
+            {
+              "title": "Directory",
+              "key": "shift+cmd+e"
+            },
+            {
+              "title": "Starred Items",
+              "key": "shift+cmd+s"
+            },
+            {
+              "title": "Search the current channel or conversation",
+              "key": "cmd+f"
+            },
+            {
+              "title": "Toggle full screen view",
+              "key": "ctrl+cmd+f"
+            }
+          ]
+        },
+        {
+          "title": "All Unreads navigation",
+          "shortcuts": [
+            {
+              "title": "Open All Unreads view",
+              "key": "shift+cmd+a"
+            },
+            {
+              "title": "Toggle current channel read or unread",
+              "key": "r"
+            }
+          ]
+        },
+        {
+          "title": "Mark messages read or unread",
+          "shortcuts": [
+            {
+              "title": "Mark all messages in current channel or DM as read",
+              "key": "esc"
+            },
+            {
+              "title": "Mark all messages as read",
+              "key": "shift+esc"
+            }
+          ]
+        },
+        {
+          "title": "Message shortcuts",
+          "shortcuts": [
+            {
+              "title": "Select text to beginning of current line",
+              "key": "shift+up"
+            },
+            {
+              "title": "Select text to end of current line",
+              "key": "shift+down"
+            },
+            {
+              "title": "Create a new line in your message",
+              "key": "shift+enter"
+            }
+          ]
+        },
+        {
+          "title": "Files and snippets",
+          "shortcuts": [
             {
               "title": "Upload a file",
               "key": "cmd+u"
             },
             {
+              "title": "Create a new Snippet",
+              "key": "shift+cmd+enter"
+            }
+          ]
+        },
+        {
+          "title": "Call actions",
+          "shortcuts": [
+            {
+              "title": "Toggle mute on and off",
+              "key": "m"
+            },
+            {
+              "title": "Toggle video on and off",
+              "key": "v"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Default (Windows)",
+      "platforms": [
+        "windows"
+      ],
+      "sections": [
+        {
+          "title": "Basics",
+          "shortcuts": [
+            {
+              "title": "Compose a new message",
+              "key": "ctrl+n"
+            },
+            {
+              "title": "Unsend a message",
+              "key": "ctrl+z"
+            },
+            {
+              "title": "Set your status",
+              "key": "ctrl+shift+y"
+            },
+            {
+              "title": "Open preferences",
+              "key": "ctrl+,"
+            },
+            {
+              "title": "Show or hide the left sidebar",
+              "key": "ctrl+shift+d"
+            },
+            {
+              "title": "Hide the right sidebar",
+              "key": "ctrl+."
+            },
+            {
+              "title": "Create a new canvas",
+              "key": "ctrl+shift+n"
+            },
+            {
+              "title": "Upload a file",
+              "key": "ctrl+u"
+            },
+            {
               "title": "View all downloaded files",
-              "key": "shift+cmd+j"
+              "key": "ctrl+shift+j"
             },
             {
               "title": "Create a new snippet",
-              "key": "shift+cmd+enter"
+              "key": "ctrl+shift+enter"
             },
             {
               "title": "Open the directory",
-              "key": "shift+cmd+e"
+              "key": "ctrl+shift+e"
             },
             {
               "title": "Start a search",
-              "key": "cmd+g"
+              "key": "ctrl+g"
             },
             {
               "title": "Search in the current conversation",
-              "key": "cmd+f"
+              "key": "ctrl+f"
             },
             {
               "title": "Start, join, leave, or end a huddle",
-              "key": "shift+cmd+h"
+              "key": "ctrl+shift+h"
             },
             {
               "title": "Toggle mute on a huddle",
-              "key": "shift+cmd+space"
+              "key": "ctrl+shift+space"
             },
             {
               "title": "Open Help",
@@ -79,11 +243,11 @@
             },
             {
               "title": "Toggle full screen view",
-              "key": "ctrl+cmd+f"
+              "key": "ctrl+shift+f"
             },
             {
               "title": "Reopen last closed window",
-              "key": "shift+cmd+w"
+              "key": "ctrl+shift+w"
             }
           ]
         },

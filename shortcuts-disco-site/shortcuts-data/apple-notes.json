@@ -3,6 +3,7 @@
   "bundleId": "com.apple.Notes",
   "name": "Apple Notes",
   "slug": "apple-notes",
+  "icon": "icons/apple-notes.png",
   "keymaps": [
     {
       "title": "Default",
@@ -124,7 +125,7 @@
             },
             {
               "title": "Increase Font Size",
-              "key": "cmd++"
+              "key": "shift+cmd+plus"
             },
             {
               "title": "Decrease Font Size",

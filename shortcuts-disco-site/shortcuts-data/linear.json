@@ -1,0 +1,300 @@
+{
+  "$schema": "schema/shortcut.schema.json",
+  "hostname": "linear.app",
+  "name": "Linear",
+  "slug": "linear",
+  "source": "https://linear.app/changelog/2021-03-25-keyboard-shortcuts-help",
+  "icon": "icons/linear.png",
+  "keymaps": [
+    {
+      "title": "Default",
+      "platforms": [
+        "macos",
+        "windows"
+      ],
+      "sections": [
+        {
+          "title": "General",
+          "shortcuts": [
+            {
+              "title": "Open command menu",
+              "key": "cmd+k"
+            },
+            {
+              "title": "Save or submit",
+              "key": "cmd+enter"
+            },
+            {
+              "title": "Back",
+              "key": "esc"
+            },
+            {
+              "title": "Peek into issue",
+              "key": "space"
+            },
+            {
+              "title": "Open focused item",
+              "key": "enter"
+            },
+            {
+              "title": "Select in a list",
+              "key": "x"
+            },
+            {
+              "title": "Clear a list selection",
+              "key": "esc"
+            },
+            {
+              "title": "Move up",
+              "key": "up"
+            },
+            {
+              "title": "Move down",
+              "key": "down"
+            },
+            {
+              "title": "Move right",
+              "key": "right"
+            },
+            {
+              "title": "Move left",
+              "key": "left"
+            },
+            {
+              "title": "Log out",
+              "key": "shift+opt+q"
+            }
+          ]
+        },
+        {
+          "title": "Navigation",
+          "shortcuts": [
+            {
+              "title": "Open parent issue",
+              "key": "shift+cmd+up"
+            },
+            {
+              "title": "Open sub issue",
+              "key": "shift+cmd+down"
+            },
+            {
+              "title": "Open details sidebar",
+              "key": "cmd+i"
+            },
+            {
+              "title": "Toggle list / board view",
+              "key": "cmd+b"
+            }
+          ]
+        },
+        {
+          "title": "Issue actions",
+          "shortcuts": [
+            {
+              "title": "New issue",
+              "key": "c"
+            },
+            {
+              "title": "New issue from template",
+              "key": "opt+c"
+            },
+            {
+              "title": "New issue in full screen view",
+              "key": "v"
+            },
+            {
+              "title": "Edit issue",
+              "key": "e"
+            },
+            {
+              "title": "Assign to user",
+              "key": "a"
+            },
+            {
+              "title": "Assign to me",
+              "key": "i"
+            },
+            {
+              "title": "Change labels",
+              "key": "l"
+            },
+            {
+              "title": "Remove label",
+              "key": "shift+l"
+            },
+            {
+              "title": "Change status",
+              "key": "s"
+            },
+            {
+              "title": "Change priority",
+              "key": "p"
+            },
+            {
+              "title": "Change estimate",
+              "key": "shift+e"
+            },
+            {
+              "title": "Set due date",
+              "key": "shift+d"
+            },
+            {
+              "title": "Remove due date",
+              "key": "shift+cmd+d"
+            },
+            {
+              "title": "Rename",
+              "key": "r"
+            },
+            {
+              "title": "Move to another team",
+              "key": "shift+cmd+m"
+            },
+            {
+              "title": "Delete issue",
+              "key": "cmd+backspace"
+            },
+            {
+              "title": "Subscribe to issue",
+              "key": "shift+s"
+            },
+            {
+              "title": "Manage issue subscribers",
+              "key": "shift+cmd+s"
+            },
+            {
+              "title": "Link any URL to issue…",
+              "key": "ctrl+l"
+            },
+            {
+              "title": "Filter issues",
+              "key": "f"
+            },
+            {
+              "title": "Clear last issue filter",
+              "key": "shift+f"
+            },
+            {
+              "title": "Clear all issue filters",
+              "key": "shift+opt+f"
+            },
+            {
+              "title": "Copy issue ID",
+              "key": "cmd+."
+            },
+            {
+              "title": "Copy git branch name",
+              "key": "shift+cmd+."
+            },
+            {
+              "title": "Copy issue URL",
+              "key": "shift+cmd"
+            },
+            {
+              "title": "Create sub-issue",
+              "key": "shift+cmd+o"
+            },
+            {
+              "title": "Add to cycle",
+              "key": "shift+c"
+            },
+            {
+              "title": "Add to project",
+              "key": "shift+p"
+            },
+            {
+              "title": "Comment on issue",
+              "key": "ctrl+m"
+            },
+            {
+              "title": "Add to active cycle",
+              "key": "shift+cmd+c"
+            }
+          ]
+        },
+        {
+          "title": "Editor",
+          "shortcuts": [
+            {
+              "title": "Bold",
+              "key": "cmd+b"
+            },
+            {
+              "title": "Italic",
+              "key": "cmd+i"
+            },
+            {
+              "title": "Underline",
+              "key": "cmd+u"
+            },
+            {
+              "title": "Strikethrough",
+              "key": "cmd+d"
+            },
+            {
+              "title": "Blockquote",
+              "key": "cmd+."
+            },
+            {
+              "title": "Large header",
+              "key": "ctrl+shift+1"
+            },
+            {
+              "title": "Medium header",
+              "key": "ctrl+shift+2"
+            },
+            {
+              "title": "Small header",
+              "key": "ctrl+shift+3"
+            },
+            {
+              "title": "Todo list",
+              "key": "shift+cmd+7"
+            },
+            {
+              "title": "Bulleted list",
+              "key": "shift+cmd+8"
+            },
+            {
+              "title": "Numbered list",
+              "key": "shift+cmd+9"
+            },
+            {
+              "title": "Attach image / file",
+              "key": "shift+cmd+a"
+            },
+            {
+              "title": "Inline code",
+              "key": "shift+cmd+c"
+            },
+            {
+              "title": "Turn text into link",
+              "key": "cmd+k"
+            },
+            {
+              "title": "Undo",
+              "key": "cmd+z"
+            },
+            {
+              "title": "Redo",
+              "key": "shift+cmd+z"
+            }
+          ]
+        },
+        {
+          "title": "Markdown",
+          "shortcuts": [
+            {
+              "title": "Bulleted list",
+              "key": "plus"
+            },
+            {
+              "title": "Blockquote",
+              "key": "shift+."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from "next/link";
 import { FOOTER_LINKS, SOCIAL_LINKS } from "@/lib/constants/navigation";
+import { TypographyXs } from "@/components/ui/typography";
 
 /**
  * Footer component for the application
@@ -10,27 +11,27 @@ export const Footer = () => {
   return (
     <footer className="flex items-center justify-between border-t p-6">
       {/* Copyright and issue reporting */}
-      <div className="text-xs text-muted-foreground">
-        <p className="m-0">
+      <div className="space-y-0">
+        <TypographyXs>
           Made by <Link href="https://solomk.in" className="underline">Maksym Solomkin</Link>
-        </p>
+        </TypographyXs>
 
         {/* Footer links */}
         {FOOTER_LINKS.map(link => (
-          <p key={link.href} className="m-0">
+          <TypographyXs key={link.href} className="block">
             <Link href={link.href} className="underline">
               {link.label}
             </Link>
-          </p>
+          </TypographyXs>
         ))}
       </div>
-      
+
       {/* Social media links */}
       <nav className="flex gap-4">
         {SOCIAL_LINKS.map(link => (
-          <Link 
+          <Link
             key={link.href}
-            className="text-xs underline-offset-4 hover:underline"
+            className="text-xs text-muted-foreground underline-offset-4 hover:underline"
             href={link.href}
           >
             {link.label}

@@ -1,6 +1,7 @@
 import React, {useEffect, useRef} from 'react';
 import {Section} from "@/lib/model/internal/internal-models";
 import Link from "next/link";
+import {TypographyMuted, TypographySmall} from "@/components/ui/typography";
 
 function useAnchorRefs(sections: Section[]) {
     const anchorRefs = useRef<Record<string, React.RefObject<HTMLAnchorElement | null>>>({});
@@ -10,9 +11,10 @@ function useAnchorRefs(sections: Section[]) {
     return anchorRefs;
 }
 
-const TableOfContents = ({sections, sectionRefs}: {
+const TableOfContents = ({sections, sectionRefs, onSectionClick}: {
     sections: Section[],
-    sectionRefs: React.MutableRefObject<Record<string, React.RefObject<HTMLDivElement | null>>>
+    sectionRefs: React.MutableRefObject<Record<string, React.RefObject<HTMLDivElement | null>>>,
+    onSectionClick?: () => void
 }) => {
     const observer = useRef<IntersectionObserver | null>(null);
     const anchorRefs = useAnchorRefs(sections);
@@ -55,13 +57,14 @@ const TableOfContents = ({sections, sectionRefs}: {
 
     return (
         <div className="sticky top-0">
-            <h2 className="mb-2 text-lg font-bold">Sections</h2>
+            <TypographyMuted className="mb-2 font-semibold">Sections</TypographyMuted>
             {sections.map((section) => (
                 <Link href={`#${section.title}`}
                       key={section.title}
                       ref={anchorRefs.current[section.title]}
-                      className="block cursor-pointer px-2 py-1 not-prose hover:bg-accent">
-                    {section.title}
+                      className="block cursor-pointer rounded-md px-2 py-1 not-prose hover:bg-accent"
+                      onClick={onSectionClick}>
+                    <TypographySmall>{section.title}</TypographySmall>
                 </Link>
             ))}
         </div>
