@@ -2,26 +2,27 @@
  * Navigation constants for the application
  */
 
-// Main navigation links
+export type NavIconKey = "HelpCircle" | "Raycast";
+
+// Main navigation links (Home excluded since logo links to /)
 export const MAIN_NAV_LINKS = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
-  { href: "/raycast-extension", label: "Raycast Extension" },
-];
+  { href: "/about", label: "About", icon: "HelpCircle" },
+  { href: "/raycast-extension", label: "Raycast Extension", icon: "Raycast" },
+] as const satisfies readonly { href: string; label: string; icon: NavIconKey }[];
 
 // Social media links
 export const SOCIAL_LINKS = [
-  { 
-    href: "https://twitter.com/solomkinmv", 
+  {
+    href: "https://twitter.com/solomkinmv",
     label: "Twitter",
-    icon: "TwitterIcon" 
+    icon: "TwitterIcon"
   },
-  { 
-    href: "https://github.com/solomkinmv/shortcuts-disco", 
+  {
+    href: "https://github.com/solomkinmv/shortcuts-disco",
     label: "GitHub",
-    icon: "GithubIcon" 
+    icon: "GithubIcon"
   },
-];
+] as const;
 
 // Footer links
 export const FOOTER_LINKS = [
