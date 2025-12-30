@@ -1,0 +1,67 @@
+{
+  "$schema": "schema/shortcut.schema.json",
+  "bundleId": "com.anthropic.claudefordesktop",
+  "hostname": "claude.ai",
+  "name": "Claude",
+  "slug": "claude",
+  "source": "https://support.claude.com/en/articles/12626668-use-quick-entry-with-claude-desktop-on-mac",
+  "icon": "icons/claude.png",
+  "keymaps": [
+    {
+      "title": "Default",
+      "platforms": ["macos"],
+      "sections": [
+        {
+          "title": "General",
+          "shortcuts": [
+            {
+              "title": "Quick chat",
+              "key": "cmd+k"
+            },
+            {
+              "title": "Incognito chat",
+              "key": "shift+cmd+i"
+            },
+            {
+              "title": "Toggle sidebar",
+              "key": "cmd+."
+            },
+            {
+              "title": "Keyboard shortcuts",
+              "key": "cmd+/"
+            },
+            {
+              "title": "Settings",
+              "key": "shift+cmd+,"
+            }
+          ]
+        },
+        {
+          "title": "In chats",
+          "shortcuts": [
+            {
+              "title": "Send message",
+              "key": "enter"
+            },
+            {
+              "title": "New line in message",
+              "key": "shift+enter"
+            },
+            {
+              "title": "Toggle extended thinking",
+              "key": "shift+cmd+e"
+            },
+            {
+              "title": "Upload file",
+              "key": "cmd+u"
+            },
+            {
+              "title": "Stop Claude's response",
+              "key": "esc"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
