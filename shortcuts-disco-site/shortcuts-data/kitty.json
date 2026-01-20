@@ -1,0 +1,254 @@
+{
+  "$schema": "schema/shortcut.schema.json",
+  "bundleId": "net.kovidgoyal.kitty",
+  "name": "Kitty",
+  "slug": "kitty",
+  "source": "https://sw.kovidgoyal.net/kitty/overview/",
+  "icon": "icons/kitty.png",
+  "keymaps": [
+    {
+      "title": "Default",
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "sections": [
+        {
+          "title": "Scrolling",
+          "shortcuts": [
+            {
+              "title": "Line up",
+              "key": "ctrl+shift+up"
+            },
+            {
+              "title": "Line down",
+              "key": "ctrl+shift+down"
+            },
+            {
+              "title": "Page up",
+              "key": "ctrl+shift+pageup"
+            },
+            {
+              "title": "Page down",
+              "key": "ctrl+shift+pagedown"
+            },
+            {
+              "title": "Scroll to top",
+              "key": "ctrl+shift+home"
+            },
+            {
+              "title": "Scroll to bottom",
+              "key": "ctrl+shift+end"
+            },
+            {
+              "title": "Previous shell prompt",
+              "key": "ctrl+shift+z"
+            },
+            {
+              "title": "Next shell prompt",
+              "key": "ctrl+shift+x"
+            },
+            {
+              "title": "Browse scrollback in pager",
+              "key": "ctrl+shift+h"
+            },
+            {
+              "title": "Browse last command output",
+              "key": "ctrl+shift+g"
+            },
+            {
+              "title": "Search scrollback",
+              "key": "ctrl+shift+/"
+            }
+          ]
+        },
+        {
+          "title": "Tabs",
+          "shortcuts": [
+            {
+              "title": "New tab",
+              "key": "ctrl+shift+t"
+            },
+            {
+              "title": "Close tab",
+              "key": "ctrl+shift+q"
+            },
+            {
+              "title": "Next tab",
+              "key": "ctrl+shift+right"
+            },
+            {
+              "title": "Previous tab",
+              "key": "ctrl+shift+left"
+            },
+            {
+              "title": "Next layout",
+              "key": "ctrl+shift+l"
+            },
+            {
+              "title": "Move tab forward",
+              "key": "ctrl+shift+."
+            },
+            {
+              "title": "Move tab backward",
+              "key": "ctrl+shift+,"
+            },
+            {
+              "title": "Set tab title",
+              "key": "ctrl+shift+alt+t"
+            }
+          ]
+        },
+        {
+          "title": "Windows",
+          "shortcuts": [
+            {
+              "title": "New window",
+              "key": "ctrl+shift+enter"
+            },
+            {
+              "title": "New OS window",
+              "key": "ctrl+shift+n"
+            },
+            {
+              "title": "Close window",
+              "key": "ctrl+shift+w"
+            },
+            {
+              "title": "Resize window",
+              "key": "ctrl+shift+r"
+            },
+            {
+              "title": "Next window",
+              "key": "ctrl+shift+]"
+            },
+            {
+              "title": "Previous window",
+              "key": "ctrl+shift+["
+            },
+            {
+              "title": "Move window forward",
+              "key": "ctrl+shift+f"
+            },
+            {
+              "title": "Move window backward",
+              "key": "ctrl+shift+b"
+            },
+            {
+              "title": "Move window to top",
+              "key": "ctrl+shift+`"
+            },
+            {
+              "title": "Visually focus window",
+              "key": "ctrl+shift+f7"
+            },
+            {
+              "title": "Visually swap window",
+              "key": "ctrl+shift+f8"
+            }
+          ]
+        },
+        {
+          "title": "Clipboard",
+          "shortcuts": [
+            {
+              "title": "Show help",
+              "key": "ctrl+shift+f1"
+            },
+            {
+              "title": "Copy to clipboard",
+              "key": "ctrl+shift+c"
+            },
+            {
+              "title": "Paste from clipboard",
+              "key": "ctrl+shift+v"
+            },
+            {
+              "title": "Paste from selection",
+              "key": "ctrl+shift+s"
+            },
+            {
+              "title": "Pass selection to program",
+              "key": "ctrl+shift+o"
+            }
+          ]
+        },
+        {
+          "title": "Font & View",
+          "shortcuts": [
+            {
+              "title": "Increase font size",
+              "key": "ctrl+shift+="
+            },
+            {
+              "title": "Decrease font size",
+              "key": "ctrl+shift+-"
+            },
+            {
+              "title": "Restore font size",
+              "key": "ctrl+shift+backspace"
+            },
+            {
+              "title": "Toggle fullscreen",
+              "key": "ctrl+shift+f11"
+            },
+            {
+              "title": "Toggle maximized",
+              "key": "ctrl+shift+f10"
+            }
+          ]
+        },
+        {
+          "title": "Configuration & Misc",
+          "shortcuts": [
+            {
+              "title": "Input Unicode character",
+              "key": "ctrl+shift+u"
+            },
+            {
+              "title": "Open URL in browser",
+              "key": "ctrl+shift+e"
+            },
+            {
+              "title": "Reset the terminal",
+              "key": "ctrl+shift+delete"
+            },
+            {
+              "title": "Edit kitty.conf",
+              "key": "ctrl+shift+f2"
+            },
+            {
+              "title": "Reload kitty.conf",
+              "key": "ctrl+shift+f5"
+            },
+            {
+              "title": "Debug kitty.conf",
+              "key": "ctrl+shift+f6"
+            },
+            {
+              "title": "Open a kitty shell",
+              "key": "ctrl+shift+esc"
+            },
+            {
+              "title": "Increase background opacity",
+              "key": "ctrl+shift+a m"
+            },
+            {
+              "title": "Decrease background opacity",
+              "key": "ctrl+shift+a l"
+            },
+            {
+              "title": "Full background opacity",
+              "key": "ctrl+shift+a 1"
+            },
+            {
+              "title": "Reset background opacity",
+              "key": "ctrl+shift+a d"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
