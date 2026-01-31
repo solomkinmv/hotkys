@@ -97,7 +97,7 @@
 - [x] Run tests — must pass before next task
 
 ### Task 4: Implement Windows shortcut execution
-- [ ] Create `src/engine/windows-shortcut-runner.ts` with PowerShell-based execution
+- [x] Create `src/engine/windows-shortcut-runner.ts` with PowerShell-based execution
   - Build PowerShell script that:
     1. Loads `System.Windows.Forms` assembly
     2. Activates target app window (by process name or windowsAppId)
@@ -106,12 +106,12 @@
   - Map modifier enums to SendKeys format: `ctrl` → `^`, `alt/opt` → `%`, `shift` → `+`
   - Map base keys to SendKeys format: letters stay as-is, special keys get `{KEY}` syntax
   - Support chord sequences (multiple key combos in series)
-- [ ] Use `runPowerShellScript` from `@raycast/utils` to execute the script
-- [ ] Update `src/engine/shortcut-runner.ts` (`runShortcuts` function) to dispatch to Windows runner when `getPlatform() === "windows"`
-- [ ] Remove the early-return error toast for non-macOS platforms
-- [ ] Write tests for PowerShell script generation (string output verification)
-- [ ] Write tests for SendKeys modifier/key mapping
-- [ ] Run tests — must pass before next task
+- [x] Use `runPowerShellScript` from `@raycast/utils` to execute the script
+- [x] Update `src/engine/shortcut-runner.ts` (`runShortcuts` function) to dispatch to Windows runner when `getPlatform() === "windows"`
+- [x] Remove the early-return error toast for non-macOS platforms
+- [x] Write tests for PowerShell script generation (string output verification)
+- [x] Write tests for SendKeys modifier/key mapping
+- [x] Run tests — must pass before next task
 
 ### Task 5: Implement Windows browser URL extraction
 - [ ] Create `src/engine/windows-hostname-fetcher.ts` with PowerShell-based URL extraction

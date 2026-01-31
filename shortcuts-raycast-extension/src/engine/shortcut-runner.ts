@@ -1,8 +1,8 @@
-import { showToast, Toast } from "@raycast/api";
 import { spawn } from "child_process";
 import { AtomicShortcut } from "../model/internal/internal-models";
 import { KeyCodes } from "../load/key-codes-provider";
 import { getPlatform } from "../load/platform";
+import { runWindowsShortcuts } from "./windows-shortcut-runner";
 
 interface Chord {
   keyCode: number;
@@ -33,10 +33,13 @@ export async function runShortcuts(
   bundleId: string | undefined,
   delaySeconds: number,
   sequence: AtomicShortcut[],
-  keyCodes: KeyCodes
+  keyCodes: KeyCodes,
+  windowsAppId?: string | undefined
 ): Promise<void> {
-  if (getPlatform() !== "macos") {
-    await showToast({ style: Toast.Style.Failure, title: "Shortcut execution is only supported on macOS" });
+  const platform = getPlatform();
+
+  if (platform === "windows") {
+    await runWindowsShortcuts(windowsAppId, delaySeconds, sequence);
     return;
   }
 

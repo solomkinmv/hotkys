@@ -33,7 +33,13 @@ export function ShortcutsList({ application, isLoading: externalLoading }: Short
     if (keyCodesResponse.data === undefined) return;
     const delay: number = parseFloat(getPreferenceValues<Preferences>().delay);
     await closeMainWindow({ popToRootType: PopToRootType.Immediate });
-    await runShortcuts(application.bundleId, delay, sectionShortcut.sequence, keyCodesResponse.data);
+    await runShortcuts(
+      application.bundleId,
+      delay,
+      sectionShortcut.sequence,
+      keyCodesResponse.data,
+      application.windowsAppId
+    );
   };
 
   const handleKeymapChange = (newValue: string) => {

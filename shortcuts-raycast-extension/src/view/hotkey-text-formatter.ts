@@ -69,7 +69,7 @@ export function generateHotkeyText(shortcut: SectionShortcut, platform: Platform
 
 export function generateHotkeyAccessories(
   shortcut: SectionShortcut,
-  platform: Platform = getPlatform(),
+  platform: Platform = getPlatform()
 ): List.Item.Accessory[] {
   const accessories: List.Item.Accessory[] = [];
   const modifierSymbols = getModifierSymbols(platform);
