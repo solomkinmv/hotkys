@@ -42,6 +42,13 @@ function mapBaseKeyToSendKeys(base: string): string {
     f14: "{F14}",
     f15: "{F15}",
     f16: "{F16}",
+    insert: "{INSERT}",
+    pause: "{BREAK}",
+    scrolllock: "{SCROLLLOCK}",
+    numlock: "{NUMLOCK}",
+    capslock: "{CAPSLOCK}",
+    printscreen: "{PRTSC}",
+    break: "{BREAK}",
   };
 
   const lowerBase = base.toLowerCase();
@@ -49,8 +56,13 @@ function mapBaseKeyToSendKeys(base: string): string {
     return specialKeys[lowerBase];
   }
 
-  // Single character keys stay as-is
+  // Single character keys - escape SendKeys meta-characters
   if (base.length === 1) {
+    // Characters that have special meaning in SendKeys must be escaped with braces
+    const metaChars = /[+^%~(){}[\]]/;
+    if (metaChars.test(base)) {
+      return `{${base}}`;
+    }
     return base;
   }
 
@@ -136,7 +148,7 @@ if ($appId -ne "") {
   }
 }
 
-$chords = ${chordsJson} | ConvertFrom-Json
+$chords = '${chordsJson}' | ConvertFrom-Json
 foreach ($chord in $chords) {
   [System.Windows.Forms.SendKeys]::SendWait($chord.keysString)
 }

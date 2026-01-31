@@ -187,7 +187,7 @@ describe("Windows Shortcut Runner", () => {
       const script = buildPowerShellScript("code", 100, sequence);
 
       // Extract the JSON portion and verify it's valid
-      const jsonMatch = script.match(/\$chords = (\[.*?\]) \| ConvertFrom-Json/s);
+      const jsonMatch = script.match(/\$chords = '(\[.*?\])' \| ConvertFrom-Json/s);
       expect(jsonMatch).toBeTruthy();
       if (jsonMatch) {
         const parsedChords = JSON.parse(jsonMatch[1]);

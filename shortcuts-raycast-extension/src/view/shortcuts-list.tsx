@@ -52,13 +52,21 @@ export function ShortcutsList({ application, isLoading: externalLoading }: Short
       return;
     }
     await closeMainWindow({ popToRootType: PopToRootType.Immediate });
-    await runShortcuts(
-      application.bundleId,
-      delay,
-      sectionShortcut.sequence,
-      keyCodesResponse.data,
-      application.windowsAppId
-    );
+    try {
+      await runShortcuts(
+        application.bundleId,
+        delay,
+        sectionShortcut.sequence,
+        keyCodesResponse.data,
+        application.windowsAppId
+      );
+    } catch (error) {
+      await showToast({
+        style: Toast.Style.Failure,
+        title: "Failed to execute shortcut",
+        message: error instanceof Error ? error.message : String(error),
+      });
+    }
   };
 
   const handleKeymapChange = (newValue: string) => {
