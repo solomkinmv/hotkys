@@ -120,8 +120,14 @@ export function buildPowerShellScript(
   }
 
   // Validate windowsAppId format to prevent injection
-  if (windowsAppId && !/^[a-zA-Z0-9._-]+(?:\.exe)?$/.test(windowsAppId)) {
-    throw new Error(`Invalid Windows app ID format: ${windowsAppId}`);
+  // Allow alphanumeric with dots, hyphens, underscores, but no consecutive dots or path separators
+  if (windowsAppId) {
+    if (
+      !/^[a-zA-Z0-9]([a-zA-Z0-9_-]*(\.[a-zA-Z0-9_-]+)*)?(?:\.exe)?$/.test(windowsAppId) ||
+      /\.\./.test(windowsAppId)
+    ) {
+      throw new Error(`Invalid Windows app ID format: ${windowsAppId}`);
+    }
   }
 
   const chords: SendKeysChord[] = sequence.map((atomic) => ({
@@ -130,6 +136,9 @@ export function buildPowerShellScript(
 
   const chordsJson = JSON.stringify(chords);
   const appIdLiteral = windowsAppId ? JSON.stringify(windowsAppId) : '""';
+
+  // Encode chords JSON as base64 to prevent injection via special characters
+  const chordsBase64 = Buffer.from(chordsJson).toString("base64");
 
   // Strip .exe extension for ProcessName matching
   return `
@@ -148,7 +157,8 @@ if ($appId -ne "") {
   }
 }
 
-$chords = '${chordsJson}' | ConvertFrom-Json
+$chordsJson = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String('${chordsBase64}'))
+$chords = $chordsJson | ConvertFrom-Json
 foreach ($chord in $chords) {
   [System.Windows.Forms.SendKeys]::SendWait($chord.keysString)
 }
@@ -160,6 +170,9 @@ export async function runWindowsShortcuts(
   delaySeconds: number,
   sequence: AtomicShortcut[]
 ): Promise<void> {
+  if (delaySeconds < 0) {
+    throw new Error("Delay must be non-negative");
+  }
   const delayMilliseconds = Math.round(delaySeconds * 1000);
   const script = buildPowerShellScript(windowsAppId, delayMilliseconds, sequence);
 

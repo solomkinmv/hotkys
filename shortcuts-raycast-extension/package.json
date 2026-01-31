@@ -64,8 +64,8 @@
     },
     {
       "name": "current-app",
-      "title": "Copy Current App's Bundle ID",
-      "description": "Saves current app's bundle id in the clipboard",
+      "title": "Copy Current App ID",
+      "description": "Saves current app's bundle ID (macOS) or Windows app ID (Windows) in the clipboard",
       "mode": "no-view"
     }
   ],

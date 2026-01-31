@@ -11,7 +11,7 @@ interface Chord {
 
 function buildJxaScript(bundleId: string, delaySeconds: number, chords: Chord[]): string {
   // Validate bundleId format to prevent injection
-  if (bundleId && !/^[a-zA-Z0-9.-]+$/.test(bundleId)) {
+  if (bundleId && !/^[a-zA-Z0-9]+([.-][a-zA-Z0-9]+)*$/.test(bundleId)) {
     throw new Error(`Invalid bundle ID format: ${bundleId}`);
   }
 

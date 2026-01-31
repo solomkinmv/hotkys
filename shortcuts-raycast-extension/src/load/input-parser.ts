@@ -106,7 +106,7 @@ export class ShortcutsParser {
   }
 
   private parseSingleShortcut(inputShortcut: InputShortcut): SectionShortcut {
-    const chords = inputShortcut.key?.split(" ");
+    const chords = inputShortcut.key?.split(" ").filter((c) => c.length > 0);
     const atomicSequence = chords?.map((chord) => this.parseChord(chord));
     return {
       title: inputShortcut.title,
