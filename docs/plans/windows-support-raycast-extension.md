@@ -79,16 +79,16 @@
 - [x] Run tests — must pass before next task
 
 ### Task 2: Make modifier system platform-aware
-- [ ] Refactor `src/model/internal/modifiers.ts` to support both macOS and Windows modifier representations
+- [x] Refactor `src/model/internal/modifiers.ts` to support both macOS and Windows modifier representations
   - macOS: `"command down"`, `"control down"`, `"option down"`, `"shift down"` (for JXA)
   - Windows: `"^"` (Ctrl), `"%"` (Alt), `"+"` (Shift) (for SendKeys)
   - Keep macOS modifier enum values unchanged for backward compatibility
   - Add Windows-specific modifier symbols for display: `"Ctrl"`, `"Alt"`, `"Shift"`, `"Win"`
-- [ ] Add `win` modifier token (mapped to Windows key) for Windows shortcuts that use `win` modifier
-- [ ] Update `modifierMapping` to include `"win"` token
-- [ ] Update `modifierSymbols` to be platform-aware — return `"⌘"` on macOS, `"Ctrl"` on Windows, etc.
-- [ ] Write tests for platform-specific modifier mapping and symbols
-- [ ] Run tests — must pass before next task
+- [x] Add `win` modifier token (mapped to Windows key) for Windows shortcuts that use `win` modifier
+- [x] Update `modifierMapping` to include `"win"` token
+- [x] Update `modifierSymbols` to be platform-aware — return `"⌘"` on macOS, `"Ctrl"` on Windows, etc.
+- [x] Write tests for platform-specific modifier mapping and symbols
+- [x] Run tests — must pass before next task
 
 ### Task 3: Make hotkey text formatter platform-aware
 - [ ] Update `src/view/hotkey-text-formatter.ts` to use platform-aware modifier symbols
