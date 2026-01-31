@@ -2,6 +2,7 @@
 
 ## [Update] - {PR_MERGE_DATE}
 
+- Add Windows platform support (shortcuts execution, browser URL extraction, app matching)
 - Add support for platform-specific keymaps
 - Add application icons support
 - Fix shortcut runner

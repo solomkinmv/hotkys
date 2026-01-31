@@ -150,8 +150,8 @@
 - [x] Verify type checking passes (`tsc --noEmit` or equivalent)
 
 ### Task 9: [Final] Update documentation
-- [ ] Update README.md if needed (mention Windows support)
-- [ ] Add any relevant notes to CLAUDE.md or project docs about Windows-specific patterns
+- [x] Update README.md if needed (mention Windows support)
+- [x] Add any relevant notes to CLAUDE.md or project docs about Windows-specific patterns
 
 ## Technical Details
 
