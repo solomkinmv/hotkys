@@ -91,10 +91,10 @@
 - [x] Run tests — must pass before next task
 
 ### Task 3: Make hotkey text formatter platform-aware
-- [ ] Update `src/view/hotkey-text-formatter.ts` to use platform-aware modifier symbols
-- [ ] Update `baseKeySymbolOverride` map for Windows (e.g., no `⌘` symbol, use text labels instead)
-- [ ] Write tests for Windows hotkey text formatting
-- [ ] Run tests — must pass before next task
+- [x] Update `src/view/hotkey-text-formatter.ts` to use platform-aware modifier symbols
+- [x] Update `baseKeySymbolOverride` map for Windows (e.g., no `⌘` symbol, use text labels instead)
+- [x] Write tests for Windows hotkey text formatting
+- [x] Run tests — must pass before next task
 
 ### Task 4: Implement Windows shortcut execution
 - [ ] Create `src/engine/windows-shortcut-runner.ts` with PowerShell-based execution
