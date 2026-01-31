@@ -114,14 +114,14 @@
 - [x] Run tests — must pass before next task
 
 ### Task 5: Implement Windows browser URL extraction
-- [ ] Create `src/engine/windows-hostname-fetcher.ts` with PowerShell-based URL extraction
+- [x] Create `src/engine/windows-hostname-fetcher.ts` with PowerShell-based URL extraction
   - Use UI Automation framework to query browser address bar
   - Support Chrome, Edge (shared "Address and search bar" property name)
   - Support Firefox (different property name)
   - Return the URL string, or null if no browser is frontmost
-- [ ] Update `src/engine/frontmost-hostname-fetcher.tsx` to dispatch to Windows fetcher when on Windows
-- [ ] Write tests for hostname extraction logic (URL parsing is already tested, focus on dispatch logic)
-- [ ] Run tests — must pass before next task
+- [x] Update `src/engine/frontmost-hostname-fetcher.tsx` to dispatch to Windows fetcher when on Windows
+- [x] Write tests for hostname extraction logic (URL parsing is already tested, focus on dispatch logic)
+- [x] Run tests — must pass before next task
 
 ### Task 6: Update app-matching commands for Windows
 - [ ] Update `src/app-shortcuts.tsx` to use `windowsAppId` for app matching on Windows

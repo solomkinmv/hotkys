@@ -1,4 +1,6 @@
 import { runAppleScript } from "@raycast/utils";
+import { getPlatform } from "../load/platform";
+import { getWindowsFrontmostHostname } from "./windows-hostname-fetcher";
 
 //language=JavaScript
 const appleScript = `
@@ -62,6 +64,10 @@ function extractHostname(url: string): string {
 }
 
 export async function getFrontmostHostname(): Promise<string | null> {
+  if (getPlatform() === "windows") {
+    return getWindowsFrontmostHostname();
+  }
+
   const url = await runAppleScript(appleScript, { language: "JavaScript" });
   return url && url !== "null" ? extractHostname(url) : null;
 }
