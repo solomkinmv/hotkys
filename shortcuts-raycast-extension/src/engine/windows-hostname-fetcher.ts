@@ -7,7 +7,6 @@ Add-Type -AssemblyName UIAutomationTypes
 function Get-BrowserUrl {
   try {
     $automation = [System.Windows.Automation.AutomationElement]
-    $rootElement = $automation::RootElement
 
     # Get the foreground window
     $focusedElement = $automation::FocusedElement
@@ -60,8 +59,16 @@ Get-BrowserUrl
 `.trim();
 
 function extractHostname(url: string): string {
-  const match = url.match(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:/\n?]+)/im);
-  return match ? match[1] : url;
+  try {
+    // Add protocol if missing
+    const urlWithProtocol = url.match(/^https?:\/\//) ? url : `https://${url}`;
+    const parsed = new URL(urlWithProtocol);
+    return parsed.hostname.replace(/^www\./, "");
+  } catch {
+    // Fallback to regex for malformed URLs
+    const match = url.match(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:/\n?]+)/im);
+    return match ? match[1] : url;
+  }
 }
 
 export async function getWindowsFrontmostHostname(): Promise<string | null> {

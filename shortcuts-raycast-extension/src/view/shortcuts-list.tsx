@@ -1,4 +1,14 @@
-import { Action, ActionPanel, closeMainWindow, getPreferenceValues, Icon, List, PopToRootType } from "@raycast/api";
+import {
+  Action,
+  ActionPanel,
+  closeMainWindow,
+  getPreferenceValues,
+  Icon,
+  List,
+  PopToRootType,
+  showToast,
+  Toast,
+} from "@raycast/api";
 import { KeymapDropdown } from "./keymap-dropdown";
 import { generateHotkeyAccessories } from "./hotkey-text-formatter";
 import { Application, Keymap, Section, SectionShortcut } from "../model/internal/internal-models";
@@ -23,7 +33,7 @@ export function ShortcutsList({ application, isLoading: externalLoading }: Short
 
   useEffect(() => {
     if (!application) return;
-    setKeymapSections(application?.keymaps[0].sections ?? []);
+    setKeymapSections(application?.keymaps?.[0]?.sections ?? []);
     setIsLoading(false);
   }, [application]);
 
@@ -31,7 +41,16 @@ export function ShortcutsList({ application, isLoading: externalLoading }: Short
 
   const handleShortcutExecution = async (application: Application, sectionShortcut: SectionShortcut) => {
     if (keyCodesResponse.data === undefined) return;
-    const delay: number = parseFloat(getPreferenceValues<Preferences>().delay);
+    const delayStr = getPreferenceValues<Preferences>().delay;
+    const delay = parseFloat(delayStr);
+    if (!Number.isFinite(delay) || delay < 0) {
+      await showToast({
+        style: Toast.Style.Failure,
+        title: "Invalid delay value",
+        message: `Please enter a valid positive number for delay (got: "${delayStr}")`,
+      });
+      return;
+    }
     await closeMainWindow({ popToRootType: PopToRootType.Immediate });
     await runShortcuts(
       application.bundleId,

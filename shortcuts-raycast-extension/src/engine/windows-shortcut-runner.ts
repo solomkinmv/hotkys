@@ -64,9 +64,13 @@ function buildSendKeysString(atomic: AtomicShortcut): string {
   // Add modifiers
   for (const modifier of atomic.modifiers) {
     const sendKeysModifier = windowsSendKeysModifiers.get(modifier as Modifiers);
-    if (sendKeysModifier) {
-      result += sendKeysModifier;
+    if (!sendKeysModifier) {
+      if (modifier === Modifiers.win) {
+        throw new Error("Shortcuts with Windows key modifier are not supported by the automation framework");
+      }
+      throw new Error(`Unsupported modifier for Windows: ${modifier}`);
     }
+    result += sendKeysModifier;
   }
 
   // Add base key
@@ -93,6 +97,21 @@ export function buildPowerShellScript(
   delayMilliseconds: number,
   sequence: AtomicShortcut[]
 ): string {
+  // Validate delay
+  if (!Number.isFinite(delayMilliseconds) || delayMilliseconds < 0) {
+    throw new Error(`Invalid delay value: ${delayMilliseconds}`);
+  }
+
+  // Validate sequence
+  if (sequence.length === 0) {
+    throw new Error("Shortcut sequence cannot be empty");
+  }
+
+  // Validate windowsAppId format to prevent injection
+  if (windowsAppId && !/^[a-zA-Z0-9._-]+(?:\.exe)?$/.test(windowsAppId)) {
+    throw new Error(`Invalid Windows app ID format: ${windowsAppId}`);
+  }
+
   const chords: SendKeysChord[] = sequence.map((atomic) => ({
     keysString: buildSendKeysString(atomic),
   }));
@@ -100,16 +119,20 @@ export function buildPowerShellScript(
   const chordsJson = JSON.stringify(chords);
   const appIdLiteral = windowsAppId ? JSON.stringify(windowsAppId) : '""';
 
+  // Strip .exe extension for ProcessName matching
   return `
 Add-Type -AssemblyName System.Windows.Forms
 Add-Type -AssemblyName Microsoft.VisualBasic
 
 $appId = ${appIdLiteral}
 if ($appId -ne "") {
-  $proc = Get-Process | Where-Object { $_.MainWindowTitle -and $_.ProcessName -eq $appId } | Select-Object -First 1
+  $appIdWithoutExt = $appId -replace '\\.exe$', ''
+  $proc = Get-Process | Where-Object { $_.MainWindowTitle -and $_.ProcessName -eq $appIdWithoutExt } | Select-Object -First 1
   if ($proc) {
     [Microsoft.VisualBasic.Interaction]::AppActivate($proc.Id)
     Start-Sleep -Milliseconds ${delayMilliseconds}
+  } else {
+    throw "Could not find process with name: $appIdWithoutExt"
   }
 }
 

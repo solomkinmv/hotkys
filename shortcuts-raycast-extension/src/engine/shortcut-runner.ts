@@ -10,6 +10,11 @@ interface Chord {
 }
 
 function buildJxaScript(bundleId: string, delaySeconds: number, chords: Chord[]): string {
+  // Validate bundleId format to prevent injection
+  if (bundleId && !/^[a-zA-Z0-9.-]+$/.test(bundleId)) {
+    throw new Error(`Invalid bundle ID format: ${bundleId}`);
+  }
+
   const bundleIdLiteral = JSON.stringify(bundleId);
   const chordsLiteral = JSON.stringify(chords);
 
@@ -48,15 +53,28 @@ export async function runShortcuts(
     throw new Error("Key codes are required for macOS shortcut execution");
   }
 
-  const chords: Chord[] = sequence.map((atomic) => ({
-    keyCode: parseInt(keyCodes[atomic.base], 10),
-    modifiers: atomic.modifiers,
-  }));
+  const chords: Chord[] = sequence.map((atomic) => {
+    const keyCodeStr = keyCodes[atomic.base];
+    if (keyCodeStr === undefined) {
+      throw new Error(`Unknown key: ${atomic.base}`);
+    }
+    const keyCode = parseInt(keyCodeStr, 10);
+    if (isNaN(keyCode)) {
+      throw new Error(`Invalid key code for ${atomic.base}: ${keyCodeStr}`);
+    }
+    return { keyCode, modifiers: atomic.modifiers };
+  });
 
   const script = buildJxaScript(bundleId ?? "", delaySeconds, chords);
 
-  spawn("osascript", ["-l", "JavaScript", "-e", script], {
+  const child = spawn("osascript", ["-l", "JavaScript", "-e", script], {
     detached: true,
     stdio: "ignore",
-  }).unref();
+  });
+
+  child.on("error", (error) => {
+    console.error("Failed to spawn osascript:", error);
+  });
+
+  child.unref();
 }

@@ -59,8 +59,16 @@ const appleScript = `
 `;
 
 function extractHostname(url: string): string {
-  const match = url.match(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:/\n?]+)/im);
-  return match ? match[1] : url;
+  try {
+    // Add protocol if missing
+    const urlWithProtocol = url.match(/^https?:\/\//) ? url : `https://${url}`;
+    const parsed = new URL(urlWithProtocol);
+    return parsed.hostname.replace(/^www\./, "");
+  } catch {
+    // Fallback to regex for malformed URLs
+    const match = url.match(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:/\n?]+)/im);
+    return match ? match[1] : url;
+  }
 }
 
 export async function getFrontmostHostname(): Promise<string | null> {

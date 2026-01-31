@@ -59,8 +59,10 @@ export function generateHotkeyText(shortcut: SectionShortcut, platform: Platform
 
   return shortcut.sequence
     .map((atomicShortcut) => {
-      const modifiersText =
-        atomicShortcut.modifiers.map((modifier) => modifierSymbols.get(modifier)).join(separator) ?? "";
+      const modifiersText = atomicShortcut.modifiers
+        .map((modifier) => modifierSymbols.get(modifier))
+        .filter((symbol): symbol is string => symbol !== undefined)
+        .join(separator);
       const baseText = overrideSymbolIfPossible(atomicShortcut.base, platform);
       return modifiersText + (modifiersText && separator ? separator : "") + baseText;
     })

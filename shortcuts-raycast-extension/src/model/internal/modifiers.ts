@@ -33,6 +33,8 @@ export const windowsSendKeysModifiers: Map<Modifiers, string> = new Map([
   [Modifiers.control, "^"],
   [Modifiers.option, "%"],
   [Modifiers.shift, "+"],
+  // Note: Windows key is not supported by SendKeys API - will be silently ignored
+  // [Modifiers.win, ...] - no mapping available
 ]);
 
 export const modifierMapping: Map<string, Modifiers> = new Map([
