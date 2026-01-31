@@ -70,13 +70,13 @@
 ## Implementation Steps
 
 ### Task 1: Add `platforms` field to manifest and update data models
-- [ ] Add `"platforms": ["macOS", "Windows"]` to `package.json`
-- [ ] Add `windowsAppId?: string` field to `InputApp` in `src/model/input/input-models.ts`
-- [ ] Add `windowsAppId?: string` field to `AppMetadata` in `src/model/input/input-models.ts`
-- [ ] Add `windowsAppId?: string` field to `Application` in `src/model/internal/internal-models.ts`
-- [ ] Pass `windowsAppId` through in `ShortcutsParser.parseInputShortcuts()` in `src/load/input-parser.ts`
-- [ ] Write tests for parser passing through `windowsAppId`
-- [ ] Run tests — must pass before next task
+- [x] Add `"platforms": ["macOS", "Windows"]` to `package.json`
+- [x] Add `windowsAppId?: string` field to `InputApp` in `src/model/input/input-models.ts`
+- [x] Add `windowsAppId?: string` field to `AppMetadata` in `src/model/input/input-models.ts`
+- [x] Add `windowsAppId?: string` field to `Application` in `src/model/internal/internal-models.ts`
+- [x] Pass `windowsAppId` through in `ShortcutsParser.parseInputShortcuts()` in `src/load/input-parser.ts`
+- [x] Write tests for parser passing through `windowsAppId`
+- [x] Run tests — must pass before next task
 
 ### Task 2: Make modifier system platform-aware
 - [ ] Refactor `src/model/internal/modifiers.ts` to support both macOS and Windows modifier representations
