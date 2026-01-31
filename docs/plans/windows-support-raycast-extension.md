@@ -142,12 +142,12 @@
 - [x] Run tests — must pass before next task
 
 ### Task 8: Verify acceptance criteria
-- [ ] Verify all 4 commands work conceptually for Windows (code review)
-- [ ] Verify macOS functionality is unchanged (run full test suite)
-- [ ] Verify edge cases: apps without windowsAppId, shortcuts with sequences/chords, special keys
-- [ ] Run full test suite (unit tests)
-- [ ] Run linter — all issues must be fixed
-- [ ] Verify type checking passes (`tsc --noEmit` or equivalent)
+- [x] Verify all 4 commands work conceptually for Windows (code review)
+- [x] Verify macOS functionality is unchanged (run full test suite)
+- [x] Verify edge cases: apps without windowsAppId, shortcuts with sequences/chords, special keys
+- [x] Run full test suite (unit tests)
+- [x] Run linter — all issues must be fixed
+- [x] Verify type checking passes (`tsc --noEmit` or equivalent)
 
 ### Task 9: [Final] Update documentation
 - [ ] Update README.md if needed (mention Windows support)
