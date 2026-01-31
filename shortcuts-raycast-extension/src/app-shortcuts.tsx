@@ -5,6 +5,7 @@ import { useAppShortcuts } from "./load/app-shortcuts-provider";
 import { useApps } from "./load/apps-provider";
 import { ShortcutsList } from "./view/shortcuts-list";
 import { exitWithMessage } from "./view/exit-action";
+import { getPlatform } from "./load/platform";
 
 interface AppShortcutsProps {
   slug?: string;
@@ -16,11 +17,12 @@ export default function AppShortcuts(props?: AppShortcutsProps) {
   const { isLoading: appsLoading, data: apps } = useApps();
   const { isLoading: shortcutsLoading, data: application } = useAppShortcuts(slug);
 
-  // Get the frontmost application's bundleId if no slug provided
-  const { isLoading: bundleIdLoading, data: bundleId } = usePromise(
+  // Get the frontmost application's bundleId (macOS) or windowsAppId (Windows) if no slug provided
+  const { isLoading: appIdLoading, data: appId } = usePromise(
     async () => {
       try {
-        return (await getFrontmostApplication()).bundleId;
+        const app = await getFrontmostApplication();
+        return getPlatform() === "windows" ? app.windowsAppId : app.bundleId;
       } catch {
         return undefined;
       }
@@ -31,24 +33,25 @@ export default function AppShortcuts(props?: AppShortcutsProps) {
     }
   );
 
-  // If we have a bundleId but no slug, look up the slug from apps list
+  // If we have an appId but no slug, look up the slug from apps list
   useEffect(() => {
-    if (slug || appsLoading || bundleIdLoading) {
+    if (slug || appsLoading || appIdLoading) {
       return;
     }
-    if (!bundleId) {
+    if (!appId) {
       exitWithMessage("Could not detect the frontmost application");
       return;
     }
-    const foundApp = apps.find((app) => app.bundleId === bundleId);
+    const platform = getPlatform();
+    const foundApp = apps.find((app) => (platform === "windows" ? app.windowsAppId === appId : app.bundleId === appId));
     if (!foundApp) {
-      exitWithMessage(`Shortcuts not available for application ${bundleId}`);
+      exitWithMessage(`Shortcuts not available for application ${appId}`);
       return;
     }
     setSlug(foundApp.slug);
-  }, [bundleId, bundleIdLoading, slug, apps, appsLoading]);
+  }, [appId, appIdLoading, slug, apps, appsLoading]);
 
-  const isLoading = appsLoading || shortcutsLoading || (!props?.slug && bundleIdLoading);
+  const isLoading = appsLoading || shortcutsLoading || (!props?.slug && appIdLoading);
 
   return <ShortcutsList application={application} isLoading={isLoading} />;
 }

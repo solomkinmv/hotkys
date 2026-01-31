@@ -124,13 +124,13 @@
 - [x] Run tests — must pass before next task
 
 ### Task 6: Update app-matching commands for Windows
-- [ ] Update `src/app-shortcuts.tsx` to use `windowsAppId` for app matching on Windows
+- [x] Update `src/app-shortcuts.tsx` to use `windowsAppId` for app matching on Windows
   - On macOS: match by `bundleId` (existing behavior)
   - On Windows: match by `windowsAppId` from `getFrontmostApplication()`
-- [ ] Update `src/current-app.ts` to copy `windowsAppId` on Windows instead of `bundleId`
-- [ ] Update `src/all-shortcuts.tsx` subtitle to show `windowsAppId` on Windows
-- [ ] Write tests for platform-conditional app matching logic
-- [ ] Run tests — must pass before next task
+- [x] Update `src/current-app.ts` to copy `windowsAppId` on Windows instead of `bundleId`
+- [x] Update `src/all-shortcuts.tsx` subtitle to show `windowsAppId` on Windows
+- [x] Write tests for platform-conditional app matching logic
+- [x] Run tests — must pass before next task
 
 ### Task 7: Handle key codes for Windows
 - [ ] Determine if `key-codes.json` is needed on Windows (SendKeys uses named keys, not numeric codes)
