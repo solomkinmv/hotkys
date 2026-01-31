@@ -133,13 +133,13 @@
 - [x] Run tests — must pass before next task
 
 ### Task 7: Handle key codes for Windows
-- [ ] Determine if `key-codes.json` is needed on Windows (SendKeys uses named keys, not numeric codes)
-- [ ] If not needed: skip key code loading on Windows, build SendKeys strings directly from key names
-- [ ] If needed: create a Windows-specific key code mapping
-- [ ] Update `src/load/key-codes-provider.ts` to handle Windows case
-- [ ] Update shortcut runner to work without numeric key codes on Windows
-- [ ] Write tests for Windows key name to SendKeys format mapping
-- [ ] Run tests — must pass before next task
+- [x] Determine if `key-codes.json` is needed on Windows (SendKeys uses named keys, not numeric codes)
+- [x] If not needed: skip key code loading on Windows, build SendKeys strings directly from key names
+- [x] If needed: create a Windows-specific key code mapping
+- [x] Update `src/load/key-codes-provider.ts` to handle Windows case
+- [x] Update shortcut runner to work without numeric key codes on Windows
+- [x] Write tests for Windows key name to SendKeys format mapping
+- [x] Run tests — must pass before next task
 
 ### Task 8: Verify acceptance criteria
 - [ ] Verify all 4 commands work conceptually for Windows (code review)

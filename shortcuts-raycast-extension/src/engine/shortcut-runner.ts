@@ -33,7 +33,7 @@ export async function runShortcuts(
   bundleId: string | undefined,
   delaySeconds: number,
   sequence: AtomicShortcut[],
-  keyCodes: KeyCodes,
+  keyCodes: KeyCodes | undefined,
   windowsAppId?: string | undefined
 ): Promise<void> {
   const platform = getPlatform();
@@ -41,6 +41,11 @@ export async function runShortcuts(
   if (platform === "windows") {
     await runWindowsShortcuts(windowsAppId, delaySeconds, sequence);
     return;
+  }
+
+  // On macOS, keyCodes is required
+  if (!keyCodes) {
+    throw new Error("Key codes are required for macOS shortcut execution");
   }
 
   const chords: Chord[] = sequence.map((atomic) => ({
