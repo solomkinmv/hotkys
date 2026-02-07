@@ -1,0 +1,696 @@
+{
+  "$schema": "schema/shortcut.schema.json",
+  "bundleId": "com.adobe.LightroomCC",
+  "name": "Adobe Lightroom",
+  "slug": "adobe-lightroom",
+  "source": "https://helpx.adobe.com/lightroom-cc/using/keyboard-shortcuts.html",
+  "icon": "icons/adobe-lightroom.png",
+  "keymaps": [
+    {
+      "title": "macOS",
+      "platforms": [
+        "macos"
+      ],
+      "sections": [
+        {
+          "title": "Popular Shortcuts",
+          "shortcuts": [
+            {
+              "title": "Crop & Rotate",
+              "key": "c"
+            },
+            {
+              "title": "Detail",
+              "key": "d"
+            },
+            {
+              "title": "Edit",
+              "key": "e"
+            },
+            {
+              "title": "Full Screen",
+              "key": "f"
+            },
+            {
+              "title": "Grid",
+              "key": "g"
+            },
+            {
+              "title": "Info",
+              "key": "i"
+            },
+            {
+              "title": "Keywords",
+              "key": "k"
+            },
+            {
+              "title": "Cut",
+              "key": "cmd+x"
+            },
+            {
+              "title": "Copy",
+              "key": "cmd+c"
+            },
+            {
+              "title": "Paste",
+              "key": "cmd+v"
+            },
+            {
+              "title": "Undo",
+              "key": "cmd+z"
+            },
+            {
+              "title": "Redo",
+              "key": "shift+cmd+z"
+            },
+            {
+              "title": "Minimize",
+              "key": "cmd+m"
+            },
+            {
+              "title": "Auto Tone",
+              "key": "shift+a"
+            },
+            {
+              "title": "Edit in Photoshop",
+              "key": "shift+cmd+e"
+            },
+            {
+              "title": "Rotate Left (CCW)",
+              "key": "cmd+["
+            },
+            {
+              "title": "Rotate Right (CW)",
+              "key": "cmd+]"
+            },
+            {
+              "title": "Zoom In",
+              "key": "cmd+="
+            },
+            {
+              "title": "Zoom Out",
+              "key": "cmd+-"
+            },
+            {
+              "title": "Select All",
+              "key": "cmd+a"
+            },
+            {
+              "title": "Select None",
+              "key": "cmd+d"
+            },
+            {
+              "title": "Paste Selected Settings",
+              "key": "ctrl+shift+v"
+            },
+            {
+              "title": "Preferences",
+              "key": "cmd+,"
+            },
+            {
+              "title": "Search",
+              "key": "cmd+f"
+            }
+          ]
+        },
+        {
+          "title": "Other Common Shortcuts",
+          "shortcuts": [
+            {
+              "title": "Visualize Spots (Healing Brush)",
+              "key": "a"
+            },
+            {
+              "title": "Cycle Overlay",
+              "key": "o"
+            },
+            {
+              "title": "Photos",
+              "key": "p"
+            },
+            {
+              "title": "Linear Gradient",
+              "key": "l"
+            },
+            {
+              "title": "Radial Gradient",
+              "key": "r"
+            },
+            {
+              "title": "Toggle Clipping Indicators",
+              "key": "j"
+            },
+            {
+              "title": "White Balance Sampler",
+              "key": "w"
+            },
+            {
+              "title": "Show/Hide Filmstrip",
+              "key": "/"
+            },
+            {
+              "title": "Show Original",
+              "key": "\\"
+            },
+            {
+              "title": "Toggle Zoom States",
+              "key": "space"
+            },
+            {
+              "title": "Cycle Mask Color",
+              "key": "shift+o"
+            },
+            {
+              "title": "Export with Previous Settings",
+              "key": "cmd+e"
+            },
+            {
+              "title": "Export Dialog (Custom)",
+              "key": "shift+e"
+            },
+            {
+              "title": "Group Into Stack",
+              "key": "cmd+g"
+            },
+            {
+              "title": "Ungroup Stack",
+              "key": "shift+cmd+g"
+            },
+            {
+              "title": "Guided Upright",
+              "key": "shift+g"
+            },
+            {
+              "title": "Hide Lightroom",
+              "key": "cmd+h"
+            },
+            {
+              "title": "Quit Lightroom",
+              "key": "cmd+q"
+            },
+            {
+              "title": "Create Version",
+              "key": "shift+m"
+            },
+            {
+              "title": "Close Window",
+              "key": "cmd+w"
+            },
+            {
+              "title": "Remove Photo",
+              "key": "delete"
+            },
+            {
+              "title": "Hide Others",
+              "key": "opt+cmd+h"
+            },
+            {
+              "title": "Add Photos",
+              "key": "shift+cmd+i"
+            },
+            {
+              "title": "Versions (Expand Panel)",
+              "key": "shift+v"
+            }
+          ]
+        },
+        {
+          "title": "Panel Shortcuts",
+          "shortcuts": [
+            {
+              "title": "Expand/Retract Light Panel",
+              "key": "cmd+1"
+            },
+            {
+              "title": "Expand/Retract Color Panel",
+              "key": "cmd+2"
+            },
+            {
+              "title": "Expand/Retract Effects Panel",
+              "key": "cmd+3"
+            },
+            {
+              "title": "Expand/Retract Details Panel",
+              "key": "cmd+4"
+            },
+            {
+              "title": "Expand/Retract Options Panel",
+              "key": "cmd+5"
+            },
+            {
+              "title": "Expand/Retract Geometry Panel",
+              "key": "cmd+6"
+            },
+            {
+              "title": "Open Presets Panel",
+              "key": "shift+p"
+            },
+            {
+              "title": "Show/Hide Histogram",
+              "key": "cmd+0"
+            }
+          ]
+        },
+        {
+          "title": "Brush Shortcuts",
+          "shortcuts": [
+            {
+              "title": "Increase Brush Size",
+              "key": "["
+            },
+            {
+              "title": "Decrease Brush Size",
+              "key": "]"
+            },
+            {
+              "title": "Increase Brush Feather",
+              "key": "shift+["
+            },
+            {
+              "title": "Decrease Brush Feather",
+              "key": "shift+]"
+            },
+            {
+              "title": "Adjustment Brush",
+              "key": "b"
+            },
+            {
+              "title": "Healing Brush",
+              "key": "h"
+            }
+          ]
+        },
+        {
+          "title": "Merge Shortcuts",
+          "shortcuts": [
+            {
+              "title": "Merge to HDR",
+              "key": "cmd+h"
+            },
+            {
+              "title": "Merge to HDR (Headless)",
+              "key": "shift+cmd+h"
+            },
+            {
+              "title": "Merge to Panorama",
+              "key": "cmd+m"
+            },
+            {
+              "title": "Merge to Panorama (Headless)",
+              "key": "shift+cmd+m"
+            }
+          ]
+        },
+        {
+          "title": "Setting Flags",
+          "shortcuts": [
+            {
+              "title": "Pick Flag",
+              "key": "z"
+            },
+            {
+              "title": "Remove Pick Flag",
+              "key": "u"
+            },
+            {
+              "title": "Flag as Rejected",
+              "key": "x"
+            }
+          ]
+        },
+        {
+          "title": "Setting Rating",
+          "shortcuts": [
+            {
+              "title": "Set Rating to 0",
+              "key": "0"
+            },
+            {
+              "title": "Set Rating to 1",
+              "key": "1"
+            },
+            {
+              "title": "Set Rating to 2",
+              "key": "2"
+            },
+            {
+              "title": "Set Rating to 3",
+              "key": "3"
+            },
+            {
+              "title": "Set Rating to 4",
+              "key": "4"
+            },
+            {
+              "title": "Set Rating to 5",
+              "key": "5"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Windows",
+      "platforms": [
+        "windows"
+      ],
+      "sections": [
+        {
+          "title": "Popular Shortcuts",
+          "shortcuts": [
+            {
+              "title": "Crop & Rotate",
+              "key": "c"
+            },
+            {
+              "title": "Detail",
+              "key": "d"
+            },
+            {
+              "title": "Edit",
+              "key": "e"
+            },
+            {
+              "title": "Full Screen",
+              "key": "f"
+            },
+            {
+              "title": "Grid",
+              "key": "g"
+            },
+            {
+              "title": "Info",
+              "key": "i"
+            },
+            {
+              "title": "Keywords",
+              "key": "k"
+            },
+            {
+              "title": "Cut",
+              "key": "ctrl+x"
+            },
+            {
+              "title": "Copy",
+              "key": "ctrl+c"
+            },
+            {
+              "title": "Paste",
+              "key": "ctrl+v"
+            },
+            {
+              "title": "Undo",
+              "key": "ctrl+z"
+            },
+            {
+              "title": "Redo",
+              "key": "ctrl+shift+z"
+            },
+            {
+              "title": "Minimize",
+              "key": "ctrl+m"
+            },
+            {
+              "title": "Auto Tone",
+              "key": "shift+a"
+            },
+            {
+              "title": "Edit in Photoshop",
+              "key": "ctrl+shift+e"
+            },
+            {
+              "title": "Rotate Left (CCW)",
+              "key": "ctrl+["
+            },
+            {
+              "title": "Rotate Right (CW)",
+              "key": "ctrl+]"
+            },
+            {
+              "title": "Zoom In",
+              "key": "ctrl+="
+            },
+            {
+              "title": "Zoom Out",
+              "key": "ctrl+-"
+            },
+            {
+              "title": "Select All",
+              "key": "ctrl+a"
+            },
+            {
+              "title": "Select None",
+              "key": "ctrl+d"
+            },
+            {
+              "title": "Paste Selected Settings",
+              "key": "ctrl+shift+v"
+            },
+            {
+              "title": "Preferences",
+              "key": "ctrl+,"
+            },
+            {
+              "title": "Search",
+              "key": "ctrl+f"
+            }
+          ]
+        },
+        {
+          "title": "Other Common Shortcuts",
+          "shortcuts": [
+            {
+              "title": "Visualize Spots (Healing Brush)",
+              "key": "a"
+            },
+            {
+              "title": "Cycle Overlay",
+              "key": "o"
+            },
+            {
+              "title": "Photos",
+              "key": "p"
+            },
+            {
+              "title": "Linear Gradient",
+              "key": "l"
+            },
+            {
+              "title": "Radial Gradient",
+              "key": "r"
+            },
+            {
+              "title": "Toggle Clipping Indicators",
+              "key": "j"
+            },
+            {
+              "title": "White Balance Sampler",
+              "key": "w"
+            },
+            {
+              "title": "Show/Hide Filmstrip",
+              "key": "/"
+            },
+            {
+              "title": "Show Original",
+              "key": "\\"
+            },
+            {
+              "title": "Toggle Zoom States",
+              "key": "space"
+            },
+            {
+              "title": "Cycle Mask Color",
+              "key": "shift+o"
+            },
+            {
+              "title": "Export with Previous Settings",
+              "key": "ctrl+e"
+            },
+            {
+              "title": "Export Dialog (Custom)",
+              "key": "shift+e"
+            },
+            {
+              "title": "Group Into Stack",
+              "key": "ctrl+g"
+            },
+            {
+              "title": "Ungroup Stack",
+              "key": "ctrl+shift+g"
+            },
+            {
+              "title": "Guided Upright",
+              "key": "shift+g"
+            },
+            {
+              "title": "Hide Lightroom",
+              "key": "ctrl+h"
+            },
+            {
+              "title": "Quit Lightroom",
+              "key": "ctrl+q"
+            },
+            {
+              "title": "Create Version",
+              "key": "ctrl+shift+s"
+            },
+            {
+              "title": "Close Window",
+              "key": "ctrl+w"
+            },
+            {
+              "title": "Remove Photo",
+              "key": "delete"
+            },
+            {
+              "title": "Hide Others",
+              "key": "ctrl+alt+h"
+            },
+            {
+              "title": "Add Photos",
+              "key": "ctrl+shift+i"
+            },
+            {
+              "title": "Versions (Expand Panel)",
+              "key": "shift+v"
+            }
+          ]
+        },
+        {
+          "title": "Panel Shortcuts",
+          "shortcuts": [
+            {
+              "title": "Expand/Retract Light Panel",
+              "key": "ctrl+1"
+            },
+            {
+              "title": "Expand/Retract Color Panel",
+              "key": "ctrl+2"
+            },
+            {
+              "title": "Expand/Retract Effects Panel",
+              "key": "ctrl+3"
+            },
+            {
+              "title": "Expand/Retract Details Panel",
+              "key": "ctrl+4"
+            },
+            {
+              "title": "Expand/Retract Options Panel",
+              "key": "ctrl+5"
+            },
+            {
+              "title": "Expand/Retract Geometry Panel",
+              "key": "ctrl+6"
+            },
+            {
+              "title": "Open Presets Panel",
+              "key": "shift+p"
+            },
+            {
+              "title": "Show/Hide Histogram",
+              "key": "ctrl+0"
+            }
+          ]
+        },
+        {
+          "title": "Brush Shortcuts",
+          "shortcuts": [
+            {
+              "title": "Increase Brush Size",
+              "key": "["
+            },
+            {
+              "title": "Decrease Brush Size",
+              "key": "]"
+            },
+            {
+              "title": "Increase Brush Feather",
+              "key": "shift+["
+            },
+            {
+              "title": "Decrease Brush Feather",
+              "key": "shift+]"
+            },
+            {
+              "title": "Adjustment Brush",
+              "key": "b"
+            },
+            {
+              "title": "Healing Brush",
+              "key": "h"
+            }
+          ]
+        },
+        {
+          "title": "Merge Shortcuts",
+          "shortcuts": [
+            {
+              "title": "Merge to HDR",
+              "key": "ctrl+h"
+            },
+            {
+              "title": "Merge to HDR (Headless)",
+              "key": "ctrl+shift+h"
+            },
+            {
+              "title": "Merge to Panorama",
+              "key": "ctrl+m"
+            },
+            {
+              "title": "Merge to Panorama (Headless)",
+              "key": "ctrl+shift+m"
+            }
+          ]
+        },
+        {
+          "title": "Setting Flags",
+          "shortcuts": [
+            {
+              "title": "Pick Flag",
+              "key": "z"
+            },
+            {
+              "title": "Remove Pick Flag",
+              "key": "u"
+            },
+            {
+              "title": "Flag as Rejected",
+              "key": "x"
+            }
+          ]
+        },
+        {
+          "title": "Setting Rating",
+          "shortcuts": [
+            {
+              "title": "Set Rating to 0",
+              "key": "0"
+            },
+            {
+              "title": "Set Rating to 1",
+              "key": "1"
+            },
+            {
+              "title": "Set Rating to 2",
+              "key": "2"
+            },
+            {
+              "title": "Set Rating to 3",
+              "key": "3"
+            },
+            {
+              "title": "Set Rating to 4",
+              "key": "4"
+            },
+            {
+              "title": "Set Rating to 5",
+              "key": "5"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
