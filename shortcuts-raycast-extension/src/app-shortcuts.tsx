@@ -7,6 +7,11 @@ import { ShortcutsList } from "./view/shortcuts-list";
 import { exitWithMessage } from "./view/exit-action";
 import { getPlatform } from "./load/platform";
 
+interface FrontmostAppInfo {
+  appId: string | undefined;
+  appName: string | undefined;
+}
+
 interface AppShortcutsProps {
   slug?: string;
 }
@@ -18,13 +23,14 @@ export default function AppShortcuts(props?: AppShortcutsProps) {
   const { isLoading: shortcutsLoading, data: application } = useAppShortcuts(slug);
 
   // Get the frontmost application's bundleId (macOS) or windowsAppId (Windows) if no slug provided
-  const { isLoading: appIdLoading, data: appId } = usePromise(
-    async () => {
+  const { isLoading: appIdLoading, data: frontmostApp } = usePromise(
+    async (): Promise<FrontmostAppInfo> => {
       try {
         const app = await getFrontmostApplication();
-        return getPlatform() === "windows" ? app.windowsAppId : app.bundleId;
+        const appId = getPlatform() === "windows" ? app.windowsAppId : app.bundleId;
+        return { appId, appName: app.name };
       } catch {
-        return undefined;
+        return { appId: undefined, appName: undefined };
       }
     },
     [],
@@ -38,18 +44,25 @@ export default function AppShortcuts(props?: AppShortcutsProps) {
     if (slug || appsLoading || appIdLoading) {
       return;
     }
-    if (!appId) {
+    if (!frontmostApp?.appId && !frontmostApp?.appName) {
       exitWithMessage("Could not detect the frontmost application");
       return;
     }
     const platform = getPlatform();
-    const foundApp = apps.find((app) => (platform === "windows" ? app.windowsAppId === appId : app.bundleId === appId));
+    let foundApp = apps.find((app) =>
+      platform === "windows" ? app.windowsAppId === frontmostApp.appId : app.bundleId === frontmostApp.appId
+    );
+    // Fallback: match by app name when windowsAppId is not available in the data
+    if (!foundApp && frontmostApp.appName) {
+      const normalizedName = frontmostApp.appName.toLowerCase();
+      foundApp = apps.find((app) => app.name.toLowerCase() === normalizedName);
+    }
     if (!foundApp) {
-      exitWithMessage(`Shortcuts not available for application ${appId}`);
+      exitWithMessage(`Shortcuts not available for application ${frontmostApp.appId ?? frontmostApp.appName}`);
       return;
     }
     setSlug(foundApp.slug);
-  }, [appId, appIdLoading, slug, apps, appsLoading]);
+  }, [frontmostApp, appIdLoading, slug, apps, appsLoading]);
 
   const isLoading = appsLoading || shortcutsLoading || (!props?.slug && appIdLoading);
 

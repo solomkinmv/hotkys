@@ -1,9 +1,13 @@
 # Shortcuts Search Changelog
 
+## [Windows Support] - {PR_MERGE_DATE}
+
+- Add Windows platform support with PowerShell-based shortcut execution and browser URL extraction
+- Add platform-aware app matching with name-based fallback for Windows
+- Add platform-specific keymaps and key code support
+
 ## [Update] - {PR_MERGE_DATE}
 
-- Add Windows platform support (shortcuts execution, browser URL extraction, app matching)
-- Add support for platform-specific keymaps
 - Add application icons support
 - Fix shortcut runner
 - Improve shortcut formatting and display

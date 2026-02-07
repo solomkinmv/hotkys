@@ -9,7 +9,7 @@ const BASE_URL = "https://hotkys.com";
 
 function formatSubtitle(app: AppMetadata): string {
   const platform = getPlatform();
-  const appId = platform === "windows" ? app.windowsAppId : app.bundleId;
+  const appId = platform === "windows" ? (app.windowsAppId ?? app.bundleId) : app.bundleId;
   return appId ?? app.hostname ?? "";
 }
 

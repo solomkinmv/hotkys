@@ -70,11 +70,11 @@
     }
   ],
   "dependencies": {
-    "@raycast/api": "^1.103.5",
+    "@raycast/api": "^1.104.5",
     "@raycast/utils": "^2.2.2"
   },
   "devDependencies": {
-    "@raycast/api": "^1.103.5",
+    "@raycast/api": "^1.104.5",
     "@raycast/eslint-config": "^2.1.1",
     "@raycast/utils": "^2.2.2",
     "@types/jest": "^30.0.0",
