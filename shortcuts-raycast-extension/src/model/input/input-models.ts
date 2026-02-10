@@ -20,6 +20,7 @@ export interface AppMetadata {
   name: string;
   slug: string;
   bundleId?: string;
+  windowsAppId?: string;
   hostname?: string;
   source?: string;
   icon?: string;
@@ -32,6 +33,7 @@ export interface AppMetadata {
  */
 export interface InputApp {
   bundleId?: string;
+  windowsAppId?: string;
   hostname?: string;
   name: string;
   slug: string;

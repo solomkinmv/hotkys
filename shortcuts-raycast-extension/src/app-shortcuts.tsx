@@ -5,6 +5,12 @@ import { useAppShortcuts } from "./load/app-shortcuts-provider";
 import { useApps } from "./load/apps-provider";
 import { ShortcutsList } from "./view/shortcuts-list";
 import { exitWithMessage } from "./view/exit-action";
+import { getPlatform } from "./load/platform";
+
+interface FrontmostAppInfo {
+  appId: string | undefined;
+  appName: string | undefined;
+}
 
 interface AppShortcutsProps {
   slug?: string;
@@ -16,13 +22,15 @@ export default function AppShortcuts(props?: AppShortcutsProps) {
   const { isLoading: appsLoading, data: apps } = useApps();
   const { isLoading: shortcutsLoading, data: application } = useAppShortcuts(slug);
 
-  // Get the frontmost application's bundleId if no slug provided
-  const { isLoading: bundleIdLoading, data: bundleId } = usePromise(
-    async () => {
+  // Get the frontmost application's bundleId (macOS) or windowsAppId (Windows) if no slug provided
+  const { isLoading: appIdLoading, data: frontmostApp } = usePromise(
+    async (): Promise<FrontmostAppInfo> => {
       try {
-        return (await getFrontmostApplication()).bundleId;
+        const app = await getFrontmostApplication();
+        const appId = getPlatform() === "windows" ? app.windowsAppId : app.bundleId;
+        return { appId, appName: app.name };
       } catch {
-        return undefined;
+        return { appId: undefined, appName: undefined };
       }
     },
     [],
@@ -31,24 +39,32 @@ export default function AppShortcuts(props?: AppShortcutsProps) {
     }
   );
 
-  // If we have a bundleId but no slug, look up the slug from apps list
+  // If we have an appId but no slug, look up the slug from apps list
   useEffect(() => {
-    if (slug || appsLoading || bundleIdLoading) {
+    if (slug || appsLoading || appIdLoading) {
       return;
     }
-    if (!bundleId) {
+    if (!frontmostApp?.appId && !frontmostApp?.appName) {
       exitWithMessage("Could not detect the frontmost application");
       return;
     }
-    const foundApp = apps.find((app) => app.bundleId === bundleId);
+    const platform = getPlatform();
+    let foundApp = apps.find((app) =>
+      platform === "windows" ? app.windowsAppId === frontmostApp.appId : app.bundleId === frontmostApp.appId
+    );
+    // Fallback: match by app name when windowsAppId is not available in the data
+    if (!foundApp && frontmostApp.appName) {
+      const normalizedName = frontmostApp.appName.toLowerCase();
+      foundApp = apps.find((app) => app.name.toLowerCase() === normalizedName);
+    }
     if (!foundApp) {
-      exitWithMessage(`Shortcuts not available for application ${bundleId}`);
+      exitWithMessage(`Shortcuts not available for application ${frontmostApp.appId ?? frontmostApp.appName}`);
       return;
     }
     setSlug(foundApp.slug);
-  }, [bundleId, bundleIdLoading, slug, apps, appsLoading]);
+  }, [frontmostApp, appIdLoading, slug, apps, appsLoading]);
 
-  const isLoading = appsLoading || shortcutsLoading || (!props?.slug && bundleIdLoading);
+  const isLoading = appsLoading || shortcutsLoading || (!props?.slug && appIdLoading);
 
   return <ShortcutsList application={application} isLoading={isLoading} />;
 }

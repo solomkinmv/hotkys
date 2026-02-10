@@ -20,6 +20,11 @@
       "type": "string",
       "minLength": 1
     },
+    "windowsAppId": {
+      "description": "Windows App ID is a unique identifier for the Windows application. Example: 'notepad.exe'",
+      "type": "string",
+      "minLength": 1
+    },
     "slug": {
       "description": "Unique readable identifier",
       "type": "string",

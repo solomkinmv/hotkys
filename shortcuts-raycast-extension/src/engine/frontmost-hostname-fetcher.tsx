@@ -1,4 +1,6 @@
 import { runAppleScript } from "@raycast/utils";
+import { getPlatform } from "../load/platform";
+import { getWindowsFrontmostHostname } from "./windows-hostname-fetcher";
 
 //language=JavaScript
 const appleScript = `
@@ -57,11 +59,23 @@ const appleScript = `
 `;
 
 function extractHostname(url: string): string {
-  const match = url.match(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:/\n?]+)/im);
-  return match ? match[1] : url;
+  try {
+    // Add protocol if missing
+    const urlWithProtocol = url.match(/^https?:\/\//) ? url : `https://${url}`;
+    const parsed = new URL(urlWithProtocol);
+    return parsed.hostname.replace(/^www\./, "");
+  } catch {
+    // Fallback to regex for malformed URLs
+    const match = url.match(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:/\n?]+)/im);
+    return match ? match[1] : url;
+  }
 }
 
 export async function getFrontmostHostname(): Promise<string | null> {
+  if (getPlatform() === "windows") {
+    return getWindowsFrontmostHostname();
+  }
+
   const url = await runAppleScript(appleScript, { language: "JavaScript" });
   return url && url !== "null" ? extractHostname(url) : null;
 }

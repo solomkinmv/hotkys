@@ -9,6 +9,10 @@
     "Productivity"
   ],
   "license": "MIT",
+  "platforms": [
+    "macOS",
+    "Windows"
+  ],
   "commands": [
     {
       "name": "all-shortcuts",
@@ -60,17 +64,17 @@
     },
     {
       "name": "current-app",
-      "title": "Copy Current App's Bundle ID",
-      "description": "Saves current app's bundle id in the clipboard",
+      "title": "Copy Current App ID",
+      "description": "Saves current app's bundle ID (macOS) or Windows app ID (Windows) in the clipboard",
       "mode": "no-view"
     }
   ],
   "dependencies": {
-    "@raycast/api": "^1.103.5",
+    "@raycast/api": "^1.104.5",
     "@raycast/utils": "^2.2.2"
   },
   "devDependencies": {
-    "@raycast/api": "^1.103.5",
+    "@raycast/api": "^1.104.5",
     "@raycast/eslint-config": "^2.1.1",
     "@raycast/utils": "^2.2.2",
     "@types/jest": "^30.0.0",
