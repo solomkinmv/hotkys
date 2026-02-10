@@ -1,8 +1,16 @@
 import {Metadata} from "next";
 import {Header1, Paragraph, TypographyH3, TypographyInlineCode, TypographyLink} from "@/components/ui/typography";
+import {createCanonical, createOpenGraph} from "@/lib/seo-utils";
 
 export const metadata: Metadata = {
-    title: "About",
+    title: "About Hotkys - Keyboard Shortcuts Database",
+    description: "Hotkys is an open-source keyboard shortcuts database for macOS, Windows, and Linux applications. Learn how to contribute and improve your productivity.",
+    alternates: createCanonical("/about"),
+    openGraph: createOpenGraph(
+        "/about",
+        "About Hotkys - Keyboard Shortcuts Database",
+        "Hotkys is an open-source keyboard shortcuts database for macOS, Windows, and Linux applications. Learn how to contribute and improve your productivity.",
+    ),
 };
 
 export default function About() {
