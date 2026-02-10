@@ -12,15 +12,12 @@ import {
 import { SeparatorWithText } from "@/components/ui/separator-with-text";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { SearchBar } from "@/components/ui/search-bar";
-import { Header1, TypographyMuted, TypographySmall } from "@/components/ui/typography";
+import { TypographyMuted, TypographySmall } from "@/components/ui/typography";
 import Fuse from "fuse.js";
 import { KeymapSelector } from "@/app/apps/[slug]/[keymap]/keymap-selector";
 import TableOfContents from "@/app/apps/[slug]/[keymap]/table-of-contents";
 import Link from "next/link";
-import { getPlatformDisplay } from "@/lib/utils";
-import { AppIcon } from "@/components/ui/app-icon";
 import { ListItem } from "@/components/ui/list";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { LayoutGrid, List, Menu, Settings2 } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -296,20 +293,6 @@ export const AppDetails = ({
   return (
     <div className="min-h-0 w-full flex-1 overflow-y-auto">
       <div className="mx-auto max-w-5xl p-4 md:p-6">
-        <div className="flex items-center gap-2 mb-2">
-          <AppIcon icon={application.icon} appName={application.name} size="md" />
-          <Header1 className="mb-0">{application.name}</Header1>
-          {keymap.platforms?.map((platform) => (
-            <Badge
-              key={platform}
-              variant="outline"
-              className="text-sm hidden md:inline-flex"
-              aria-label={`Platform: ${getPlatformDisplay(platform)}`}
-            >
-              {getPlatformDisplay(platform)}
-            </Badge>
-          ))}
-        </div>
         <div className="flex items-center gap-2 mb-2">
           {viewMode === "list" && (
             <Button

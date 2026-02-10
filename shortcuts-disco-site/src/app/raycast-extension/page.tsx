@@ -1,9 +1,17 @@
 import {Metadata} from "next";
 import Image from "next/image";
 import {Header1, Paragraph, TypographyLink} from "@/components/ui/typography";
+import {createCanonical, createOpenGraph} from "@/lib/seo-utils";
 
 export const metadata: Metadata = {
-    title: "Raycast Extension",
+    title: "Raycast Extension - Search and Run Shortcuts",
+    description: "Download the Hotkys Raycast extension to search, browse, and execute keyboard shortcuts directly from Raycast for any application.",
+    alternates: createCanonical("/raycast-extension"),
+    openGraph: createOpenGraph(
+        "/raycast-extension",
+        "Raycast Extension - Search and Run Shortcuts",
+        "Download the Hotkys Raycast extension to search, browse, and execute keyboard shortcuts directly from Raycast for any application.",
+    ),
 };
 
 export default function Page() {
@@ -13,22 +21,22 @@ export default function Page() {
             <div className="flex flex-wrap justify-around">
                 <div className="w-full p-4 sm:w-1/2">
                     <Image alt="List of all aps in Raycast extension"
-                           width={380} height={238} src="media/shortcuts-search-1.png"
+                           width={380} height={238} src="media/shortcuts-search-1.webp"
                            className="mt-0 mb-0"/>
                 </div>
                 <div className="w-full p-4 sm:w-1/2">
                     <Image alt="App search in Raycast extension"
-                           width={380} height={238} src="media/shortcuts-search-2.png"
+                           width={380} height={238} src="media/shortcuts-search-2.webp"
                            className="mt-0 mb-0"/>
                 </div>
                 <div className="w-full p-4 sm:w-1/2">
                     <Image alt="Application specific shortcuts in Raycast extension"
-                           width={380} height={238} src="media/shortcuts-search-3.png"
+                           width={380} height={238} src="media/shortcuts-search-3.webp"
                            className="mt-0 mb-0"/>
                 </div>
                 <div className="w-full p-4 sm:w-1/2">
-                    <Image alt="Shortcut sarch in Raycast extension"
-                           width={380} height={238} src="media/shortcuts-search-4.png"
+                    <Image alt="Shortcut search in Raycast extension"
+                           width={380} height={238} src="media/shortcuts-search-4.webp"
                            className="mt-0 mb-0"/>
                 </div>
             </div>

@@ -24,8 +24,15 @@ export const metadata: Metadata = {
     template: "%s | Hotkys",
     default: "Hotkys",
   },
-  description: "Collection of useful shortcuts for different applications",
+  description: "Master keyboard shortcuts for 60+ popular apps. Free, searchable cheat sheets for macOS, Windows, and Linux productivity tools, design apps, and dev software.",
   metadataBase: new URL("https://hotkys.com"),
+  openGraph: {
+    type: "website",
+    siteName: "Hotkys",
+  },
+  twitter: {
+    card: "summary_large_image",
+  },
 };
 
 /**

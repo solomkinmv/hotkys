@@ -37,12 +37,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ];
 
     for (const app of getAllShortcuts().applications) {
-        sitePages.push({
-            url: `https://hotkys.com/apps/${app.slug}`,
-            lastModified: new Date(),
-            changeFrequency: ChangeFrequency.WEEKLY,
-            priority: 0.3,
-        });
         for (const keymap of app.keymaps) {
             sitePages.push({
                 url: `https://hotkys.com/apps/${app.slug}/${serializeKeymap(keymap)}`,

@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
-import { AppShortcuts } from "@/lib/model/internal/internal-models";
+import { useState, useMemo } from "react";
+import { AppShortcuts, Platform } from "@/lib/model/internal/internal-models";
 import Fuse from "fuse.js";
 import { Kbd } from "@/components/ui/kbd";
 import { InputProps } from "@/components/ui/input";
@@ -15,18 +15,29 @@ import { getPlatformDisplay } from "@/lib/utils";
 import { usePlatformFilter } from "@/lib/hooks/use-platform-filter";
 import { PlatformFilter } from "@/components/ui/platform-filter";
 import { AppIcon } from "@/components/ui/app-icon";
+import { usePlatform } from "@/lib/hooks/use-platform";
+import { serializeKeymap } from "@/lib/model/keymap-utils";
 
 /**
  * ApplicationList component displays a searchable, keyboard-navigable list of applications
  * 
  * @param applications Array of application shortcuts to display
  */
+function getAppKeymapUrl(app: AppShortcuts, userPlatform: Platform): string {
+  const bestKeymap = app.keymaps.find(k => k.platforms?.includes(userPlatform)) ?? app.keymaps[0];
+  if (!bestKeymap) {
+    return `/apps/${app.slug}`;
+  }
+  return `/apps/${app.slug}/${serializeKeymap(bestKeymap)}`;
+}
+
 export const ApplicationList = ({
   applications,
 }: {
   applications: AppShortcuts[];
 }) => {
   const [searchTerm, setSearchTerm] = useState("");
+  const userPlatform = usePlatform();
   const { platformFilter, setPlatformFilter } = usePlatformFilter();
 
   // Apply platform filter first, then search
@@ -57,7 +68,7 @@ export const ApplicationList = ({
   const { selectedIndex, itemRefs } = useKeyboardNavigation<AppShortcuts>(
     appShortcuts,
     undefined,
-    (app) => `/apps/${app.slug}`
+    (app) => getAppKeymapUrl(app, userPlatform)
   );
 
   // Handle search input changes
@@ -86,7 +97,7 @@ export const ApplicationList = ({
             return (
               <LinkableListItem
                 key={app.slug}
-                to={`/apps/${app.slug}`}
+                to={getAppKeymapUrl(app, userPlatform)}
                 selected={index === selectedIndex}
                 ref={(el) => {
                   itemRefs.current[index] = el;
