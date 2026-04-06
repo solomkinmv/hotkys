@@ -1,12 +1,12 @@
 # Hotkys
 
-Website and Raycast extension that allows you to find shortcuts for your app.
+Website and Raycast extension that allows you to find shortcuts for your app on macOS and Windows.
 
 The Raycast extension adds additional automation features:
 
 1. Find shortcuts for the frontmost application
-2. Run shortcuts by selecting from the list
-3. Copy bundle id for the frontmost application
+2. Run shortcuts by selecting from the list (works on both macOS and Windows)
+3. Copy bundle ID (macOS) or Windows App ID (Windows) for the frontmost application
 
 ## Contributing shortcuts
 
@@ -56,7 +56,9 @@ The structure contains the following information:
 
 **Application information**
 - Each application has a `name` and `slug`.
-- The `bundleId` is an optional field, which helps identify a macOS application. It is not applicable to websites or web apps. Use the Raycast command "Copy Current App's Bundle Id" included with the Raycast extension to find the bundle Id of the application you want to add.
+- The `bundleId` is an optional field for macOS applications. Use the Raycast command "Copy Current App's Bundle Id" to find it.
+- The `windowsAppId` is an optional field for Windows applications. Use the same Raycast command on Windows to copy the Windows App ID.
+- Bundle/App IDs are not applicable to websites or web apps.
 - An application can have multiple `keymaps`. Usually there is just one, named "Default". A keymap can have multiple sections of shortcuts. Each one has a title.
 - Each keymap can specify a `platforms` field (array) to indicate which operating systems it's designed for. Supported values are `"windows"`, `"linux"`, and `"macos"`. The platforms will be visually indicated in the UI with badges.
   - Single platform: `"platforms": ["macos"]`

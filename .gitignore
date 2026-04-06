@@ -4,3 +4,6 @@
 
 # misc
 .DS_Store
+
+# ralphex progress logs
+progress*.txt
