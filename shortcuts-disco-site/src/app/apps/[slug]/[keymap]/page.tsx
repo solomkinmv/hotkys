@@ -9,6 +9,7 @@ import Link from "next/link";
 import {getPlatformDisplay} from "@/lib/utils";
 import {generateKeymapDescription, createCanonical, createOpenGraph} from "@/lib/seo-utils";
 import {getIconUrl} from "@/lib/utils/icon-helpers";
+import {FavoriteButton} from "@/components/favorites/favorite-button";
 
 interface Props {
     params: Promise<{ slug: string, keymap: string }>;
@@ -54,18 +55,21 @@ export default async function SingleApplicationPage({params}: Props) {
 
     return (
         <>
-            <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight mx-auto max-w-5xl px-4 md:px-6 pt-4 md:pt-6 flex items-center gap-3">
-                {iconUrl && (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img
-                        src={iconUrl}
-                        alt=""
-                        className="h-10 w-10 rounded-sm shrink-0"
-                    />
-                )}
-                {appShortcuts.name}
-                <span className="sr-only"> Keyboard Shortcuts</span>
-            </h1>
+            <div className="mx-auto flex max-w-5xl items-center gap-3 px-4 pt-4 md:px-6 md:pt-6">
+                <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight flex items-center gap-3">
+                    {iconUrl && (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img
+                            src={iconUrl}
+                            alt=""
+                            className="h-10 w-10 rounded-sm shrink-0"
+                        />
+                    )}
+                    {appShortcuts.name}
+                    <span className="sr-only"> Keyboard Shortcuts</span>
+                </h1>
+                <FavoriteButton itemType="app" appSlug={appShortcuts.slug} />
+            </div>
             {appShortcuts.keymaps.length > 1 && (
                 <nav className="sr-only" aria-label="Available keymaps">
                     {appShortcuts.keymaps.map(km => (

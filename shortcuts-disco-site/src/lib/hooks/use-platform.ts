@@ -1,8 +1,11 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useSyncExternalStore } from 'react';
 import { getPlatform } from '@/lib/model/internal/modifiers';
 import { Platform } from '@/lib/model/internal/internal-models';
+
+const subscribe = () => () => {};
+const getServerPlatformSnapshot = (): Platform => 'macos';
 
 /**
  * React hook to detect the user's platform (Windows, Linux, or macOS).
@@ -11,11 +14,9 @@ import { Platform } from '@/lib/model/internal/internal-models';
  * @returns The detected platform: 'windows', 'linux', or 'macos'
  */
 export function usePlatform(): Platform {
-  const [platform, setPlatform] = useState<Platform>('macos');
-
-  useEffect(() => {
-    setPlatform(getPlatform());
-  }, []);
-
-  return platform;
+  return useSyncExternalStore(
+    subscribe,
+    getPlatform,
+    getServerPlatformSnapshot
+  );
 }

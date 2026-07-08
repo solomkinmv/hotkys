@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import { GithubIcon, TwitterIcon, RaycastIcon } from "@/components/ui/icons";
 import { MAIN_NAV_LINKS, SOCIAL_LINKS, NavIconKey } from "@/lib/constants/navigation";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { UserMenu } from "@/components/auth/user-menu";
 import { HelpCircle } from "lucide-react";
 
 const NAV_ICONS: Record<NavIconKey, React.ComponentType<{ className?: string }>> = {
@@ -67,6 +68,7 @@ export const Header = () => {
             </Link>
           ))}
           <ThemeToggle />
+          <UserMenu />
         </div>
       </div>
     </header>

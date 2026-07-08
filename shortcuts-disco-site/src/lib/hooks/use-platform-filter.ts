@@ -1,7 +1,9 @@
 "use client";
 
 import { Platform } from "@/lib/model/internal/internal-models";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { useAuth } from "@/components/auth/auth-provider";
+import { usePreferences } from "@/lib/hooks/use-preferences";
 
 const STORAGE_KEY = "platform-filter";
 
@@ -10,7 +12,10 @@ const STORAGE_KEY = "platform-filter";
  * @returns Platform filter state (null = all platforms) and setter function
  */
 export function usePlatformFilter() {
-  const [platformFilter, setPlatformFilter] = useState<Platform | null>(() => {
+  const { user } = useAuth();
+  const { preferences, isLoading, updatePreferences } = usePreferences();
+  const [localPlatformFilter, setLocalPlatformFilter] =
+    useState<Platform | null>(() => {
     // Initialize from localStorage on mount
     if (typeof window !== "undefined") {
       try {
@@ -27,6 +32,9 @@ export function usePlatformFilter() {
     return null;
   });
 
+  const platformFilter =
+    user && !isLoading ? preferences.platformFilter : localPlatformFilter;
+
   // Persist to localStorage whenever filter changes
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -41,5 +49,17 @@ export function usePlatformFilter() {
     }
   }, [platformFilter]);
 
-  return { platformFilter, setPlatformFilter };
+  const updatePlatformFilter = useCallback(
+    (filter: Platform | null) => {
+      setLocalPlatformFilter(filter);
+      if (user && !isLoading) {
+        void updatePreferences({ platformFilter: filter }).catch((error) => {
+          console.error("Failed to save platform preference:", error);
+        });
+      }
+    },
+    [user, isLoading, updatePreferences]
+  );
+
+  return { platformFilter, setPlatformFilter: updatePlatformFilter };
 }

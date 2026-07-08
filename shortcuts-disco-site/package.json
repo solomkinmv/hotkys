@@ -9,13 +9,14 @@
     "dev": "npm run export-data:watch & next dev",
     "build": "npm run export-data && next build",
     "start": "npm run export-data && next start",
-    "lint": "next lint",
+    "lint": "eslint .",
     "test": "jest",
     "export-data": "node --import tsx ./src/lib/write/app-writer.ts",
     "export-data:watch": "node --import tsx ./src/lib/write/watcher.ts",
     "prettify": "node --import tsx ./src/lib/write/prettify.ts"
   },
   "dependencies": {
+    "@clerk/react": "^6.12.0",
     "@next/third-parties": "^16.0.1",
     "@radix-ui/react-avatar": "^1.1.11",
     "@radix-ui/react-dialog": "^1.1.15",
@@ -24,6 +25,7 @@
     "@radix-ui/react-separator": "^1.1.7",
     "@radix-ui/react-slider": "^1.3.6",
     "@radix-ui/react-slot": "^1.2.3",
+    "@supabase/supabase-js": "^2.91.1",
     "@tailwindcss/typography": "^0.5.19",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
