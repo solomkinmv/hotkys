@@ -1,3 +1,5 @@
+"use client";
+
 import * as React from "react"
 import {ChevronsUpDown} from "lucide-react"
 import {Button} from "@/components/ui/button"
@@ -16,10 +18,42 @@ interface KeymapSelectorProps {
 
 export function KeymapSelector({keymaps, activeKeymap, urlPrefix}: KeymapSelectorProps) {
     const [open, setOpen] = React.useState(false)
+    const [mounted, setMounted] = React.useState(false)
+
+    React.useEffect(() => {
+        setMounted(true)
+    }, [])
 
     // Find the active keymap object
     const activeKeymapObj = keymaps.find(k => k.title === activeKeymap);
     const activePlatforms = activeKeymapObj?.platforms ?? [];
+    const triggerContent = (
+        <>
+            <div className="flex items-center gap-1">
+                {activeKeymap}
+                {activePlatforms.map((platform) => (
+                    <Badge key={platform} variant="outline" className="ml-2 text-xs" aria-label={`Platform: ${getPlatformDisplay(platform)}`}>
+                        {getPlatformDisplay(platform)}
+                    </Badge>
+                ))}
+            </div>
+            <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50"/>
+        </>
+    );
+
+    if (!mounted) {
+        return (
+            <Button
+                variant="outline"
+                role="combobox"
+                aria-expanded={false}
+                className="justify-between w-full"
+                disabled
+            >
+                {triggerContent}
+            </Button>
+        )
+    }
 
     return (
         <Popover open={open} onOpenChange={setOpen}>
@@ -30,15 +64,7 @@ export function KeymapSelector({keymaps, activeKeymap, urlPrefix}: KeymapSelecto
                     aria-expanded={open}
                     className="justify-between w-full"
                 >
-                    <div className="flex items-center gap-1">
-                        {activeKeymap}
-                        {activePlatforms.map((platform) => (
-                            <Badge key={platform} variant="outline" className="ml-2 text-xs" aria-label={`Platform: ${getPlatformDisplay(platform)}`}>
-                                {getPlatformDisplay(platform)}
-                            </Badge>
-                        ))}
-                    </div>
-                    <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50"/>
+                    {triggerContent}
                 </Button>
             </PopoverTrigger>
             <PopoverContent className="p-0 w-full">

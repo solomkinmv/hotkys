@@ -1,14 +1,19 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useMemo, useRef} from 'react';
 import {Section} from "@/lib/model/internal/internal-models";
 import Link from "next/link";
 import {TypographyMuted, TypographySmall} from "@/components/ui/typography";
 
 function useAnchorRefs(sections: Section[]) {
-    const anchorRefs = useRef<Record<string, React.RefObject<HTMLAnchorElement | null>>>({});
-    sections.forEach(section => {
-        anchorRefs.current[section.title] = React.createRef();
-    });
-    return anchorRefs;
+    return useMemo(
+        () =>
+            Object.fromEntries(
+                sections.map((section) => [
+                    section.title,
+                    React.createRef<HTMLAnchorElement | null>(),
+                ]),
+            ),
+        [sections],
+    );
 }
 
 const TableOfContents = ({sections, sectionRefs, onSectionClick}: {
@@ -26,7 +31,7 @@ const TableOfContents = ({sections, sectionRefs, onSectionClick}: {
             entries.forEach(entry => {
                 const id = entry.target.getAttribute('id');
                 if (!id) return;
-                let element = anchorRefs.current[id];
+                let element = anchorRefs[id];
                 if (element && element.current) {
                     if (entry.isIntersecting) {
                         if (prevElement) {
@@ -61,7 +66,7 @@ const TableOfContents = ({sections, sectionRefs, onSectionClick}: {
             {sections.map((section) => (
                 <Link href={`#${section.title}`}
                       key={section.title}
-                      ref={anchorRefs.current[section.title]}
+                      ref={anchorRefs[section.title]}
                       className="block cursor-pointer rounded-md px-2 py-1 not-prose hover:bg-accent"
                       onClick={onSectionClick}>
                     <TypographySmall>{section.title}</TypographySmall>

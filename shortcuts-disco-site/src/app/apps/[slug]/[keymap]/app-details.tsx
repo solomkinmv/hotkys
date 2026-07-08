@@ -25,6 +25,9 @@ import { Slider } from "@/components/ui/slider";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { MasonryGrid } from "@/components/ui/masonry-grid";
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
+import { FavoriteButton } from "@/components/favorites/favorite-button";
+import { useAuth } from "@/components/auth/auth-provider";
+import { usePreferences } from "@/lib/hooks/use-preferences";
 
 type ViewMode = "list" | "cheatsheet";
 
@@ -54,6 +57,10 @@ function parseColumnCount(value: string | null): number | null {
   return num;
 }
 
+function normalizeColumnCount(value: number): number {
+  return Math.min(MAX_COLUMNS, Math.max(MIN_COLUMNS, value));
+}
+
 function getStoredColumnCount(): number {
   if (typeof window === "undefined") return DEFAULT_COLUMNS;
   const stored = localStorage.getItem(COLUMN_COUNT_STORAGE_KEY);
@@ -68,6 +75,12 @@ export const AppDetails = ({
   application: AppShortcuts;
   keymap: Keymap;
 }) => {
+  const { user } = useAuth();
+  const {
+    preferences,
+    isLoading: preferencesLoading,
+    updatePreferences,
+  } = usePreferences();
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -81,14 +94,20 @@ export const AppDetails = ({
   const effectiveColumnCount = Math.min(userColumnCount, maxColumns);
 
   useEffect(() => {
-    const effectiveMode = urlViewMode ?? getStoredViewMode();
+    const effectiveMode =
+      urlViewMode ??
+      (user && !preferencesLoading ? preferences.viewMode : getStoredViewMode());
     setViewModeState(effectiveMode);
-  }, [urlViewMode]);
+  }, [urlViewMode, user, preferencesLoading, preferences.viewMode]);
 
   useEffect(() => {
-    const effectiveCols = urlColumnCount ?? getStoredColumnCount();
+    const effectiveCols =
+      urlColumnCount ??
+      (user && !preferencesLoading
+        ? normalizeColumnCount(preferences.columnCount)
+        : getStoredColumnCount());
     setUserColumnCountState(effectiveCols);
-  }, [urlColumnCount]);
+  }, [urlColumnCount, user, preferencesLoading, preferences.columnCount]);
 
   useEffect(() => {
     if (viewMode !== "cheatsheet") return;
@@ -110,6 +129,11 @@ export const AppDetails = ({
   const setViewMode = (newMode: ViewMode) => {
     setViewModeState(newMode);
     localStorage.setItem(VIEW_MODE_STORAGE_KEY, newMode);
+    if (user && !preferencesLoading) {
+      void updatePreferences({ viewMode: newMode }).catch((error) => {
+        console.error("Failed to save view preference:", error);
+      });
+    }
 
     const params = new URLSearchParams(searchParams.toString());
     if (newMode === "list") {
@@ -124,6 +148,11 @@ export const AppDetails = ({
   const setColumnCount = (newCount: number) => {
     setUserColumnCountState(newCount);
     localStorage.setItem(COLUMN_COUNT_STORAGE_KEY, String(newCount));
+    if (user && !preferencesLoading) {
+      void updatePreferences({ columnCount: newCount }).catch((error) => {
+        console.error("Failed to save column preference:", error);
+      });
+    }
 
     const params = new URLSearchParams(searchParams.toString());
     if (newCount === DEFAULT_COLUMNS) {
@@ -239,6 +268,13 @@ export const AppDetails = ({
               <span className="font-medium inline-flex items-center gap-2">
                 <span>{hotkey.title}</span>
                 <ShortcutDisplay shortcut={hotkey} />
+                <FavoriteButton
+                  itemType="shortcut"
+                  appSlug={application.slug}
+                  keymapTitle={keymap.title}
+                  sectionTitle={section.title}
+                  shortcutTitle={hotkey.title}
+                />
               </span>
               <span className="text-right text-muted-foreground">
                 {generateCommentText(hotkey.comment)}
@@ -273,7 +309,16 @@ export const AppDetails = ({
                   className="flex flex-wrap items-start justify-between gap-x-2 gap-y-1 text-sm py-1"
                 >
                   <div className="flex flex-col min-w-0">
-                    <span>{hotkey.title}</span>
+                    <span className="inline-flex items-center gap-1">
+                      {hotkey.title}
+                      <FavoriteButton
+                        itemType="shortcut"
+                        appSlug={application.slug}
+                        keymapTitle={keymap.title}
+                        sectionTitle={section.title}
+                        shortcutTitle={hotkey.title}
+                      />
+                    </span>
                     {hotkey.comment && (
                       <span className="text-xs text-muted-foreground">
                         {generateCommentText(hotkey.comment)}
@@ -309,6 +354,11 @@ export const AppDetails = ({
             keymaps={application.keymaps}
             activeKeymap={keymap.title}
             urlPrefix={`/apps/${application.slug}`}
+          />
+          <FavoriteButton
+            itemType="keymap"
+            appSlug={application.slug}
+            keymapTitle={keymap.title}
           />
           <div className="hidden md:flex items-center gap-1">
             <Button

@@ -7,6 +7,8 @@ import { cn } from "@/lib/utils";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { ThemeProvider } from "@/components/theme-provider";
+import { AuthProvider } from "@/components/auth/auth-provider";
+import { FavoritesProvider } from "@/lib/hooks/use-favorites";
 
 /**
  * Font configuration for the application
@@ -47,13 +49,17 @@ const RootLayout = ({ children }: React.PropsWithChildren) => {
         fontSans.variable,
       )}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <Header />
+          <AuthProvider>
+            <FavoritesProvider>
+              <Header />
 
-          <main className="flex-1 p-6 md:p-10">
-            {children}
-          </main>
+              <main className="flex-1 p-6 md:p-10">
+                {children}
+              </main>
 
-          <Footer />
+              <Footer />
+            </FavoritesProvider>
+          </AuthProvider>
         </ThemeProvider>
         <GoogleAnalytics gaId="G-RKBKYV49KC" />
       </body>
