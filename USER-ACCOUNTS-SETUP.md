@@ -17,6 +17,7 @@ could not be restored. The active replacement project is `pnzstacjwokxqvtxoeyp`
 - [x] Clerk Google custom credentials configured from the dedicated Hotkys Google OAuth client
 - [x] Older rotated Google OAuth client secret disabled
 - [x] GitHub Pages environment variables configured for Clerk and Supabase public build settings
+- [ ] GitHub Pages Clerk key switched from development `pk_test_...` to production `pk_live_...`
 - [x] SSG-compatible auth wrapper
 - [x] Branch rebased onto current `origin/main`
 
@@ -81,6 +82,7 @@ Google OAuth client is used by Clerk production instances.
 
 1. Add the production app URL in Clerk.
 2. Set Clerk and Supabase environment variables in hosting.
+   - GitHub Pages deployment is intentionally blocked unless `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` starts with `pk_live_`.
 3. Confirm the Supabase third-party Clerk provider is enabled in production.
 4. Confirm the production Clerk instance uses the dedicated Hotkys Google OAuth
    client from Google Cloud project `hotkys`.

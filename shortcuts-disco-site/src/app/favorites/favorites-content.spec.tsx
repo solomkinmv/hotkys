@@ -44,13 +44,44 @@ describe("FavoritesContent", () => {
     });
   });
 
-  it("only presents app favorites in the favorites page", () => {
+  it("presents app, keymap, and shortcut favorites in the favorites page", () => {
+    mockUseFavorites.mockReturnValue({
+      favorites: [
+        {
+          id: "favorite-app",
+          userId: "user-1",
+          itemType: "app",
+          appSlug: "sample",
+        },
+        {
+          id: "favorite-keymap",
+          userId: "user-1",
+          itemType: "keymap",
+          appSlug: "sample",
+          keymapTitle: "Default",
+        },
+        {
+          id: "favorite-shortcut",
+          userId: "user-1",
+          itemType: "shortcut",
+          appSlug: "sample",
+          keymapTitle: "Default",
+          sectionTitle: "Editing",
+          shortcutTitle: "Copy",
+        },
+      ],
+      isLoading: false,
+      toggleFavorite: jest.fn(),
+    });
+
     render(<FavoritesContent />);
 
     expect(screen.getByText("Apps")).toBeTruthy();
-    expect(screen.getAllByText("sample")).toHaveLength(1);
-    expect(screen.queryByText("Keymaps")).toBeNull();
-    expect(screen.queryByText("Default")).toBeNull();
+    expect(screen.getByText("Keymaps")).toBeTruthy();
+    expect(screen.getByText("Shortcuts")).toBeTruthy();
+    expect(screen.getByText("sample")).toBeTruthy();
+    expect(screen.getByText("sample / Default")).toBeTruthy();
+    expect(screen.getByText("Copy (sample / Default)")).toBeTruthy();
   });
 
   it("does not describe favorites as keymap storage", () => {

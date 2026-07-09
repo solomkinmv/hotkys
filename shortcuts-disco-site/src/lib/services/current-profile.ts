@@ -12,11 +12,11 @@ export interface CurrentProfile {
 }
 
 let cachedProfile: CurrentProfile | null = null;
-let cachedProfilePromise: Promise<CurrentProfile | null> | null = null;
+let cachedProfilePromises = new Map<string, Promise<CurrentProfile | null>>();
 
 export function clearCurrentProfileCache() {
   cachedProfile = null;
-  cachedProfilePromise = null;
+  cachedProfilePromises = new Map();
 }
 
 export async function getCurrentProfile(
@@ -32,16 +32,21 @@ export async function getCurrentProfile(
     return cachedProfile;
   }
 
-  if (cachedProfilePromise) {
-    return cachedProfilePromise;
+  const pendingProfile = cachedProfilePromises.get(user.id);
+  if (pendingProfile) {
+    return pendingProfile;
   }
 
-  cachedProfilePromise = ensureCurrentProfile(user).finally(() => {
-    cachedProfilePromise = null;
+  const profilePromise = ensureCurrentProfile(user).finally(() => {
+    cachedProfilePromises.delete(user.id);
   });
+  cachedProfilePromises.set(user.id, profilePromise);
 
-  cachedProfile = await cachedProfilePromise;
-  return cachedProfile;
+  const profile = await profilePromise;
+  if (profile?.clerkUserId === user.id) {
+    cachedProfile = profile;
+  }
+  return profile;
 }
 
 export async function requireCurrentProfile(

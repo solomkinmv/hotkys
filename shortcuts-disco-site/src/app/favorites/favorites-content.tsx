@@ -11,6 +11,8 @@ import {
   TypographyMuted,
 } from "@/components/ui/typography";
 import { Star, ExternalLink } from "lucide-react";
+import { serializeKeymap } from "@/lib/model/keymap-utils";
+import type { Favorite } from "@/lib/model/user/user-models";
 
 export function FavoritesContent() {
   const { user, isLoading: authLoading } = useAuth();
@@ -43,13 +45,15 @@ export function FavoritesContent() {
   }
 
   const appFavorites = favorites.filter((f) => f.itemType === "app");
+  const keymapFavorites = favorites.filter((f) => f.itemType === "keymap");
+  const shortcutFavorites = favorites.filter((f) => f.itemType === "shortcut");
 
-  if (appFavorites.length === 0) {
+  if (favorites.length === 0) {
     return (
       <section className="mx-auto max-w-md text-center">
         <TypographyH1 className="mb-4">Favorites</TypographyH1>
         <TypographyMuted className="mb-6">
-          You haven&apos;t favorited any apps yet.
+          You haven&apos;t favorited anything yet.
         </TypographyMuted>
         <Button asChild>
           <Link href="/">Browse Shortcuts</Link>
@@ -97,8 +101,97 @@ export function FavoritesContent() {
             </div>
           </div>
         )}
-
+        {keymapFavorites.length > 0 && (
+          <div>
+            <TypographyH3 className="mb-4">Keymaps</TypographyH3>
+            <div className="space-y-2">
+              {keymapFavorites.map((fav) => (
+                <FavoriteRow
+                  key={fav.id}
+                  favorite={fav}
+                  label={`${fav.appSlug} / ${fav.keymapTitle}`}
+                  href={getFavoriteHref(fav)}
+                  onRemove={() =>
+                    toggleFavorite({
+                      itemType: "keymap",
+                      appSlug: fav.appSlug!,
+                      keymapTitle: fav.keymapTitle!,
+                    })
+                  }
+                />
+              ))}
+            </div>
+          </div>
+        )}
+        {shortcutFavorites.length > 0 && (
+          <div>
+            <TypographyH3 className="mb-4">Shortcuts</TypographyH3>
+            <div className="space-y-2">
+              {shortcutFavorites.map((fav) => (
+                <FavoriteRow
+                  key={fav.id}
+                  favorite={fav}
+                  label={`${fav.shortcutTitle} (${fav.appSlug} / ${fav.keymapTitle})`}
+                  href={getFavoriteHref(fav)}
+                  onRemove={() =>
+                    toggleFavorite({
+                      itemType: "shortcut",
+                      appSlug: fav.appSlug!,
+                      keymapTitle: fav.keymapTitle!,
+                      sectionTitle: fav.sectionTitle!,
+                      shortcutTitle: fav.shortcutTitle!,
+                    })
+                  }
+                />
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );
+}
+
+function FavoriteRow({
+  favorite,
+  label,
+  href,
+  onRemove,
+}: {
+  favorite: Favorite;
+  label: string;
+  href: string;
+  onRemove: () => void;
+}) {
+  return (
+    <div className="flex items-center justify-between p-3 border rounded-lg">
+      <Link href={href} className="flex min-w-0 items-center gap-2 hover:underline">
+        <span className="truncate">{label}</span>
+        <ExternalLink className="h-3 w-3 shrink-0" />
+      </Link>
+      <Button
+        variant="ghost"
+        size="icon"
+        aria-label={`Remove ${label} from favorites`}
+        onClick={onRemove}
+      >
+        <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+      </Button>
+    </div>
+  );
+}
+
+function getFavoriteHref(favorite: Favorite): string {
+  if (!favorite.appSlug) return "/";
+  if (!favorite.keymapTitle) return `/apps/${favorite.appSlug}`;
+
+  const keymapPath = serializeKeymap({
+    title: favorite.keymapTitle,
+    sections: [],
+  });
+  const sectionHash = favorite.sectionTitle
+    ? `#${encodeURIComponent(favorite.sectionTitle)}`
+    : "";
+
+  return `/apps/${favorite.appSlug}/${keymapPath}${sectionHash}`;
 }

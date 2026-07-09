@@ -49,6 +49,18 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Validate production auth configuration
+        env:
+          NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ vars.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
+        run: |
+          case "${NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}" in
+            pk_live_*) ;;
+            *)
+              echo "::error::GitHub Pages production deploy requires a Clerk production publishable key that starts with pk_live_."
+              exit 1
+              ;;
+          esac
+
       - name: Build static site
         env:
           NEXT_PUBLIC_SUPABASE_URL: ${{ vars.NEXT_PUBLIC_SUPABASE_URL }}

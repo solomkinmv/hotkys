@@ -17,6 +17,9 @@ import { PlatformFilter } from "@/components/ui/platform-filter";
 import { AppIcon } from "@/components/ui/app-icon";
 import { usePlatform } from "@/lib/hooks/use-platform";
 import { serializeKeymap } from "@/lib/model/keymap-utils";
+import { useMergedShortcuts } from "@/lib/hooks/use-merged-shortcuts";
+
+const CUSTOM_APP_SLUG_PREFIX = "custom-";
 
 /**
  * ApplicationList component displays a searchable, keyboard-navigable list of applications
@@ -24,11 +27,21 @@ import { serializeKeymap } from "@/lib/model/keymap-utils";
  * @param applications Array of application shortcuts to display
  */
 function getAppKeymapUrl(app: AppShortcuts, userPlatform: Platform): string {
+  if (isCustomApp(app)) {
+    return `/my-shortcuts?app=${encodeURIComponent(
+      app.slug.slice(CUSTOM_APP_SLUG_PREFIX.length)
+    )}`;
+  }
+
   const bestKeymap = app.keymaps.find(k => k.platforms?.includes(userPlatform)) ?? app.keymaps[0];
   if (!bestKeymap) {
     return `/apps/${app.slug}`;
   }
   return `/apps/${app.slug}/${serializeKeymap(bestKeymap)}`;
+}
+
+function isCustomApp(app: AppShortcuts): boolean {
+  return app.slug.startsWith(CUSTOM_APP_SLUG_PREFIX);
 }
 
 export const ApplicationList = ({
@@ -39,13 +52,14 @@ export const ApplicationList = ({
   const [searchTerm, setSearchTerm] = useState("");
   const userPlatform = usePlatform();
   const { platformFilter, setPlatformFilter } = usePlatformFilter();
+  const { applications: mergedApplications } = useMergedShortcuts(applications);
 
   // Apply platform filter first, then search
   const filteredByPlatform = useMemo(() => {
-    return applications.filter((app) =>
+    return mergedApplications.filter((app) =>
       appMatchesPlatformFilter(app, platformFilter)
     );
-  }, [applications, platformFilter]);
+  }, [mergedApplications, platformFilter]);
 
   // Setup fuzzy search with Fuse.js on platform-filtered apps
   const fuse = useMemo(() => {
@@ -119,6 +133,11 @@ export const ApplicationList = ({
                       {getPlatformIcon(platform)}
                     </Badge>
                   ))}
+                  {isCustomApp(app) && (
+                    <Badge variant="secondary" className="text-xs">
+                      Custom
+                    </Badge>
+                  )}
                   {app.bundleId && <Kbd>{app.bundleId}</Kbd>}
                 </div>
               </LinkableListItem>
