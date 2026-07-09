@@ -262,7 +262,7 @@ describe("AppDetails", () => {
     expect(screen.getAllByText("Shortcut")).toHaveLength(2);
   });
 
-  it("marks changed and created shortcuts without visible status labels", () => {
+  it("marks changed and created shortcuts with subtle text labels", () => {
     mockUseCustomizations.mockReturnValue({
       customizations: {
         customApps: [],
@@ -313,15 +313,9 @@ describe("AppDetails", () => {
 
     expect(screen.queryByText("Changed")).toBeNull();
     expect(screen.queryByText("Created")).toBeNull();
-    expect(
-      document.querySelector('[data-customization-status="changed"]'),
-    ).not.toBeNull();
-    expect(
-      document.querySelector('[data-customization-status="created"]'),
-    ).not.toBeNull();
-    expect(
-      document.querySelector('[data-customization-status="default"]'),
-    ).toBeNull();
+    expect(screen.getByText("Edited")).toBeTruthy();
+    expect(screen.getByText("Custom")).toBeTruthy();
+    expect(document.querySelector(".rounded-full")).toBeNull();
   });
 
   it("renders the add shortcut action beside search instead of section headings", () => {
