@@ -8,18 +8,23 @@ import type {
 import { modifierMapping, Modifiers } from "@/lib/model/internal/modifiers";
 import type {
   CustomApp,
+  CustomKeymap,
+  CustomSection,
+  CustomShortcut,
   UserCustomizations,
   ShortcutOverlay,
 } from "@/lib/model/user/user-models";
 
 export class ShortcutMerger {
   private overlayMap: Map<string, ShortcutOverlay>;
+  private customKeymaps: CustomKeymap[];
 
   constructor(customizations: UserCustomizations) {
     this.overlayMap = new Map();
     for (const overlay of customizations.shortcuts) {
       this.overlayMap.set(overlay.baseKey, overlay);
     }
+    this.customKeymaps = customizations.customKeymaps ?? [];
   }
 
   mergeShortcuts(
@@ -36,11 +41,16 @@ export class ShortcutMerger {
   }
 
   private mergeApp(app: AppShortcuts): AppShortcuts {
+    const appCustomKeymaps = this.customKeymaps.filter(
+      (keymap) => keymap.baseAppSlug === app.slug
+    );
+    const baseKeymaps = app.keymaps.map((keymap) =>
+      this.mergeKeymap(app.slug, keymap)
+    );
+
     return {
       ...app,
-      keymaps: app.keymaps.map((keymap) =>
-        this.mergeKeymap(app.slug, keymap)
-      ),
+      keymaps: this.mergeCustomKeymaps(baseKeymaps, appCustomKeymaps),
     };
   }
 
@@ -89,6 +99,67 @@ export class ShortcutMerger {
     };
   }
 
+  private mergeCustomKeymaps(
+    keymaps: Keymap[],
+    customKeymaps: CustomKeymap[]
+  ): Keymap[] {
+    const mergedKeymaps = [...keymaps];
+
+    for (const customKeymap of customKeymaps) {
+      const keymapIndex = mergedKeymaps.findIndex(
+        (keymap) => keymap.title === customKeymap.title
+      );
+
+      if (keymapIndex >= 0) {
+        mergedKeymaps[keymapIndex] = this.mergeCustomSections(
+          mergedKeymaps[keymapIndex],
+          customKeymap.sections
+        );
+      } else {
+        const convertedKeymap = this.convertCustomKeymapToKeymap(customKeymap);
+        if (convertedKeymap.sections.length > 0) {
+          mergedKeymaps.push(convertedKeymap);
+        }
+      }
+    }
+
+    return mergedKeymaps;
+  }
+
+  private mergeCustomSections(
+    keymap: Keymap,
+    customSections: CustomSection[]
+  ): Keymap {
+    const sections = [...keymap.sections];
+
+    for (const customSection of this.sortSections(customSections)) {
+      const convertedSection = this.convertCustomSectionToSection(customSection);
+      if (convertedSection.hotkeys.length === 0) {
+        continue;
+      }
+
+      const sectionIndex = sections.findIndex(
+        (section) => section.title === convertedSection.title
+      );
+      if (sectionIndex >= 0) {
+        sections[sectionIndex] = {
+          ...sections[sectionIndex],
+          hotkeys: [
+            ...sections[sectionIndex].hotkeys,
+            ...convertedSection.hotkeys,
+          ],
+        };
+      } else {
+        sections.push(convertedSection);
+      }
+    }
+
+    return {
+      ...keymap,
+      sections,
+    };
+  }
+
   private buildOverlayKey(
     appSlug: string,
     keymapTitle: string,
@@ -121,6 +192,37 @@ export class ShortcutMerger {
     };
   }
 
+  private convertCustomKeymapToKeymap(customKeymap: CustomKeymap): Keymap {
+    return {
+      title: customKeymap.title,
+      platforms: customKeymap.platforms,
+      sections: this.sortSections(customKeymap.sections)
+        .map((section) => this.convertCustomSectionToSection(section))
+        .filter((section) => section.hotkeys.length > 0),
+    };
+  }
+
+  private convertCustomSectionToSection(customSection: CustomSection): Section {
+    return {
+      title: customSection.title,
+      hotkeys: this.sortShortcuts(customSection.shortcuts)
+        .filter((shortcut) => !shortcut.isDeleted)
+        .map((shortcut) => ({
+          title: shortcut.title,
+          sequence: shortcut.key ? this.parseShortcutKey(shortcut.key) : [],
+          comment: shortcut.comment,
+        })),
+    };
+  }
+
+  private sortSections(sections: CustomSection[]): CustomSection[] {
+    return [...sections].sort((a, b) => a.sortOrder - b.sortOrder);
+  }
+
+  private sortShortcuts(shortcuts: CustomShortcut[]): CustomShortcut[] {
+    return [...shortcuts].sort((a, b) => a.sortOrder - b.sortOrder);
+  }
+
   private convertCustomAppToAppShortcuts(customApp: CustomApp): AppShortcuts {
     return {
       name: customApp.name,
@@ -131,14 +233,9 @@ export class ShortcutMerger {
       keymaps: customApp.keymaps.map((km) => ({
         title: km.title,
         platforms: km.platforms,
-        sections: km.sections.map((s) => ({
-          title: s.title,
-          hotkeys: s.shortcuts.map((sh) => ({
-            title: sh.title,
-            sequence: sh.key ? this.parseShortcutKey(sh.key) : [],
-            comment: sh.comment,
-          })),
-        })),
+        sections: this.sortSections(km.sections)
+          .map((section) => this.convertCustomSectionToSection(section))
+          .filter((section) => section.hotkeys.length > 0),
       })),
     };
   }

@@ -9,6 +9,7 @@ const replaceMock = jest.fn();
 const mockUseAuth = jest.fn();
 const mockUsePreferences = jest.fn();
 const mockUseFavorites = jest.fn();
+const mockUseCustomizations = jest.fn();
 
 jest.mock("next/navigation", () => ({
   __esModule: true,
@@ -40,6 +41,11 @@ jest.mock("@/lib/hooks/use-preferences", () => ({
 jest.mock("@/lib/hooks/use-favorites", () => ({
   __esModule: true,
   useFavorites: mockUseFavorites,
+}));
+
+jest.mock("@/lib/hooks/use-customizations", () => ({
+  __esModule: true,
+  useCustomizations: mockUseCustomizations,
 }));
 
 const { AppDetails } = require("./app-details") as typeof import("./app-details");
@@ -82,6 +88,16 @@ describe("AppDetails", () => {
       isLoading: false,
       isFavorite: jest.fn(),
       toggleFavorite: jest.fn(),
+      refetch: jest.fn(),
+    });
+    mockUseCustomizations.mockReturnValue({
+      customizations: {
+        customApps: [],
+        customKeymaps: [],
+        shortcuts: [],
+        favorites: [],
+      },
+      isLoading: false,
       refetch: jest.fn(),
     });
     mockUsePreferences.mockReturnValue({
@@ -158,6 +174,50 @@ describe("AppDetails", () => {
         Node.DOCUMENT_POSITION_FOLLOWING,
     ).toBeTruthy();
     expect(screen.getAllByText("Copy")).toHaveLength(2);
+    expect(screen.getAllByText("Shortcut")).toHaveLength(2);
+  });
+
+  it("renders account-local shortcuts inside matching official sections", () => {
+    mockUseCustomizations.mockReturnValue({
+      customizations: {
+        customApps: [],
+        customKeymaps: [
+          {
+            id: "keymap-1",
+            baseAppSlug: "sample",
+            title: "Default",
+            sections: [
+              {
+                id: "section-1",
+                keymapId: "keymap-1",
+                title: "Editing",
+                sortOrder: 0,
+                shortcuts: [
+                  {
+                    id: "shortcut-1",
+                    sectionId: "section-1",
+                    title: "Paste",
+                    key: "cmd+v",
+                    comment: "Local only",
+                    isDeleted: false,
+                    sortOrder: 0,
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+        shortcuts: [],
+        favorites: [],
+      },
+      isLoading: false,
+      refetch: jest.fn(),
+    });
+
+    render(<AppDetails application={application} keymap={keymap} />);
+
+    expect(screen.getByText("Paste")).toBeTruthy();
+    expect(screen.getByText("Local only")).toBeTruthy();
     expect(screen.getAllByText("Shortcut")).toHaveLength(2);
   });
 });

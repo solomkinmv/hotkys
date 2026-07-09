@@ -12,18 +12,32 @@ import {
   getCurrentProfile,
   requireCurrentProfile,
 } from "@/lib/services/current-profile";
+import { validateCustomShortcutDraft } from "@/lib/services/custom-shortcut-validation";
+
+interface BaseAppShortcutInput {
+  baseAppSlug: string;
+  keymapTitle: string;
+  sectionTitle: string;
+  title: string;
+  key?: string;
+  comment?: string;
+}
 
 export class CustomizationsService {
   async getAllCustomizations(
     authUser?: AuthUser | null
   ): Promise<UserCustomizations> {
     const supabase = createClientOrNull();
-    if (!supabase) return { customApps: [], shortcuts: [], favorites: [] };
+    if (!supabase) {
+      return { customApps: [], customKeymaps: [], shortcuts: [], favorites: [] };
+    }
 
     const profile = await getCurrentProfile(authUser);
-    if (!profile) return { customApps: [], shortcuts: [], favorites: [] };
+    if (!profile) {
+      return { customApps: [], customKeymaps: [], shortcuts: [], favorites: [] };
+    }
 
-    const [appsResult, shortcutsResult] = await Promise.all([
+    const [appsResult, keymapsResult, shortcutsResult] = await Promise.all([
       supabase
         .from("custom_apps")
         .select(
@@ -40,6 +54,19 @@ export class CustomizationsService {
         )
         .eq("user_id", profile.id),
       supabase
+        .from("custom_keymaps")
+        .select(
+          `
+          *,
+          custom_sections (
+            *,
+            custom_shortcuts (*)
+          )
+        `
+        )
+        .eq("user_id", profile.id)
+        .not("base_app_slug", "is", null),
+      supabase
         .from("custom_shortcuts")
         .select("*")
         .eq("user_id", profile.id)
@@ -47,10 +74,14 @@ export class CustomizationsService {
     ]);
 
     if (appsResult.error) throw appsResult.error;
+    if (keymapsResult.error) throw keymapsResult.error;
     if (shortcutsResult.error) throw shortcutsResult.error;
 
     return {
       customApps: this.mapCustomApps(appsResult.data ?? []),
+      customKeymaps: this.mapCustomKeymaps(
+        (keymapsResult.data as Record<string, unknown>[]) ?? []
+      ),
       shortcuts: this.mapShortcutOverlays(shortcutsResult.data ?? []),
       favorites: [],
     };
@@ -203,6 +234,8 @@ export class CustomizationsService {
     shortcut: Omit<CustomShortcut, "id">,
     authUser?: AuthUser | null
   ): Promise<void> {
+    validateCustomShortcutDraft(shortcut);
+
     const supabase = createClientOrNull();
     if (!supabase) throw new Error("Supabase sign in is not configured.");
 
@@ -234,6 +267,8 @@ export class CustomizationsService {
     shortcut: Omit<CustomShortcut, "id">,
     authUser?: AuthUser | null
   ): Promise<CustomShortcut> {
+    validateCustomShortcutDraft(shortcut);
+
     const supabase = createClientOrNull();
     if (!supabase) throw new Error("Supabase sign in is not configured.");
 
@@ -274,6 +309,40 @@ export class CustomizationsService {
     };
   }
 
+  async createBaseAppShortcut(
+    shortcut: BaseAppShortcutInput,
+    authUser?: AuthUser | null
+  ): Promise<CustomShortcut> {
+    validateCustomShortcutDraft(shortcut);
+
+    const supabase = createClientOrNull();
+    if (!supabase) throw new Error("Supabase sign in is not configured.");
+
+    const profile = await requireCurrentProfile(authUser);
+
+    const keymap = await this.findOrCreateBaseKeymap({
+      userId: profile.id,
+      baseAppSlug: shortcut.baseAppSlug,
+      title: shortcut.keymapTitle,
+    });
+    const section = await this.findOrCreateCustomSection({
+      keymapId: keymap.id,
+      title: shortcut.sectionTitle,
+    });
+
+    return this.createCustomShortcut(
+      {
+        sectionId: section.id,
+        title: shortcut.title,
+        key: shortcut.key,
+        comment: shortcut.comment,
+        isDeleted: false,
+        sortOrder: section.shortcuts.length,
+      },
+      authUser
+    );
+  }
+
   async deleteCustomShortcut(
     id: string,
     authUser?: AuthUser | null
@@ -290,6 +359,116 @@ export class CustomizationsService {
       .eq("user_id", profile.id);
 
     if (error) throw error;
+  }
+
+  private async findOrCreateBaseKeymap({
+    userId,
+    baseAppSlug,
+    title,
+  }: {
+    userId: string;
+    baseAppSlug: string;
+    title: string;
+  }): Promise<CustomKeymap> {
+    const supabase = createClientOrNull();
+    if (!supabase) throw new Error("Supabase sign in is not configured.");
+
+    const existing = await supabase
+      .from("custom_keymaps")
+      .select(
+        `
+        *,
+        custom_sections (
+          *,
+          custom_shortcuts (*)
+        )
+      `
+      )
+      .eq("user_id", userId)
+      .eq("base_app_slug", baseAppSlug)
+      .eq("title", title)
+      .limit(1);
+
+    if (existing.error) throw existing.error;
+    if (existing.data?.[0]) {
+      return this.mapCustomKeymaps([
+        existing.data[0] as Record<string, unknown>,
+      ])[0];
+    }
+
+    const created = await supabase
+      .from("custom_keymaps")
+      .insert({
+        user_id: userId,
+        custom_app_id: null,
+        base_app_slug: baseAppSlug,
+        title,
+        platforms: null,
+      })
+      .select()
+      .single();
+
+    if (created.error) throw created.error;
+
+    return {
+      id: created.data.id,
+      baseAppSlug: created.data.base_app_slug,
+      title: created.data.title,
+      platforms: created.data.platforms,
+      sections: [],
+    };
+  }
+
+  private async findOrCreateCustomSection({
+    keymapId,
+    title,
+  }: {
+    keymapId: string;
+    title: string;
+  }): Promise<CustomSection> {
+    const supabase = createClientOrNull();
+    if (!supabase) throw new Error("Supabase sign in is not configured.");
+
+    const existing = await supabase
+      .from("custom_sections")
+      .select("*, custom_shortcuts (*)")
+      .eq("keymap_id", keymapId)
+      .eq("title", title)
+      .limit(1);
+
+    if (existing.error) throw existing.error;
+    if (existing.data?.[0]) {
+      return this.mapCustomSections([
+        existing.data[0] as Record<string, unknown>,
+      ])[0];
+    }
+
+    const siblingSections = await supabase
+      .from("custom_sections")
+      .select("id")
+      .eq("keymap_id", keymapId);
+
+    if (siblingSections.error) throw siblingSections.error;
+
+    const created = await supabase
+      .from("custom_sections")
+      .insert({
+        keymap_id: keymapId,
+        title,
+        sort_order: siblingSections.data?.length ?? 0,
+      })
+      .select()
+      .single();
+
+    if (created.error) throw created.error;
+
+    return {
+      id: created.data.id,
+      keymapId: created.data.keymap_id,
+      title: created.data.title,
+      sortOrder: created.data.sort_order,
+      shortcuts: [],
+    };
   }
 
   private mapCustomApps(data: unknown[]): CustomApp[] {

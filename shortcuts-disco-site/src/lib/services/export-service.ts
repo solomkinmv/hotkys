@@ -1,5 +1,9 @@
 import type { CustomApp } from "@/lib/model/user/user-models";
-import type { InputApp, InputKeymap, InputSection, InputShortcut } from "@/lib/model/input/input-models";
+import type { InputApp } from "@/lib/model/input/input-models";
+import {
+  convertCustomAppToInputApp,
+  validateCustomApp,
+} from "@/lib/services/custom-shortcut-validation";
 
 export interface ExportResult {
   app: InputApp;
@@ -9,7 +13,8 @@ export interface ExportResult {
 
 export const exportService = {
   exportCustomApp(customApp: CustomApp): ExportResult {
-    const inputApp = convertToInputApp(customApp);
+    validateCustomApp(customApp);
+    const inputApp = convertCustomAppToInputApp(customApp);
     const json = JSON.stringify(inputApp, null, 2);
     const prDescription = generatePrDescription(inputApp);
 
@@ -24,63 +29,6 @@ export const exportService = {
     return customApps.map((app) => this.exportCustomApp(app));
   },
 };
-
-function convertToInputApp(customApp: CustomApp): InputApp {
-  const keymaps: InputKeymap[] = customApp.keymaps.map((keymap) => {
-    const sections: InputSection[] = keymap.sections
-      .sort((a, b) => a.sortOrder - b.sortOrder)
-      .map((section) => ({
-        title: section.title,
-        shortcuts: section.shortcuts
-          .filter((s) => !s.isDeleted)
-          .sort((a, b) => a.sortOrder - b.sortOrder)
-          .map((shortcut): InputShortcut => {
-            const inputShortcut: InputShortcut = {
-              title: shortcut.title,
-            };
-            if (shortcut.key) {
-              inputShortcut.key = shortcut.key;
-            }
-            if (shortcut.comment) {
-              inputShortcut.comment = shortcut.comment;
-            }
-            return inputShortcut;
-          }),
-      }));
-
-    const inputKeymap: InputKeymap = {
-      title: keymap.title,
-      sections,
-    };
-
-    if (keymap.platforms && keymap.platforms.length > 0) {
-      inputKeymap.platforms = keymap.platforms;
-    }
-
-    return inputKeymap;
-  });
-
-  const inputApp: InputApp = {
-    name: customApp.name,
-    slug: customApp.slug,
-    keymaps,
-  };
-
-  if (customApp.bundleId) {
-    inputApp.bundleId = customApp.bundleId;
-  }
-  if (customApp.hostname) {
-    inputApp.hostname = customApp.hostname;
-  }
-  if (customApp.source) {
-    inputApp.source = customApp.source;
-  }
-  if (customApp.icon) {
-    inputApp.icon = customApp.icon;
-  }
-
-  return inputApp;
-}
 
 function generatePrDescription(app: InputApp): string {
   const totalShortcuts = app.keymaps.reduce(

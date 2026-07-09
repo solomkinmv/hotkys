@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -20,14 +20,28 @@ interface ExportDialogProps {
   onOpenChange: (open: boolean) => void;
 }
 
-const GITHUB_ISSUES_URL = "https://github.com/anthropics/hotkys/issues/new";
+const GITHUB_ISSUES_URL = "https://github.com/solomkinmv/hotkys/issues/new";
 
 export function ExportDialog({ app, open, onOpenChange }: ExportDialogProps) {
   const [activeTab, setActiveTab] = useState<"json" | "pr">("json");
   const [copiedJson, setCopiedJson] = useState(false);
   const [copiedPr, setCopiedPr] = useState(false);
 
-  const exportResult: ExportResult = exportService.exportCustomApp(app);
+  const exportState = useMemo<
+    { result: ExportResult; error: null } | { result: null; error: string }
+  >(() => {
+    try {
+      return { result: exportService.exportCustomApp(app), error: null };
+    } catch (error) {
+      return {
+        result: null,
+        error:
+          error instanceof Error
+            ? error.message
+            : "Unable to export this custom app.",
+      };
+    }
+  }, [app]);
 
   const copyToClipboard = async (text: string, type: "json" | "pr") => {
     await navigator.clipboard.writeText(text);
@@ -41,7 +55,9 @@ export function ExportDialog({ app, open, onOpenChange }: ExportDialogProps) {
   };
 
   const downloadJson = () => {
-    const blob = new Blob([exportResult.json], { type: "application/json" });
+    if (!exportState.result) return;
+
+    const blob = new Blob([exportState.result.json], { type: "application/json" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
@@ -62,35 +78,44 @@ export function ExportDialog({ app, open, onOpenChange }: ExportDialogProps) {
           </DialogDescription>
         </DialogHeader>
 
-        <div className="flex gap-2 border-b pb-2">
-          <Button
-            variant={activeTab === "json" ? "default" : "ghost"}
-            size="sm"
-            onClick={() => setActiveTab("json")}
-          >
-            JSON
-          </Button>
-          <Button
-            variant={activeTab === "pr" ? "default" : "ghost"}
-            size="sm"
-            onClick={() => setActiveTab("pr")}
-          >
-            PR Description
-          </Button>
-        </div>
+        {exportState.result && (
+          <div className="flex gap-2 border-b pb-2">
+            <Button
+              variant={activeTab === "json" ? "default" : "ghost"}
+              size="sm"
+              onClick={() => setActiveTab("json")}
+            >
+              JSON
+            </Button>
+            <Button
+              variant={activeTab === "pr" ? "default" : "ghost"}
+              size="sm"
+              onClick={() => setActiveTab("pr")}
+            >
+              PR Description
+            </Button>
+          </div>
+        )}
 
         <div className="flex-1 overflow-hidden flex flex-col min-h-[300px]">
-          {activeTab === "json" ? (
+          {exportState.error ? (
+            <div
+              className="rounded-md border border-destructive/30 bg-destructive/10 p-4 text-sm text-destructive"
+              role="alert"
+            >
+              {exportState.error}
+            </div>
+          ) : exportState.result && activeTab === "json" ? (
             <>
               <div className="flex-1 overflow-auto bg-muted rounded-md p-4">
                 <pre className="text-sm font-mono whitespace-pre-wrap break-words">
-                  {exportResult.json}
+                  {exportState.result.json}
                 </pre>
               </div>
               <div className="flex gap-2 mt-4">
                 <Button
                   variant="outline"
-                  onClick={() => copyToClipboard(exportResult.json, "json")}
+                  onClick={() => copyToClipboard(exportState.result.json, "json")}
                   className="flex-1"
                 >
                   {copiedJson ? (
@@ -111,17 +136,19 @@ export function ExportDialog({ app, open, onOpenChange }: ExportDialogProps) {
                 </Button>
               </div>
             </>
-          ) : (
+          ) : exportState.result ? (
             <>
               <div className="flex-1 overflow-auto bg-muted rounded-md p-4">
                 <pre className="text-sm whitespace-pre-wrap break-words">
-                  {exportResult.prDescription}
+                  {exportState.result.prDescription}
                 </pre>
               </div>
               <div className="flex gap-2 mt-4">
                 <Button
                   variant="outline"
-                  onClick={() => copyToClipboard(exportResult.prDescription, "pr")}
+                  onClick={() =>
+                    copyToClipboard(exportState.result.prDescription, "pr")
+                  }
                   className="flex-1"
                 >
                   {copiedPr ? (
@@ -138,7 +165,7 @@ export function ExportDialog({ app, open, onOpenChange }: ExportDialogProps) {
                 </Button>
               </div>
             </>
-          )}
+          ) : null}
         </div>
 
         <DialogFooter className="border-t pt-4">
