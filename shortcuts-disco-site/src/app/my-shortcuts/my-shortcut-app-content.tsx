@@ -11,6 +11,7 @@ import { customizationsService } from "@/lib/services/customizations-service";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
+import { ShortcutKeyInput } from "@/components/shortcuts/shortcut-key-input";
 import {
   TypographyH1,
   TypographyH3,
@@ -337,11 +338,12 @@ export function MyShortcutAppContent({ slug }: MyShortcutAppContentProps) {
                       }
                       placeholder="Shortcut title"
                     />
-                    <Input
+                    <ShortcutKeyInput
                       value={draft.key}
-                      onChange={(event) =>
-                        updateShortcutDraft(section.id, { key: event.target.value })
+                      onChange={(value) =>
+                        updateShortcutDraft(section.id, { key: value })
                       }
+                      inputAriaLabel="Shortcut keys"
                       placeholder="Keys, e.g. cmd+k"
                     />
                     <Input

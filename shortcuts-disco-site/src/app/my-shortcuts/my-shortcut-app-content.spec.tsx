@@ -5,6 +5,8 @@ const replaceMock = jest.fn();
 const mockUseAuth = jest.fn();
 const mockUseCustomizations = jest.fn();
 const updateCustomAppMock = jest.fn<(...args: unknown[]) => Promise<void>>();
+const createCustomShortcutMock =
+  jest.fn<(...args: unknown[]) => Promise<unknown>>();
 const refetchMock = jest.fn<() => Promise<void>>();
 
 jest.mock("next/navigation", () => ({
@@ -26,6 +28,7 @@ jest.mock("@/lib/services/customizations-service", () => ({
   __esModule: true,
   customizationsService: {
     updateCustomApp: updateCustomAppMock,
+    createCustomShortcut: createCustomShortcutMock,
   },
 }));
 
@@ -37,6 +40,8 @@ describe("MyShortcutAppContent", () => {
     replaceMock.mockClear();
     updateCustomAppMock.mockReset();
     updateCustomAppMock.mockResolvedValue(undefined);
+    createCustomShortcutMock.mockReset();
+    createCustomShortcutMock.mockResolvedValue({});
     refetchMock.mockReset();
     refetchMock.mockResolvedValue(undefined);
     mockUseAuth.mockReturnValue({
@@ -53,7 +58,22 @@ describe("MyShortcutAppContent", () => {
             slug: "local-tool",
             bundleId: "com.local.tool",
             icon: "/icons/old.png",
-            keymaps: [],
+            keymaps: [
+              {
+                id: "keymap-1",
+                customAppId: "app-1",
+                title: "Default",
+                sections: [
+                  {
+                    id: "section-1",
+                    keymapId: "keymap-1",
+                    title: "General",
+                    sortOrder: 0,
+                    shortcuts: [],
+                  },
+                ],
+              },
+            ],
           },
         ],
         customKeymaps: [],
@@ -83,6 +103,37 @@ describe("MyShortcutAppContent", () => {
           hostname: undefined,
           source: undefined,
           icon: "https://cdn.example.com/local-tool.svg",
+        },
+        { id: "user-1" },
+      ),
+    );
+  });
+
+  it("offers shortcut modifier builder controls for custom app shortcuts", async () => {
+    render(<MyShortcutAppContent slug="local-tool" />);
+
+    fireEvent.change(screen.getByPlaceholderText("Shortcut title"), {
+      target: { value: "Undo" },
+    });
+    fireEvent.click(screen.getByRole("button", { name: "Add cmd modifier" }));
+    fireEvent.click(screen.getByRole("button", { name: "Add shift modifier" }));
+    expect((screen.getByLabelText("Shortcut keys") as HTMLInputElement).value).toBe(
+      "shift+cmd+",
+    );
+    fireEvent.change(screen.getByLabelText("Shortcut keys"), {
+      target: { value: "shift+cmd+z" },
+    });
+    fireEvent.click(screen.getByRole("button", { name: "Shortcut" }));
+
+    await waitFor(() =>
+      expect(createCustomShortcutMock).toHaveBeenCalledWith(
+        {
+          sectionId: "section-1",
+          title: "Undo",
+          key: "shift+cmd+z",
+          comment: undefined,
+          isDeleted: false,
+          sortOrder: 0,
         },
         { id: "user-1" },
       ),

@@ -369,4 +369,42 @@ describe("AppDetails", () => {
       ),
     );
   });
+
+  it("normalizes clear shortcut key fixes before saving", async () => {
+    render(<AppDetails application={application} keymap={keymap} />);
+
+    fireEvent.click(screen.getByRole("button", { name: "Add shortcut" }));
+    fireEvent.change(screen.getByLabelText("Title"), {
+      target: { value: "Undo" },
+    });
+    fireEvent.change(screen.getByLabelText("Keys"), {
+      target: { value: "cmd+z+shift" },
+    });
+    fireEvent.click(screen.getByRole("button", { name: "Save" }));
+
+    await waitFor(() =>
+      expect(createBaseAppShortcutMock).toHaveBeenCalledWith(
+        expect.objectContaining({
+          title: "Undo",
+          key: "shift+cmd+z",
+        }),
+        { id: "user-1" },
+      ),
+    );
+  });
+
+  it("offers shortcut modifier builder controls and format help", () => {
+    render(<AppDetails application={application} keymap={keymap} />);
+
+    fireEvent.click(screen.getByRole("button", { name: "Add shortcut" }));
+    fireEvent.click(screen.getByRole("button", { name: "Add cmd modifier" }));
+    fireEvent.click(screen.getByRole("button", { name: "Add shift modifier" }));
+
+    expect((screen.getByLabelText("Keys") as HTMLInputElement).value).toBe(
+      "shift+cmd+",
+    );
+    expect(
+      screen.getByRole("button", { name: "Shortcut key format" }),
+    ).toBeTruthy();
+  });
 });
