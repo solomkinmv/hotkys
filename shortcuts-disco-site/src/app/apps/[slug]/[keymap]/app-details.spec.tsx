@@ -260,9 +260,15 @@ describe("AppDetails", () => {
     expect(screen.getByText("Paste")).toBeTruthy();
     expect(screen.getByText("Local only")).toBeTruthy();
     expect(screen.getAllByText("Shortcut")).toHaveLength(2);
+
+    const commentContainer = screen.getByText("Local only").parentElement;
+    expect(
+      commentContainer?.querySelector('[data-customization-status="created"]'),
+    ).not.toBeNull();
+    expect(commentContainer?.textContent).toBe("Local only");
   });
 
-  it("marks changed and created shortcuts with subtle text labels", () => {
+  it("marks changed and created shortcuts with right-side icon labels", () => {
     mockUseCustomizations.mockReturnValue({
       customizations: {
         customApps: [],
@@ -313,8 +319,10 @@ describe("AppDetails", () => {
 
     expect(screen.queryByText("Changed")).toBeNull();
     expect(screen.queryByText("Created")).toBeNull();
-    expect(screen.getByText("Edited")).toBeTruthy();
-    expect(screen.getByText("Custom")).toBeTruthy();
+    expect(screen.queryByText("Edited")).toBeNull();
+    expect(screen.queryByText("Custom")).toBeNull();
+    expect(screen.getByLabelText("Edited shortcut")).toBeTruthy();
+    expect(screen.getByLabelText("Custom shortcut")).toBeTruthy();
     expect(document.querySelector(".rounded-full")).toBeNull();
   });
 
