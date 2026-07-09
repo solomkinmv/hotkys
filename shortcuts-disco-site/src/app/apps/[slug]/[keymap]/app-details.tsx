@@ -26,6 +26,7 @@ import {
   LayoutGrid,
   List,
   Menu,
+  Pencil,
   Plus,
   Settings2,
 } from "lucide-react";
@@ -642,7 +643,7 @@ export const AppDetails = ({
                 itemRefs.current[currentIndex] = el;
               }}
             >
-              <span className="font-medium inline-flex min-w-0 items-center gap-2">
+              <span className="font-medium inline-flex min-w-0 flex-1 items-center gap-2">
                 <FavoriteButton
                   itemType="shortcut"
                   appSlug={application.slug}
@@ -651,7 +652,6 @@ export const AppDetails = ({
                   shortcutTitle={hotkey.title}
                   className="shrink-0"
                 />
-                <ShortcutStatusIndicator shortcut={hotkey} />
                 {canCustomize ? (
                   <button
                     type="button"
@@ -668,8 +668,13 @@ export const AppDetails = ({
                 )}
                 <ShortcutDisplay shortcut={hotkey} />
               </span>
-              <span className="flex shrink-0 items-center gap-2 text-right text-muted-foreground">
-                <span>{generateCommentText(hotkey.comment)}</span>
+              <span className="flex min-w-0 max-w-[45%] shrink-0 items-center justify-end gap-2 text-right text-muted-foreground">
+                {hotkey.comment && (
+                  <span className="min-w-0 truncate">
+                    {generateCommentText(hotkey.comment)}
+                  </span>
+                )}
+                <ShortcutStatusIndicator shortcut={hotkey} />
               </span>
             </ListItem>
           );
@@ -734,7 +739,6 @@ export const AppDetails = ({
                           shortcutTitle={hotkey.title}
                           className="shrink-0"
                         />
-                        <ShortcutStatusIndicator shortcut={hotkey} />
                         {canCustomize ? (
                           <button
                             type="button"
@@ -756,7 +760,10 @@ export const AppDetails = ({
                         </span>
                       )}
                     </div>
-                    <ShortcutDisplay shortcut={hotkey} />
+                    <div className="flex shrink-0 items-center gap-1">
+                      <ShortcutDisplay shortcut={hotkey} />
+                      <ShortcutStatusIndicator shortcut={hotkey} />
+                    </div>
                   </div>
                 );
               })}
@@ -1092,19 +1099,20 @@ function ShortcutStatusIndicator({
 }) {
   if (!shortcut.customizationStatus) return null;
 
-  const label = shortcut.customizationStatus === "created" ? "Custom" : "Edited";
-  const title =
+  const label =
     shortcut.customizationStatus === "created"
       ? "Custom shortcut"
       : "Edited shortcut";
+  const Icon = shortcut.customizationStatus === "created" ? Plus : Pencil;
 
   return (
     <span
-      className="shrink-0 text-xs font-medium text-muted-foreground"
+      aria-label={label}
+      className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md text-muted-foreground/75"
       data-customization-status={shortcut.customizationStatus}
-      title={title}
+      title={label}
     >
-      {label}
+      <Icon aria-hidden="true" className="h-3.5 w-3.5" />
     </span>
   );
 }
