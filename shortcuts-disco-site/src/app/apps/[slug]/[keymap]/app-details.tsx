@@ -294,16 +294,17 @@ export const AppDetails = ({
                 itemRefs.current[currentIndex] = el;
               }}
             >
-              <span className="font-medium inline-flex items-center gap-2">
-                <span>{hotkey.title}</span>
-                <ShortcutDisplay shortcut={hotkey} />
+              <span className="font-medium inline-flex min-w-0 items-center gap-2">
                 <FavoriteButton
                   itemType="shortcut"
                   appSlug={application.slug}
                   keymapTitle={keymap.title}
                   sectionTitle={section.title}
                   shortcutTitle={hotkey.title}
+                  className="shrink-0"
                 />
+                <span>{hotkey.title}</span>
+                <ShortcutDisplay shortcut={hotkey} />
               </span>
               <span className="text-right text-muted-foreground">
                 {generateCommentText(hotkey.comment)}
@@ -339,14 +340,15 @@ export const AppDetails = ({
                 >
                   <div className="flex flex-col min-w-0">
                     <span className="inline-flex items-center gap-1">
-                      {hotkey.title}
                       <FavoriteButton
                         itemType="shortcut"
                         appSlug={application.slug}
                         keymapTitle={keymap.title}
                         sectionTitle={section.title}
                         shortcutTitle={hotkey.title}
+                        className="shrink-0"
                       />
+                      <span>{hotkey.title}</span>
                     </span>
                     {hotkey.comment && (
                       <span className="text-xs text-muted-foreground">
