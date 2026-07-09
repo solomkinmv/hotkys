@@ -14,6 +14,8 @@ const createBaseAppShortcutMock =
   jest.fn<(...args: unknown[]) => Promise<unknown>>();
 const upsertShortcutOverlayMock =
   jest.fn<(...args: unknown[]) => Promise<void>>();
+const updateCustomShortcutMock =
+  jest.fn<(...args: unknown[]) => Promise<void>>();
 const deleteCustomShortcutMock =
   jest.fn<(...args: unknown[]) => Promise<void>>();
 
@@ -61,6 +63,7 @@ jest.mock("@/lib/services/customizations-service", () => ({
   customizationsService: {
     createBaseAppShortcut: createBaseAppShortcutMock,
     upsertShortcutOverlay: upsertShortcutOverlayMock,
+    updateCustomShortcut: updateCustomShortcutMock,
     deleteCustomShortcut: deleteCustomShortcutMock,
   },
 }));
@@ -100,6 +103,8 @@ describe("AppDetails", () => {
     createBaseAppShortcutMock.mockResolvedValue({});
     upsertShortcutOverlayMock.mockReset();
     upsertShortcutOverlayMock.mockResolvedValue(undefined);
+    updateCustomShortcutMock.mockReset();
+    updateCustomShortcutMock.mockResolvedValue(undefined);
     deleteCustomShortcutMock.mockReset();
     deleteCustomShortcutMock.mockResolvedValue(undefined);
     global.IntersectionObserver = jest.fn().mockImplementation(() => ({
@@ -342,27 +347,27 @@ describe("AppDetails", () => {
     expect(sectionSelect.textContent).toContain("Editing");
   });
 
-  it("shows row customize actions only while edit mode is enabled", () => {
+  it("opens shortcut customization when an authenticated user clicks a shortcut", () => {
     render(<AppDetails application={application} keymap={keymap} />);
 
+    expect(
+      screen.queryByRole("button", { name: "Edit shortcuts" }),
+    ).toBeNull();
     expect(
       screen.queryByRole("button", { name: "Customize Copy" }),
     ).toBeNull();
 
-    const editModeButton = screen.getByRole("button", {
-      name: "Edit shortcuts",
-    });
-    expect(editModeButton.getAttribute("aria-pressed")).toBe("false");
+    fireEvent.click(screen.getByText("Copy"));
 
-    fireEvent.click(editModeButton);
-
-    expect(editModeButton.getAttribute("aria-pressed")).toBe("true");
     expect(
-      screen.getByRole("button", { name: "Customize Copy" }),
+      screen.getByRole("dialog", { name: "Customize Shortcut" }),
     ).toBeTruthy();
+    expect((screen.getByLabelText("Title") as HTMLInputElement).value).toBe(
+      "Copy",
+    );
   });
 
-  it("deletes created custom shortcuts from edit mode", async () => {
+  it("updates created custom shortcuts from the shortcut dialog", async () => {
     const refetch = jest.fn<() => Promise<void>>();
     refetch.mockResolvedValue(undefined);
     mockUseCustomizations.mockReturnValue({
@@ -404,8 +409,75 @@ describe("AppDetails", () => {
 
     expect(screen.queryByRole("button", { name: "Delete Paste" })).toBeNull();
 
-    fireEvent.click(screen.getByRole("button", { name: "Edit shortcuts" }));
-    fireEvent.click(screen.getByRole("button", { name: "Delete Paste" }));
+    fireEvent.click(screen.getByText("Paste"));
+
+    expect(
+      screen.getByRole("dialog", { name: "Customize Shortcut" }),
+    ).toBeTruthy();
+
+    fireEvent.change(screen.getByLabelText("Title"), {
+      target: { value: "Paste special" },
+    });
+    fireEvent.click(screen.getByRole("button", { name: "Save" }));
+
+    await waitFor(() =>
+      expect(updateCustomShortcutMock).toHaveBeenCalledWith(
+        "shortcut-1",
+        {
+          title: "Paste special",
+          key: "ctrl+v",
+          comment: undefined,
+        },
+        { id: "user-1" },
+      ),
+    );
+    await waitFor(() => expect(refetch).toHaveBeenCalled());
+  });
+
+  it("deletes created custom shortcuts from the shortcut dialog", async () => {
+    const refetch = jest.fn<() => Promise<void>>();
+    refetch.mockResolvedValue(undefined);
+    mockUseCustomizations.mockReturnValue({
+      customizations: {
+        customApps: [],
+        customKeymaps: [
+          {
+            id: "keymap-1",
+            baseAppSlug: "sample",
+            title: "Default",
+            sections: [
+              {
+                id: "section-1",
+                keymapId: "keymap-1",
+                title: "Editing",
+                sortOrder: 0,
+                shortcuts: [
+                  {
+                    id: "shortcut-1",
+                    sectionId: "section-1",
+                    title: "Paste",
+                    key: "cmd+v",
+                    isDeleted: false,
+                    sortOrder: 0,
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+        shortcuts: [],
+        favorites: [],
+      },
+      isLoading: false,
+      refetch,
+    });
+
+    render(<AppDetails application={application} keymap={keymap} />);
+
+    expect(screen.queryByRole("button", { name: "Delete Paste" })).toBeNull();
+
+    fireEvent.click(screen.getByText("Paste"));
+    fireEvent.click(screen.getByRole("button", { name: "Delete shortcut" }));
 
     expect(screen.getByRole("dialog", { name: "Delete Shortcut" })).toBeTruthy();
 
