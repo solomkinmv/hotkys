@@ -22,8 +22,15 @@ import TableOfContents from "@/app/apps/[slug]/[keymap]/table-of-contents";
 import Link from "next/link";
 import { ListItem } from "@/components/ui/list";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { LayoutGrid, List, Menu, Pencil, Plus, Settings2 } from "lucide-react";
+import {
+  LayoutGrid,
+  List,
+  Menu,
+  Pencil,
+  Plus,
+  Settings2,
+  Trash2,
+} from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Slider } from "@/components/ui/slider";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -81,6 +88,10 @@ type ShortcutDraft = {
   key: string;
   comment: string;
 };
+type DeleteShortcutDialogState = {
+  id: string;
+  title: string;
+};
 
 const VIEW_MODE_STORAGE_KEY = "shortcuts-view-mode";
 const COLUMN_COUNT_STORAGE_KEY = "shortcuts-column-count";
@@ -135,18 +146,6 @@ function shouldIgnorePageKeydown(target: EventTarget | null): boolean {
   );
 }
 
-function getShortcutStatusLabel(shortcut: SectionShortcut): string {
-  if (shortcut.customizationStatus === "changed") return "Changed";
-  if (shortcut.customizationStatus === "created") return "Created";
-  return "Default";
-}
-
-function getShortcutStatusVariant(
-  shortcut: SectionShortcut,
-): "secondary" | "outline" {
-  return shortcut.customizationStatus ? "secondary" : "outline";
-}
-
 export const AppDetails = ({
   application,
   keymap,
@@ -195,12 +194,18 @@ export const AppDetails = ({
   const [maxColumns, setMaxColumns] = useState<number>(MAX_COLUMNS);
   const [shortcutDialog, setShortcutDialog] =
     useState<ShortcutDialogState | null>(null);
+  const [deleteShortcutDialog, setDeleteShortcutDialog] =
+    useState<DeleteShortcutDialogState | null>(null);
   const [shortcutDraft, setShortcutDraft] =
     useState<ShortcutDraft>(emptyShortcutDraft);
   const [shortcutDialogError, setShortcutDialogError] = useState<string | null>(
     null
   );
+  const [deleteShortcutError, setDeleteShortcutError] = useState<string | null>(
+    null
+  );
   const [isSavingShortcut, setIsSavingShortcut] = useState(false);
+  const [isDeletingShortcut, setIsDeletingShortcut] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
 
   const effectiveColumnCount = Math.min(userColumnCount, maxColumns);
@@ -382,7 +387,7 @@ export const AppDetails = ({
     setShortcutDialog({
       type: "override",
       sectionTitle,
-      shortcutTitle: shortcut.title,
+      shortcutTitle: shortcut.baseShortcutTitle ?? shortcut.title,
     });
     setShortcutDraft({
       title: shortcut.title,
@@ -392,10 +397,25 @@ export const AppDetails = ({
     setShortcutDialogError(null);
   };
 
+  const openDeleteShortcutDialog = (shortcut: SectionShortcut) => {
+    if (!shortcut.customizationId) return;
+
+    setDeleteShortcutDialog({
+      id: shortcut.customizationId,
+      title: shortcut.title,
+    });
+    setDeleteShortcutError(null);
+  };
+
   const closeShortcutDialog = () => {
     setShortcutDialog(null);
     setShortcutDraft(emptyShortcutDraft);
     setShortcutDialogError(null);
+  };
+
+  const closeDeleteShortcutDialog = () => {
+    setDeleteShortcutDialog(null);
+    setDeleteShortcutError(null);
   };
 
   const handleSaveShortcutDialog = async () => {
@@ -459,6 +479,27 @@ export const AppDetails = ({
       );
     } finally {
       setIsSavingShortcut(false);
+    }
+  };
+
+  const handleDeleteShortcutDialog = async () => {
+    if (!user || !deleteShortcutDialog) return;
+
+    setIsDeletingShortcut(true);
+    setDeleteShortcutError(null);
+    try {
+      await customizationsService.deleteCustomShortcut(
+        deleteShortcutDialog.id,
+        user,
+      );
+      await refetchCustomizations();
+      closeDeleteShortcutDialog();
+    } catch (error) {
+      setDeleteShortcutError(
+        error instanceof Error ? error.message : "Unable to delete shortcut.",
+      );
+    } finally {
+      setIsDeletingShortcut(false);
     }
   };
 
@@ -544,8 +585,15 @@ export const AppDetails = ({
           const currentIndex = globalIndex++;
           const favoriteSectionTitle =
             hotkey.favoriteSourceSectionTitle ?? section.title;
+          const baseSectionTitle =
+            hotkey.baseSectionTitle ?? favoriteSectionTitle;
+          const baseShortcutTitle = hotkey.baseShortcutTitle ?? hotkey.title;
           const canOverride =
-            user && isOfficialShortcut(favoriteSectionTitle, hotkey.title);
+            user && isOfficialShortcut(baseSectionTitle, baseShortcutTitle);
+          const canDelete =
+            user &&
+            hotkey.customizationStatus === "created" &&
+            Boolean(hotkey.customizationId);
           return (
             <ListItem
               key={hotkey.title + currentIndex}
@@ -563,13 +611,8 @@ export const AppDetails = ({
                   shortcutTitle={hotkey.title}
                   className="shrink-0"
                 />
+                <ShortcutStatusIndicator shortcut={hotkey} />
                 <span>{hotkey.title}</span>
-                <Badge
-                  variant={getShortcutStatusVariant(hotkey)}
-                  className="shrink-0"
-                >
-                  {getShortcutStatusLabel(hotkey)}
-                </Badge>
                 <ShortcutDisplay shortcut={hotkey} />
               </span>
               <span className="flex shrink-0 items-center gap-2 text-right text-muted-foreground">
@@ -580,11 +623,22 @@ export const AppDetails = ({
                     size="icon"
                     className="h-8 w-8"
                     onClick={() =>
-                      openOverrideShortcutDialog(favoriteSectionTitle, hotkey)
+                      openOverrideShortcutDialog(baseSectionTitle, hotkey)
                     }
                     aria-label={`Customize ${hotkey.title}`}
                   >
                     <Pencil className="h-4 w-4" />
+                  </Button>
+                )}
+                {isEditMode && canDelete && (
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="h-8 w-8 text-muted-foreground hover:text-destructive"
+                    onClick={() => openDeleteShortcutDialog(hotkey)}
+                    aria-label={`Delete ${hotkey.title}`}
+                  >
+                    <Trash2 className="h-4 w-4" />
                   </Button>
                 )}
               </span>
@@ -617,8 +671,16 @@ export const AppDetails = ({
               {section.hotkeys.map((hotkey, idx) => {
                 const favoriteSectionTitle =
                   hotkey.favoriteSourceSectionTitle ?? section.title;
+                const baseSectionTitle =
+                  hotkey.baseSectionTitle ?? favoriteSectionTitle;
+                const baseShortcutTitle =
+                  hotkey.baseShortcutTitle ?? hotkey.title;
                 const canOverride =
-                  user && isOfficialShortcut(favoriteSectionTitle, hotkey.title);
+                  user && isOfficialShortcut(baseSectionTitle, baseShortcutTitle);
+                const canDelete =
+                  user &&
+                  hotkey.customizationStatus === "created" &&
+                  Boolean(hotkey.customizationId);
                 return (
                   <div
                     key={hotkey.title + idx}
@@ -634,13 +696,8 @@ export const AppDetails = ({
                           shortcutTitle={hotkey.title}
                           className="shrink-0"
                         />
+                        <ShortcutStatusIndicator shortcut={hotkey} />
                         <span>{hotkey.title}</span>
-                        <Badge
-                          variant={getShortcutStatusVariant(hotkey)}
-                          className="shrink-0"
-                        >
-                          {getShortcutStatusLabel(hotkey)}
-                        </Badge>
                         {isEditMode && canOverride && (
                           <Button
                             variant="ghost"
@@ -648,13 +705,24 @@ export const AppDetails = ({
                             className="h-7 w-7"
                             onClick={() =>
                               openOverrideShortcutDialog(
-                                favoriteSectionTitle,
+                                baseSectionTitle,
                                 hotkey
                               )
                             }
                             aria-label={`Customize ${hotkey.title}`}
                           >
                             <Pencil className="h-3.5 w-3.5" />
+                          </Button>
+                        )}
+                        {isEditMode && canDelete && (
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-7 w-7 text-muted-foreground hover:text-destructive"
+                            onClick={() => openDeleteShortcutDialog(hotkey)}
+                            aria-label={`Delete ${hotkey.title}`}
+                          >
+                            <Trash2 className="h-3.5 w-3.5" />
                           </Button>
                         )}
                       </span>
@@ -947,9 +1015,69 @@ export const AppDetails = ({
           </DialogFooter>
         </DialogContent>
       </Dialog>
+      <Dialog
+        open={deleteShortcutDialog !== null}
+        onOpenChange={(open) => {
+          if (!open) closeDeleteShortcutDialog();
+        }}
+      >
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Delete Shortcut</DialogTitle>
+            <DialogDescription>
+              Delete &quot;{deleteShortcutDialog?.title}&quot; from your custom
+              shortcuts.
+            </DialogDescription>
+          </DialogHeader>
+          {deleteShortcutError && (
+            <p className="text-sm text-destructive" role="alert">
+              {deleteShortcutError}
+            </p>
+          )}
+          <DialogFooter>
+            <Button variant="outline" onClick={closeDeleteShortcutDialog}>
+              Cancel
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={handleDeleteShortcutDialog}
+              disabled={isDeletingShortcut}
+            >
+              {isDeletingShortcut ? "Deleting..." : "Delete"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
+
+function ShortcutStatusIndicator({
+  shortcut,
+}: {
+  shortcut: SectionShortcut;
+}) {
+  if (!shortcut.customizationStatus) return null;
+
+  const label =
+    shortcut.customizationStatus === "created"
+      ? "Custom shortcut"
+      : "Customized shortcut";
+
+  return (
+    <span
+      aria-label={label}
+      className={cn(
+        "inline-block h-1.5 w-1.5 shrink-0 rounded-full",
+        shortcut.customizationStatus === "created"
+          ? "bg-primary/70"
+          : "bg-muted-foreground/70",
+      )}
+      data-customization-status={shortcut.customizationStatus}
+      title={label}
+    />
+  );
+}
 
 function generateCommentText(
   optionalComment: string | undefined,
