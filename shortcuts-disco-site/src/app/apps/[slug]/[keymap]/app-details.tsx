@@ -1092,23 +1092,20 @@ function ShortcutStatusIndicator({
 }) {
   if (!shortcut.customizationStatus) return null;
 
-  const label =
+  const label = shortcut.customizationStatus === "created" ? "Custom" : "Edited";
+  const title =
     shortcut.customizationStatus === "created"
       ? "Custom shortcut"
-      : "Customized shortcut";
+      : "Edited shortcut";
 
   return (
     <span
-      aria-label={label}
-      className={cn(
-        "inline-block h-1.5 w-1.5 shrink-0 rounded-full",
-        shortcut.customizationStatus === "created"
-          ? "bg-primary/70"
-          : "bg-muted-foreground/70",
-      )}
+      className="shrink-0 text-xs font-medium text-muted-foreground"
       data-customization-status={shortcut.customizationStatus}
-      title={label}
-    />
+      title={title}
+    >
+      {label}
+    </span>
   );
 }
 
