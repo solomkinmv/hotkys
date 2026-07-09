@@ -72,6 +72,7 @@ describe("ShortcutMerger", () => {
         sequence: [{ base: "k", modifiers: ["control down"] }],
         comment: "Opens commands",
         customizationStatus: "created",
+        customizationId: "shortcut-1",
       },
     ]);
   });

@@ -538,6 +538,7 @@ export class CustomizationsService {
     return data.map((row) => ({
       baseKey: `${row.base_app_slug}:${row.base_keymap_title}:${row.base_section_title}:${row.base_shortcut_title}`,
       modification: {
+        id: row.id as string,
         title: row.title as string,
         key: row.key as string | undefined,
         comment: row.comment as string | undefined,

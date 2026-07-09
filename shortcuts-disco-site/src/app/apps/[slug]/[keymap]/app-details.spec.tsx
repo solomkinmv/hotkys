@@ -14,6 +14,8 @@ const createBaseAppShortcutMock =
   jest.fn<(...args: unknown[]) => Promise<unknown>>();
 const upsertShortcutOverlayMock =
   jest.fn<(...args: unknown[]) => Promise<void>>();
+const deleteCustomShortcutMock =
+  jest.fn<(...args: unknown[]) => Promise<void>>();
 
 jest.mock("next/navigation", () => ({
   __esModule: true,
@@ -59,6 +61,7 @@ jest.mock("@/lib/services/customizations-service", () => ({
   customizationsService: {
     createBaseAppShortcut: createBaseAppShortcutMock,
     upsertShortcutOverlay: upsertShortcutOverlayMock,
+    deleteCustomShortcut: deleteCustomShortcutMock,
   },
 }));
 
@@ -97,6 +100,8 @@ describe("AppDetails", () => {
     createBaseAppShortcutMock.mockResolvedValue({});
     upsertShortcutOverlayMock.mockReset();
     upsertShortcutOverlayMock.mockResolvedValue(undefined);
+    deleteCustomShortcutMock.mockReset();
+    deleteCustomShortcutMock.mockResolvedValue(undefined);
     global.IntersectionObserver = jest.fn().mockImplementation(() => ({
       disconnect: jest.fn(),
       observe: jest.fn(),
@@ -252,7 +257,7 @@ describe("AppDetails", () => {
     expect(screen.getAllByText("Shortcut")).toHaveLength(2);
   });
 
-  it("labels default, changed, and created shortcuts", () => {
+  it("marks changed and created shortcuts without visible status labels", () => {
     mockUseCustomizations.mockReturnValue({
       customizations: {
         customApps: [],
@@ -301,9 +306,17 @@ describe("AppDetails", () => {
 
     render(<AppDetails application={application} keymap={keymap} />);
 
-    expect(screen.getByText("Default")).toBeTruthy();
-    expect(screen.getByText("Changed")).toBeTruthy();
-    expect(screen.getByText("Created")).toBeTruthy();
+    expect(screen.queryByText("Changed")).toBeNull();
+    expect(screen.queryByText("Created")).toBeNull();
+    expect(
+      document.querySelector('[data-customization-status="changed"]'),
+    ).not.toBeNull();
+    expect(
+      document.querySelector('[data-customization-status="created"]'),
+    ).not.toBeNull();
+    expect(
+      document.querySelector('[data-customization-status="default"]'),
+    ).toBeNull();
   });
 
   it("renders the add shortcut action beside search instead of section headings", () => {
@@ -347,6 +360,63 @@ describe("AppDetails", () => {
     expect(
       screen.getByRole("button", { name: "Customize Copy" }),
     ).toBeTruthy();
+  });
+
+  it("deletes created custom shortcuts from edit mode", async () => {
+    const refetch = jest.fn<() => Promise<void>>();
+    refetch.mockResolvedValue(undefined);
+    mockUseCustomizations.mockReturnValue({
+      customizations: {
+        customApps: [],
+        customKeymaps: [
+          {
+            id: "keymap-1",
+            baseAppSlug: "sample",
+            title: "Default",
+            sections: [
+              {
+                id: "section-1",
+                keymapId: "keymap-1",
+                title: "Editing",
+                sortOrder: 0,
+                shortcuts: [
+                  {
+                    id: "shortcut-1",
+                    sectionId: "section-1",
+                    title: "Paste",
+                    key: "cmd+v",
+                    isDeleted: false,
+                    sortOrder: 0,
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+        shortcuts: [],
+        favorites: [],
+      },
+      isLoading: false,
+      refetch,
+    });
+
+    render(<AppDetails application={application} keymap={keymap} />);
+
+    expect(screen.queryByRole("button", { name: "Delete Paste" })).toBeNull();
+
+    fireEvent.click(screen.getByRole("button", { name: "Edit shortcuts" }));
+    fireEvent.click(screen.getByRole("button", { name: "Delete Paste" }));
+
+    expect(screen.getByRole("dialog", { name: "Delete Shortcut" })).toBeTruthy();
+
+    fireEvent.click(screen.getByRole("button", { name: "Delete" }));
+
+    await waitFor(() =>
+      expect(deleteCustomShortcutMock).toHaveBeenCalledWith("shortcut-1", {
+        id: "user-1",
+      }),
+    );
+    await waitFor(() => expect(refetch).toHaveBeenCalled());
   });
 
   it("adds shortcuts to a new custom section", async () => {

@@ -34,6 +34,9 @@ export interface SectionShortcut {
     sequence: AtomicShortcut[];
     comment?: string;
     customizationStatus?: "changed" | "created";
+    customizationId?: string;
+    baseSectionTitle?: string;
+    baseShortcutTitle?: string;
 }
 
 export interface AtomicShortcut {
