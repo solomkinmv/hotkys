@@ -36,6 +36,7 @@ export function MyShortcutsContent() {
   const [exportApp, setExportApp] = useState<CustomApp | null>(null);
   const [newAppName, setNewAppName] = useState("");
   const [newAppSlug, setNewAppSlug] = useState("");
+  const [newAppBundleId, setNewAppBundleId] = useState("");
   const [isCreating, setIsCreating] = useState(false);
 
   if (authLoading || customizationsLoading) {
@@ -72,11 +73,13 @@ export function MyShortcutsContent() {
       await customizationsService.createCustomApp({
         name: newAppName,
         slug: newAppSlug,
+        bundleId: newAppBundleId.trim() || undefined,
       }, user);
       await refetch();
       setIsCreateDialogOpen(false);
       setNewAppName("");
       setNewAppSlug("");
+      setNewAppBundleId("");
     } finally {
       setIsCreating(false);
     }
@@ -245,6 +248,15 @@ export function MyShortcutsContent() {
               <p className="text-xs text-muted-foreground">
                 Used in URLs and for identification
               </p>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="bundle-id">Bundle ID</Label>
+              <Input
+                id="bundle-id"
+                value={newAppBundleId}
+                onChange={(e) => setNewAppBundleId(e.target.value)}
+                placeholder="com.example.app"
+              />
             </div>
           </div>
           <DialogFooter>

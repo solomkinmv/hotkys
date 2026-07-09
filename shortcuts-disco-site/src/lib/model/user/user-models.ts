@@ -75,6 +75,7 @@ export interface ShortcutOverlay {
 
 export interface UserCustomizations {
   customApps: CustomApp[];
+  customKeymaps: CustomKeymap[];
   shortcuts: ShortcutOverlay[];
   favorites: Favorite[];
 }

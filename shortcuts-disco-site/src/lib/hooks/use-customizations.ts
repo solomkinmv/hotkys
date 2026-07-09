@@ -7,6 +7,7 @@ import type { UserCustomizations } from "@/lib/model/user/user-models";
 
 const emptyCustomizations: UserCustomizations = {
   customApps: [],
+  customKeymaps: [],
   shortcuts: [],
   favorites: [],
 };

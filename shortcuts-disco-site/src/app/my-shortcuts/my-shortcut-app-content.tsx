@@ -46,6 +46,7 @@ export function MyShortcutAppContent({ slug }: MyShortcutAppContentProps) {
 
   const [appName, setAppName] = useState("");
   const [appSlug, setAppSlug] = useState(slug);
+  const [appBundleId, setAppBundleId] = useState("");
   const [newKeymapTitle, setNewKeymapTitle] = useState("");
   const [newSectionTitles, setNewSectionTitles] = useState<Record<string, string>>(
     {}
@@ -60,6 +61,7 @@ export function MyShortcutAppContent({ slug }: MyShortcutAppContentProps) {
     if (!app) return;
     setAppName(app.name);
     setAppSlug(app.slug);
+    setAppBundleId(app.bundleId ?? "");
   }, [app]);
 
   const runAction = async (action: () => Promise<void>) => {
@@ -137,7 +139,7 @@ export function MyShortcutAppContent({ slug }: MyShortcutAppContentProps) {
       await customizationsService.updateCustomApp(app.id, {
         name: appName,
         slug: appSlug,
-        bundleId: app.bundleId,
+        bundleId: appBundleId.trim() || undefined,
         hostname: app.hostname,
         source: app.source,
         icon: app.icon,
@@ -211,7 +213,7 @@ export function MyShortcutAppContent({ slug }: MyShortcutAppContentProps) {
         </p>
       )}
 
-      <div className="grid gap-4 rounded-lg border p-4 md:grid-cols-2">
+      <div className="grid gap-4 rounded-lg border p-4 md:grid-cols-3">
         <div className="space-y-2">
           <Label htmlFor="custom-app-name">App Name</Label>
           <Input
@@ -226,6 +228,15 @@ export function MyShortcutAppContent({ slug }: MyShortcutAppContentProps) {
             id="custom-app-slug"
             value={appSlug}
             onChange={(event) => setAppSlug(event.target.value)}
+          />
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="custom-app-bundle-id">Bundle ID</Label>
+          <Input
+            id="custom-app-bundle-id"
+            value={appBundleId}
+            onChange={(event) => setAppBundleId(event.target.value)}
+            placeholder="com.example.app"
           />
         </div>
       </div>
@@ -320,7 +331,7 @@ export function MyShortcutAppContent({ slug }: MyShortcutAppContentProps) {
                       onChange={(event) =>
                         updateShortcutDraft(section.id, { key: event.target.value })
                       }
-                      placeholder="Keys, e.g. Cmd+K"
+                      placeholder="Keys, e.g. cmd+k"
                     />
                     <Input
                       value={draft.comment}
