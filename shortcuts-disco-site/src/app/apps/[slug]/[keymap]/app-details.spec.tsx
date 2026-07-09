@@ -1,5 +1,5 @@
 import { describe, expect, it, jest, beforeEach } from "@jest/globals";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import type {
   AppShortcuts,
   Keymap,
@@ -221,15 +221,26 @@ describe("AppDetails", () => {
     expect(screen.getAllByText("Shortcut")).toHaveLength(2);
   });
 
-  it("renders a visible add shortcut button beside the section heading", () => {
+  it("renders the add shortcut action beside search instead of section headings", () => {
     render(<AppDetails application={application} keymap={keymap} />);
 
     const addShortcutButton = screen.getByRole("button", {
-      name: "Add shortcut to Editing",
+      name: "Add shortcut",
+    });
+    const searchActions = screen.getByRole("search", {
+      name: "Search shortcuts",
     });
 
-    expect(addShortcutButton.className).not.toContain("absolute");
+    expect(searchActions.contains(addShortcutButton)).toBe(true);
+    expect(
+      screen.queryByRole("button", { name: "Add shortcut to Editing" }),
+    ).toBeNull();
     expect(addShortcutButton.className).toContain("bg-secondary");
     expect(addShortcutButton.textContent).toContain("Add shortcut");
+
+    fireEvent.click(addShortcutButton);
+
+    expect(screen.getByLabelText("Section")).toBeTruthy();
+    expect(screen.getByLabelText("Section")).toHaveProperty("value", "Editing");
   });
 });
