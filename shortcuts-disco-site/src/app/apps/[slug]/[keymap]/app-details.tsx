@@ -3,6 +3,7 @@
 import {
   AppShortcuts,
   Keymap,
+  Section,
 } from "@/lib/model/internal/internal-models";
 import { ShortcutDisplay } from "@/components/ui/shortcut-display";
 import {
@@ -19,7 +20,7 @@ import TableOfContents from "@/app/apps/[slug]/[keymap]/table-of-contents";
 import Link from "next/link";
 import { ListItem } from "@/components/ui/list";
 import { Button } from "@/components/ui/button";
-import { LayoutGrid, List, Menu, Settings2, Star } from "lucide-react";
+import { LayoutGrid, List, Menu, Settings2 } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Slider } from "@/components/ui/slider";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -31,9 +32,16 @@ import { usePreferences } from "@/lib/hooks/use-preferences";
 import { useFavorites } from "@/lib/hooks/use-favorites";
 
 type ViewMode = "list" | "cheatsheet";
+type DisplayShortcut = Keymap["sections"][number]["hotkeys"][number] & {
+  favoriteSourceSectionTitle?: string;
+};
+type DisplaySection = Omit<Section, "hotkeys"> & {
+  hotkeys: DisplayShortcut[];
+};
 
 const VIEW_MODE_STORAGE_KEY = "shortcuts-view-mode";
 const COLUMN_COUNT_STORAGE_KEY = "shortcuts-column-count";
+const FAVORITE_SHORTCUTS_SECTION_TITLE = "Favorite shortcuts";
 const DEFAULT_COLUMNS = 4;
 const MIN_COLUMNS = 1;
 const MAX_COLUMNS = 6;
@@ -166,15 +174,12 @@ export const AppDetails = ({
     router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false });
   };
 
-  const [searchResults, setSearchResults] = useState(keymap.sections);
+  const [searchResults, setSearchResults] = useState<DisplaySection[]>(
+    keymap.sections,
+  );
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const [sectionSheetOpen, setSectionSheetOpen] = useState(false);
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
-
-  const totalItems = searchResults.reduce(
-    (sum, section) => sum + section.hotkeys.length,
-    0,
-  );
 
   const hotkeys = keymap.sections.flatMap((section) =>
     section.hotkeys.map((hotkey) => ({
@@ -191,30 +196,56 @@ export const AppDetails = ({
 
   const favoriteShortcutItems = user
     ? favorites
-        .filter(
-          (favorite) =>
-            favorite.itemType === "shortcut" &&
-            favorite.appSlug === application.slug &&
-            favorite.keymapTitle === keymap.title &&
-            favorite.sectionTitle &&
-            favorite.shortcutTitle,
-        )
-        .map((favorite) => {
-          const section = keymap.sections.find(
+        .flatMap((favorite) => {
+          if (
+            favorite.itemType !== "shortcut" ||
+            favorite.appSlug !== application.slug ||
+            favorite.keymapTitle !== keymap.title ||
+            !favorite.sectionTitle ||
+            !favorite.shortcutTitle
+          ) {
+            return [];
+          }
+
+          const section = searchResults.find(
             (section) => section.title === favorite.sectionTitle,
           );
           const shortcut = section?.hotkeys.find(
             (hotkey) => hotkey.title === favorite.shortcutTitle,
           );
 
-          return {
-            favorite,
-            sectionTitle: favorite.sectionTitle!,
-            shortcut,
-            shortcutTitle: favorite.shortcutTitle!,
-          };
+          if (!shortcut) {
+            return [];
+          }
+
+          return [
+            {
+              sectionTitle: favorite.sectionTitle,
+              shortcut,
+            },
+          ];
         })
     : [];
+
+  const favoriteShortcutsSection: DisplaySection | null =
+    favoriteShortcutItems.length > 0
+      ? {
+          title: FAVORITE_SHORTCUTS_SECTION_TITLE,
+          hotkeys: favoriteShortcutItems.map(({ sectionTitle, shortcut }) => ({
+            ...shortcut,
+            favoriteSourceSectionTitle: sectionTitle,
+          })),
+        }
+      : null;
+
+  const displaySections: DisplaySection[] = favoriteShortcutsSection
+    ? [favoriteShortcutsSection, ...searchResults]
+    : searchResults;
+
+  const totalItems = displaySections.reduce(
+    (sum, section) => sum + section.hotkeys.length,
+    0,
+  );
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.value) {
@@ -275,7 +306,7 @@ export const AppDetails = ({
     {},
   );
   let globalIndex = 0;
-  const appDetails = searchResults.map((section) => {
+  const appDetails = displaySections.map((section) => {
     sectionRefs.current[section.title] = React.createRef();
     return (
       <div
@@ -286,6 +317,8 @@ export const AppDetails = ({
         <SeparatorWithText>{section.title}</SeparatorWithText>
         {section.hotkeys.map((hotkey) => {
           const currentIndex = globalIndex++;
+          const favoriteSectionTitle =
+            hotkey.favoriteSourceSectionTitle ?? section.title;
           return (
             <ListItem
               key={hotkey.title + currentIndex}
@@ -299,7 +332,7 @@ export const AppDetails = ({
                   itemType="shortcut"
                   appSlug={application.slug}
                   keymapTitle={keymap.title}
-                  sectionTitle={section.title}
+                  sectionTitle={favoriteSectionTitle}
                   shortcutTitle={hotkey.title}
                   className="shrink-0"
                 />
@@ -318,7 +351,7 @@ export const AppDetails = ({
 
   const cheatsheetView = (
     <MasonryGrid
-      items={searchResults}
+      items={displaySections}
       columnCount={effectiveColumnCount}
       getItemHeight={(section) => section.hotkeys.length + 1}
       renderItem={(section) => {
@@ -333,32 +366,36 @@ export const AppDetails = ({
               {section.title}
             </TypographyMuted>
             <div className="space-y-1">
-              {section.hotkeys.map((hotkey, idx) => (
-                <div
-                  key={hotkey.title + idx}
-                  className="flex flex-wrap items-start justify-between gap-x-2 gap-y-1 text-sm py-1"
-                >
-                  <div className="flex flex-col min-w-0">
-                    <span className="inline-flex items-center gap-1">
-                      <FavoriteButton
-                        itemType="shortcut"
-                        appSlug={application.slug}
-                        keymapTitle={keymap.title}
-                        sectionTitle={section.title}
-                        shortcutTitle={hotkey.title}
-                        className="shrink-0"
-                      />
-                      <span>{hotkey.title}</span>
-                    </span>
-                    {hotkey.comment && (
-                      <span className="text-xs text-muted-foreground">
-                        {generateCommentText(hotkey.comment)}
+              {section.hotkeys.map((hotkey, idx) => {
+                const favoriteSectionTitle =
+                  hotkey.favoriteSourceSectionTitle ?? section.title;
+                return (
+                  <div
+                    key={hotkey.title + idx}
+                    className="flex flex-wrap items-start justify-between gap-x-2 gap-y-1 text-sm py-1"
+                  >
+                    <div className="flex flex-col min-w-0">
+                      <span className="inline-flex items-center gap-1">
+                        <FavoriteButton
+                          itemType="shortcut"
+                          appSlug={application.slug}
+                          keymapTitle={keymap.title}
+                          sectionTitle={favoriteSectionTitle}
+                          shortcutTitle={hotkey.title}
+                          className="shrink-0"
+                        />
+                        <span>{hotkey.title}</span>
                       </span>
-                    )}
+                      {hotkey.comment && (
+                        <span className="text-xs text-muted-foreground">
+                          {generateCommentText(hotkey.comment)}
+                        </span>
+                      )}
+                    </div>
+                    <ShortcutDisplay shortcut={hotkey} />
                   </div>
-                  <ShortcutDisplay shortcut={hotkey} />
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         );
@@ -444,49 +481,6 @@ export const AppDetails = ({
             </Link>
           )}
         </div>
-        {favoriteShortcutItems.length > 0 && (
-          <section
-            aria-labelledby="favorite-shortcuts-heading"
-            className="mt-4 border-t pt-4"
-          >
-            <div className="mb-2 flex items-center gap-2 text-sm font-semibold">
-              <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-              <h2 id="favorite-shortcuts-heading">Favorite shortcuts</h2>
-            </div>
-            <div className="divide-y rounded-md border">
-              {favoriteShortcutItems.map(
-                ({ favorite, sectionTitle, shortcut, shortcutTitle }) => (
-                  <div
-                    key={favorite.id}
-                    className="flex items-start justify-between gap-3 px-3 py-2"
-                  >
-                    <a
-                      href={`#${encodeURIComponent(sectionTitle)}`}
-                      className="min-w-0 hover:underline"
-                    >
-                      <span className="block truncate text-sm font-medium">
-                        {shortcutTitle}
-                      </span>
-                      <span className="block truncate text-xs text-muted-foreground">
-                        {sectionTitle}
-                      </span>
-                    </a>
-                    <div className="flex shrink-0 items-center gap-2">
-                      {shortcut && <ShortcutDisplay shortcut={shortcut} />}
-                      <FavoriteButton
-                        itemType="shortcut"
-                        appSlug={application.slug}
-                        keymapTitle={keymap.title}
-                        sectionTitle={sectionTitle}
-                        shortcutTitle={shortcutTitle}
-                      />
-                    </div>
-                  </div>
-                ),
-              )}
-            </div>
-          </section>
-        )}
         <SearchBar onChange={handleSearch} />
       </div>
       {viewMode === "list" ? (
@@ -495,7 +489,7 @@ export const AppDetails = ({
             <SheetContent side="left" className="w-64 overflow-y-auto">
               <SheetTitle className="sr-only">Sections</SheetTitle>
               <TableOfContents
-                sections={keymap.sections}
+                sections={displaySections}
                 sectionRefs={sectionRefs}
                 onSectionClick={() => setSectionSheetOpen(false)}
               />
@@ -504,7 +498,7 @@ export const AppDetails = ({
           <div className="mx-auto max-w-5xl flex">
             <div className="hidden md:block px-4 md:w-56 shrink-0">
               <TableOfContents
-                sections={keymap.sections}
+                sections={displaySections}
                 sectionRefs={sectionRefs}
               />
             </div>
