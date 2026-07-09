@@ -26,6 +26,12 @@ interface BaseAppShortcutInput {
   comment?: string;
 }
 
+interface CustomShortcutUpdateInput {
+  title: string;
+  key?: string;
+  comment?: string;
+}
+
 export class CustomizationsService {
   async getAllCustomizations(
     authUser?: AuthUser | null
@@ -347,6 +353,33 @@ export class CustomizationsService {
       },
       authUser
     );
+  }
+
+  async updateCustomShortcut(
+    id: string,
+    shortcut: CustomShortcutUpdateInput,
+    authUser?: AuthUser | null
+  ): Promise<void> {
+    const normalizedShortcut = normalizeCustomShortcutDraft(shortcut);
+    validateCustomShortcutDraft(normalizedShortcut);
+
+    const supabase = createClientOrNull();
+    if (!supabase) throw new Error("Supabase sign in is not configured.");
+
+    const profile = await requireCurrentProfile(authUser);
+
+    const { error } = await supabase
+      .from("custom_shortcuts")
+      .update({
+        title: normalizedShortcut.title,
+        key: normalizedShortcut.key ?? null,
+        comment: normalizedShortcut.comment ?? null,
+        updated_at: new Date().toISOString(),
+      })
+      .eq("id", id)
+      .eq("user_id", profile.id);
+
+    if (error) throw error;
   }
 
   async deleteCustomShortcut(

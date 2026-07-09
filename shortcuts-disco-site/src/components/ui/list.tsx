@@ -21,17 +21,18 @@ LinkableListItem.displayName = "LinkableListItem";
 
 export const ListItem = forwardRef<
   HTMLDivElement,
-  {
-    children: React.ReactNode;
+  React.HTMLAttributes<HTMLDivElement> & {
     selected: boolean;
   }
->(({ children, selected }, ref) => (
+>(({ children, selected, className, ...props }, ref) => (
   <div
     ref={ref}
     className={cn(
       "flex cursor-pointer items-center justify-between border-b p-2 prose-sm last:border-0 hover:bg-accent",
       { "outline-solid outline-2 outline-offset-1 rounded-md": selected },
+      className,
     )}
+    {...props}
   >
     {children}
   </div>
