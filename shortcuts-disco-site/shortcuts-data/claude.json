@@ -9,7 +9,9 @@
   "keymaps": [
     {
       "title": "Default",
-      "platforms": ["macos"],
+      "platforms": [
+        "macos"
+      ],
       "sections": [
         {
           "title": "General",
