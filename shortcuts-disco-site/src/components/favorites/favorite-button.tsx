@@ -8,7 +8,7 @@ import { Star } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface FavoriteButtonProps {
-  itemType: "app" | "keymap" | "shortcut";
+  itemType: "app" | "shortcut";
   appSlug: string;
   keymapTitle?: string;
   sectionTitle?: string;
