@@ -1,5 +1,5 @@
 import { describe, expect, it, jest, beforeEach } from "@jest/globals";
-import { render, screen, within } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import type {
   AppShortcuts,
   Keymap,
@@ -114,7 +114,7 @@ describe("AppDetails", () => {
     expect(document.querySelector('[style*="640px"]')).not.toBeNull();
   });
 
-  it("pins favorite shortcuts above the searchable shortcut list", () => {
+  it("renders favorite shortcuts as the first shortcut section", () => {
     mockUseFavorites.mockReturnValue({
       favorites: [
         {
@@ -144,11 +144,20 @@ describe("AppDetails", () => {
 
     render(<AppDetails application={application} keymap={keymap} />);
 
-    const pinnedShortcuts = screen.getByRole("region", {
+    expect(screen.queryByRole("region", {
       name: "Favorite shortcuts",
-    });
-    expect(within(pinnedShortcuts).getByText("Copy")).toBeTruthy();
-    expect(within(pinnedShortcuts).getByText("Editing")).toBeTruthy();
-    expect(within(pinnedShortcuts).getAllByText("Shortcut")).toHaveLength(1);
+    })).toBeNull();
+
+    const favoriteLabels = screen.getAllByText("Favorite shortcuts");
+    const editingLabels = screen.getAllByText("Editing");
+    const favoriteSection = favoriteLabels[favoriteLabels.length - 1];
+    const editingSection = editingLabels[editingLabels.length - 1];
+
+    expect(
+      favoriteSection.compareDocumentPosition(editingSection) &
+        Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+    expect(screen.getAllByText("Copy")).toHaveLength(2);
+    expect(screen.getAllByText("Shortcut")).toHaveLength(2);
   });
 });
