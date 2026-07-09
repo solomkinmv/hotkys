@@ -241,6 +241,60 @@ describe("AppDetails", () => {
     expect(screen.getAllByText("Shortcut")).toHaveLength(2);
   });
 
+  it("labels default, changed, and created shortcuts", () => {
+    mockUseCustomizations.mockReturnValue({
+      customizations: {
+        customApps: [],
+        customKeymaps: [
+          {
+            id: "keymap-1",
+            baseAppSlug: "sample",
+            title: "Default",
+            sections: [
+              {
+                id: "section-1",
+                keymapId: "keymap-1",
+                title: "Editing",
+                sortOrder: 0,
+                shortcuts: [
+                  {
+                    id: "shortcut-1",
+                    sectionId: "section-1",
+                    title: "Paste",
+                    key: "cmd+v",
+                    isDeleted: false,
+                    sortOrder: 0,
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+        shortcuts: [
+          {
+            baseKey: "sample:Default:Editing:Copy",
+            modification: {
+              id: "overlay-1",
+              title: "Duplicate",
+              key: "cmd+d",
+              isDeleted: false,
+              sortOrder: 0,
+            },
+          },
+        ],
+        favorites: [],
+      },
+      isLoading: false,
+      refetch: jest.fn(),
+    });
+
+    render(<AppDetails application={application} keymap={keymap} />);
+
+    expect(screen.getByText("Default")).toBeTruthy();
+    expect(screen.getByText("Changed")).toBeTruthy();
+    expect(screen.getByText("Created")).toBeTruthy();
+  });
+
   it("renders the add shortcut action beside search instead of section headings", () => {
     render(<AppDetails application={application} keymap={keymap} />);
 

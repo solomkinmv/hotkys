@@ -10,10 +10,16 @@ import { customizationsService } from "@/lib/services/customizations-service";
 import { MyShortcutAppContent } from "./my-shortcut-app-content";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import {
+  Field,
+  FieldDescription,
+  FieldGroup,
+  FieldLabel,
+} from "@/components/ui/field";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogFooter,
@@ -37,6 +43,7 @@ export function MyShortcutsContent() {
   const [newAppName, setNewAppName] = useState("");
   const [newAppSlug, setNewAppSlug] = useState("");
   const [newAppBundleId, setNewAppBundleId] = useState("");
+  const [newAppIcon, setNewAppIcon] = useState("");
   const [isCreating, setIsCreating] = useState(false);
 
   if (authLoading || customizationsLoading) {
@@ -74,12 +81,14 @@ export function MyShortcutsContent() {
         name: newAppName,
         slug: newAppSlug,
         bundleId: newAppBundleId.trim() || undefined,
+        icon: newAppIcon.trim() || undefined,
       }, user);
       await refetch();
       setIsCreateDialogOpen(false);
       setNewAppName("");
       setNewAppSlug("");
       setNewAppBundleId("");
+      setNewAppIcon("");
     } finally {
       setIsCreating(false);
     }
@@ -218,10 +227,13 @@ export function MyShortcutsContent() {
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Create New App</DialogTitle>
+            <DialogDescription>
+              Create a private app and attach your own icon path or URL.
+            </DialogDescription>
           </DialogHeader>
-          <div className="space-y-4 py-4">
-            <div className="space-y-2">
-              <Label htmlFor="name">App Name</Label>
+          <FieldGroup className="gap-4 py-4">
+            <Field>
+              <FieldLabel htmlFor="name">App Name</FieldLabel>
               <Input
                 id="name"
                 value={newAppName}
@@ -236,29 +248,41 @@ export function MyShortcutsContent() {
                 }}
                 placeholder="e.g., My Custom App"
               />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="slug">Slug</Label>
+            </Field>
+            <Field>
+              <FieldLabel htmlFor="slug">Slug</FieldLabel>
               <Input
                 id="slug"
                 value={newAppSlug}
                 onChange={(e) => setNewAppSlug(e.target.value)}
                 placeholder="e.g., my-custom-app"
               />
-              <p className="text-xs text-muted-foreground">
+              <FieldDescription>
                 Used in URLs and for identification
-              </p>
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="bundle-id">Bundle ID</Label>
+              </FieldDescription>
+            </Field>
+            <Field>
+              <FieldLabel htmlFor="bundle-id">Bundle ID</FieldLabel>
               <Input
                 id="bundle-id"
                 value={newAppBundleId}
                 onChange={(e) => setNewAppBundleId(e.target.value)}
                 placeholder="com.example.app"
               />
-            </div>
-          </div>
+            </Field>
+            <Field>
+              <FieldLabel htmlFor="image-path">Image path</FieldLabel>
+              <Input
+                id="image-path"
+                value={newAppIcon}
+                onChange={(e) => setNewAppIcon(e.target.value)}
+                placeholder="/custom-icons/my-app.png or https://..."
+              />
+              <FieldDescription>
+                Use any image path or URL reachable by the app.
+              </FieldDescription>
+            </Field>
+          </FieldGroup>
           <DialogFooter>
             <Button
               variant="outline"

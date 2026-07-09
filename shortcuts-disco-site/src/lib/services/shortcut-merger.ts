@@ -89,6 +89,7 @@ export class ShortcutMerger {
             ? this.parseShortcutKey(overlay.modification.key)
             : hotkey.sequence,
           comment: overlay.modification.comment ?? hotkey.comment,
+          customizationStatus: "changed",
         };
       })
       .filter((h): h is SectionShortcut => h !== null);
@@ -211,6 +212,7 @@ export class ShortcutMerger {
           title: shortcut.title,
           sequence: shortcut.key ? this.parseShortcutKey(shortcut.key) : [],
           comment: shortcut.comment,
+          customizationStatus: "created" as const,
         })),
     };
   }
