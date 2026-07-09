@@ -57,6 +57,7 @@ type ShortcutDialogState =
   | {
       type: "add";
       sectionTitle: string;
+      customSectionTitle: string;
     }
   | {
       type: "override";
@@ -76,6 +77,7 @@ const DEFAULT_COLUMNS = 4;
 const MIN_COLUMNS = 1;
 const MAX_COLUMNS = 6;
 const MIN_COLUMN_WIDTH = 288;
+const NEW_SECTION_VALUE = "__new_section__";
 const emptyShortcutDraft: ShortcutDraft = {
   title: "",
   key: "",
@@ -313,7 +315,9 @@ export const AppDetails = ({
     ? [favoriteShortcutsSection, ...searchResults]
     : searchResults;
   const defaultAddShortcutSectionTitle =
-    searchResults[0]?.title ?? displayKeymap.sections[0]?.title;
+    searchResults[0]?.title ??
+    displayKeymap.sections[0]?.title ??
+    NEW_SECTION_VALUE;
 
   const totalItems = displaySections.reduce(
     (sum, section) => sum + section.hotkeys.length,
@@ -328,7 +332,11 @@ export const AppDetails = ({
     );
 
   const openAddShortcutDialog = (sectionTitle: string) => {
-    setShortcutDialog({ type: "add", sectionTitle });
+    setShortcutDialog({
+      type: "add",
+      sectionTitle,
+      customSectionTitle: "",
+    });
     setShortcutDraft(emptyShortcutDraft);
     setShortcutDialogError(null);
   };
@@ -362,8 +370,17 @@ export const AppDetails = ({
     const title = shortcutDraft.title.trim();
     const key = shortcutDraft.key.trim() || undefined;
     const comment = shortcutDraft.comment.trim() || undefined;
+    const addSectionTitle =
+      shortcutDialog.type === "add" &&
+      shortcutDialog.sectionTitle === NEW_SECTION_VALUE
+        ? shortcutDialog.customSectionTitle.trim()
+        : shortcutDialog.sectionTitle;
     if (!title) {
       setShortcutDialogError("Shortcut title is required.");
+      return;
+    }
+    if (shortcutDialog.type === "add" && !addSectionTitle) {
+      setShortcutDialogError("Section name is required.");
       return;
     }
 
@@ -375,7 +392,7 @@ export const AppDetails = ({
           {
             baseAppSlug: application.slug,
             keymapTitle: keymap.title,
-            sectionTitle: shortcutDialog.sectionTitle,
+            sectionTitle: addSectionTitle,
             title,
             key,
             comment,
@@ -761,7 +778,10 @@ export const AppDetails = ({
                   onChange={(event) =>
                     setShortcutDialog((dialog) =>
                       dialog?.type === "add"
-                        ? { ...dialog, sectionTitle: event.target.value }
+                        ? {
+                            ...dialog,
+                            sectionTitle: event.target.value,
+                          }
                         : dialog,
                     )
                   }
@@ -772,9 +792,30 @@ export const AppDetails = ({
                       {section.title}
                     </option>
                   ))}
+                  <option value={NEW_SECTION_VALUE}>New section...</option>
                 </select>
               </div>
             )}
+            {shortcutDialog?.type === "add" &&
+              shortcutDialog.sectionTitle === NEW_SECTION_VALUE && (
+                <div className="space-y-2">
+                  <Label htmlFor="shortcut-section-name">Section name</Label>
+                  <Input
+                    id="shortcut-section-name"
+                    value={shortcutDialog.customSectionTitle}
+                    onChange={(event) =>
+                      setShortcutDialog((dialog) =>
+                        dialog?.type === "add"
+                          ? {
+                              ...dialog,
+                              customSectionTitle: event.target.value,
+                            }
+                          : dialog,
+                      )
+                    }
+                  />
+                </div>
+              )}
             <div className="space-y-2">
               <Label htmlFor="shortcut-title">Title</Label>
               <Input

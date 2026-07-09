@@ -1,5 +1,5 @@
 import { describe, expect, it, jest, beforeEach } from "@jest/globals";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import type {
   AppShortcuts,
   Keymap,
@@ -10,6 +10,10 @@ const mockUseAuth = jest.fn();
 const mockUsePreferences = jest.fn();
 const mockUseFavorites = jest.fn();
 const mockUseCustomizations = jest.fn();
+const createBaseAppShortcutMock =
+  jest.fn<(...args: unknown[]) => Promise<unknown>>();
+const upsertShortcutOverlayMock =
+  jest.fn<(...args: unknown[]) => Promise<void>>();
 
 jest.mock("next/navigation", () => ({
   __esModule: true,
@@ -48,6 +52,14 @@ jest.mock("@/lib/hooks/use-customizations", () => ({
   useCustomizations: mockUseCustomizations,
 }));
 
+jest.mock("@/lib/services/customizations-service", () => ({
+  __esModule: true,
+  customizationsService: {
+    createBaseAppShortcut: createBaseAppShortcutMock,
+    upsertShortcutOverlay: upsertShortcutOverlayMock,
+  },
+}));
+
 const { AppDetails } = require("./app-details") as typeof import("./app-details");
 
 const keymap: Keymap = {
@@ -75,6 +87,10 @@ describe("AppDetails", () => {
   beforeEach(() => {
     localStorage.clear();
     replaceMock.mockClear();
+    createBaseAppShortcutMock.mockReset();
+    createBaseAppShortcutMock.mockResolvedValue({});
+    upsertShortcutOverlayMock.mockReset();
+    upsertShortcutOverlayMock.mockResolvedValue(undefined);
     global.IntersectionObserver = jest.fn().mockImplementation(() => ({
       disconnect: jest.fn(),
       observe: jest.fn(),
@@ -242,5 +258,38 @@ describe("AppDetails", () => {
 
     expect(screen.getByLabelText("Section")).toBeTruthy();
     expect(screen.getByLabelText("Section")).toHaveProperty("value", "Editing");
+  });
+
+  it("adds shortcuts to a new custom section", async () => {
+    render(<AppDetails application={application} keymap={keymap} />);
+
+    fireEvent.click(screen.getByRole("button", { name: "Add shortcut" }));
+    fireEvent.change(screen.getByLabelText("Section"), {
+      target: { value: "__new_section__" },
+    });
+    fireEvent.change(screen.getByLabelText("Section name"), {
+      target: { value: "Navigation" },
+    });
+    fireEvent.change(screen.getByLabelText("Title"), {
+      target: { value: "Jump to file" },
+    });
+    fireEvent.change(screen.getByLabelText("Keys"), {
+      target: { value: "cmd+j" },
+    });
+    fireEvent.click(screen.getByRole("button", { name: "Save" }));
+
+    await waitFor(() =>
+      expect(createBaseAppShortcutMock).toHaveBeenCalledWith(
+        {
+          baseAppSlug: "sample",
+          keymapTitle: "Default",
+          sectionTitle: "Navigation",
+          title: "Jump to file",
+          key: "cmd+j",
+          comment: undefined,
+        },
+        { id: "user-1" },
+      ),
+    );
   });
 });
