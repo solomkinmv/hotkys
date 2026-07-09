@@ -221,12 +221,15 @@ describe("AppDetails", () => {
     expect(screen.getAllByText("Shortcut")).toHaveLength(2);
   });
 
-  it("keeps the add shortcut control inline with the section heading", () => {
+  it("renders a visible add shortcut button beside the section heading", () => {
     render(<AppDetails application={application} keymap={keymap} />);
 
-    const addShortcutButton = screen.getByLabelText("Add shortcut to Editing");
+    const addShortcutButton = screen.getByRole("button", {
+      name: "Add shortcut to Editing",
+    });
 
     expect(addShortcutButton.className).not.toContain("absolute");
-    expect(addShortcutButton.className).toContain("ml-1");
+    expect(addShortcutButton.className).toContain("bg-secondary");
+    expect(addShortcutButton.textContent).toContain("Add shortcut");
   });
 });

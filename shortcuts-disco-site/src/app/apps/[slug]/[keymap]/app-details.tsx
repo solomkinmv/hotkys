@@ -479,13 +479,14 @@ export const AppDetails = ({
               <span>{section.title}</span>
               {user && section.title !== FAVORITE_SHORTCUTS_SECTION_TITLE && (
                 <Button
-                  variant="ghost"
-                  size="icon"
-                  className="ml-1 h-7 w-7"
+                  variant="secondary"
+                  size="sm"
+                  className="ml-3 gap-1.5"
                   onClick={() => openAddShortcutDialog(section.title)}
                   aria-label={`Add shortcut to ${section.title}`}
                 >
-                  <Plus className="h-3.5 w-3.5" />
+                  <Plus className="h-4 w-4" />
+                  Add shortcut
                 </Button>
               )}
             </span>
@@ -559,13 +560,14 @@ export const AppDetails = ({
               </TypographyMuted>
               {user && section.title !== FAVORITE_SHORTCUTS_SECTION_TITLE && (
                 <Button
-                  variant="ghost"
-                  size="icon"
-                  className="ml-1 h-7 w-7"
+                  variant="secondary"
+                  size="sm"
+                  className="ml-3 gap-1.5"
                   onClick={() => openAddShortcutDialog(section.title)}
                   aria-label={`Add shortcut to ${section.title}`}
                 >
-                  <Plus className="h-3.5 w-3.5" />
+                  <Plus className="h-4 w-4" />
+                  Add shortcut
                 </Button>
               )}
             </div>
