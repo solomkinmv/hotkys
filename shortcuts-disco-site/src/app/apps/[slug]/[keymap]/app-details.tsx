@@ -201,6 +201,7 @@ export const AppDetails = ({
     null
   );
   const [isSavingShortcut, setIsSavingShortcut] = useState(false);
+  const [isEditMode, setIsEditMode] = useState(false);
 
   const effectiveColumnCount = Math.min(userColumnCount, maxColumns);
 
@@ -573,7 +574,7 @@ export const AppDetails = ({
               </span>
               <span className="flex shrink-0 items-center gap-2 text-right text-muted-foreground">
                 <span>{generateCommentText(hotkey.comment)}</span>
-                {canOverride && (
+                {isEditMode && canOverride && (
                   <Button
                     variant="ghost"
                     size="icon"
@@ -640,7 +641,7 @@ export const AppDetails = ({
                         >
                           {getShortcutStatusLabel(hotkey)}
                         </Badge>
-                        {canOverride && (
+                        {isEditMode && canOverride && (
                           <Button
                             variant="ghost"
                             size="icon"
@@ -756,17 +757,30 @@ export const AppDetails = ({
             <SearchBar onChange={handleSearch} />
           </div>
           {user && defaultAddShortcutSectionTitle && (
-            <Button
-              variant="secondary"
-              className="shrink-0 gap-1.5"
-              onClick={() =>
-                openAddShortcutDialog(defaultAddShortcutSectionTitle)
-              }
-              aria-label="Add shortcut"
-            >
-              <Plus className="h-4 w-4" />
-              Add shortcut
-            </Button>
+            <>
+              <Button
+                variant={isEditMode ? "secondary" : "outline"}
+                size="icon"
+                className="shrink-0"
+                onClick={() => setIsEditMode((enabled) => !enabled)}
+                aria-label="Edit shortcuts"
+                aria-pressed={isEditMode}
+                title={isEditMode ? "Exit edit mode" : "Edit shortcuts"}
+              >
+                <Pencil className="h-4 w-4" />
+              </Button>
+              <Button
+                variant="secondary"
+                className="shrink-0 gap-1.5"
+                onClick={() =>
+                  openAddShortcutDialog(defaultAddShortcutSectionTitle)
+                }
+                aria-label="Add shortcut"
+              >
+                <Plus className="h-4 w-4" />
+                Add shortcut
+              </Button>
+            </>
           )}
         </div>
       </div>

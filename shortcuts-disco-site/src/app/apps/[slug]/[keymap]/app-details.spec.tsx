@@ -329,6 +329,26 @@ describe("AppDetails", () => {
     expect(sectionSelect.textContent).toContain("Editing");
   });
 
+  it("shows row customize actions only while edit mode is enabled", () => {
+    render(<AppDetails application={application} keymap={keymap} />);
+
+    expect(
+      screen.queryByRole("button", { name: "Customize Copy" }),
+    ).toBeNull();
+
+    const editModeButton = screen.getByRole("button", {
+      name: "Edit shortcuts",
+    });
+    expect(editModeButton.getAttribute("aria-pressed")).toBe("false");
+
+    fireEvent.click(editModeButton);
+
+    expect(editModeButton.getAttribute("aria-pressed")).toBe("true");
+    expect(
+      screen.getByRole("button", { name: "Customize Copy" }),
+    ).toBeTruthy();
+  });
+
   it("adds shortcuts to a new custom section", async () => {
     render(<AppDetails application={application} keymap={keymap} />);
 
