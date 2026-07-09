@@ -30,13 +30,22 @@ import { MasonryGrid } from "@/components/ui/masonry-grid";
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
 import { FavoriteButton } from "@/components/favorites/favorite-button";
 import { useAuth } from "@/components/auth/auth-provider";
+import { cn } from "@/lib/utils";
 import { usePreferences } from "@/lib/hooks/use-preferences";
 import { useFavorites } from "@/lib/hooks/use-favorites";
 import { useCustomizations } from "@/lib/hooks/use-customizations";
 import { ShortcutMerger } from "@/lib/services/shortcut-merger";
 import { customizationsService } from "@/lib/services/customizations-service";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import {
   Dialog,
   DialogContent,
@@ -112,6 +121,16 @@ function getStoredColumnCount(): number {
   const stored = localStorage.getItem(COLUMN_COUNT_STORAGE_KEY);
   const parsed = parseColumnCount(stored);
   return parsed ?? DEFAULT_COLUMNS;
+}
+
+function shouldIgnorePageKeydown(target: EventTarget | null): boolean {
+  if (!(target instanceof HTMLElement)) return false;
+
+  return (
+    target.isContentEditable ||
+    target.closest('[role="dialog"]') !== null ||
+    ["BUTTON", "INPUT", "SELECT", "TEXTAREA"].includes(target.tagName)
+  );
 }
 
 export const AppDetails = ({
@@ -447,6 +466,10 @@ export const AppDetails = ({
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
+      if (shortcutDialog !== null || shouldIgnorePageKeydown(e.target)) {
+        return;
+      }
+
       if (e.key === "ArrowDown") {
         e.preventDefault();
         setSelectedIndex((prevIndex) => {
@@ -471,7 +494,7 @@ export const AppDetails = ({
         setSelectedIndex(-1);
       }
     },
-    [totalItems],
+    [shortcutDialog, totalItems],
   );
 
   useEffect(() => {
@@ -768,56 +791,74 @@ export const AppDetails = ({
                 : "Customize this shortcut for your account."}
             </DialogDescription>
           </DialogHeader>
-          <div className="grid gap-4 py-2">
+          <FieldGroup className="gap-5 py-2">
             {shortcutDialog?.type === "add" && (
-              <div className="space-y-2">
-                <Label htmlFor="shortcut-section">Section</Label>
-                <select
-                  id="shortcut-section"
-                  value={shortcutDialog.sectionTitle}
-                  onChange={(event) =>
-                    setShortcutDialog((dialog) =>
-                      dialog?.type === "add"
-                        ? {
-                            ...dialog,
-                            sectionTitle: event.target.value,
-                          }
-                        : dialog,
-                    )
-                  }
-                  className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground ring-offset-background focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                >
-                  {displayKeymap.sections.map((section) => (
-                    <option key={section.title} value={section.title}>
-                      {section.title}
-                    </option>
-                  ))}
-                  <option value={NEW_SECTION_VALUE}>New section...</option>
-                </select>
-              </div>
-            )}
-            {shortcutDialog?.type === "add" &&
-              shortcutDialog.sectionTitle === NEW_SECTION_VALUE && (
-                <div className="space-y-2">
-                  <Label htmlFor="shortcut-section-name">Section name</Label>
-                  <Input
-                    id="shortcut-section-name"
-                    value={shortcutDialog.customSectionTitle}
-                    onChange={(event) =>
+              <div
+                role="group"
+                aria-label="Section"
+                className={cn(
+                  "grid gap-4",
+                  shortcutDialog.sectionTitle === NEW_SECTION_VALUE &&
+                    "sm:grid-cols-2 sm:items-end",
+                )}
+              >
+                <Field>
+                  <FieldLabel htmlFor="shortcut-section">Section</FieldLabel>
+                  <Select
+                    value={shortcutDialog.sectionTitle}
+                    onValueChange={(value) =>
                       setShortcutDialog((dialog) =>
                         dialog?.type === "add"
                           ? {
                               ...dialog,
-                              customSectionTitle: event.target.value,
+                              sectionTitle: value,
                             }
                           : dialog,
                       )
                     }
-                  />
-                </div>
-              )}
-            <div className="space-y-2">
-              <Label htmlFor="shortcut-title">Title</Label>
+                  >
+                    <SelectTrigger id="shortcut-section" aria-label="Section">
+                      <SelectValue placeholder="Select section" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        {displayKeymap.sections.map((section) => (
+                          <SelectItem key={section.title} value={section.title}>
+                            {section.title}
+                          </SelectItem>
+                        ))}
+                        <SelectItem value={NEW_SECTION_VALUE}>
+                          New section...
+                        </SelectItem>
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                </Field>
+                {shortcutDialog.sectionTitle === NEW_SECTION_VALUE && (
+                  <Field>
+                    <FieldLabel htmlFor="shortcut-section-name">
+                      Section name
+                    </FieldLabel>
+                    <Input
+                      id="shortcut-section-name"
+                      value={shortcutDialog.customSectionTitle}
+                      onChange={(event) =>
+                        setShortcutDialog((dialog) =>
+                          dialog?.type === "add"
+                            ? {
+                                ...dialog,
+                                customSectionTitle: event.target.value,
+                              }
+                            : dialog,
+                        )
+                      }
+                    />
+                  </Field>
+                )}
+              </div>
+            )}
+            <Field>
+              <FieldLabel htmlFor="shortcut-title">Title</FieldLabel>
               <Input
                 id="shortcut-title"
                 value={shortcutDraft.title}
@@ -828,9 +869,9 @@ export const AppDetails = ({
                   }))
                 }
               />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="shortcut-key">Keys</Label>
+            </Field>
+            <Field>
+              <FieldLabel htmlFor="shortcut-key">Keys</FieldLabel>
               <Input
                 id="shortcut-key"
                 value={shortcutDraft.key}
@@ -842,9 +883,9 @@ export const AppDetails = ({
                 }
                 placeholder="cmd+k"
               />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="shortcut-comment">Comment</Label>
+            </Field>
+            <Field>
+              <FieldLabel htmlFor="shortcut-comment">Comment</FieldLabel>
               <Input
                 id="shortcut-comment"
                 value={shortcutDraft.comment}
@@ -855,13 +896,11 @@ export const AppDetails = ({
                   }))
                 }
               />
-            </div>
+            </Field>
             {shortcutDialogError && (
-              <p className="text-sm text-destructive" role="alert">
-                {shortcutDialogError}
-              </p>
+              <FieldError>{shortcutDialogError}</FieldError>
             )}
-          </div>
+          </FieldGroup>
           <DialogFooter>
             <Button variant="outline" onClick={closeShortcutDialog}>
               Cancel

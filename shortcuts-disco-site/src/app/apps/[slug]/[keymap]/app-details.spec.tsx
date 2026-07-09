@@ -85,6 +85,10 @@ const application: AppShortcuts = {
 
 describe("AppDetails", () => {
   beforeEach(() => {
+    Object.defineProperty(window.HTMLElement.prototype, "hasPointerCapture", {
+      configurable: true,
+      value: () => false,
+    });
     localStorage.clear();
     replaceMock.mockClear();
     createBaseAppShortcutMock.mockReset();
@@ -256,17 +260,25 @@ describe("AppDetails", () => {
 
     fireEvent.click(addShortcutButton);
 
-    expect(screen.getByLabelText("Section")).toBeTruthy();
-    expect(screen.getByLabelText("Section")).toHaveProperty("value", "Editing");
+    const sectionSelect = screen.getByRole("combobox", { name: "Section" });
+    expect(sectionSelect.textContent).toContain("Editing");
   });
 
   it("adds shortcuts to a new custom section", async () => {
     render(<AppDetails application={application} keymap={keymap} />);
 
     fireEvent.click(screen.getByRole("button", { name: "Add shortcut" }));
-    fireEvent.change(screen.getByLabelText("Section"), {
-      target: { value: "__new_section__" },
+    fireEvent.keyDown(screen.getByRole("combobox", { name: "Section" }), {
+      key: "ArrowDown",
     });
+    fireEvent.click(screen.getByRole("option", { name: "New section..." }));
+
+    const sectionControls = screen.getByRole("group", { name: "Section" });
+    expect(
+      sectionControls.contains(screen.getByLabelText("Section name")),
+    ).toBe(true);
+    expect(sectionControls.className).toContain("sm:grid-cols");
+
     fireEvent.change(screen.getByLabelText("Section name"), {
       target: { value: "Navigation" },
     });
