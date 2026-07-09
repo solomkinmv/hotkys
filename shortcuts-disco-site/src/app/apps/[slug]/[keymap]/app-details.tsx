@@ -19,7 +19,7 @@ import TableOfContents from "@/app/apps/[slug]/[keymap]/table-of-contents";
 import Link from "next/link";
 import { ListItem } from "@/components/ui/list";
 import { Button } from "@/components/ui/button";
-import { LayoutGrid, List, Menu, Settings2 } from "lucide-react";
+import { LayoutGrid, List, Menu, Settings2, Star } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Slider } from "@/components/ui/slider";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -28,6 +28,7 @@ import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
 import { FavoriteButton } from "@/components/favorites/favorite-button";
 import { useAuth } from "@/components/auth/auth-provider";
 import { usePreferences } from "@/lib/hooks/use-preferences";
+import { useFavorites } from "@/lib/hooks/use-favorites";
 
 type ViewMode = "list" | "cheatsheet";
 
@@ -76,6 +77,7 @@ export const AppDetails = ({
   keymap: Keymap;
 }) => {
   const { user } = useAuth();
+  const { favorites } = useFavorites();
   const {
     preferences,
     isLoading: preferencesLoading,
@@ -186,6 +188,33 @@ export const AppDetails = ({
     includeScore: true,
     includeMatches: true,
   });
+
+  const favoriteShortcutItems = user
+    ? favorites
+        .filter(
+          (favorite) =>
+            favorite.itemType === "shortcut" &&
+            favorite.appSlug === application.slug &&
+            favorite.keymapTitle === keymap.title &&
+            favorite.sectionTitle &&
+            favorite.shortcutTitle,
+        )
+        .map((favorite) => {
+          const section = keymap.sections.find(
+            (section) => section.title === favorite.sectionTitle,
+          );
+          const shortcut = section?.hotkeys.find(
+            (hotkey) => hotkey.title === favorite.shortcutTitle,
+          );
+
+          return {
+            favorite,
+            sectionTitle: favorite.sectionTitle!,
+            shortcut,
+            shortcutTitle: favorite.shortcutTitle!,
+          };
+        })
+    : [];
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.value) {
@@ -413,6 +442,49 @@ export const AppDetails = ({
             </Link>
           )}
         </div>
+        {favoriteShortcutItems.length > 0 && (
+          <section
+            aria-labelledby="favorite-shortcuts-heading"
+            className="mt-4 border-t pt-4"
+          >
+            <div className="mb-2 flex items-center gap-2 text-sm font-semibold">
+              <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+              <h2 id="favorite-shortcuts-heading">Favorite shortcuts</h2>
+            </div>
+            <div className="divide-y rounded-md border">
+              {favoriteShortcutItems.map(
+                ({ favorite, sectionTitle, shortcut, shortcutTitle }) => (
+                  <div
+                    key={favorite.id}
+                    className="flex items-start justify-between gap-3 px-3 py-2"
+                  >
+                    <a
+                      href={`#${encodeURIComponent(sectionTitle)}`}
+                      className="min-w-0 hover:underline"
+                    >
+                      <span className="block truncate text-sm font-medium">
+                        {shortcutTitle}
+                      </span>
+                      <span className="block truncate text-xs text-muted-foreground">
+                        {sectionTitle}
+                      </span>
+                    </a>
+                    <div className="flex shrink-0 items-center gap-2">
+                      {shortcut && <ShortcutDisplay shortcut={shortcut} />}
+                      <FavoriteButton
+                        itemType="shortcut"
+                        appSlug={application.slug}
+                        keymapTitle={keymap.title}
+                        sectionTitle={sectionTitle}
+                        shortcutTitle={shortcutTitle}
+                      />
+                    </div>
+                  </div>
+                ),
+              )}
+            </div>
+          </section>
+        )}
         <SearchBar onChange={handleSearch} />
       </div>
       {viewMode === "list" ? (
