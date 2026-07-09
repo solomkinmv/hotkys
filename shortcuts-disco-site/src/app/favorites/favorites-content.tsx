@@ -33,7 +33,7 @@ export function FavoritesContent() {
       <section className="mx-auto max-w-md text-center">
         <TypographyH1 className="mb-4">Favorites</TypographyH1>
         <TypographyMuted className="mb-6">
-          Sign in to save your favorite shortcuts
+          Sign in to save your favorite apps and keymaps
         </TypographyMuted>
         <Button asChild>
           <Link href={getLoginHref("/favorites")}>Sign In</Link>
@@ -44,15 +44,13 @@ export function FavoritesContent() {
 
   const appFavorites = favorites.filter((f) => f.itemType === "app");
   const keymapFavorites = favorites.filter((f) => f.itemType === "keymap");
-  const shortcutFavorites = favorites.filter((f) => f.itemType === "shortcut");
 
-  if (favorites.length === 0) {
+  if (appFavorites.length === 0 && keymapFavorites.length === 0) {
     return (
       <section className="mx-auto max-w-md text-center">
         <TypographyH1 className="mb-4">Favorites</TypographyH1>
         <TypographyMuted className="mb-6">
-          You haven&apos;t favorited anything yet. Browse shortcuts and click the
-          star icon to add favorites.
+          You haven&apos;t favorited any apps or keymaps yet.
         </TypographyMuted>
         <Button asChild>
           <Link href="/">Browse Shortcuts</Link>
@@ -139,48 +137,6 @@ export function FavoritesContent() {
           </div>
         )}
 
-        {shortcutFavorites.length > 0 && (
-          <div>
-            <TypographyH3 className="mb-4">Shortcuts</TypographyH3>
-            <div className="space-y-2">
-              {shortcutFavorites.map((fav) => (
-                <div
-                  key={fav.id}
-                  className="flex items-center justify-between p-3 border rounded-lg"
-                >
-                  <div>
-                    <Link
-                      href={`/apps/${fav.appSlug}`}
-                      className="hover:underline"
-                    >
-                      {fav.appSlug}
-                    </Link>
-                    <span className="text-muted-foreground">
-                      {" / "}
-                      {fav.sectionTitle} / {fav.shortcutTitle}
-                    </span>
-                  </div>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    aria-label={`Remove ${fav.shortcutTitle} from favorites`}
-                    onClick={() =>
-                      toggleFavorite({
-                        itemType: "shortcut",
-                        appSlug: fav.appSlug!,
-                        keymapTitle: fav.keymapTitle,
-                        sectionTitle: fav.sectionTitle,
-                        shortcutTitle: fav.shortcutTitle,
-                      })
-                    }
-                  >
-                    <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                  </Button>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
       </div>
     </section>
   );
