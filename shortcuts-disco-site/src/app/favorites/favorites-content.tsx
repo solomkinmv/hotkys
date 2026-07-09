@@ -33,7 +33,7 @@ export function FavoritesContent() {
       <section className="mx-auto max-w-md text-center">
         <TypographyH1 className="mb-4">Favorites</TypographyH1>
         <TypographyMuted className="mb-6">
-          Sign in to save your favorite apps and keymaps
+          Sign in to save your favorite apps
         </TypographyMuted>
         <Button asChild>
           <Link href={getLoginHref("/favorites")}>Sign In</Link>
@@ -43,14 +43,13 @@ export function FavoritesContent() {
   }
 
   const appFavorites = favorites.filter((f) => f.itemType === "app");
-  const keymapFavorites = favorites.filter((f) => f.itemType === "keymap");
 
-  if (appFavorites.length === 0 && keymapFavorites.length === 0) {
+  if (appFavorites.length === 0) {
     return (
       <section className="mx-auto max-w-md text-center">
         <TypographyH1 className="mb-4">Favorites</TypographyH1>
         <TypographyMuted className="mb-6">
-          You haven&apos;t favorited any apps or keymaps yet.
+          You haven&apos;t favorited any apps yet.
         </TypographyMuted>
         <Button asChild>
           <Link href="/">Browse Shortcuts</Link>
@@ -88,44 +87,6 @@ export function FavoritesContent() {
                       toggleFavorite({
                         itemType: "app",
                         appSlug: fav.appSlug!,
-                      })
-                    }
-                  >
-                    <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                  </Button>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {keymapFavorites.length > 0 && (
-          <div>
-            <TypographyH3 className="mb-4">Keymaps</TypographyH3>
-            <div className="space-y-2">
-              {keymapFavorites.map((fav) => (
-                <div
-                  key={fav.id}
-                  className="flex items-center justify-between p-3 border rounded-lg"
-                >
-                  <div>
-                    <Link
-                      href={`/apps/${fav.appSlug}`}
-                      className="hover:underline"
-                    >
-                      {fav.appSlug}
-                    </Link>
-                    <span className="text-muted-foreground"> / {fav.keymapTitle}</span>
-                  </div>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    aria-label={`Remove ${fav.appSlug} ${fav.keymapTitle} from favorites`}
-                    onClick={() =>
-                      toggleFavorite({
-                        itemType: "keymap",
-                        appSlug: fav.appSlug!,
-                        keymapTitle: fav.keymapTitle,
                       })
                     }
                   >

@@ -24,7 +24,9 @@ jest.mock("next/navigation", () => ({
 
 jest.mock("@/components/favorites/favorite-button", () => ({
   __esModule: true,
-  FavoriteButton: () => null,
+  FavoriteButton: ({ itemType }: { itemType: string }) => (
+    <span data-testid={`favorite-${itemType}`} />
+  ),
 }));
 
 jest.mock("@/components/ui/shortcut-display", () => ({
@@ -195,6 +197,15 @@ describe("AppDetails", () => {
     ).toBeTruthy();
     expect(screen.getAllByText("Copy")).toHaveLength(2);
     expect(screen.getAllByText("Shortcut")).toHaveLength(2);
+  });
+
+  it("does not render a keymap favorite control near view switching", () => {
+    render(<AppDetails application={application} keymap={keymap} />);
+
+    expect(screen.queryByTestId("favorite-keymap")).toBeNull();
+    expect(screen.getByTestId("favorite-shortcut")).toBeTruthy();
+    expect(screen.getByLabelText("List view")).toBeTruthy();
+    expect(screen.getByLabelText("Cheat sheet view")).toBeTruthy();
   });
 
   it("renders account-local shortcuts inside matching official sections", () => {

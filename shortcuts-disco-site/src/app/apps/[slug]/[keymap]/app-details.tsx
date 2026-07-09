@@ -691,11 +691,6 @@ export const AppDetails = ({
             activeKeymap={keymap.title}
             urlPrefix={`/apps/${application.slug}`}
           />
-          <FavoriteButton
-            itemType="keymap"
-            appSlug={application.slug}
-            keymapTitle={displayKeymap.title}
-          />
           <div className="hidden md:flex items-center gap-1">
             <Button
               variant={viewMode === "list" ? "secondary" : "ghost"}
