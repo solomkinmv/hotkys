@@ -71,6 +71,7 @@ describe("ShortcutMerger", () => {
         title: "Open command palette",
         sequence: [{ base: "k", modifiers: ["control down"] }],
         comment: "Opens commands",
+        customizationStatus: "created",
       },
     ]);
   });

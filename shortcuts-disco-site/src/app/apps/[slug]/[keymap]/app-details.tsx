@@ -22,6 +22,7 @@ import TableOfContents from "@/app/apps/[slug]/[keymap]/table-of-contents";
 import Link from "next/link";
 import { ListItem } from "@/components/ui/list";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { LayoutGrid, List, Menu, Pencil, Plus, Settings2 } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Slider } from "@/components/ui/slider";
@@ -131,6 +132,18 @@ function shouldIgnorePageKeydown(target: EventTarget | null): boolean {
     target.closest('[role="dialog"]') !== null ||
     ["BUTTON", "INPUT", "SELECT", "TEXTAREA"].includes(target.tagName)
   );
+}
+
+function getShortcutStatusLabel(shortcut: SectionShortcut): string {
+  if (shortcut.customizationStatus === "changed") return "Changed";
+  if (shortcut.customizationStatus === "created") return "Created";
+  return "Default";
+}
+
+function getShortcutStatusVariant(
+  shortcut: SectionShortcut,
+): "secondary" | "outline" {
+  return shortcut.customizationStatus ? "secondary" : "outline";
 }
 
 export const AppDetails = ({
@@ -547,6 +560,12 @@ export const AppDetails = ({
                   className="shrink-0"
                 />
                 <span>{hotkey.title}</span>
+                <Badge
+                  variant={getShortcutStatusVariant(hotkey)}
+                  className="shrink-0"
+                >
+                  {getShortcutStatusLabel(hotkey)}
+                </Badge>
                 <ShortcutDisplay shortcut={hotkey} />
               </span>
               <span className="flex shrink-0 items-center gap-2 text-right text-muted-foreground">
@@ -612,6 +631,12 @@ export const AppDetails = ({
                           className="shrink-0"
                         />
                         <span>{hotkey.title}</span>
+                        <Badge
+                          variant={getShortcutStatusVariant(hotkey)}
+                          className="shrink-0"
+                        >
+                          {getShortcutStatusLabel(hotkey)}
+                        </Badge>
                         {canOverride && (
                           <Button
                             variant="ghost"

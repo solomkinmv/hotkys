@@ -33,6 +33,7 @@ export interface SectionShortcut {
     title: string;
     sequence: AtomicShortcut[];
     comment?: string;
+    customizationStatus?: "changed" | "created";
 }
 
 export interface AtomicShortcut {

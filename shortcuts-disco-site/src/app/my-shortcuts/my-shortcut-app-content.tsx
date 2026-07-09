@@ -10,7 +10,7 @@ import { useCustomizations } from "@/lib/hooks/use-customizations";
 import { customizationsService } from "@/lib/services/customizations-service";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
 import {
   TypographyH1,
   TypographyH3,
@@ -47,6 +47,7 @@ export function MyShortcutAppContent({ slug }: MyShortcutAppContentProps) {
   const [appName, setAppName] = useState("");
   const [appSlug, setAppSlug] = useState(slug);
   const [appBundleId, setAppBundleId] = useState("");
+  const [appIcon, setAppIcon] = useState("");
   const [newKeymapTitle, setNewKeymapTitle] = useState("");
   const [newSectionTitles, setNewSectionTitles] = useState<Record<string, string>>(
     {}
@@ -62,6 +63,7 @@ export function MyShortcutAppContent({ slug }: MyShortcutAppContentProps) {
     setAppName(app.name);
     setAppSlug(app.slug);
     setAppBundleId(app.bundleId ?? "");
+    setAppIcon(app.icon ?? "");
   }, [app]);
 
   const runAction = async (action: () => Promise<void>) => {
@@ -142,7 +144,7 @@ export function MyShortcutAppContent({ slug }: MyShortcutAppContentProps) {
         bundleId: appBundleId.trim() || undefined,
         hostname: app.hostname,
         source: app.source,
-        icon: app.icon,
+        icon: appIcon.trim() || undefined,
       }, user);
       await refetch();
       if (appSlug !== slug) {
@@ -213,33 +215,42 @@ export function MyShortcutAppContent({ slug }: MyShortcutAppContentProps) {
         </p>
       )}
 
-      <div className="grid gap-4 rounded-lg border p-4 md:grid-cols-3">
-        <div className="space-y-2">
-          <Label htmlFor="custom-app-name">App Name</Label>
+      <FieldGroup className="grid gap-4 rounded-lg border p-4 md:grid-cols-2">
+        <Field>
+          <FieldLabel htmlFor="custom-app-name">App Name</FieldLabel>
           <Input
             id="custom-app-name"
             value={appName}
             onChange={(event) => setAppName(event.target.value)}
           />
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="custom-app-slug">Slug</Label>
+        </Field>
+        <Field>
+          <FieldLabel htmlFor="custom-app-slug">Slug</FieldLabel>
           <Input
             id="custom-app-slug"
             value={appSlug}
             onChange={(event) => setAppSlug(event.target.value)}
           />
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="custom-app-bundle-id">Bundle ID</Label>
+        </Field>
+        <Field>
+          <FieldLabel htmlFor="custom-app-bundle-id">Bundle ID</FieldLabel>
           <Input
             id="custom-app-bundle-id"
             value={appBundleId}
             onChange={(event) => setAppBundleId(event.target.value)}
             placeholder="com.example.app"
           />
-        </div>
-      </div>
+        </Field>
+        <Field>
+          <FieldLabel htmlFor="custom-app-image-path">Image path</FieldLabel>
+          <Input
+            id="custom-app-image-path"
+            value={appIcon}
+            onChange={(event) => setAppIcon(event.target.value)}
+            placeholder="/custom-icons/my-app.png or https://..."
+          />
+        </Field>
+      </FieldGroup>
 
       <div className="rounded-lg border p-4">
         <TypographyH3 className="mb-4">Keymaps</TypographyH3>
