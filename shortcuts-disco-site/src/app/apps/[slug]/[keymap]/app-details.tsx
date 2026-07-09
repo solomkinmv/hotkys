@@ -473,19 +473,23 @@ export const AppDetails = ({
         key={section.title}
         ref={sectionRefs.current[section.title]}
       >
-        <div className="relative">
-          <SeparatorWithText>{section.title}</SeparatorWithText>
-          {user && section.title !== FAVORITE_SHORTCUTS_SECTION_TITLE && (
-            <Button
-              variant="ghost"
-              size="icon"
-              className="absolute right-0 top-1/2 h-8 w-8 -translate-y-1/2"
-              onClick={() => openAddShortcutDialog(section.title)}
-              aria-label={`Add shortcut to ${section.title}`}
-            >
-              <Plus className="h-4 w-4" />
-            </Button>
-          )}
+        <div>
+          <SeparatorWithText>
+            <span className="inline-flex items-center">
+              <span>{section.title}</span>
+              {user && section.title !== FAVORITE_SHORTCUTS_SECTION_TITLE && (
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="ml-1 h-7 w-7"
+                  onClick={() => openAddShortcutDialog(section.title)}
+                  aria-label={`Add shortcut to ${section.title}`}
+                >
+                  <Plus className="h-3.5 w-3.5" />
+                </Button>
+              )}
+            </span>
+          </SeparatorWithText>
         </div>
         {section.hotkeys.map((hotkey) => {
           const currentIndex = globalIndex++;
@@ -549,7 +553,7 @@ export const AppDetails = ({
             ref={sectionRefs.current[section.title]}
             className="border rounded-lg p-3"
           >
-            <div className="mb-2 flex items-center justify-between gap-2">
+            <div className="mb-2 flex items-center gap-1">
               <TypographyMuted className="font-semibold">
                 {section.title}
               </TypographyMuted>
@@ -557,11 +561,11 @@ export const AppDetails = ({
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="h-8 w-8"
+                  className="ml-1 h-7 w-7"
                   onClick={() => openAddShortcutDialog(section.title)}
                   aria-label={`Add shortcut to ${section.title}`}
                 >
-                  <Plus className="h-4 w-4" />
+                  <Plus className="h-3.5 w-3.5" />
                 </Button>
               )}
             </div>

@@ -220,4 +220,13 @@ describe("AppDetails", () => {
     expect(screen.getByText("Local only")).toBeTruthy();
     expect(screen.getAllByText("Shortcut")).toHaveLength(2);
   });
+
+  it("keeps the add shortcut control inline with the section heading", () => {
+    render(<AppDetails application={application} keymap={keymap} />);
+
+    const addShortcutButton = screen.getByLabelText("Add shortcut to Editing");
+
+    expect(addShortcutButton.className).not.toContain("absolute");
+    expect(addShortcutButton.className).toContain("ml-1");
+  });
 });
