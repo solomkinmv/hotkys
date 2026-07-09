@@ -40,6 +40,7 @@ import { Label } from "@/components/ui/label";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -311,6 +312,8 @@ export const AppDetails = ({
   const displaySections: DisplaySection[] = favoriteShortcutsSection
     ? [favoriteShortcutsSection, ...searchResults]
     : searchResults;
+  const defaultAddShortcutSectionTitle =
+    searchResults[0]?.title ?? displayKeymap.sections[0]?.title;
 
   const totalItems = displaySections.reduce(
     (sum, section) => sum + section.hotkeys.length,
@@ -477,18 +480,6 @@ export const AppDetails = ({
           <SeparatorWithText>
             <span className="inline-flex items-center">
               <span>{section.title}</span>
-              {user && section.title !== FAVORITE_SHORTCUTS_SECTION_TITLE && (
-                <Button
-                  variant="secondary"
-                  size="sm"
-                  className="ml-3 gap-1.5"
-                  onClick={() => openAddShortcutDialog(section.title)}
-                  aria-label={`Add shortcut to ${section.title}`}
-                >
-                  <Plus className="h-4 w-4" />
-                  Add shortcut
-                </Button>
-              )}
             </span>
           </SeparatorWithText>
         </div>
@@ -558,18 +549,6 @@ export const AppDetails = ({
               <TypographyMuted className="font-semibold">
                 {section.title}
               </TypographyMuted>
-              {user && section.title !== FAVORITE_SHORTCUTS_SECTION_TITLE && (
-                <Button
-                  variant="secondary"
-                  size="sm"
-                  className="ml-3 gap-1.5"
-                  onClick={() => openAddShortcutDialog(section.title)}
-                  aria-label={`Add shortcut to ${section.title}`}
-                >
-                  <Plus className="h-4 w-4" />
-                  Add shortcut
-                </Button>
-              )}
             </div>
             <div className="space-y-1">
               {section.hotkeys.map((hotkey, idx) => {
@@ -705,7 +684,28 @@ export const AppDetails = ({
             </Link>
           )}
         </div>
-        <SearchBar onChange={handleSearch} />
+        <div
+          role="search"
+          aria-label="Search shortcuts"
+          className="flex items-center gap-2"
+        >
+          <div className="min-w-0 flex-1">
+            <SearchBar onChange={handleSearch} />
+          </div>
+          {user && defaultAddShortcutSectionTitle && (
+            <Button
+              variant="secondary"
+              className="shrink-0 gap-1.5"
+              onClick={() =>
+                openAddShortcutDialog(defaultAddShortcutSectionTitle)
+              }
+              aria-label="Add shortcut"
+            >
+              <Plus className="h-4 w-4" />
+              Add shortcut
+            </Button>
+          )}
+        </div>
       </div>
       {viewMode === "list" ? (
         <>
@@ -745,8 +745,36 @@ export const AppDetails = ({
                 ? "Add Shortcut"
                 : "Customize Shortcut"}
             </DialogTitle>
+            <DialogDescription className="sr-only">
+              {shortcutDialog?.type === "add"
+                ? "Add a custom shortcut to one section in this keymap."
+                : "Customize this shortcut for your account."}
+            </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-2">
+            {shortcutDialog?.type === "add" && (
+              <div className="space-y-2">
+                <Label htmlFor="shortcut-section">Section</Label>
+                <select
+                  id="shortcut-section"
+                  value={shortcutDialog.sectionTitle}
+                  onChange={(event) =>
+                    setShortcutDialog((dialog) =>
+                      dialog?.type === "add"
+                        ? { ...dialog, sectionTitle: event.target.value }
+                        : dialog,
+                    )
+                  }
+                  className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground ring-offset-background focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  {displayKeymap.sections.map((section) => (
+                    <option key={section.title} value={section.title}>
+                      {section.title}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
             <div className="space-y-2">
               <Label htmlFor="shortcut-title">Title</Label>
               <Input
