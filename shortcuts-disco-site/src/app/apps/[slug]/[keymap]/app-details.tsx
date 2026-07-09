@@ -55,6 +55,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { normalizeShortcutKey } from "@/lib/shortcut-key-format";
+import { ShortcutKeyInput } from "@/components/shortcuts/shortcut-key-input";
 
 type ViewMode = "list" | "cheatsheet";
 type DisplayShortcut = Keymap["sections"][number]["hotkeys"][number] & {
@@ -93,7 +95,6 @@ const emptyShortcutDraft: ShortcutDraft = {
   key: "",
   comment: "",
 };
-
 function parseViewMode(value: string | null): ViewMode | null {
   if (value === "cheatsheet") return "cheatsheet";
   if (value === "list") return "list";
@@ -400,7 +401,9 @@ export const AppDetails = ({
     if (!user || !shortcutDialog) return;
 
     const title = shortcutDraft.title.trim();
-    const key = shortcutDraft.key.trim() || undefined;
+    const key = shortcutDraft.key.trim()
+      ? normalizeShortcutKey(shortcutDraft.key)
+      : undefined;
     const comment = shortcutDraft.comment.trim() || undefined;
     const addSectionTitle =
       shortcutDialog.type === "add" &&
@@ -892,16 +895,15 @@ export const AppDetails = ({
             </Field>
             <Field>
               <FieldLabel htmlFor="shortcut-key">Keys</FieldLabel>
-              <Input
+              <ShortcutKeyInput
                 id="shortcut-key"
                 value={shortcutDraft.key}
-                onChange={(event) =>
+                onChange={(value) =>
                   setShortcutDraft((draft) => ({
                     ...draft,
-                    key: event.target.value,
+                    key: value,
                   }))
                 }
-                placeholder="cmd+k"
               />
             </Field>
             <Field>

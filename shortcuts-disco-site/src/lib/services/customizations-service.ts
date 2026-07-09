@@ -12,7 +12,10 @@ import {
   getCurrentProfile,
   requireCurrentProfile,
 } from "@/lib/services/current-profile";
-import { validateCustomShortcutDraft } from "@/lib/services/custom-shortcut-validation";
+import {
+  normalizeCustomShortcutDraft,
+  validateCustomShortcutDraft,
+} from "@/lib/services/custom-shortcut-validation";
 
 interface BaseAppShortcutInput {
   baseAppSlug: string;
@@ -234,7 +237,8 @@ export class CustomizationsService {
     shortcut: Omit<CustomShortcut, "id">,
     authUser?: AuthUser | null
   ): Promise<void> {
-    validateCustomShortcutDraft(shortcut);
+    const normalizedShortcut = normalizeCustomShortcutDraft(shortcut);
+    validateCustomShortcutDraft(normalizedShortcut);
 
     const supabase = createClientOrNull();
     if (!supabase) throw new Error("Supabase sign in is not configured.");
@@ -249,11 +253,11 @@ export class CustomizationsService {
         base_keymap_title: shortcut.baseKeymapTitle ?? null,
         base_section_title: shortcut.baseSectionTitle ?? null,
         base_shortcut_title: shortcut.baseShortcutTitle ?? null,
-        title: shortcut.title,
-        key: shortcut.key ?? null,
-        comment: shortcut.comment ?? null,
-        is_deleted: shortcut.isDeleted,
-        sort_order: shortcut.sortOrder,
+        title: normalizedShortcut.title,
+        key: normalizedShortcut.key ?? null,
+        comment: normalizedShortcut.comment ?? null,
+        is_deleted: normalizedShortcut.isDeleted,
+        sort_order: normalizedShortcut.sortOrder,
       },
       {
         onConflict: "user_id,base_app_slug,base_keymap_title,base_section_title,base_shortcut_title",
@@ -267,7 +271,8 @@ export class CustomizationsService {
     shortcut: Omit<CustomShortcut, "id">,
     authUser?: AuthUser | null
   ): Promise<CustomShortcut> {
-    validateCustomShortcutDraft(shortcut);
+    const normalizedShortcut = normalizeCustomShortcutDraft(shortcut);
+    validateCustomShortcutDraft(normalizedShortcut);
 
     const supabase = createClientOrNull();
     if (!supabase) throw new Error("Supabase sign in is not configured.");
@@ -283,11 +288,11 @@ export class CustomizationsService {
         base_keymap_title: shortcut.baseKeymapTitle ?? null,
         base_section_title: shortcut.baseSectionTitle ?? null,
         base_shortcut_title: shortcut.baseShortcutTitle ?? null,
-        title: shortcut.title,
-        key: shortcut.key ?? null,
-        comment: shortcut.comment ?? null,
-        is_deleted: shortcut.isDeleted,
-        sort_order: shortcut.sortOrder,
+        title: normalizedShortcut.title,
+        key: normalizedShortcut.key ?? null,
+        comment: normalizedShortcut.comment ?? null,
+        is_deleted: normalizedShortcut.isDeleted,
+        sort_order: normalizedShortcut.sortOrder,
       })
       .select()
       .single();
@@ -313,7 +318,8 @@ export class CustomizationsService {
     shortcut: BaseAppShortcutInput,
     authUser?: AuthUser | null
   ): Promise<CustomShortcut> {
-    validateCustomShortcutDraft(shortcut);
+    const normalizedShortcut = normalizeCustomShortcutDraft(shortcut);
+    validateCustomShortcutDraft(normalizedShortcut);
 
     const supabase = createClientOrNull();
     if (!supabase) throw new Error("Supabase sign in is not configured.");
@@ -333,9 +339,9 @@ export class CustomizationsService {
     return this.createCustomShortcut(
       {
         sectionId: section.id,
-        title: shortcut.title,
-        key: shortcut.key,
-        comment: shortcut.comment,
+        title: normalizedShortcut.title,
+        key: normalizedShortcut.key,
+        comment: normalizedShortcut.comment,
         isDeleted: false,
         sortOrder: section.shortcuts.length,
       },

@@ -10,6 +10,7 @@ import type {
   CustomShortcut,
 } from "@/lib/model/user/user-models";
 import Validator from "@/lib/load/validator";
+import { normalizeShortcutKey } from "@/lib/shortcut-key-format";
 
 type CustomShortcutDraft = Pick<CustomShortcut, "title" | "key" | "comment">;
 
@@ -18,6 +19,7 @@ const validator = new Validator(
 );
 
 export function validateCustomShortcutDraft(draft: CustomShortcutDraft): void {
+  const normalizedDraft = normalizeCustomShortcutDraft(draft);
   validator.validate([
     {
       name: "Custom shortcut",
@@ -28,13 +30,22 @@ export function validateCustomShortcutDraft(draft: CustomShortcutDraft): void {
           sections: [
             {
               title: "General",
-              shortcuts: [toInputShortcut(draft)],
+              shortcuts: [toInputShortcut(normalizedDraft)],
             },
           ],
         },
       ],
     },
   ]);
+}
+
+export function normalizeCustomShortcutDraft<T extends CustomShortcutDraft>(
+  draft: T
+): T {
+  return {
+    ...draft,
+    key: draft.key ? normalizeShortcutKey(draft.key) : draft.key,
+  };
 }
 
 export function validateCustomApp(customApp: CustomApp): void {
@@ -94,7 +105,7 @@ function toInputShortcut(shortcut: CustomShortcutDraft): InputShortcut {
   };
 
   if (shortcut.key) {
-    inputShortcut.key = shortcut.key;
+    inputShortcut.key = normalizeShortcutKey(shortcut.key);
   }
   if (shortcut.comment) {
     inputShortcut.comment = shortcut.comment;

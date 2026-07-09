@@ -25,7 +25,7 @@ describe("exportService", () => {
                   id: "shortcut-1",
                   sectionId: "section-1",
                   title: "Open command palette",
-                  key: "Cmd+K",
+                  key: "cmd+k+p",
                   isDeleted: false,
                   sortOrder: 0,
                 },
@@ -37,7 +37,7 @@ describe("exportService", () => {
     };
 
     expect(() => exportService.exportCustomApp(app)).toThrow(
-      "Modifier doesn't exist: 'Cmd+K'"
+      "Modifier doesn't exist: 'cmd+k+p'"
     );
   });
 });

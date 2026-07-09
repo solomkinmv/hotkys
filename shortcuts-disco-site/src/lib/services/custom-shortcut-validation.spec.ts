@@ -16,13 +16,20 @@ describe("custom shortcut validation", () => {
     ).not.toThrow();
   });
 
-  it("rejects shortcut drafts that official validation would reject", () => {
+  it("accepts shortcut drafts with clear format fixes", () => {
     expect(() =>
       validateCustomShortcutDraft({
         title: "Open command palette",
         key: "Cmd+K",
       })
-    ).toThrow("Modifier doesn't exist: 'Cmd+K'");
+    ).not.toThrow();
+
+    expect(() =>
+      validateCustomShortcutDraft({
+        title: "Undo",
+        key: "cmd+z+shift",
+      })
+    ).not.toThrow();
   });
 
   it("rejects long comments with the official comment limit", () => {
@@ -61,6 +68,42 @@ describe("custom shortcut validation", () => {
                   title: "Open command palette",
                   key: "cmd+k",
                   comment: "Opens commands",
+                  isDeleted: false,
+                  sortOrder: 0,
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    };
+
+    expect(() => validateCustomApp(app)).not.toThrow();
+  });
+
+  it("validates complete custom apps with clear shortcut format fixes", () => {
+    const app: CustomApp = {
+      id: "app-1",
+      userId: "user-1",
+      name: "Sample",
+      slug: "sample",
+      keymaps: [
+        {
+          id: "keymap-1",
+          customAppId: "app-1",
+          title: "Default",
+          sections: [
+            {
+              id: "section-1",
+              keymapId: "keymap-1",
+              title: "General",
+              sortOrder: 0,
+              shortcuts: [
+                {
+                  id: "shortcut-1",
+                  sectionId: "section-1",
+                  title: "Undo",
+                  key: "cmd+z+shift",
                   isDeleted: false,
                   sortOrder: 0,
                 },
