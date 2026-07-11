@@ -1,3 +1,5 @@
+import { isSafeImageLocation } from "@/lib/validation/resource-location";
+
 /**
  * Returns the full URL for an app icon.
  *
@@ -16,6 +18,7 @@
  */
 export function getIconUrl(icon: string | undefined): string | undefined {
   if (!icon?.trim()) return undefined;
+  if (!isSafeImageLocation(icon)) return undefined;
 
   const trimmedIcon = icon.trim();
 

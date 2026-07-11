@@ -20,6 +20,8 @@ describe("user content database limits", () => {
 
   it("enforces persisted text lengths and stable shortcut identities", () => {
     expect(schema).toContain("custom_apps_slug_format");
+    expect(schema).toContain("custom_apps_resource_locations");
+    expect(schema).toContain("[[:cntrl:]]");
     expect(schema).toContain("custom_shortcuts_text_lengths");
     expect(schema).toContain("favorites_text_lengths");
     expect(schema).toContain("base_shortcut_id TEXT");

@@ -9,6 +9,20 @@ describe("getIconUrl", () => {
         expect(getIconUrl(input as string | undefined)).toBeUndefined();
       }
     );
+
+    it.each([
+      "javascript:alert(1)",
+      "data:image/svg+xml,<svg></svg>",
+      "file:///tmp/icon.png",
+      "https://",
+      "http://javascript:alert(1)",
+      "icons/\napp.png",
+      "icons/app.png\n",
+      "//example.com/icon.png",
+      "\\\\example.com\\icon.png",
+    ])("rejects unsafe image location %p", (input) => {
+      expect(getIconUrl(input)).toBeUndefined();
+    });
   });
 
   describe("handles absolute URLs", () => {
@@ -18,6 +32,7 @@ describe("getIconUrl", () => {
       "HTTPS://EXAMPLE.COM/ICON.PNG",
       "HTTP://EXAMPLE.COM/ICON.PNG",
       "https://cdn.example.com/path/to/icon.svg",
+      "http://localhost:3000/icon.png",
     ])("returns absolute URL as-is: %p", (url) => {
       expect(getIconUrl(url)).toBe(url);
     });

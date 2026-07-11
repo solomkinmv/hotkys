@@ -160,6 +160,24 @@ ALTER TABLE public.custom_apps ADD CONSTRAINT custom_apps_text_lengths CHECK (
   (source IS NULL OR char_length(source) BETWEEN 1 AND 2048) AND
   (icon IS NULL OR char_length(icon) BETWEEN 1 AND 2048)
 );
+ALTER TABLE public.custom_apps DROP CONSTRAINT IF EXISTS custom_apps_resource_locations;
+ALTER TABLE public.custom_apps ADD CONSTRAINT custom_apps_resource_locations CHECK (
+  (source IS NULL OR (
+    source !~ '[[:cntrl:]]' AND
+    btrim(source) ~* '^https?://([a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?\.)*[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?(:(0|[1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5]))?([/?#]|$)'
+  )) AND
+  (icon IS NULL OR (
+    btrim(icon) <> '' AND
+    icon !~ '[[:cntrl:]]' AND
+    (
+      btrim(icon) ~* '^https?://([a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?\.)*[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?(:(0|[1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5]))?([/?#]|$)' OR (
+        btrim(icon) !~* '^[a-z][a-z0-9+.-]*:' AND
+        left(btrim(icon), 2) <> '//' AND
+        left(btrim(icon), 1) <> chr(92)
+      )
+    )
+  ))
+);
 
 ALTER TABLE public.custom_keymaps DROP CONSTRAINT IF EXISTS custom_keymaps_text_lengths;
 ALTER TABLE public.custom_keymaps ADD CONSTRAINT custom_keymaps_text_lengths CHECK (

@@ -39,13 +39,23 @@
       "description": "Link to the source of the shortcuts",
       "type": "string",
       "format": "uri",
+      "pattern": "^(?!.*[\\u0000-\\u001F\\u007F])[Hh][Tt][Tt][Pp][Ss]?://(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\\.)*[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?::(?:0|[1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5]))?(?:[/?#]|$)",
       "maxLength": 2048
     },
     "icon": {
       "description": "Path to the application icon. Can be a relative path (e.g., 'icons/app.png') or an absolute URL",
       "type": "string",
       "minLength": 1,
-      "maxLength": 2048
+      "maxLength": 2048,
+      "anyOf": [
+        {
+          "format": "uri",
+          "pattern": "^(?!.*[\\u0000-\\u001F\\u007F])[Hh][Tt][Tt][Pp][Ss]?://(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\\.)*[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?::(?:0|[1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5]))?(?:[/?#]|$)"
+        },
+        {
+          "pattern": "^(?!.*[\\u0000-\\u001F\\u007F])(?![a-zA-Z][a-zA-Z0-9+.-]*:)(?![/\\\\]{2})(?!\\\\).+"
+        }
+      ]
     },
     "keymaps": {
       "description": "List of the application keymaps. Most of the applications have single keymap that should be named 'Default'.",
