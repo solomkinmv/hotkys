@@ -109,6 +109,29 @@ describe("MyShortcutAppContent", () => {
     );
   });
 
+  it("clears optional app metadata with null values", async () => {
+    render(<MyShortcutAppContent slug="local-tool" />);
+
+    fireEvent.change(screen.getByLabelText("Bundle ID"), {
+      target: { value: "" },
+    });
+    fireEvent.change(screen.getByLabelText("Image path"), {
+      target: { value: "" },
+    });
+    fireEvent.click(screen.getByRole("button", { name: "Save App" }));
+
+    await waitFor(() =>
+      expect(updateCustomAppMock).toHaveBeenCalledWith(
+        "app-1",
+        expect.objectContaining({
+          bundleId: null,
+          icon: null,
+        }),
+        { id: "user-1" },
+      ),
+    );
+  });
+
   it("offers shortcut modifier builder controls for custom app shortcuts", async () => {
     render(<MyShortcutAppContent slug="local-tool" />);
 

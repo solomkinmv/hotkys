@@ -14,6 +14,7 @@ export interface AllApps {
  * Each application consist of name, slug, bundleId and keymaps.
  */
 export interface InputApp {
+    $schema?: "schema/shortcut.schema.json";
     bundleId?: string;
     hostname?: string;
     name: string;

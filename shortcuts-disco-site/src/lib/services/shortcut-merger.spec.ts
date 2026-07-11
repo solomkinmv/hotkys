@@ -66,6 +66,9 @@ describe("ShortcutMerger", () => {
       {
         title: "Copy",
         sequence: [{ base: "c", modifiers: [] }],
+        baseShortcutId: '[[["c",[]]],"Copy","",0]',
+        baseSectionTitle: "General",
+        baseShortcutTitle: "Copy",
       },
       {
         title: "Open command palette",
@@ -75,5 +78,124 @@ describe("ShortcutMerger", () => {
         customizationId: "shortcut-1",
       },
     ]);
+  });
+
+  it("applies an overlay only to the matching duplicate-title shortcut", () => {
+    const baseApp: AppShortcuts = {
+      name: "Sample",
+      slug: "sample",
+      keymaps: [
+        {
+          title: "Default",
+          sections: [
+            {
+              title: "General",
+              hotkeys: [
+                {
+                  title: "Activate focused element",
+                  sequence: [{ base: "Enter", modifiers: [] }],
+                },
+                {
+                  title: "Activate focused element",
+                  sequence: [{ base: "Space", modifiers: [] }],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    };
+    const customizations: UserCustomizations = {
+      customApps: [],
+      customKeymaps: [],
+      shortcuts: [
+        {
+          baseKey: "sample:Default:General:Activate focused element",
+          baseShortcutId:
+            '[[["Space",[]]],"Activate focused element","",0]',
+          modification: {
+            id: "overlay-1",
+            title: "Activate focused element with Space",
+            key: "space",
+            isDeleted: false,
+          },
+        },
+      ],
+      favorites: [],
+    };
+
+    const [mergedApp] = new ShortcutMerger(customizations).mergeShortcuts(
+      [baseApp],
+      customizations,
+    );
+
+    expect(mergedApp.keymaps[0].sections[0].hotkeys.map((shortcut) => shortcut.title))
+      .toEqual([
+        "Activate focused element",
+        "Activate focused element with Space",
+      ]);
+  });
+
+  it("ignores a stale legacy overlay after an identity overlay is saved", () => {
+    const baseApp: AppShortcuts = {
+      name: "Sample",
+      slug: "sample",
+      keymaps: [
+        {
+          title: "Default",
+          sections: [
+            {
+              title: "General",
+              hotkeys: [
+                {
+                  title: "Activate focused element",
+                  sequence: [{ base: "Enter", modifiers: [] }],
+                },
+                {
+                  title: "Activate focused element",
+                  sequence: [{ base: "Space", modifiers: [] }],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    };
+    const customizations: UserCustomizations = {
+      customApps: [],
+      customKeymaps: [],
+      shortcuts: [
+        {
+          baseKey: "sample:Default:General:Activate focused element",
+          modification: {
+            id: "legacy-overlay",
+            title: "Legacy title",
+            isDeleted: false,
+          },
+        },
+        {
+          baseKey: "sample:Default:General:Activate focused element",
+          baseShortcutId:
+            '[[["Space",[]]],"Activate focused element","",0]',
+          modification: {
+            id: "identity-overlay",
+            title: "Space title",
+            isDeleted: false,
+          },
+        },
+      ],
+      favorites: [],
+    };
+
+    const [mergedApp] = new ShortcutMerger(customizations).mergeShortcuts(
+      [baseApp],
+      customizations,
+    );
+
+    expect(
+      mergedApp.keymaps[0].sections[0].hotkeys.map(
+        (shortcut) => shortcut.title,
+      ),
+    ).toEqual(["Activate focused element", "Space title"]);
   });
 });

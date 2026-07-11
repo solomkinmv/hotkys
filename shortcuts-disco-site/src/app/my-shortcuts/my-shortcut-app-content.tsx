@@ -18,6 +18,10 @@ import {
   TypographyMuted,
 } from "@/components/ui/typography";
 import type { CustomSection } from "@/lib/model/user/user-models";
+import {
+  assertResourceLimit,
+  USER_CONTENT_LIMITS,
+} from "@/lib/validation/user-content";
 
 interface MyShortcutAppContentProps {
   slug: string;
@@ -142,10 +146,10 @@ export function MyShortcutAppContent({ slug }: MyShortcutAppContentProps) {
       await customizationsService.updateCustomApp(app.id, {
         name: appName,
         slug: appSlug,
-        bundleId: appBundleId.trim() || undefined,
+        bundleId: appBundleId.trim() || null,
         hostname: app.hostname,
         source: app.source,
-        icon: appIcon.trim() || undefined,
+        icon: appIcon.trim() || null,
       }, user);
       await refetch();
       if (appSlug !== slug) {
@@ -156,6 +160,17 @@ export function MyShortcutAppContent({ slug }: MyShortcutAppContentProps) {
   const handleCreateKeymap = () =>
     runAction(async () => {
       if (!newKeymapTitle.trim()) return;
+      const customKeymapCount =
+        customizations.customKeymaps.length +
+        customizations.customApps.reduce(
+          (count, customApp) => count + customApp.keymaps.length,
+          0,
+        );
+      assertResourceLimit(
+        customKeymapCount,
+        USER_CONTENT_LIMITS.customKeymaps,
+        "custom keymaps",
+      );
       await customizationsService.createCustomKeymap({
         customAppId: app.id,
         title: newKeymapTitle.trim(),
@@ -168,6 +183,15 @@ export function MyShortcutAppContent({ slug }: MyShortcutAppContentProps) {
     runAction(async () => {
       const title = newSectionTitles[keymapId]?.trim();
       if (!title) return;
+      const customSectionCount = [
+        ...customizations.customKeymaps,
+        ...customizations.customApps.flatMap((customApp) => customApp.keymaps),
+      ].reduce((count, keymap) => count + keymap.sections.length, 0);
+      assertResourceLimit(
+        customSectionCount,
+        USER_CONTENT_LIMITS.customSections,
+        "custom sections",
+      );
       await customizationsService.createCustomSection({
         keymapId,
         title,
@@ -181,6 +205,23 @@ export function MyShortcutAppContent({ slug }: MyShortcutAppContentProps) {
     runAction(async () => {
       const draft = shortcutDrafts[section.id] ?? emptyShortcutDraft;
       if (!draft.title.trim()) return;
+      const customShortcutCount = [
+        ...customizations.customKeymaps,
+        ...customizations.customApps.flatMap((customApp) => customApp.keymaps),
+      ].reduce(
+        (count, keymap) =>
+          count +
+          keymap.sections.reduce(
+            (sectionCount, item) => sectionCount + item.shortcuts.length,
+            0,
+          ),
+        customizations.shortcuts.length,
+      );
+      assertResourceLimit(
+        customShortcutCount,
+        USER_CONTENT_LIMITS.customShortcuts,
+        "custom shortcuts",
+      );
       await customizationsService.createCustomShortcut({
         sectionId: section.id,
         title: draft.title.trim(),
@@ -222,6 +263,7 @@ export function MyShortcutAppContent({ slug }: MyShortcutAppContentProps) {
           <Input
             id="custom-app-name"
             value={appName}
+            maxLength={USER_CONTENT_LIMITS.appName}
             onChange={(event) => setAppName(event.target.value)}
           />
         </Field>
@@ -230,6 +272,7 @@ export function MyShortcutAppContent({ slug }: MyShortcutAppContentProps) {
           <Input
             id="custom-app-slug"
             value={appSlug}
+            maxLength={USER_CONTENT_LIMITS.slug}
             onChange={(event) => setAppSlug(event.target.value)}
           />
         </Field>
@@ -238,6 +281,7 @@ export function MyShortcutAppContent({ slug }: MyShortcutAppContentProps) {
           <Input
             id="custom-app-bundle-id"
             value={appBundleId}
+            maxLength={USER_CONTENT_LIMITS.bundleId}
             onChange={(event) => setAppBundleId(event.target.value)}
             placeholder="com.example.app"
           />
@@ -247,6 +291,7 @@ export function MyShortcutAppContent({ slug }: MyShortcutAppContentProps) {
           <Input
             id="custom-app-image-path"
             value={appIcon}
+            maxLength={USER_CONTENT_LIMITS.urlOrPath}
             onChange={(event) => setAppIcon(event.target.value)}
             placeholder="/custom-icons/my-app.png or https://..."
           />
@@ -258,6 +303,7 @@ export function MyShortcutAppContent({ slug }: MyShortcutAppContentProps) {
         <div className="flex gap-2">
           <Input
             value={newKeymapTitle}
+            maxLength={USER_CONTENT_LIMITS.keymapTitle}
             onChange={(event) => setNewKeymapTitle(event.target.value)}
             placeholder="Keymap title"
           />
@@ -280,6 +326,7 @@ export function MyShortcutAppContent({ slug }: MyShortcutAppContentProps) {
             <div className="flex gap-2">
               <Input
                 value={newSectionTitles[keymap.id] ?? ""}
+                maxLength={USER_CONTENT_LIMITS.sectionTitle}
                 onChange={(event) =>
                   setNewSectionTitles((prev) => ({
                     ...prev,
@@ -331,6 +378,7 @@ export function MyShortcutAppContent({ slug }: MyShortcutAppContentProps) {
                   <div className="grid gap-2 md:grid-cols-[1fr_1fr_1fr_auto]">
                     <Input
                       value={draft.title}
+                      maxLength={USER_CONTENT_LIMITS.shortcutTitle}
                       onChange={(event) =>
                         updateShortcutDraft(section.id, {
                           title: event.target.value,
@@ -348,6 +396,7 @@ export function MyShortcutAppContent({ slug }: MyShortcutAppContentProps) {
                     />
                     <Input
                       value={draft.comment}
+                      maxLength={USER_CONTENT_LIMITS.shortcutComment}
                       onChange={(event) =>
                         updateShortcutDraft(section.id, {
                           comment: event.target.value,

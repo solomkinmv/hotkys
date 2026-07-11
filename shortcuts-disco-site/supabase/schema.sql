@@ -87,6 +87,7 @@ CREATE TABLE IF NOT EXISTS public.custom_shortcuts (
   base_keymap_title TEXT,
   base_section_title TEXT,
   base_shortcut_title TEXT,
+  base_shortcut_id TEXT,
   title TEXT NOT NULL,
   key TEXT,
   comment TEXT,
@@ -96,21 +97,27 @@ CREATE TABLE IF NOT EXISTS public.custom_shortcuts (
   updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 
+ALTER TABLE public.custom_shortcuts
+  ADD COLUMN IF NOT EXISTS base_shortcut_id TEXT;
+
+ALTER TABLE public.custom_shortcuts
+  DROP CONSTRAINT IF EXISTS custom_shortcuts_overlay_unique;
+
 DO $$
 BEGIN
   IF NOT EXISTS (
     SELECT 1 FROM pg_constraint
-    WHERE conname = 'custom_shortcuts_overlay_unique'
+    WHERE conname = 'custom_shortcuts_overlay_identity_unique'
       AND conrelid = 'public.custom_shortcuts'::regclass
   ) THEN
     ALTER TABLE public.custom_shortcuts
-      ADD CONSTRAINT custom_shortcuts_overlay_unique
+      ADD CONSTRAINT custom_shortcuts_overlay_identity_unique
       UNIQUE (
         user_id,
         base_app_slug,
         base_keymap_title,
         base_section_title,
-        base_shortcut_title
+        base_shortcut_id
       );
   END IF;
 END $$;
@@ -124,8 +131,72 @@ CREATE TABLE IF NOT EXISTS public.favorites (
   keymap_title TEXT,
   shortcut_title TEXT,
   section_title TEXT,
+  base_shortcut_id TEXT,
   custom_app_id UUID REFERENCES public.custom_apps(id) ON DELETE CASCADE,
   created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+ALTER TABLE public.favorites
+  ADD COLUMN IF NOT EXISTS base_shortcut_id TEXT;
+
+-- Bound persisted input sizes before data reaches PostgREST or downstream code.
+ALTER TABLE public.profiles DROP CONSTRAINT IF EXISTS profiles_text_lengths;
+ALTER TABLE public.profiles ADD CONSTRAINT profiles_text_lengths CHECK (
+  (clerk_user_id IS NULL OR char_length(clerk_user_id) <= 255) AND
+  (display_name IS NULL OR char_length(display_name) <= 100) AND
+  (avatar_url IS NULL OR char_length(avatar_url) <= 2048)
+);
+
+ALTER TABLE public.custom_apps DROP CONSTRAINT IF EXISTS custom_apps_slug_format;
+ALTER TABLE public.custom_apps ADD CONSTRAINT custom_apps_slug_format CHECK (
+  slug ~ '^[a-zA-Z0-9]+(-[a-zA-Z0-9]+)*$'
+);
+ALTER TABLE public.custom_apps DROP CONSTRAINT IF EXISTS custom_apps_text_lengths;
+ALTER TABLE public.custom_apps ADD CONSTRAINT custom_apps_text_lengths CHECK (
+  char_length(slug) BETWEEN 1 AND 80 AND
+  char_length(name) BETWEEN 1 AND 100 AND
+  (bundle_id IS NULL OR char_length(bundle_id) BETWEEN 1 AND 255) AND
+  (hostname IS NULL OR char_length(hostname) BETWEEN 1 AND 253) AND
+  (source IS NULL OR char_length(source) BETWEEN 1 AND 2048) AND
+  (icon IS NULL OR char_length(icon) BETWEEN 1 AND 2048)
+);
+
+ALTER TABLE public.custom_keymaps DROP CONSTRAINT IF EXISTS custom_keymaps_text_lengths;
+ALTER TABLE public.custom_keymaps ADD CONSTRAINT custom_keymaps_text_lengths CHECK (
+  char_length(title) BETWEEN 1 AND 100 AND
+  (base_app_slug IS NULL OR char_length(base_app_slug) BETWEEN 1 AND 80) AND
+  (platforms IS NULL OR (
+    cardinality(platforms) BETWEEN 1 AND 3 AND
+    platforms <@ ARRAY['macos', 'windows', 'linux']::TEXT[]
+  ))
+);
+
+ALTER TABLE public.custom_sections DROP CONSTRAINT IF EXISTS custom_sections_text_lengths;
+ALTER TABLE public.custom_sections ADD CONSTRAINT custom_sections_text_lengths CHECK (
+  char_length(title) BETWEEN 1 AND 100 AND
+  sort_order BETWEEN 0 AND 499
+);
+
+ALTER TABLE public.custom_shortcuts DROP CONSTRAINT IF EXISTS custom_shortcuts_text_lengths;
+ALTER TABLE public.custom_shortcuts ADD CONSTRAINT custom_shortcuts_text_lengths CHECK (
+  char_length(title) BETWEEN 1 AND 50 AND
+  (key IS NULL OR char_length(key) BETWEEN 1 AND 255) AND
+  (comment IS NULL OR char_length(comment) BETWEEN 1 AND 50) AND
+  (base_app_slug IS NULL OR char_length(base_app_slug) BETWEEN 1 AND 80) AND
+  (base_keymap_title IS NULL OR char_length(base_keymap_title) BETWEEN 1 AND 100) AND
+  (base_section_title IS NULL OR char_length(base_section_title) BETWEEN 1 AND 100) AND
+  (base_shortcut_title IS NULL OR char_length(base_shortcut_title) BETWEEN 1 AND 50) AND
+  (base_shortcut_id IS NULL OR char_length(base_shortcut_id) BETWEEN 1 AND 1024) AND
+  sort_order BETWEEN 0 AND 1999
+);
+
+ALTER TABLE public.favorites DROP CONSTRAINT IF EXISTS favorites_text_lengths;
+ALTER TABLE public.favorites ADD CONSTRAINT favorites_text_lengths CHECK (
+  (app_slug IS NULL OR char_length(app_slug) BETWEEN 1 AND 87) AND
+  (keymap_title IS NULL OR char_length(keymap_title) BETWEEN 1 AND 100) AND
+  (shortcut_title IS NULL OR char_length(shortcut_title) BETWEEN 1 AND 50) AND
+  (section_title IS NULL OR char_length(section_title) BETWEEN 1 AND 100) AND
+  (base_shortcut_id IS NULL OR char_length(base_shortcut_id) BETWEEN 1 AND 1024)
 );
 
 -- Indexes for performance and identity.
@@ -141,7 +212,8 @@ CREATE INDEX IF NOT EXISTS idx_favorites_user ON public.favorites(user_id);
 CREATE INDEX IF NOT EXISTS idx_favorites_app ON public.favorites(app_slug);
 CREATE INDEX IF NOT EXISTS idx_favorites_custom_app ON public.favorites(custom_app_id);
 
-CREATE UNIQUE INDEX IF NOT EXISTS favorites_identity_unique
+DROP INDEX IF EXISTS public.favorites_identity_unique;
+CREATE UNIQUE INDEX favorites_identity_unique
   ON public.favorites (
     user_id,
     item_type,
@@ -149,6 +221,7 @@ CREATE UNIQUE INDEX IF NOT EXISTS favorites_identity_unique
     COALESCE(keymap_title, ''),
     COALESCE(shortcut_title, ''),
     COALESCE(section_title, ''),
+    COALESCE(base_shortcut_id, ''),
     COALESCE(custom_app_id::text, '')
   );
 
@@ -165,18 +238,18 @@ ALTER TABLE public.favorites ENABLE ROW LEVEL SECURITY;
 DROP POLICY IF EXISTS "Users can view own profile" ON public.profiles;
 CREATE POLICY "Users can view own profile" ON public.profiles
   FOR SELECT TO authenticated
-  USING ((select auth.jwt()->>'sub') = clerk_user_id);
+  USING (((select auth.jwt())->>'sub') = clerk_user_id);
 
 DROP POLICY IF EXISTS "Users can update own profile" ON public.profiles;
 CREATE POLICY "Users can update own profile" ON public.profiles
   FOR UPDATE TO authenticated
-  USING ((select auth.jwt()->>'sub') = clerk_user_id)
-  WITH CHECK ((select auth.jwt()->>'sub') = clerk_user_id);
+  USING (((select auth.jwt())->>'sub') = clerk_user_id)
+  WITH CHECK (((select auth.jwt())->>'sub') = clerk_user_id);
 
 DROP POLICY IF EXISTS "Users can insert own profile" ON public.profiles;
 CREATE POLICY "Users can insert own profile" ON public.profiles
   FOR INSERT TO authenticated
-  WITH CHECK ((select auth.jwt()->>'sub') = clerk_user_id);
+  WITH CHECK (((select auth.jwt())->>'sub') = clerk_user_id);
 
 DROP POLICY IF EXISTS "Users can CRUD own preferences" ON public.user_preferences;
 CREATE POLICY "Users can CRUD own preferences" ON public.user_preferences
@@ -186,7 +259,7 @@ CREATE POLICY "Users can CRUD own preferences" ON public.user_preferences
       SELECT 1
       FROM public.profiles
       WHERE profiles.id = user_preferences.user_id
-        AND profiles.clerk_user_id = (select auth.jwt()->>'sub')
+        AND profiles.clerk_user_id = ((select auth.jwt())->>'sub')
     )
   )
   WITH CHECK (
@@ -194,7 +267,7 @@ CREATE POLICY "Users can CRUD own preferences" ON public.user_preferences
       SELECT 1
       FROM public.profiles
       WHERE profiles.id = user_preferences.user_id
-        AND profiles.clerk_user_id = (select auth.jwt()->>'sub')
+        AND profiles.clerk_user_id = ((select auth.jwt())->>'sub')
     )
   );
 
@@ -206,7 +279,7 @@ CREATE POLICY "Users can CRUD own custom_apps" ON public.custom_apps
       SELECT 1
       FROM public.profiles
       WHERE profiles.id = custom_apps.user_id
-        AND profiles.clerk_user_id = (select auth.jwt()->>'sub')
+        AND profiles.clerk_user_id = ((select auth.jwt())->>'sub')
     )
   )
   WITH CHECK (
@@ -214,7 +287,7 @@ CREATE POLICY "Users can CRUD own custom_apps" ON public.custom_apps
       SELECT 1
       FROM public.profiles
       WHERE profiles.id = custom_apps.user_id
-        AND profiles.clerk_user_id = (select auth.jwt()->>'sub')
+        AND profiles.clerk_user_id = ((select auth.jwt())->>'sub')
     )
   );
 
@@ -226,7 +299,7 @@ CREATE POLICY "Users can CRUD own custom_keymaps" ON public.custom_keymaps
       SELECT 1
       FROM public.profiles
       WHERE profiles.id = custom_keymaps.user_id
-        AND profiles.clerk_user_id = (select auth.jwt()->>'sub')
+        AND profiles.clerk_user_id = ((select auth.jwt())->>'sub')
     )
     AND (
       custom_app_id IS NULL
@@ -242,7 +315,7 @@ CREATE POLICY "Users can CRUD own custom_keymaps" ON public.custom_keymaps
       SELECT 1
       FROM public.profiles
       WHERE profiles.id = custom_keymaps.user_id
-        AND profiles.clerk_user_id = (select auth.jwt()->>'sub')
+        AND profiles.clerk_user_id = ((select auth.jwt())->>'sub')
     )
     AND (
       custom_app_id IS NULL
@@ -265,7 +338,7 @@ CREATE POLICY "Users can CRUD own custom_sections" ON public.custom_sections
       JOIN public.profiles
         ON profiles.id = custom_keymaps.user_id
       WHERE custom_keymaps.id = custom_sections.keymap_id
-        AND profiles.clerk_user_id = (select auth.jwt()->>'sub')
+        AND profiles.clerk_user_id = ((select auth.jwt())->>'sub')
     )
   ) WITH CHECK (
     EXISTS (
@@ -274,7 +347,7 @@ CREATE POLICY "Users can CRUD own custom_sections" ON public.custom_sections
       JOIN public.profiles
         ON profiles.id = custom_keymaps.user_id
       WHERE custom_keymaps.id = custom_sections.keymap_id
-        AND profiles.clerk_user_id = (select auth.jwt()->>'sub')
+        AND profiles.clerk_user_id = ((select auth.jwt())->>'sub')
     )
   );
 
@@ -286,7 +359,7 @@ CREATE POLICY "Users can CRUD own custom_shortcuts" ON public.custom_shortcuts
       SELECT 1
       FROM public.profiles
       WHERE profiles.id = custom_shortcuts.user_id
-        AND profiles.clerk_user_id = (select auth.jwt()->>'sub')
+        AND profiles.clerk_user_id = ((select auth.jwt())->>'sub')
     )
     AND (
       section_id IS NULL
@@ -304,7 +377,7 @@ CREATE POLICY "Users can CRUD own custom_shortcuts" ON public.custom_shortcuts
       SELECT 1
       FROM public.profiles
       WHERE profiles.id = custom_shortcuts.user_id
-        AND profiles.clerk_user_id = (select auth.jwt()->>'sub')
+        AND profiles.clerk_user_id = ((select auth.jwt())->>'sub')
     )
     AND (
       section_id IS NULL
@@ -327,7 +400,7 @@ CREATE POLICY "Users can CRUD own favorites" ON public.favorites
       SELECT 1
       FROM public.profiles
       WHERE profiles.id = favorites.user_id
-        AND profiles.clerk_user_id = (select auth.jwt()->>'sub')
+        AND profiles.clerk_user_id = ((select auth.jwt())->>'sub')
     )
     AND (
       custom_app_id IS NULL
@@ -343,7 +416,7 @@ CREATE POLICY "Users can CRUD own favorites" ON public.favorites
       SELECT 1
       FROM public.profiles
       WHERE profiles.id = favorites.user_id
-        AND profiles.clerk_user_id = (select auth.jwt()->>'sub')
+        AND profiles.clerk_user_id = ((select auth.jwt())->>'sub')
     )
     AND (
       custom_app_id IS NULL
@@ -393,6 +466,95 @@ CREATE TRIGGER set_custom_shortcuts_updated_at
   BEFORE UPDATE ON public.custom_shortcuts
   FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
 
+-- Serialize inserts per user/table and reject rows beyond free-account quotas.
+CREATE OR REPLACE FUNCTION public.enforce_user_row_quota()
+RETURNS TRIGGER
+LANGUAGE plpgsql
+SECURITY INVOKER
+SET search_path = public, pg_temp
+AS $$
+DECLARE
+  owner_id UUID;
+  current_count BIGINT;
+  max_rows INTEGER := TG_ARGV[0]::INTEGER;
+BEGIN
+  IF TG_TABLE_NAME = 'custom_sections' THEN
+    SELECT user_id INTO owner_id
+    FROM public.custom_keymaps
+    WHERE id = NEW.keymap_id;
+  ELSE
+    owner_id := NEW.user_id;
+  END IF;
+
+  IF owner_id IS NULL THEN
+    RAISE EXCEPTION 'Unable to determine resource owner'
+      USING ERRCODE = 'foreign_key_violation';
+  END IF;
+
+  PERFORM pg_advisory_xact_lock(
+    hashtext(owner_id::TEXT),
+    hashtext(TG_TABLE_NAME)
+  );
+
+  CASE TG_TABLE_NAME
+    WHEN 'custom_apps' THEN
+      SELECT count(*) INTO current_count
+      FROM public.custom_apps WHERE user_id = owner_id;
+    WHEN 'custom_keymaps' THEN
+      SELECT count(*) INTO current_count
+      FROM public.custom_keymaps WHERE user_id = owner_id;
+    WHEN 'custom_sections' THEN
+      SELECT count(*) INTO current_count
+      FROM public.custom_sections
+      JOIN public.custom_keymaps
+        ON custom_keymaps.id = custom_sections.keymap_id
+      WHERE custom_keymaps.user_id = owner_id;
+    WHEN 'custom_shortcuts' THEN
+      SELECT count(*) INTO current_count
+      FROM public.custom_shortcuts WHERE user_id = owner_id;
+    WHEN 'favorites' THEN
+      SELECT count(*) INTO current_count
+      FROM public.favorites WHERE user_id = owner_id;
+    ELSE
+      RAISE EXCEPTION 'Unsupported quota table: %', TG_TABLE_NAME;
+  END CASE;
+
+  IF current_count >= max_rows THEN
+    RAISE EXCEPTION 'Resource limit reached for % (maximum %)',
+      TG_TABLE_NAME,
+      max_rows
+      USING ERRCODE = 'check_violation';
+  END IF;
+
+  RETURN NEW;
+END;
+$$;
+
+DROP TRIGGER IF EXISTS custom_apps_user_quota ON public.custom_apps;
+CREATE TRIGGER custom_apps_user_quota
+  BEFORE INSERT ON public.custom_apps
+  FOR EACH ROW EXECUTE FUNCTION public.enforce_user_row_quota('25');
+
+DROP TRIGGER IF EXISTS custom_keymaps_user_quota ON public.custom_keymaps;
+CREATE TRIGGER custom_keymaps_user_quota
+  BEFORE INSERT ON public.custom_keymaps
+  FOR EACH ROW EXECUTE FUNCTION public.enforce_user_row_quota('100');
+
+DROP TRIGGER IF EXISTS custom_sections_user_quota ON public.custom_sections;
+CREATE TRIGGER custom_sections_user_quota
+  BEFORE INSERT ON public.custom_sections
+  FOR EACH ROW EXECUTE FUNCTION public.enforce_user_row_quota('500');
+
+DROP TRIGGER IF EXISTS custom_shortcuts_user_quota ON public.custom_shortcuts;
+CREATE TRIGGER custom_shortcuts_user_quota
+  BEFORE INSERT ON public.custom_shortcuts
+  FOR EACH ROW EXECUTE FUNCTION public.enforce_user_row_quota('2000');
+
+DROP TRIGGER IF EXISTS favorites_user_quota ON public.favorites;
+CREATE TRIGGER favorites_user_quota
+  BEFORE INSERT ON public.favorites
+  FOR EACH ROW EXECUTE FUNCTION public.enforce_user_row_quota('500');
+
 -- Clerk auth creates profiles lazily from the app client.
 DROP TRIGGER IF EXISTS on_auth_user_created ON auth.users;
 DROP FUNCTION IF EXISTS public.handle_new_user();
@@ -400,3 +562,6 @@ DROP FUNCTION IF EXISTS public.handle_new_user();
 REVOKE ALL ON FUNCTION public.set_updated_at() FROM PUBLIC;
 REVOKE ALL ON FUNCTION public.set_updated_at() FROM anon;
 REVOKE ALL ON FUNCTION public.set_updated_at() FROM authenticated;
+REVOKE ALL ON FUNCTION public.enforce_user_row_quota() FROM PUBLIC;
+REVOKE ALL ON FUNCTION public.enforce_user_row_quota() FROM anon;
+REVOKE ALL ON FUNCTION public.enforce_user_row_quota() FROM authenticated;

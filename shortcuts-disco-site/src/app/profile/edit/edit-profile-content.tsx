@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { TypographyH1, TypographyMuted } from "@/components/ui/typography";
+import { USER_CONTENT_LIMITS } from "@/lib/validation/user-content";
 
 export function EditProfileContent() {
   const router = useRouter();
@@ -90,6 +91,7 @@ export function EditProfileContent() {
           <Input
             id="displayName"
             value={displayName}
+            maxLength={USER_CONTENT_LIMITS.displayName}
             onChange={(e) => setDisplayName(e.target.value)}
             placeholder="Your display name"
           />

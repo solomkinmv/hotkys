@@ -13,6 +13,7 @@ import { Input } from "@/components/ui/input";
 import {
   Field,
   FieldDescription,
+  FieldError,
   FieldGroup,
   FieldLabel,
 } from "@/components/ui/field";
@@ -32,6 +33,10 @@ import {
 import { Plus, Trash2, Edit2, ExternalLink, Share2 } from "lucide-react";
 import { ExportDialog } from "@/components/shortcuts/export-dialog";
 import type { CustomApp } from "@/lib/model/user/user-models";
+import {
+  assertResourceLimit,
+  USER_CONTENT_LIMITS,
+} from "@/lib/validation/user-content";
 
 export function MyShortcutsContent() {
   const searchParams = useSearchParams();
@@ -45,6 +50,7 @@ export function MyShortcutsContent() {
   const [newAppBundleId, setNewAppBundleId] = useState("");
   const [newAppIcon, setNewAppIcon] = useState("");
   const [isCreating, setIsCreating] = useState(false);
+  const [createError, setCreateError] = useState<string | null>(null);
 
   if (authLoading || customizationsLoading) {
     return (
@@ -76,7 +82,13 @@ export function MyShortcutsContent() {
     if (!newAppName || !newAppSlug) return;
 
     setIsCreating(true);
+    setCreateError(null);
     try {
+      assertResourceLimit(
+        customizations.customApps.length,
+        USER_CONTENT_LIMITS.customApps,
+        "custom apps",
+      );
       await customizationsService.createCustomApp({
         name: newAppName,
         slug: newAppSlug,
@@ -89,6 +101,10 @@ export function MyShortcutsContent() {
       setNewAppSlug("");
       setNewAppBundleId("");
       setNewAppIcon("");
+    } catch (error) {
+      setCreateError(
+        error instanceof Error ? error.message : "Unable to create app.",
+      );
     } finally {
       setIsCreating(false);
     }
@@ -237,6 +253,7 @@ export function MyShortcutsContent() {
               <Input
                 id="name"
                 value={newAppName}
+                maxLength={USER_CONTENT_LIMITS.appName}
                 onChange={(e) => {
                   setNewAppName(e.target.value);
                   setNewAppSlug(
@@ -254,6 +271,7 @@ export function MyShortcutsContent() {
               <Input
                 id="slug"
                 value={newAppSlug}
+                maxLength={USER_CONTENT_LIMITS.slug}
                 onChange={(e) => setNewAppSlug(e.target.value)}
                 placeholder="e.g., my-custom-app"
               />
@@ -266,6 +284,7 @@ export function MyShortcutsContent() {
               <Input
                 id="bundle-id"
                 value={newAppBundleId}
+                maxLength={USER_CONTENT_LIMITS.bundleId}
                 onChange={(e) => setNewAppBundleId(e.target.value)}
                 placeholder="com.example.app"
               />
@@ -275,6 +294,7 @@ export function MyShortcutsContent() {
               <Input
                 id="image-path"
                 value={newAppIcon}
+                maxLength={USER_CONTENT_LIMITS.urlOrPath}
                 onChange={(e) => setNewAppIcon(e.target.value)}
                 placeholder="/custom-icons/my-app.png or https://..."
               />
@@ -282,6 +302,7 @@ export function MyShortcutsContent() {
                 Use any image path or URL reachable by the app.
               </FieldDescription>
             </Field>
+            {createError && <FieldError>{createError}</FieldError>}
           </FieldGroup>
           <DialogFooter>
             <Button

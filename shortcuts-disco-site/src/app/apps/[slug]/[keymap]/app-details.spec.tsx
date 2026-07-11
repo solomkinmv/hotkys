@@ -209,6 +209,50 @@ describe("AppDetails", () => {
     expect(screen.getAllByText("Shortcut")).toHaveLength(2);
   });
 
+  it("keeps a favorite pinned when its official shortcut is renamed", () => {
+    mockUseFavorites.mockReturnValue({
+      favorites: [
+        {
+          id: "favorite-1",
+          userId: "user-1",
+          itemType: "shortcut",
+          appSlug: "sample",
+          keymapTitle: "Default",
+          sectionTitle: "Editing",
+          shortcutTitle: "Copy",
+        },
+      ],
+      isLoading: false,
+      isFavorite: jest.fn(),
+      toggleFavorite: jest.fn(),
+      refetch: jest.fn(),
+    });
+    mockUseCustomizations.mockReturnValue({
+      customizations: {
+        customApps: [],
+        customKeymaps: [],
+        shortcuts: [
+          {
+            baseKey: "sample:Default:Editing:Copy",
+            modification: {
+              id: "overlay-1",
+              title: "Copy as rich text",
+              key: "cmd+c",
+              isDeleted: false,
+            },
+          },
+        ],
+        favorites: [],
+      },
+      isLoading: false,
+      refetch: jest.fn(),
+    });
+
+    render(<AppDetails application={application} keymap={keymap} />);
+
+    expect(screen.getAllByText("Copy as rich text")).toHaveLength(2);
+  });
+
   it("does not render a keymap favorite control near view switching", () => {
     render(<AppDetails application={application} keymap={keymap} />);
 

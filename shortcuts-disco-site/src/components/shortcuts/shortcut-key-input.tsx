@@ -15,6 +15,7 @@ import {
   SHORTCUT_MODIFIER_TOKENS,
   type ShortcutModifierToken,
 } from "@/lib/shortcut-key-format";
+import { USER_CONTENT_LIMITS } from "@/lib/validation/user-content";
 
 const shortcutModifierLabels: Record<ShortcutModifierToken, string> = {
   cmd: "Cmd",
@@ -55,6 +56,7 @@ export function ShortcutKeyInput({
           value={value}
           onChange={(event) => onChange(event.target.value)}
           placeholder={placeholder}
+          maxLength={USER_CONTENT_LIMITS.shortcutKey}
         />
         <Popover>
           <PopoverTrigger asChild>

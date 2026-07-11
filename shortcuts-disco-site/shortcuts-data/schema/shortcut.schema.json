@@ -13,33 +13,39 @@
     "bundleId": {
       "description": "Bundle id is a unique identifier for the macOS application. Example: 'com.microsoft.VSCode'",
       "type": "string",
-      "minLength": 1
+      "minLength": 1,
+      "maxLength": 255
     },
     "hostname": {
       "description": "Hostname of the web application. Supports wildcard prefix for subdomains. Examples: 'code.visualstudio.com', '*.zendesk.com'",
       "type": "string",
-      "minLength": 1
+      "minLength": 1,
+      "maxLength": 253
     },
     "slug": {
       "description": "Unique readable identifier",
       "type": "string",
       "minLength": 1,
+      "maxLength": 80,
       "pattern": "^[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*$"
     },
     "name": {
       "description": "Name of the application",
       "type": "string",
-      "minLength": 1
+      "minLength": 1,
+      "maxLength": 100
     },
     "source": {
       "description": "Link to the source of the shortcuts",
       "type": "string",
-      "format": "uri"
+      "format": "uri",
+      "maxLength": 2048
     },
     "icon": {
       "description": "Path to the application icon. Can be a relative path (e.g., 'icons/app.png') or an absolute URL",
       "type": "string",
-      "minLength": 1
+      "minLength": 1,
+      "maxLength": 2048
     },
     "keymaps": {
       "description": "List of the application keymaps. Most of the applications have single keymap that should be named 'Default'.",
@@ -47,7 +53,8 @@
       "items": {
         "$ref": "#/$defs/keymap"
       },
-      "minItems": 1
+      "minItems": 1,
+      "maxItems": 100
     }
   },
   "required": ["$schema", "name", "slug", "keymaps"],
@@ -60,7 +67,8 @@
         "title": {
           "description": "Keymap title",
           "type": "string",
-          "minLength": 1
+          "minLength": 1,
+          "maxLength": 100
         },
         "platforms": {
           "description": "Platforms for which this keymap is designed",
@@ -78,7 +86,8 @@
           "items": {
             "$ref": "#/$defs/section"
           },
-          "minItems": 1
+          "minItems": 1,
+          "maxItems": 500
         }
       },
       "required": ["title", "sections"],
@@ -91,7 +100,8 @@
         "title": {
           "description": "Section title",
           "type": "string",
-          "minLength": 1
+          "minLength": 1,
+          "maxLength": 100
         },
         "shortcuts": {
           "description": "List of shortcuts",
@@ -99,7 +109,8 @@
           "items": {
             "$ref": "#/$defs/section-shortcut"
           },
-          "minItems": 1
+          "minItems": 1,
+          "maxItems": 2000
         }
       },
       "required": ["title", "shortcuts"],
@@ -118,7 +129,8 @@
         "key": {
           "description": "Shortcut key definition. Key consist of modifiers plus base key separated by '+' sign. Supported modifiers: 'ctrl', 'shift', 'opt', 'cmd', 'win'. Modifiers should be specified in that exact order, lowercase. Final shortcut token should always be a base key. Examples: 'ctrl+s', 'shift+cmd+e', 'win+e'. Shortcut macro or sequences of shortcuts are also supported and should be separated by whitespace (' '). Example: 'cmd+k cmd+s'",
           "type": "string",
-          "minLength": 1
+          "minLength": 1,
+          "maxLength": 255
         },
         "comment": {
           "description": "Text comment for the shortcut. Can be used as a substitute or addition to the declared key",

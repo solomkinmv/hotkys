@@ -44,6 +44,15 @@ describe("custom shortcut validation", () => {
     );
   });
 
+  it("rejects oversized shortcut key input before parsing", () => {
+    expect(() =>
+      validateCustomShortcutDraft({
+        title: "Oversized shortcut",
+        key: "cmd+k ".repeat(50),
+      }),
+    ).toThrow("Shortcut key must be 255 characters or fewer");
+  });
+
   it("validates complete custom apps before export", () => {
     const app: CustomApp = {
       id: "app-1",
@@ -79,6 +88,82 @@ describe("custom shortcut validation", () => {
     };
 
     expect(() => validateCustomApp(app)).not.toThrow();
+  });
+
+  it("rejects custom app slugs that cannot be published", () => {
+    const app: CustomApp = {
+      id: "app-1",
+      userId: "user-1",
+      name: "Sample",
+      slug: "sample/invalid",
+      keymaps: [
+        {
+          id: "keymap-1",
+          customAppId: "app-1",
+          title: "Default",
+          sections: [
+            {
+              id: "section-1",
+              keymapId: "keymap-1",
+              title: "General",
+              sortOrder: 0,
+              shortcuts: [
+                {
+                  id: "shortcut-1",
+                  sectionId: "section-1",
+                  title: "Open command palette",
+                  key: "cmd+k",
+                  isDeleted: false,
+                  sortOrder: 0,
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    };
+
+    expect(() => validateCustomApp(app)).toThrow(
+      "Slug must contain only letters, numbers, and single hyphens",
+    );
+  });
+
+  it("rejects oversized persisted app metadata", () => {
+    const app: CustomApp = {
+      id: "app-1",
+      userId: "user-1",
+      name: "a".repeat(101),
+      slug: "sample",
+      keymaps: [
+        {
+          id: "keymap-1",
+          customAppId: "app-1",
+          title: "Default",
+          sections: [
+            {
+              id: "section-1",
+              keymapId: "keymap-1",
+              title: "General",
+              sortOrder: 0,
+              shortcuts: [
+                {
+                  id: "shortcut-1",
+                  sectionId: "section-1",
+                  title: "Open command palette",
+                  key: "cmd+k",
+                  isDeleted: false,
+                  sortOrder: 0,
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    };
+
+    expect(() => validateCustomApp(app)).toThrow(
+      "App name must be 100 characters or fewer",
+    );
   });
 
   it("validates complete custom apps with clear shortcut format fixes", () => {
