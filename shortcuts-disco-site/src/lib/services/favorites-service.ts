@@ -5,6 +5,7 @@ import {
   getCurrentProfile,
   requireCurrentProfile,
 } from "@/lib/services/current-profile";
+import { validateFavoriteMetadata } from "@/lib/validation/user-content";
 
 export class FavoritesService {
   async getFavorites(authUser?: AuthUser | null): Promise<Favorite[]> {
@@ -30,6 +31,7 @@ export class FavoritesService {
       keymapTitle: row.keymap_title,
       shortcutTitle: row.shortcut_title,
       sectionTitle: row.section_title,
+      baseShortcutId: row.base_shortcut_id,
       customAppId: row.custom_app_id,
     }));
   }
@@ -38,6 +40,7 @@ export class FavoritesService {
     favorite: Omit<Favorite, "id" | "userId">,
     authUser?: AuthUser | null
   ): Promise<Favorite> {
+    validateFavoriteMetadata(favorite);
     const supabase = createClientOrNull();
     if (!supabase) throw new Error("Supabase sign in is not configured.");
 
@@ -52,6 +55,7 @@ export class FavoritesService {
         keymap_title: favorite.keymapTitle ?? null,
         shortcut_title: favorite.shortcutTitle ?? null,
         section_title: favorite.sectionTitle ?? null,
+        base_shortcut_id: favorite.baseShortcutId ?? null,
         custom_app_id: favorite.customAppId ?? null,
       })
       .select()
@@ -67,6 +71,7 @@ export class FavoritesService {
       keymapTitle: data.keymap_title,
       shortcutTitle: data.shortcut_title,
       sectionTitle: data.section_title,
+      baseShortcutId: data.base_shortcut_id,
       customAppId: data.custom_app_id,
     };
   }
@@ -90,6 +95,7 @@ export class FavoritesService {
     favorite: Omit<Favorite, "id" | "userId">,
     authUser?: AuthUser | null
   ): Promise<boolean> {
+    validateFavoriteMetadata(favorite);
     const supabase = createClientOrNull();
     if (!supabase) throw new Error("Supabase sign in is not configured.");
 
@@ -105,6 +111,7 @@ export class FavoritesService {
     query = applyNullableFilter(query, "keymap_title", favorite.keymapTitle);
     query = applyNullableFilter(query, "shortcut_title", favorite.shortcutTitle);
     query = applyNullableFilter(query, "section_title", favorite.sectionTitle);
+    query = applyNullableFilter(query, "base_shortcut_id", favorite.baseShortcutId);
     query = applyNullableFilter(query, "custom_app_id", favorite.customAppId);
 
     const { data: existing, error } = await query.maybeSingle();

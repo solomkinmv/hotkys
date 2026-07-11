@@ -11,6 +11,7 @@ import type {
 } from "@/lib/model/user/user-models";
 import Validator from "@/lib/load/validator";
 import { normalizeShortcutKey } from "@/lib/shortcut-key-format";
+import { validateCustomAppMetadata } from "@/lib/validation/user-content";
 
 type CustomShortcutDraft = Pick<CustomShortcut, "title" | "key" | "comment">;
 
@@ -49,6 +50,7 @@ export function normalizeCustomShortcutDraft<T extends CustomShortcutDraft>(
 }
 
 export function validateCustomApp(customApp: CustomApp): void {
+  validateCustomAppMetadata(customApp);
   validator.validate([convertCustomAppToInputApp(customApp)]);
 }
 
@@ -78,6 +80,7 @@ export function convertCustomAppToInputApp(customApp: CustomApp): InputApp {
     });
 
   const inputApp: InputApp = {
+    $schema: "schema/shortcut.schema.json",
     name: customApp.name,
     slug: customApp.slug,
     keymaps,

@@ -1,6 +1,10 @@
 import { InputApp, InputKeymap, InputSection, InputShortcut } from "@/lib/model/input/input-models";
 import { modifierMapping, modifierTokensOrderMapping } from "@/lib/model/internal/modifiers";
 import { Platform } from "@/lib/model/internal/internal-models";
+import {
+    USER_CONTENT_LIMITS,
+    validateCustomAppMetadata,
+} from "@/lib/validation/user-content";
 
 const VALID_PLATFORMS: readonly Platform[] = ['windows', 'linux', 'macos'] as const;
 
@@ -26,6 +30,14 @@ export default class Validator {
         const appNames = new Set<string>();
         const slugs = new Set<string>();
         inputApps.forEach((app) => {
+            validateCustomAppMetadata(app);
+            if (app.source) {
+                try {
+                    new URL(app.source);
+                } catch {
+                    throw new ValidationError(`Source must be a valid URI: '${app.source}'`);
+                }
+            }
             if (appNames.has(app.name)) {
                 throw new ValidationError(`Duplicated app name found: '${app.name}'`);
             }
@@ -49,9 +61,15 @@ export default class Validator {
         if (keymaps.length === 0) {
             throw new ValidationError(`Application '${appName}' should contain at least one keymap`);
         }
+        if (keymaps.length > USER_CONTENT_LIMITS.customKeymaps) {
+            throw new ValidationError(`Application '${appName}' can contain at most ${USER_CONTENT_LIMITS.customKeymaps} keymaps`);
+        }
         keymaps.forEach((keymap) => {
             if (keymap.sections.length === 0) {
                 throw new ValidationError(`Keymap '${keymap.title}' should contain at least one section for application '${appName}'`);
+            }
+            if (keymap.title.length > USER_CONTENT_LIMITS.keymapTitle) {
+                throw new ValidationError(`Keymap title must be ${USER_CONTENT_LIMITS.keymapTitle} characters or fewer`);
             }
             if (keymap.title.length === 0) {
                 throw new ValidationError(`Keymap title should not be empty for application '${appName}'`);
@@ -88,12 +106,21 @@ export default class Validator {
 
     private validateSections(sections: InputSection[], appName: string) {
         const sectionNames = new Set<string>();
+        if (sections.length > USER_CONTENT_LIMITS.customSections) {
+            throw new ValidationError(`A keymap can contain at most ${USER_CONTENT_LIMITS.customSections} sections for application '${appName}'`);
+        }
         sections.forEach((section) => {
             if (section.shortcuts.length === 0) {
                 throw new ValidationError(`Section '${section.title}' should contain at least one shortcut for application '${appName}'`);
             }
+            if (section.shortcuts.length > USER_CONTENT_LIMITS.customShortcuts) {
+                throw new ValidationError(`Section '${section.title}' can contain at most ${USER_CONTENT_LIMITS.customShortcuts} shortcuts for application '${appName}'`);
+            }
             if (section.title.length === 0) {
                 throw new ValidationError(`Section title should not be empty for application '${appName}'`);
+            }
+            if (section.title.length > USER_CONTENT_LIMITS.sectionTitle) {
+                throw new ValidationError(`Section title must be ${USER_CONTENT_LIMITS.sectionTitle} characters or fewer`);
             }
             if (sectionNames.has(section.title)) {
                 throw new ValidationError(`Duplicated section title '${section.title}' per keymap for application '${appName}'`);
@@ -109,6 +136,9 @@ export default class Validator {
         }
         if (inputShortcut.comment && inputShortcut.comment.length > 50) {
             throw new ValidationError(`Comment longer than 50 symbols: '${inputShortcut.comment}'`);
+        }
+        if (inputShortcut.key && inputShortcut.key.length > USER_CONTENT_LIMITS.shortcutKey) {
+            throw new ValidationError(`Shortcut key must be ${USER_CONTENT_LIMITS.shortcutKey} characters or fewer`);
         }
         if (inputShortcut.key === undefined && inputShortcut.comment === undefined) {
             throw new ValidationError(`Shortcut '${inputShortcut.title}' should contains at least key or comment`); // todo: add test

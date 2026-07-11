@@ -63,6 +63,10 @@ import {
 } from "@/components/ui/dialog";
 import { normalizeShortcutKey } from "@/lib/shortcut-key-format";
 import { ShortcutKeyInput } from "@/components/shortcuts/shortcut-key-input";
+import {
+  assertResourceLimit,
+  USER_CONTENT_LIMITS,
+} from "@/lib/validation/user-content";
 
 type ViewMode = "list" | "cheatsheet";
 type DisplayShortcut = Keymap["sections"][number]["hotkeys"][number] & {
@@ -81,6 +85,7 @@ type ShortcutDialogState =
       type: "override";
       sectionTitle: string;
       shortcutTitle: string;
+      baseShortcutId?: string;
     }
   | {
       type: "custom";
@@ -326,7 +331,11 @@ export const AppDetails = ({
             (section) => section.title === favorite.sectionTitle,
           );
           const shortcut = section?.hotkeys.find(
-            (hotkey) => hotkey.title === favorite.shortcutTitle,
+            (hotkey) =>
+              favorite.baseShortcutId
+                ? hotkey.baseShortcutId === favorite.baseShortcutId
+                : (hotkey.baseShortcutTitle ?? hotkey.title) ===
+                  favorite.shortcutTitle,
           );
 
           if (!shortcut) {
@@ -391,6 +400,7 @@ export const AppDetails = ({
       type: "override",
       sectionTitle,
       shortcutTitle: shortcut.baseShortcutTitle ?? shortcut.title,
+      baseShortcutId: shortcut.baseShortcutId,
     });
     setShortcutDraft({
       title: shortcut.title,
@@ -459,6 +469,23 @@ export const AppDetails = ({
     setShortcutDialogError(null);
     try {
       if (shortcutDialog.type === "add") {
+        const customShortcutCount =
+          customizations.shortcuts.length +
+          [...customizations.customKeymaps, ...customizations.customApps.flatMap((app) => app.keymaps)]
+            .reduce(
+              (count, customKeymap) =>
+                count + customKeymap.sections.reduce(
+                  (sectionCount, section) =>
+                    sectionCount + section.shortcuts.length,
+                  0,
+                ),
+              0,
+            );
+        assertResourceLimit(
+          customShortcutCount,
+          USER_CONTENT_LIMITS.customShortcuts,
+          "custom shortcuts",
+        );
         const sectionTitle = addSectionTitle;
         if (!sectionTitle) return;
 
@@ -480,6 +507,7 @@ export const AppDetails = ({
             baseKeymapTitle: keymap.title,
             baseSectionTitle: shortcutDialog.sectionTitle,
             baseShortcutTitle: shortcutDialog.shortcutTitle,
+            baseShortcutId: shortcutDialog.baseShortcutId,
             title,
             key,
             comment,
@@ -649,7 +677,8 @@ export const AppDetails = ({
                   appSlug={application.slug}
                   keymapTitle={displayKeymap.title}
                   sectionTitle={favoriteSectionTitle}
-                  shortcutTitle={hotkey.title}
+                  shortcutTitle={hotkey.baseShortcutTitle ?? hotkey.title}
+                  baseShortcutId={hotkey.baseShortcutId}
                   className="shrink-0"
                 />
                 {canCustomize ? (
@@ -736,7 +765,8 @@ export const AppDetails = ({
                           appSlug={application.slug}
                           keymapTitle={displayKeymap.title}
                           sectionTitle={favoriteSectionTitle}
-                          shortcutTitle={hotkey.title}
+                          shortcutTitle={hotkey.baseShortcutTitle ?? hotkey.title}
+                          baseShortcutId={hotkey.baseShortcutId}
                           className="shrink-0"
                         />
                         {canCustomize ? (
@@ -965,6 +995,7 @@ export const AppDetails = ({
                     <Input
                       id="shortcut-section-name"
                       value={shortcutDialog.customSectionTitle}
+                      maxLength={USER_CONTENT_LIMITS.sectionTitle}
                       onChange={(event) =>
                         setShortcutDialog((dialog) =>
                           dialog?.type === "add"
@@ -985,6 +1016,7 @@ export const AppDetails = ({
               <Input
                 id="shortcut-title"
                 value={shortcutDraft.title}
+                maxLength={USER_CONTENT_LIMITS.shortcutTitle}
                 onChange={(event) =>
                   setShortcutDraft((draft) => ({
                     ...draft,
@@ -1011,6 +1043,7 @@ export const AppDetails = ({
               <Input
                 id="shortcut-comment"
                 value={shortcutDraft.comment}
+                maxLength={USER_CONTENT_LIMITS.shortcutComment}
                 onChange={(event) =>
                   setShortcutDraft((draft) => ({
                     ...draft,

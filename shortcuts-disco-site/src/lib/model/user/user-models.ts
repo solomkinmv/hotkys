@@ -50,6 +50,7 @@ export interface CustomShortcut {
   baseKeymapTitle?: string;
   baseSectionTitle?: string;
   baseShortcutTitle?: string;
+  baseShortcutId?: string;
   title: string;
   key?: string;
   comment?: string;
@@ -65,11 +66,13 @@ export interface Favorite {
   keymapTitle?: string;
   shortcutTitle?: string;
   sectionTitle?: string;
+  baseShortcutId?: string;
   customAppId?: string;
 }
 
 export interface ShortcutOverlay {
   baseKey: string;
+  baseShortcutId?: string;
   modification: Partial<CustomShortcut>;
 }
 

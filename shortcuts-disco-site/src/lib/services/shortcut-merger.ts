@@ -14,15 +14,33 @@ import type {
   UserCustomizations,
   ShortcutOverlay,
 } from "@/lib/model/user/user-models";
+import {
+  getBaseShortcutId,
+  getBaseShortcutSignature,
+} from "@/lib/shortcut-identity";
 
 export class ShortcutMerger {
   private overlayMap: Map<string, ShortcutOverlay>;
+  private legacyOverlayMap: Map<string, ShortcutOverlay>;
+  private identityOverlayBaseKeys: Set<string>;
+  private consumedLegacyOverlays: Set<string>;
   private customKeymaps: CustomKeymap[];
 
   constructor(customizations: UserCustomizations) {
     this.overlayMap = new Map();
+    this.legacyOverlayMap = new Map();
+    this.identityOverlayBaseKeys = new Set();
+    this.consumedLegacyOverlays = new Set();
     for (const overlay of customizations.shortcuts) {
-      this.overlayMap.set(overlay.baseKey, overlay);
+      if (overlay.baseShortcutId) {
+        this.identityOverlayBaseKeys.add(overlay.baseKey);
+        this.overlayMap.set(
+          this.buildOverlayIdentityKey(overlay.baseKey, overlay.baseShortcutId),
+          overlay,
+        );
+      } else {
+        this.legacyOverlayMap.set(overlay.baseKey, overlay);
+      }
     }
     this.customKeymaps = customizations.customKeymaps ?? [];
   }
@@ -68,22 +86,37 @@ export class ShortcutMerger {
     keymapTitle: string,
     section: Section
   ): Section {
+    const shortcutOccurrences = new Map<string, number>();
     const mergedHotkeys = section.hotkeys
       .map((hotkey) => {
-        const key = this.buildOverlayKey(
+        const signature = getBaseShortcutSignature(hotkey);
+        const occurrence = shortcutOccurrences.get(signature) ?? 0;
+        shortcutOccurrences.set(signature, occurrence + 1);
+        const baseShortcutId = getBaseShortcutId(hotkey, occurrence);
+        const baseKey = this.buildOverlayKey(
           appSlug,
           keymapTitle,
           section.title,
           hotkey.title
         );
-        const overlay = this.overlayMap.get(key);
+        const overlay =
+          this.overlayMap.get(
+            this.buildOverlayIdentityKey(baseKey, baseShortcutId),
+          ) ?? this.getLegacyOverlay(baseKey);
 
-        if (!overlay) return hotkey;
+        const baseHotkey: SectionShortcut = {
+          ...hotkey,
+          baseShortcutId,
+          baseSectionTitle: section.title,
+          baseShortcutTitle: hotkey.title,
+        };
+
+        if (!overlay) return baseHotkey;
 
         if (overlay.modification.isDeleted) return null;
 
         return {
-          ...hotkey,
+          ...baseHotkey,
           title: overlay.modification.title ?? hotkey.title,
           sequence: overlay.modification.key
             ? this.parseShortcutKey(overlay.modification.key)
@@ -91,8 +124,6 @@ export class ShortcutMerger {
           comment: overlay.modification.comment ?? hotkey.comment,
           customizationStatus: "changed",
           customizationId: overlay.modification.id,
-          baseSectionTitle: section.title,
-          baseShortcutTitle: hotkey.title,
         };
       })
       .filter((h): h is SectionShortcut => h !== null);
@@ -171,6 +202,18 @@ export class ShortcutMerger {
     shortcutTitle: string
   ): string {
     return `${appSlug}:${keymapTitle}:${sectionTitle}:${shortcutTitle}`;
+  }
+
+  private buildOverlayIdentityKey(baseKey: string, baseShortcutId: string): string {
+    return `${baseKey}:${baseShortcutId}`;
+  }
+
+  private getLegacyOverlay(baseKey: string): ShortcutOverlay | undefined {
+    if (this.identityOverlayBaseKeys.has(baseKey)) return undefined;
+    if (this.consumedLegacyOverlays.has(baseKey)) return undefined;
+    const overlay = this.legacyOverlayMap.get(baseKey);
+    if (overlay) this.consumedLegacyOverlays.add(baseKey);
+    return overlay;
   }
 
   private parseShortcutKey(key: string): AtomicShortcut[] {

@@ -13,6 +13,7 @@ interface FavoriteButtonProps {
   keymapTitle?: string;
   sectionTitle?: string;
   shortcutTitle?: string;
+  baseShortcutId?: string;
   className?: string;
   size?: "default" | "sm" | "icon";
 }
@@ -23,6 +24,7 @@ export function FavoriteButton({
   keymapTitle,
   sectionTitle,
   shortcutTitle,
+  baseShortcutId,
   className,
   size = "icon",
 }: FavoriteButtonProps) {
@@ -38,6 +40,7 @@ export function FavoriteButton({
     keymapTitle,
     sectionTitle,
     shortcutTitle,
+    baseShortcutId,
   });
 
   const handleToggle = async (e: React.MouseEvent) => {
@@ -51,6 +54,7 @@ export function FavoriteButton({
         keymapTitle,
         sectionTitle,
         shortcutTitle,
+        baseShortcutId,
       });
     } finally {
       setIsLoading(false);

@@ -8,6 +8,7 @@ import {
   requireCurrentProfile,
   type CurrentProfile,
 } from "@/lib/services/current-profile";
+import { validateProfileMetadata } from "@/lib/validation/user-content";
 
 export class UserService {
   async getProfile(authUser?: AuthUser | null): Promise<UserProfile | null> {
@@ -19,6 +20,7 @@ export class UserService {
     updates: Pick<UserProfile, "displayName" | "avatarUrl">,
     authUser?: AuthUser | null
   ): Promise<void> {
+    validateProfileMetadata(updates);
     const supabase = createClientOrNull();
     if (!supabase) throw new Error("Supabase sign in is not configured.");
 

@@ -37,6 +37,7 @@ export interface SectionShortcut {
     customizationId?: string;
     baseSectionTitle?: string;
     baseShortcutTitle?: string;
+    baseShortcutId?: string;
 }
 
 export interface AtomicShortcut {
