@@ -38,6 +38,55 @@ describe("user content validation", () => {
     ).toThrow("Section title must be 100 characters or fewer");
   });
 
+  it.each([
+    "javascript:alert(1)",
+    "data:text/html,x",
+    "ftp://example.com/app",
+    "http://",
+    "http://javascript:alert(1)",
+    "https://example.com:99999/path",
+    "https://[:]/",
+    "https://%25/path",
+    "https://[v1.fe]/path",
+    "\nhttps://example.com",
+    "https://example.com\n",
+    "https://example.com/\npath",
+  ])(
+    "rejects unsafe source URL scheme %p",
+    (source) => {
+      expect(() => validateCustomAppMetadata({ source })).toThrow(
+        "Source URL must use http or https",
+      );
+    },
+  );
+
+  it.each([
+    "javascript:alert(1)",
+    "data:image/svg+xml,<svg></svg>",
+    "file:///tmp/icon.png",
+    "https://",
+    "http://javascript:alert(1)",
+    "icons/\napp.png",
+    "icons/app.png\n",
+    "//example.com/icon.png",
+    "\\\\example.com\\icon.png",
+  ])("rejects unsafe image location %p", (icon) => {
+    expect(() => validateCustomAppMetadata({ icon })).toThrow(
+      "Image path must be a relative path or an http/https URL",
+    );
+  });
+
+  it.each([
+    "/custom-icons/app.png",
+    "custom-icons/app.png",
+    "../custom-icons/app.png",
+    "http://example.com/app.png",
+    "https://example.com/app.png",
+    "http://localhost:3000/app.png",
+  ])("accepts safe image location %p", (icon) => {
+    expect(() => validateCustomAppMetadata({ icon })).not.toThrow();
+  });
+
   it("rejects unsupported persisted keymap platforms", () => {
     expect(() =>
       validateCustomKeymapMetadata({

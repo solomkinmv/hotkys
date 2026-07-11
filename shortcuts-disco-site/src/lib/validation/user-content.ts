@@ -1,4 +1,8 @@
 import type { Platform } from "@/lib/model/internal/internal-models";
+import {
+  isHttpUrl,
+  isSafeImageLocation,
+} from "@/lib/validation/resource-location";
 
 export const USER_CONTENT_LIMITS = {
   displayName: 100,
@@ -76,6 +80,14 @@ export function validateCustomAppMetadata(app: CustomAppMetadata): void {
   validateOptionalText(app.hostname, "Hostname", USER_CONTENT_LIMITS.hostname);
   validateOptionalText(app.source, "Source URL", USER_CONTENT_LIMITS.urlOrPath);
   validateOptionalText(app.icon, "Image path", USER_CONTENT_LIMITS.urlOrPath);
+  if (app.source && !isHttpUrl(app.source)) {
+    throw new Error("Source URL must use http or https");
+  }
+  if (app.icon && !isSafeImageLocation(app.icon)) {
+    throw new Error(
+      "Image path must be a relative path or an http/https URL",
+    );
+  }
 }
 
 export function validateCustomKeymapMetadata(keymap: CustomKeymapMetadata): void {
