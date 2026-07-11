@@ -8,6 +8,10 @@ on:
       - main
     paths:
       - 'shortcuts-raycast-extension/**' # Trigger only for changes in this directory
+      - '.github/workflows/build-extension-pr.yml'
+
+permissions:
+  contents: read
 
 jobs:
   build:
@@ -29,7 +33,7 @@ jobs:
           cache-dependency-path: shortcuts-raycast-extension/package-lock.json
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Run build & tests
         run: npm test
