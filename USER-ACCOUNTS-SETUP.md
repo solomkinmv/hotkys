@@ -17,7 +17,8 @@ could not be restored. The active replacement project is `pnzstacjwokxqvtxoeyp`
 - [x] Clerk Google custom credentials configured from the dedicated Hotkys Google OAuth client
 - [x] Older rotated Google OAuth client secret disabled
 - [x] GitHub Pages environment variables configured for Clerk and Supabase public build settings
-- [ ] GitHub Pages Clerk key switched from development `pk_test_...` to production `pk_live_...`
+- [x] GitHub Pages Clerk key switched from development `pk_test_...` to production `pk_live_...`
+- [x] Clerk development and production instances connected to the active Supabase project
 - [x] SSG-compatible auth wrapper
 - [x] Branch rebased onto current `origin/main`
 
@@ -41,6 +42,20 @@ NEXT_PUBLIC_CLERK_SIGN_UP_FALLBACK_REDIRECT_URL=/
 
 This app is a static export, so it uses Clerk's React SDK on the client instead
 of Clerk's Next.js middleware/server helpers.
+
+#### Cross-device magic links
+
+Hotkys intentionally leaves Clerk's **Require the same device and browser**
+setting disabled for email-link sign-in and sign-up. This lets a user request a
+magic link on one device and open it on another.
+
+This is an accepted security tradeoff. A magic link is a bearer credential
+during its validity window, so anyone who obtains the link can complete sign-in
+from another browser or device. The current controls are Clerk's short-lived
+links and verified-email flow, HTTPS in production, Supabase row-level security,
+and the absence of password authentication. Revisit this decision before adding
+billing, administrator access, shared private content, or other privileged
+account actions.
 
 ### 2. Connect Clerk to Supabase
 
