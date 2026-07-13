@@ -17,6 +17,7 @@ export interface InputApp {
     $schema?: "schema/shortcut.schema.json";
     bundleId?: string;
     hostname?: string;
+    windowsAppId?: string;
     name: string;
     slug: string;
     source?: string;

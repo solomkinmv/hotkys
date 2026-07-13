@@ -39,12 +39,15 @@ export class ShortcutsParser {
     }
 
     private parseChord(chord: string): AtomicShortcut {
-        const chordTokens = chord.split("+");
+        const chordTokens = chord.split(/(?<!\+)\+/);
         const totalNumberOfTokens = chordTokens.length;
         const modifiers: Modifiers[] = [];
         for (let i = 0; i < totalNumberOfTokens - 1; i++) {
             const token = chordTokens[i];
-            const modifier = modifierMapping.get(token)!;
+            const modifier = modifierMapping.get(token);
+            if (!modifier) {
+                throw new Error(`Invalid modifier token: ${token}`);
+            }
             modifiers.push(modifier);
         }
         const baseToken = chordTokens[totalNumberOfTokens - 1];

@@ -3,11 +3,14 @@ import AppShortcuts from "./app-shortcuts";
 import { useApps } from "./load/apps-provider";
 import { getAvatarIcon, useFrecencySorting } from "@raycast/utils";
 import { AppMetadata } from "./model/input/input-models";
+import { getPlatform } from "./load/platform";
 
 const BASE_URL = "https://hotkys.com";
 
 function formatSubtitle(app: AppMetadata): string {
-  return app.bundleId ?? app.hostname ?? "";
+  const platform = getPlatform();
+  const appId = platform === "windows" ? (app.windowsAppId ?? app.bundleId) : app.bundleId;
+  return appId ?? app.hostname ?? "";
 }
 
 function getAppIcon(app: AppMetadata): Image.ImageLike {

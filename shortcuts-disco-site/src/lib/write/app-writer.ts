@@ -46,6 +46,7 @@ interface AppMetadata {
     slug: string;
     bundleId?: string;
     hostname?: string;
+    windowsAppId?: string;
     source?: string;
     icon?: string;
     keymaps: string[];
@@ -75,6 +76,7 @@ export function generatePlatformFiles() {
                 slug: app.slug,
                 bundleId: app.bundleId,
                 hostname: app.hostname,
+                windowsAppId: app.windowsAppId,
                 source: app.source,
                 icon: app.icon,
                 keymaps: filteredKeymaps.map(k => k.title)
