@@ -2,6 +2,9 @@
 
 ## [Update] - {PR_MERGE_DATE}
 
+- Merge signed-in custom applications and shortcuts into existing commands
+- Add All Apps, My Apps, and Favorites filters to the application list
+- Add application favorites without separate personal-data commands
 - Add support for platform-specific keymaps
 - Add application icons support
 - Fix shortcut runner

@@ -2,7 +2,7 @@
 
 > **For Claude:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
 
-**Goal:** Add secure Clerk PKCE authentication, favorites, and read/run support for website custom shortcuts to the Raycast extension without a custom backend.
+**Goal:** Add secure Clerk PKCE authentication, application favorites, and read/run support for website custom shortcuts to the Raycast extension without a custom backend.
 
 **Architecture:** Raycast securely stores Clerk OAuth tokens and supplies the current JWT to `supabase-js`. Pure mapping, identity, merging, and favorite functions are tested independently from Raycast UI, while thin hooks and commands connect them to existing lists.
 
@@ -87,13 +87,11 @@
 4. Run focused tests and all parser tests.
 5. Commit with `feat(raycast): merge custom shortcuts`.
 
-### Task 5: Providers, commands, and favorite actions
+### Task 5: Providers, filters, and application favorite actions
 
 **Files:**
 - Create: `shortcuts-raycast-extension/src/load/user-data-provider.ts`
-- Create: `shortcuts-raycast-extension/src/my-favorites.tsx`
-- Create: `shortcuts-raycast-extension/src/my-shortcuts.tsx`
-- Create: `shortcuts-raycast-extension/src/view/favorite-actions.tsx`
+- Create: `shortcuts-raycast-extension/src/view/favorite-action.tsx`
 - Modify: `shortcuts-raycast-extension/src/all-shortcuts.tsx`
 - Modify: `shortcuts-raycast-extension/src/app-shortcuts.tsx`
 - Modify: `shortcuts-raycast-extension/src/web-shortcuts.tsx`
@@ -104,15 +102,16 @@
 
 **Steps:**
 
-1. Write pure view-model tests for resolving favorite app/keymap/shortcut
-   targets and selecting only customized applications.
+1. Write pure view-model tests for selecting all, customized, and favorited
+   applications while excluding shortcut and keymap favorites.
 2. Verify the tests fail.
 3. Add optional authenticated enrichment to existing commands.
-4. Add authenticated Favorites and My Shortcuts commands with empty, loading,
-   error, and sign-in states.
-5. Add favorite actions that mutate Supabase then revalidate cached user data.
+4. Add All Apps, My Apps, and Favorites filters to the existing application
+   list, with empty, loading, error, and sign-in states.
+5. Add application favorite actions that mutate Supabase then revalidate
+   cached user data.
 6. Run tests, lint, and build.
-7. Commit with `feat(raycast): add favorites and custom shortcut commands`.
+7. Commit with `feat(raycast): merge custom shortcuts into existing commands`.
 
 ### Task 6: Production-safe RLS migration
 
@@ -161,8 +160,8 @@
 
 **Steps:**
 
-1. Document the two commands, sign-in behavior, website authoring boundary, and
-   logout behavior.
+1. Document the merged command behavior, application filters, sign-in behavior,
+   website authoring boundary, and logout behavior.
 2. Run extension tests, lint, and production build.
 3. Run site tests, lint, and static production build.
 4. Run `git diff --check`, review the complete diff, and verify no secret or

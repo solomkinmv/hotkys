@@ -11,7 +11,7 @@ export default function WebShortcuts() {
   const [slug, setSlug] = useState<string | undefined>();
 
   const { isLoading: appsLoading, data: apps } = useApps();
-  const { isLoading: shortcutsLoading, data: application, favorites, toggleFavorite } = useAppShortcuts(slug);
+  const { isLoading: shortcutsLoading, data: application } = useAppShortcuts(slug);
 
   // Get the frontmost hostname
   const { isLoading: hostnameLoading, data: hostname } = usePromise(getFrontmostHostname, [], {
@@ -38,12 +38,5 @@ export default function WebShortcuts() {
     setSlug(foundApp.slug);
   }, [appsLoading, hostname, slug, hostnameLoading, apps]);
 
-  return (
-    <ShortcutsList
-      application={application}
-      favorites={favorites}
-      isLoading={hostnameLoading || appsLoading || shortcutsLoading}
-      onToggleFavorite={toggleFavorite}
-    />
-  );
+  return <ShortcutsList application={application} isLoading={hostnameLoading || appsLoading || shortcutsLoading} />;
 }
