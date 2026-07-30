@@ -1,0 +1,10 @@
+export const CLERK_ISSUER = "https://clerk.hotkys.com";
+export const CLERK_AUTHORIZATION_ENDPOINT = `${CLERK_ISSUER}/oauth/authorize`;
+export const CLERK_TOKEN_ENDPOINT = `${CLERK_ISSUER}/oauth/token`;
+export const CLERK_REVOKE_ENDPOINT = `${CLERK_ISSUER}/oauth/token/revoke`;
+export const CLERK_USERINFO_ENDPOINT = `${CLERK_ISSUER}/oauth/userinfo`;
+export const CLERK_OAUTH_CLIENT_ID = "configure-in-clerk-dashboard";
+export const CLERK_OAUTH_SCOPE = "openid profile email offline_access";
+export const RAYCAST_REDIRECT_URI =
+  "https://raycast.com/redirect?packageName=shortcuts-search";
+
