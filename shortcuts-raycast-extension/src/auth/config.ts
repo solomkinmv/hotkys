@@ -5,6 +5,6 @@ export const CLERK_REVOKE_ENDPOINT = `${CLERK_ISSUER}/oauth/token/revoke`;
 export const CLERK_USERINFO_ENDPOINT = `${CLERK_ISSUER}/oauth/userinfo`;
 export const CLERK_OAUTH_CLIENT_ID = "configure-in-clerk-dashboard";
 export const CLERK_OAUTH_SCOPE = "openid profile email offline_access";
-export const RAYCAST_REDIRECT_URI =
-  "https://raycast.com/redirect?packageName=shortcuts-search";
-
+export const RAYCAST_REDIRECT_URI = "https://raycast.com/redirect?packageName=shortcuts-search";
+export const SUPABASE_URL = "https://pnzstacjwokxqvtxoeyp.supabase.co";
+export const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_GHLB33MvQoaygSAZun4Hiw_kr7CWzWl";

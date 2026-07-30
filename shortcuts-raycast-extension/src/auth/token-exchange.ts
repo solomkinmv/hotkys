@@ -24,7 +24,7 @@ type Fetcher = (input: string, init?: RequestInit) => Promise<Response>;
 
 export async function exchangeAuthorizationCode(
   input: AuthorizationCodeExchange,
-  fetcher: Fetcher = fetch,
+  fetcher: Fetcher = fetch
 ): Promise<TokenResponse> {
   return requestToken(
     input.endpoint,
@@ -35,13 +35,13 @@ export async function exchangeAuthorizationCode(
       code_verifier: input.codeVerifier,
       redirect_uri: input.redirectUri,
     }),
-    fetcher,
+    fetcher
   );
 }
 
 export async function refreshAccessToken(
   input: RefreshTokenExchange,
-  fetcher: Fetcher = fetch,
+  fetcher: Fetcher = fetch
 ): Promise<TokenResponse> {
   const response = await requestToken(
     input.endpoint,
@@ -50,7 +50,7 @@ export async function refreshAccessToken(
       client_id: input.clientId,
       refresh_token: input.refreshToken,
     }),
-    fetcher,
+    fetcher
   );
 
   return {
@@ -59,11 +59,7 @@ export async function refreshAccessToken(
   };
 }
 
-async function requestToken(
-  endpoint: string,
-  body: URLSearchParams,
-  fetcher: Fetcher,
-): Promise<TokenResponse> {
+async function requestToken(endpoint: string, body: URLSearchParams, fetcher: Fetcher): Promise<TokenResponse> {
   const response = await fetcher(endpoint, {
     method: "POST",
     headers: {
@@ -89,13 +85,9 @@ async function requestToken(
 
   return {
     access_token: payload.access_token,
-    refresh_token:
-      typeof payload.refresh_token === "string"
-        ? payload.refresh_token
-        : undefined,
+    refresh_token: typeof payload.refresh_token === "string" ? payload.refresh_token : undefined,
     id_token: typeof payload.id_token === "string" ? payload.id_token : undefined,
-    expires_in:
-      typeof payload.expires_in === "number" ? payload.expires_in : undefined,
+    expires_in: typeof payload.expires_in === "number" ? payload.expires_in : undefined,
     scope: typeof payload.scope === "string" ? payload.scope : undefined,
   };
 }
@@ -103,9 +95,7 @@ async function requestToken(
 async function parseJson(response: Response): Promise<Record<string, unknown>> {
   try {
     const payload: unknown = await response.json();
-    return payload && typeof payload === "object"
-      ? (payload as Record<string, unknown>)
-      : {};
+    return payload && typeof payload === "object" ? (payload as Record<string, unknown>) : {};
   } catch {
     return {};
   }

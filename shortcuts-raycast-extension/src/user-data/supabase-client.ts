@@ -1,0 +1,41 @@
+import { createClient as createSupabaseClient, type SupabaseClient } from "@supabase/supabase-js";
+import { SUPABASE_PUBLISHABLE_KEY, SUPABASE_URL } from "../auth/config";
+
+interface UserDataClientOptions {
+  accessToken: () => Promise<string | null>;
+  auth: {
+    persistSession: false;
+    autoRefreshToken: false;
+    detectSessionInUrl: false;
+  };
+}
+
+type ClientFactory<T> = (url: string, publishableKey: string, options: UserDataClientOptions) => T;
+
+let userDataClient: SupabaseClient | undefined;
+
+export function createUserDataClient<T>(accessToken: () => Promise<string | null>, factory: ClientFactory<T>): T;
+export function createUserDataClient(accessToken: () => Promise<string | null>): SupabaseClient;
+export function createUserDataClient<T>(
+  accessToken: () => Promise<string | null>,
+  factory: ClientFactory<T> = createSupabaseClient as unknown as ClientFactory<T>
+): T {
+  return factory(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
+    accessToken,
+    auth: {
+      persistSession: false,
+      autoRefreshToken: false,
+      detectSessionInUrl: false,
+    },
+  });
+}
+
+export function getUserDataClient(): SupabaseClient {
+  if (!userDataClient) {
+    userDataClient = createUserDataClient(async () => {
+      const { getAccessToken } = await import("../auth/session");
+      return getAccessToken(false);
+    });
+  }
+  return userDataClient;
+}
