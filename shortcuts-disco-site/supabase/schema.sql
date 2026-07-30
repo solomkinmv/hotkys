@@ -255,25 +255,38 @@ ALTER TABLE public.favorites ENABLE ROW LEVEL SECURITY;
 -- RLS Policies: Users can only access their own data.
 DROP POLICY IF EXISTS "Users can view own profile" ON public.profiles;
 CREATE POLICY "Users can view own profile" ON public.profiles
-  FOR SELECT TO authenticated
-  USING (((select auth.jwt())->>'sub') = clerk_user_id);
+  FOR SELECT TO anon, authenticated
+  USING (
+    ((select auth.jwt())->>'iss') = 'https://clerk.hotkys.com'
+    AND ((select auth.jwt())->>'sub') = clerk_user_id
+  );
 
 DROP POLICY IF EXISTS "Users can update own profile" ON public.profiles;
 CREATE POLICY "Users can update own profile" ON public.profiles
-  FOR UPDATE TO authenticated
-  USING (((select auth.jwt())->>'sub') = clerk_user_id)
-  WITH CHECK (((select auth.jwt())->>'sub') = clerk_user_id);
+  FOR UPDATE TO anon, authenticated
+  USING (
+    ((select auth.jwt())->>'iss') = 'https://clerk.hotkys.com'
+    AND ((select auth.jwt())->>'sub') = clerk_user_id
+  )
+  WITH CHECK (
+    ((select auth.jwt())->>'iss') = 'https://clerk.hotkys.com'
+    AND ((select auth.jwt())->>'sub') = clerk_user_id
+  );
 
 DROP POLICY IF EXISTS "Users can insert own profile" ON public.profiles;
 CREATE POLICY "Users can insert own profile" ON public.profiles
-  FOR INSERT TO authenticated
-  WITH CHECK (((select auth.jwt())->>'sub') = clerk_user_id);
+  FOR INSERT TO anon, authenticated
+  WITH CHECK (
+    ((select auth.jwt())->>'iss') = 'https://clerk.hotkys.com'
+    AND ((select auth.jwt())->>'sub') = clerk_user_id
+  );
 
 DROP POLICY IF EXISTS "Users can CRUD own preferences" ON public.user_preferences;
 CREATE POLICY "Users can CRUD own preferences" ON public.user_preferences
-  FOR ALL TO authenticated
+  FOR ALL TO anon, authenticated
   USING (
-    EXISTS (
+    ((select auth.jwt())->>'iss') = 'https://clerk.hotkys.com'
+    AND EXISTS (
       SELECT 1
       FROM public.profiles
       WHERE profiles.id = user_preferences.user_id
@@ -281,7 +294,8 @@ CREATE POLICY "Users can CRUD own preferences" ON public.user_preferences
     )
   )
   WITH CHECK (
-    EXISTS (
+    ((select auth.jwt())->>'iss') = 'https://clerk.hotkys.com'
+    AND EXISTS (
       SELECT 1
       FROM public.profiles
       WHERE profiles.id = user_preferences.user_id
@@ -291,9 +305,10 @@ CREATE POLICY "Users can CRUD own preferences" ON public.user_preferences
 
 DROP POLICY IF EXISTS "Users can CRUD own custom_apps" ON public.custom_apps;
 CREATE POLICY "Users can CRUD own custom_apps" ON public.custom_apps
-  FOR ALL TO authenticated
+  FOR ALL TO anon, authenticated
   USING (
-    EXISTS (
+    ((select auth.jwt())->>'iss') = 'https://clerk.hotkys.com'
+    AND EXISTS (
       SELECT 1
       FROM public.profiles
       WHERE profiles.id = custom_apps.user_id
@@ -301,7 +316,8 @@ CREATE POLICY "Users can CRUD own custom_apps" ON public.custom_apps
     )
   )
   WITH CHECK (
-    EXISTS (
+    ((select auth.jwt())->>'iss') = 'https://clerk.hotkys.com'
+    AND EXISTS (
       SELECT 1
       FROM public.profiles
       WHERE profiles.id = custom_apps.user_id
@@ -311,9 +327,10 @@ CREATE POLICY "Users can CRUD own custom_apps" ON public.custom_apps
 
 DROP POLICY IF EXISTS "Users can CRUD own custom_keymaps" ON public.custom_keymaps;
 CREATE POLICY "Users can CRUD own custom_keymaps" ON public.custom_keymaps
-  FOR ALL TO authenticated
+  FOR ALL TO anon, authenticated
   USING (
-    EXISTS (
+    ((select auth.jwt())->>'iss') = 'https://clerk.hotkys.com'
+    AND EXISTS (
       SELECT 1
       FROM public.profiles
       WHERE profiles.id = custom_keymaps.user_id
@@ -329,7 +346,8 @@ CREATE POLICY "Users can CRUD own custom_keymaps" ON public.custom_keymaps
       )
     )
   ) WITH CHECK (
-    EXISTS (
+    ((select auth.jwt())->>'iss') = 'https://clerk.hotkys.com'
+    AND EXISTS (
       SELECT 1
       FROM public.profiles
       WHERE profiles.id = custom_keymaps.user_id
@@ -348,9 +366,10 @@ CREATE POLICY "Users can CRUD own custom_keymaps" ON public.custom_keymaps
 
 DROP POLICY IF EXISTS "Users can CRUD own custom_sections" ON public.custom_sections;
 CREATE POLICY "Users can CRUD own custom_sections" ON public.custom_sections
-  FOR ALL TO authenticated
+  FOR ALL TO anon, authenticated
   USING (
-    EXISTS (
+    ((select auth.jwt())->>'iss') = 'https://clerk.hotkys.com'
+    AND EXISTS (
       SELECT 1
       FROM public.custom_keymaps
       JOIN public.profiles
@@ -359,7 +378,8 @@ CREATE POLICY "Users can CRUD own custom_sections" ON public.custom_sections
         AND profiles.clerk_user_id = ((select auth.jwt())->>'sub')
     )
   ) WITH CHECK (
-    EXISTS (
+    ((select auth.jwt())->>'iss') = 'https://clerk.hotkys.com'
+    AND EXISTS (
       SELECT 1
       FROM public.custom_keymaps
       JOIN public.profiles
@@ -371,9 +391,10 @@ CREATE POLICY "Users can CRUD own custom_sections" ON public.custom_sections
 
 DROP POLICY IF EXISTS "Users can CRUD own custom_shortcuts" ON public.custom_shortcuts;
 CREATE POLICY "Users can CRUD own custom_shortcuts" ON public.custom_shortcuts
-  FOR ALL TO authenticated
+  FOR ALL TO anon, authenticated
   USING (
-    EXISTS (
+    ((select auth.jwt())->>'iss') = 'https://clerk.hotkys.com'
+    AND EXISTS (
       SELECT 1
       FROM public.profiles
       WHERE profiles.id = custom_shortcuts.user_id
@@ -391,7 +412,8 @@ CREATE POLICY "Users can CRUD own custom_shortcuts" ON public.custom_shortcuts
       )
     )
   ) WITH CHECK (
-    EXISTS (
+    ((select auth.jwt())->>'iss') = 'https://clerk.hotkys.com'
+    AND EXISTS (
       SELECT 1
       FROM public.profiles
       WHERE profiles.id = custom_shortcuts.user_id
@@ -412,9 +434,10 @@ CREATE POLICY "Users can CRUD own custom_shortcuts" ON public.custom_shortcuts
 
 DROP POLICY IF EXISTS "Users can CRUD own favorites" ON public.favorites;
 CREATE POLICY "Users can CRUD own favorites" ON public.favorites
-  FOR ALL TO authenticated
+  FOR ALL TO anon, authenticated
   USING (
-    EXISTS (
+    ((select auth.jwt())->>'iss') = 'https://clerk.hotkys.com'
+    AND EXISTS (
       SELECT 1
       FROM public.profiles
       WHERE profiles.id = favorites.user_id
@@ -430,7 +453,8 @@ CREATE POLICY "Users can CRUD own favorites" ON public.favorites
       )
     )
   ) WITH CHECK (
-    EXISTS (
+    ((select auth.jwt())->>'iss') = 'https://clerk.hotkys.com'
+    AND EXISTS (
       SELECT 1
       FROM public.profiles
       WHERE profiles.id = favorites.user_id

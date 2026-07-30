@@ -29,4 +29,18 @@ describe("user content database limits", () => {
       "platforms <@ ARRAY['macos', 'windows', 'linux']::TEXT[]",
     );
   });
+
+  it("accepts only verified Hotkys Clerk identities for private data", () => {
+    const oauthPolicyTargets = schema.match(/TO anon, authenticated/g) ?? [];
+    const issuerChecks =
+      schema.match(
+        /\(\(select auth\.jwt\(\)\)->>'iss'\) = 'https:\/\/clerk\.hotkys\.com'/g,
+      ) ?? [];
+
+    expect(oauthPolicyTargets).toHaveLength(9);
+    expect(issuerChecks).toHaveLength(16);
+    expect(schema).not.toMatch(
+      /CREATE POLICY "Users can [^"]+"[\s\S]*?FOR (?:ALL|SELECT|INSERT|UPDATE) TO authenticated/,
+    );
+  });
 });
