@@ -1,17 +1,17 @@
 -- Clerk OAuth access tokens are verified by Supabase third-party auth but do
 -- not carry a Postgres role claim, so PostgREST evaluates them as `anon`.
--- Keep both the browser session role and the OAuth role while requiring the
--- exact production Clerk issuer and signed user subject in every policy.
+-- Add narrowly scoped policies for those tokens without altering the existing
+-- `authenticated` policies used by the production website.
 
-ALTER POLICY "Users can view own profile" ON public.profiles
-  TO anon, authenticated
+CREATE POLICY "Clerk OAuth users can view own profile" ON public.profiles
+  FOR SELECT TO anon
   USING (
     ((select auth.jwt())->>'iss') = 'https://clerk.hotkys.com'
     AND ((select auth.jwt())->>'sub') = clerk_user_id
   );
 
-ALTER POLICY "Users can update own profile" ON public.profiles
-  TO anon, authenticated
+CREATE POLICY "Clerk OAuth users can update own profile" ON public.profiles
+  FOR UPDATE TO anon
   USING (
     ((select auth.jwt())->>'iss') = 'https://clerk.hotkys.com'
     AND ((select auth.jwt())->>'sub') = clerk_user_id
@@ -21,15 +21,15 @@ ALTER POLICY "Users can update own profile" ON public.profiles
     AND ((select auth.jwt())->>'sub') = clerk_user_id
   );
 
-ALTER POLICY "Users can insert own profile" ON public.profiles
-  TO anon, authenticated
+CREATE POLICY "Clerk OAuth users can insert own profile" ON public.profiles
+  FOR INSERT TO anon
   WITH CHECK (
     ((select auth.jwt())->>'iss') = 'https://clerk.hotkys.com'
     AND ((select auth.jwt())->>'sub') = clerk_user_id
   );
 
-ALTER POLICY "Users can CRUD own preferences" ON public.user_preferences
-  TO anon, authenticated
+CREATE POLICY "Clerk OAuth users can CRUD own preferences" ON public.user_preferences
+  FOR ALL TO anon
   USING (
     ((select auth.jwt())->>'iss') = 'https://clerk.hotkys.com'
     AND EXISTS (
@@ -49,8 +49,8 @@ ALTER POLICY "Users can CRUD own preferences" ON public.user_preferences
     )
   );
 
-ALTER POLICY "Users can CRUD own custom_apps" ON public.custom_apps
-  TO anon, authenticated
+CREATE POLICY "Clerk OAuth users can CRUD own custom_apps" ON public.custom_apps
+  FOR ALL TO anon
   USING (
     ((select auth.jwt())->>'iss') = 'https://clerk.hotkys.com'
     AND EXISTS (
@@ -70,8 +70,8 @@ ALTER POLICY "Users can CRUD own custom_apps" ON public.custom_apps
     )
   );
 
-ALTER POLICY "Users can CRUD own custom_keymaps" ON public.custom_keymaps
-  TO anon, authenticated
+CREATE POLICY "Clerk OAuth users can CRUD own custom_keymaps" ON public.custom_keymaps
+  FOR ALL TO anon
   USING (
     ((select auth.jwt())->>'iss') = 'https://clerk.hotkys.com'
     AND EXISTS (
@@ -109,8 +109,8 @@ ALTER POLICY "Users can CRUD own custom_keymaps" ON public.custom_keymaps
     )
   );
 
-ALTER POLICY "Users can CRUD own custom_sections" ON public.custom_sections
-  TO anon, authenticated
+CREATE POLICY "Clerk OAuth users can CRUD own custom_sections" ON public.custom_sections
+  FOR ALL TO anon
   USING (
     ((select auth.jwt())->>'iss') = 'https://clerk.hotkys.com'
     AND EXISTS (
@@ -134,8 +134,8 @@ ALTER POLICY "Users can CRUD own custom_sections" ON public.custom_sections
     )
   );
 
-ALTER POLICY "Users can CRUD own custom_shortcuts" ON public.custom_shortcuts
-  TO anon, authenticated
+CREATE POLICY "Clerk OAuth users can CRUD own custom_shortcuts" ON public.custom_shortcuts
+  FOR ALL TO anon
   USING (
     ((select auth.jwt())->>'iss') = 'https://clerk.hotkys.com'
     AND EXISTS (
@@ -177,8 +177,8 @@ ALTER POLICY "Users can CRUD own custom_shortcuts" ON public.custom_shortcuts
     )
   );
 
-ALTER POLICY "Users can CRUD own favorites" ON public.favorites
-  TO anon, authenticated
+CREATE POLICY "Clerk OAuth users can CRUD own favorites" ON public.favorites
+  FOR ALL TO anon
   USING (
     ((select auth.jwt())->>'iss') = 'https://clerk.hotkys.com'
     AND EXISTS (

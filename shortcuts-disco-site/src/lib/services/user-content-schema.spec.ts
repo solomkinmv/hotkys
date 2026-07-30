@@ -30,17 +30,23 @@ describe("user content database limits", () => {
     );
   });
 
-  it("accepts only verified Hotkys Clerk identities for private data", () => {
-    const oauthPolicyTargets = schema.match(/TO anon, authenticated/g) ?? [];
+  it("adds issuer-bound Clerk OAuth access without changing website policy roles", () => {
+    const authenticatedPolicyTargets =
+      schema.match(
+        /CREATE POLICY "Users can [^"]+"[\s\S]*?FOR (?:ALL|SELECT|INSERT|UPDATE) TO authenticated/g,
+      ) ?? [];
+    const oauthPolicyTargets =
+      schema.match(
+        /CREATE POLICY "Clerk OAuth users can [^"]+"[\s\S]*?FOR (?:ALL|SELECT|INSERT|UPDATE) TO anon/g,
+      ) ?? [];
     const issuerChecks =
       schema.match(
         /\(\(select auth\.jwt\(\)\)->>'iss'\) = 'https:\/\/clerk\.hotkys\.com'/g,
       ) ?? [];
 
+    expect(authenticatedPolicyTargets).toHaveLength(9);
     expect(oauthPolicyTargets).toHaveLength(9);
     expect(issuerChecks).toHaveLength(16);
-    expect(schema).not.toMatch(
-      /CREATE POLICY "Users can [^"]+"[\s\S]*?FOR (?:ALL|SELECT|INSERT|UPDATE) TO authenticated/,
-    );
+    expect(schema).not.toContain("TO anon, authenticated");
   });
 });
