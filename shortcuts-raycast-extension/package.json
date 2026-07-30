@@ -63,6 +63,38 @@
       "title": "Copy Current App's Bundle ID",
       "description": "Saves current app's bundle id in the clipboard",
       "mode": "no-view"
+    },
+    {
+      "name": "my-favorites",
+      "title": "My Favorites",
+      "description": "Show favorite applications and shortcuts from your Hotkys account",
+      "mode": "view",
+      "preferences": [
+        {
+          "name": "delay",
+          "title": "Delay",
+          "description": "Specify delay required before running shortcut for the application",
+          "default": "0",
+          "required": false,
+          "type": "textfield"
+        }
+      ]
+    },
+    {
+      "name": "my-shortcuts",
+      "title": "My Shortcuts",
+      "description": "Show custom applications and shortcuts from your Hotkys account",
+      "mode": "view",
+      "preferences": [
+        {
+          "name": "delay",
+          "title": "Delay",
+          "description": "Specify delay required before running shortcut for the application",
+          "default": "0",
+          "required": false,
+          "type": "textfield"
+        }
+      ]
     }
   ],
   "dependencies": {

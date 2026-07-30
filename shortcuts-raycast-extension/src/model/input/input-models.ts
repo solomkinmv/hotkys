@@ -19,6 +19,7 @@ export interface AppsResponse {
 export interface AppMetadata {
   name: string;
   slug: string;
+  customAppId?: string;
   bundleId?: string;
   hostname?: string;
   source?: string;
