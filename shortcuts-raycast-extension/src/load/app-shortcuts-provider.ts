@@ -5,13 +5,16 @@ import { Application } from "../model/internal/internal-models";
 import { ShortcutsParser } from "./input-parser";
 import { getPlatform } from "./platform";
 import useKeyCodes from "./key-codes-provider";
-import type { UserCustomizations } from "../user-data/models";
+import type { FavoriteIdentifier } from "../user-data/favorites";
+import type { Favorite, UserCustomizations } from "../user-data/models";
 import { ShortcutMerger } from "../user-data/shortcut-merger";
 import { useUserData } from "./user-data-provider";
 
 interface UseAppShortcutsResult {
   isLoading: boolean;
   data: Application | undefined;
+  favorites: Favorite[];
+  toggleFavorite: (identifier: FavoriteIdentifier) => Promise<void>;
 }
 
 const emptyCustomizations: UserCustomizations = {
@@ -20,6 +23,7 @@ const emptyCustomizations: UserCustomizations = {
   shortcuts: [],
   favorites: [],
 };
+const emptyFavorites: Favorite[] = [];
 
 export function useAppShortcuts(slug: string | undefined, allowAuthorization = false): UseAppShortcutsResult {
   const platform = getPlatform();
@@ -49,5 +53,7 @@ export function useAppShortcuts(slug: string | undefined, allowAuthorization = f
   return {
     isLoading: isLoading || userData.isLoading || (!isCustomApp && keyCodesResult.isLoading),
     data: application,
+    favorites: userData.data?.favorites ?? emptyFavorites,
+    toggleFavorite: userData.toggleFavorite,
   };
 }
