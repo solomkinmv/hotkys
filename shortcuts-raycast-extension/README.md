@@ -9,19 +9,23 @@ Data is taken from: https://hotkys.com.
 Please see contribution guide for adding new shortcuts [here](https://github.com/solomkinmv/hotkys/blob/main/README.md#shortcuts-contribution).
 
 ## Commands
+
 ### List All Shortcuts
+
 Show shortcuts for all available desktop or web applications. When signed in,
 the public catalog is merged with custom applications and shortcut changes from
 your Hotkys account. Use the app filter to switch between All Apps, My Apps,
 and favorite applications.
 
 ### List Current Shortcuts
+
 Show shortcuts for the frontmost desktop application. Command will exit if no desktop application
 is detected or if it is missing in the Hotkys database. Signed-in custom
 shortcuts are merged into the public shortcuts automatically.
 
 ### List Current Web Shortcuts
-Show shortcuts for the frontmost web application. Command will exit if no web application 
+
+Show shortcuts for the frontmost web application. Command will exit if no web application
 is detected or if it is missing in the Hotkys database. Signed-in custom
 shortcuts are merged into the public shortcuts automatically.
 
@@ -29,11 +33,12 @@ shortcuts are merged into the public shortcuts automatically.
 - Not supported browsers: Firefox.
 
 ### Copy Current App's Bundle ID
+
 Saves current app's bundle id in the clipboard. Useful for contributing new shortcuts.
 
-Selecting My Apps or Favorites, or adding an application to Favorites, starts
-Hotkys sign-in when needed. Custom shortcut authoring remains available on
-[hotkys.com](https://hotkys.com).
+Selecting My Apps or Favorites, or adding an application or shortcut to
+Favorites, starts Hotkys sign-in when needed. Custom shortcut authoring remains
+available on [hotkys.com](https://hotkys.com).
 
 ## Screenshots
 

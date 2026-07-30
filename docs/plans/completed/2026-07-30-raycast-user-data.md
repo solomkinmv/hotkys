@@ -2,7 +2,7 @@
 
 > **For Claude:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
 
-**Goal:** Add secure Clerk PKCE authentication, application favorites, and read/run support for website custom shortcuts to the Raycast extension without a custom backend.
+**Goal:** Add secure Clerk PKCE authentication, favorites, and read/run support for website custom shortcuts to the Raycast extension without a custom backend.
 
 **Architecture:** Raycast securely stores Clerk OAuth tokens and supplies the current JWT to `supabase-js`. Pure mapping, identity, merging, and favorite functions are tested independently from Raycast UI, while thin hooks and commands connect them to existing lists.
 
@@ -87,7 +87,7 @@
 4. Run focused tests and all parser tests.
 5. Commit with `feat(raycast): merge custom shortcuts`.
 
-### Task 5: Providers, filters, and application favorite actions
+### Task 5: Providers, filters, and favorite actions
 
 **Files:**
 - Create: `shortcuts-raycast-extension/src/load/user-data-provider.ts`
@@ -108,8 +108,8 @@
 3. Add optional authenticated enrichment to existing commands.
 4. Add All Apps, My Apps, and Favorites filters to the existing application
    list, with empty, loading, error, and sign-in states.
-5. Add application favorite actions that mutate Supabase then revalidate
-   cached user data.
+5. Add application and shortcut favorite actions that mutate Supabase then
+   revalidate cached user data.
 6. Run tests, lint, and build.
 7. Commit with `feat(raycast): merge custom shortcuts into existing commands`.
 

@@ -1,4 +1,4 @@
-import { matchesFavorite, toFavoriteInsert, type FavoriteIdentifier } from "./favorites";
+import { matchesFavorite, toFavoriteInsert, toShortcutFavoriteIdentifier, type FavoriteIdentifier } from "./favorites";
 import type { Favorite } from "./models";
 
 const storedFavorite: Favorite = {
@@ -55,6 +55,26 @@ describe("favorite identity", () => {
 
     expect(matchesFavorite({ id: "app-favorite", userId: "profile-1", ...app }, app)).toBe(true);
     expect(matchesFavorite({ id: "keymap-favorite", userId: "profile-1", ...keymap }, keymap)).toBe(true);
+  });
+
+  it("builds shortcut favorite identity from the stable public shortcut fields", () => {
+    expect(
+      toShortcutFavoriteIdentifier({ slug: "safari", customAppId: undefined }, "Default", "Renamed Tabs", {
+        title: "Renamed New Tab",
+        sequence: [],
+        baseSectionTitle: "Tabs",
+        baseShortcutTitle: "New Tab",
+        baseShortcutId: "stable-id",
+      })
+    ).toEqual({
+      itemType: "shortcut",
+      appSlug: "safari",
+      customAppId: undefined,
+      keymapTitle: "Default",
+      sectionTitle: "Tabs",
+      shortcutTitle: "New Tab",
+      baseShortcutId: "stable-id",
+    });
   });
 
   it("writes absent identity fields as null for PostgREST uniqueness", () => {

@@ -27,14 +27,14 @@ are public client configuration.
 
 The extension keeps its existing command set. **List All Shortcuts** merges
 custom applications into the public application catalog and offers All Apps,
-My Apps, and Favorites filters. Favorites are application-only in Raycast;
-shortcut and keymap favorites are neither listed nor created by the extension.
+My Apps, and Favorites filters. The filter displays application favorites only;
+shortcut favorites remain addable and removable from the shortcut lists without
+a separate favorites command.
 
 The existing desktop and web shortcut commands merge custom keymaps, sections,
 shortcuts, deletions, and overlays with the downloaded public catalog using the
 website's stable shortcut identity rules. Custom authoring remains on the
-website for the initial Raycast release; Raycast is a read/run/app-favorite
-client.
+website for the initial Raycast release; Raycast is a read/run/favorite client.
 
 OAuth access tokens are refreshed before expiry. A failed refresh removes the
 invalid local token and presents a clear reauthentication error instead of

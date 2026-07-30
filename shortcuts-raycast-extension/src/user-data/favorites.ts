@@ -1,3 +1,4 @@
+import type { Application, SectionShortcut } from "../model/internal/internal-models";
 import type { Favorite } from "./models";
 
 export interface FavoriteIdentifier {
@@ -24,6 +25,23 @@ export function matchesFavorite(favorite: Favorite, identifier: FavoriteIdentifi
   }
 
   return favorite.shortcutTitle === identifier.shortcutTitle;
+}
+
+export function toShortcutFavoriteIdentifier(
+  application: Pick<Application, "slug" | "customAppId">,
+  keymapTitle: string,
+  sectionTitle: string,
+  shortcut: SectionShortcut
+): FavoriteIdentifier {
+  return {
+    itemType: "shortcut",
+    appSlug: application.slug,
+    customAppId: application.customAppId,
+    keymapTitle,
+    sectionTitle: shortcut.baseSectionTitle ?? sectionTitle,
+    shortcutTitle: shortcut.baseShortcutTitle ?? shortcut.title,
+    baseShortcutId: shortcut.baseShortcutId,
+  };
 }
 
 export function toFavoriteInsert(userId: string, identifier: FavoriteIdentifier): Record<string, string | null> {
