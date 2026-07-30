@@ -9,6 +9,9 @@ export interface Application {
   hostname?: string;
   name: string;
   slug: string;
+  source?: string;
+  icon?: string;
+  customAppId?: string;
   keymaps: Keymap[];
 }
 
@@ -27,6 +30,11 @@ export interface SectionShortcut {
   title: string;
   sequence: AtomicShortcut[];
   comment?: string;
+  customizationStatus?: "changed" | "created";
+  customizationId?: string;
+  baseSectionTitle?: string;
+  baseShortcutTitle?: string;
+  baseShortcutId?: string;
 }
 
 export interface AtomicShortcut {
