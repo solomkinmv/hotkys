@@ -100,7 +100,8 @@
   "dependencies": {
     "@raycast/api": "^1.103.5",
     "@raycast/utils": "^2.2.2",
-    "@supabase/supabase-js": "2.110.2"
+    "@supabase/supabase-js": "2.110.2",
+    "ws": "8.21.1"
   },
   "devDependencies": {
     "@raycast/api": "^1.103.5",
@@ -109,6 +110,7 @@
     "@types/jest": "^30.0.0",
     "@types/node": "^24.9.2",
     "@types/react": "19.2.2",
+    "@types/ws": "8.18.1",
     "eslint": "^9.39.0",
     "jest": "^30.2.0",
     "prettier": "^3.6.2",

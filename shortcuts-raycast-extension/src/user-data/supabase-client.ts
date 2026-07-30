@@ -1,4 +1,5 @@
 import { createClient as createSupabaseClient, type SupabaseClient } from "@supabase/supabase-js";
+import WebSocket from "ws";
 import { SUPABASE_PUBLISHABLE_KEY, SUPABASE_URL } from "../auth/config";
 
 interface UserDataClientOptions {
@@ -7,6 +8,9 @@ interface UserDataClientOptions {
     persistSession: false;
     autoRefreshToken: false;
     detectSessionInUrl: false;
+  };
+  realtime: {
+    transport: typeof WebSocket;
   };
 }
 
@@ -26,6 +30,9 @@ export function createUserDataClient<T>(
       persistSession: false,
       autoRefreshToken: false,
       detectSessionInUrl: false,
+    },
+    realtime: {
+      transport: WebSocket,
     },
   });
 }

@@ -17,6 +17,9 @@ describe("Supabase user-data client", () => {
           autoRefreshToken: false,
           detectSessionInUrl: false,
         },
+        realtime: {
+          transport: expect.any(Function),
+        },
       }
     );
   });
