@@ -3,33 +3,21 @@ import { useState } from "react";
 import { runShortcuts } from "../engine/shortcut-runner";
 import useKeyCodes from "../load/key-codes-provider";
 import type { Application, Keymap, SectionShortcut } from "../model/internal/internal-models";
-import type { FavoriteIdentifier } from "../user-data/favorites";
-import type { Favorite } from "../user-data/models";
-import { FavoriteAction } from "./favorite-action";
 import { generateHotkeyAccessories } from "./hotkey-text-formatter";
 import { KeymapDropdown } from "./keymap-dropdown";
 
 interface ShortcutsListProps {
   application: Application | undefined;
-  favorites?: Favorite[];
   initialKeymapTitle?: string;
   initialSearchText?: string;
   isLoading?: boolean;
-  onToggleFavorite?: (identifier: FavoriteIdentifier) => Promise<void>;
 }
 
 interface Preferences {
   delay: string;
 }
 
-export function ShortcutsList({
-  application,
-  favorites = [],
-  initialKeymapTitle,
-  initialSearchText,
-  isLoading,
-  onToggleFavorite,
-}: ShortcutsListProps) {
+export function ShortcutsList({ application, initialKeymapTitle, initialSearchText, isLoading }: ShortcutsListProps) {
   const keyCodesResponse = useKeyCodes();
   const keymaps = application?.keymaps ?? [];
   const [selectedKeymapTitle, setSelectedKeymapTitle] = useState(initialKeymapTitle);
@@ -68,15 +56,6 @@ export function ShortcutsList({
                 const commentAccessory: List.Item.Accessory[] = shortcut.comment
                   ? [{ text: shortcut.comment, icon: Icon.SpeechBubble }]
                   : [];
-                const identifier: FavoriteIdentifier = {
-                  itemType: "shortcut",
-                  appSlug: application.slug,
-                  customAppId: application.customAppId,
-                  keymapTitle: selectedKeymap.title,
-                  sectionTitle: shortcut.baseSectionTitle ?? section.title,
-                  shortcutTitle: shortcut.baseShortcutTitle ?? shortcut.title,
-                  baseShortcutId: shortcut.baseShortcutId,
-                };
 
                 return (
                   <List.Item
@@ -88,9 +67,6 @@ export function ShortcutsList({
                       <ActionPanel>
                         {shortcut.sequence.length > 0 ? (
                           <Action title="Apply" onAction={() => handleShortcutExecution(application, shortcut)} />
-                        ) : null}
-                        {onToggleFavorite ? (
-                          <FavoriteAction identifier={identifier} favorites={favorites} onToggle={onToggleFavorite} />
                         ) : null}
                       </ActionPanel>
                     }

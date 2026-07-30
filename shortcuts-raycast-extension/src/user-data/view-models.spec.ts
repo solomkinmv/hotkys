@@ -1,6 +1,6 @@
 import type { AppMetadata } from "../model/input/input-models";
 import type { Favorite, UserCustomizations } from "./models";
-import { mergeAppMetadata, resolveFavoriteItem, selectCustomizedApps } from "./view-models";
+import { mergeAppMetadata, selectAppsByFilter, selectCustomizedApps } from "./view-models";
 
 const baseApps: AppMetadata[] = [
   {
@@ -73,42 +73,54 @@ describe("Raycast user-data view models", () => {
     expect(selectCustomizedApps(apps, customizations()).map((app) => app.slug)).toEqual(["safari", "custom-my-editor"]);
   });
 
-  it("resolves a shortcut favorite to a readable navigation target", () => {
-    const favorite: Favorite = {
-      id: "favorite-1",
-      userId: "profile-1",
-      itemType: "shortcut",
-      appSlug: "safari",
-      keymapTitle: "Default",
-      sectionTitle: "Tabs",
-      shortcutTitle: "New Tab",
-    };
+  it("keeps every merged application in the all-apps filter", () => {
+    const apps = mergeAppMetadata(baseApps, customizations());
 
-    expect(resolveFavoriteItem(favorite, baseApps)).toEqual({
-      id: "favorite-1",
-      title: "New Tab",
-      subtitle: "Safari › Default › Tabs",
-      appSlug: "safari",
-      keymapTitle: "Default",
-      searchText: "New Tab",
-    });
+    expect(selectAppsByFilter(apps, customizations(), [], "all").map((app) => app.slug)).toEqual([
+      "safari",
+      "finder",
+      "custom-my-editor",
+    ]);
   });
 
-  it("keeps unresolved favorites visible instead of dropping user data", () => {
-    const favorite: Favorite = {
-      id: "favorite-2",
-      userId: "profile-1",
-      itemType: "app",
-      appSlug: "removed-app",
-    };
+  it("shows custom applications and public applications with custom shortcuts in the my-apps filter", () => {
+    const apps = mergeAppMetadata(baseApps, customizations());
 
-    expect(resolveFavoriteItem(favorite, baseApps)).toEqual({
-      id: "favorite-2",
-      title: "removed-app",
-      subtitle: "Application",
-      appSlug: "removed-app",
-      keymapTitle: undefined,
-      searchText: undefined,
-    });
+    expect(selectAppsByFilter(apps, customizations(), [], "customized").map((app) => app.slug)).toEqual([
+      "safari",
+      "custom-my-editor",
+    ]);
+  });
+
+  it("shows only applications with app-level favorites in the favorites filter", () => {
+    const apps = mergeAppMetadata(baseApps, customizations());
+    const favorites: Favorite[] = [
+      {
+        id: "favorite-app",
+        userId: "profile-1",
+        itemType: "app",
+        appSlug: "finder",
+      },
+      {
+        id: "favorite-shortcut",
+        userId: "profile-1",
+        itemType: "shortcut",
+        appSlug: "safari",
+        keymapTitle: "Default",
+        sectionTitle: "Tabs",
+        shortcutTitle: "New Tab",
+      },
+      {
+        id: "favorite-keymap",
+        userId: "profile-1",
+        itemType: "keymap",
+        customAppId: "custom-app-1",
+        keymapTitle: "Default",
+      },
+    ];
+
+    expect(selectAppsByFilter(apps, customizations(), favorites, "favorites").map((app) => app.slug)).toEqual([
+      "finder",
+    ]);
   });
 });

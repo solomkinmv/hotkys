@@ -1,4 +1,4 @@
-# Raycast Favorites and Custom Shortcuts Design
+# Raycast App Favorites and Custom Shortcuts Design
 
 ## Architecture
 
@@ -12,11 +12,12 @@ query the existing `profiles`, `favorites`, `custom_apps`, `custom_keymaps`,
 `custom_sections`, and `custom_shortcuts` tables directly.
 
 The public shortcut catalog remains available without authentication. Existing
-commands must never prompt for sign-in merely to show public shortcuts. The new
-Favorites and My Shortcuts commands will start the OAuth flow when necessary.
-Once a user has authenticated, the public commands may silently load and merge
-their private customizations. Favorite actions in public lists may prompt for
-authentication because the user's explicit action requires private storage.
+commands must never prompt for sign-in merely to show public shortcuts.
+Selecting a private application filter or using an application favorite action
+will start the OAuth flow when necessary. Once a user has authenticated, the
+public commands silently load and merge their private customizations. Favorite
+actions may prompt for authentication because the user's explicit action
+requires private storage.
 
 No service-role key, Clerk client secret, server route, or Edge Function will be
 shipped. The Clerk OAuth client ID, Supabase URL, and Supabase publishable key
@@ -24,19 +25,16 @@ are public client configuration.
 
 ## User Experience and Data Flow
 
-The extension adds two view commands:
+The extension keeps its existing command set. **List All Shortcuts** merges
+custom applications into the public application catalog and offers All Apps,
+My Apps, and Favorites filters. Favorites are application-only in Raycast;
+shortcut and keymap favorites are neither listed nor created by the extension.
 
-- **My Favorites** lists saved apps, keymaps, and shortcuts and lets the user
-  open, run, or remove each item.
-- **My Shortcuts** lists custom applications and official applications that
-  contain custom keymaps, sections, shortcuts, or overlays.
-
-Existing application and shortcut lists gain favorite/unfavorite actions.
-Authenticated users see custom applications alongside official applications,
-and custom keymaps, sections, shortcuts, deletions, and overlays are merged
-with the downloaded public catalog using the website's stable shortcut identity
-rules. Custom authoring remains on the website for the initial Raycast release;
-Raycast is a read/run/favorite client.
+The existing desktop and web shortcut commands merge custom keymaps, sections,
+shortcuts, deletions, and overlays with the downloaded public catalog using the
+website's stable shortcut identity rules. Custom authoring remains on the
+website for the initial Raycast release; Raycast is a read/run/app-favorite
+client.
 
 OAuth access tokens are refreshed before expiry. A failed refresh removes the
 invalid local token and presents a clear reauthentication error instead of
