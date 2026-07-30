@@ -29,10 +29,6 @@ export async function signOut(): Promise<void> {
 }
 
 async function authorizeWithClerk(): Promise<TokenResponse> {
-  if (CLERK_OAUTH_CLIENT_ID === "configure-in-clerk-dashboard") {
-    throw new Error("The Hotkys OAuth application is not configured yet.");
-  }
-
   const request = await oauthClient.authorizationRequest({
     endpoint: CLERK_AUTHORIZATION_ENDPOINT,
     clientId: CLERK_OAUTH_CLIENT_ID,

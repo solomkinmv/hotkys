@@ -139,7 +139,7 @@
 **External configuration:**
 - Create production Clerk OAuth application `Hotkys for Raycast`.
 - Configure public client, PKCE, JWT access tokens, consent screen, and
-  `https://raycast.com/redirect?packageName=shortcuts-search`.
+  `https://raycast.com/redirect?packageName=Extension`.
 
 **Steps:**
 
