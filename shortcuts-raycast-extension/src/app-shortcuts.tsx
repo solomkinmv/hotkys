@@ -8,13 +8,15 @@ import { exitWithMessage } from "./view/exit-action";
 
 interface AppShortcutsProps {
   slug?: string;
+  initialKeymapTitle?: string;
+  initialSearchText?: string;
 }
 
 export default function AppShortcuts(props?: AppShortcutsProps) {
   const [slug, setSlug] = useState<string | undefined>(props?.slug);
 
   const { isLoading: appsLoading, data: apps } = useApps();
-  const { isLoading: shortcutsLoading, data: application } = useAppShortcuts(slug);
+  const { isLoading: shortcutsLoading, data: application, favorites, toggleFavorite } = useAppShortcuts(slug);
 
   // Get the frontmost application's bundleId if no slug provided
   const { isLoading: bundleIdLoading, data: bundleId } = usePromise(
@@ -50,5 +52,14 @@ export default function AppShortcuts(props?: AppShortcutsProps) {
 
   const isLoading = appsLoading || shortcutsLoading || (!props?.slug && bundleIdLoading);
 
-  return <ShortcutsList application={application} isLoading={isLoading} />;
+  return (
+    <ShortcutsList
+      application={application}
+      favorites={favorites}
+      initialKeymapTitle={props?.initialKeymapTitle}
+      initialSearchText={props?.initialSearchText}
+      isLoading={isLoading}
+      onToggleFavorite={toggleFavorite}
+    />
+  );
 }
