@@ -123,12 +123,12 @@
 
 **Steps:**
 
-1. Add failing schema assertions that every private policy accepts `anon` and
-   `authenticated`, requires the production Clerk issuer, and keeps its
-   ownership predicate.
+1. Add failing schema assertions that the existing website policies remain
+   scoped to `authenticated` while parallel OAuth policies accept only `anon`,
+   require the production Clerk issuer, and keep the ownership predicates.
 2. Verify the focused site test fails.
-3. Generate the migration with the Supabase CLI and implement explicit policy
-   replacements.
+3. Generate the migration with the Supabase CLI and add separate OAuth policies
+   without replacing the production website policies.
 4. Update the declarative schema to match.
 5. Run site tests and build before applying anything remotely.
 6. Run Supabase security/performance advisors and review current policies.

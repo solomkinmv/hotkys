@@ -48,9 +48,9 @@ toasts. Public data remains usable when optional private sync fails.
 Supabase assigns a third-party JWT without a `role` claim to the `anon`
 Postgres role. Clerk OAuth access tokens contain a signed user `sub` but do not
 support adding the website's custom session-token role claim. The relevant RLS
-policies must therefore target both `anon` and `authenticated` while retaining
-their existing ownership predicates. Each policy will also require the exact
-Clerk issuer:
+rules therefore keep the website's existing `authenticated` policies unchanged
+and add parallel `anon` policies for OAuth. Every OAuth policy retains the
+existing ownership predicate and also requires the exact Clerk issuer:
 
 ```sql
 ((select auth.jwt())->>'iss') = 'https://clerk.hotkys.com'
