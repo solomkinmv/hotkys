@@ -41,6 +41,16 @@ import {
 export function MyShortcutsContent() {
   const searchParams = useSearchParams();
   const selectedAppSlug = searchParams.get("app");
+
+  // Unmount the list while editing so returning loads the latest saved content.
+  return selectedAppSlug ? (
+    <MyShortcutAppContent slug={selectedAppSlug} />
+  ) : (
+    <MyShortcutsListContent />
+  );
+}
+
+function MyShortcutsListContent() {
   const { user, isLoading: authLoading } = useAuth();
   const { customizations, isLoading: customizationsLoading, refetch } = useCustomizations();
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
@@ -120,10 +130,6 @@ export function MyShortcutsContent() {
 
   const customApps = customizations.customApps;
   const shortcutOverlays = customizations.shortcuts;
-
-  if (selectedAppSlug) {
-    return <MyShortcutAppContent slug={selectedAppSlug} />;
-  }
 
   return (
     <section className="mx-auto max-w-2xl">
