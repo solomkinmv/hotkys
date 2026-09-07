@@ -43,3 +43,6 @@ public/data/linux/
 
 # Personal TODO
 TODO.md
+
+# Supabase CLI cache
+/supabase/.temp/

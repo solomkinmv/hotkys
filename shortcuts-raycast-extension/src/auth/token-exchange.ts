@@ -22,6 +22,17 @@ interface RefreshTokenExchange {
 
 type Fetcher = (input: string, init?: RequestInit) => Promise<Response>;
 
+export class OAuthTokenError extends Error {
+  constructor(
+    message: string,
+    readonly code: string | undefined,
+    readonly status: number
+  ) {
+    super(message);
+    this.name = "OAuthTokenError";
+  }
+}
+
 export async function exchangeAuthorizationCode(
   input: AuthorizationCodeExchange,
   fetcher: Fetcher = fetch
@@ -76,7 +87,11 @@ async function requestToken(endpoint: string, body: URLSearchParams, fetcher: Fe
         : typeof payload.error === "string"
           ? payload.error
           : `OAuth token request failed with status ${response.status}`;
-    throw new Error(description);
+    throw new OAuthTokenError(
+      description,
+      typeof payload.error === "string" ? payload.error : undefined,
+      response.status
+    );
   }
 
   if (typeof payload.access_token !== "string" || payload.access_token.length === 0) {
