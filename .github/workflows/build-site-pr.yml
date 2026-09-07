@@ -38,3 +38,6 @@ jobs:
 
       - name: Run build & tests
         run: npm test
+
+      - name: Test OAuth database permissions
+        run: npm run test:rls

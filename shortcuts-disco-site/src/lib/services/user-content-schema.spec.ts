@@ -37,7 +37,7 @@ describe("user content database limits", () => {
       ) ?? [];
     const oauthPolicyTargets =
       schema.match(
-        /CREATE POLICY "Clerk OAuth users can [^"]+"[\s\S]*?FOR (?:ALL|SELECT|INSERT|UPDATE) TO anon/g,
+        /CREATE POLICY "Clerk OAuth users can [^"]+"[\s\S]*?FOR (?:SELECT|INSERT|DELETE) TO anon/g,
       ) ?? [];
     const issuerChecks =
       schema.match(
@@ -46,7 +46,7 @@ describe("user content database limits", () => {
 
     expect(authenticatedPolicyTargets).toHaveLength(9);
     expect(oauthPolicyTargets).toHaveLength(9);
-    expect(issuerChecks).toHaveLength(16);
+    expect(issuerChecks).toHaveLength(9);
     expect(schema).not.toContain("TO anon, authenticated");
   });
 });

@@ -11,6 +11,7 @@
     "start": "npm run export-data && next start",
     "lint": "eslint .",
     "test": "jest",
+    "test:rls": "node --test supabase/tests/oauth-rls.test.mjs",
     "export-data": "node --import tsx ./src/lib/write/app-writer.ts",
     "export-data:watch": "node --import tsx ./src/lib/write/watcher.ts",
     "prettify": "node --import tsx ./src/lib/write/prettify.ts"
@@ -44,6 +45,7 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
+    "@electric-sql/pglite": "0.5.8",
     "@tailwindcss/postcss": "^4.1.16",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.0",
