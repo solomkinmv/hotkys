@@ -7,6 +7,12 @@ import { describe, expect, it } from "@jest/globals";
 describe("Parses shortcut correctly", () => {
     const parser = new ShortcutsParser();
 
+    it("preserves the plus base key and rejects unknown modifiers", () => {
+        const result = parser.parseInputShortcuts([generateInputAppWithShortcut({shortcut: "cmd++"})]);
+        expect(result[0].keymaps[0].sections[0].hotkeys[0].sequence).toEqual([{base: "+", modifiers: [Modifiers.command]}]);
+        expect(() => parser.parseInputShortcuts([generateInputAppWithShortcut({shortcut: "unknown+a"})])).toThrow();
+    });
+
     it("Parses app shortcut", () => {
         expect(parser.parseInputShortcuts([generateInputAppWithShortcut()])).toEqual([generateExpectedAppWithShortcut()]);
     });

@@ -92,6 +92,8 @@ describe("favorite identity", () => {
       shortcut_title: null,
       base_shortcut_id: null,
       custom_app_id: null,
+      custom_keymap_id: null,
+      custom_shortcut_id: null,
     });
   });
 });

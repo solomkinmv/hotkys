@@ -11,6 +11,8 @@ export interface Shortcuts {
 
 export interface AppShortcuts {
     bundleId?: string;
+    hostname?: string;
+    customAppId?: string;
     name: string;
     slug: string;
     source?: string;
@@ -19,6 +21,7 @@ export interface AppShortcuts {
 }
 
 export interface Keymap {
+    customKeymapId?: string;
     title: string;
     platforms?: Platform[];
     sections: Section[];
@@ -38,6 +41,8 @@ export interface SectionShortcut {
     baseSectionTitle?: string;
     baseShortcutTitle?: string;
     baseShortcutId?: string;
+    baseShortcutAliases?: string[];
+    customShortcutId?: string;
 }
 
 export interface AtomicShortcut {

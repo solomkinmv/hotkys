@@ -16,6 +16,7 @@ export interface Application {
 }
 
 export interface Keymap {
+  customKeymapId?: string;
   title: string;
   platforms?: string[];
   sections: Section[];
@@ -35,6 +36,8 @@ export interface SectionShortcut {
   baseSectionTitle?: string;
   baseShortcutTitle?: string;
   baseShortcutId?: string;
+  baseShortcutAliases?: string[];
+  customShortcutId?: string;
 }
 
 export interface AtomicShortcut {

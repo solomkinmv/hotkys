@@ -1,5 +1,6 @@
-import {AppShortcuts, AtomicShortcut, SectionShortcut} from "@/lib/model/internal/internal-models";
-import {modifierMapping, Modifiers} from "@/lib/model/internal/modifiers";
+import { parseKey } from "@/lib/shortcut-core/parser";
+import {AppShortcuts, SectionShortcut} from "@/lib/model/internal/internal-models";
+import {modifierMapping} from "@/lib/model/internal/modifiers";
 import {InputApp, InputShortcut} from "@/lib/model/input/input-models";
 
 export class ShortcutsParser {
@@ -9,6 +10,7 @@ export class ShortcutsParser {
             return {
                 name: inputApp.name,
                 bundleId: inputApp.bundleId,
+                hostname: inputApp.hostname,
                 slug: inputApp.slug,
                 source: inputApp.source,
                 icon: inputApp.icon,
@@ -28,29 +30,8 @@ export class ShortcutsParser {
         });
     }
 
-    private parseSingleShortcut(inputShortcut: InputShortcut): SectionShortcut {
-        const chords = inputShortcut.key?.split(" ");
-        const atomicSequence = chords?.map((chord) => this.parseChord(chord));
-        return {
-            title: inputShortcut.title,
-            sequence: atomicSequence ?? [],
-            comment: inputShortcut.comment,
-        };
-    }
-
-    private parseChord(chord: string): AtomicShortcut {
-        const chordTokens = chord.split("+");
-        const totalNumberOfTokens = chordTokens.length;
-        const modifiers: Modifiers[] = [];
-        for (let i = 0; i < totalNumberOfTokens - 1; i++) {
-            const token = chordTokens[i];
-            const modifier = modifierMapping.get(token)!;
-            modifiers.push(modifier);
-        }
-        const baseToken = chordTokens[totalNumberOfTokens - 1];
-        return {
-            base: baseToken,
-            modifiers: modifiers
-        };
-    }
+  private parseSingleShortcut(inputShortcut: InputShortcut): SectionShortcut {
+    return { title: inputShortcut.title, comment: inputShortcut.comment,
+      sequence: parseKey(inputShortcut.key).map(({base, modifiers}) => ({base, modifiers: modifiers.map(token => modifierMapping.get(token)!)})) };
+  }
 }

@@ -76,7 +76,7 @@ export const modifierMapping: Map<string, Modifiers> = new Map([
     ["shift", Modifiers.shift],
     ["opt", Modifiers.option],
     ["alt", Modifiers.option],
-    ["cmd", isWindows || isLinux ? Modifiers.control : Modifiers.command],
+    ["cmd", Modifiers.command],
     ["win", Modifiers.win],
 ]);
 
