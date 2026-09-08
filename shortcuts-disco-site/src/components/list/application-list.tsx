@@ -1,4 +1,5 @@
 "use client";
+import { customAppHref } from "@/lib/navigation/shortcut-routes";
 
 import { useState, useMemo } from "react";
 import { AppShortcuts, Platform } from "@/lib/model/internal/internal-models";
@@ -28,9 +29,7 @@ const CUSTOM_APP_SLUG_PREFIX = "custom-";
  */
 function getAppKeymapUrl(app: AppShortcuts, userPlatform: Platform): string {
   if (isCustomApp(app)) {
-    return `/my-shortcuts?app=${encodeURIComponent(
-      app.slug.slice(CUSTOM_APP_SLUG_PREFIX.length)
-    )}`;
+    return customAppHref(app.slug.replace(/^custom-/, ""));
   }
 
   const bestKeymap = app.keymaps.find(k => k.platforms?.includes(userPlatform)) ?? app.keymaps[0];
@@ -82,7 +81,8 @@ export const ApplicationList = ({
   const { selectedIndex, itemRefs } = useKeyboardNavigation<AppShortcuts>(
     appShortcuts,
     undefined,
-    (app) => getAppKeymapUrl(app, userPlatform)
+    (app) => getAppKeymapUrl(app, userPlatform),
+    { resetKey: appShortcuts.map(app => app.slug).join("|") }
   );
 
   // Handle search input changes

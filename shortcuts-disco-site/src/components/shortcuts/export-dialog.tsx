@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -20,12 +20,16 @@ interface ExportDialogProps {
   onOpenChange: (open: boolean) => void;
 }
 
-const GITHUB_ISSUES_URL = "https://github.com/solomkinmv/hotkys/issues/new";
+const CONTRIBUTION_GUIDE_URL = "https://github.com/solomkinmv/shortcuts-disco/blob/main/CONTRIBUTING.md";
+const GITHUB_ISSUES_URL = "https://github.com/solomkinmv/shortcuts-disco/issues/new";
 
 export function ExportDialog({ app, open, onOpenChange }: ExportDialogProps) {
   const [activeTab, setActiveTab] = useState<"json" | "pr">("json");
   const [copiedJson, setCopiedJson] = useState(false);
   const [copiedPr, setCopiedPr] = useState(false);
+  const [clipboardError, setClipboardError] = useState<string | null>(null);
+  const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
+  useEffect(() => () => { timers.current.forEach(clearTimeout); }, [open, app.id]);
 
   const exportState = useMemo<
     { result: ExportResult; error: null } | { result: null; error: string }
@@ -44,14 +48,13 @@ export function ExportDialog({ app, open, onOpenChange }: ExportDialogProps) {
   }, [app]);
 
   const copyToClipboard = async (text: string, type: "json" | "pr") => {
-    await navigator.clipboard.writeText(text);
-    if (type === "json") {
-      setCopiedJson(true);
-      setTimeout(() => setCopiedJson(false), 2000);
-    } else {
-      setCopiedPr(true);
-      setTimeout(() => setCopiedPr(false), 2000);
-    }
+    setClipboardError(null);
+    try {
+      await navigator.clipboard.writeText(text);
+      const setCopied = type === "json" ? setCopiedJson : setCopiedPr;
+      setCopied(true);
+      timers.current.push(setTimeout(() => setCopied(false), 2000));
+    } catch { setClipboardError("Could not copy to the clipboard. Download the JSON or select and copy the text below."); }
   };
 
   const downloadJson = () => {
@@ -74,10 +77,11 @@ export function ExportDialog({ app, open, onOpenChange }: ExportDialogProps) {
         <DialogHeader>
           <DialogTitle>Export {app.name}</DialogTitle>
           <DialogDescription>
-            Export your custom app to contribute to the project via GitHub PR
+            Download your public app JSON, then follow the contribution guide to open a pull request.
           </DialogDescription>
         </DialogHeader>
 
+        {clipboardError ? <p role="alert" className="text-sm text-destructive">{clipboardError}</p> : null}
         {exportState.result && (
           <div className="flex gap-2 border-b pb-2">
             <Button
@@ -92,7 +96,7 @@ export function ExportDialog({ app, open, onOpenChange }: ExportDialogProps) {
               size="sm"
               onClick={() => setActiveTab("pr")}
             >
-              PR Description
+              Contribution Summary
             </Button>
           </div>
         )}
@@ -159,7 +163,7 @@ export function ExportDialog({ app, open, onOpenChange }: ExportDialogProps) {
                   ) : (
                     <>
                       <Copy className="mr-2 h-4 w-4" />
-                      Copy Description
+                      Copy Summary
                     </>
                   )}
                 </Button>
@@ -172,14 +176,15 @@ export function ExportDialog({ app, open, onOpenChange }: ExportDialogProps) {
           <Button variant="outline" onClick={() => onOpenChange(false)}>
             Close
           </Button>
+          <Button variant="ghost" asChild><a href={GITHUB_ISSUES_URL} target="_blank" rel="noopener noreferrer">Report an Issue</a></Button>
           <Button asChild>
             <a
-              href={GITHUB_ISSUES_URL}
+              href={CONTRIBUTION_GUIDE_URL}
               target="_blank"
               rel="noopener noreferrer"
             >
               <ExternalLink className="mr-2 h-4 w-4" />
-              Open GitHub Issue
+              Open Contribution Guide
             </a>
           </Button>
         </DialogFooter>

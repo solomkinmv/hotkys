@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, Plus, Save } from "lucide-react";
@@ -11,6 +11,8 @@ import { customizationsService } from "@/lib/services/customizations-service";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
+import { KeymapEditor, SectionEditor, ShortcutEditor, MoveControls } from "@/components/shortcuts/authoring-controls";
+import { ExportDialog } from "@/components/shortcuts/export-dialog";
 import { ShortcutKeyInput } from "@/components/shortcuts/shortcut-key-input";
 import {
   TypographyH1,
@@ -46,9 +48,14 @@ export function MyShortcutAppContent({ slug }: MyShortcutAppContentProps) {
     customizations,
     isLoading: customizationsLoading,
     refetch,
+    error: loadError,
   } = useCustomizations();
   const app = customizations.customApps.find((customApp) => customApp.slug === slug);
 
+  const initializedApp = useRef<string | null>(null);
+  const [exportOpen, setExportOpen] = useState(false);
+  const [appHostname, setAppHostname] = useState("");
+  const [appSource, setAppSource] = useState("");
   const [appName, setAppName] = useState("");
   const [appSlug, setAppSlug] = useState(slug);
   const [appBundleId, setAppBundleId] = useState("");
@@ -64,7 +71,10 @@ export function MyShortcutAppContent({ slug }: MyShortcutAppContentProps) {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!app) return;
+    if (!app || initializedApp.current === app.id) return;
+    initializedApp.current = app.id;
+    setAppHostname(app.hostname ?? "");
+    setAppSource(app.source ?? "");
     setAppName(app.name);
     setAppSlug(app.slug);
     setAppBundleId(app.bundleId ?? "");
@@ -99,7 +109,7 @@ export function MyShortcutAppContent({ slug }: MyShortcutAppContentProps) {
     }));
   };
 
-  if (authLoading || customizationsLoading) {
+  if (authLoading || (customizationsLoading && !app)) {
     return (
       <section className="mx-auto max-w-3xl">
         <div className="animate-pulse space-y-4">
@@ -127,6 +137,8 @@ export function MyShortcutAppContent({ slug }: MyShortcutAppContentProps) {
     );
   }
 
+  if (!app && loadError) return <p role="alert">Unable to load this draft. Use Retry Account Sync above.</p>;
+
   if (!app) {
     return (
       <section className="mx-auto max-w-md text-center">
@@ -147,8 +159,8 @@ export function MyShortcutAppContent({ slug }: MyShortcutAppContentProps) {
         name: appName,
         slug: appSlug,
         bundleId: appBundleId.trim() || null,
-        hostname: app.hostname,
-        source: app.source,
+        hostname: appHostname.trim() || null,
+        source: appSource.trim() || null,
         icon: appIcon.trim() || null,
       }, user);
       await refetch();
@@ -174,6 +186,7 @@ export function MyShortcutAppContent({ slug }: MyShortcutAppContentProps) {
       await customizationsService.createCustomKeymap({
         customAppId: app.id,
         title: newKeymapTitle.trim(),
+        sortOrder: app.keymaps.length,
       }, user);
       setNewKeymapTitle("");
       await refetch();
@@ -234,6 +247,13 @@ export function MyShortcutAppContent({ slug }: MyShortcutAppContentProps) {
       await refetch();
     });
 
+  const move = (kind: "keymaps" | "sections" | "shortcuts", rows: { id: string }[], index: number, direction: -1 | 1) => runAction(async () => {
+    const ids = rows.map(row => row.id); const target = index + direction;
+    if (target < 0 || target >= ids.length) return;
+    [ids[index], ids[target]] = [ids[target], ids[index]];
+    await customizationsService.reorderCustomItems(kind, ids, user); await refetch();
+  });
+  const keymaps = [...app.keymaps].sort((a,b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0));
   return (
     <section className="mx-auto max-w-3xl space-y-6">
       <Button variant="ghost" size="sm" asChild>
@@ -243,6 +263,8 @@ export function MyShortcutAppContent({ slug }: MyShortcutAppContentProps) {
         </Link>
       </Button>
 
+      <ExportDialog app={app} open={exportOpen} onOpenChange={setExportOpen} />
+      <Button variant="outline" onClick={() => setExportOpen(true)}>Export Contribution</Button>
       <div className="flex items-center justify-between gap-4">
         <TypographyH1>{app.name}</TypographyH1>
         <Button onClick={handleSaveApp} disabled={isSaving || !appName || !appSlug}>
@@ -296,6 +318,8 @@ export function MyShortcutAppContent({ slug }: MyShortcutAppContentProps) {
             placeholder="/custom-icons/my-app.png or https://..."
           />
         </Field>
+        <Field><FieldLabel htmlFor="custom-app-hostname">Hostname</FieldLabel><Input id="custom-app-hostname" value={appHostname} placeholder="example.com" maxLength={253} onChange={event => setAppHostname(event.target.value)} /></Field>
+        <Field><FieldLabel htmlFor="custom-app-source">Source URL</FieldLabel><Input id="custom-app-source" value={appSource} placeholder="https://example.com/shortcuts" maxLength={2048} onChange={event => setAppSource(event.target.value)} /></Field>
       </FieldGroup>
 
       <div className="rounded-lg border p-4">
@@ -319,9 +343,11 @@ export function MyShortcutAppContent({ slug }: MyShortcutAppContentProps) {
           Add a keymap to start organizing this app&apos;s shortcuts.
         </TypographyMuted>
       ) : (
-        app.keymaps.map((keymap) => (
+        keymaps.map((keymap, keymapIndex) => (
           <div key={keymap.id} className="space-y-4 rounded-lg border p-4">
             <TypographyH3>{keymap.title}</TypographyH3>
+            <MoveControls index={keymapIndex} count={keymaps.length} label={keymap.title} disabled={isSaving} onMove={direction => void move("keymaps", keymaps, keymapIndex, direction)} />
+            <KeymapEditor keymap={keymap} disabled={isSaving} onSave={updates => void runAction(async () => { await customizationsService.updateCustomKeymap(keymap.id, updates, user); await refetch(); })} onDelete={() => void runAction(async () => { await customizationsService.deleteCustomKeymap(keymap.id, user); await refetch(); })} />
 
             <div className="flex gap-2">
               <Input
@@ -346,7 +372,7 @@ export function MyShortcutAppContent({ slug }: MyShortcutAppContentProps) {
               </Button>
             </div>
 
-            {keymap.sections.map((section) => {
+            {[...keymap.sections].sort((a,b) => a.sortOrder - b.sortOrder).map((section, sectionIndex, sections) => {
               const draft = shortcutDrafts[section.id] ?? emptyShortcutDraft;
               return (
                 <div key={section.id} className="space-y-3 rounded-md border p-3">
@@ -357,20 +383,13 @@ export function MyShortcutAppContent({ slug }: MyShortcutAppContentProps) {
                     </TypographyMuted>
                   </div>
 
+                  <SectionEditor section={section} disabled={isSaving} onSave={title => void runAction(async () => { await customizationsService.updateCustomSection(section.id, { title, sortOrder: section.sortOrder }, user); await refetch(); })} onDelete={() => void runAction(async () => { await customizationsService.deleteCustomSection(section.id, user); await refetch(); })} />
+                  <MoveControls index={sectionIndex} count={sections.length} label={section.title} disabled={isSaving} onMove={direction => void move("sections", sections, sectionIndex, direction)} />
                   {section.shortcuts.length > 0 && (
                     <div className="space-y-2">
-                      {section.shortcuts.map((shortcut) => (
-                        <div
-                          key={shortcut.id}
-                          className="flex items-center justify-between rounded-md bg-muted px-3 py-2 text-sm"
-                        >
-                          <span>{shortcut.title}</span>
-                          {shortcut.key && (
-                            <span className="text-muted-foreground">
-                              {shortcut.key}
-                            </span>
-                          )}
-                        </div>
+                      {[...section.shortcuts].sort((a,b) => a.sortOrder - b.sortOrder).map((shortcut, index, shortcuts) => (
+                        <div key={shortcut.id}><ShortcutEditor shortcut={shortcut} disabled={isSaving} onSave={updates => void runAction(async () => { await customizationsService.updateCustomShortcut(shortcut.id, updates, user); await refetch(); })} onDelete={() => void runAction(async () => { await customizationsService.deleteCustomShortcut(shortcut.id, user); await refetch(); })} />
+                        <MoveControls index={index} count={shortcuts.length} label={shortcut.title} disabled={isSaving} onMove={direction => void move("shortcuts", shortcuts, index, direction)} /></div>
                       ))}
                     </div>
                   )}

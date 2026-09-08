@@ -25,9 +25,7 @@ export const exportService = {
     };
   },
 
-  exportMultipleApps(customApps: CustomApp[]): ExportResult[] {
-    return customApps.map((app) => this.exportCustomApp(app));
-  },
+
 };
 
 function generatePrDescription(app: InputApp): string {

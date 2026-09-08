@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element -- Static export uses small catalog or user-provided icons without an image optimization server. */
 "use client";
 
 import { useState } from "react";

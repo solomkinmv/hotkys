@@ -48,6 +48,7 @@ jest.mock("@/lib/services/customizations-service", () => ({
   },
 }));
 
+const { AccountDataProvider } = require("@/components/auth/account-data-provider") as typeof import("@/components/auth/account-data-provider");
 const { MyShortcutsContent } =
   require("./my-shortcuts-content") as typeof import("./my-shortcuts-content");
 
@@ -71,13 +72,13 @@ describe("My Shortcuts navigation", () => {
   });
 
   it("refreshes summary counts after adding content in the editor and returning without a page reload", async () => {
-    const { rerender } = render(<MyShortcutsContent />);
+    const { rerender } = render(<AccountDataProvider><MyShortcutsContent /></AccountDataProvider>);
     expect(
       await screen.findByText("0 keymap(s) • 0 shortcut(s)"),
     ).toBeInTheDocument();
 
     mockSearchParams = new URLSearchParams("app=local-tool");
-    rerender(<MyShortcutsContent />);
+    rerender(<AccountDataProvider><MyShortcutsContent /></AccountDataProvider>);
     fireEvent.change(await screen.findByPlaceholderText("Keymap title"), {
       target: { value: "Default" },
     });
@@ -93,7 +94,7 @@ describe("My Shortcuts navigation", () => {
     expect(await screen.findByText("Focus address")).toBeInTheDocument();
 
     mockSearchParams = new URLSearchParams();
-    rerender(<MyShortcutsContent />);
+    rerender(<AccountDataProvider><MyShortcutsContent /></AccountDataProvider>);
     expect(
       await screen.findByText("1 keymap(s) • 1 shortcut(s)"),
     ).toBeInTheDocument();
