@@ -41,6 +41,7 @@ import { cn } from "@/lib/utils";
 import { usePreferences } from "@/lib/hooks/use-preferences";
 import { useFavorites } from "@/lib/hooks/use-favorites";
 import { useCustomizations } from "@/lib/hooks/use-customizations";
+import { matchesFavorite } from "@/lib/shortcut-core/favorites";
 import { ShortcutMerger } from "@/lib/services/shortcut-merger";
 import { customizationsService } from "@/lib/services/customizations-service";
 import { Input } from "@/components/ui/input";
@@ -294,40 +295,20 @@ export const AppDetails = ({
   const fuse = useMemo(() => new Fuse(hotkeys, { keys: ["title"], includeScore: true, includeMatches: true }), [hotkeys]);
 
   const favoriteShortcutItems = user
-    ? favorites
-        .flatMap((favorite) => {
-          if (
-            favorite.itemType !== "shortcut" ||
-            favorite.appSlug !== application.slug ||
-            favorite.keymapTitle !== displayKeymap.title ||
-            !favorite.sectionTitle ||
-            !favorite.shortcutTitle
-          ) {
-            return [];
-          }
-
-          const section = searchResults.find(
-            (section) => section.title === favorite.sectionTitle,
-          );
-          const shortcut = section?.hotkeys.find(
-            (hotkey) =>
-              favorite.baseShortcutId
-                ? hotkey.baseShortcutId === favorite.baseShortcutId
-                : (hotkey.baseShortcutTitle ?? hotkey.title) ===
-                  favorite.shortcutTitle,
-          );
-
-          if (!shortcut) {
-            return [];
-          }
-
-          return [
-            {
-              sectionTitle: favorite.sectionTitle,
-              shortcut,
-            },
-          ];
-        })
+    ? searchResults.flatMap(section => section.hotkeys
+        .filter(shortcut => favorites.some(favorite => matchesFavorite(favorite, {
+          itemType: "shortcut",
+          appSlug: mergedApplication.slug,
+          customAppId: mergedApplication.customAppId,
+          keymapTitle: displayKeymap.title,
+          customKeymapId: displayKeymap.customKeymapId,
+          sectionTitle: shortcut.baseSectionTitle ?? section.title,
+          shortcutTitle: shortcut.baseShortcutTitle ?? shortcut.title,
+          baseShortcutId: shortcut.baseShortcutId,
+          baseShortcutAliases: shortcut.baseShortcutAliases,
+          customShortcutId: shortcut.customShortcutId,
+        })))
+        .map(shortcut => ({ sectionTitle: section.title, shortcut })))
     : [];
 
   const favoriteShortcutsSection: DisplaySection | null =

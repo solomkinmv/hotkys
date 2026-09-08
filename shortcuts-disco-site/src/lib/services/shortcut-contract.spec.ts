@@ -45,3 +45,15 @@ it("does not attach an ambiguous Windows command ID to a control row", () => {
   const repaired = { ...data, shortcuts: [{ ...data.shortcuts[0], baseShortcutId: rows[1].baseShortcutId }] };
   expect(new ShortcutMerger(repaired).mergeShortcuts(base, repaired)[0].keymaps[0].sections[0].hotkeys[1].customizationId).toBe("old-overlay");
 });
+
+it("keeps a versioned identity readable when a conflicting neighbor is removed", () => {
+  const control = shortcut("Copy", "ctrl+c");
+  const command = shortcut("Copy", "cmd+c");
+  const empty = { customApps: [], customKeymaps: [], favorites: [], shortcuts: [] };
+  const base = (hotkeys: typeof control[]) => [{ name: "Sample", slug: "sample", keymaps: [{ title: "Default", sections: [{ title: "General", hotkeys }] }] }];
+  const versionedId = new ShortcutMerger(empty).mergeShortcuts(base([command, control]), empty)[0].keymaps[0].sections[0].hotkeys[1].baseShortcutId!;
+  const saved = { ...empty, shortcuts: [{ baseKey: "sample:Default:General:Copy", baseShortcutId: versionedId, modification: { id: "saved", comment: "Retained" } }] };
+  const row = new ShortcutMerger(saved).mergeShortcuts(base([control]), saved)[0].keymaps[0].sections[0].hotkeys[0];
+  expect(row.customizationId).toBe("saved");
+  expect(matchesFavorite({ itemType: "shortcut", baseShortcutId: versionedId }, { itemType: "shortcut", baseShortcutId: row.baseShortcutId, baseShortcutAliases: row.baseShortcutAliases })).toBe(true);
+});

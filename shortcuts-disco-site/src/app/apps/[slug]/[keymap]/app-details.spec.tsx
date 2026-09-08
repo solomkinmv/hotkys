@@ -5,6 +5,8 @@ import type {
   Keymap,
 } from "@/lib/model/internal/internal-models";
 
+import { Modifiers } from "@/lib/model/internal/modifiers";
+
 const replaceMock = jest.fn();
 const mockUseAuth = jest.fn();
 const mockUsePreferences = jest.fn();
@@ -251,6 +253,21 @@ describe("AppDetails", () => {
     render(<AppDetails application={application} keymap={keymap} />);
 
     expect(screen.getAllByText("Copy as rich text")).toHaveLength(2);
+  });
+
+  it("pins a legacy plus-key favorite through its compatibility alias", () => {
+    const plusKeymap: Keymap = { title: "Default", sections: [{ title: "Editing", hotkeys: [{ title: "Zoom", sequence: [{ base: "+", modifiers: [Modifiers.command] }] }] }] };
+    mockUseFavorites.mockReturnValue({ favorites: [{ id: "favorite-1", itemType: "shortcut", appSlug: "sample", keymapTitle: "Default", sectionTitle: "Editing", shortcutTitle: "Zoom", baseShortcutId: JSON.stringify([[["", ["command down", null]]], "Zoom", "", 0]) }], isLoading: false });
+    render(<AppDetails application={{ ...application, keymaps: [plusKeymap] }} keymap={plusKeymap} />);
+    expect(screen.getAllByText("Zoom")).toHaveLength(2);
+  });
+
+  it("pins a renamed stable private favorite without selecting its old official namesake", () => {
+    mockUseFavorites.mockReturnValue({ favorites: [{ id: "favorite-1", itemType: "shortcut", appSlug: "sample", keymapTitle: "Old map", sectionTitle: "Old section", shortcutTitle: "Copy", customShortcutId: "private-1" }], isLoading: false });
+    mockUseCustomizations.mockReturnValue({ customizations: { customApps: [], customKeymaps: [{ id: "custom-map", baseAppSlug: "sample", title: "Default", sections: [{ id: "custom-section", keymapId: "custom-map", title: "Editing", shortcuts: [{ id: "private-1", sectionId: "custom-section", title: "Renamed private copy", key: "cmd+c", isDeleted: false, sortOrder: 0 }] }] }], shortcuts: [], favorites: [] }, isLoading: false, refetch: jest.fn() });
+    render(<AppDetails application={application} keymap={keymap} />);
+    expect(screen.getAllByText("Renamed private copy")).toHaveLength(2);
+    expect(screen.getAllByText("Copy")).toHaveLength(1);
   });
 
   it("does not render a keymap favorite control near view switching", () => {
