@@ -72,10 +72,11 @@ describe("ShortcutMerger", () => {
       },
       {
         title: "Open command palette",
-        sequence: [{ base: "k", modifiers: ["control down"] }],
+        sequence: [{ base: "k", modifiers: ["command down"] }],
         comment: "Opens commands",
         customizationStatus: "created",
         customizationId: "shortcut-1",
+          customShortcutId: "shortcut-1",
       },
     ]);
   });

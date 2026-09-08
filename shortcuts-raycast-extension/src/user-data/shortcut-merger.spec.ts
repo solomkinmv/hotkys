@@ -83,6 +83,7 @@ describe("ShortcutMerger", () => {
           comment: undefined,
           customizationStatus: "created",
           customizationId: "shortcut-1",
+          customShortcutId: "shortcut-1",
         },
       ],
     });
@@ -189,6 +190,7 @@ describe("ShortcutMerger", () => {
           {
             title: "Default",
             platforms: undefined,
+            customKeymapId: "keymap-1",
             sections: [
               {
                 title: "Editing",
@@ -204,6 +206,7 @@ describe("ShortcutMerger", () => {
                     comment: undefined,
                     customizationStatus: "created",
                     customizationId: "shortcut-1",
+                    customShortcutId: "shortcut-1",
                   },
                 ],
               },

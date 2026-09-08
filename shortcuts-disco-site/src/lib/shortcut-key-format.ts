@@ -1,3 +1,4 @@
+import { splitChord } from "@/lib/shortcut-core/parser";
 import {
   modifierMapping,
   modifierTokensOrderMapping,
@@ -64,7 +65,7 @@ export function setShortcutModifierTokens(
 }
 
 function normalizeShortcutSpacing(key: string): string {
-  let normalized = key.toLowerCase().trim().replace(/\s*\+\s*/g, "+");
+  let normalized = key.toLowerCase().trim().replace(/\b(ctrl|shift|opt|alt|cmd|win|option|command)\s*\+\s*/g, "$1+");
   for (const [pattern, replacement] of FORMAT_REPLACEMENTS) {
     normalized = normalized.replace(pattern, replacement);
   }
@@ -87,10 +88,6 @@ function getActiveChord(key: string): string {
   if (/\s$/.test(key)) return "";
   const parts = normalizeShortcutSpacing(key).split(" ");
   return parts[parts.length - 1] ?? "";
-}
-
-function splitChord(chord: string): string[] {
-  return chord.split(/(?<!\+)\+/).map((token) => token.trim());
 }
 
 function sortModifierTokens<T extends string>(modifiers: T[]): T[] {
