@@ -1,3 +1,4 @@
+import { splitChord } from "@/lib/shortcut-core/parser";
 import { InputApp, InputKeymap, InputSection, InputShortcut } from "@/lib/model/input/input-models";
 import { modifierMapping, modifierTokensOrderMapping } from "@/lib/model/internal/modifiers";
 import { Platform } from "@/lib/model/internal/internal-models";
@@ -130,7 +131,8 @@ export default class Validator {
     }
 
     private validateShortcut(inputShortcut: InputShortcut): void {
-        inputShortcut.key?.split(" ").forEach((chord) => this.validateChord(inputShortcut.key!, chord));
+        if (!inputShortcut.title.trim()) throw new ValidationError("Shortcut title must not be empty");
+        inputShortcut.key?.trim().split(/\s+/).forEach((chord) => this.validateChord(inputShortcut.key!, chord));
         if (inputShortcut.title.length > 50) {
             throw new ValidationError(`Title longer than 50 symbols: '${inputShortcut.title}'`);
         }
@@ -146,7 +148,7 @@ export default class Validator {
     }
 
     private validateChord(fullShortcutKey: string, chord: string): void {
-        const chordTokens = chord.split(/(?<!\+)\+/);
+        const chordTokens = splitChord(chord);
         const totalNumberOfTokens = chordTokens.length;
         this.validateModifiersExist(totalNumberOfTokens, chordTokens, fullShortcutKey);
         this.validateOrderOfModifiers(totalNumberOfTokens, chordTokens, fullShortcutKey);

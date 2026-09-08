@@ -1,4 +1,4 @@
-import Ajv from 'ajv';
+import { createSchemaValidator } from './catalog-validation';
 import * as fs from 'fs';
 import { describe, expect, it } from "@jest/globals";
 
@@ -6,14 +6,13 @@ describe("Test schema", () => {
     const shortcutsDir = "shortcuts-data";
 
     it("All shortcut files match schema", () => {
-        const ajv = new Ajv();
         const schema = JSON.parse(fs.readFileSync("shortcuts-data/schema/shortcut.schema.json", "utf-8"));
-        const validate = ajv.compile(schema);
+        const validate = createSchemaValidator(schema);
 
         fs.readdirSync(shortcutsDir).forEach((file) => {
             if (!file.endsWith(".json")) return;
             // Read and parse your JSON data file
-            const data = JSON.parse(fs.readFileSync("shortcuts-data/" + file, "utf-8")) as {slug: boolean};
+            const data: unknown = JSON.parse(fs.readFileSync("shortcuts-data/" + file, "utf-8"));
 
             // Validate the data against the schema
             const valid = validate(data);
@@ -46,9 +45,8 @@ describe("Test schema", () => {
         ["icon", "icons/app.png\n"],
         ["icon", "//example.com/icon.png"],
     ])("Rejects unsafe %s location", (field, value) => {
-        const ajv = new Ajv();
         const schema = JSON.parse(fs.readFileSync("shortcuts-data/schema/shortcut.schema.json", "utf-8"));
-        const validate = ajv.compile(schema);
+        const validate = createSchemaValidator(schema);
         const app = {
             $schema: "schema/shortcut.schema.json",
             name: "Test",
