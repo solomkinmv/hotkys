@@ -62,6 +62,11 @@ export function getSectionIdentities(shortcuts: IdentifiableShortcut[]): {
       if (alias !== id) result.get(id)!.push(alias);
     }
   });
+  current.forEach((id, index) => {
+    // Keep a versioned save readable if a future catalog removes the neighbor
+    // that originally made the plain ID ambiguous.
+    if (resolved[index] === id) result.get(id)!.push(`v2:${id}`);
+  });
   return { ids: resolved, aliases: result };
 }
 export function getCompatibleIds(shortcuts: IdentifiableShortcut[]): Map<string, string[]> {

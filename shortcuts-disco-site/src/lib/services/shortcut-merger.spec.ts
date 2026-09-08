@@ -67,6 +67,7 @@ describe("ShortcutMerger", () => {
         title: "Copy",
         sequence: [{ base: "c", modifiers: [] }],
         baseShortcutId: '[[["c",[]]],"Copy","",0]',
+        baseShortcutAliases: ['v2:[[["c",[]]],"Copy","",0]'],
         baseSectionTitle: "General",
         baseShortcutTitle: "Copy",
       },
