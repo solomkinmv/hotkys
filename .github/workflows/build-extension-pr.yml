@@ -7,7 +7,11 @@ on:
     branches:
       - main
     paths:
+      - 'shortcuts-disco-site/shortcuts-data/**'
+      - 'shortcuts-disco-site/public/data/key-codes.json'
       - 'shortcuts-raycast-extension/**' # Trigger only for changes in this directory
+      - 'shared/**'
+      - 'scripts/**'
       - '.github/workflows/build-extension-pr.yml'
 
 permissions:
@@ -15,7 +19,7 @@ permissions:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     # Set the default working directory for run steps
     defaults:
       run:
@@ -32,8 +36,20 @@ jobs:
           # Cache path relative to the repo root
           cache-dependency-path: shortcuts-raycast-extension/package-lock.json
 
+      - name: Verify shared shortcut contracts
+        run: node ../scripts/sync-shortcuts-core.mjs --check
+
       - name: Install dependencies
         run: npm ci
 
-      - name: Run build & tests
-        run: npm test
+      - name: Test
+        run: npm test -- --runInBand
+
+      - name: Type check
+        run: npm run test:types
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build
+        run: npm run build

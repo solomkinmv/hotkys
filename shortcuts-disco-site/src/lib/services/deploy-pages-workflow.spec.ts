@@ -18,10 +18,9 @@ describe("GitHub Pages production configuration", () => {
   );
 
   it("rejects deploys without Supabase database configuration", () => {
-    expect(deployWorkflow).toContain('test -n "${NEXT_PUBLIC_SUPABASE_URL}"');
+    expect(deployWorkflow).toContain("npm run check:config -- --mode production");
     expect(deployWorkflow).toContain("NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY");
     expect(deployWorkflow).toContain("NEXT_PUBLIC_SUPABASE_ANON_KEY");
-    expect(deployWorkflow).toContain("requires a Supabase publishable or anon key");
   });
 
   it("uses lockfile-only dependency installs in CI", () => {

@@ -1,0 +1,22 @@
+name: Shortcut correction or suggestion
+description: Suggest a catalog correction without opening a pull request.
+title: "[Shortcuts] "
+body:
+  - type: input
+    id: app
+    attributes:
+      label: App, version, and platform
+    validations:
+      required: true
+  - type: textarea
+    id: correction
+    attributes:
+      label: Shortcut and expected behavior
+      description: Describe the current and expected binding, with its official documentation when available.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Source or testing performed
+      description: Include public links or a short description. Do not include tokens or private account exports.
