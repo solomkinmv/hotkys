@@ -1,6 +1,6 @@
 import { OAuth } from "@raycast/api";
 import { CLERK_AUTHORIZATION_ENDPOINT, CLERK_OAUTH_CLIENT_ID, CLERK_OAUTH_SCOPE, CLERK_TOKEN_ENDPOINT } from "./config";
-import { resolveAccessToken } from "./session-manager";
+import { removeSessionTokens, resolveAccessToken } from "./session-manager";
 import { exchangeAuthorizationCode, refreshAccessToken, type TokenResponse } from "./token-exchange";
 
 const oauthClient = new OAuth.PKCEClient({
@@ -25,7 +25,7 @@ export async function getAccessToken(allowAuthorization: boolean): Promise<strin
 }
 
 export async function signOut(): Promise<void> {
-  await oauthClient.removeTokens();
+  await removeSessionTokens(oauthClient);
 }
 
 async function authorizeWithClerk(): Promise<TokenResponse> {
@@ -43,4 +43,8 @@ async function authorizeWithClerk(): Promise<TokenResponse> {
     codeVerifier: request.codeVerifier,
     redirectUri: request.redirectURI,
   });
+}
+
+export async function isAccessTokenCurrent(token: string): Promise<boolean> {
+  return (await oauthClient.getTokens())?.accessToken === token;
 }

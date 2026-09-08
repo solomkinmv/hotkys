@@ -1,4 +1,4 @@
-import { resolveAccessToken, type StoredTokenSet, type TokenStore } from "./session-manager";
+import { removeSessionTokens, resolveAccessToken, type StoredTokenSet, type TokenStore } from "./session-manager";
 import { refreshAccessToken, type TokenResponse } from "./token-exchange";
 
 function storedToken(overrides: Partial<StoredTokenSet> = {}): StoredTokenSet {
@@ -23,6 +23,22 @@ function tokenStore(tokens?: StoredTokenSet): TokenStore {
 }
 
 describe("OAuth session manager", () => {
+  it("does not restore credentials removed during refresh", async () => {
+    const store = tokenStore(storedToken({ isExpired: () => true }));
+    let complete!: (value: TokenResponse) => void;
+    const refreshed = new Promise<TokenResponse>((resolve) => {
+      complete = resolve;
+    });
+    const refresh = jest.fn(() => refreshed);
+    const pending = resolveAccessToken({ store, refresh, authorize: jest.fn(), allowAuthorization: false });
+    await Promise.resolve();
+    await Promise.resolve();
+    await store.removeTokens();
+    complete({ access_token: "late-access", refresh_token: "late-refresh" });
+    await expect(pending).resolves.toBeNull();
+    expect(store.setTokens).not.toHaveBeenCalled();
+  });
+
   it("reuses a valid stored access token", async () => {
     const store = tokenStore(storedToken());
     const refresh = jest.fn();
@@ -220,4 +236,64 @@ describe("OAuth session manager", () => {
     ).toEqual([null, "authorized", "authorized"]);
     expect(authorize).toHaveBeenCalledTimes(1);
   });
+});
+
+it("serializes logout after an already started credential write", async () => {
+  let tokens: StoredTokenSet | undefined = storedToken({ isExpired: () => true });
+  let finishWrite!: () => void;
+  let writeStarted!: () => void;
+  const started = new Promise<void>((resolve) => {
+    writeStarted = resolve;
+  });
+  const writing = new Promise<void>((resolve) => {
+    finishWrite = resolve;
+  });
+  const store: TokenStore = {
+    getTokens: async () => tokens,
+    setTokens: async (replacement) => {
+      writeStarted();
+      await writing;
+      tokens = storedToken({ accessToken: replacement.access_token });
+    },
+    removeTokens: async () => {
+      tokens = undefined;
+    },
+  };
+  const pending = resolveAccessToken({
+    store,
+    refresh: async () => ({ access_token: "late" }),
+    authorize: jest.fn(),
+    allowAuthorization: false,
+  });
+  await started;
+  const logout = removeSessionTokens(store);
+  finishWrite();
+  await expect(pending).resolves.toBeNull();
+  await logout;
+  expect(await store.getTokens()).toBeUndefined();
+});
+it("does not persist authorization after logout", async () => {
+  const store = tokenStore();
+  let finish!: (value: TokenResponse) => void;
+  let began!: () => void;
+  const started = new Promise<void>((resolve) => {
+    began = resolve;
+  });
+  const result = new Promise<TokenResponse>((resolve) => {
+    finish = resolve;
+  });
+  const pending = resolveAccessToken({
+    store,
+    refresh: jest.fn(),
+    authorize: () => {
+      began();
+      return result;
+    },
+    allowAuthorization: true,
+  });
+  await started;
+  await removeSessionTokens(store);
+  finish({ access_token: "late" });
+  await expect(pending).resolves.toBeNull();
+  expect(store.setTokens).not.toHaveBeenCalled();
 });

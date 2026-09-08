@@ -1,3 +1,4 @@
+import { catalogUrl } from "../config/catalog";
 import { useFetch } from "@raycast/utils";
 import { AppsResponse, AppMetadata } from "../model/input/input-models";
 import { getPlatform } from "./platform";
@@ -21,7 +22,7 @@ export function useApps(allowAuthorization = false): UseAppsResult {
   const platform = getPlatform();
   const userData = useUserData(allowAuthorization);
 
-  const { isLoading, data } = useFetch<AppsResponse>(`https://hotkys.com/data/${platform}/apps.json`, {
+  const { isLoading, data } = useFetch<AppsResponse>(catalogUrl(`data/${platform}/apps.json`), {
     keepPreviousData: true,
     failureToastOptions: {
       title: "Failed to load applications",

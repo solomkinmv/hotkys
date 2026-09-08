@@ -55,6 +55,7 @@ export default function AppShortcuts(props?: AppShortcutsProps) {
   return (
     <ShortcutsList
       application={application}
+      executionTarget={application?.bundleId ? { kind: "desktop", bundleId: application.bundleId } : undefined}
       favorites={favorites}
       initialKeymapTitle={props?.initialKeymapTitle}
       initialSearchText={props?.initialSearchText}

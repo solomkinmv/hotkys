@@ -113,6 +113,8 @@ describe("user-data mappers", () => {
       key: "cmd+o",
       comment: undefined,
       isDeleted: false,
+      keyIsCleared: false,
+      commentIsCleared: false,
       sortOrder: 0,
     });
     expect(result.customKeymaps[0]).toMatchObject({
@@ -130,6 +132,8 @@ describe("user-data mappers", () => {
           key: "cmd+t",
           comment: "Customized",
           isDeleted: false,
+          keyIsCleared: false,
+          commentIsCleared: false,
         },
       },
     ]);

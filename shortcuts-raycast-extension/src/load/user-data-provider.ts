@@ -1,42 +1,50 @@
 import { showToast, Toast } from "@raycast/api";
-import { usePromise } from "@raycast/utils";
-import { useCallback } from "react";
-import { getAccessToken } from "../auth/session";
+import { useEffect, useSyncExternalStore } from "react";
+import { getAccessToken, isAccessTokenCurrent, signOut } from "../auth/session";
 import type { FavoriteIdentifier } from "../user-data/favorites";
-import type { UserDataState } from "../user-data/service";
 import { userDataService } from "../user-data/service";
-
-async function loadUserData(allowAuthorization: boolean): Promise<UserDataState | null> {
-  const accessToken = await getAccessToken(allowAuthorization);
-  return accessToken ? userDataService.load(accessToken) : null;
-}
-
+import { createUserDataStore } from "./user-data-store";
+const store = createUserDataStore({
+  getToken: getAccessToken,
+  isCurrent: isAccessTokenCurrent,
+  load: userDataService.load,
+});
 export function useUserData(allowAuthorization = false) {
-  const state = usePromise(loadUserData, [allowAuthorization], {
-    failureToastOptions: {
-      title: "Failed to sync Hotkys account",
-    },
-  });
-
-  const toggleFavorite = useCallback(
-    async (identifier: FavoriteIdentifier) => {
-      const accessToken = await getAccessToken(true);
-      if (!accessToken) {
-        throw new Error("Hotkys sign in did not return an access token.");
-      }
-
-      const added = await userDataService.toggleFavorite(accessToken, identifier);
-      await state.revalidate();
-      await showToast({
-        style: Toast.Style.Success,
-        title: added ? "Added to favorites" : "Removed from favorites",
-      });
-    },
-    [state]
-  );
-
+  const state = useSyncExternalStore(store.subscribe, store.getSnapshot, store.getSnapshot);
+  useEffect(() => {
+    if (!store.getSnapshot().initialized || allowAuthorization) void store.revalidate(allowAuthorization);
+  }, [allowAuthorization]);
   return {
     ...state,
-    toggleFavorite,
+    revalidate: () => store.revalidate(false),
+    connect: async () => {
+      store.reset();
+      await store.revalidate(true);
+    },
+    disconnect: async () => {
+      store.reset();
+      await signOut();
+      store.reset();
+    },
+    toggleFavorite: async (identifier: FavoriteIdentifier) => {
+      const token = await getAccessToken(true);
+      if (!token) throw new Error("Sign in was cancelled");
+      try {
+        const added = await userDataService.toggleFavorite(token, identifier);
+        if (!(await isAccessTokenCurrent(token))) {
+          store.reset();
+          return;
+        }
+        store.reset();
+        await store.revalidate();
+        await showToast({ style: Toast.Style.Success, title: added ? "Added to favorites" : "Removed from favorites" });
+      } catch (error) {
+        await showToast({
+          style: Toast.Style.Failure,
+          title: "Favorite could not be updated",
+          message: error instanceof Error ? error.message : "Please retry",
+        });
+      }
+    },
   };
 }

@@ -1,3 +1,5 @@
+import { catalogUrl } from "../config/catalog";
+import { AccountActions } from "./account-actions";
 import { Action, ActionPanel, Icon, Image, List } from "@raycast/api";
 import { getAvatarIcon, useFrecencySorting } from "@raycast/utils";
 import AppShortcuts from "../app-shortcuts";
@@ -6,8 +8,6 @@ import type { FavoriteIdentifier } from "../user-data/favorites";
 import type { Favorite, UserCustomizations } from "../user-data/models";
 import { type AppsFilter, selectAppsByFilter } from "../user-data/view-models";
 import { FavoriteAction } from "./favorite-action";
-
-const BASE_URL = "https://hotkys.com";
 
 interface AppsListProps {
   apps: AppMetadata[];
@@ -50,7 +50,15 @@ export function AppsList({
       }
     >
       {sortedApps.length === 0 && !isLoading ? (
-        <List.EmptyView title={emptyTitleFor(filter)} icon={Icon.AppWindow} />
+        <List.EmptyView
+          title={emptyTitleFor(filter)}
+          icon={Icon.AppWindow}
+          actions={
+            <ActionPanel>
+              <AccountActions />
+            </ActionPanel>
+          }
+        />
       ) : null}
       {sortedApps.map((app) => {
         const identifier: FavoriteIdentifier = {
@@ -72,6 +80,7 @@ export function AppsList({
                   onPush={() => visitItem(app)}
                 />
                 <FavoriteAction identifier={identifier} favorites={favorites} onToggle={onToggleFavorite} />
+                <AccountActions />
               </ActionPanel>
             }
           />
@@ -98,5 +107,5 @@ function getAppIcon(app: AppMetadata): Image.ImageLike {
   if (app.icon.startsWith("http://") || app.icon.startsWith("https://")) {
     return app.icon;
   }
-  return `${BASE_URL}/${app.icon.startsWith("/") ? app.icon.slice(1) : app.icon}`;
+  return catalogUrl(app.icon);
 }

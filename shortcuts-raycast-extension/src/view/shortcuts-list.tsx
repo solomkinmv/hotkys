@@ -1,6 +1,20 @@
-import { Action, ActionPanel, closeMainWindow, getPreferenceValues, Icon, List, PopToRootType } from "@raycast/api";
+import { AccountActions } from "./account-actions";
+import {
+  showToast,
+  Toast,
+  Action,
+  ActionPanel,
+  closeMainWindow,
+  getPreferenceValues,
+  Icon,
+  List,
+  PopToRootType,
+} from "@raycast/api";
 import { useState } from "react";
-import { runShortcuts } from "../engine/shortcut-runner";
+import { parseDelay, type ExecutionTarget } from "../engine/execution-target";
+import { supportsPlatform } from "../shortcut-core/platforms";
+import { getPlatform } from "../load/platform";
+import { runShortcuts, validateSequence } from "../engine/shortcut-runner";
 import useKeyCodes from "../load/key-codes-provider";
 import type { Application, Keymap, SectionShortcut } from "../model/internal/internal-models";
 import { toShortcutFavoriteIdentifier, type FavoriteIdentifier } from "../user-data/favorites";
@@ -10,6 +24,7 @@ import { generateHotkeyAccessories } from "./hotkey-text-formatter";
 import { KeymapDropdown } from "./keymap-dropdown";
 
 interface ShortcutsListProps {
+  executionTarget?: ExecutionTarget;
   application: Application | undefined;
   favorites?: Favorite[];
   initialKeymapTitle?: string;
@@ -24,6 +39,7 @@ interface Preferences {
 
 export function ShortcutsList({
   application,
+  executionTarget,
   favorites = [],
   initialKeymapTitle,
   initialSearchText,
@@ -31,16 +47,34 @@ export function ShortcutsList({
   onToggleFavorite,
 }: ShortcutsListProps) {
   const keyCodesResponse = useKeyCodes();
-  const keymaps = application?.keymaps ?? [];
+  const keymaps = (application?.keymaps ?? []).filter((keymap) => supportsPlatform(keymap.platforms, getPlatform()));
   const [selectedKeymapTitle, setSelectedKeymapTitle] = useState(initialKeymapTitle);
   const [searchText, setSearchText] = useState(initialSearchText ?? "");
   const selectedKeymap = selectKeymap(keymaps, selectedKeymapTitle) ?? keymaps[0];
 
-  const handleShortcutExecution = async (currentApplication: Application, shortcut: SectionShortcut) => {
-    if (keyCodesResponse.data === undefined) return;
-    const delay = parseFloat(getPreferenceValues<Preferences>().delay);
-    await closeMainWindow({ popToRootType: PopToRootType.Immediate });
-    await runShortcuts(currentApplication.bundleId, delay, shortcut.sequence, keyCodesResponse.data);
+  const canExecute = (shortcut: SectionShortcut) => {
+    if (!executionTarget || !keyCodesResponse.data) return false;
+    try {
+      validateSequence(shortcut.sequence, keyCodesResponse.data);
+      return true;
+    } catch {
+      return false;
+    }
+  };
+  const handleShortcutExecution = async (shortcut: SectionShortcut) => {
+    if (!executionTarget || !keyCodesResponse.data) return;
+    try {
+      const delay = parseDelay(getPreferenceValues<Preferences>().delay);
+      validateSequence(shortcut.sequence, keyCodesResponse.data);
+      await closeMainWindow({ popToRootType: PopToRootType.Immediate });
+      await runShortcuts(executionTarget, delay, shortcut.sequence, keyCodesResponse.data);
+    } catch (error) {
+      await showToast({
+        style: Toast.Style.Failure,
+        title: "Shortcut was not completed",
+        message: error instanceof Error ? error.message : "Please retry manually",
+      });
+    }
   };
 
   return (
@@ -83,8 +117,8 @@ export function ShortcutsList({
                     keywords={[section.title]}
                     actions={
                       <ActionPanel>
-                        {shortcut.sequence.length > 0 ? (
-                          <Action title="Apply" onAction={() => handleShortcutExecution(application, shortcut)} />
+                        {canExecute(shortcut) ? (
+                          <Action title="Apply" onAction={() => handleShortcutExecution(shortcut)} />
                         ) : null}
                         {onToggleFavorite ? (
                           <FavoriteAction
@@ -93,6 +127,7 @@ export function ShortcutsList({
                             onToggle={onToggleFavorite}
                           />
                         ) : null}
+                        <AccountActions />
                       </ActionPanel>
                     }
                   />
