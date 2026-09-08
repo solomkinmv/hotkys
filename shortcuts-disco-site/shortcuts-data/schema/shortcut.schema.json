@@ -8,7 +8,10 @@
     "$schema": {
       "description": "Schema reference",
       "type": "string",
-      "const": "schema/shortcut.schema.json"
+      "enum": [
+        "schema/shortcut.schema.json",
+        "https://hotkys.com/schema/shortcut.schema.json"
+      ]
     },
     "bundleId": {
       "description": "Bundle id is a unique identifier for the macOS application. Example: 'com.microsoft.VSCode'",
@@ -67,7 +70,12 @@
       "maxItems": 100
     }
   },
-  "required": ["$schema", "name", "slug", "keymaps"],
+  "required": [
+    "$schema",
+    "name",
+    "slug",
+    "keymaps"
+  ],
   "additionalProperties": false,
   "$defs": {
     "keymap": {
@@ -85,7 +93,11 @@
           "type": "array",
           "items": {
             "type": "string",
-            "enum": ["windows", "linux", "macos"]
+            "enum": [
+              "windows",
+              "linux",
+              "macos"
+            ]
           },
           "minItems": 1,
           "uniqueItems": true
@@ -100,7 +112,10 @@
           "maxItems": 500
         }
       },
-      "required": ["title", "sections"],
+      "required": [
+        "title",
+        "sections"
+      ],
       "additionalProperties": false
     },
     "section": {
@@ -123,7 +138,10 @@
           "maxItems": 2000
         }
       },
-      "required": ["title", "shortcuts"],
+      "required": [
+        "title",
+        "shortcuts"
+      ],
       "additionalProperties": false
     },
     "section-shortcut": {
@@ -148,7 +166,9 @@
           "maxLength": 50
         }
       },
-      "required": ["title"],
+      "required": [
+        "title"
+      ],
       "anyOf": [
         {
           "required": [

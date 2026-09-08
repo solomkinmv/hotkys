@@ -23,7 +23,7 @@ export function loadApp(fileName: string): InputApp | null {
  */
 export function loadAllApps(): AllApps {
     const fileNames = fs.readdirSync(dataFolder);
-    const jsonFileNames = fileNames.filter(fileName => fileName.endsWith('.json'));
+    const jsonFileNames = fileNames.filter(fileName => fileName.endsWith('.json')).sort();
 
     // Type cast: we know for a fact that these apps will exist
     const allApps: InputApp[] = jsonFileNames.flatMap(fileName => loadApp(fileName) as InputApp);
