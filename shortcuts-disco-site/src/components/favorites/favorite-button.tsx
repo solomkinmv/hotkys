@@ -10,10 +10,13 @@ import { cn } from "@/lib/utils";
 interface FavoriteButtonProps {
   itemType: "app" | "shortcut";
   appSlug: string;
+  customAppId?: string;
+  customShortcutId?: string;
   keymapTitle?: string;
   sectionTitle?: string;
   shortcutTitle?: string;
   baseShortcutId?: string;
+  baseShortcutAliases?: string[];
   className?: string;
   size?: "default" | "sm" | "icon";
 }
@@ -21,10 +24,13 @@ interface FavoriteButtonProps {
 export function FavoriteButton({
   itemType,
   appSlug,
+  customAppId,
+  customShortcutId,
   keymapTitle,
   sectionTitle,
   shortcutTitle,
   baseShortcutId,
+  baseShortcutAliases,
   className,
   size = "icon",
 }: FavoriteButtonProps) {
@@ -37,10 +43,13 @@ export function FavoriteButton({
   const favorited = isFavorite({
     itemType,
     appSlug,
+  customAppId,
+  customShortcutId,
     keymapTitle,
     sectionTitle,
     shortcutTitle,
     baseShortcutId,
+  baseShortcutAliases,
   });
 
   const handleToggle = async (e: React.MouseEvent) => {
@@ -51,11 +60,16 @@ export function FavoriteButton({
       await toggleFavorite({
         itemType,
         appSlug,
+  customAppId,
+  customShortcutId,
         keymapTitle,
         sectionTitle,
         shortcutTitle,
         baseShortcutId,
+  baseShortcutAliases,
       });
+    } catch {
+      // The shared account provider displays the retryable error.
     } finally {
       setIsLoading(false);
     }

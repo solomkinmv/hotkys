@@ -51,7 +51,7 @@ export class CustomizationsService {
   async getAllCustomizations(
     authUser?: AuthUser | null
   ): Promise<UserCustomizations> {
-    const supabase = createClientOrNull();
+    const supabase = createClientOrNull(authUser);
     if (!supabase) {
       return { customApps: [], customKeymaps: [], shortcuts: [], favorites: [] };
     }
@@ -116,7 +116,7 @@ export class CustomizationsService {
     authUser?: AuthUser | null
   ): Promise<CustomApp> {
     validateCustomAppMetadata(app);
-    const supabase = createClientOrNull();
+    const supabase = createClientOrNull(authUser);
     if (!supabase) throw new Error("Supabase sign in is not configured.");
 
     const profile = await requireCurrentProfile(authUser);
@@ -156,7 +156,7 @@ export class CustomizationsService {
     authUser?: AuthUser | null
   ): Promise<void> {
     validateCustomAppMetadata(updates);
-    const supabase = createClientOrNull();
+    const supabase = createClientOrNull(authUser);
     if (!supabase) throw new Error("Supabase sign in is not configured.");
 
     const profile = await requireCurrentProfile(authUser);
@@ -179,7 +179,7 @@ export class CustomizationsService {
   }
 
   async deleteCustomApp(id: string, authUser?: AuthUser | null): Promise<void> {
-    const supabase = createClientOrNull();
+    const supabase = createClientOrNull(authUser);
     if (!supabase) throw new Error("Supabase sign in is not configured.");
 
     const profile = await requireCurrentProfile(authUser);
@@ -198,7 +198,7 @@ export class CustomizationsService {
     authUser?: AuthUser | null
   ): Promise<CustomKeymap> {
     validateCustomKeymapMetadata(keymap);
-    const supabase = createClientOrNull();
+    const supabase = createClientOrNull(authUser);
     if (!supabase) throw new Error("Supabase sign in is not configured.");
 
     const profile = await requireCurrentProfile(authUser);
@@ -211,6 +211,7 @@ export class CustomizationsService {
         base_app_slug: keymap.baseAppSlug ?? null,
         title: keymap.title,
         platforms: keymap.platforms ?? null,
+        sort_order: keymap.sortOrder ?? 0,
       })
       .select()
       .single();
@@ -232,7 +233,7 @@ export class CustomizationsService {
     authUser?: AuthUser | null
   ): Promise<CustomSection> {
     validateCustomSectionMetadata(section);
-    const supabase = createClientOrNull();
+    const supabase = createClientOrNull(authUser);
     if (!supabase) throw new Error("Supabase sign in is not configured.");
 
     await requireCurrentProfile(authUser);
@@ -259,39 +260,53 @@ export class CustomizationsService {
   }
 
   async upsertShortcutOverlay(
-    shortcut: Omit<CustomShortcut, "id">,
+    shortcut: Omit<CustomShortcut, "id"> & { id?: string },
     authUser?: AuthUser | null
   ): Promise<void> {
-    const normalizedShortcut = normalizeCustomShortcutDraft(shortcut);
-    validateCustomShortcutDraft(normalizedShortcut);
+    const normalized = normalizeCustomShortcutDraft(shortcut);
     validateShortcutStorageMetadata(shortcut);
-
-    const supabase = createClientOrNull();
+    if (normalized.key || normalized.comment) validateCustomShortcutDraft(normalized);
+    if ((normalized.keyIsCleared && normalized.key) || (normalized.commentIsCleared && normalized.comment)) throw new Error("A cleared field cannot also contain a replacement.");
+    if ((normalized.keyIsCleared || normalized.commentIsCleared) && process.env.NEXT_PUBLIC_ENABLE_OVERLAY_CLEARING !== "true") throw new Error("Clearing fields is not enabled yet.");
+    const supabase = createClientOrNull(authUser);
     if (!supabase) throw new Error("Supabase sign in is not configured.");
-
     const profile = await requireCurrentProfile(authUser);
-
-    const { error } = await supabase.from("custom_shortcuts").upsert(
-      {
-        user_id: profile.id,
-        section_id: shortcut.sectionId ?? null,
-        base_app_slug: shortcut.baseAppSlug ?? null,
-        base_keymap_title: shortcut.baseKeymapTitle ?? null,
-        base_section_title: shortcut.baseSectionTitle ?? null,
-        base_shortcut_title: shortcut.baseShortcutTitle ?? null,
-        base_shortcut_id: shortcut.baseShortcutId ?? null,
-        title: normalizedShortcut.title,
-        key: normalizedShortcut.key ?? null,
-        comment: normalizedShortcut.comment ?? null,
-        is_deleted: normalizedShortcut.isDeleted,
-        sort_order: normalizedShortcut.sortOrder,
-      },
-      {
-        onConflict: "user_id,base_app_slug,base_keymap_title,base_section_title,base_shortcut_id",
-      }
-    );
-
-    if (error) throw error;
+    const values = {
+      user_id: profile.id, section_id: null,
+      base_app_slug: shortcut.baseAppSlug ?? null,
+      base_keymap_title: shortcut.baseKeymapTitle ?? null,
+      base_section_title: shortcut.baseSectionTitle ?? null,
+      base_shortcut_title: shortcut.baseShortcutTitle ?? null,
+      base_shortcut_id: shortcut.baseShortcutId ?? null,
+      title: normalized.title, key: normalized.key ?? null, comment: normalized.comment ?? null,
+      key_is_cleared: normalized.keyIsCleared ?? false, comment_is_cleared: normalized.commentIsCleared ?? false,
+      is_deleted: normalized.isDeleted, sort_order: normalized.sortOrder,
+    };
+    const find = async () => {
+      let query = supabase.from("custom_shortcuts").select("id")
+        .eq("user_id", profile.id).eq("base_app_slug", shortcut.baseAppSlug!)
+        .eq("base_keymap_title", shortcut.baseKeymapTitle!).eq("base_section_title", shortcut.baseSectionTitle!);
+      query = shortcut.id ? query.eq("id", shortcut.id) : shortcut.baseShortcutId
+        ? query.eq("base_shortcut_id", shortcut.baseShortcutId)
+        : query.is("base_shortcut_id", null).eq("base_shortcut_title", shortcut.baseShortcutTitle!);
+      const result = await query.maybeSingle();
+      if (result.error) throw result.error;
+      return result.data?.id as string | undefined;
+    };
+    const update = async (id: string) => {
+      const { error } = await supabase.from("custom_shortcuts").update(values).eq("id", id).eq("user_id", profile.id);
+      if (error) throw error;
+    };
+    const existing = await find();
+    if (existing) return update(existing);
+    if (shortcut.id) throw new Error("The edited shortcut no longer exists. Reload and try again.");
+    const { error } = await supabase.from("custom_shortcuts").insert(values);
+    if (!error) return;
+    if (error.code === "23505" || error.code === "23514") {
+      const raced = await find();
+      if (raced) return update(raced);
+    }
+    throw error;
   }
 
   async createCustomShortcut(
@@ -302,7 +317,7 @@ export class CustomizationsService {
     validateCustomShortcutDraft(normalizedShortcut);
     validateShortcutStorageMetadata(shortcut);
 
-    const supabase = createClientOrNull();
+    const supabase = createClientOrNull(authUser);
     if (!supabase) throw new Error("Supabase sign in is not configured.");
 
     const profile = await requireCurrentProfile(authUser);
@@ -359,17 +374,19 @@ export class CustomizationsService {
       sortOrder: 0,
     });
 
-    const supabase = createClientOrNull();
+    const supabase = createClientOrNull(authUser);
     if (!supabase) throw new Error("Supabase sign in is not configured.");
 
     const profile = await requireCurrentProfile(authUser);
 
     const keymap = await this.findOrCreateBaseKeymap({
+      authUser,
       userId: profile.id,
       baseAppSlug: shortcut.baseAppSlug,
       title: shortcut.keymapTitle,
     });
     const section = await this.findOrCreateCustomSection({
+      authUser,
       keymapId: keymap.id,
       title: shortcut.sectionTitle,
     });
@@ -395,7 +412,7 @@ export class CustomizationsService {
     const normalizedShortcut = normalizeCustomShortcutDraft(shortcut);
     validateCustomShortcutDraft(normalizedShortcut);
 
-    const supabase = createClientOrNull();
+    const supabase = createClientOrNull(authUser);
     if (!supabase) throw new Error("Supabase sign in is not configured.");
 
     const profile = await requireCurrentProfile(authUser);
@@ -418,7 +435,7 @@ export class CustomizationsService {
     id: string,
     authUser?: AuthUser | null
   ): Promise<void> {
-    const supabase = createClientOrNull();
+    const supabase = createClientOrNull(authUser);
     if (!supabase) throw new Error("Supabase sign in is not configured.");
 
     const profile = await requireCurrentProfile(authUser);
@@ -432,16 +449,60 @@ export class CustomizationsService {
     if (error) throw error;
   }
 
+  async updateCustomKeymap(id: string, updates: Pick<CustomKeymap, "title" | "platforms">, authUser?: AuthUser | null): Promise<void> {
+    const supabase = createClientOrNull(authUser);
+    if (!supabase) throw new Error("Supabase sign in is not configured.");
+    const profile = await requireCurrentProfile(authUser);
+    validateCustomKeymapMetadata(updates);
+    const { error } = await supabase.from("custom_keymaps").update({ title: updates.title, platforms: updates.platforms ?? null }).eq("id", id).eq("user_id", profile.id);
+    if (error) throw error;
+  }
+
+  async deleteCustomKeymap(id: string, authUser?: AuthUser | null): Promise<void> {
+    const supabase = createClientOrNull(authUser);
+    if (!supabase) throw new Error("Supabase sign in is not configured.");
+    const profile = await requireCurrentProfile(authUser);
+    const { error } = await supabase.from("custom_keymaps").delete().eq("id", id).eq("user_id", profile.id);
+    if (error) throw error;
+  }
+
+  async updateCustomSection(id: string, updates: Pick<CustomSection, "title" | "sortOrder">, authUser?: AuthUser | null): Promise<void> {
+    validateCustomSectionMetadata(updates);
+    const supabase = createClientOrNull(authUser);
+    if (!supabase) throw new Error("Supabase sign in is not configured.");
+    await requireCurrentProfile(authUser);
+    const { error } = await supabase.from("custom_sections").update({ title: updates.title, sort_order: updates.sortOrder }).eq("id", id);
+    if (error) throw error;
+  }
+
+  async deleteCustomSection(id: string, authUser?: AuthUser | null): Promise<void> {
+    const supabase = createClientOrNull(authUser);
+    if (!supabase) throw new Error("Supabase sign in is not configured.");
+    await requireCurrentProfile(authUser);
+    const { error } = await supabase.from("custom_sections").delete().eq("id", id);
+    if (error) throw error;
+  }
+
+  async reorderCustomItems(kind: "keymaps" | "sections" | "shortcuts", ids: string[], authUser?: AuthUser | null): Promise<void> {
+    const supabase = createClientOrNull(authUser);
+    if (!supabase) throw new Error("Supabase sign in is not configured.");
+    await requireCurrentProfile(authUser);
+    const { error } = await supabase.rpc("reorder_custom_items", { kind, ids });
+    if (error) throw error;
+  }
+
   private async findOrCreateBaseKeymap({
+    authUser,
     userId,
     baseAppSlug,
     title,
   }: {
+    authUser?: AuthUser | null;
     userId: string;
     baseAppSlug: string;
     title: string;
   }): Promise<CustomKeymap> {
-    const supabase = createClientOrNull();
+    const supabase = createClientOrNull(authUser);
     if (!supabase) throw new Error("Supabase sign in is not configured.");
 
     const existing = await supabase
@@ -491,13 +552,15 @@ export class CustomizationsService {
   }
 
   private async findOrCreateCustomSection({
+    authUser,
     keymapId,
     title,
   }: {
+    authUser?: AuthUser | null;
     keymapId: string;
     title: string;
   }): Promise<CustomSection> {
-    const supabase = createClientOrNull();
+    const supabase = createClientOrNull(authUser);
     if (!supabase) throw new Error("Supabase sign in is not configured.");
 
     const existing = await supabase
@@ -565,6 +628,7 @@ export class CustomizationsService {
       baseAppSlug: (row.base_app_slug as string | null) ?? undefined,
       title: row.title as string,
       platforms: (row.platforms as CustomKeymap["platforms"] | null) ?? undefined,
+      sortOrder: typeof row.sort_order === "number" ? row.sort_order : 0,
       sections: this.mapCustomSections(
         (row.custom_sections as Record<string, unknown>[]) ?? []
       ),
@@ -596,6 +660,8 @@ export class CustomizationsService {
       key: (row.key as string | null) ?? undefined,
       comment: (row.comment as string | null) ?? undefined,
       isDeleted: row.is_deleted as boolean,
+      keyIsCleared: row.key_is_cleared === true,
+      commentIsCleared: row.comment_is_cleared === true,
       sortOrder: row.sort_order as number,
     }));
   }
@@ -610,6 +676,8 @@ export class CustomizationsService {
         key: row.key as string | undefined,
         comment: row.comment as string | undefined,
         isDeleted: row.is_deleted as boolean,
+      keyIsCleared: row.key_is_cleared === true,
+      commentIsCleared: row.comment_is_cleared === true,
       },
     }));
   }

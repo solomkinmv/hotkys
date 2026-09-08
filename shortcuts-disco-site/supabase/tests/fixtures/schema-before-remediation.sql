@@ -139,9 +139,6 @@ CREATE TABLE IF NOT EXISTS public.favorites (
 ALTER TABLE public.favorites
   ADD COLUMN IF NOT EXISTS base_shortcut_id TEXT;
 
-ALTER TABLE public.favorites ADD COLUMN IF NOT EXISTS custom_keymap_id UUID REFERENCES public.custom_keymaps(id) ON DELETE CASCADE;
-ALTER TABLE public.favorites ADD COLUMN IF NOT EXISTS custom_shortcut_id UUID REFERENCES public.custom_shortcuts(id) ON DELETE CASCADE;
-
 -- Bound persisted input sizes before data reaches PostgREST or downstream code.
 ALTER TABLE public.profiles DROP CONSTRAINT IF EXISTS profiles_text_lengths;
 ALTER TABLE public.profiles ADD CONSTRAINT profiles_text_lengths CHECK (
@@ -244,7 +241,7 @@ CREATE UNIQUE INDEX favorites_identity_unique
     COALESCE(section_title, ''),
     COALESCE(base_shortcut_id, ''),
     COALESCE(custom_app_id::text, '')
-  ) WHERE custom_keymap_id IS NULL AND custom_shortcut_id IS NULL;
+  );
 
 -- Row Level Security (RLS).
 ALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;
@@ -761,98 +758,3 @@ REVOKE ALL ON FUNCTION public.set_updated_at() FROM authenticated;
 REVOKE ALL ON FUNCTION public.enforce_user_row_quota() FROM PUBLIC;
 REVOKE ALL ON FUNCTION public.enforce_user_row_quota() FROM anon;
 REVOKE ALL ON FUNCTION public.enforce_user_row_quota() FROM authenticated;
-
--- Stable private references survive metadata changes. Legacy rows remain readable.
-ALTER TABLE public.favorites ADD COLUMN IF NOT EXISTS custom_keymap_id UUID REFERENCES public.custom_keymaps(id) ON DELETE CASCADE;
-ALTER TABLE public.favorites ADD COLUMN IF NOT EXISTS custom_shortcut_id UUID REFERENCES public.custom_shortcuts(id) ON DELETE CASCADE;
-ALTER TABLE public.favorites DROP CONSTRAINT IF EXISTS favorites_custom_reference_kind;
-ALTER TABLE public.favorites ADD CONSTRAINT favorites_custom_reference_kind CHECK (
-  (custom_keymap_id IS NULL OR item_type IN ('keymap', 'shortcut')) AND
-  (custom_shortcut_id IS NULL OR item_type = 'shortcut')
-);
--- Backfill only positively identified private apps with one-to-one matches; duplicate labels and orphan rows are retained.
-WITH candidates AS (
-  SELECT f.id, min(k.id::text)::uuid AS target
-  FROM public.favorites f JOIN public.custom_keymaps k ON k.user_id = f.user_id AND k.title = f.keymap_title
-  LEFT JOIN public.custom_apps a ON a.id = k.custom_app_id
-  WHERE f.item_type = 'keymap' AND f.custom_keymap_id IS NULL AND NOT EXISTS (SELECT 1 FROM public.favorites existing WHERE existing.user_id = f.user_id AND existing.custom_keymap_id = k.id) AND
-    ((f.custom_app_id IS NOT NULL AND f.custom_app_id = k.custom_app_id) OR
-     (f.custom_app_id IS NULL AND f.app_slug = 'custom-' || a.slug))
-  GROUP BY f.id HAVING count(*) = 1
-), unique_targets AS (SELECT target FROM candidates GROUP BY target HAVING count(*) = 1)
-UPDATE public.favorites f SET custom_keymap_id = c.target FROM candidates c JOIN unique_targets u ON u.target = c.target WHERE f.id = c.id;
-WITH candidates AS (
-  SELECT f.id, min(s.id::text)::uuid AS target
-  FROM public.favorites f JOIN public.custom_shortcuts s ON s.user_id = f.user_id AND s.title = f.shortcut_title
-  JOIN public.custom_sections section ON section.id = s.section_id AND section.title = f.section_title
-  JOIN public.custom_keymaps k ON k.id = section.keymap_id AND k.title = f.keymap_title
-  LEFT JOIN public.custom_apps a ON a.id = k.custom_app_id
-  WHERE f.item_type = 'shortcut' AND f.custom_shortcut_id IS NULL AND NOT EXISTS (SELECT 1 FROM public.favorites existing WHERE existing.user_id = f.user_id AND existing.custom_shortcut_id = s.id) AND f.base_shortcut_id IS NULL AND
-    ((f.custom_app_id IS NOT NULL AND f.custom_app_id = k.custom_app_id) OR
-     (f.custom_app_id IS NULL AND f.app_slug = 'custom-' || a.slug))
-  GROUP BY f.id HAVING count(*) = 1
-), unique_targets AS (SELECT target FROM candidates GROUP BY target HAVING count(*) = 1)
-UPDATE public.favorites f SET custom_shortcut_id = c.target FROM candidates c JOIN unique_targets u ON u.target = c.target WHERE f.id = c.id;
-DROP INDEX IF EXISTS public.favorites_identity_unique;
-CREATE UNIQUE INDEX favorites_identity_unique ON public.favorites (
-  user_id, item_type, COALESCE(app_slug, ''), COALESCE(keymap_title, ''), COALESCE(shortcut_title, ''),
-  COALESCE(section_title, ''), COALESCE(base_shortcut_id, ''), COALESCE(custom_app_id::text, '')
-) WHERE custom_keymap_id IS NULL AND custom_shortcut_id IS NULL;
-CREATE UNIQUE INDEX IF NOT EXISTS favorites_custom_keymap_unique ON public.favorites(user_id, custom_keymap_id) WHERE item_type = 'keymap' AND custom_keymap_id IS NOT NULL;
-CREATE UNIQUE INDEX IF NOT EXISTS favorites_custom_shortcut_unique ON public.favorites(user_id, custom_shortcut_id) WHERE custom_shortcut_id IS NOT NULL;
-DROP POLICY IF EXISTS "Favorite references belong to their owner" ON public.favorites;
-CREATE POLICY "Favorite references belong to their owner" ON public.favorites AS RESTRICTIVE FOR ALL TO anon, authenticated
-USING (
-  (custom_keymap_id IS NULL OR EXISTS (SELECT 1 FROM public.custom_keymaps k WHERE k.id = favorites.custom_keymap_id AND k.user_id = favorites.user_id AND (favorites.custom_app_id IS NULL OR k.custom_app_id = favorites.custom_app_id))) AND
-  (custom_shortcut_id IS NULL OR EXISTS (SELECT 1 FROM public.custom_shortcuts s JOIN public.custom_sections section ON section.id = s.section_id JOIN public.custom_keymaps k ON k.id = section.keymap_id WHERE s.id = favorites.custom_shortcut_id AND s.user_id = favorites.user_id AND k.user_id = favorites.user_id AND (favorites.custom_keymap_id IS NULL OR k.id = favorites.custom_keymap_id) AND (favorites.custom_app_id IS NULL OR k.custom_app_id = favorites.custom_app_id)))
-)
-WITH CHECK (
-  (custom_keymap_id IS NULL OR EXISTS (SELECT 1 FROM public.custom_keymaps k WHERE k.id = favorites.custom_keymap_id AND k.user_id = favorites.user_id AND (favorites.custom_app_id IS NULL OR k.custom_app_id = favorites.custom_app_id))) AND
-  (custom_shortcut_id IS NULL OR EXISTS (SELECT 1 FROM public.custom_shortcuts s JOIN public.custom_sections section ON section.id = s.section_id JOIN public.custom_keymaps k ON k.id = section.keymap_id WHERE s.id = favorites.custom_shortcut_id AND s.user_id = favorites.user_id AND k.user_id = favorites.user_id AND (favorites.custom_keymap_id IS NULL OR k.id = favorites.custom_keymap_id) AND (favorites.custom_app_id IS NULL OR k.custom_app_id = favorites.custom_app_id)))
-);
-
-ALTER TABLE public.custom_shortcuts ADD COLUMN IF NOT EXISTS key_is_cleared BOOLEAN NOT NULL DEFAULT FALSE;
-ALTER TABLE public.custom_shortcuts ADD COLUMN IF NOT EXISTS comment_is_cleared BOOLEAN NOT NULL DEFAULT FALSE;
-ALTER TABLE public.custom_shortcuts DROP CONSTRAINT IF EXISTS custom_shortcuts_clear_fields;
-ALTER TABLE public.custom_shortcuts ADD CONSTRAINT custom_shortcuts_clear_fields CHECK (
-  (NOT key_is_cleared OR key IS NULL) AND (NOT comment_is_cleared OR comment IS NULL) AND
-  (NOT (key_is_cleared OR comment_is_cleared) OR base_app_slug IS NOT NULL)
-);
-
--- Refuse to guess how to merge colliding user drafts. Resolve reported parents first.
-DO $$ BEGIN
-  IF EXISTS (SELECT 1 FROM public.custom_keymaps GROUP BY user_id, custom_app_id, base_app_slug, title HAVING count(*) > 1) THEN
-    RAISE EXCEPTION 'Duplicate keymap titles exist. Resolve duplicates within each app before this migration.';
-  END IF;
-  IF EXISTS (SELECT 1 FROM public.custom_sections GROUP BY keymap_id, title HAVING count(*) > 1) THEN
-    RAISE EXCEPTION 'Duplicate section titles exist. Resolve duplicates within each keymap before this migration.';
-  END IF;
-END $$;
-ALTER TABLE public.custom_keymaps ADD COLUMN IF NOT EXISTS sort_order INTEGER NOT NULL DEFAULT 0;
-CREATE UNIQUE INDEX IF NOT EXISTS custom_keymaps_custom_title_unique ON public.custom_keymaps(user_id, custom_app_id, title) WHERE custom_app_id IS NOT NULL;
-CREATE UNIQUE INDEX IF NOT EXISTS custom_keymaps_base_title_unique ON public.custom_keymaps(user_id, base_app_slug, title) WHERE base_app_slug IS NOT NULL;
-CREATE UNIQUE INDEX IF NOT EXISTS custom_sections_title_unique ON public.custom_sections(keymap_id, title);
-ALTER TABLE public.custom_keymaps DROP CONSTRAINT IF EXISTS custom_keymaps_unique_platforms;
-ALTER TABLE public.custom_keymaps ADD CONSTRAINT custom_keymaps_unique_platforms CHECK (
-  platforms IS NULL OR (cardinality(array_positions(platforms, 'macos')) <= 1 AND cardinality(array_positions(platforms, 'windows')) <= 1 AND cardinality(array_positions(platforms, 'linux')) <= 1)
-);
-CREATE OR REPLACE FUNCTION public.reorder_custom_items(kind TEXT, ids UUID[]) RETURNS VOID
-LANGUAGE plpgsql SECURITY INVOKER SET search_path = public, pg_temp AS $$
-DECLARE table_name TEXT; parent_expression TEXT; changed INTEGER; parents INTEGER;
-BEGIN
-  CASE kind
-    WHEN 'keymaps' THEN table_name := 'custom_keymaps'; parent_expression := 'COALESCE(custom_app_id::text, base_app_slug)';
-    WHEN 'sections' THEN table_name := 'custom_sections'; parent_expression := 'keymap_id::text';
-    WHEN 'shortcuts' THEN table_name := 'custom_shortcuts'; parent_expression := 'section_id::text';
-    ELSE RAISE EXCEPTION 'Unsupported reorder kind';
-  END CASE;
-  IF cardinality(ids) IS NULL OR cardinality(ids) = 0 THEN RETURN; END IF;
-  IF cardinality(ids) <> (SELECT count(DISTINCT id) FROM unnest(ids) AS id) THEN RAISE EXCEPTION 'Duplicate reorder IDs'; END IF;
-  EXECUTE format('SELECT count(DISTINCT %s) FROM public.%I WHERE id = ANY($1)', parent_expression, table_name) INTO parents USING ids;
-  IF parents <> 1 THEN RAISE EXCEPTION 'Reorder items must belong to the same parent'; END IF;
-  EXECUTE format('UPDATE public.%I AS item SET sort_order = ordered.position - 1 FROM unnest($1) WITH ORDINALITY AS ordered(id, position) WHERE item.id = ordered.id', table_name) USING ids;
-  GET DIAGNOSTICS changed = ROW_COUNT;
-  IF changed <> cardinality(ids) THEN RAISE EXCEPTION 'Some reorder items are missing or inaccessible'; END IF;
-END $$;
-REVOKE ALL ON FUNCTION public.reorder_custom_items(TEXT, UUID[]) FROM PUBLIC, anon;
-GRANT EXECUTE ON FUNCTION public.reorder_custom_items(TEXT, UUID[]) TO authenticated;

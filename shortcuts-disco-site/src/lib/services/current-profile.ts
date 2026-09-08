@@ -12,9 +12,11 @@ export interface CurrentProfile {
 }
 
 let cachedProfile: CurrentProfile | null = null;
+let cacheGeneration = 0;
 let cachedProfilePromises = new Map<string, Promise<CurrentProfile | null>>();
 
 export function clearCurrentProfileCache() {
+  cacheGeneration++;
   cachedProfile = null;
   cachedProfilePromises = new Map();
 }
@@ -37,13 +39,14 @@ export async function getCurrentProfile(
     return pendingProfile;
   }
 
+  const generation = cacheGeneration;
   const profilePromise = ensureCurrentProfile(user).finally(() => {
-    cachedProfilePromises.delete(user.id);
+    if (generation === cacheGeneration) cachedProfilePromises.delete(user.id);
   });
   cachedProfilePromises.set(user.id, profilePromise);
 
   const profile = await profilePromise;
-  if (profile?.clerkUserId === user.id) {
+  if (generation === cacheGeneration && profile?.clerkUserId === user.id) {
     cachedProfile = profile;
   }
   return profile;
@@ -63,7 +66,7 @@ export async function requireCurrentProfile(
 async function ensureCurrentProfile(
   user: NonNullable<ReturnType<typeof getCurrentAuthUser>>
 ): Promise<CurrentProfile | null> {
-  const supabase = createClientOrNull();
+  const supabase = createClientOrNull(user);
   if (!supabase) return null;
 
   const { data: existing, error: selectError } = await supabase

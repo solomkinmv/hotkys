@@ -21,7 +21,7 @@ export class UserService {
     authUser?: AuthUser | null
   ): Promise<void> {
     validateProfileMetadata(updates);
-    const supabase = createClientOrNull();
+    const supabase = createClientOrNull(authUser);
     if (!supabase) throw new Error("Supabase sign in is not configured.");
 
     const profile = await requireCurrentProfile(authUser);
@@ -40,7 +40,7 @@ export class UserService {
   }
 
   async getPreferences(authUser?: AuthUser | null): Promise<UserPreferences | null> {
-    const supabase = createClientOrNull();
+    const supabase = createClientOrNull(authUser);
     if (!supabase) return null;
 
     const profile = await getCurrentProfile(authUser);
@@ -71,7 +71,7 @@ export class UserService {
     prefs: Partial<UserPreferences>,
     authUser?: AuthUser | null
   ): Promise<void> {
-    const supabase = createClientOrNull();
+    const supabase = createClientOrNull(authUser);
     if (!supabase) throw new Error("Supabase sign in is not configured.");
 
     const profile = await requireCurrentProfile(authUser);

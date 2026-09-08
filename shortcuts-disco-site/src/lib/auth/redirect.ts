@@ -14,6 +14,7 @@ export function getSafeAuthRedirectPath(
   }
 
   if (
+    /[\\\u0000-\u001f\u007f]/.test(decoded) ||
     !decoded.startsWith("/") ||
     decoded.startsWith("//") ||
     decoded.startsWith("/auth/")

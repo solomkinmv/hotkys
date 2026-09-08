@@ -1,5 +1,6 @@
 "use client";
 
+import { AccountDataProvider } from "./account-data-provider";
 import { ClerkProvider, useClerk, useSession, useUser } from "@clerk/react";
 import {
   createContext,
@@ -13,7 +14,7 @@ import { getClerkPublishableKey, isClerkConfigured } from "@/lib/clerk/config";
 import { setCurrentAuthUser } from "@/lib/auth/session";
 import type { AuthUser } from "@/lib/auth/types";
 import { clearCurrentProfileCache } from "@/lib/services/current-profile";
-import { setSupabaseAccessTokenProvider } from "@/lib/supabase/client";
+import { bindAuthUser, setSupabaseAccessTokenProvider } from "@/lib/supabase/client";
 
 interface AuthContextType {
   user: AuthUser | null;
@@ -67,7 +68,7 @@ function StaticAuthProvider({
     setSupabaseAccessTokenProvider(null);
   }, []);
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={value}><AccountDataProvider>{children}</AccountDataProvider></AuthContext.Provider>;
 }
 
 function ClerkAuthProvider({ children }: { children: ReactNode }) {
@@ -76,7 +77,7 @@ function ClerkAuthProvider({ children }: { children: ReactNode }) {
   const { isLoaded: isUserLoaded, user: clerkUser } = useUser();
 
   const user = useMemo<AuthUser | null>(() => {
-    if (!clerkUser) return null;
+    if (!clerkUser || !session?.id) return null;
 
     return {
       id: clerkUser.id,
@@ -84,7 +85,7 @@ function ClerkAuthProvider({ children }: { children: ReactNode }) {
       displayName: clerkUser.fullName ?? clerkUser.username ?? null,
       avatarUrl: clerkUser.imageUrl ?? null,
     };
-  }, [clerkUser]);
+  }, [clerkUser, session?.id]);
 
   const authBridgeKey = `${isSessionLoaded}:${isUserLoaded}:${
     session?.id ?? "none"
@@ -100,6 +101,8 @@ function ClerkAuthProvider({ children }: { children: ReactNode }) {
       session ? async () => session.getToken() : null
     );
     setCurrentAuthUser(user);
+    bindAuthUser(user);
+    clearCurrentProfileCache();
     if (!user) {
       clearCurrentProfileCache();
     }
@@ -112,10 +115,15 @@ function ClerkAuthProvider({ children }: { children: ReactNode }) {
 
     return () => {
       isCurrent = false;
+      setSupabaseAccessTokenProvider(null);
+      setCurrentAuthUser(null);
     };
   }, [authBridgeKey, session, user]);
 
   const signOut = async () => {
+    setReadyAuthBridgeKey(null);
+    setSupabaseAccessTokenProvider(null);
+    setCurrentAuthUser(null);
     clearCurrentProfileCache();
     await clerkSignOut({ redirectUrl: "/" });
   };
@@ -133,7 +141,7 @@ function ClerkAuthProvider({ children }: { children: ReactNode }) {
         signOut,
       }}
     >
-      {children}
+      <AccountDataProvider key={isLoading ? "loading" : authBridgeKey}>{children}</AccountDataProvider>
     </AuthContext.Provider>
   );
 }
