@@ -1,3 +1,4 @@
+import { catalogUrl } from "../config/catalog";
 import { useFetch } from "@raycast/utils";
 
 export type KeyCodes = Record<string, string>;
@@ -14,7 +15,7 @@ interface UseKeyCodesResult {
 
 export default function useKeyCodes(): UseKeyCodesResult {
   const { isLoading, data, revalidate } = useFetch<IncomingKeyCodes, undefined, KeyCodes>(
-    "https://hotkys.com/data/key-codes.json",
+    catalogUrl("data/key-codes.json"),
     {
       mapResult: (result) => ({
         data: Object.fromEntries(result.keyCodes),

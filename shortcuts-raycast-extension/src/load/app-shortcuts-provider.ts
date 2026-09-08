@@ -1,3 +1,4 @@
+import { catalogUrl } from "../config/catalog";
 import { useFetch } from "@raycast/utils";
 import { useMemo } from "react";
 import { InputApp } from "../model/input/input-models";
@@ -31,7 +32,7 @@ export function useAppShortcuts(slug: string | undefined, allowAuthorization = f
   const userData = useUserData(allowAuthorization);
   const isCustomApp = slug?.startsWith("custom-") ?? false;
 
-  const { isLoading, data } = useFetch<InputApp>(`https://hotkys.com/data/${platform}/${slug}.json`, {
+  const { isLoading, data } = useFetch<InputApp>(catalogUrl(`data/${platform}/${slug}.json`), {
     execute: !!slug && !isCustomApp,
     failureToastOptions: {
       title: "Failed to load shortcuts",

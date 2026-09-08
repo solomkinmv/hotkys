@@ -47,6 +47,8 @@ export function mapFavorites(data: unknown[]): Favorite[] {
     sectionTitle: optionalString(row.section_title),
     baseShortcutId: optionalString(row.base_shortcut_id),
     customAppId: optionalString(row.custom_app_id),
+    customKeymapId: optionalString(row.custom_keymap_id),
+    customShortcutId: optionalString(row.custom_shortcut_id),
   }));
 }
 
@@ -70,6 +72,7 @@ function mapCustomKeymaps(data: Row[]): CustomKeymap[] {
     customAppId: optionalString(row.custom_app_id),
     baseAppSlug: optionalString(row.base_app_slug),
     title: requiredString(row.title),
+    sortOrder: typeof row.sort_order === "number" ? row.sort_order : 0,
     platforms: optionalStringArray(row.platforms),
     sections: mapCustomSections(asRows(row.custom_sections)),
   }));
@@ -98,6 +101,8 @@ function mapCustomShortcuts(data: Row[]): CustomShortcut[] {
     key: optionalString(row.key),
     comment: optionalString(row.comment),
     isDeleted: row.is_deleted === true,
+    keyIsCleared: row.key_is_cleared === true,
+    commentIsCleared: row.comment_is_cleared === true,
     sortOrder: requiredNumber(row.sort_order),
   }));
 }
@@ -117,6 +122,8 @@ function mapShortcutOverlays(data: Row[]): ShortcutOverlay[] {
       key: optionalString(row.key),
       comment: optionalString(row.comment),
       isDeleted: row.is_deleted === true,
+      keyIsCleared: row.key_is_cleared === true,
+      commentIsCleared: row.comment_is_cleared === true,
     },
   }));
 }

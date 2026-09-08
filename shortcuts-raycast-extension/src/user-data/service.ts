@@ -74,7 +74,7 @@ export class UserDataService {
 }
 
 export class SupabaseUserDataRepository implements UserDataRepository {
-  constructor(private readonly clientProvider: () => SupabaseClient = getUserDataClient) {}
+  constructor(private readonly clientProvider: () => SupabaseClient) {}
 
   async findProfileByClerkId(clerkUserId: string): Promise<UserProfile | null> {
     const { data, error } = await this.clientProvider()
@@ -176,7 +176,13 @@ export class SupabaseUserDataRepository implements UserDataRepository {
       .select("*")
       .single();
 
-    if (error) throw error;
+    if (error) {
+      if (error.code === "23505" || error.code === "23514") {
+        const existing = (await this.getFavorites(profileId)).find((row) => matchesFavorite(row, identifier));
+        if (existing) return existing;
+      }
+      throw error;
+    }
     return mapFavorites([data])[0];
   }
 
@@ -191,4 +197,12 @@ export class SupabaseUserDataRepository implements UserDataRepository {
   }
 }
 
-export const userDataService = new UserDataService(new SupabaseUserDataRepository());
+function serviceFor(token: string): UserDataService {
+  const client = getUserDataClient(token);
+  return new UserDataService(new SupabaseUserDataRepository(() => client));
+}
+export const userDataService = {
+  load: (token: string) => serviceFor(token).load(token),
+  toggleFavorite: (token: string, identifier: FavoriteIdentifier) =>
+    serviceFor(token).toggleFavorite(token, identifier),
+};

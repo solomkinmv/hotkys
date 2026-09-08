@@ -16,8 +16,6 @@ interface UserDataClientOptions {
 
 type ClientFactory<T> = (url: string, publishableKey: string, options: UserDataClientOptions) => T;
 
-let userDataClient: SupabaseClient | undefined;
-
 export function createUserDataClient<T>(accessToken: () => Promise<string | null>, factory: ClientFactory<T>): T;
 export function createUserDataClient(accessToken: () => Promise<string | null>): SupabaseClient;
 export function createUserDataClient<T>(
@@ -37,12 +35,10 @@ export function createUserDataClient<T>(
   });
 }
 
-export function getUserDataClient(): SupabaseClient {
-  if (!userDataClient) {
-    userDataClient = createUserDataClient(async () => {
-      const { getAccessToken } = await import("../auth/session");
-      return getAccessToken(false);
-    });
-  }
-  return userDataClient;
+export function getUserDataClient(token: string): SupabaseClient {
+  return createUserDataClient(async () => {
+    const { isAccessTokenCurrent } = await import("../auth/session");
+    if (!(await isAccessTokenCurrent(token))) throw new Error("Account changed. Please retry.");
+    return token;
+  });
 }

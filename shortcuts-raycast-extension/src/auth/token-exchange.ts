@@ -73,6 +73,7 @@ export async function refreshAccessToken(
 async function requestToken(endpoint: string, body: URLSearchParams, fetcher: Fetcher): Promise<TokenResponse> {
   const response = await fetcher(endpoint, {
     method: "POST",
+    signal: AbortSignal.timeout(15000),
     headers: {
       "content-type": "application/x-www-form-urlencoded",
     },

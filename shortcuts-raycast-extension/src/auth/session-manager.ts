@@ -22,7 +22,49 @@ interface ResolveAccessTokenOptions {
 // All hooks in a command share the same store. Keep refresh and interactive
 // authorization separate so optional/background reads never trigger a prompt.
 const pendingSessions = new WeakMap<TokenStore, Promise<string | null>>();
-const pendingAuthorizations = new WeakMap<TokenStore, Promise<string>>();
+const pendingAuthorizations = new WeakMap<TokenStore, Promise<string | null>>();
+const pendingMutations = new WeakMap<TokenStore, Promise<unknown>>();
+const generations = new WeakMap<TokenStore, number>();
+export function invalidateSession(store: TokenStore) {
+  generations.set(store, (generations.get(store) ?? 0) + 1);
+  pendingSessions.delete(store);
+  pendingAuthorizations.delete(store);
+}
+
+function mutate<T>(store: TokenStore, operation: () => Promise<T>): Promise<T> {
+  const previous = pendingMutations.get(store) ?? Promise.resolve();
+  const pending = previous
+    .catch(() => {})
+    .then(operation)
+    .finally(() => {
+      if (pendingMutations.get(store) === pending) pendingMutations.delete(store);
+    });
+  pendingMutations.set(store, pending);
+  return pending;
+}
+export function removeSessionTokens(store: TokenStore): Promise<void> {
+  invalidateSession(store);
+  return mutate(store, () => store.removeTokens());
+}
+async function persist(
+  store: TokenStore,
+  expected: StoredTokenSet | undefined,
+  replacement: TokenResponse | null,
+  generation: number
+): Promise<string | null> {
+  return mutate(store, async () => {
+    const current = await store.getTokens();
+    if (
+      (generations.get(store) ?? 0) !== generation ||
+      current?.accessToken !== expected?.accessToken ||
+      current?.refreshToken !== expected?.refreshToken
+    )
+      return null;
+    if (replacement) await store.setTokens(replacement);
+    else await store.removeTokens();
+    return (generations.get(store) ?? 0) === generation ? (replacement?.access_token ?? null) : null;
+  });
+}
 
 function singleFlight<T>(
   pending: WeakMap<TokenStore, Promise<T>>,
@@ -31,24 +73,33 @@ function singleFlight<T>(
 ): Promise<T> {
   const existing = pending.get(store);
   if (existing) return existing;
-  const promise = run().finally(() => pending.delete(store));
+  const promise = run().finally(() => {
+    if (pending.get(store) === promise) pending.delete(store);
+  });
   pending.set(store, promise);
   return promise;
 }
 
 export async function resolveAccessToken(options: ResolveAccessTokenOptions): Promise<string | null> {
   const { store, authorize, allowAuthorization } = options;
-  const token = await singleFlight(pendingSessions, store, () => resolveStoredAccessToken(options));
+  const generation = generations.get(store) ?? 0;
+  if (pendingMutations.has(store)) await pendingMutations.get(store);
+  if ((generations.get(store) ?? 0) !== generation) return null;
+  const token = await singleFlight(pendingSessions, store, () => resolveStoredAccessToken(options, generation));
+  if ((generations.get(store) ?? 0) !== generation) return null;
   if (token || !allowAuthorization) return token;
 
   return singleFlight(pendingAuthorizations, store, async () => {
+    const before = await store.getTokens();
     const authorizedTokens = await authorize();
-    await store.setTokens(authorizedTokens);
-    return authorizedTokens.access_token;
+    return persist(store, before, authorizedTokens, generation);
   });
 }
 
-async function resolveStoredAccessToken({ store, refresh }: ResolveAccessTokenOptions): Promise<string | null> {
+async function resolveStoredAccessToken(
+  { store, refresh }: ResolveAccessTokenOptions,
+  generation: number
+): Promise<string | null> {
   const storedTokens = await store.getTokens();
 
   if (storedTokens && !storedTokens.isExpired()) {
@@ -66,13 +117,12 @@ async function resolveStoredAccessToken({ store, refresh }: ResolveAccessTokenOp
       if (!(error instanceof OAuthTokenError && error.code === "invalid_grant" && error.status === 400)) {
         throw error;
       }
-      await store.removeTokens();
+      await persist(store, storedTokens, null, generation);
       return null;
     }
-    await store.setTokens(refreshedTokens);
-    return refreshedTokens.access_token;
+    return persist(store, storedTokens, refreshedTokens, generation);
   } else if (storedTokens) {
-    await store.removeTokens();
+    await persist(store, storedTokens, null, generation);
   }
 
   return null;
