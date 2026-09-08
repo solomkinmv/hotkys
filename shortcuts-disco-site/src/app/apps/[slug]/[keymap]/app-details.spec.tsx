@@ -471,7 +471,7 @@ describe("AppDetails", () => {
         "shortcut-1",
         {
           title: "Paste special",
-          key: "ctrl+v",
+          key: "cmd+v",
           comment: undefined,
         },
         { id: "user-1" },

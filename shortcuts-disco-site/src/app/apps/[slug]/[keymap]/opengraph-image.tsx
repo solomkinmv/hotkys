@@ -94,26 +94,19 @@ async function loadLogo(): Promise<string> {
   return `data:image/png;base64,${logoBuffer.toString("base64")}`;
 }
 
-// Load fonts with Unicode symbol support
+const fontDefinitions = [
+  { file: "NotoSans-Regular.ttf", name: "Noto Sans", weight: 400 as const },
+  { file: "NotoSans-Bold.ttf", name: "Noto Sans", weight: 700 as const },
+  { file: "NotoSansSymbols-Regular.ttf", name: "Noto Sans Symbols", weight: 400 as const },
+  { file: "NotoSansMath-Regular.ttf", name: "Noto Sans Math", weight: 400 as const },
+  { file: "NotoSansSymbols2-Regular.ttf", name: "Noto Sans Symbols 2", weight: 400 as const },
+];
 async function loadFonts() {
-  const [interRegular, interBold, notoSymbols] = await Promise.all([
-    fetch(
-      "https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZ9hjp-Ek-_EeA.woff"
-    ).then((res) => res.arrayBuffer()),
-    fetch(
-      "https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZ9hjp-Ek-_EeA.woff"
-    ).then((res) => res.arrayBuffer()),
-    // Noto Sans Symbols 2 - TTF format (includes all symbols)
-    fetch(
-      "https://fonts.gstatic.com/s/notosanssymbols2/v25/I_uyMoGduATTei9eI8daxVHDyfisHr71ypM.ttf"
-    ).then((res) => res.arrayBuffer()),
-  ]);
-
-  return [
-    { name: "Inter", data: interRegular, style: "normal" as const, weight: 400 as const },
-    { name: "Inter", data: interBold, style: "normal" as const, weight: 700 as const },
-    { name: "Noto Sans Symbols 2", data: notoSymbols, style: "normal" as const, weight: 400 as const },
-  ];
+  return Promise.all(fontDefinitions.map(async ({ file, name, weight }) => {
+    const bytes = await readFile(join(process.cwd(), "src/assets/fonts", file));
+    if (bytes.readUInt32BE(0) !== 0x00010000 && bytes.toString("ascii", 0, 4) !== "OTTO") throw new Error(`Invalid social-card font: ${file}`);
+    return { name, weight, style: "normal" as const, data: bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength) as ArrayBuffer };
+  }));
 }
 
 export default async function Image({
@@ -162,7 +155,7 @@ export default async function Image({
           height: "100%",
           backgroundColor: "#4a5568",
           padding: "40px",
-          fontFamily: "Inter, Noto Sans Symbols 2",
+          fontFamily: "Noto Sans, Noto Sans Symbols, Noto Sans Symbols 2, Noto Sans Math",
         }}
       >
         <div
@@ -197,7 +190,7 @@ export default async function Image({
               Keyboard Shortcuts Cheat Sheet
             </span>
           </div>
-          <img
+          <img alt=""
             src={logoSrc}
             width={120}
             height={66}

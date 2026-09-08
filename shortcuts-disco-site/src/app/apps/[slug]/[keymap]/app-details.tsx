@@ -13,7 +13,7 @@ import {
   modifierSymbols,
 } from "@/lib/model/internal/modifiers";
 import { SeparatorWithText } from "@/components/ui/separator-with-text";
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { SearchBar } from "@/components/ui/search-bar";
 import { TypographyMuted, TypographySmall } from "@/components/ui/typography";
 import Fuse from "fuse.js";
@@ -62,7 +62,8 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { normalizeShortcutKey } from "@/lib/shortcut-key-format";
-import { ShortcutKeyInput } from "@/components/shortcuts/shortcut-key-input";
+import { useKeyboardNavigation } from "@/lib/hooks/use-keyboard-navigation";
+import { ShortcutFields } from "@/components/shortcuts/shortcut-fields";
 import {
   assertResourceLimit,
   USER_CONTENT_LIMITS,
@@ -83,6 +84,7 @@ type ShortcutDialogState =
     }
   | {
       type: "override";
+      customizationId?: string;
       sectionTitle: string;
       shortcutTitle: string;
       baseShortcutId?: string;
@@ -143,16 +145,6 @@ function getStoredColumnCount(): number {
   const stored = localStorage.getItem(COLUMN_COUNT_STORAGE_KEY);
   const parsed = parseColumnCount(stored);
   return parsed ?? DEFAULT_COLUMNS;
-}
-
-function shouldIgnorePageKeydown(target: EventTarget | null): boolean {
-  if (!(target instanceof HTMLElement)) return false;
-
-  return (
-    target.isContentEditable ||
-    target.closest('[role="dialog"]') !== null ||
-    ["BUTTON", "INPUT", "SELECT", "TEXTAREA"].includes(target.tagName)
-  );
 }
 
 export const AppDetails = ({
@@ -292,27 +284,14 @@ export const AppDetails = ({
   const [searchResults, setSearchResults] = useState<DisplaySection[]>(
     displayKeymap.sections,
   );
-  const [selectedIndex, setSelectedIndex] = useState(-1);
   const [sectionSheetOpen, setSectionSheetOpen] = useState(false);
-  const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
     setSearchResults(displayKeymap.sections);
-    setSelectedIndex(-1);
   }, [displayKeymap]);
 
-  const hotkeys = displayKeymap.sections.flatMap((section) =>
-    section.hotkeys.map((hotkey) => ({
-      ...hotkey,
-      sectionTitle: section.title,
-    })),
-  );
-
-  const fuse = new Fuse(hotkeys, {
-    keys: ["title"],
-    includeScore: true,
-    includeMatches: true,
-  });
+  const hotkeys = useMemo(() => displayKeymap.sections.flatMap(section => section.hotkeys.map(hotkey => ({ ...hotkey, sectionTitle: section.title }))), [displayKeymap]);
+  const fuse = useMemo(() => new Fuse(hotkeys, { keys: ["title"], includeScore: true, includeMatches: true }), [hotkeys]);
 
   const favoriteShortcutItems = user
     ? favorites
@@ -370,10 +349,6 @@ export const AppDetails = ({
     displayKeymap.sections[0]?.title ??
     NEW_SECTION_VALUE;
 
-  const totalItems = displaySections.reduce(
-    (sum, section) => sum + section.hotkeys.length,
-    0,
-  );
 
   const isOfficialShortcut = (sectionTitle: string, shortcutTitle: string) =>
     keymap.sections.some(
@@ -398,6 +373,7 @@ export const AppDetails = ({
   ) => {
     setShortcutDialog({
       type: "override",
+      customizationId: shortcut.customizationId,
       sectionTitle,
       shortcutTitle: shortcut.baseShortcutTitle ?? shortcut.title,
       baseShortcutId: shortcut.baseShortcutId,
@@ -465,6 +441,14 @@ export const AppDetails = ({
       return;
     }
 
+    if (shortcutDialog.type === "override") {
+      const original = keymap.sections.find(section => section.title === shortcutDialog.sectionTitle)?.hotkeys.find(hotkey => hotkey.title === shortcutDialog.shortcutTitle);
+      if (process.env.NEXT_PUBLIC_ENABLE_OVERLAY_CLEARING !== "true" && ((!key && original?.sequence.length) || (!comment && original?.comment))) {
+        setShortcutDialogError("Clearing original fields is not available yet. Restore the field or use Restore Original."); return;
+      }
+      if (process.env.NEXT_PUBLIC_ENABLE_OVERLAY_CLEARING === "true" && !key && !comment) { setShortcutDialogError("Keep a key or comment, or delete the shortcut."); return; }
+    }
+
     setIsSavingShortcut(true);
     setShortcutDialogError(null);
     try {
@@ -508,6 +492,8 @@ export const AppDetails = ({
             baseSectionTitle: shortcutDialog.sectionTitle,
             baseShortcutTitle: shortcutDialog.shortcutTitle,
             baseShortcutId: shortcutDialog.baseShortcutId,
+            ...(shortcutDialog.customizationId ? { id: shortcutDialog.customizationId } : {}),
+            ...(process.env.NEXT_PUBLIC_ENABLE_OVERLAY_CLEARING === "true" ? { keyIsCleared: !key, commentIsCleared: !comment } : {}),
             title,
             key,
             comment,
@@ -578,56 +564,19 @@ export const AppDetails = ({
     setSelectedIndex(-1);
   };
 
-  const handleKeyDown = useCallback(
-    (e: KeyboardEvent) => {
-      if (
-        shortcutDialog !== null ||
-        deleteShortcutDialog !== null ||
-        shouldIgnorePageKeydown(e.target)
-      ) {
-        return;
-      }
-
-      if (e.key === "ArrowDown") {
-        e.preventDefault();
-        setSelectedIndex((prevIndex) => {
-          const newIndex = (prevIndex + 1) % totalItems;
-          itemRefs.current[newIndex]?.scrollIntoView({
-            behavior: "smooth",
-            block: "center",
-          });
-          return newIndex;
-        });
-      } else if (e.key === "ArrowUp") {
-        e.preventDefault();
-        setSelectedIndex((prevIndex) => {
-          const newIndex = (prevIndex - 1 + totalItems) % totalItems;
-          itemRefs.current[newIndex]?.scrollIntoView({
-            behavior: "smooth",
-            block: "center",
-          });
-          return newIndex;
-        });
-      } else if (e.key === "Escape") {
-        setSelectedIndex(-1);
-      }
-    },
-    [deleteShortcutDialog, shortcutDialog, totalItems],
-  );
-
-  useEffect(() => {
-    window.addEventListener("keydown", handleKeyDown);
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [handleKeyDown]);
+  const navigationItems = displaySections.flatMap(section => section.hotkeys.map(shortcut => ({ section: shortcut.baseSectionTitle ?? section.title, shortcut })));
+  const { selectedIndex, setSelectedIndex, itemRefs } = useKeyboardNavigation(navigationItems, item => {
+    if (!user) return;
+    if (item.shortcut.customizationStatus === "created") openCustomShortcutDialog(item.shortcut);
+    else openOverrideShortcutDialog(item.section, item.shortcut);
+  }, undefined, { enabled: !shortcutDialog && !deleteShortcutDialog && viewMode === "list", resetKey: JSON.stringify(navigationItems.map(item => [item.section, item.shortcut.baseShortcutId, item.shortcut.customizationId, item.shortcut.title])) });
 
   const sectionRefs = useRef<Record<string, React.RefObject<HTMLDivElement | null>>>(
     {},
   );
   let globalIndex = 0;
   const appDetails = displaySections.map((section) => {
-    sectionRefs.current[section.title] = React.createRef();
+    sectionRefs.current[section.title] ??= React.createRef();
     return (
       <div
         id={section.title}
@@ -675,10 +624,13 @@ export const AppDetails = ({
                 <FavoriteButton
                   itemType="shortcut"
                   appSlug={application.slug}
+                  customAppId={application.customAppId}
+                  customShortcutId={hotkey.customShortcutId}
                   keymapTitle={displayKeymap.title}
                   sectionTitle={favoriteSectionTitle}
                   shortcutTitle={hotkey.baseShortcutTitle ?? hotkey.title}
                   baseShortcutId={hotkey.baseShortcutId}
+                  baseShortcutAliases={hotkey.baseShortcutAliases}
                   className="shrink-0"
                 />
                 {canCustomize ? (
@@ -718,7 +670,7 @@ export const AppDetails = ({
       columnCount={effectiveColumnCount}
       getItemHeight={(section) => section.hotkeys.length + 1}
       renderItem={(section) => {
-        sectionRefs.current[section.title] = React.createRef();
+        sectionRefs.current[section.title] ??= React.createRef();
         return (
           <div
             id={section.title}
@@ -763,10 +715,13 @@ export const AppDetails = ({
                         <FavoriteButton
                           itemType="shortcut"
                           appSlug={application.slug}
+                  customAppId={application.customAppId}
+                  customShortcutId={hotkey.customShortcutId}
                           keymapTitle={displayKeymap.title}
                           sectionTitle={favoriteSectionTitle}
                           shortcutTitle={hotkey.baseShortcutTitle ?? hotkey.title}
                           baseShortcutId={hotkey.baseShortcutId}
+                  baseShortcutAliases={hotkey.baseShortcutAliases}
                           className="shrink-0"
                         />
                         {canCustomize ? (
@@ -1011,47 +966,7 @@ export const AppDetails = ({
                 )}
               </div>
             )}
-            <Field>
-              <FieldLabel htmlFor="shortcut-title">Title</FieldLabel>
-              <Input
-                id="shortcut-title"
-                value={shortcutDraft.title}
-                maxLength={USER_CONTENT_LIMITS.shortcutTitle}
-                onChange={(event) =>
-                  setShortcutDraft((draft) => ({
-                    ...draft,
-                    title: event.target.value,
-                  }))
-                }
-              />
-            </Field>
-            <Field>
-              <FieldLabel htmlFor="shortcut-key">Keys</FieldLabel>
-              <ShortcutKeyInput
-                id="shortcut-key"
-                value={shortcutDraft.key}
-                onChange={(value) =>
-                  setShortcutDraft((draft) => ({
-                    ...draft,
-                    key: value,
-                  }))
-                }
-              />
-            </Field>
-            <Field>
-              <FieldLabel htmlFor="shortcut-comment">Comment</FieldLabel>
-              <Input
-                id="shortcut-comment"
-                value={shortcutDraft.comment}
-                maxLength={USER_CONTENT_LIMITS.shortcutComment}
-                onChange={(event) =>
-                  setShortcutDraft((draft) => ({
-                    ...draft,
-                    comment: event.target.value,
-                  }))
-                }
-              />
-            </Field>
+            <ShortcutFields value={shortcutDraft} onChange={patch => setShortcutDraft(previous => ({ ...previous, ...patch }))} />
             {shortcutDialogError && (
               <FieldError>{shortcutDialogError}</FieldError>
             )}
