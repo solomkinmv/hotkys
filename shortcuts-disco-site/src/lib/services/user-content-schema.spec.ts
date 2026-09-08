@@ -47,6 +47,7 @@ describe("user content database limits", () => {
     expect(authenticatedPolicyTargets).toHaveLength(9);
     expect(oauthPolicyTargets).toHaveLength(9);
     expect(issuerChecks).toHaveLength(9);
-    expect(schema).not.toContain("TO anon, authenticated");
+    expect(schema.match(/AS RESTRICTIVE FOR ALL TO anon, authenticated/g)).toHaveLength(1);
+    expect(schema).not.toMatch(/AS PERMISSIVE[^;]+TO anon, authenticated/);
   });
 });

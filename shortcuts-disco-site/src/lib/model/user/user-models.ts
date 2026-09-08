@@ -31,6 +31,7 @@ export interface CustomKeymap {
   customAppId?: string;
   baseAppSlug?: string;
   title: string;
+  sortOrder?: number;
   platforms?: Platform[];
   sections: CustomSection[];
 }
@@ -53,6 +54,8 @@ export interface CustomShortcut {
   baseShortcutId?: string;
   title: string;
   key?: string;
+  keyIsCleared?: boolean;
+  commentIsCleared?: boolean;
   comment?: string;
   isDeleted: boolean;
   sortOrder: number;
@@ -68,6 +71,8 @@ export interface Favorite {
   sectionTitle?: string;
   baseShortcutId?: string;
   customAppId?: string;
+  customKeymapId?: string;
+  customShortcutId?: string;
 }
 
 export interface ShortcutOverlay {

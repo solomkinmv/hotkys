@@ -1,3 +1,4 @@
+import { matchesFavorite } from "@/lib/shortcut-core/favorites";
 import { createClientOrNull } from "@/lib/supabase/client";
 import type { AuthUser } from "@/lib/auth/types";
 import type { Favorite } from "@/lib/model/user/user-models";
@@ -9,7 +10,7 @@ import { validateFavoriteMetadata } from "@/lib/validation/user-content";
 
 export class FavoritesService {
   async getFavorites(authUser?: AuthUser | null): Promise<Favorite[]> {
-    const supabase = createClientOrNull();
+    const supabase = createClientOrNull(authUser);
     if (!supabase) return [];
 
     const profile = await getCurrentProfile(authUser);
@@ -32,7 +33,9 @@ export class FavoritesService {
       shortcutTitle: row.shortcut_title,
       sectionTitle: row.section_title,
       baseShortcutId: row.base_shortcut_id,
-      customAppId: row.custom_app_id,
+      customAppId: row.custom_app_id ?? undefined,
+      customKeymapId: row.custom_keymap_id ?? undefined,
+      customShortcutId: row.custom_shortcut_id ?? undefined,
     }));
   }
 
@@ -41,7 +44,7 @@ export class FavoritesService {
     authUser?: AuthUser | null
   ): Promise<Favorite> {
     validateFavoriteMetadata(favorite);
-    const supabase = createClientOrNull();
+    const supabase = createClientOrNull(authUser);
     if (!supabase) throw new Error("Supabase sign in is not configured.");
 
     const profile = await requireCurrentProfile(authUser);
@@ -57,11 +60,19 @@ export class FavoritesService {
         section_title: favorite.sectionTitle ?? null,
         base_shortcut_id: favorite.baseShortcutId ?? null,
         custom_app_id: favorite.customAppId ?? null,
+        custom_keymap_id: favorite.customKeymapId ?? null,
+        custom_shortcut_id: favorite.customShortcutId ?? null,
       })
       .select()
       .single();
 
-    if (error) throw error;
+    if (error) {
+      if (error.code === "23505" || error.code === "23514") {
+        const existing = (await this.getFavorites(authUser)).find(row => matchesFavorite(row, favorite));
+        if (existing) return existing;
+      }
+      throw error;
+    }
 
     return {
       id: data.id,
@@ -72,12 +83,14 @@ export class FavoritesService {
       shortcutTitle: data.shortcut_title,
       sectionTitle: data.section_title,
       baseShortcutId: data.base_shortcut_id,
-      customAppId: data.custom_app_id,
+      customAppId: data.custom_app_id ?? undefined,
+      customKeymapId: data.custom_keymap_id ?? undefined,
+      customShortcutId: data.custom_shortcut_id ?? undefined,
     };
   }
 
   async removeFavorite(id: string, authUser?: AuthUser | null): Promise<void> {
-    const supabase = createClientOrNull();
+    const supabase = createClientOrNull(authUser);
     if (!supabase) throw new Error("Supabase sign in is not configured.");
 
     const profile = await requireCurrentProfile(authUser);
@@ -96,27 +109,12 @@ export class FavoritesService {
     authUser?: AuthUser | null
   ): Promise<boolean> {
     validateFavoriteMetadata(favorite);
-    const supabase = createClientOrNull();
+    const supabase = createClientOrNull(authUser);
     if (!supabase) throw new Error("Supabase sign in is not configured.");
 
-    const profile = await requireCurrentProfile(authUser);
+    await requireCurrentProfile(authUser);
 
-    let query = supabase
-      .from("favorites")
-      .select("id")
-      .eq("user_id", profile.id)
-      .eq("item_type", favorite.itemType);
-
-    query = applyNullableFilter(query, "app_slug", favorite.appSlug);
-    query = applyNullableFilter(query, "keymap_title", favorite.keymapTitle);
-    query = applyNullableFilter(query, "shortcut_title", favorite.shortcutTitle);
-    query = applyNullableFilter(query, "section_title", favorite.sectionTitle);
-    query = applyNullableFilter(query, "base_shortcut_id", favorite.baseShortcutId);
-    query = applyNullableFilter(query, "custom_app_id", favorite.customAppId);
-
-    const { data: existing, error } = await query.maybeSingle();
-
-    if (error) throw error;
+    const existing = (await this.getFavorites(authUser)).find(row => matchesFavorite(row, favorite));
 
     if (existing) {
       await this.removeFavorite(existing.id, authUser);
@@ -129,15 +127,3 @@ export class FavoritesService {
 }
 
 export const favoritesService = new FavoritesService();
-
-function applyNullableFilter<T extends { eq: (column: string, value: string) => T; is: (column: string, value: null) => T }>(
-  query: T,
-  column: string,
-  value: string | null | undefined
-): T {
-  if (value == null) {
-    return query.is(column, null);
-  }
-
-  return query.eq(column, value);
-}

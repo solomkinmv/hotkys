@@ -9,6 +9,7 @@ import type {
   CustomApp,
   CustomShortcut,
 } from "@/lib/model/user/user-models";
+import { validatePublicRoutes } from "@/lib/load/catalog-rules";
 import Validator from "@/lib/load/validator";
 import { normalizeShortcutKey } from "@/lib/shortcut-key-format";
 import { validateCustomAppMetadata } from "@/lib/validation/user-content";
@@ -51,11 +52,14 @@ export function normalizeCustomShortcutDraft<T extends CustomShortcutDraft>(
 
 export function validateCustomApp(customApp: CustomApp): void {
   validateCustomAppMetadata(customApp);
-  validator.validate([convertCustomAppToInputApp(customApp)]);
+  const publicApp = convertCustomAppToInputApp(customApp);
+  validatePublicRoutes(publicApp);
+  validator.validate([publicApp]);
 }
 
 export function convertCustomAppToInputApp(customApp: CustomApp): InputApp {
   const keymaps: InputKeymap[] = [...customApp.keymaps]
+    .sort((a,b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0))
     .map((keymap) => {
       const sections: InputSection[] = [...keymap.sections]
         .sort((a, b) => a.sortOrder - b.sortOrder)
@@ -80,7 +84,7 @@ export function convertCustomAppToInputApp(customApp: CustomApp): InputApp {
     });
 
   const inputApp: InputApp = {
-    $schema: "schema/shortcut.schema.json",
+    $schema: "https://hotkys.com/schema/shortcut.schema.json",
     name: customApp.name,
     slug: customApp.slug,
     keymaps,

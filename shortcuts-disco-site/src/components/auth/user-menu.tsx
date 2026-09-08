@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { Suspense } from "react";
+import { usePathname, useSearchParams } from "next/navigation";
 import { useAuth } from "@/components/auth/auth-provider";
 import { getLoginHref } from "@/lib/auth/redirect";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -16,8 +17,14 @@ import { Button } from "@/components/ui/button";
 import { User, Star, LogOut, FolderEdit } from "lucide-react";
 
 export function UserMenu() {
+  return <Suspense fallback={<div className="h-8 w-16" />}><UserMenuContent /></Suspense>;
+}
+
+function UserMenuContent() {
   const { user, isLoading, signOut } = useAuth();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const next = `${pathname}${searchParams.size ? `?${searchParams}` : ""}`;
 
   if (isLoading) {
     return <div className="h-8 w-8 rounded-full bg-muted animate-pulse" />;
@@ -26,7 +33,7 @@ export function UserMenu() {
   if (!user) {
     return (
       <Button variant="outline" size="sm" asChild>
-        <Link href={getLoginHref(pathname)}>Sign In</Link>
+        <Link href={getLoginHref(next)}>Sign In</Link>
       </Button>
     );
   }

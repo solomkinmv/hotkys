@@ -1,0 +1,27 @@
+import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
+import { test } from "node:test";
+import pg from "pg";
+const connectionString = process.env.HOTKYS_TEST_DATABASE_URL;
+if (!connectionString) throw new Error("Set HOTKYS_TEST_DATABASE_URL to a disposable local PostgreSQL database named hotkys_test. This test recreates its public schema.");
+const url = new URL(connectionString);
+if (!["localhost", "127.0.0.1", "[::1]"].includes(url.hostname) || url.pathname !== "/hotkys_test") throw new Error("Concurrency test requires localhost database hotkys_test");
+const schema = readFileSync(new URL("../schema.sql", import.meta.url), "utf8");
+test("simultaneous last-slot creation keeps the real PostgreSQL quota", async t => {
+  const setup = new pg.Client({ connectionString }); await setup.connect(); t.after(() => setup.end());
+  await setup.query(`DROP SCHEMA public CASCADE; CREATE SCHEMA public; DROP SCHEMA IF EXISTS auth CASCADE; CREATE SCHEMA auth;
+    DO $$ BEGIN IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname='anon') THEN CREATE ROLE anon; END IF; IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname='authenticated') THEN CREATE ROLE authenticated; END IF; END $$;
+    CREATE FUNCTION auth.jwt() RETURNS jsonb LANGUAGE sql STABLE AS $$ SELECT COALESCE(NULLIF(current_setting('request.jwt.claims',true),''),'{}')::jsonb $$;`);
+  await setup.query(schema);
+  const owner = "00000000-0000-0000-0000-000000000001";
+  await setup.query(`INSERT INTO profiles(id,clerk_user_id) VALUES ('${owner}','test'); INSERT INTO custom_apps(user_id,slug,name) SELECT '${owner}','app-'||n,'App '||n FROM generate_series(1,24) n;`);
+  const first = new pg.Client({ connectionString }); const second = new pg.Client({ connectionString });
+  await Promise.all([first.connect(), second.connect()]); t.after(async () => { await Promise.all([first.end(), second.end()]); });
+  await first.query("BEGIN");
+  await first.query(`INSERT INTO custom_apps(user_id,slug,name) VALUES ('${owner}','last','Last')`);
+  const competing = second.query(`INSERT INTO custom_apps(user_id,slug,name) VALUES ('${owner}','extra','Extra')`).then(() => null, error => error);
+  await first.query("COMMIT");
+  const error = await competing;
+  assert.equal(error?.code, "23514");
+  assert.equal(Number((await setup.query(`SELECT count(*) total FROM custom_apps WHERE user_id='${owner}'`)).rows[0].total),25);
+});
