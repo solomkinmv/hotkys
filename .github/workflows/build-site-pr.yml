@@ -8,6 +8,9 @@ on:
       - main
     paths:
       - 'shortcuts-disco-site/**' # Trigger only for changes in this directory
+      - 'shared/**'
+      - 'scripts/**'
+      - 'docs/catalog-compatibility.json'
       - '.github/workflows/build-site-pr.yml'
       - '.github/workflows/deploy-pages.yml'
 
@@ -24,6 +27,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -33,11 +38,33 @@ jobs:
           # Cache path relative to the repo root
           cache-dependency-path: shortcuts-disco-site/package-lock.json
 
+      - name: Verify shared shortcut contracts
+        run: node ../scripts/sync-shortcuts-core.mjs --check
+
       - name: Install dependencies
         run: npm ci
 
-      - name: Run build & tests
-        run: npm test
+      - name: Validate catalog and formatting
+        run: |
+          npm run validate-data
+          npm run format-data:check
+          npm run test:catalog
+      - name: Check existing catalog identities
+        env:
+          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: node ../scripts/check-catalog-identities.mjs "$PR_BASE_SHA"
+
+      - name: Test
+        run: npm test -- --runInBand
+
+      - name: Type check
+        run: npm run test:types
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build
+        run: npm run build
 
       - name: Test OAuth database permissions
         run: npm run test:rls

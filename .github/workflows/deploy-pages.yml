@@ -8,6 +8,8 @@ on:
     paths:
       - 'shortcuts-disco-site/**' # Trigger only when files in this directory change
       - '.github/workflows/deploy-pages.yml'
+      - 'shared/**'
+      - 'scripts/**'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -53,22 +55,10 @@ jobs:
           NEXT_PUBLIC_SUPABASE_URL: ${{ vars.NEXT_PUBLIC_SUPABASE_URL }}
           NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${{ vars.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
           NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ vars.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
-        run: |
-          case "${NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}" in
-            pk_live_*) ;;
-            *)
-              echo "::error::GitHub Pages production deploy requires a Clerk production publishable key that starts with pk_live_."
-              exit 1
-              ;;
-          esac
-          if ! test -n "${NEXT_PUBLIC_SUPABASE_URL}"; then
-            echo "::error::GitHub Pages production deploy requires NEXT_PUBLIC_SUPABASE_URL."
-            exit 1
-          fi
-          if ! test -n "${NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY}" && ! test -n "${NEXT_PUBLIC_SUPABASE_ANON_KEY}"; then
-            echo "::error::GitHub Pages production deploy requires a Supabase publishable or anon key."
-            exit 1
-          fi
+        run: npm run check:config -- --mode production
+
+      - name: Verify generated contracts
+        run: node ../scripts/sync-shortcuts-core.mjs --check
 
       - name: Build static site
         env:
@@ -76,6 +66,7 @@ jobs:
           NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${{ vars.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
           NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ vars.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
           NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ vars.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
+          NEXT_PUBLIC_ENABLE_OVERLAY_CLEARING: ${{ vars.NEXT_PUBLIC_ENABLE_OVERLAY_CLEARING }}
           NEXT_PUBLIC_CLERK_SIGN_IN_URL: /auth/login
           NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL: /
           NEXT_PUBLIC_CLERK_SIGN_UP_FALLBACK_REDIRECT_URL: /
