@@ -79,7 +79,7 @@ function UserMenuContent() {
           </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => signOut()} className="cursor-pointer">
+        <DropdownMenuItem onClick={() => { void signOut().catch(() => window.alert("Sign out could not finish. Please try again.")); }} className="cursor-pointer">
           <LogOut className="mr-2 h-4 w-4" />
           Sign Out
         </DropdownMenuItem>

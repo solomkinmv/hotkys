@@ -43,6 +43,29 @@ it("ignores an old request after reset", async () => {
   expect(store.getSnapshot().data).toBeNull();
 });
 
+it("clears private data when the last view closes and reopens signed out", async () => {
+  let token: string | null = "A";
+  const store = createUserDataStore({
+    getToken: async () => token,
+    isCurrent: async (value) => value === token,
+    load: async () => data,
+  });
+  const closeFirst = store.subscribe(() => {});
+  const closeLast = store.subscribe(() => {});
+  await store.revalidate();
+  closeFirst();
+  expect(store.getSnapshot().data).toBe(data);
+  token = null;
+  closeLast();
+  expect(store.getSnapshot().data).toBeNull();
+  expect(store.getSnapshot().initialized).toBe(false);
+  const closeReopened = store.subscribe(() => {});
+  await store.revalidate();
+  expect(store.getSnapshot().data).toBeNull();
+  expect(store.getSnapshot().initialized).toBe(true);
+  closeReopened();
+});
+
 it("does not let delayed account validation reset a newer account", async () => {
   let token = "A";
   const current = deferred<boolean>();

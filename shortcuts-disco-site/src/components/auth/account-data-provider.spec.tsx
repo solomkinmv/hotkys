@@ -5,7 +5,7 @@ import { act, fireEvent, render, screen, waitFor } from "@testing-library/react"
 const mockAuth = { user: { id: "a" } as { id: string } | null };
 const mockUser = { getPreferences: jest.fn<() => Promise<typeof prefs>>(), getProfile: jest.fn<(user: { id: string }) => Promise<{ id: string } | null>>(), updatePreferences: jest.fn<(next: typeof prefs, user: { id: string }) => Promise<void>>(), updateProfile: jest.fn() };
 const mockCustom = { getAllCustomizations: jest.fn<() => Promise<unknown>>() };
-const mockFavorites = { getFavorites: jest.fn<() => Promise<unknown>>(), addFavorite: jest.fn(), removeFavorite: jest.fn() };
+const mockFavorites = { getFavorites: jest.fn<() => Promise<unknown>>(), addFavorite: jest.fn<() => Promise<unknown>>(), removeFavorite: jest.fn() };
 jest.mock("./auth-provider", () => ({ useAuth: () => mockAuth }));
 jest.mock("@/lib/services/user-service", () => ({ userService: mockUser }));
 jest.mock("@/lib/services/customizations-service", () => ({ customizationsService: mockCustom }));
@@ -63,7 +63,7 @@ it("retries a failed preference read without writing defaults", async () => {
   mockUser.getPreferences.mockRejectedValueOnce(new Error("Read failed"));
   render(<AccountDataProvider><Probe /></AccountDataProvider>);
   await screen.findByRole("alert");
-  fireEvent.click(screen.getByRole("button", { name: "Retry" }));
+  fireEvent.click(screen.getByRole("button", { name: "Retry sync" }));
   await waitFor(() => expect(account.errors.preferences).toBeUndefined());
   expect(mockUser.updatePreferences).not.toHaveBeenCalled();
 });
@@ -72,7 +72,20 @@ it("keeps a failed preference save visible and retryable", async () => {
   render(<AccountDataProvider><Probe /></AccountDataProvider>);
   await waitFor(() => expect(account.loading).toBe(false));
   await act(async () => { await expect(account.updatePreferences({ columnCount: 6 })).rejects.toThrow("Save failed"); });
-  fireEvent.click(screen.getByRole("button", { name: "Retry" }));
+  fireEvent.click(screen.getByRole("button", { name: "Retry save" }));
   await waitFor(() => expect(account.errors.preferences).toBeUndefined());
   expect(mockUser.updatePreferences).toHaveBeenLastCalledWith({ ...prefs, columnCount: 6 }, { id: "a" });
+});
+it("reconciles a failed favorite response without replaying a possibly committed write", async () => {
+  const savedFavorite = { id: "favorite", userId: "a", itemType: "app", appSlug: "sample" };
+  mockFavorites.addFavorite.mockRejectedValueOnce(new Error("Response lost"));
+  render(<AccountDataProvider><Probe /></AccountDataProvider>);
+  await waitFor(() => expect(account.loading).toBe(false));
+  await act(async () => { await expect(account.addFavorite({ itemType: "app", appSlug: "sample" })).rejects.toThrow("Response lost"); });
+  expect(screen.getByRole("alert").textContent).toContain("repeat the action if needed");
+  mockFavorites.getFavorites.mockResolvedValue([savedFavorite]);
+  fireEvent.click(screen.getByRole("button", { name: "Retry sync" }));
+  await waitFor(() => expect(account.errors.favorites).toBeUndefined());
+  expect(account.data.favorites).toEqual([savedFavorite]);
+  expect(mockFavorites.addFavorite).toHaveBeenCalledTimes(1);
 });

@@ -121,10 +121,6 @@ function ClerkAuthProvider({ children }: { children: ReactNode }) {
   }, [authBridgeKey, session, user]);
 
   const signOut = async () => {
-    setReadyAuthBridgeKey(null);
-    setSupabaseAccessTokenProvider(null);
-    setCurrentAuthUser(null);
-    clearCurrentProfileCache();
     await clerkSignOut({ redirectUrl: "/" });
   };
 
