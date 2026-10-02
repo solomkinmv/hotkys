@@ -1,6 +1,6 @@
 # Hotkys Reliability and Contribution Implementation Plan
 
-> **For the implementer:** use the installed `executing-plans` skill as adaptable task-by-task guidance. Follow the dependency order and acceptance requirements below. This document is a plan, not evidence that the changes or production rollout have happened.
+**Status — October 2, 2026:** T01–T13 are implemented. T14 acceptance and rollout remain open; track the remaining work in [verification](../verification/project-remediation.md#outstanding-acceptance-and-rollout). Keep this plan active until those items are closed.
 
 **Goal:** resolve the audit's correctness and maintenance findings and deliver a coherent website → private authoring → contribution → public catalog → Raycast workflow.
 
@@ -14,7 +14,7 @@
 
 ## Working rules and sequence
 
-All paths below are relative to `/Users/max/projects/personal/shortcuts-disco`; run commands from that root unless indicated. Verify the selected checkout before editing. For implementation, use a retained branch/worktree such as `codex/project-remediation`; do not disturb other worktrees. The planning documents themselves were created in the current checkout.
+All paths below are relative to the repository root unless indicated. Verify the intended checkout or worktree before editing and preserve unrelated changes.
 
 Keep PRs reviewable by grouping the tasks below, not by making one giant cleanup commit. A commit message is suggested for each task; this plan does not require pushing, merging, changing a hosted dashboard, or publishing to a store while implementing locally. No artificial approval pause is needed between routine authorized implementation steps.
 
@@ -408,4 +408,4 @@ Run `test:db:concurrency` only against the explicitly configured local/test Post
 - Every A01–A14 finding maps to requirements and tasks, with A11 corrected against framework behavior.
 - Website, auth setup, Raycast, contribution authoring/export, catalog tooling, database rollout, and dead-code cleanup have concrete file targets and acceptance checks.
 - Unknown hosted/native behavior is an explicit verification task, not an assumed implementation defect or a reason to block local planning.
-- Production actions remain separate from creating these documents; no implementation or rollout is claimed by this plan.
+- The verification report records delivered work and remaining evidence. Local checks do not establish production deployment or store availability.

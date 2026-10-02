@@ -1,5 +1,7 @@
 # Raycast App Favorites and Custom Shortcuts Design
 
+**Status:** Archived July 30, 2026 design, retained as historical context. Later implementation changes supersede its details; use [auth operations](../../auth-operations.md) and [verification](../../verification/project-remediation.md) for current behavior and evidence.
+
 ## Architecture
 
 The Raycast extension will use the same data plane as the static website. A

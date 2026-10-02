@@ -1,8 +1,23 @@
 # Project remediation verification
 
+## Current status — October 2, 2026
+
+Implementation is complete; T14 acceptance and rollout remain open. [PR #152](https://github.com/solomkinmv/hotkys/pull/152) contains the follow-up fixes. The latest code change is `08b53b4`, which makes blank Delay default to zero as specified.
+
+| Scope | Latest verified result |
+| --- | --- |
+| Website | **275 tests / 32 suites**, types, lint and build passed in CI at `c533613` |
+| Raycast | **139 tests / 19 suites**, types, lint and build passed locally at `08b53b4` |
+| Database | **71 RLS/schema/upgrade checks passed** in CI at `c533613`; production migrations verified in the October 1 follow-up |
+| CI | All five checks passed at `c533613`; see [PR checks](https://github.com/solomkinmv/hotkys/pull/152/checks) for the current branch result |
+
+Website and database source are unchanged by the blank-Delay follow-up. Real Clerk/native evidence and [outstanding acceptance and rollout](#outstanding-acceptance-and-rollout) are recorded below. Older sections are dated snapshots and do not describe the current release state.
+
+## Implementation snapshot — September 7, 2026
+
 Implementation date: September 7, 2026 (America/Toronto; final checks continued on September 8 UTC). Baseline: `6a79eab`. Verified implementation revision: `bae6443` on retained branch `codex/project-remediation`. The subsequent verification-only commit adds this report.
 
-## Local implementation
+### Delivered scope
 
 | Scope | Delivered |
 | --- | --- |
@@ -15,9 +30,9 @@ Implementation date: September 7, 2026 (America/Toronto; final checks continued 
 
 The final favorite regression fix keeps versioned identities readable after conflicting catalog entries are removed, and uses the shared matcher in the website's pinned-favorites section. Ambiguous historic Windows Command/Control IDs are not guessed; see the recovery policy in [auth operations](../auth-operations.md#ambiguous-legacy-shortcut-identities).
 
-## Executed checks
+### Executed checks
 
-Final runtime: Node `22.16.0` on macOS. Clean `npm ci` installs also completed on the host's Node `26.3.0`; no lockfile update was required during final verification.
+Runtime for this snapshot: Node `22.16.0` on macOS. Clean `npm ci` installs also completed on the host's Node `26.3.0`; no lockfile update was required during final verification.
 
 | Check | Result |
 | --- | --- |
@@ -43,7 +58,7 @@ Database tests cover fresh-schema and upgraded legacy fixtures, anonymous/websit
 
 Logs and disposable fixtures are outside Git under `/tmp/hotkys-*`; visual artifacts are outside the checkout. They are local diagnostic artifacts, not durable CI links. No screenshot or private account data is committed.
 
-## Browser acceptance
+## Browser acceptance — September 7, 2026
 
 Public development preview was exercised through the browser: catalog search, empty search, keyboard link activation to Safari, list/cheat-sheet views, a 390 px viewport without horizontal overflow, and the `/my-shortcuts?app=sample` login return URL. The public-only sign-in page displays the unavailable-auth state rather than a broken provider form. Component regressions cover private authoring mutations, retry states, favorite aliases/renames, and clipboard denial.
 
@@ -108,6 +123,8 @@ Delay checks used the instance marked Development in native Settings; the separa
 Permission checks used native Privacy & Security settings. Device Control and Data Access denial/regrant and manual recovery passed; proof includes `native-raycast-permission-denied.png`, `native-permission-denial-retained-view.png`, `native-raycast-permission-restored.png` and `native-permission-regrant-recovered.png`. The separate System Events Automation baseline and denial are recorded in `native-automation-baseline.png` and `native-automation-denied.png`; restoration is awaiting action-time confirmation. Other applications and Raycast Automation targets were not changed.
 
 The full change review found an existing legacy-key configuration bug: an empty publishable-key variable masked a valid anon key. Validation, runtime configuration and the new database check now fall back past empty strings. One regression covers all three paths with a local fixture and mocked API calls; it failed before the fix and passed afterward. All 12 focused configuration/client/workflow tests, the website type check and lint of the changed files passed.
+
+The documentation follow-up aligned blank Delay with the specification's zero-second default. A regression for empty and whitespace-only values failed before the change and passed afterward. The full Raycast suite increased to 139 passing tests; types, lint and build passed. The earlier native blank-Delay check exercised the previous 0.1-second fallback and is not evidence of a fresh native run after this correction.
 
 ## Outstanding acceptance and rollout
 
