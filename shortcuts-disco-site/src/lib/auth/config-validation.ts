@@ -18,7 +18,7 @@ export function validateAuthConfig(config: PublicAuthConfig, mode: AuthMode): "p
   let url: URL;
   try { url = new URL(config.supabaseUrl); } catch { throw new Error("NEXT_PUBLIC_SUPABASE_URL is not a valid URL."); }
   if (url.protocol !== "https:" || url.username || url.password || url.pathname !== "/" || url.search || url.hash) throw new Error("Supabase URL must be an HTTPS origin.");
-  const key = config.supabaseKey ?? config.legacySupabaseKey!;
+  const key = config.supabaseKey || config.legacySupabaseKey!;
   if (config.supabaseKey && !/^sb_publishable_[A-Za-z0-9_-]+$/.test(key)) throw new Error("Use a Supabase publishable key. Server secret keys must never be public.");
   if (config.legacySupabaseKey) {
     try { const claims = JSON.parse(atob(key.split(".")[1].replace(/-/g,"+").replace(/_/g,"/"))); if (claims.role !== "anon") throw new Error(); }
