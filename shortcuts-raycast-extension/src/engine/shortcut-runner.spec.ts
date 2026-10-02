@@ -2,10 +2,15 @@ import { execFile } from "node:child_process";
 jest.mock("node:child_process", () => ({ execFile: jest.fn() }));
 jest.mock("../load/platform", () => ({ getPlatform: () => "macos" }));
 import { buildJxaScript, runShortcuts } from "./shortcut-runner";
+import { parseDelay } from "./execution-target";
 import { Modifiers } from "../model/internal/modifiers";
 const target = { kind: "desktop" as const, bundleId: "com.apple.TextEdit" };
 const sequence = [{ base: "c", modifiers: [Modifiers.command] }];
 describe("shortcut execution", () => {
+  it("defaults empty and whitespace-only delay preferences to zero", () => {
+    expect(parseDelay("")).toBe(0);
+    expect(parseDelay(" \t\n")).toBe(0);
+  });
   it("activates the specified application and verifies focus before every chord", () => {
     const script = buildJxaScript(target, 0.2, sequence, { c: "8" });
     expect(script).toContain("targetApp.activate()");

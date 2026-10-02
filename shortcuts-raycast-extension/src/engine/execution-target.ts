@@ -23,7 +23,7 @@ export function validateTarget(target: ExecutionTarget): void {
   }
 }
 export function parseDelay(value: string | number): number {
-  const delay = typeof value === "number" ? value : value.trim() === "" ? 0.1 : Number(value);
+  const delay = Number(value);
   if (!Number.isFinite(delay) || delay < 0 || delay > 5) throw new Error("Delay must be between 0 and 5 seconds");
   return delay;
 }
