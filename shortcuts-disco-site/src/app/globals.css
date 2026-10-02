@@ -1,162 +1,109 @@
 @import 'tailwindcss';
+@import 'tw-animate-css';
 @plugin '@tailwindcss/typography';
 @plugin 'tailwindcss-animate';
 
 @custom-variant dark (&:is(.dark *));
 
-@theme {
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
   --color-border: hsl(var(--border));
   --color-input: hsl(var(--input));
   --color-ring: hsl(var(--ring));
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
-
   --color-primary: hsl(var(--primary));
   --color-primary-foreground: hsl(var(--primary-foreground));
-
   --color-secondary: hsl(var(--secondary));
   --color-secondary-foreground: hsl(var(--secondary-foreground));
-
   --color-destructive: hsl(var(--destructive));
   --color-destructive-foreground: hsl(var(--destructive-foreground));
-
   --color-muted: hsl(var(--muted));
   --color-muted-foreground: hsl(var(--muted-foreground));
-
   --color-accent: hsl(var(--accent));
   --color-accent-foreground: hsl(var(--accent-foreground));
-
   --color-popover: hsl(var(--popover));
   --color-popover-foreground: hsl(var(--popover-foreground));
-
   --color-card: hsl(var(--card));
   --color-card-foreground: hsl(var(--card-foreground));
-
+  --color-brand: hsl(var(--brand));
   --radius-lg: var(--radius);
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
-
-  --animate-accordion-down: accordion-down 0.2s ease-out;
-  --animate-accordion-up: accordion-up 0.2s ease-out;
-
-  @keyframes accordion-down {
-    from {
-      height: 0;
-    }
-    to {
-      height: var(--radix-accordion-content-height);
-    }
-  }
-  @keyframes accordion-up {
-    from {
-      height: var(--radix-accordion-content-height);
-    }
-    to {
-      height: 0;
-    }
-  }
 }
 
 @utility container {
   margin-inline: auto;
-  padding-inline: 2rem;
-  @media (width >= --theme(--breakpoint-sm)) {
-    max-width: none;
-  }
-  @media (width >= 1400px) {
-    max-width: 1400px;
-  }
-}
-
-/*
-  The default border color has changed to `currentcolor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
-
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
-*/
-@layer base {
-  *,
-  ::after,
-  ::before,
-  ::backdrop,
-  ::file-selector-button {
-    border-color: var(--color-gray-200, currentcolor);
-  }
+  padding-inline: 1.25rem;
+  max-width: 1200px;
 }
 
 @layer base {
-    :root {
-        --background: 0 0% 100%;
-        --foreground: 222.2 84% 4.9%;
+  :root {
+    --background: 60 9% 98%;
+    --foreground: 220 9% 14%;
+    --card: 60 6% 99%;
+    --card-foreground: 220 9% 14%;
+    --popover: 60 6% 99%;
+    --popover-foreground: 220 9% 14%;
+    --primary: 220 9% 17%;
+    --primary-foreground: 60 9% 98%;
+    --secondary: 60 4% 93%;
+    --secondary-foreground: 220 9% 18%;
+    --muted: 60 4% 94%;
+    --muted-foreground: 220 5% 42%;
+    --accent: 60 4% 93%;
+    --accent-foreground: 220 9% 18%;
+    --destructive: 0 72% 45%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 60 3% 88%;
+    --input: 60 3% 84%;
+    --ring: 15 70% 43%;
+    --brand: 15 70% 43%;
+    --radius: 0.75rem;
+  }
 
-        --card: 0 0% 100%;
-        --card-foreground: 222.2 84% 4.9%;
+  .dark {
+    --background: 220 8% 9%;
+    --foreground: 60 6% 94%;
+    --card: 220 7% 12%;
+    --card-foreground: 60 6% 94%;
+    --popover: 220 7% 13%;
+    --popover-foreground: 60 6% 94%;
+    --primary: 60 6% 94%;
+    --primary-foreground: 220 9% 14%;
+    --secondary: 220 6% 17%;
+    --secondary-foreground: 60 6% 94%;
+    --muted: 220 6% 15%;
+    --muted-foreground: 220 5% 66%;
+    --accent: 220 6% 19%;
+    --accent-foreground: 60 6% 94%;
+    --destructive: 0 63% 59%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 220 6% 23%;
+    --input: 220 6% 29%;
+    --ring: 17 80% 68%;
+    --brand: 17 80% 68%;
+  }
 
-        --popover: 0 0% 100%;
-        --popover-foreground: 222.2 84% 4.9%;
-
-        --primary: 222.2 47.4% 11.2%;
-        --primary-foreground: 210 40% 98%;
-
-        --secondary: 210 40% 96.1%;
-        --secondary-foreground: 222.2 47.4% 11.2%;
-
-        --muted: 210 40% 96.1%;
-        --muted-foreground: 215.4 16.3% 46.9%;
-
-        --accent: 210 40% 96.1%;
-        --accent-foreground: 222.2 47.4% 11.2%;
-
-        --destructive: 0 84.2% 60.2%;
-        --destructive-foreground: 210 40% 98%;
-
-        --border: 214.3 31.8% 91.4%;
-        --input: 214.3 31.8% 91.4%;
-        --ring: 222.2 84% 4.9%;
-
-        --radius: 0.5rem;
-    }
-
-    .dark {
-        --background: 222.2 84% 4.9%;
-        --foreground: 210 40% 98%;
-
-        --card: 222.2 84% 4.9%;
-        --card-foreground: 210 40% 98%;
-
-        --popover: 222.2 84% 4.9%;
-        --popover-foreground: 210 40% 98%;
-
-        --primary: 210 40% 98%;
-        --primary-foreground: 222.2 47.4% 11.2%;
-
-        --secondary: 217.2 32.6% 17.5%;
-        --secondary-foreground: 210 40% 98%;
-
-        --muted: 217.2 32.6% 17.5%;
-        --muted-foreground: 215 20.2% 65.1%;
-
-        --accent: 217.2 32.6% 17.5%;
-        --accent-foreground: 210 40% 98%;
-
-        --destructive: 0 62.8% 30.6%;
-        --destructive-foreground: 210 40% 98%;
-
-        --border: 217.2 32.6% 17.5%;
-        --input: 217.2 32.6% 17.5%;
-        --ring: 212.7 26.8% 83.9%;
-    }
+  * { @apply border-border; }
+  body { @apply bg-background text-foreground; }
+  ::selection { background: hsl(var(--brand) / 0.2); }
+  a, button, input, select, textarea { scroll-margin-top: 6rem; }
+  a:focus-visible { outline: 2px solid hsl(var(--ring)); outline-offset: 4px; border-radius: 4px; }
 }
 
-@layer base {
-    * {
-        @apply border-border;
-    }
-    body {
-        @apply bg-background text-foreground;
-    }
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+  .hero-enter { animation: hero-enter 600ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+  .app-card { transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease; }
+  .app-card:hover { transform: translateY(-3px); box-shadow: 0 12px 28px hsl(var(--foreground) / 0.05); }
+  @keyframes hero-enter { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
 }
 
 @media (prefers-reduced-motion: reduce) {

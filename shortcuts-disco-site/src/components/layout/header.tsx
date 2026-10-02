@@ -1,77 +1,45 @@
 /* eslint-disable @next/next/no-img-element -- Static export uses small catalog or user-provided icons without an image optimization server. */
 "use client";
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { GithubIcon, TwitterIcon, RaycastIcon } from "@/components/ui/icons";
-import { MAIN_NAV_LINKS, SOCIAL_LINKS, NavIconKey } from "@/lib/constants/navigation";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Menu } from "lucide-react";
+import { MAIN_NAV_LINKS } from "@/lib/constants/navigation";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { UserMenu } from "@/components/auth/user-menu";
-import { HelpCircle } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { cn } from "@/lib/utils";
 
-const NAV_ICONS: Record<NavIconKey, React.ComponentType<{ className?: string }>> = {
-  HelpCircle,
-  Raycast: RaycastIcon,
-};
+const links = [{ href: "/#applications", label: "Apps" }, { href: "/favorites", label: "Favorites" }, ...MAIN_NAV_LINKS];
 
-/**
- * Header component for the application
- * Displays the logo, navigation links, and social media icons
- */
-export const Header = () => {
+export function Header() {
   const pathname = usePathname();
-
   return (
-    <header className="border-b">
-      <div className="mx-auto flex max-w-3xl items-center justify-between px-4 py-3">
-        {/* Main navigation */}
-        <nav className="flex items-center gap-4">
-          {/* Logo */}
-          <Link className="flex items-center gap-2 border-b-2 border-transparent" href="/">
-            <img src="/hotkys-logo-300x166.png" alt="Hotkys" className="h-12"/>
-          </Link>
-          
-          {/* Navigation links */}
-          {MAIN_NAV_LINKS.map((link) => {
-            const Icon = NAV_ICONS[link.icon];
-            const isActive = pathname === link.href;
-            return (
-              <Link
-                key={link.href}
-                className={isActive
-                  ? "text-foreground border-b-2 border-primary"
-                  : "text-muted-foreground hover:text-foreground hover:border-b-2 hover:border-primary"
-                }
-                href={link.href}
-              >
-                <Icon className="h-5 w-5 md:hidden" aria-hidden="true" />
-                <span className="hidden md:inline text-lg font-semibold">{link.label}</span>
-                <span className="sr-only md:hidden">{link.label}</span>
-              </Link>
-            );
-          })}
+    <header className="border-b bg-background">
+      <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:bg-background focus:p-3">Skip to content</a>
+      <div className="mx-auto flex h-[76px] max-w-6xl items-center justify-between gap-4 px-5 xl:px-0">
+        <Link href="/" aria-label="Hotkys home" className="shrink-0">
+          <Image src="/hotkys-logo-300x166.png" alt="Hotkys" width={76} height={42} className="dark:rounded-md dark:bg-white/90 dark:p-1" />
+        </Link>
+        <nav aria-label="Main navigation" className="mr-auto ml-8 hidden items-center gap-7 md:flex">
+          {links.map(link => <Link key={link.href} href={link.href} aria-current={pathname === link.href ? "page" : undefined} className={cn("text-sm font-medium text-muted-foreground transition-colors hover:text-foreground", pathname === link.href && "text-foreground")}>{link.label}</Link>)}
         </nav>
-        
-        {/* Social media links and theme toggle */}
-        <div className="flex items-center space-x-4">
-          {SOCIAL_LINKS.map(link => (
-            <Link
-              key={link.href}
-              className="text-foreground hover:underline"
-              href={link.href}
-              aria-label={link.label}
-            >
-              {link.icon === "TwitterIcon" ? (
-                <TwitterIcon className="h-5 w-5" aria-hidden="true" />
-              ) : (
-                <GithubIcon className="h-5 w-5" aria-hidden="true" />
-              )}
-            </Link>
-          ))}
+        <div className="flex items-center gap-2">
           <ThemeToggle />
           <UserMenu />
+          <Sheet>
+            <SheetTrigger asChild><Button variant="ghost" size="icon" className="md:hidden" aria-label="Open navigation"><Menu className="size-5" /></Button></SheetTrigger>
+            <SheetContent className="w-72">
+              <SheetHeader><SheetTitle>Hotkys</SheetTitle></SheetHeader>
+              <nav aria-label="Mobile navigation" className="flex flex-col gap-1 px-4">
+                {links.map(link => <SheetClose key={link.href} asChild><Link href={link.href} className="rounded-lg px-3 py-3 text-sm font-medium hover:bg-accent">{link.label}</Link></SheetClose>)}
+              </nav>
+            </SheetContent>
+          </Sheet>
         </div>
       </div>
     </header>
   );
-};
+}

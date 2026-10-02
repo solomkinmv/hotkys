@@ -12,28 +12,41 @@ interface AppIconProps {
   className?: string;
 }
 
+const monogramStyles = [
+  "rounded-[28%] bg-[#e8edf5] text-[#263b60] ring-1 ring-inset ring-[#263b60]/10",
+  "rounded-full bg-[#2d5d50] text-[#f3f7ed] shadow-xs",
+  "rounded-[25%_25%_25%_4%] bg-[#f7e7de] text-[#923c24] ring-1 ring-inset ring-[#923c24]/10",
+  "rounded-[28%] bg-[#d4ab58] text-[#382d19] shadow-xs",
+  "rounded-[4%_28%_4%_28%] bg-[#344353] text-[#f4f0e8] shadow-xs",
+  "rounded-full bg-[#f5ecf0] text-[#704356] ring-1 ring-inset ring-[#b794a2]",
+];
+
 function getInitials(name: string): string {
   return name
+    .trim()
     .split(/\s+/)
     .slice(0, 2)
-    .map((word) => word.charAt(0).toUpperCase())
-    .join("");
+    .map((word) => (Array.from(word)[0] ?? "").toUpperCase())
+    .join("") || "?";
 }
 
 export function AppIcon({ icon, appName, size = "sm", className }: AppIconProps) {
   const iconUrl = getIconUrl(icon);
-  const [imgError, setImgError] = useState(false);
+  const [failedIcon, setFailedIcon] = useState<string>();
 
   const sizeClasses = size === "sm" ? "h-4 w-4" : "h-8 w-8";
   const textSize = size === "sm" ? "text-[8px]" : "text-sm";
-
-  const showFallback = !iconUrl || imgError;
+  const showFallback = !iconUrl || failedIcon === iconUrl;
+  let hash = 0;
+  for (const character of appName.trim().toLowerCase()) {
+    hash = (hash * 31 + character.codePointAt(0)!) >>> 0;
+  }
 
   return (
     <div
       className={cn(
         sizeClasses,
-        "rounded-sm bg-muted flex items-center justify-center overflow-hidden shrink-0",
+        "rounded-sm flex items-center justify-center shrink-0",
         className
       )}
     >
@@ -41,11 +54,21 @@ export function AppIcon({ icon, appName, size = "sm", className }: AppIconProps)
         <img
           src={iconUrl}
           alt={`${appName} icon`}
-          className="h-full w-full object-cover rounded-sm"
-          onError={() => setImgError(true)}
+          loading="lazy"
+          decoding="async"
+          className="h-full w-full object-cover rounded-[inherit]"
+          onError={() => setFailedIcon(iconUrl)}
         />
       ) : (
-        <span className={cn("text-muted-foreground font-medium", textSize)}>
+        <span
+          role="img"
+          aria-label={`${appName} icon`}
+          className={cn(
+            "flex size-full items-center justify-center font-mono font-semibold leading-none select-none",
+            textSize,
+            monogramStyles[hash % monogramStyles.length]
+          )}
+        >
           {getInitials(appName)}
         </span>
       )}
