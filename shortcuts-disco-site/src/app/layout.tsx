@@ -1,5 +1,5 @@
 import React from "react";
-import { Inter as FontSans } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import "@/app/globals.css";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { Metadata } from "next";
@@ -13,10 +13,11 @@ import { FavoritesProvider } from "@/lib/hooks/use-favorites";
 /**
  * Font configuration for the application
  */
-const fontSans = FontSans({
+const fontSans = Geist({
   subsets: ["latin"],
-  variable: "--font-sans",
+  variable: "--font-geist-sans",
 });
+const fontMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" });
 
 /**
  * Metadata for the application
@@ -45,15 +46,16 @@ const RootLayout = ({ children }: React.PropsWithChildren) => {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={cn(
-        "flex flex-col min-h-screen bg-background text-foreground font-sans antialiased",
+        "flex flex-col min-h-dvh bg-background text-foreground font-sans antialiased",
         fontSans.variable,
+        fontMono.variable,
       )}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <AuthProvider>
             <FavoritesProvider>
               <Header />
 
-              <main className="flex-1 p-6 md:p-10">
+              <main id="main-content" className="flex-1 px-5 py-8 md:px-10 md:py-10">
                 {children}
               </main>
 

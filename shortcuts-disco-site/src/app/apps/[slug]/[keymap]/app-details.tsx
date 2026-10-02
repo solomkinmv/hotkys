@@ -839,7 +839,7 @@ export const AppDetails = ({
       {viewMode === "list" ? (
         <>
           <Sheet open={sectionSheetOpen} onOpenChange={setSectionSheetOpen}>
-            <SheetContent side="left" className="w-64 overflow-y-auto">
+            <SheetContent side="left" className="w-64 overflow-y-auto p-6 pt-12">
               <SheetTitle className="sr-only">Sections</SheetTitle>
               <TableOfContents
                 sections={displaySections}
@@ -906,7 +906,7 @@ export const AppDetails = ({
                       )
                     }
                   >
-                    <SelectTrigger id="shortcut-section" aria-label="Section">
+                    <SelectTrigger id="shortcut-section" aria-label="Section" className="w-full min-w-0 [&_[data-slot=select-value]]:truncate">
                       <SelectValue placeholder="Select section" />
                     </SelectTrigger>
                     <SelectContent>

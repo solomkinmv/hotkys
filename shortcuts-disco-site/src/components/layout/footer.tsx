@@ -1,43 +1,16 @@
-import React from 'react';
 import Link from "next/link";
 import { FOOTER_LINKS, SOCIAL_LINKS } from "@/lib/constants/navigation";
-import { TypographyXs } from "@/components/ui/typography";
 
-/**
- * Footer component for the application
- * Displays copyright information, links to report issues, and social media links
- */
-export const Footer = () => {
+export function Footer() {
   return (
-    <footer className="flex items-center justify-between border-t p-6">
-      {/* Copyright and issue reporting */}
-      <div className="space-y-0">
-        <TypographyXs>
-          Made by <Link href="https://solomk.in" className="underline">Maksym Solomkin</Link>
-        </TypographyXs>
-
-        {/* Footer links */}
-        {FOOTER_LINKS.map(link => (
-          <TypographyXs key={link.href} className="block">
-            <Link href={link.href} className="underline">
-              {link.label}
-            </Link>
-          </TypographyXs>
-        ))}
+    <footer className="border-t">
+      <div className="mx-auto flex max-w-6xl flex-col gap-5 px-5 py-7 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between xl:px-0">
+        <p>Made by <Link href="https://solomk.in" className="font-medium text-foreground hover:underline">Maksym Solomkin</Link></p>
+        <nav aria-label="Footer navigation" className="flex flex-wrap items-center gap-x-5 gap-y-3">
+          {FOOTER_LINKS.map(link => <Link key={link.href} href={link.href} className="hover:text-foreground hover:underline">{link.label}</Link>)}
+          {SOCIAL_LINKS.map(link => <Link key={link.href} href={link.href} className="hover:text-foreground hover:underline">{link.label}</Link>)}
+        </nav>
       </div>
-
-      {/* Social media links */}
-      <nav className="flex gap-4">
-        {SOCIAL_LINKS.map(link => (
-          <Link
-            key={link.href}
-            className="text-xs text-muted-foreground underline-offset-4 hover:underline"
-            href={link.href}
-          >
-            {link.label}
-          </Link>
-        ))}
-      </nav>
     </footer>
   );
-};
+}
