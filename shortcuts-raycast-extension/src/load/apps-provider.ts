@@ -12,6 +12,7 @@ const emptyFavorites: Favorite[] = [];
 
 interface UseAppsResult {
   isLoading: boolean;
+  accountError?: string;
   data: AppMetadata[];
   customizations?: UserCustomizations;
   favorites: Favorite[];
@@ -31,6 +32,7 @@ export function useApps(allowAuthorization = false): UseAppsResult {
 
   return {
     isLoading: isLoading || userData.isLoading,
+    accountError: userData.error,
     data: mergeAppMetadata(data?.apps ?? emptyApps, userData.data?.customizations),
     customizations: userData.data?.customizations,
     favorites: userData.data?.favorites ?? emptyFavorites,
