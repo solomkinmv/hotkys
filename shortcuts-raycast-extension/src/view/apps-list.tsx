@@ -15,6 +15,7 @@ interface AppsListProps {
   favorites: Favorite[];
   filter: AppsFilter;
   isLoading: boolean;
+  accountError?: string;
   onFilterChange: (filter: AppsFilter) => void;
   onToggleFavorite: (identifier: FavoriteIdentifier) => Promise<void>;
 }
@@ -25,6 +26,7 @@ export function AppsList({
   favorites,
   filter,
   isLoading,
+  accountError,
   onFilterChange,
   onToggleFavorite,
 }: AppsListProps) {
@@ -51,7 +53,8 @@ export function AppsList({
     >
       {sortedApps.length === 0 && !isLoading ? (
         <List.EmptyView
-          title={emptyTitleFor(filter)}
+          title={filter !== "all" && accountError ? "Account sync failed" : emptyTitleFor(filter)}
+          description={filter !== "all" && accountError ? "Open Actions and choose Retry Account Sync." : undefined}
           icon={Icon.AppWindow}
           actions={
             <ActionPanel>

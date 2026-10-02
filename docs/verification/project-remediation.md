@@ -73,10 +73,34 @@ The website test used the deployed frontend (`4a4a571`) with the migrated produc
 
 Screenshots remain outside Git under `/Users/max/.codex/visualizations/2026/10/02/01a0fa30-2aa1-7d70-b114-44b70a1fa978/`: `clerk-favorite-persisted.jpg`, `raycast-favorites-synced.png`, `raycast-native-execution.png`, `raycast-private-data-after-logout.png` and `clerk-logged-out.jpg`. No credentials, authorization parameters or private account identifiers are committed.
 
+## Additional native acceptance — October 2, 2026
+
+These checks used this branch's development extension and disposable local catalog/page fixtures. The native shortcut runner was unchanged. Fixture configuration, browser-target injection and local network proxy were removed afterward; the ordinary public catalog was restored, the native test account disconnected, and test servers stopped.
+
+| Check | Observed result |
+| --- | --- |
+| Closed desktop target | Applying Command+N launched TextEdit from a confirmed stopped state and opened a blank document |
+| Two desktop chords | Control+E followed by Control+Shift+A selected the disposable document's line from its initial caret position; neither chord alone would select it from that position |
+| Missing desktop target | Applying to an uninstalled fixture bundle produced failure feedback and required manual retry |
+| Display-only shortcut | The row remained visible without an Apply action |
+| Browser entry opened through All Apps | Without a captured browser target, executable rows offered favorite actions and no Apply action |
+| Missing key-code catalog | The parser rejected the fixture application and offered no executable rows |
+| Real PKCE cancellation and reconnect | Cancelling the browser authorization left Favorites requiring sign-in; a subsequent real Clerk consent/callback connected the same existing account |
+| Matching captured Safari URL | Native Apply executed Command+L and visibly selected the address |
+| Changed captured Safari URL | Native Apply rejected Command+F after the test tab changed URL, showed failure feedback, and opened no Find bar |
+| Partial browser sequence | Command+[ navigated from the second local page to the first; the later Command+F was suppressed and the shortcut view remained available for manual retry |
+| Private API failure and recovery | A local GET-only proxy returned 503, then forwarded to the production API without restarting the command. Retry Account Sync recovered the connected account with the same credentials and no new sign-in |
+
+The three Safari runner checks supplied the captured target temporarily because native automation did not reliably preserve the browser as the foreground application at command launch. They verify actual native runner behavior, not foreground discovery or the complete List Current Web Shortcuts flow. A Command+Tab/Command+F focus-change attempt left the view available and no Safari Find bar, but the foreground transition was not independently established; it is not counted as a verified focus-cancellation check.
+
+The private API failure exposed misleading copy: Favorites displayed “No favorite applications” when account sync had failed, with the error visible only inside Actions. The fix forwards the existing account error to empty Favorites/My Apps views, shows “Account sync failed” with the existing retry instructions, and keeps public applications available. Native failure/recovery passed after the fix. Four new regressions passed, as did the complete **138-test Raycast suite**, type checking, lint and build. The unchanged website's **274-test suite** also passed during this acceptance run. Astra reviewed the fix and independently passed the four regressions; no actionable defects remained in that review.
+
+Screenshots remain outside Git in the October 2 directory above, including `native-closed-target-launch.png`, `native-multi-key-sequence.png`, `native-missing-target.png`, `native-no-executable-keys.png`, `native-no-browser-target.png`, `native-missing-key-data.png`, `native-pkce-reconnect.png`, `native-browser-runner-matching-url.png`, `native-browser-stale-url-cancelled.png`, `native-browser-partial-sequence-no-find.png`, `native-private-outage-fixed.png`, `native-private-retry-recovered.png` and `native-final-signed-out.png`. No test configuration or account data is committed.
+
 ## Outstanding acceptance and rollout
 
-1. **Hosted identity:** Google sign-in, native PKCE, hosted token verification through real favorite reads/writes, and normal logout passed for one existing account above. Email-link/cross-device completion, PKCE cancel/reconnect and live A/B own/other-user checks still require designated test accounts. No test environment or test users were provisioned.
-2. **Native Raycast:** harmless `Command+L` execution passed after the lifecycle repair. The broader target/permission matrix in [the implementation plan](../plans/2026-09-07-project-remediation-plan.md#t14--integrate-perform-acceptance-and-stage-release) remains pending: closed-app launch, Accessibility/Automation denial, browser host change, delay, focus change and partial-sequence behavior were not exercised.
+1. **Hosted identity:** Google sign-in, native PKCE, cancellation/reconnect, hosted token verification through real favorite reads/writes, and normal logout passed for one existing account above. Email-link/cross-device completion and live A/B own/other-user checks require a designated second account and accessible test inbox/device. These were requested, but no test identities were supplied. No test environment or test users were provisioned.
+2. **Native Raycast:** the completed target/runner checks are listed above. Full foreground-browser discovery and focus-change cancellation remain unverified because automation did not establish the foreground precondition reliably. Actual Delay preference checks and Accessibility/Automation denial/regrant remain pending explicit settings/permission confirmation; no OS permissions or preferences were changed. The remaining matrix is in [the implementation plan](../plans/2026-09-07-project-remediation-plan.md#t14--integrate-perform-acceptance-and-stage-release).
 3. **External native logout overlap:** normal Settings Logout and private-view reopening passed. In-command Disconnect serializes this extension's owned token writes/removal. Native token-store removal is checked before persistence, but the API provides no shared transaction with an external/native logout occurring during an already-started credential write. The overlap remains unverified.
 4. **Database release:** completed for production in the October 1 follow-up above. Other environments must still inspect their drafts and migration ledger before applying the upgrades.
 5. **Compatible readers and website rollout:** release and verify the compatible Raycast reader first; only then enable `NEXT_PUBLIC_ENABLE_OVERLAY_CLEARING`. The flag remains off by default. Production deployment, store publication and live route verification were not performed.

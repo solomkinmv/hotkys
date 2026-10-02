@@ -5,7 +5,7 @@ import { AppsList } from "./view/apps-list";
 
 export default function AllShortcutsCommand() {
   const [filter, setFilter] = useState<AppsFilter>("all");
-  const { isLoading, data: apps, customizations, favorites, toggleFavorite } = useApps(filter !== "all");
+  const { isLoading, accountError, data: apps, customizations, favorites, toggleFavorite } = useApps(filter !== "all");
 
   return (
     <AppsList
@@ -14,6 +14,7 @@ export default function AllShortcutsCommand() {
       favorites={favorites}
       filter={filter}
       isLoading={isLoading}
+      accountError={accountError}
       onFilterChange={setFilter}
       onToggleFavorite={toggleFavorite}
     />
