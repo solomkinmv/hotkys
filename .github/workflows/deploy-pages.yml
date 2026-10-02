@@ -49,13 +49,13 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Validate production auth configuration
+      - name: Validate production auth configuration and database schema
         env:
           NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ vars.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
           NEXT_PUBLIC_SUPABASE_URL: ${{ vars.NEXT_PUBLIC_SUPABASE_URL }}
           NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${{ vars.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
           NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ vars.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
-        run: npm run check:config -- --mode production
+        run: npm run check:config -- --mode production --database
 
       - name: Verify generated contracts
         run: node ../scripts/sync-shortcuts-core.mjs --check

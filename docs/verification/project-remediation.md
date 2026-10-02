@@ -51,12 +51,22 @@ The final static export contains all 160 catalog app/keymap routes. Ten HTTP pro
 
 Screenshots are retained outside Git at `/Users/max/.codex/visualizations/2026/09/07/01a07e02-de15-7e62-9fbc-fb2e2ef284e2/final-safari-desktop.png` and `final-safari-mobile.png`.
 
+## Account data follow-up — October 1, 2026
+
+The three additive migrations were applied to the production project after duplicate-title, platform and parent-ownership preflight checks passed. A private backup was saved outside Git. Migration history matches the repository versions, and comparison before/after verified that every existing field and row in the four affected content tables was preserved.
+
+The new zero-row production API check failed against the old schema and passed after migration. A transaction on the live PostgreSQL database verified website/OAuth favorite writes, stable references and cascades, customization writes, clearing constraints, reorder permissions, cross-account denial and anonymous denial; all test fixtures were rolled back. RLS remains enabled on all seven private tables. These SQL claim fixtures verify database permissions, not Clerk token issuance or hosted JWT verification.
+
+Local verification passed: website 274 tests, Raycast 131 tests, 71 database checks, both package type/lint/build checks, generated-core synchronization and the existing catalog-identity guard. Added regressions cover sign-out rejection without session changes, successful sign-out, late rejection after account switching, favorite reconciliation without replay, deployment schema failures and Raycast cleanup on final view closure. Astra independently reviewed the remediation and found no actionable defects.
+
+The website changes are prepared for review; no website deployment or Raycast store publication was performed, and the overlay-clearing flag was not enabled. Provider sign-in and native Raycast acceptance below remain separate checks. The discarded private-keymap routing and partial-loading hypotheses do not justify implementation changes; the public identity compatibility guard remains in place.
+
 ## Outstanding acceptance and rollout
 
 1. **Hosted identity:** a designated test Clerk/Supabase environment and two test accounts are required for Google, email-link/cross-device completion, Raycast PKCE cancel/reconnect, real token verification, and live A/B own/other-user permission checks. No test environment or test users were provisioned in this implementation task.
 2. **Native Raycast:** execute the harmless target/permission matrix in [the implementation plan](../plans/2026-09-07-project-remediation-plan.md#t14--integrate-perform-acceptance-and-stage-release). Unit tests inspect generated scripts and awaited process outcomes; actual closed-app launch, Accessibility/Automation denial, browser host change, delay, focus change and partial-sequence behavior remain unverified in the running development extension. An installed native Raycast instance was detected, but the full native acceptance matrix was not executed.
 3. **External native logout overlap:** in-command Disconnect serializes this extension's owned token writes/removal. Native token-store removal is checked before persistence, but the API provides no shared transaction with an external/native logout occurring during an already-started credential write. Do not claim that overlap is proven safe from the mocked refresh tests; verify it natively before release.
-4. **Database release:** inspect existing drafts for duplicate section/keymap titles before the integrity migration. Apply the three additive migrations to the authorized target and verify constraints/policies. Local PostgreSQL and PGlite tests do not mean production migrations were applied.
+4. **Database release:** completed for production in the October 1 follow-up above. Other environments must still inspect their drafts and migration ledger before applying the upgrades.
 5. **Compatible readers and website rollout:** release and verify the compatible Raycast reader first; only then enable `NEXT_PUBLIC_ENABLE_OVERLAY_CLEARING`. The flag remains off by default. Production deployment, store publication and live route verification were not performed.
 
 The exact setup and acceptance steps are in [auth operations](../auth-operations.md); the contributor workflow is in [CONTRIBUTING](../../CONTRIBUTING.md). The implementation worktree is retained for review. The original checkout is unchanged apart from the two planning documents created before implementation.

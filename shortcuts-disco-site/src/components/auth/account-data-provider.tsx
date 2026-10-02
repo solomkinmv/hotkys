@@ -90,7 +90,7 @@ export function AccountDataProvider({ children }: { children: ReactNode }) {
     addFavorite: favorite => mutate("favorites", () => favoritesService.addFavorite(favorite, user)),
   }}>
     {Object.entries(errors).filter(([, error]) => error).map(([resource, error]) => <div key={resource} role="alert" className="border-b px-4 py-2 text-sm">
-      {resource}: {error} <button type="button" className="underline" onClick={() => { void (resource === "preferences" && failedPreferenceWrite ? updatePreferences({}) : refetch()).catch(() => {}); }}>Retry</button>
+      {resource}: {error} {resource === "favorites" ? "Sync to check your saved favorites, then repeat the action if needed. " : null}<button type="button" className="underline" onClick={() => { void (resource === "preferences" && failedPreferenceWrite ? updatePreferences({}) : refetch()).catch(() => {}); }}>{resource === "preferences" && failedPreferenceWrite ? "Retry save" : "Retry sync"}</button>
     </div>)}
     {children}</Context.Provider>;
 }

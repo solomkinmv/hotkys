@@ -6,6 +6,8 @@ This is an operations contract, not proof of hosted dashboard state. Production 
 
 Run `npm run check:config -- --mode public|test|production` inside `shortcuts-disco-site`. Builds and development use `--mode auto`: no configuration selects public mode, `pk_test_` selects test, `pk_live_` selects production. Diagnostics report field names and mode, never key values.
 
+Production Pages deployment also runs `npm run check:config -- --mode production --database`. It makes zero-row API reads to verify the required favorite-reference, overlay-clear, and keymap-order columns before publishing. A missing column, denied request, or unavailable database blocks deployment; it never applies migrations or reads private rows. Run the same command after an authorized migration rollout.
+
 | Mode | Website requirements | Database / extension |
 | --- | --- | --- |
 | Public | Unset all Clerk and Supabase variables | No private features; public catalog available |
