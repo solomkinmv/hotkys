@@ -107,6 +107,8 @@ Delay checks used the instance marked Development in native Settings; the separa
 
 Permission checks used native Privacy & Security settings. Device Control and Data Access denial/regrant and manual recovery passed; proof includes `native-raycast-permission-denied.png`, `native-permission-denial-retained-view.png`, `native-raycast-permission-restored.png` and `native-permission-regrant-recovered.png`. The separate System Events Automation baseline and denial are recorded in `native-automation-baseline.png` and `native-automation-denied.png`; restoration is awaiting action-time confirmation. Other applications and Raycast Automation targets were not changed.
 
+The full change review found an existing legacy-key configuration bug: an empty publishable-key variable masked a valid anon key. Validation, runtime configuration and the new database check now fall back past empty strings. One regression covers all three paths with a local fixture and mocked API calls; it failed before the fix and passed afterward. All 12 focused configuration/client/workflow tests, the website type check and lint of the changed files passed.
+
 ## Outstanding acceptance and rollout
 
 1. **Hosted identity:** Google sign-in, native PKCE, cancellation/reconnect, hosted token verification through real favorite reads/writes, and normal logout passed for one existing account above. Live A/B own/other-user checks require a designated second account. Email-link/cross-device completion requires an authorized test inbox and a second device/browser context; it does not inherently require another account. These prerequisites were requested but not supplied. No test environment or test users were provisioned.

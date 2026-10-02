@@ -2,7 +2,7 @@ import { createClient } from "@supabase/supabase-js";
 import type { PublicAuthConfig } from "../src/lib/auth/config-validation";
 
 export async function checkDatabaseSchema(config: PublicAuthConfig) {
-  const client = createClient(config.supabaseUrl!, (config.supabaseKey ?? config.legacySupabaseKey)!, {
+  const client = createClient(config.supabaseUrl!, (config.supabaseKey || config.legacySupabaseKey)!, {
     auth: { persistSession: false, autoRefreshToken: false },
   });
   for (const [table, columns] of [
