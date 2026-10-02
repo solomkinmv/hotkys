@@ -1,6 +1,6 @@
 # Raycast User Data Implementation Plan
 
-> **For Claude:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
+**Status:** Archived July 30, 2026 implementation plan, retained as historical context. For current setup and behavior, use [auth operations](../../auth-operations.md) and [verification](../../verification/project-remediation.md).
 
 **Goal:** Add secure Clerk PKCE authentication, favorites, and read/run support for website custom shortcuts to the Raycast extension without a custom backend.
 

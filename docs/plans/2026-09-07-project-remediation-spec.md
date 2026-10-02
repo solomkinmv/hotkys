@@ -1,6 +1,6 @@
 # Hotkys reliability and contribution specification
 
-Status: proposed, ready for implementation planning. Baseline: `main` at `6a79eab`, audited September 7, 2026. Companion: [implementation plan](2026-09-07-project-remediation-plan.md).
+Status — October 2, 2026: implemented; acceptance and rollout pending. See [current verification and remaining work](../verification/project-remediation.md). Original baseline: `main` at `6a79eab`, audited September 7, 2026. Companion: [implementation plan](2026-09-07-project-remediation-plan.md).
 
 ## Outcome
 
@@ -8,7 +8,7 @@ People can browse the public catalog without signing in, maintain private shortc
 
 This work covers the website, Clerk/Supabase integration and setup, Raycast, database compatibility, authoring/export, repository contribution tooling, CI, and the cleanup identified by the audit. This repository has no Expo or iOS app. The Apple-specific acceptance work is macOS Raycast focus, execution, permissions, and OAuth lifecycle testing.
 
-## Baseline and evidence corrections
+## Baseline audit and evidence corrections — September 7, 2026
 
 - Both builds, TypeScript checks, website and extension tests, and 60 isolated database permission cases passed during the audit. Passing these checks did not cover the reproduced behavioral defects below.
 - Reproduced: stale account responses, lost favorite identifiers, plus-key parsing, cleared overlay fields restoring defaults, empty-list keyboard navigation producing NaN, wrong-target runner control flow, and quota rejection of an existing-row upsert.
