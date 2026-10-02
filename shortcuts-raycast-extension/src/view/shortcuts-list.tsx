@@ -9,6 +9,7 @@ import {
   Icon,
   List,
   PopToRootType,
+  popToRoot,
 } from "@raycast/api";
 import { useState } from "react";
 import { parseDelay, type ExecutionTarget } from "../engine/execution-target";
@@ -66,8 +67,10 @@ export function ShortcutsList({
     try {
       const delay = parseDelay(getPreferenceValues<Preferences>().delay);
       validateSequence(shortcut.sequence, keyCodesResponse.data);
-      await closeMainWindow({ popToRootType: PopToRootType.Immediate });
+      // Popping to root unloads this command, so wait until execution completes.
+      await closeMainWindow({ popToRootType: PopToRootType.Suspended });
       await runShortcuts(executionTarget, delay, shortcut.sequence, keyCodesResponse.data);
+      await popToRoot();
     } catch (error) {
       await showToast({
         style: Toast.Style.Failure,
