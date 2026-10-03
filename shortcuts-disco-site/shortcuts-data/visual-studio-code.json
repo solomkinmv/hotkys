@@ -292,7 +292,7 @@
           "shortcuts": [
             {
               "title": "Open Editor Tab",
-              "key": "shift+cmd+e"
+              "key": "ctrl+shift+e"
             },
             {
               "title": "Shrink Selection",
@@ -326,11 +326,12 @@
           "shortcuts": [
             {
               "title": "Open Global Keybindings",
-              "key": "cmd+k cmd+s"
+              "key": "ctrl+k ctrl+s"
             }
           ]
         }
       ]
     }
-  ]
+  ],
+  "windowsProcessName": "Code"
 }

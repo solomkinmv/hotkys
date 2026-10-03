@@ -195,5 +195,6 @@
         }
       ]
     }
-  ]
+  ],
+  "windowsProcessName": "sublime_text"
 }

@@ -60,8 +60,8 @@
     },
     {
       "name": "current-app",
-      "title": "Copy Current App's Bundle ID",
-      "description": "Saves current app's bundle id in the clipboard",
+      "title": "Copy Current App's ID",
+      "description": "Copy the current application identifier for this platform",
       "mode": "no-view"
     }
   ],
@@ -95,5 +95,9 @@
     "test": "jest",
     "test:types": "tsc --noEmit",
     "dev:catalog": "node scripts/dev-catalog.mjs"
-  }
+  },
+  "platforms": [
+    "macOS",
+    "Windows"
+  ]
 }

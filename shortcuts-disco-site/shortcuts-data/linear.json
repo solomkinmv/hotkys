@@ -9,8 +9,7 @@
     {
       "title": "Default",
       "platforms": [
-        "macos",
-        "windows"
+        "macos"
       ],
       "sections": [
         {
@@ -278,6 +277,295 @@
             {
               "title": "Redo",
               "key": "shift+cmd+z"
+            }
+          ]
+        },
+        {
+          "title": "Markdown",
+          "shortcuts": [
+            {
+              "title": "Bulleted list",
+              "key": "plus"
+            },
+            {
+              "title": "Blockquote",
+              "key": "shift+."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Default (Windows)",
+      "platforms": [
+        "windows"
+      ],
+      "sections": [
+        {
+          "title": "General",
+          "shortcuts": [
+            {
+              "title": "Open command menu",
+              "key": "ctrl+k"
+            },
+            {
+              "title": "Save or submit",
+              "key": "ctrl+enter"
+            },
+            {
+              "title": "Back",
+              "key": "esc"
+            },
+            {
+              "title": "Peek into issue",
+              "key": "space"
+            },
+            {
+              "title": "Open focused item",
+              "key": "enter"
+            },
+            {
+              "title": "Select in a list",
+              "key": "x"
+            },
+            {
+              "title": "Clear a list selection",
+              "key": "esc"
+            },
+            {
+              "title": "Move up",
+              "key": "up"
+            },
+            {
+              "title": "Move down",
+              "key": "down"
+            },
+            {
+              "title": "Move right",
+              "key": "right"
+            },
+            {
+              "title": "Move left",
+              "key": "left"
+            },
+            {
+              "title": "Log out",
+              "key": "shift+opt+q"
+            }
+          ]
+        },
+        {
+          "title": "Navigation",
+          "shortcuts": [
+            {
+              "title": "Open parent issue",
+              "key": "ctrl+shift+up"
+            },
+            {
+              "title": "Open sub issue",
+              "key": "ctrl+shift+down"
+            },
+            {
+              "title": "Open details sidebar",
+              "key": "ctrl+i"
+            },
+            {
+              "title": "Toggle list / board view",
+              "key": "ctrl+b"
+            }
+          ]
+        },
+        {
+          "title": "Issue actions",
+          "shortcuts": [
+            {
+              "title": "New issue",
+              "key": "c"
+            },
+            {
+              "title": "New issue from template",
+              "key": "opt+c"
+            },
+            {
+              "title": "New issue in full screen view",
+              "key": "v"
+            },
+            {
+              "title": "Edit issue",
+              "key": "e"
+            },
+            {
+              "title": "Assign to user",
+              "key": "a"
+            },
+            {
+              "title": "Assign to me",
+              "key": "i"
+            },
+            {
+              "title": "Change labels",
+              "key": "l"
+            },
+            {
+              "title": "Remove label",
+              "key": "shift+l"
+            },
+            {
+              "title": "Change status",
+              "key": "s"
+            },
+            {
+              "title": "Change priority",
+              "key": "p"
+            },
+            {
+              "title": "Change estimate",
+              "key": "shift+e"
+            },
+            {
+              "title": "Set due date",
+              "key": "shift+d"
+            },
+            {
+              "title": "Remove due date",
+              "key": "ctrl+shift+d"
+            },
+            {
+              "title": "Rename",
+              "key": "r"
+            },
+            {
+              "title": "Move to another team",
+              "key": "ctrl+shift+m"
+            },
+            {
+              "title": "Delete issue",
+              "key": "ctrl+backspace"
+            },
+            {
+              "title": "Subscribe to issue",
+              "key": "shift+s"
+            },
+            {
+              "title": "Manage issue subscribers",
+              "key": "ctrl+shift+s"
+            },
+            {
+              "title": "Link any URL to issue…",
+              "key": "ctrl+l"
+            },
+            {
+              "title": "Filter issues",
+              "key": "f"
+            },
+            {
+              "title": "Clear last issue filter",
+              "key": "shift+f"
+            },
+            {
+              "title": "Clear all issue filters",
+              "key": "shift+opt+f"
+            },
+            {
+              "title": "Copy issue ID",
+              "key": "ctrl+."
+            },
+            {
+              "title": "Copy git branch name",
+              "key": "ctrl+shift+."
+            },
+            {
+              "title": "Copy issue URL",
+              "key": "ctrl+shift+,"
+            },
+            {
+              "title": "Create sub-issue",
+              "key": "ctrl+shift+o"
+            },
+            {
+              "title": "Add to cycle",
+              "key": "shift+c"
+            },
+            {
+              "title": "Add to project",
+              "key": "shift+p"
+            },
+            {
+              "title": "Comment on issue",
+              "key": "ctrl+m"
+            },
+            {
+              "title": "Add to active cycle",
+              "key": "ctrl+shift+c"
+            }
+          ]
+        },
+        {
+          "title": "Editor",
+          "shortcuts": [
+            {
+              "title": "Bold",
+              "key": "ctrl+b"
+            },
+            {
+              "title": "Italic",
+              "key": "ctrl+i"
+            },
+            {
+              "title": "Underline",
+              "key": "ctrl+u"
+            },
+            {
+              "title": "Strikethrough",
+              "key": "ctrl+d"
+            },
+            {
+              "title": "Blockquote",
+              "key": "ctrl+."
+            },
+            {
+              "title": "Large header",
+              "key": "ctrl+shift+1"
+            },
+            {
+              "title": "Medium header",
+              "key": "ctrl+shift+2"
+            },
+            {
+              "title": "Small header",
+              "key": "ctrl+shift+3"
+            },
+            {
+              "title": "Todo list",
+              "key": "ctrl+shift+7"
+            },
+            {
+              "title": "Bulleted list",
+              "key": "ctrl+shift+8"
+            },
+            {
+              "title": "Numbered list",
+              "key": "ctrl+shift+9"
+            },
+            {
+              "title": "Attach image / file",
+              "key": "ctrl+shift+a"
+            },
+            {
+              "title": "Inline code",
+              "key": "ctrl+shift+c"
+            },
+            {
+              "title": "Turn text into link",
+              "key": "ctrl+k"
+            },
+            {
+              "title": "Undo",
+              "key": "ctrl+z"
+            },
+            {
+              "title": "Redo",
+              "key": "ctrl+shift+z"
             }
           ]
         },

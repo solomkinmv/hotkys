@@ -611,5 +611,6 @@
         }
       ]
     }
-  ]
+  ],
+  "windowsProcessName": "studio64"
 }

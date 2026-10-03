@@ -87,6 +87,8 @@ export interface UserCustomizations<P extends string = string> {
 
 export interface AppShortcuts<M extends string = string, P extends string = string> {
   bundleId?: string;
+  windowsAppId?: string;
+  windowsProcessName?: string;
   hostname?: string;
   customAppId?: string;
   name: string;

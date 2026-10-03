@@ -33,7 +33,7 @@ export function useApps(allowAuthorization = false): UseAppsResult {
   return {
     isLoading: isLoading || userData.isLoading,
     accountError: userData.error,
-    data: mergeAppMetadata(data?.apps ?? emptyApps, userData.data?.customizations),
+    data: mergeAppMetadata(data?.apps ?? emptyApps, userData.data?.customizations, platform),
     customizations: userData.data?.customizations,
     favorites: userData.data?.favorites ?? emptyFavorites,
     toggleFavorite: userData.toggleFavorite,

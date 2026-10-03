@@ -1,3 +1,4 @@
+jest.mock("../load/platform", () => ({ getPlatform: () => "macos" }));
 import { AppsList } from "./apps-list";
 import type { AppsFilter } from "../user-data/view-models";
 

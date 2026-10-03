@@ -1,12 +1,21 @@
+import { runWindowsShortcuts, validateWindowsSequence } from "./windows-shortcut-runner";
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
 import type { AtomicShortcut } from "../model/internal/internal-models";
 import type { KeyCodes } from "../load/key-codes-provider";
 import { getPlatform } from "../load/platform";
-import { chromiumBundles, safariBundles, parseDelay, validateTarget, type ExecutionTarget } from "./execution-target";
+import {
+  chromiumBundles,
+  safariBundles,
+  parseDelay,
+  validateTarget,
+  type ExecutionTarget,
+  type MacExecutionTarget,
+} from "./execution-target";
 const execute = promisify(execFile);
 const allowedModifiers = new Set(["command down", "control down", "option down", "shift down"]);
 export function validateSequence(sequence: AtomicShortcut[], keyCodes: KeyCodes) {
+  if (getPlatform() === "windows") return validateWindowsSequence(sequence);
   if (sequence.length === 0 || sequence.length > 32) throw new Error("Shortcut has no executable key sequence");
   return sequence.map((atomic) => {
     const raw = keyCodes[atomic.base];
@@ -21,7 +30,7 @@ export function validateSequence(sequence: AtomicShortcut[], keyCodes: KeyCodes)
   });
 }
 export function buildJxaScript(
-  target: ExecutionTarget,
+  target: MacExecutionTarget,
   delaySeconds: number,
   sequence: AtomicShortcut[],
   keyCodes: KeyCodes
@@ -69,7 +78,11 @@ export async function runShortcuts(
   sequence: AtomicShortcut[],
   keyCodes: KeyCodes
 ): Promise<void> {
-  if (getPlatform() !== "macos") throw new Error("Shortcut execution is only supported on macOS");
+  if (getPlatform() === "windows") {
+    if (!("windowsProcessName" in target)) throw new Error("Windows application target is unavailable");
+    return runWindowsShortcuts(target, delaySeconds, sequence);
+  }
+  if (!("bundleId" in target)) throw new Error("macOS application target is unavailable");
   const script = buildJxaScript(target, delaySeconds, sequence, keyCodes);
   try {
     await execute("/usr/bin/osascript", ["-l", "JavaScript", "-e", script], { timeout: 15000, maxBuffer: 65536 });

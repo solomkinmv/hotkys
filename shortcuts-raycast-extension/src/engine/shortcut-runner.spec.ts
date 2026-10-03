@@ -1,3 +1,4 @@
+jest.mock("@raycast/utils", () => ({ runPowerShellScript: jest.fn() }));
 import { execFile } from "node:child_process";
 jest.mock("node:child_process", () => ({ execFile: jest.fn() }));
 jest.mock("../load/platform", () => ({ getPlatform: () => "macos" }));

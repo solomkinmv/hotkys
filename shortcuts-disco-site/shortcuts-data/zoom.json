@@ -757,40 +757,7 @@
           ]
         }
       ]
-    },
-    {
-      "title": "iOS",
-      "sections": [
-        {
-          "title": "Meeting",
-          "shortcuts": [
-            {
-              "title": "Mute/unmute audio",
-              "key": "shift+cmd+a"
-            },
-            {
-              "title": "Start/stop video",
-              "key": "shift+cmd+v"
-            },
-            {
-              "title": "Display/hide chat",
-              "key": "shift+cmd+h"
-            },
-            {
-              "title": "Minimize meeting",
-              "key": "shift+cmd+m"
-            },
-            {
-              "title": "Display/hide participants",
-              "key": "cmd+u"
-            },
-            {
-              "title": "Close front window",
-              "key": "cmd+w"
-            }
-          ]
-        }
-      ]
     }
-  ]
+  ],
+  "windowsProcessName": "Zoom"
 }

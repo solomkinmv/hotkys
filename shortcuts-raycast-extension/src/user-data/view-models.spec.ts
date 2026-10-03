@@ -124,3 +124,31 @@ describe("Raycast user-data view models", () => {
     ]);
   });
 });
+
+it("excludes private keymaps for other platforms from the Windows app list", () => {
+  const userData = {
+    customApps: [
+      {
+        id: "custom",
+        userId: "user",
+        slug: "custom",
+        name: "Custom",
+        keymaps: [
+          { id: "mac", title: "macOS", platforms: ["macos"], sections: [] },
+          { id: "win", title: "Windows", platforms: ["windows"], sections: [] },
+        ],
+      },
+    ],
+    customKeymaps: [],
+    shortcuts: [],
+    favorites: [],
+  };
+  expect(mergeAppMetadata([], userData, "windows")[0].keymaps).toEqual(["Windows"]);
+  expect(
+    mergeAppMetadata(
+      [],
+      { ...userData, customApps: [{ ...userData.customApps[0], keymaps: [userData.customApps[0].keymaps[0]] }] },
+      "windows"
+    )
+  ).toEqual([]);
+});

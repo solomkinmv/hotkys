@@ -21,6 +21,8 @@ export interface AppMetadata {
   slug: string;
   customAppId?: string;
   bundleId?: string;
+  windowsAppId?: string;
+  windowsProcessName?: string;
   hostname?: string;
   source?: string;
   icon?: string;
@@ -33,6 +35,8 @@ export interface AppMetadata {
  */
 export interface InputApp {
   bundleId?: string;
+  windowsAppId?: string;
+  windowsProcessName?: string;
   hostname?: string;
   name: string;
   slug: string;

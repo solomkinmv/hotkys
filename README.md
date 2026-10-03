@@ -1,6 +1,6 @@
 # Hotkys
 
-Find keyboard shortcuts on the website and in Raycast. The extension can identify the current app or supported browser page and execute a shortcut after verifying its target. Optional Clerk accounts sync private shortcuts, preferences, and favorites through Supabase.
+Find keyboard shortcuts on the website and in Raycast. The macOS and Windows extension can identify the current app or supported browser page and execute a shortcut after verifying its target. Optional Clerk accounts sync private shortcuts, preferences, and favorites through Supabase.
 
 - [Contribute or correct shortcuts](CONTRIBUTING.md)
 - [Website development](shortcuts-disco-site/README.md)

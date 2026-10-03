@@ -1,0 +1,2 @@
+# Keep generated contracts and formatter checks deterministic on every platform.
+* text=auto eol=lf

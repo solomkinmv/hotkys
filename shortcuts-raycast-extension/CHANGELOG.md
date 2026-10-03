@@ -1,5 +1,12 @@
 # Shortcuts Search Changelog
 
+## [Windows Support] - {PR_MERGE_DATE}
+
+- Support Windows app detection, platform keymaps, and verified shortcut execution
+- Add Ctrl/Alt/Shift/Win and target-layout punctuation input with focus checks
+- Add Windows browser window/address capture and page-change cancellation
+- Preserve account shortcuts/favorites and add Windows CI coverage
+
 ## [Update] - {PR_MERGE_DATE}
 
 - Merge signed-in custom applications and shortcuts into existing commands

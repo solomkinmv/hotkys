@@ -17,6 +17,8 @@ The JSON schema is `shortcuts-disco-site/shortcuts-data/schema/shortcut.schema.j
 
 A row needs a title and a key or comment. Keys use lowercase modifiers `ctrl`, `shift`, `opt` (alias `alt`), `cmd`, `win`, followed by one base key. Formatting puts modifiers in that order. Examples: `shift+cmd+p`, `cmd+k cmd+s`, `+`, `cmd++`. Spaces separate sequential chords. Unknown or repeated modifiers and unknown base keys are rejected. Consult `public/data/key-codes.json` for base keys. Comment-only rows are displayed without execution.
 
+Windows desktop contributions may set `windowsAppId` to the identifier copied from Raycast and `windowsProcessName` to the executable filename without `.exe`. These are separate values: an AppUserModelID is not a process name. Use the Windows verification guide to confirm execution on the contributed app/version. The generated website and Raycast catalogs preserve both fields.
+
 Omitted platforms mean all supported platforms. An explicit array contains one or more distinct values from `macos`, `windows`, `linux`. Use separate keymaps when bindings differ. Keep deliberate section/row order; move controls in the editor adjust it.
 
 ## Local commands
