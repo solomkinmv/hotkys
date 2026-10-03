@@ -1,5 +1,5 @@
 import { describe, expect, it, jest, beforeEach } from "@jest/globals";
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
 
 const mockUseAuth = jest.fn();
 const mockUseCustomizations = jest.fn();
@@ -96,7 +96,48 @@ describe("MyShortcutsContent", () => {
     await waitFor(() =>
       expect(pushMock).toHaveBeenCalledWith("/my-shortcuts?app=local-tool"),
     );
-    expect(refetchMock).not.toHaveBeenCalled();
+    expect(refetchMock).toHaveBeenCalledTimes(1);
+  });
+  it("waits for the created app to load before opening its editor", async () => {
+    let finishRefresh!: () => void;
+    refetchMock.mockImplementationOnce(
+      () =>
+        new Promise<void>((resolve) => {
+          finishRefresh = resolve;
+        }),
+    );
+    render(<MyShortcutsContent />);
+    fireEvent.click(screen.getByRole("button", { name: "New App" }));
+    fireEvent.change(screen.getByLabelText("App Name"), {
+      target: { value: "Local Tool" },
+    });
+    fireEvent.click(screen.getByRole("button", { name: "Create App" }));
+    await waitFor(() => expect(refetchMock).toHaveBeenCalledTimes(1));
+    expect(pushMock).not.toHaveBeenCalled();
+    expect(screen.queryByRole("dialog")).toBeNull();
+    await act(async () => finishRefresh());
+    await waitFor(() =>
+      expect(pushMock).toHaveBeenCalledWith("/my-shortcuts?app=local-tool"),
+    );
+    expect(createCustomAppMock).toHaveBeenCalledTimes(1);
+  });
+  it("retries only the read when a created app cannot reload", async () => {
+    refetchMock.mockRejectedValueOnce(new Error("Read interrupted"));
+    render(<MyShortcutsContent />);
+    fireEvent.click(screen.getByRole("button", { name: "New App" }));
+    fireEvent.change(screen.getByLabelText("App Name"), {
+      target: { value: "Local Tool" },
+    });
+    fireEvent.click(screen.getByRole("button", { name: "Create App" }));
+    expect((await screen.findByRole("alert")).textContent).toContain(
+      "App created, but couldn’t reload",
+    );
+    expect(screen.queryByRole("dialog")).toBeNull();
+    expect(pushMock).not.toHaveBeenCalled();
+    fireEvent.click(screen.getByRole("button", { name: "Retry loading" }));
+    await waitFor(() => expect(refetchMock).toHaveBeenCalledTimes(2));
+    await waitFor(() => expect(screen.queryByRole("alert")).toBeNull());
+    expect(createCustomAppMock).toHaveBeenCalledTimes(1);
   });
   it("keeps a manually edited slug when the app name changes", async () => {
     render(<MyShortcutsContent />);

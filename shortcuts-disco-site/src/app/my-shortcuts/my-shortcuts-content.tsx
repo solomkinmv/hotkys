@@ -92,6 +92,7 @@ function MyShortcutsListContent({
     if (!user || pending) return;
     setPending(true);
     setError(null);
+    let wasCreated = false;
     try {
       assertResourceLimit(
         customizations.customApps.length,
@@ -107,13 +108,17 @@ function MyShortcutsListContent({
         },
         user,
       );
+      wasCreated = true;
       setIsCreateOpen(false);
+      await refetch();
       router.push(`/my-shortcuts?app=${encodeURIComponent(app.slug)}`);
     } catch (error) {
       setError(
-        error instanceof Error
-          ? error.message
-          : "Unable to create app. Your draft is still here.",
+        wasCreated
+          ? "App created, but couldn’t reload your collection. Retry loading to see your new app."
+          : error instanceof Error
+            ? error.message
+            : "Unable to create app. Your draft is still here.",
       );
     } finally {
       setPending(false);
@@ -210,7 +215,9 @@ function MyShortcutsListContent({
           <h2 className="text-xl font-semibold tracking-tight">
             Couldn’t load your apps
           </h2>
-          <p className="mt-3 text-sm text-muted-foreground">{loadError}</p>
+          <p className="mt-3 text-sm text-muted-foreground">
+            {error ?? loadError}
+          </p>
           <Button
             variant="outline"
             className="mt-5 rounded-xl"
