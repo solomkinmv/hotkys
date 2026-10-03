@@ -25,6 +25,12 @@
       "minLength": 1,
       "maxLength": 253
     },
+    "windowsAppId": {
+      "description": "Application identifier returned by Raycast on Windows (may be an AppUserModelID; not an executable name)",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 255
+    },
     "slug": {
       "description": "Unique readable identifier",
       "type": "string",
@@ -68,6 +74,13 @@
       },
       "minItems": 1,
       "maxItems": 100
+    },
+    "windowsProcessName": {
+      "description": "Executable filename without .exe, used to locate an open desktop window on Windows",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9 ._-]*$"
     }
   },
   "required": [

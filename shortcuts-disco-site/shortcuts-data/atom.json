@@ -9,8 +9,7 @@
     {
       "title": "Default",
       "platforms": [
-        "macos",
-        "windows"
+        "macos"
       ],
       "sections": [
         {
@@ -345,6 +344,179 @@
             {
               "title": "Search for Symbol Across Project",
               "key": "shift+cmd+r"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Default (Windows)",
+      "platforms": [
+        "windows"
+      ],
+      "sections": [
+        {
+          "title": "Core Windows bindings",
+          "shortcuts": [
+            {
+              "title": "New file",
+              "key": "ctrl+n"
+            },
+            {
+              "title": "New window",
+              "key": "ctrl+shift+n"
+            },
+            {
+              "title": "Open file",
+              "key": "ctrl+o"
+            },
+            {
+              "title": "Open folder",
+              "key": "ctrl+shift+o"
+            },
+            {
+              "title": "Add project folder",
+              "key": "ctrl+shift+a"
+            },
+            {
+              "title": "Save",
+              "key": "ctrl+s"
+            },
+            {
+              "title": "Save as",
+              "key": "ctrl+shift+s"
+            },
+            {
+              "title": "Close file",
+              "key": "ctrl+w"
+            },
+            {
+              "title": "Close window",
+              "key": "ctrl+shift+w"
+            },
+            {
+              "title": "Settings",
+              "key": "ctrl+,"
+            },
+            {
+              "title": "Toggle full screen",
+              "key": "f11"
+            },
+            {
+              "title": "Developer tools",
+              "key": "ctrl+shift+i"
+            },
+            {
+              "title": "Reload window",
+              "key": "ctrl+shift+f5"
+            },
+            {
+              "title": "Reopen closed file",
+              "key": "ctrl+shift+t"
+            },
+            {
+              "title": "Undo",
+              "key": "ctrl+z"
+            },
+            {
+              "title": "Redo",
+              "key": "ctrl+y"
+            },
+            {
+              "title": "Cut",
+              "key": "ctrl+x"
+            },
+            {
+              "title": "Copy",
+              "key": "ctrl+c"
+            },
+            {
+              "title": "Paste",
+              "key": "ctrl+v"
+            },
+            {
+              "title": "Select all",
+              "key": "ctrl+a"
+            },
+            {
+              "title": "Duplicate line",
+              "key": "ctrl+shift+d"
+            },
+            {
+              "title": "Join lines",
+              "key": "ctrl+j"
+            },
+            {
+              "title": "Move line up",
+              "key": "ctrl+up"
+            },
+            {
+              "title": "Move line down",
+              "key": "ctrl+down"
+            },
+            {
+              "title": "Select line",
+              "key": "ctrl+l"
+            },
+            {
+              "title": "Go to start of file",
+              "key": "ctrl+home"
+            },
+            {
+              "title": "Go to end of file",
+              "key": "ctrl+end"
+            },
+            {
+              "title": "Select to start of file",
+              "key": "ctrl+shift+home"
+            },
+            {
+              "title": "Select to end of file",
+              "key": "ctrl+shift+end"
+            },
+            {
+              "title": "Uppercase",
+              "key": "ctrl+k ctrl+u"
+            },
+            {
+              "title": "Lowercase",
+              "key": "ctrl+k ctrl+l"
+            },
+            {
+              "title": "Toggle line comments",
+              "key": "ctrl+/"
+            },
+            {
+              "title": "Fold selection",
+              "key": "ctrl+shift+alt+["
+            },
+            {
+              "title": "Next tab",
+              "key": "ctrl+pagedown"
+            },
+            {
+              "title": "Previous tab",
+              "key": "ctrl+pageup"
+            },
+            {
+              "title": "Split pane below",
+              "key": "ctrl+k down"
+            },
+            {
+              "title": "Split pane right",
+              "key": "ctrl+k right"
+            },
+            {
+              "title": "Increase font size",
+              "key": "ctrl+="
+            },
+            {
+              "title": "Decrease font size",
+              "key": "ctrl+-"
+            },
+            {
+              "title": "Reset font size",
+              "key": "ctrl+0"
             }
           ]
         }

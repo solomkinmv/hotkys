@@ -17,6 +17,8 @@ export interface InputApp {
     $schema?: "schema/shortcut.schema.json" | "https://hotkys.com/schema/shortcut.schema.json";
     bundleId?: string;
     hostname?: string;
+    windowsAppId?: string;
+  windowsProcessName?: string;
     name: string;
     slug: string;
     source?: string;

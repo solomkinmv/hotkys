@@ -1,3 +1,4 @@
+import { getPlatform } from "../load/platform";
 import { catalogUrl } from "../config/catalog";
 import { AccountActions } from "./account-actions";
 import { Action, ActionPanel, Icon, Image, List } from "@raycast/api";
@@ -100,7 +101,9 @@ function emptyTitleFor(filter: AppsFilter): string {
 }
 
 function formatSubtitle(app: AppMetadata): string {
-  return app.bundleId ?? app.hostname ?? "";
+  return (
+    (getPlatform() === "windows" ? (app.windowsAppId ?? app.windowsProcessName) : app.bundleId) ?? app.hostname ?? ""
+  );
 }
 
 function getAppIcon(app: AppMetadata): Image.ImageLike {

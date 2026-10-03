@@ -368,5 +368,6 @@
         }
       ]
     }
-  ]
+  ],
+  "windowsProcessName": "chrome"
 }

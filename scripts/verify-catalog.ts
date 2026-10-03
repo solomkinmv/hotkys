@@ -1,3 +1,4 @@
+import { getWindowsKeyNames } from "../shortcuts-raycast-extension/src/load/windows-key-names";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import os from "node:os";
@@ -37,6 +38,18 @@ async function main() {
       assert.deepEqual(rayRow.sequence, webRow.sequence); assert.deepEqual(raycast[index].keymaps[0].platforms, ["macos", "linux"]);
       assert.equal(getBaseShortcutId(webRow, 0), getBaseShortcutId(rayRow, 0));
     }
+    // Windows execution metadata must survive both generated API shapes and both consumers.
+    const windows = { ...combined[0], $schema: "https://hotkys.com/schema/shortcut.schema.json", name: "Windows Fixture", slug: "windows-fixture", bundleId: "com.example.Windows", windowsAppId: "Vendor.Package!App", windowsProcessName: "Example App", keymaps: [{ title: "Windows", platforms: ["windows"], sections: [{ title: "Edit", shortcuts: [{ title: "Copy", key: "ctrl+c" }] }] }] };
+    save(windows.slug, windows); generateCatalog(root);
+    const metadata = read("data/windows/apps.json").apps.find((app: { slug: string }) => app.slug === windows.slug);
+    assert.equal(metadata.windowsAppId, windows.windowsAppId); assert.equal(metadata.windowsProcessName, windows.windowsProcessName);
+    const windowsData = read("data/windows/windows-fixture.json");
+    const winWebsite = new WebsiteParser().parseInputShortcuts([windowsData])[0];
+    const winRaycast = new RaycastParser(getWindowsKeyNames()).parseInputShortcuts([windowsData])[0];
+    for (const consumer of [winWebsite, winRaycast]) {
+      assert.equal(consumer.windowsAppId, windows.windowsAppId); assert.equal(consumer.windowsProcessName, windows.windowsProcessName);
+      assert.deepEqual(consumer.keymaps[0].sections[0].hotkeys[0].sequence, [{ base: "c", modifiers: ["control down"] }]);
+    }
     watcher = watchCatalog(root); await watcher.ready;
     const added = { ...combined[0], $schema: "https://hotkys.com/schema/shortcut.schema.json", slug: "added", name: "Added", bundleId: "com.example.Added" };
     save("added", added); await until(() => read("data/macos/apps.json").apps.some((app: { slug: string }) => app.slug === "added"));
@@ -52,7 +65,7 @@ async function main() {
     fs.writeFileSync(path.join(root, "public/data/key-codes.json"), codes);
     await until(() => fs.existsSync(path.join(root, "public/data/macos/example-desktop.json")));
     assert.equal(fs.readFileSync(path.join(root, "public/data/key-codes.json"), "utf8"), codes);
-    console.log("Desktop/web export → catalog → both consumers and real watcher add/change/delete/schema/key-code checks passed.");
+    console.log("Desktop/web export and Windows execution metadata → catalog → both consumers and real watcher add/change/delete/schema/key-code checks passed.");
   } finally { await watcher?.close(); fs.rmSync(root, { recursive: true, force: true }); }
 }
 void main().catch(error => { console.error(error); process.exitCode = 1; });

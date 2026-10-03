@@ -379,7 +379,7 @@
             },
             {
               "title": "Send backwards",
-              "key": "shift+cmd+down"
+              "key": "ctrl+shift+down"
             },
             {
               "title": "Select multiple items on click",

@@ -1,1 +1,6 @@
-[]
+[
+  {
+    "fingerprint": "abb48bc9f577d1df493ba8e55245291aeaa9378903984aa541ce22782757fb06",
+    "reason": "Windows integration corrects three Mac Cmd bindings in explicitly Windows VS Code/Proto.io keymaps, removes five falsely Windows-labelled Xcode rows and six Zoom iOS rows incorrectly exported to desktop platforms, and corrects two inherited Gmail bindings in both Mac and Windows keymaps: minus marks not important and q searches chat. Saved shortcut references to those sixteen old bindings become unavailable; users can re-favorite or recreate overlays against the corrected rows. Existing macOS keymaps remain except these two Gmail corrections. No automatic label-based migration or private-data mutation is performed."
+  }
+]

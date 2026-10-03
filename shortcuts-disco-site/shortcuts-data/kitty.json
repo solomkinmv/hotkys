@@ -10,8 +10,7 @@
       "title": "Default",
       "platforms": [
         "linux",
-        "macos",
-        "windows"
+        "macos"
       ],
       "sections": [
         {

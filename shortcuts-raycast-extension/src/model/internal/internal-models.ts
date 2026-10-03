@@ -6,6 +6,8 @@ export interface Shortcuts {
 
 export interface Application {
   bundleId?: string;
+  windowsAppId?: string;
+  windowsProcessName?: string;
   hostname?: string;
   name: string;
   slug: string;

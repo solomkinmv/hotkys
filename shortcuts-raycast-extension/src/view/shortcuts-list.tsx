@@ -12,7 +12,7 @@ import {
   popToRoot,
 } from "@raycast/api";
 import { useState } from "react";
-import { parseDelay, type ExecutionTarget } from "../engine/execution-target";
+import { validateTarget, parseDelay, type ExecutionTarget } from "../engine/execution-target";
 import { supportsPlatform } from "../shortcut-core/platforms";
 import { getPlatform } from "../load/platform";
 import { runShortcuts, validateSequence } from "../engine/shortcut-runner";
@@ -56,6 +56,7 @@ export function ShortcutsList({
   const canExecute = (shortcut: SectionShortcut) => {
     if (!executionTarget || !keyCodesResponse.data) return false;
     try {
+      validateTarget(executionTarget);
       validateSequence(shortcut.sequence, keyCodesResponse.data);
       return true;
     } catch {
@@ -66,6 +67,7 @@ export function ShortcutsList({
     if (!executionTarget || !keyCodesResponse.data) return;
     try {
       const delay = parseDelay(getPreferenceValues<Preferences>().delay);
+      validateTarget(executionTarget);
       validateSequence(shortcut.sequence, keyCodesResponse.data);
       // Popping to root unloads this command, so wait until execution completes.
       await closeMainWindow({ popToRootType: PopToRootType.Suspended });

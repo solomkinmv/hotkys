@@ -11,6 +11,8 @@ export interface Shortcuts {
 
 export interface AppShortcuts {
     bundleId?: string;
+    windowsAppId?: string;
+    windowsProcessName?: string;
     hostname?: string;
     customAppId?: string;
     name: string;

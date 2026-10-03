@@ -1,3 +1,5 @@
+import { supportsPlatform } from "../shortcut-core/platforms";
+import type { Platform } from "../load/platform";
 import type { AppMetadata } from "../model/input/input-models";
 import type { Favorite, UserCustomizations } from "./models";
 
@@ -5,22 +7,27 @@ export type AppsFilter = "all" | "customized" | "favorites";
 
 export function mergeAppMetadata(
   baseApps: AppMetadata[],
-  customizations: UserCustomizations | undefined
+  customizations: UserCustomizations | undefined,
+  platform?: Platform
 ): AppMetadata[] {
   if (!customizations) return baseApps;
 
   return [
     ...baseApps,
-    ...customizations.customApps.map((app) => ({
-      name: app.name,
-      slug: `custom-${app.slug}`,
-      customAppId: app.id,
-      bundleId: app.bundleId,
-      hostname: app.hostname,
-      source: app.source,
-      icon: app.icon,
-      keymaps: app.keymaps.map((keymap) => keymap.title),
-    })),
+    ...customizations.customApps
+      .map((app) => ({
+        name: app.name,
+        slug: `custom-${app.slug}`,
+        customAppId: app.id,
+        bundleId: app.bundleId,
+        hostname: app.hostname,
+        source: app.source,
+        icon: app.icon,
+        keymaps: app.keymaps
+          .filter((keymap) => !platform || supportsPlatform(keymap.platforms, platform))
+          .map((keymap) => keymap.title),
+      }))
+      .filter((app) => app.keymaps.length > 0),
   ];
 }
 

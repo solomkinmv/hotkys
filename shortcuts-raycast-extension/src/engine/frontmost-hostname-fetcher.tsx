@@ -1,3 +1,5 @@
+import { getPlatform } from "../load/platform";
+import { getWindowsFrontmostBrowserTarget } from "./windows-hostname-fetcher";
 import type { ExecutionTarget } from "./execution-target";
 import { runAppleScript } from "@raycast/utils";
 
@@ -59,6 +61,7 @@ const appleScript = `
 `;
 
 export async function getFrontmostBrowserTarget(): Promise<ExecutionTarget | null> {
+  if (getPlatform() === "windows") return getWindowsFrontmostBrowserTarget();
   const result = await runAppleScript(appleScript, { language: "JavaScript" });
   if (!result || result === "null") return null;
   const { bundleId, url } = JSON.parse(result) as { bundleId: string; url: string };
