@@ -7,7 +7,12 @@ import { getWindowsKeyNames } from "./windows-key-names";
 import { validateWindowsSequence } from "../engine/windows-shortcut-runner";
 jest.mock("@raycast/utils", () => ({ runPowerShellScript: jest.fn() }));
 
-it("parses every Windows catalogue app and validates every declared binding for execution", () => {
+// The source catalog is available in Hotkys CI, but is not part of the standalone Store package.
+const testWithCatalog = fs.existsSync(path.join(__dirname, "../../../shortcuts-disco-site/package.json"))
+  ? it
+  : it.skip;
+
+testWithCatalog("parses every Windows catalogue app and validates every declared binding for execution", () => {
   const directory = path.join(__dirname, "../../../shortcuts-disco-site/shortcuts-data");
   const parser = new ShortcutsParser(getWindowsKeyNames());
   let count = 0;
