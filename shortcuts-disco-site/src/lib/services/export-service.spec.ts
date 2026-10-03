@@ -86,11 +86,13 @@ function privateFixture(): CustomApp {
 }
 it("exports an allowlist of public fields in deliberate order without account metadata", () => {
   const app = privateFixture();
+  app.windowsAppId = "Vendor.Package!App";
+  app.windowsProcessName = "Code";
   Object.assign(app, { email: "private@example.com", token: "private-token", favorites: ["secret"], created_at: "private-time", otherApps: ["private-app"] });
   Object.assign(app.keymaps[0].sections[0].shortcuts[0], { keyIsCleared: false, commentIsCleared: false, user_id: "private-user-id" });
   const { json } = exportService.exportCustomApp(app);
   expect(json).not.toMatch(/private-|private@|user_id|favorites|otherApps|IsCleared|created_at/);
-  expect(JSON.parse(json)).toEqual({ $schema: "https://hotkys.com/schema/shortcut.schema.json", slug: "example", name: "Example", hostname: "example.com", source: "https://example.com/shortcuts", keymaps: [{ title: "Default", platforms: ["macos", "linux"], sections: [{ title: "General", shortcuts: [{ title: "Zoom", key: "cmd++", comment: "Zoom in" }] }] }] });
+  expect(JSON.parse(json)).toEqual({ $schema: "https://hotkys.com/schema/shortcut.schema.json", slug: "example", name: "Example", windowsAppId: "Vendor.Package!App", windowsProcessName: "Code", hostname: "example.com", source: "https://example.com/shortcuts", keymaps: [{ title: "Default", platforms: ["macos", "linux"], sections: [{ title: "General", shortcuts: [{ title: "Zoom", key: "cmd++", comment: "Zoom in" }] }] }] });
 });
 it("rejects incomplete drafts and route collisions before offering an export", () => {
   const app = privateFixture(); app.keymaps[0].sections[0].shortcuts = [];

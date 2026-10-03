@@ -15,6 +15,12 @@ describe("user content validation", () => {
     ["name", "App name", USER_CONTENT_LIMITS.appName],
     ["slug", "Slug", USER_CONTENT_LIMITS.slug],
     ["bundleId", "Bundle ID", USER_CONTENT_LIMITS.bundleId],
+    ["windowsAppId", "Windows app ID", USER_CONTENT_LIMITS.windowsAppId],
+    [
+      "windowsProcessName",
+      "Windows process name",
+      USER_CONTENT_LIMITS.windowsProcessName,
+    ],
     ["hostname", "Hostname", USER_CONTENT_LIMITS.hostname],
     ["source", "Source URL", USER_CONTENT_LIMITS.urlOrPath],
     ["icon", "Image path", USER_CONTENT_LIMITS.urlOrPath],
@@ -22,6 +28,47 @@ describe("user content validation", () => {
     expect(() =>
       validateCustomAppMetadata({ [field]: "x".repeat(limit + 1) }),
     ).toThrow(`${label} must be ${limit} characters or fewer`);
+  });
+
+  it.each([
+    "Code.exe",
+    "CODE.EXE",
+    "C:\\Code",
+    "../Code",
+    "Code..App",
+    "Code\n",
+    "Code\r",
+    "$(Code)",
+  ])("rejects invalid Windows process names %p", (windowsProcessName) => {
+    expect(() => validateCustomAppMetadata({ windowsProcessName })).toThrow(
+      "Windows process name must be an executable name without .exe or a path",
+    );
+  });
+
+  it.each(["   ", "Vendor\nApp", "Vendor\u007fApp"])(
+    "rejects invalid Windows app IDs %p",
+    (windowsAppId) => {
+      expect(() => validateCustomAppMetadata({ windowsAppId })).toThrow(
+        "Windows app ID must be non-empty and contain no control characters",
+      );
+    },
+  );
+
+  it("accepts optional Windows metadata and bounded executable names", () => {
+    for (const windowsProcessName of [
+      undefined,
+      null,
+      "Code",
+      "Adobe XD",
+      "x".repeat(100),
+    ]) {
+      expect(() =>
+        validateCustomAppMetadata({
+          windowsAppId: "Vendor.Package!App",
+          windowsProcessName,
+        }),
+      ).not.toThrow();
+    }
   });
 
   it("limits keymap and section metadata", () => {

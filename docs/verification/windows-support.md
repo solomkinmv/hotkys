@@ -18,6 +18,18 @@ The original Windows branch predated the shared parser, personal account data, c
 - Private app lists filter keymaps for the active platform. Existing favorites, overlays, identities, and account flows remain shared with macOS.
 - Extension CI runs tests, types, lint, and build on macOS and Windows. Windows-only tests execute actual PowerShell, compile Win32/UIA helpers, check the INPUT ABI and keyboard layout mapping, reject missing/mismatched windows and unverifiable URLs, and verify error propagation over stdin.
 
+## Custom app identifiers
+
+Custom app details support optional `windowsAppId` and `windowsProcessName` alongside the macOS bundle ID. Use the Windows ID returned by Raycast or an executable name without `.exe` (for example, `Code`). These fields sync with the account and are preserved in exports, so a custom display name such as “My Editor” can target Visual Studio Code.
+
+“Copy Current App's ID” copies the Windows app ID when available. Otherwise it copies a resolvable executable process name and labels it in the confirmation. Apps with neither identifier remain unavailable for execution.
+
+If a custom app and a public catalog entry match the same Windows application, “List Current Shortcuts” offers a choice of shortcut collections. Selecting a collection keeps the detected native process as the execution target.
+
+Apply `shortcuts-disco-site/supabase/migrations/20261003203001_custom_app_windows_identifiers.sql` before deploying the website changes. Existing rows keep null Windows identifiers. Database checks and the shared runtime validator reject executable paths, `.exe` suffixes, control characters, and unsupported process names; account access policies remain in effect.
+
+Verify creating, editing, clearing, exporting, and reloading both fields, then select a renamed custom app in Windows Raycast and apply a harmless shortcut in its intended app. Identifier integration tests and native keyboard tests cover separate parts of this flow; interactive Raycast acceptance is still required.
+
 ## Catalog corrections and saved references
 
 Separate Windows keymaps for Linear, Gmail, and Atom use explicit Windows Ctrl bindings. Gmail’s inherited incorrect plus/g bindings are corrected to hyphen/q in both Mac and Windows keymaps. VS Code and Proto.io Windows rows are corrected against their official references. Xcode and kitty are excluded from Windows catalogs. The sixteen changed/removed public shortcut references are fingerprinted in `docs/catalog-compatibility.json`: affected favorites/overlays are not guessed or migrated; users can recreate them against corrected rows. Original Mac keymaps remain, with the same two Gmail corrections.

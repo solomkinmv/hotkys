@@ -104,6 +104,8 @@ function MyShortcutsListContent({
           name: draft.name.trim(),
           slug: draft.slug.trim(),
           bundleId: draft.bundleId.trim() || undefined,
+          windowsAppId: draft.windowsAppId?.trim() || undefined,
+          windowsProcessName: draft.windowsProcessName?.trim() || undefined,
           icon: draft.icon.trim() || undefined,
           ...(draft.hostname?.trim()
             ? { hostname: draft.hostname.trim() }

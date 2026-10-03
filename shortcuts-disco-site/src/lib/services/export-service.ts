@@ -51,6 +51,8 @@ This PR adds keyboard shortcuts for **${app.name}**.
 - **Total shortcuts**: ${totalShortcuts}
 - **Platforms**: ${platformsText}
 ${app.bundleId ? `- **Bundle ID**: \`${app.bundleId}\`` : ""}
+${app.windowsAppId ? `- **Windows app ID**: \`${app.windowsAppId}\`` : ""}
+${app.windowsProcessName ? `- **Windows process name**: \`${app.windowsProcessName}\`` : ""}
 ${app.hostname ? `- **Hostname**: \`${app.hostname}\`` : ""}
 ${app.source ? `- **Source**: ${app.source}` : ""}
 

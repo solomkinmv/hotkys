@@ -42,6 +42,8 @@ interface CustomAppUpdateInput {
   slug?: string;
   name?: string;
   bundleId?: string | null;
+  windowsAppId?: string | null;
+  windowsProcessName?: string | null;
   hostname?: string | null;
   source?: string | null;
   icon?: string | null;
@@ -138,6 +140,8 @@ export class CustomizationsService {
         slug: app.slug,
         name: app.name,
         bundle_id: app.bundleId ?? null,
+        windows_app_id: app.windowsAppId ?? null,
+        windows_process_name: app.windowsProcessName ?? null,
         hostname: app.hostname ?? null,
         source: app.source ?? null,
         icon: app.icon ?? null,
@@ -153,6 +157,8 @@ export class CustomizationsService {
       slug: data.slug,
       name: data.name,
       bundleId: data.bundle_id,
+      windowsAppId: data.windows_app_id ?? undefined,
+      windowsProcessName: data.windows_process_name ?? undefined,
       hostname: data.hostname,
       source: data.source,
       icon: data.icon,
@@ -177,6 +183,8 @@ export class CustomizationsService {
         name: updates.name,
         slug: updates.slug,
         bundle_id: updates.bundleId,
+        windows_app_id: updates.windowsAppId,
+        windows_process_name: updates.windowsProcessName,
         hostname: updates.hostname,
         source: updates.source,
         icon: updates.icon,
@@ -684,6 +692,9 @@ export class CustomizationsService {
       slug: row.slug as string,
       name: row.name as string,
       bundleId: (row.bundle_id as string | null) ?? undefined,
+      windowsAppId: (row.windows_app_id as string | null) ?? undefined,
+      windowsProcessName:
+        (row.windows_process_name as string | null) ?? undefined,
       hostname: (row.hostname as string | null) ?? undefined,
       source: (row.source as string | null) ?? undefined,
       icon: (row.icon as string | null) ?? undefined,
