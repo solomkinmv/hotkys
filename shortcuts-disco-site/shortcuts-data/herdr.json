@@ -3,6 +3,7 @@
   "name": "Herdr",
   "slug": "herdr",
   "source": "https://herdr.dev/docs/keyboard/",
+  "icon": "icons/herdr.png",
   "keymaps": [
     {
       "title": "Default",
