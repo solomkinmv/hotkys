@@ -1,5 +1,12 @@
 import { describe, expect, it, jest, beforeEach } from "@jest/globals";
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import {
+  act,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+  within,
+} from "@testing-library/react";
 import type {
   AppShortcuts,
   Keymap,
@@ -70,7 +77,8 @@ jest.mock("@/lib/services/customizations-service", () => ({
   },
 }));
 
-const { AppDetails } = require("./app-details") as typeof import("./app-details");
+const { AppDetails } =
+  require("./app-details") as typeof import("./app-details");
 
 const keymap: Keymap = {
   title: "Default",
@@ -114,6 +122,11 @@ describe("AppDetails", () => {
       observe: jest.fn(),
       unobserve: jest.fn(),
     })) as typeof IntersectionObserver;
+    global.ResizeObserver = jest.fn().mockImplementation(() => ({
+      disconnect: jest.fn(),
+      observe: jest.fn(),
+      unobserve: jest.fn(),
+    })) as typeof ResizeObserver;
     mockUseAuth.mockReturnValue({
       user: { id: "user-1" },
     });
@@ -161,7 +174,126 @@ describe("AppDetails", () => {
     render(<AppDetails application={application} keymap={keymap} />);
 
     expect(screen.getByLabelText("Column settings")).toBeTruthy();
-    expect(document.querySelector('[style*="640px"]')).not.toBeNull();
+    expect(document.querySelector('[data-columns="2"]')).not.toBeNull();
+  });
+
+  it.each(["list", "cheatsheet"])(
+    "keeps execution instructions with their input and separate from controls in %s view",
+    (view) => {
+      mockUsePreferences.mockReturnValue({
+        preferences: { viewMode: view, columnCount: 2 },
+        isLoading: false,
+        updatePreferences: jest.fn(),
+      });
+      const methodKeymap: Keymap = {
+        title: "Default",
+        sections: [
+          {
+            title: "Methods",
+            hotkeys: [
+              {
+                title: "Bold",
+                sequence: [{ base: "B", modifiers: [] }],
+                comment: "Alternatively wrap text with **",
+              },
+              {
+                title: "Reply",
+                sequence: [],
+                comment: "Swipe from right to left",
+              },
+              { title: "Surround", sequence: [], comment: "s <char> `text`" },
+            ],
+          },
+        ],
+      };
+      render(
+        <AppDetails
+          application={{ ...application, keymaps: [methodKeymap] }}
+          keymap={methodKeymap}
+        />,
+      );
+
+      const bold = screen.getByRole("group", { name: "How to do it: Bold" });
+      expect(within(bold).getByText("Shortcut")).toBeTruthy();
+      expect(
+        within(bold).getByText("Alternatively wrap text with **"),
+      ).toBeTruthy();
+      expect(within(bold).queryByTestId("favorite-shortcut")).toBeNull();
+      expect(bold.contains(screen.getByRole("button", { name: "Bold" }))).toBe(
+        false,
+      );
+
+      const reply = screen.getByRole("group", { name: "How to do it: Reply" });
+      expect(reply.textContent).toBe("Swipe from right to left");
+      expect(within(reply).queryByText("Shortcut")).toBeNull();
+      expect(
+        screen.getByRole("group", { name: "How to do it: Surround" })
+          .textContent,
+      ).toBe("s <char> `text`");
+    },
+  );
+
+  it("fits cheat-sheet columns to the actual container without changing the saved preference", () => {
+    let notifyResize = () => {};
+    const disconnect = jest.fn();
+    const updatePreferences = jest.fn();
+    global.ResizeObserver = jest
+      .fn()
+      .mockImplementation((callback: unknown) => {
+        notifyResize = callback as () => void;
+        return { observe: jest.fn(), unobserve: jest.fn(), disconnect };
+      }) as typeof ResizeObserver;
+    mockUsePreferences.mockReturnValue({
+      preferences: { viewMode: "cheatsheet", columnCount: 6 },
+      isLoading: false,
+      updatePreferences,
+    });
+    const { container, unmount } = render(
+      <AppDetails application={application} keymap={keymap} />,
+    );
+    const sheet = container.querySelector("[data-columns]")!;
+    Object.defineProperty(sheet, "clientWidth", {
+      configurable: true,
+      value: 1152,
+    });
+    act(() => notifyResize());
+    expect(sheet.getAttribute("data-columns")).toBe("3");
+    Object.defineProperty(sheet, "clientWidth", {
+      configurable: true,
+      value: 280,
+    });
+    act(() => notifyResize());
+    expect(sheet.getAttribute("data-columns")).toBe("1");
+    expect(updatePreferences).not.toHaveBeenCalled();
+    unmount();
+    expect(disconnect).toHaveBeenCalled();
+  });
+
+  it("offers a clearable empty search in both views", () => {
+    mockUseAuth.mockReturnValue({ user: null });
+    render(<AppDetails application={application} keymap={keymap} />);
+    const search = screen.getByRole("searchbox", { name: "Search shortcuts" });
+    fireEvent.change(search, { target: { value: "zzzzzzzzzz" } });
+    expect(screen.getByRole("status").textContent).toBe("0 matching shortcuts");
+    expect(
+      screen.getByRole("heading", { name: "No shortcuts found" }),
+    ).toBeTruthy();
+    fireEvent.keyDown(document.body, { key: "ArrowDown" });
+    fireEvent.click(screen.getByRole("button", { name: "Cheat sheet view" }));
+    expect(
+      screen.getByRole("heading", { name: "No shortcuts found" }),
+    ).toBeTruthy();
+    expect(
+      screen
+        .getByRole("button", { name: "Cheat sheet view" })
+        .getAttribute("aria-pressed"),
+    ).toBe("true");
+    fireEvent.click(screen.getByRole("button", { name: "Clear search" }));
+    expect((search as HTMLInputElement).value).toBe("");
+    expect(screen.getByText("Copy")).toBeTruthy();
+    expect(screen.getByRole("status").textContent).toBe(
+      "1 shortcut / 1 section",
+    );
   });
 
   it("renders favorite shortcuts as the first shortcut section", () => {
@@ -194,9 +326,11 @@ describe("AppDetails", () => {
 
     render(<AppDetails application={application} keymap={keymap} />);
 
-    expect(screen.queryByRole("region", {
-      name: "Favorite shortcuts",
-    })).toBeNull();
+    expect(
+      screen.queryByRole("region", {
+        name: "Favorite shortcuts",
+      }),
+    ).toBeNull();
 
     const favoriteLabels = screen.getAllByText("Favorite shortcuts");
     const editingLabels = screen.getAllByText("Editing");
@@ -209,6 +343,9 @@ describe("AppDetails", () => {
     ).toBeTruthy();
     expect(screen.getAllByText("Copy")).toHaveLength(2);
     expect(screen.getAllByText("Shortcut")).toHaveLength(2);
+    expect(screen.getByRole("status").textContent).toBe(
+      "1 shortcut / 1 section",
+    );
   });
 
   it("keeps a favorite pinned when its official shortcut is renamed", () => {
@@ -321,12 +458,21 @@ describe("AppDetails", () => {
     expect(screen.getByText("Paste")).toBeTruthy();
     expect(screen.getByText("Local only")).toBeTruthy();
     expect(screen.getAllByText("Shortcut")).toHaveLength(2);
+    expect(screen.getByRole("status").textContent).toBe(
+      "2 shortcuts / 1 section",
+    );
 
     const commentContainer = screen.getByText("Local only").parentElement;
     expect(
-      commentContainer?.querySelector('[data-customization-status="created"]'),
+      screen
+        .getByText("Paste")
+        .closest("div")
+        ?.querySelector('[data-customization-status="created"]'),
     ).not.toBeNull();
-    expect(commentContainer?.textContent).toBe("Local only");
+    expect(
+      commentContainer?.querySelector('[data-customization-status="created"]'),
+    ).toBeNull();
+    expect(screen.getByText("Local only").textContent).toBe("Local only");
   });
 
   it("marks changed and created shortcuts with right-side icon labels", () => {
@@ -413,19 +559,15 @@ describe("AppDetails", () => {
   it("opens shortcut customization when an authenticated user clicks a shortcut", () => {
     render(<AppDetails application={application} keymap={keymap} />);
 
-    expect(
-      screen.queryByRole("button", { name: "Edit shortcuts" }),
-    ).toBeNull();
-    expect(
-      screen.queryByRole("button", { name: "Customize Copy" }),
-    ).toBeNull();
+    expect(screen.queryByRole("button", { name: "Edit shortcuts" })).toBeNull();
+    expect(screen.queryByRole("button", { name: "Customize Copy" })).toBeNull();
 
     fireEvent.click(screen.getByText("Copy"));
 
     expect(
       screen.getByRole("dialog", { name: "Customize Shortcut" }),
     ).toBeTruthy();
-    expect((screen.getByLabelText("Title") as HTMLInputElement).value).toBe(
+    expect((screen.getByLabelText("Action") as HTMLInputElement).value).toBe(
       "Copy",
     );
   });
@@ -478,7 +620,7 @@ describe("AppDetails", () => {
       screen.getByRole("dialog", { name: "Customize Shortcut" }),
     ).toBeTruthy();
 
-    fireEvent.change(screen.getByLabelText("Title"), {
+    fireEvent.change(screen.getByLabelText("Action"), {
       target: { value: "Paste special" },
     });
     fireEvent.click(screen.getByRole("button", { name: "Save" }));
@@ -542,7 +684,9 @@ describe("AppDetails", () => {
     fireEvent.click(screen.getByText("Paste"));
     fireEvent.click(screen.getByRole("button", { name: "Delete shortcut" }));
 
-    expect(screen.getByRole("dialog", { name: "Delete Shortcut" })).toBeTruthy();
+    expect(
+      screen.getByRole("dialog", { name: "Delete Shortcut" }),
+    ).toBeTruthy();
 
     fireEvent.click(screen.getByRole("button", { name: "Delete" }));
 
@@ -572,10 +716,10 @@ describe("AppDetails", () => {
     fireEvent.change(screen.getByLabelText("Section name"), {
       target: { value: "Navigation" },
     });
-    fireEvent.change(screen.getByLabelText("Title"), {
+    fireEvent.change(screen.getByLabelText("Action"), {
       target: { value: "Jump to file" },
     });
-    fireEvent.change(screen.getByLabelText("Keys"), {
+    fireEvent.change(screen.getByLabelText("Keyboard shortcut"), {
       target: { value: "cmd+j" },
     });
     fireEvent.click(screen.getByRole("button", { name: "Save" }));
@@ -599,10 +743,10 @@ describe("AppDetails", () => {
     render(<AppDetails application={application} keymap={keymap} />);
 
     fireEvent.click(screen.getByRole("button", { name: "Add shortcut" }));
-    fireEvent.change(screen.getByLabelText("Title"), {
+    fireEvent.change(screen.getByLabelText("Action"), {
       target: { value: "Undo" },
     });
-    fireEvent.change(screen.getByLabelText("Keys"), {
+    fireEvent.change(screen.getByLabelText("Keyboard shortcut"), {
       target: { value: "cmd+z+shift" },
     });
     fireEvent.click(screen.getByRole("button", { name: "Save" }));
@@ -625,9 +769,9 @@ describe("AppDetails", () => {
     fireEvent.click(screen.getByRole("button", { name: "Add cmd modifier" }));
     fireEvent.click(screen.getByRole("button", { name: "Add shift modifier" }));
 
-    expect((screen.getByLabelText("Keys") as HTMLInputElement).value).toBe(
-      "shift+cmd+",
-    );
+    expect(
+      (screen.getByLabelText("Keyboard shortcut") as HTMLInputElement).value,
+    ).toBe("shift+cmd+");
     expect(
       screen.getByRole("button", { name: "Shortcut key format" }),
     ).toBeTruthy();

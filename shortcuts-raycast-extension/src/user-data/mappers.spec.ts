@@ -170,3 +170,12 @@ describe("user-data mappers", () => {
     ]);
   });
 });
+
+it("maps stable private favorite identities", () => {
+  expect(
+    mapFavorites([{ id: "f", user_id: "u", item_type: "shortcut", custom_shortcut_id: "s" }])[0].customShortcutId
+  ).toBe("s");
+  expect(mapFavorites([{ id: "f", user_id: "u", item_type: "keymap", custom_keymap_id: "k" }])[0].customKeymapId).toBe(
+    "k"
+  );
+});

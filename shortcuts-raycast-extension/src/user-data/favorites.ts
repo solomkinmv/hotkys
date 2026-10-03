@@ -19,7 +19,9 @@ export function toShortcutFavoriteIdentifier(
     shortcutTitle: shortcut.baseShortcutTitle ?? shortcut.title,
     baseShortcutId: shortcut.baseShortcutId,
     baseShortcutAliases: shortcut.baseShortcutAliases,
-    customShortcutId: shortcut.customShortcutId,
+    customShortcutId:
+      shortcut.customShortcutId ??
+      (application.customAppId || shortcut.customizationStatus === "created" ? shortcut.customizationId : undefined),
   };
 }
 
@@ -32,8 +34,8 @@ export function toFavoriteInsert(userId: string, identifier: FavoriteIdentifier)
     section_title: identifier.sectionTitle ?? null,
     shortcut_title: identifier.shortcutTitle ?? null,
     base_shortcut_id: identifier.baseShortcutId ?? null,
-    custom_app_id: identifier.customAppId ?? null,
-    custom_keymap_id: identifier.customKeymapId ?? null,
+    custom_app_id: identifier.customKeymapId || identifier.customShortcutId ? null : (identifier.customAppId ?? null),
+    custom_keymap_id: identifier.customShortcutId ? null : (identifier.customKeymapId ?? null),
     custom_shortcut_id: identifier.customShortcutId ?? null,
   };
 }

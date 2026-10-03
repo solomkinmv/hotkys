@@ -41,7 +41,7 @@ export class FavoritesService {
 
   async addFavorite(
     favorite: Omit<Favorite, "id" | "userId">,
-    authUser?: AuthUser | null
+    authUser?: AuthUser | null,
   ): Promise<Favorite> {
     validateFavoriteMetadata(favorite);
     const supabase = createClientOrNull(authUser);
@@ -59,8 +59,13 @@ export class FavoritesService {
         shortcut_title: favorite.shortcutTitle ?? null,
         section_title: favorite.sectionTitle ?? null,
         base_shortcut_id: favorite.baseShortcutId ?? null,
-        custom_app_id: favorite.customAppId ?? null,
-        custom_keymap_id: favorite.customKeymapId ?? null,
+        custom_app_id:
+          favorite.customKeymapId || favorite.customShortcutId
+            ? null
+            : (favorite.customAppId ?? null),
+        custom_keymap_id: favorite.customShortcutId
+          ? null
+          : (favorite.customKeymapId ?? null),
         custom_shortcut_id: favorite.customShortcutId ?? null,
       })
       .select()
@@ -68,7 +73,9 @@ export class FavoritesService {
 
     if (error) {
       if (error.code === "23505" || error.code === "23514") {
-        const existing = (await this.getFavorites(authUser)).find(row => matchesFavorite(row, favorite));
+        const existing = (await this.getFavorites(authUser)).find((row) =>
+          matchesFavorite(row, favorite),
+        );
         if (existing) return existing;
       }
       throw error;
@@ -106,7 +113,7 @@ export class FavoritesService {
 
   async toggleFavorite(
     favorite: Omit<Favorite, "id" | "userId">,
-    authUser?: AuthUser | null
+    authUser?: AuthUser | null,
   ): Promise<boolean> {
     validateFavoriteMetadata(favorite);
     const supabase = createClientOrNull(authUser);
@@ -114,7 +121,9 @@ export class FavoritesService {
 
     await requireCurrentProfile(authUser);
 
-    const existing = (await this.getFavorites(authUser)).find(row => matchesFavorite(row, favorite));
+    const existing = (await this.getFavorites(authUser)).find((row) =>
+      matchesFavorite(row, favorite),
+    );
 
     if (existing) {
       await this.removeFavorite(existing.id, authUser);

@@ -5,6 +5,11 @@ import type { UserCustomizations } from "@/lib/model/user/user-models";
 import type { Platform } from "@/lib/model/internal/internal-models";
 export class ShortcutMerger extends CoreMerger<Modifiers, Platform> {
   constructor(customizations: UserCustomizations) {
-    super(customizations, key => parseKey(key).map(({base, modifiers}) => ({base, modifiers: modifiers.map(token => modifierMapping.get(token)! )})));
+    super(customizations, (key) =>
+      parseKey(key).map(({ base, modifiers }) => ({
+        base,
+        modifiers: modifiers.map((token) => modifierMapping.get(token)!),
+      })),
+    );
   }
 }

@@ -21,6 +21,22 @@ const monogramStyles = [
   "rounded-full bg-[#f5ecf0] text-[#704356] ring-1 ring-inset ring-[#b794a2]",
 ];
 
+// These assets have cutout letters; an inset backing preserves their transparent edges.
+const iconLetterColors: Record<string, string> = {
+  "/icons/adobe-illustrator.png": "#ff9a00",
+  "/icons/adobe-photoshop.png": "#31a8ff",
+  "/icons/adobe-xd.png": "#ff61f6",
+};
+
+// Dark marks need a stable light surface in either theme.
+const iconsWithLightSurface = new Set([
+  "/icons/atom.png",
+  "/icons/githubdesktop.png",
+  "/icons/macos.png",
+  "/icons/miro.png",
+  "/icons/zendesk-support.png",
+]);
+
 function getInitials(name: string): string {
   return name
     .trim()
@@ -32,6 +48,7 @@ function getInitials(name: string): string {
 
 export function AppIcon({ icon, appName, size = "sm", className }: AppIconProps) {
   const iconUrl = getIconUrl(icon);
+  const letterColor = iconLetterColors[iconUrl ?? ""];
   const [failedIcon, setFailedIcon] = useState<string>();
 
   const sizeClasses = size === "sm" ? "h-4 w-4" : "h-8 w-8";
@@ -56,7 +73,16 @@ export function AppIcon({ icon, appName, size = "sm", className }: AppIconProps)
           alt={`${appName} icon`}
           loading="lazy"
           decoding="async"
-          className="h-full w-full object-cover rounded-[inherit]"
+          className={cn(
+            "h-full w-full object-cover rounded-[inherit]",
+            iconsWithLightSurface.has(iconUrl) && "bg-[#f4f0e8] p-[8%]"
+          )}
+          style={letterColor ? {
+            backgroundImage: `linear-gradient(${letterColor}, ${letterColor})`,
+            backgroundPosition: "center",
+            backgroundSize: "70% 70%",
+            backgroundRepeat: "no-repeat",
+          } : undefined}
           onError={() => setFailedIcon(iconUrl)}
         />
       ) : (

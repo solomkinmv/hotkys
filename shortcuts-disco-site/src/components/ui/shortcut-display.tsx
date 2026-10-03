@@ -1,7 +1,10 @@
 "use client";
 
 import { Kbd, KbdGroup } from "@/components/ui/kbd";
-import { AtomicShortcut, SectionShortcut } from "@/lib/model/internal/internal-models";
+import {
+  AtomicShortcut,
+  SectionShortcut,
+} from "@/lib/model/internal/internal-models";
 import { Modifiers, modifierSymbols } from "@/lib/model/internal/modifiers";
 import { cn } from "@/lib/utils";
 
@@ -41,9 +44,16 @@ function AtomicShortcutDisplay({ shortcut }: AtomicShortcutDisplayProps) {
   return (
     <KbdGroup>
       {modifierKeys.map((mod, index) => (
-        <Kbd key={index}>{mod}</Kbd>
+        <Kbd
+          key={index}
+          className="h-7 min-w-7 rounded-md border bg-background px-1.5 font-mono text-[13px] text-foreground shadow-[0_2px_0_hsl(var(--border))]"
+        >
+          {mod}
+        </Kbd>
       ))}
-      <Kbd>{baseKey}</Kbd>
+      <Kbd className="h-7 min-w-7 rounded-md border bg-background px-1.5 font-mono text-[13px] text-foreground shadow-[0_2px_0_hsl(var(--border))]">
+        {baseKey}
+      </Kbd>
     </KbdGroup>
   );
 }
@@ -59,10 +69,17 @@ export function ShortcutDisplay({ shortcut, className }: ShortcutDisplayProps) {
   }
 
   return (
-    <span className={cn("inline-flex items-center gap-1", className)}>
+    <span
+      className={cn(
+        "inline-flex flex-wrap items-center justify-end gap-x-2 gap-y-2",
+        className,
+      )}
+    >
       {shortcut.sequence.map((atomic, index) => (
-        <span key={index} className="inline-flex items-center gap-1">
-          {index > 0 && <span className="text-muted-foreground text-xs mx-1">then</span>}
+        <span key={index} className="inline-flex shrink-0 items-center gap-1">
+          {index > 0 && (
+            <span className="text-muted-foreground text-xs mx-1">then</span>
+          )}
           <AtomicShortcutDisplay shortcut={atomic} />
         </span>
       ))}

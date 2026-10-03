@@ -12,7 +12,7 @@ export function LoginForm() {
 
   if (!isConfigured) {
     return (
-      <div className="rounded-md border p-4 text-sm text-muted-foreground">
+      <div className="rounded-2xl border bg-card p-6 text-sm leading-relaxed text-muted-foreground">
         Sign in is not configured for this deployment yet.
       </div>
     );
@@ -27,9 +27,21 @@ export function LoginForm() {
         withSignUp
         oauthFlow="redirect"
         appearance={{
+          variables: {
+            colorPrimary: "hsl(var(--brand))",
+            colorPrimaryForeground: "hsl(var(--primary-foreground))",
+            colorNeutral: "hsl(var(--foreground))",
+            colorBackground: "hsl(var(--card))",
+            colorForeground: "hsl(var(--foreground))",
+            colorMutedForeground: "hsl(var(--muted-foreground))",
+            colorInput: "hsl(var(--background))",
+            colorInputForeground: "hsl(var(--foreground))",
+            fontFamily: "inherit",
+            borderRadius: "0.75rem",
+          },
           elements: {
             rootBox: "w-full",
-            cardBox: "w-full shadow-none border rounded-md",
+            cardBox: "w-full shadow-none border rounded-2xl",
           },
         }}
       />
