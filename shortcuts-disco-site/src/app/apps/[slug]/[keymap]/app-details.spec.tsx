@@ -15,6 +15,7 @@ import type {
 import { Modifiers } from "@/lib/model/internal/modifiers";
 
 const replaceMock = jest.fn();
+let mockSearchParams = new URLSearchParams();
 const mockUseAuth = jest.fn();
 const mockUsePreferences = jest.fn();
 const mockUseFavorites = jest.fn();
@@ -32,7 +33,7 @@ jest.mock("next/navigation", () => ({
   __esModule: true,
   usePathname: () => "/apps/sample/default",
   useRouter: () => ({ replace: replaceMock }),
-  useSearchParams: () => new URLSearchParams(),
+  useSearchParams: () => mockSearchParams,
 }));
 
 jest.mock("@/components/favorites/favorite-button", () => ({
@@ -103,6 +104,7 @@ const application: AppShortcuts = {
 
 describe("AppDetails", () => {
   beforeEach(() => {
+    mockSearchParams = new URLSearchParams();
     Object.defineProperty(window.HTMLElement.prototype, "hasPointerCapture", {
       configurable: true,
       value: () => false,
@@ -393,15 +395,96 @@ describe("AppDetails", () => {
   });
 
   it("pins a legacy plus-key favorite through its compatibility alias", () => {
-    const plusKeymap: Keymap = { title: "Default", sections: [{ title: "Editing", hotkeys: [{ title: "Zoom", sequence: [{ base: "+", modifiers: [Modifiers.command] }] }] }] };
-    mockUseFavorites.mockReturnValue({ favorites: [{ id: "favorite-1", itemType: "shortcut", appSlug: "sample", keymapTitle: "Default", sectionTitle: "Editing", shortcutTitle: "Zoom", baseShortcutId: JSON.stringify([[["", ["command down", null]]], "Zoom", "", 0]) }], isLoading: false });
-    render(<AppDetails application={{ ...application, keymaps: [plusKeymap] }} keymap={plusKeymap} />);
+    const plusKeymap: Keymap = {
+      title: "Default",
+      sections: [
+        {
+          title: "Editing",
+          hotkeys: [
+            {
+              title: "Zoom",
+              sequence: [{ base: "+", modifiers: [Modifiers.command] }],
+            },
+          ],
+        },
+      ],
+    };
+    mockUseFavorites.mockReturnValue({
+      favorites: [
+        {
+          id: "favorite-1",
+          itemType: "shortcut",
+          appSlug: "sample",
+          keymapTitle: "Default",
+          sectionTitle: "Editing",
+          shortcutTitle: "Zoom",
+          baseShortcutId: JSON.stringify([
+            [["", ["command down", null]]],
+            "Zoom",
+            "",
+            0,
+          ]),
+        },
+      ],
+      isLoading: false,
+    });
+    render(
+      <AppDetails
+        application={{ ...application, keymaps: [plusKeymap] }}
+        keymap={plusKeymap}
+      />,
+    );
     expect(screen.getAllByText("Zoom")).toHaveLength(2);
   });
 
   it("pins a renamed stable private favorite without selecting its old official namesake", () => {
-    mockUseFavorites.mockReturnValue({ favorites: [{ id: "favorite-1", itemType: "shortcut", appSlug: "sample", keymapTitle: "Old map", sectionTitle: "Old section", shortcutTitle: "Copy", customShortcutId: "private-1" }], isLoading: false });
-    mockUseCustomizations.mockReturnValue({ customizations: { customApps: [], customKeymaps: [{ id: "custom-map", baseAppSlug: "sample", title: "Default", sections: [{ id: "custom-section", keymapId: "custom-map", title: "Editing", shortcuts: [{ id: "private-1", sectionId: "custom-section", title: "Renamed private copy", key: "cmd+c", isDeleted: false, sortOrder: 0 }] }] }], shortcuts: [], favorites: [] }, isLoading: false, refetch: jest.fn() });
+    mockUseFavorites.mockReturnValue({
+      favorites: [
+        {
+          id: "favorite-1",
+          itemType: "shortcut",
+          appSlug: "sample",
+          keymapTitle: "Old map",
+          sectionTitle: "Old section",
+          shortcutTitle: "Copy",
+          customShortcutId: "private-1",
+        },
+      ],
+      isLoading: false,
+    });
+    mockUseCustomizations.mockReturnValue({
+      customizations: {
+        customApps: [],
+        customKeymaps: [
+          {
+            id: "custom-map",
+            baseAppSlug: "sample",
+            title: "Default",
+            sections: [
+              {
+                id: "custom-section",
+                keymapId: "custom-map",
+                title: "Editing",
+                shortcuts: [
+                  {
+                    id: "private-1",
+                    sectionId: "custom-section",
+                    title: "Renamed private copy",
+                    key: "cmd+c",
+                    isDeleted: false,
+                    sortOrder: 0,
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+        shortcuts: [],
+        favorites: [],
+      },
+      isLoading: false,
+      refetch: jest.fn(),
+    });
     render(<AppDetails application={application} keymap={keymap} />);
     expect(screen.getAllByText("Renamed private copy")).toHaveLength(2);
     expect(screen.getAllByText("Copy")).toHaveLength(1);
@@ -776,4 +859,113 @@ describe("AppDetails", () => {
       screen.getByRole("button", { name: "Shortcut key format" }),
     ).toBeTruthy();
   });
+  it("renders an added public keymap from its stable query ID on the base page", () => {
+    mockSearchParams = new URLSearchParams("keymap=added-map");
+    mockUseCustomizations.mockReturnValue({
+      customizations: {
+        customApps: [],
+        customKeymaps: [
+          {
+            id: "added-map",
+            baseAppSlug: "sample",
+            title: "My custom map",
+            sections: [
+              {
+                id: "added-section",
+                title: "Custom actions",
+                sortOrder: 0,
+                shortcuts: [
+                  {
+                    id: "added-action",
+                    title: "Quick palette",
+                    comment: "Double click",
+                    sortOrder: 0,
+                    isDeleted: false,
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+        shortcuts: [],
+        favorites: [],
+      },
+      isLoading: false,
+      refetch: jest.fn(),
+    });
+    render(<AppDetails application={application} keymap={keymap} />);
+    expect(
+      screen.getByRole("group", { name: "How to do it: Quick palette" })
+        .textContent,
+    ).toBe("Double click");
+  });
+  it.each(["list", "cheatsheet"])(
+    "edits and deletes an added keymap shortcut sharing a public title in %s view",
+    async (view) => {
+      mockSearchParams = new URLSearchParams("keymap=added-map");
+      mockUsePreferences.mockReturnValue({
+        preferences: { viewMode: view, columnCount: 2 },
+        isLoading: false,
+        updatePreferences: jest.fn(),
+      });
+      mockUseCustomizations.mockReturnValue({
+        customizations: {
+          customApps: [],
+          shortcuts: [],
+          favorites: [],
+          customKeymaps: [
+            {
+              id: "added-map",
+              baseAppSlug: "sample",
+              title: "My custom map",
+              sections: [
+                {
+                  id: "added-section",
+                  title: "Editing",
+                  sortOrder: 0,
+                  shortcuts: [
+                    {
+                      id: "added-copy",
+                      title: "Copy",
+                      key: "cmd+c",
+                      sortOrder: 0,
+                      isDeleted: false,
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        isLoading: false,
+        refetch: jest.fn(),
+      });
+      render(<AppDetails application={application} keymap={keymap} />);
+      fireEvent.click(screen.getByRole("button", { name: "Copy" }));
+      expect(screen.getByRole("button", { name: "Delete shortcut" })).toBeTruthy();
+      fireEvent.change(screen.getByLabelText("Action"), {
+        target: { value: "Copy custom" },
+      });
+      fireEvent.click(screen.getByRole("button", { name: "Save" }));
+      await waitFor(() =>
+        expect(updateCustomShortcutMock).toHaveBeenCalledWith(
+          "added-copy",
+          expect.objectContaining({ title: "Copy custom" }),
+          { id: "user-1" },
+        ),
+      );
+      expect(upsertShortcutOverlayMock).not.toHaveBeenCalled();
+      await waitFor(() => expect(screen.queryByRole("dialog")).toBeNull());
+      fireEvent.click(screen.getByRole("button", { name: "Copy" }));
+      fireEvent.click(screen.getByRole("button", { name: "Delete shortcut" }));
+      fireEvent.click(screen.getByRole("button", { name: "Delete" }));
+      await waitFor(() =>
+        expect(deleteCustomShortcutMock).toHaveBeenCalledWith(
+          "added-copy",
+          { id: "user-1" },
+        ),
+      );
+      expect(upsertShortcutOverlayMock).not.toHaveBeenCalled();
+    },
+  );
 });
