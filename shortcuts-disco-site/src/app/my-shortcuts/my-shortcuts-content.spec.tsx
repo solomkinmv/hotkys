@@ -1,5 +1,11 @@
 import { describe, expect, it, jest, beforeEach } from "@jest/globals";
-import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
+import {
+  act,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from "@testing-library/react";
 
 const mockUseAuth = jest.fn();
 const mockUseCustomizations = jest.fn();
@@ -80,6 +86,12 @@ describe("MyShortcutsContent", () => {
     fireEvent.change(screen.getByLabelText("Image path"), {
       target: { value: "/custom-icons/local-tool.png" },
     });
+    fireEvent.change(screen.getByLabelText("Windows app ID"), {
+      target: { value: " Vendor.Package!App " },
+    });
+    fireEvent.change(screen.getByLabelText("Windows process name"), {
+      target: { value: " Code " },
+    });
     fireEvent.click(screen.getByRole("button", { name: "Create App" }));
 
     await waitFor(() =>
@@ -88,6 +100,8 @@ describe("MyShortcutsContent", () => {
           name: "Local Tool",
           slug: "local-tool",
           bundleId: undefined,
+          windowsAppId: "Vendor.Package!App",
+          windowsProcessName: "Code",
           icon: "/custom-icons/local-tool.png",
         },
         { id: "user-1" },

@@ -92,6 +92,8 @@ describe("MyShortcutAppContent", () => {
             name: "Local Tool",
             slug: "local-tool",
             bundleId: "com.local.tool",
+            windowsAppId: "Vendor.Package!App",
+            windowsProcessName: "Code",
             icon: "/icons/old.png",
             keymaps: [
               {
@@ -120,11 +122,21 @@ describe("MyShortcutAppContent", () => {
     });
   });
 
-  it("updates custom apps with an arbitrary image path", async () => {
+  it("loads and updates Windows identifiers alongside existing app metadata", async () => {
     render(<MyShortcutAppContent slug="local-tool" />);
 
     fireEvent.click(screen.getByRole("button", { name: "App details" }));
     fireEvent.click(screen.getByText("Icon and app details"));
+    expect(screen.getByLabelText("Windows app ID")).toHaveValue(
+      "Vendor.Package!App",
+    );
+    expect(screen.getByLabelText("Windows process name")).toHaveValue("Code");
+    fireEvent.change(screen.getByLabelText("Windows app ID"), {
+      target: { value: " Other.Editor!App " },
+    });
+    fireEvent.change(screen.getByLabelText("Windows process name"), {
+      target: { value: " Editor " },
+    });
     fireEvent.change(screen.getByLabelText("Image path"), {
       target: { value: "https://cdn.example.com/local-tool.svg" },
     });
@@ -137,6 +149,8 @@ describe("MyShortcutAppContent", () => {
           name: "Local Tool",
           slug: "local-tool",
           bundleId: "com.local.tool",
+          windowsAppId: "Other.Editor!App",
+          windowsProcessName: "Editor",
           hostname: null,
           source: null,
           icon: "https://cdn.example.com/local-tool.svg",
@@ -154,6 +168,12 @@ describe("MyShortcutAppContent", () => {
     fireEvent.change(screen.getByLabelText("Bundle ID"), {
       target: { value: "" },
     });
+    fireEvent.change(screen.getByLabelText("Windows app ID"), {
+      target: { value: "" },
+    });
+    fireEvent.change(screen.getByLabelText("Windows process name"), {
+      target: { value: "" },
+    });
     fireEvent.change(screen.getByLabelText("Image path"), {
       target: { value: "" },
     });
@@ -164,6 +184,8 @@ describe("MyShortcutAppContent", () => {
         "app-1",
         expect.objectContaining({
           bundleId: null,
+          windowsAppId: null,
+          windowsProcessName: null,
           icon: null,
         }),
         { id: "user-1" },

@@ -1,4 +1,5 @@
 import type { Platform } from "@/lib/model/internal/internal-models";
+import { isWindowsProcessName } from "@/lib/shortcut-core/windows";
 import {
   isHttpUrl,
   isSafeImageLocation,
@@ -9,6 +10,8 @@ export const USER_CONTENT_LIMITS = {
   appName: 100,
   slug: 80,
   bundleId: 255,
+  windowsAppId: 255,
+  windowsProcessName: 100,
   hostname: 253,
   urlOrPath: 2048,
   keymapTitle: 100,
@@ -31,6 +34,8 @@ interface CustomAppMetadata {
   name?: string;
   slug?: string;
   bundleId?: string | null;
+  windowsAppId?: string | null;
+  windowsProcessName?: string | null;
   hostname?: string | null;
   source?: string | null;
   icon?: string | null;
@@ -77,6 +82,29 @@ export function validateCustomAppMetadata(app: CustomAppMetadata): void {
     }
   }
   validateOptionalText(app.bundleId, "Bundle ID", USER_CONTENT_LIMITS.bundleId);
+  validateOptionalText(
+    app.windowsAppId,
+    "Windows app ID",
+    USER_CONTENT_LIMITS.windowsAppId,
+  );
+  validateOptionalText(
+    app.windowsProcessName,
+    "Windows process name",
+    USER_CONTENT_LIMITS.windowsProcessName,
+  );
+  if (
+    app.windowsAppId &&
+    (!app.windowsAppId.trim() || /[\x00-\x1f\x7f]/.test(app.windowsAppId))
+  ) {
+    throw new Error(
+      "Windows app ID must be non-empty and contain no control characters",
+    );
+  }
+  if (app.windowsProcessName && !isWindowsProcessName(app.windowsProcessName)) {
+    throw new Error(
+      "Windows process name must be an executable name without .exe or a path",
+    );
+  }
   validateOptionalText(app.hostname, "Hostname", USER_CONTENT_LIMITS.hostname);
   validateOptionalText(app.source, "Source URL", USER_CONTENT_LIMITS.urlOrPath);
   validateOptionalText(app.icon, "Image path", USER_CONTENT_LIMITS.urlOrPath);

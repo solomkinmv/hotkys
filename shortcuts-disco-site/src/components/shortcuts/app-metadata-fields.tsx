@@ -15,6 +15,8 @@ export interface AppDraft {
   name: string;
   slug: string;
   bundleId: string;
+  windowsAppId?: string;
+  windowsProcessName?: string;
   icon: string;
   hostname?: string;
   source?: string;
@@ -88,6 +90,36 @@ export function AppMetadataFields({
             />
             <FieldDescription>
               Optional. Identifies the macOS app for Raycast.
+            </FieldDescription>
+          </Field>
+          <Field>
+            <FieldLabel htmlFor="app-windows-id">Windows app ID</FieldLabel>
+            <Input
+              id="app-windows-id"
+              value={draft.windowsAppId ?? ""}
+              onChange={(e) => onChange({ windowsAppId: e.target.value })}
+              maxLength={USER_CONTENT_LIMITS.windowsAppId}
+              placeholder="Vendor.Package!App"
+            />
+            <FieldDescription>
+              Optional. “Copy Current App&apos;s ID” in Raycast on Windows
+              copies this ID when available.
+            </FieldDescription>
+          </Field>
+          <Field>
+            <FieldLabel htmlFor="app-windows-process">
+              Windows process name
+            </FieldLabel>
+            <Input
+              id="app-windows-process"
+              value={draft.windowsProcessName ?? ""}
+              onChange={(e) => onChange({ windowsProcessName: e.target.value })}
+              maxLength={USER_CONTENT_LIMITS.windowsProcessName}
+              placeholder="Code"
+            />
+            <FieldDescription>
+              Optional. Enter the executable name without .exe, such as Code for
+              Code.exe. Raycast copies this name when no app ID is available.
             </FieldDescription>
           </Field>
           <Field>

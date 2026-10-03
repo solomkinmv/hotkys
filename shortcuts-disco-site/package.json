@@ -11,7 +11,7 @@
     "start": "npm run export-data && next start",
     "lint": "eslint .",
     "test": "jest",
-    "test:rls": "node --test supabase/tests/oauth-rls.test.mjs supabase/tests/overlay-quota.test.mjs supabase/tests/private-apps.test.mjs",
+    "test:rls": "node --test supabase/tests/oauth-rls.test.mjs supabase/tests/overlay-quota.test.mjs supabase/tests/private-apps.test.mjs supabase/tests/windows-identifiers.test.mjs",
     "export-data": "node --import tsx ./src/lib/write/app-writer.ts",
     "export-data:watch": "node --import tsx ./src/lib/write/watcher.ts",
     "prettify": "node --import tsx ./src/lib/write/prettify.ts",
