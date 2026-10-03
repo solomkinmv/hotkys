@@ -22,7 +22,7 @@ The original Windows branch predated the shared parser, personal account data, c
 
 Custom app details support optional `windowsAppId` and `windowsProcessName` alongside the macOS bundle ID. Use the Windows ID returned by Raycast or an executable name without `.exe` (for example, `Code`). These fields sync with the account and are preserved in exports, so a custom display name such as “My Editor” can target Visual Studio Code.
 
-“Copy Current App's ID” copies the Windows app ID when available. Otherwise it copies a resolvable executable process name and labels it in the confirmation. Apps with neither identifier remain unavailable for execution.
+“Copy Current App's ID” copies the Windows app ID when available. Otherwise it copies a resolvable executable process name and labels it in the confirmation. If Raycast supplies neither an app ID nor a resolvable executable path, the copy command reports that no identifier is available.
 
 If a custom app and a public catalog entry match the same Windows application, “List Current Shortcuts” offers a choice of shortcut collections. Selecting a collection keeps the detected native process as the execution target.
 
