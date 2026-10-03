@@ -1,0 +1,974 @@
+{
+  "$schema": "https://hotkys.com/schema/shortcut.schema.json",
+  "name": "Claude Code",
+  "slug": "claude-code",
+  "source": "https://code.claude.com/docs/en/interactive-mode",
+  "icon": "icons/claude.png",
+  "keymaps": [
+    {
+      "title": "macOS",
+      "platforms": [
+        "macos"
+      ],
+      "sections": [
+        {
+          "title": "Session and modes",
+          "shortcuts": [
+            {
+              "title": "Interrupt operation or clear input",
+              "key": "ctrl+c",
+              "comment": "When idle, a second press exits"
+            },
+            {
+              "title": "Stop all background subagents",
+              "key": "ctrl+x ctrl+k",
+              "comment": "Repeat the sequence within 3 seconds to confirm"
+            },
+            {
+              "title": "Exit session",
+              "key": "ctrl+d",
+              "comment": "Empty prompt: press twice within 800ms"
+            },
+            {
+              "title": "Edit prompt in external editor",
+              "key": "ctrl+g"
+            },
+            {
+              "title": "Edit prompt in external editor",
+              "key": "ctrl+x ctrl+e"
+            },
+            {
+              "title": "Redraw screen",
+              "key": "ctrl+l"
+            },
+            {
+              "title": "Toggle transcript viewer",
+              "key": "ctrl+o"
+            },
+            {
+              "title": "Search command history",
+              "key": "ctrl+r"
+            },
+            {
+              "title": "Paste image from clipboard",
+              "key": "ctrl+v"
+            },
+            {
+              "title": "Background running tasks",
+              "key": "ctrl+b",
+              "comment": "Press twice in tmux"
+            },
+            {
+              "title": "Toggle task checklist",
+              "key": "ctrl+t"
+            },
+            {
+              "title": "Stash or restore prompt",
+              "key": "ctrl+s"
+            },
+            {
+              "title": "Interrupt response or close dialog",
+              "key": "esc"
+            },
+            {
+              "title": "Clear draft or open rewind menu",
+              "key": "esc esc",
+              "comment": "Rewind opens when the prompt is empty"
+            },
+            {
+              "title": "Send queued messages now",
+              "key": "ctrl+enter",
+              "comment": "v2.1.275+; terminal must report extended keys"
+            },
+            {
+              "title": "Send queued messages now",
+              "key": "ctrl+x ctrl+s",
+              "comment": "Requires v2.1.275 or later"
+            },
+            {
+              "title": "Cycle permission modes",
+              "key": "shift+tab"
+            },
+            {
+              "title": "Switch model",
+              "key": "opt+p",
+              "comment": "Requires Option as Meta in the terminal"
+            },
+            {
+              "title": "Toggle extended thinking",
+              "key": "opt+t",
+              "comment": "For models that support disabling thinking"
+            },
+            {
+              "title": "Toggle fast mode",
+              "key": "opt+o"
+            },
+            {
+              "title": "Suspend Claude Code",
+              "key": "ctrl+z",
+              "comment": "Run fg in the shell to resume"
+            },
+            {
+              "title": "Paste image from clipboard",
+              "key": "cmd+v",
+              "comment": "iTerm2 only"
+            }
+          ]
+        },
+        {
+          "title": "Input and dialogs",
+          "shortcuts": [
+            {
+              "title": "Move up or recall previous input",
+              "key": "up",
+              "comment": "History is reached at the first visual row"
+            },
+            {
+              "title": "Move up or recall previous input",
+              "key": "ctrl+p",
+              "comment": "History is reached at the first visual row"
+            },
+            {
+              "title": "Move down or recall next input",
+              "key": "down",
+              "comment": "History is reached at the last visual row"
+            },
+            {
+              "title": "Move down or recall next input",
+              "key": "ctrl+n",
+              "comment": "History is reached at the last visual row"
+            },
+            {
+              "title": "Previous dialog tab",
+              "key": "left",
+              "comment": "When the tab row has focus"
+            },
+            {
+              "title": "Next dialog tab",
+              "key": "right",
+              "comment": "When the tab row has focus"
+            },
+            {
+              "title": "Accept autocomplete suggestion",
+              "key": "tab",
+              "comment": "When suggestions are visible"
+            },
+            {
+              "title": "Toggle permission answer comment",
+              "key": "tab",
+              "comment": "When Yes or No is focused"
+            }
+          ]
+        },
+        {
+          "title": "Text editing",
+          "shortcuts": [
+            {
+              "title": "Move to line start",
+              "key": "ctrl+a"
+            },
+            {
+              "title": "Move to line end",
+              "key": "ctrl+e"
+            },
+            {
+              "title": "Delete to line end",
+              "key": "ctrl+k"
+            },
+            {
+              "title": "Delete to line start",
+              "key": "ctrl+u"
+            },
+            {
+              "title": "Delete to previous whitespace",
+              "key": "ctrl+w"
+            },
+            {
+              "title": "Paste deleted text",
+              "key": "ctrl+y"
+            },
+            {
+              "title": "Cycle paste history",
+              "key": "opt+y",
+              "comment": "After Ctrl+Y; set Option as Meta on macOS"
+            },
+            {
+              "title": "Move back one word",
+              "key": "opt+b",
+              "comment": "Requires Option as Meta in the terminal"
+            },
+            {
+              "title": "Move to word end",
+              "key": "opt+f",
+              "comment": "Requires Option as Meta in the terminal"
+            },
+            {
+              "title": "Delete to word end",
+              "key": "opt+d",
+              "comment": "Requires Option as Meta in the terminal"
+            },
+            {
+              "title": "Undo last input edit",
+              "key": "ctrl+shift+-"
+            },
+            {
+              "title": "Delete to line start",
+              "key": "cmd+backspace",
+              "comment": "iTerm2 and Terminal.app"
+            },
+            {
+              "title": "Delete previous word",
+              "key": "opt+backspace"
+            }
+          ]
+        },
+        {
+          "title": "Multiline input",
+          "shortcuts": [
+            {
+              "title": "Insert new line",
+              "key": "\\ enter",
+              "comment": "Type a backslash, then press Enter"
+            },
+            {
+              "title": "Insert new line",
+              "key": "ctrl+j"
+            },
+            {
+              "title": "Insert new line",
+              "key": "shift+enter",
+              "comment": "Requires a compatible or configured terminal"
+            },
+            {
+              "title": "Insert new line",
+              "key": "opt+enter",
+              "comment": "Requires Option as Meta in the terminal"
+            }
+          ]
+        },
+        {
+          "title": "Quick commands",
+          "shortcuts": [
+            {
+              "title": "Open command or skill menu",
+              "key": "/",
+              "comment": "At the start of the prompt"
+            },
+            {
+              "title": "Enter shell mode",
+              "key": "shift+1",
+              "comment": "Type ! at the start of the prompt"
+            },
+            {
+              "title": "Mention a file path",
+              "key": "shift+2",
+              "comment": "Type @ in the prompt"
+            },
+            {
+              "title": "Enter emoji shortcode",
+              "key": "shift+;",
+              "comment": "Type :name:; requires v2.1.217 or later"
+            },
+            {
+              "title": "Toggle shortcut help",
+              "key": "shift+/",
+              "comment": "Type ? when the prompt is empty"
+            }
+          ]
+        },
+        {
+          "title": "Transcript viewer",
+          "shortcuts": [
+            {
+              "title": "Toggle transcript shortcut help",
+              "key": "shift+/",
+              "comment": "Fullscreen renderer only"
+            },
+            {
+              "title": "Jump to previous user prompt",
+              "key": "shift+[",
+              "comment": "Fullscreen renderer only"
+            },
+            {
+              "title": "Jump to next user prompt",
+              "key": "shift+]",
+              "comment": "Fullscreen renderer only"
+            },
+            {
+              "title": "Toggle all transcript content",
+              "key": "ctrl+e",
+              "comment": "Classic renderer only"
+            },
+            {
+              "title": "Write conversation to native scrollback",
+              "key": "[",
+              "comment": "Fullscreen renderer only"
+            },
+            {
+              "title": "Open conversation in external editor",
+              "key": "v",
+              "comment": "Fullscreen renderer only"
+            },
+            {
+              "title": "Exit transcript viewer",
+              "key": "q"
+            },
+            {
+              "title": "Exit transcript viewer",
+              "key": "ctrl+c"
+            },
+            {
+              "title": "Exit transcript viewer",
+              "key": "esc"
+            }
+          ]
+        },
+        {
+          "title": "Theme and voice",
+          "shortcuts": [
+            {
+              "title": "Toggle code syntax highlighting",
+              "key": "ctrl+t",
+              "comment": "Inside the /theme picker only"
+            },
+            {
+              "title": "Voice dictation",
+              "comment": "Enable /voice, then hold Space or use /voice tap"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Windows",
+      "platforms": [
+        "windows"
+      ],
+      "sections": [
+        {
+          "title": "Session and modes",
+          "shortcuts": [
+            {
+              "title": "Interrupt operation or clear input",
+              "key": "ctrl+c",
+              "comment": "When idle, a second press exits"
+            },
+            {
+              "title": "Stop all background subagents",
+              "key": "ctrl+x ctrl+k",
+              "comment": "Repeat the sequence within 3 seconds to confirm"
+            },
+            {
+              "title": "Exit session",
+              "key": "ctrl+d",
+              "comment": "Empty prompt: press twice within 800ms"
+            },
+            {
+              "title": "Edit prompt in external editor",
+              "key": "ctrl+g"
+            },
+            {
+              "title": "Edit prompt in external editor",
+              "key": "ctrl+x ctrl+e"
+            },
+            {
+              "title": "Redraw screen",
+              "key": "ctrl+l"
+            },
+            {
+              "title": "Toggle transcript viewer",
+              "key": "ctrl+o"
+            },
+            {
+              "title": "Search command history",
+              "key": "ctrl+r"
+            },
+            {
+              "title": "Paste image from clipboard",
+              "key": "ctrl+v"
+            },
+            {
+              "title": "Background running tasks",
+              "key": "ctrl+b",
+              "comment": "Press twice in tmux"
+            },
+            {
+              "title": "Toggle task checklist",
+              "key": "ctrl+t"
+            },
+            {
+              "title": "Stash or restore prompt",
+              "key": "ctrl+s"
+            },
+            {
+              "title": "Interrupt response or close dialog",
+              "key": "esc"
+            },
+            {
+              "title": "Clear draft or open rewind menu",
+              "key": "esc esc",
+              "comment": "Rewind opens when the prompt is empty"
+            },
+            {
+              "title": "Send queued messages now",
+              "key": "ctrl+enter",
+              "comment": "v2.1.275+; terminal must report extended keys"
+            },
+            {
+              "title": "Send queued messages now",
+              "key": "ctrl+x ctrl+s",
+              "comment": "Requires v2.1.275 or later"
+            },
+            {
+              "title": "Cycle permission modes",
+              "key": "shift+tab"
+            },
+            {
+              "title": "Switch model",
+              "key": "opt+p"
+            },
+            {
+              "title": "Toggle extended thinking",
+              "key": "opt+t",
+              "comment": "For models that support disabling thinking"
+            },
+            {
+              "title": "Toggle fast mode",
+              "key": "opt+o"
+            },
+            {
+              "title": "Paste image from clipboard",
+              "key": "opt+v",
+              "comment": "Also supported in WSL"
+            },
+            {
+              "title": "Cycle permission modes",
+              "key": "opt+m",
+              "comment": "Fallback when Node or Bun does not enable VT input"
+            }
+          ]
+        },
+        {
+          "title": "Input and dialogs",
+          "shortcuts": [
+            {
+              "title": "Move up or recall previous input",
+              "key": "up",
+              "comment": "History is reached at the first visual row"
+            },
+            {
+              "title": "Move up or recall previous input",
+              "key": "ctrl+p",
+              "comment": "History is reached at the first visual row"
+            },
+            {
+              "title": "Move down or recall next input",
+              "key": "down",
+              "comment": "History is reached at the last visual row"
+            },
+            {
+              "title": "Move down or recall next input",
+              "key": "ctrl+n",
+              "comment": "History is reached at the last visual row"
+            },
+            {
+              "title": "Previous dialog tab",
+              "key": "left",
+              "comment": "When the tab row has focus"
+            },
+            {
+              "title": "Next dialog tab",
+              "key": "right",
+              "comment": "When the tab row has focus"
+            },
+            {
+              "title": "Accept autocomplete suggestion",
+              "key": "tab",
+              "comment": "When suggestions are visible"
+            },
+            {
+              "title": "Toggle permission answer comment",
+              "key": "tab",
+              "comment": "When Yes or No is focused"
+            }
+          ]
+        },
+        {
+          "title": "Text editing",
+          "shortcuts": [
+            {
+              "title": "Move to line start",
+              "key": "ctrl+a"
+            },
+            {
+              "title": "Move to line end",
+              "key": "ctrl+e"
+            },
+            {
+              "title": "Delete to line end",
+              "key": "ctrl+k"
+            },
+            {
+              "title": "Delete to line start",
+              "key": "ctrl+u"
+            },
+            {
+              "title": "Delete to previous whitespace",
+              "key": "ctrl+w"
+            },
+            {
+              "title": "Paste deleted text",
+              "key": "ctrl+y"
+            },
+            {
+              "title": "Cycle paste history",
+              "key": "opt+y",
+              "comment": "After Ctrl+Y; set Option as Meta on macOS"
+            },
+            {
+              "title": "Move back one word",
+              "key": "opt+b"
+            },
+            {
+              "title": "Move to word end",
+              "key": "opt+f"
+            },
+            {
+              "title": "Delete to word end",
+              "key": "opt+d"
+            },
+            {
+              "title": "Undo last input edit",
+              "key": "ctrl+shift+-"
+            },
+            {
+              "title": "Delete previous word",
+              "key": "ctrl+backspace"
+            }
+          ]
+        },
+        {
+          "title": "Multiline input",
+          "shortcuts": [
+            {
+              "title": "Insert new line",
+              "key": "\\ enter",
+              "comment": "Type a backslash, then press Enter"
+            },
+            {
+              "title": "Insert new line",
+              "key": "ctrl+j"
+            },
+            {
+              "title": "Insert new line",
+              "key": "shift+enter",
+              "comment": "Requires a compatible or configured terminal"
+            }
+          ]
+        },
+        {
+          "title": "Quick commands",
+          "shortcuts": [
+            {
+              "title": "Open command or skill menu",
+              "key": "/",
+              "comment": "At the start of the prompt"
+            },
+            {
+              "title": "Enter shell mode",
+              "key": "shift+1",
+              "comment": "Type ! at the start of the prompt"
+            },
+            {
+              "title": "Mention a file path",
+              "key": "shift+2",
+              "comment": "Type @ in the prompt"
+            },
+            {
+              "title": "Enter emoji shortcode",
+              "key": "shift+;",
+              "comment": "Type :name:; requires v2.1.217 or later"
+            },
+            {
+              "title": "Toggle shortcut help",
+              "key": "shift+/",
+              "comment": "Type ? when the prompt is empty"
+            }
+          ]
+        },
+        {
+          "title": "Transcript viewer",
+          "shortcuts": [
+            {
+              "title": "Toggle transcript shortcut help",
+              "key": "shift+/",
+              "comment": "Fullscreen renderer only"
+            },
+            {
+              "title": "Jump to previous user prompt",
+              "key": "shift+[",
+              "comment": "Fullscreen renderer only"
+            },
+            {
+              "title": "Jump to next user prompt",
+              "key": "shift+]",
+              "comment": "Fullscreen renderer only"
+            },
+            {
+              "title": "Toggle all transcript content",
+              "key": "ctrl+e",
+              "comment": "Classic renderer only"
+            },
+            {
+              "title": "Write conversation to native scrollback",
+              "key": "[",
+              "comment": "Fullscreen renderer only"
+            },
+            {
+              "title": "Open conversation in external editor",
+              "key": "v",
+              "comment": "Fullscreen renderer only"
+            },
+            {
+              "title": "Exit transcript viewer",
+              "key": "q"
+            },
+            {
+              "title": "Exit transcript viewer",
+              "key": "ctrl+c"
+            },
+            {
+              "title": "Exit transcript viewer",
+              "key": "esc"
+            }
+          ]
+        },
+        {
+          "title": "Theme and voice",
+          "shortcuts": [
+            {
+              "title": "Toggle code syntax highlighting",
+              "key": "ctrl+t",
+              "comment": "Inside the /theme picker only"
+            },
+            {
+              "title": "Voice dictation",
+              "comment": "Enable /voice, then hold Space or use /voice tap"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Linux",
+      "platforms": [
+        "linux"
+      ],
+      "sections": [
+        {
+          "title": "Session and modes",
+          "shortcuts": [
+            {
+              "title": "Interrupt operation or clear input",
+              "key": "ctrl+c",
+              "comment": "When idle, a second press exits"
+            },
+            {
+              "title": "Stop all background subagents",
+              "key": "ctrl+x ctrl+k",
+              "comment": "Repeat the sequence within 3 seconds to confirm"
+            },
+            {
+              "title": "Exit session",
+              "key": "ctrl+d",
+              "comment": "Empty prompt: press twice within 800ms"
+            },
+            {
+              "title": "Edit prompt in external editor",
+              "key": "ctrl+g"
+            },
+            {
+              "title": "Edit prompt in external editor",
+              "key": "ctrl+x ctrl+e"
+            },
+            {
+              "title": "Redraw screen",
+              "key": "ctrl+l"
+            },
+            {
+              "title": "Toggle transcript viewer",
+              "key": "ctrl+o"
+            },
+            {
+              "title": "Search command history",
+              "key": "ctrl+r"
+            },
+            {
+              "title": "Paste image from clipboard",
+              "key": "ctrl+v"
+            },
+            {
+              "title": "Background running tasks",
+              "key": "ctrl+b",
+              "comment": "Press twice in tmux"
+            },
+            {
+              "title": "Toggle task checklist",
+              "key": "ctrl+t"
+            },
+            {
+              "title": "Stash or restore prompt",
+              "key": "ctrl+s"
+            },
+            {
+              "title": "Interrupt response or close dialog",
+              "key": "esc"
+            },
+            {
+              "title": "Clear draft or open rewind menu",
+              "key": "esc esc",
+              "comment": "Rewind opens when the prompt is empty"
+            },
+            {
+              "title": "Send queued messages now",
+              "key": "ctrl+enter",
+              "comment": "v2.1.275+; terminal must report extended keys"
+            },
+            {
+              "title": "Send queued messages now",
+              "key": "ctrl+x ctrl+s",
+              "comment": "Requires v2.1.275 or later"
+            },
+            {
+              "title": "Cycle permission modes",
+              "key": "shift+tab"
+            },
+            {
+              "title": "Switch model",
+              "key": "opt+p"
+            },
+            {
+              "title": "Toggle extended thinking",
+              "key": "opt+t",
+              "comment": "For models that support disabling thinking"
+            },
+            {
+              "title": "Toggle fast mode",
+              "key": "opt+o"
+            },
+            {
+              "title": "Suspend Claude Code",
+              "key": "ctrl+z",
+              "comment": "Run fg in the shell to resume"
+            }
+          ]
+        },
+        {
+          "title": "Input and dialogs",
+          "shortcuts": [
+            {
+              "title": "Move up or recall previous input",
+              "key": "up",
+              "comment": "History is reached at the first visual row"
+            },
+            {
+              "title": "Move up or recall previous input",
+              "key": "ctrl+p",
+              "comment": "History is reached at the first visual row"
+            },
+            {
+              "title": "Move down or recall next input",
+              "key": "down",
+              "comment": "History is reached at the last visual row"
+            },
+            {
+              "title": "Move down or recall next input",
+              "key": "ctrl+n",
+              "comment": "History is reached at the last visual row"
+            },
+            {
+              "title": "Previous dialog tab",
+              "key": "left",
+              "comment": "When the tab row has focus"
+            },
+            {
+              "title": "Next dialog tab",
+              "key": "right",
+              "comment": "When the tab row has focus"
+            },
+            {
+              "title": "Accept autocomplete suggestion",
+              "key": "tab",
+              "comment": "When suggestions are visible"
+            },
+            {
+              "title": "Toggle permission answer comment",
+              "key": "tab",
+              "comment": "When Yes or No is focused"
+            }
+          ]
+        },
+        {
+          "title": "Text editing",
+          "shortcuts": [
+            {
+              "title": "Move to line start",
+              "key": "ctrl+a"
+            },
+            {
+              "title": "Move to line end",
+              "key": "ctrl+e"
+            },
+            {
+              "title": "Delete to line end",
+              "key": "ctrl+k"
+            },
+            {
+              "title": "Delete to line start",
+              "key": "ctrl+u"
+            },
+            {
+              "title": "Delete to previous whitespace",
+              "key": "ctrl+w"
+            },
+            {
+              "title": "Paste deleted text",
+              "key": "ctrl+y"
+            },
+            {
+              "title": "Cycle paste history",
+              "key": "opt+y",
+              "comment": "After Ctrl+Y; set Option as Meta on macOS"
+            },
+            {
+              "title": "Move back one word",
+              "key": "opt+b"
+            },
+            {
+              "title": "Move to word end",
+              "key": "opt+f"
+            },
+            {
+              "title": "Delete to word end",
+              "key": "opt+d"
+            },
+            {
+              "title": "Undo last input edit",
+              "key": "ctrl+shift+-"
+            }
+          ]
+        },
+        {
+          "title": "Multiline input",
+          "shortcuts": [
+            {
+              "title": "Insert new line",
+              "key": "\\ enter",
+              "comment": "Type a backslash, then press Enter"
+            },
+            {
+              "title": "Insert new line",
+              "key": "ctrl+j"
+            },
+            {
+              "title": "Insert new line",
+              "key": "shift+enter",
+              "comment": "Requires a compatible or configured terminal"
+            }
+          ]
+        },
+        {
+          "title": "Quick commands",
+          "shortcuts": [
+            {
+              "title": "Open command or skill menu",
+              "key": "/",
+              "comment": "At the start of the prompt"
+            },
+            {
+              "title": "Enter shell mode",
+              "key": "shift+1",
+              "comment": "Type ! at the start of the prompt"
+            },
+            {
+              "title": "Mention a file path",
+              "key": "shift+2",
+              "comment": "Type @ in the prompt"
+            },
+            {
+              "title": "Enter emoji shortcode",
+              "key": "shift+;",
+              "comment": "Type :name:; requires v2.1.217 or later"
+            },
+            {
+              "title": "Toggle shortcut help",
+              "key": "shift+/",
+              "comment": "Type ? when the prompt is empty"
+            }
+          ]
+        },
+        {
+          "title": "Transcript viewer",
+          "shortcuts": [
+            {
+              "title": "Toggle transcript shortcut help",
+              "key": "shift+/",
+              "comment": "Fullscreen renderer only"
+            },
+            {
+              "title": "Jump to previous user prompt",
+              "key": "shift+[",
+              "comment": "Fullscreen renderer only"
+            },
+            {
+              "title": "Jump to next user prompt",
+              "key": "shift+]",
+              "comment": "Fullscreen renderer only"
+            },
+            {
+              "title": "Toggle all transcript content",
+              "key": "ctrl+e",
+              "comment": "Classic renderer only"
+            },
+            {
+              "title": "Write conversation to native scrollback",
+              "key": "[",
+              "comment": "Fullscreen renderer only"
+            },
+            {
+              "title": "Open conversation in external editor",
+              "key": "v",
+              "comment": "Fullscreen renderer only"
+            },
+            {
+              "title": "Exit transcript viewer",
+              "key": "q"
+            },
+            {
+              "title": "Exit transcript viewer",
+              "key": "ctrl+c"
+            },
+            {
+              "title": "Exit transcript viewer",
+              "key": "esc"
+            }
+          ]
+        },
+        {
+          "title": "Theme and voice",
+          "shortcuts": [
+            {
+              "title": "Toggle code syntax highlighting",
+              "key": "ctrl+t",
+              "comment": "Inside the /theme picker only"
+            },
+            {
+              "title": "Voice dictation",
+              "comment": "Enable /voice, then hold Space or use /voice tap"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
