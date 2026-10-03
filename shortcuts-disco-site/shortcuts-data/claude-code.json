@@ -1,6 +1,6 @@
 {
   "$schema": "https://hotkys.com/schema/shortcut.schema.json",
-  "name": "Claude Code",
+  "name": "Claude Code CLI",
   "slug": "claude-code",
   "source": "https://code.claude.com/docs/en/interactive-mode",
   "icon": "icons/claude.png",
