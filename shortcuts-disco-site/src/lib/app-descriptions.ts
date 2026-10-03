@@ -14,6 +14,7 @@ export const appDescriptions: Record<string, string> = {
   atom: "Write and edit code in a customizable editor.",
   claude: "Think, write, and work through ideas with AI.",
   "claude-code": "Build and debug code with an AI agent in your terminal.",
+  "claude-code-desktop": "Manage coding sessions and review changes in Claude's Code tab.",
   codex: "Build, review, and manage code with AI agents.",
   discord: "Chat, share, and hang out with your communities.",
   fastmail: "Manage email, calendars, and contacts.",

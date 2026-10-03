@@ -1,0 +1,321 @@
+{
+  "$schema": "https://hotkys.com/schema/shortcut.schema.json",
+  "name": "Claude Code Desktop",
+  "slug": "claude-code-desktop",
+  "source": "https://code.claude.com/docs/en/desktop#keyboard-shortcuts",
+  "icon": "icons/claude.png",
+  "keymaps": [
+    {
+      "title": "macOS",
+      "platforms": [
+        "macos"
+      ],
+      "sections": [
+        {
+          "title": "Sessions",
+          "shortcuts": [
+            {
+              "title": "Show keyboard shortcuts",
+              "key": "cmd+/"
+            },
+            {
+              "title": "New session",
+              "key": "cmd+n"
+            },
+            {
+              "title": "Close session",
+              "key": "cmd+w"
+            },
+            {
+              "title": "Next session",
+              "key": "ctrl+tab"
+            },
+            {
+              "title": "Previous session",
+              "key": "ctrl+shift+tab"
+            },
+            {
+              "title": "Next session",
+              "key": "shift+cmd+]"
+            },
+            {
+              "title": "Previous session",
+              "key": "shift+cmd+["
+            },
+            {
+              "title": "Send prompt",
+              "key": "enter",
+              "comment": "When the prompt box is focused"
+            },
+            {
+              "title": "Stop Claude's response",
+              "key": "esc"
+            },
+            {
+              "title": "Open side chat",
+              "key": "cmd+;"
+            }
+          ]
+        },
+        {
+          "title": "Workspace and review",
+          "shortcuts": [
+            {
+              "title": "Toggle diff pane",
+              "key": "shift+cmd+d"
+            },
+            {
+              "title": "Toggle Browser pane",
+              "key": "shift+cmd+b"
+            },
+            {
+              "title": "Select element in Browser",
+              "key": "shift+cmd+s"
+            },
+            {
+              "title": "Toggle terminal pane",
+              "key": "ctrl+`",
+              "comment": "Local sessions only"
+            },
+            {
+              "title": "Close focused pane",
+              "key": "cmd+\\"
+            },
+            {
+              "title": "Cycle view modes",
+              "key": "ctrl+o"
+            },
+            {
+              "title": "Add diff comment",
+              "key": "enter",
+              "comment": "When a diff comment box is focused"
+            },
+            {
+              "title": "Submit all diff comments",
+              "key": "cmd+enter",
+              "comment": "In the diff viewer"
+            }
+          ]
+        },
+        {
+          "title": "Model and permissions",
+          "shortcuts": [
+            {
+              "title": "Open permission mode menu",
+              "key": "shift+cmd+m"
+            },
+            {
+              "title": "Open model menu",
+              "key": "shift+cmd+i"
+            },
+            {
+              "title": "Open effort menu",
+              "key": "shift+cmd+e"
+            },
+            {
+              "title": "Select menu item 1",
+              "key": "1",
+              "comment": "When a menu is open"
+            },
+            {
+              "title": "Select menu item 2",
+              "key": "2",
+              "comment": "When a menu is open"
+            },
+            {
+              "title": "Select menu item 3",
+              "key": "3",
+              "comment": "When a menu is open"
+            },
+            {
+              "title": "Select menu item 4",
+              "key": "4",
+              "comment": "When a menu is open"
+            },
+            {
+              "title": "Select menu item 5",
+              "key": "5",
+              "comment": "When a menu is open"
+            },
+            {
+              "title": "Select menu item 6",
+              "key": "6",
+              "comment": "When a menu is open"
+            },
+            {
+              "title": "Select menu item 7",
+              "key": "7",
+              "comment": "When a menu is open"
+            },
+            {
+              "title": "Select menu item 8",
+              "key": "8",
+              "comment": "When a menu is open"
+            },
+            {
+              "title": "Select menu item 9",
+              "key": "9",
+              "comment": "When a menu is open"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Windows",
+      "platforms": [
+        "windows"
+      ],
+      "sections": [
+        {
+          "title": "Sessions",
+          "shortcuts": [
+            {
+              "title": "Show keyboard shortcuts",
+              "key": "ctrl+/"
+            },
+            {
+              "title": "New session",
+              "key": "ctrl+n"
+            },
+            {
+              "title": "Close session",
+              "key": "ctrl+w"
+            },
+            {
+              "title": "Next session",
+              "key": "ctrl+tab"
+            },
+            {
+              "title": "Previous session",
+              "key": "ctrl+shift+tab"
+            },
+            {
+              "title": "Next session",
+              "key": "ctrl+shift+]"
+            },
+            {
+              "title": "Previous session",
+              "key": "ctrl+shift+["
+            },
+            {
+              "title": "Send prompt",
+              "key": "enter",
+              "comment": "When the prompt box is focused"
+            },
+            {
+              "title": "Stop Claude's response",
+              "key": "esc"
+            },
+            {
+              "title": "Open side chat",
+              "key": "ctrl+;"
+            }
+          ]
+        },
+        {
+          "title": "Workspace and review",
+          "shortcuts": [
+            {
+              "title": "Toggle diff pane",
+              "key": "ctrl+shift+d"
+            },
+            {
+              "title": "Toggle Browser pane",
+              "key": "ctrl+shift+b"
+            },
+            {
+              "title": "Select element in Browser",
+              "key": "ctrl+shift+s"
+            },
+            {
+              "title": "Toggle terminal pane",
+              "key": "ctrl+`",
+              "comment": "Local sessions only"
+            },
+            {
+              "title": "Close focused pane",
+              "key": "ctrl+\\"
+            },
+            {
+              "title": "Cycle view modes",
+              "key": "ctrl+o"
+            },
+            {
+              "title": "Add diff comment",
+              "key": "enter",
+              "comment": "When a diff comment box is focused"
+            },
+            {
+              "title": "Submit all diff comments",
+              "key": "ctrl+enter",
+              "comment": "In the diff viewer"
+            }
+          ]
+        },
+        {
+          "title": "Model and permissions",
+          "shortcuts": [
+            {
+              "title": "Open permission mode menu",
+              "key": "ctrl+shift+m"
+            },
+            {
+              "title": "Open model menu",
+              "key": "ctrl+shift+i"
+            },
+            {
+              "title": "Open effort menu",
+              "key": "ctrl+shift+e"
+            },
+            {
+              "title": "Select menu item 1",
+              "key": "1",
+              "comment": "When a menu is open"
+            },
+            {
+              "title": "Select menu item 2",
+              "key": "2",
+              "comment": "When a menu is open"
+            },
+            {
+              "title": "Select menu item 3",
+              "key": "3",
+              "comment": "When a menu is open"
+            },
+            {
+              "title": "Select menu item 4",
+              "key": "4",
+              "comment": "When a menu is open"
+            },
+            {
+              "title": "Select menu item 5",
+              "key": "5",
+              "comment": "When a menu is open"
+            },
+            {
+              "title": "Select menu item 6",
+              "key": "6",
+              "comment": "When a menu is open"
+            },
+            {
+              "title": "Select menu item 7",
+              "key": "7",
+              "comment": "When a menu is open"
+            },
+            {
+              "title": "Select menu item 8",
+              "key": "8",
+              "comment": "When a menu is open"
+            },
+            {
+              "title": "Select menu item 9",
+              "key": "9",
+              "comment": "When a menu is open"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
