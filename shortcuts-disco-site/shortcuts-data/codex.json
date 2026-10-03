@@ -1,0 +1,807 @@
+{
+  "$schema": "https://hotkys.com/schema/shortcut.schema.json",
+  "bundleId": "com.openai.codex",
+  "name": "Codex",
+  "slug": "codex",
+  "source": "https://learn.chatgpt.com/docs/reference/commands",
+  "icon": "icons/codex.png",
+  "keymaps": [
+    {
+      "title": "macOS",
+      "platforms": [
+        "macos"
+      ],
+      "sections": [
+        {
+          "title": "General",
+          "shortcuts": [
+            {
+              "title": "Open command menu",
+              "key": "shift+cmd+p"
+            },
+            {
+              "title": "Open command menu",
+              "key": "cmd+k"
+            },
+            {
+              "title": "Open settings",
+              "key": "cmd+,"
+            },
+            {
+              "title": "Open keyboard shortcuts",
+              "key": "cmd+/"
+            },
+            {
+              "title": "Open folder",
+              "key": "cmd+o"
+            },
+            {
+              "title": "Navigate back",
+              "key": "cmd+["
+            },
+            {
+              "title": "Navigate forward",
+              "key": "cmd+]"
+            },
+            {
+              "title": "Increase font size",
+              "key": "cmd++"
+            },
+            {
+              "title": "Decrease font size",
+              "key": "cmd+-"
+            },
+            {
+              "title": "Reset font size",
+              "key": "cmd+0"
+            },
+            {
+              "title": "Toggle sidebar",
+              "key": "cmd+b"
+            },
+            {
+              "title": "Toggle bottom panel",
+              "key": "cmd+j"
+            },
+            {
+              "title": "Clear all unread indicators",
+              "key": "shift+esc"
+            },
+            {
+              "title": "Undo last app action",
+              "key": "cmd+z"
+            },
+            {
+              "title": "Redo last app action",
+              "key": "shift+cmd+z"
+            },
+            {
+              "title": "Close current tab or window",
+              "key": "cmd+w"
+            },
+            {
+              "title": "Toggle full screen",
+              "key": "ctrl+cmd+f"
+            },
+            {
+              "title": "Quit the app",
+              "key": "cmd+q"
+            }
+          ]
+        },
+        {
+          "title": "Chats",
+          "shortcuts": [
+            {
+              "title": "New chat",
+              "key": "cmd+n"
+            },
+            {
+              "title": "New chat",
+              "key": "shift+cmd+o"
+            },
+            {
+              "title": "New standalone chat",
+              "key": "opt+cmd+o"
+            },
+            {
+              "title": "Archive chat",
+              "key": "shift+cmd+a"
+            },
+            {
+              "title": "Mark chat as unread",
+              "key": "shift+cmd+u"
+            },
+            {
+              "title": "Pin or unpin chat",
+              "key": "opt+cmd+p"
+            },
+            {
+              "title": "Rename chat",
+              "key": "opt+cmd+r"
+            },
+            {
+              "title": "Open side chat",
+              "key": "opt+cmd+s"
+            },
+            {
+              "title": "Search chats",
+              "comment": "Assign in Settings > Keyboard Shortcuts"
+            },
+            {
+              "title": "Find in chat",
+              "key": "cmd+f"
+            },
+            {
+              "title": "Find next match",
+              "key": "cmd+g"
+            },
+            {
+              "title": "Find previous match",
+              "key": "shift+cmd+g"
+            },
+            {
+              "title": "Previous chat or tab",
+              "key": "ctrl+shift+tab"
+            },
+            {
+              "title": "Previous chat or tab",
+              "key": "shift+cmd+["
+            },
+            {
+              "title": "Previous chat or tab",
+              "key": "opt+cmd+left"
+            },
+            {
+              "title": "Next chat or tab",
+              "key": "ctrl+tab"
+            },
+            {
+              "title": "Next chat or tab",
+              "key": "shift+cmd+]"
+            },
+            {
+              "title": "Next chat or tab",
+              "key": "opt+cmd+right"
+            },
+            {
+              "title": "Next chat needing attention",
+              "key": "opt+cmd+a"
+            },
+            {
+              "title": "Open recent chat 1",
+              "key": "opt+cmd+1"
+            },
+            {
+              "title": "Open recent chat 2",
+              "key": "opt+cmd+2"
+            },
+            {
+              "title": "Open recent chat 3",
+              "key": "opt+cmd+3"
+            },
+            {
+              "title": "Open recent chat 4",
+              "key": "opt+cmd+4"
+            },
+            {
+              "title": "Open recent chat 5",
+              "key": "opt+cmd+5"
+            },
+            {
+              "title": "Open recent chat 6",
+              "key": "opt+cmd+6"
+            },
+            {
+              "title": "Go to chat 1",
+              "key": "cmd+1"
+            },
+            {
+              "title": "Go to chat 2",
+              "key": "cmd+2"
+            },
+            {
+              "title": "Go to chat 3",
+              "key": "cmd+3"
+            },
+            {
+              "title": "Go to chat 4",
+              "key": "cmd+4"
+            },
+            {
+              "title": "Go to chat 5",
+              "key": "cmd+5"
+            },
+            {
+              "title": "Go to chat 6",
+              "key": "cmd+6"
+            },
+            {
+              "title": "Go to chat 7",
+              "key": "cmd+7"
+            },
+            {
+              "title": "Go to chat 8",
+              "key": "cmd+8"
+            },
+            {
+              "title": "Go to chat 9",
+              "key": "cmd+9"
+            }
+          ]
+        },
+        {
+          "title": "Input and modes",
+          "shortcuts": [
+            {
+              "title": "Open model picker",
+              "key": "ctrl+shift+m"
+            },
+            {
+              "title": "Open project picker",
+              "key": "shift+opt+cmd+o"
+            },
+            {
+              "title": "Start voice chat",
+              "key": "ctrl+shift+v",
+              "comment": "When voice chat is available"
+            },
+            {
+              "title": "Start dictation",
+              "key": "ctrl+shift+d",
+              "comment": "When dictation is available"
+            },
+            {
+              "title": "Restore previous composer prompt",
+              "key": "up",
+              "comment": "When the composer is empty"
+            },
+            {
+              "title": "Approve request",
+              "key": "enter",
+              "comment": "When an approval request is open"
+            },
+            {
+              "title": "Decline request",
+              "key": "esc",
+              "comment": "When an approval request is open"
+            },
+            {
+              "title": "Switch to Chat",
+              "key": "ctrl+1"
+            },
+            {
+              "title": "Switch to Work",
+              "key": "ctrl+2"
+            },
+            {
+              "title": "Switch to Codex",
+              "key": "ctrl+3"
+            },
+            {
+              "title": "Toggle Activity view",
+              "key": "opt+cmd+u",
+              "comment": "When Activity is available"
+            }
+          ]
+        },
+        {
+          "title": "Workspace and browser",
+          "shortcuts": [
+            {
+              "title": "Run primary environment action",
+              "key": "shift+cmd+d",
+              "comment": "When the environment has a primary action"
+            },
+            {
+              "title": "Search files",
+              "key": "cmd+p"
+            },
+            {
+              "title": "Toggle file tree",
+              "key": "shift+cmd+e"
+            },
+            {
+              "title": "Open review tab",
+              "key": "ctrl+shift+g"
+            },
+            {
+              "title": "Switch between chat and tabs",
+              "key": "opt+cmd+b",
+              "comment": "In full view; toggles tabs in split view"
+            },
+            {
+              "title": "Open browser tab",
+              "key": "cmd+t",
+              "comment": "When the built-in browser is available"
+            },
+            {
+              "title": "Cycle workspace layout",
+              "key": "shift+cmd+b",
+              "comment": "Full view, split view, or hidden tabs"
+            },
+            {
+              "title": "Enter or exit full view",
+              "key": "shift+cmd+f"
+            },
+            {
+              "title": "Go to line or focus browser address bar",
+              "key": "cmd+l",
+              "comment": "Depends on the focused view"
+            },
+            {
+              "title": "Browser back",
+              "key": "cmd+left",
+              "comment": "When the built-in browser is focused"
+            },
+            {
+              "title": "Browser forward",
+              "key": "cmd+right",
+              "comment": "When the built-in browser is focused"
+            },
+            {
+              "title": "Reload browser page",
+              "key": "cmd+r",
+              "comment": "When the built-in browser is focused"
+            },
+            {
+              "title": "Reload browser page without cache",
+              "key": "shift+cmd+r",
+              "comment": "When the built-in browser is focused"
+            },
+            {
+              "title": "Copy browser URL",
+              "key": "shift+cmd+c",
+              "comment": "When the built-in browser is focused"
+            },
+            {
+              "title": "Toggle browser browse or comment mode",
+              "key": "cmd+.",
+              "comment": "When browser commenting is available"
+            },
+            {
+              "title": "Copy conversation path",
+              "key": "shift+opt+cmd+c"
+            },
+            {
+              "title": "Copy chat deep link",
+              "key": "opt+cmd+l"
+            },
+            {
+              "title": "Copy session ID",
+              "key": "opt+cmd+c"
+            },
+            {
+              "title": "Copy working directory",
+              "key": "shift+cmd+c"
+            },
+            {
+              "title": "Take an Appshot",
+              "comment": "Press both Command keys simultaneously"
+            }
+          ]
+        },
+        {
+          "title": "Terminal",
+          "shortcuts": [
+            {
+              "title": "Toggle terminal",
+              "key": "ctrl+`"
+            },
+            {
+              "title": "Clear terminal",
+              "key": "ctrl+l",
+              "comment": "When the terminal is focused"
+            },
+            {
+              "title": "Clear terminal",
+              "key": "cmd+k",
+              "comment": "When the terminal is focused"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Windows and Linux",
+      "platforms": [
+        "windows",
+        "linux"
+      ],
+      "sections": [
+        {
+          "title": "General",
+          "shortcuts": [
+            {
+              "title": "Open command menu",
+              "key": "ctrl+shift+p"
+            },
+            {
+              "title": "Open command menu",
+              "key": "ctrl+k"
+            },
+            {
+              "title": "Open settings",
+              "key": "ctrl+,"
+            },
+            {
+              "title": "Open keyboard shortcuts",
+              "key": "ctrl+/"
+            },
+            {
+              "title": "Open folder",
+              "key": "ctrl+o"
+            },
+            {
+              "title": "Navigate back",
+              "key": "ctrl+["
+            },
+            {
+              "title": "Navigate forward",
+              "key": "ctrl+]"
+            },
+            {
+              "title": "Increase font size",
+              "key": "ctrl++"
+            },
+            {
+              "title": "Increase font size",
+              "key": "ctrl+="
+            },
+            {
+              "title": "Decrease font size",
+              "key": "ctrl+-"
+            },
+            {
+              "title": "Reset font size",
+              "key": "ctrl+0"
+            },
+            {
+              "title": "Toggle sidebar",
+              "key": "ctrl+b"
+            },
+            {
+              "title": "Toggle bottom panel",
+              "key": "ctrl+j"
+            },
+            {
+              "title": "Clear all unread indicators",
+              "key": "shift+esc"
+            },
+            {
+              "title": "Undo last app action",
+              "key": "ctrl+z"
+            },
+            {
+              "title": "Redo last app action",
+              "key": "ctrl+y"
+            },
+            {
+              "title": "Redo last app action",
+              "key": "ctrl+shift+z"
+            },
+            {
+              "title": "Close current tab or window",
+              "key": "ctrl+w"
+            },
+            {
+              "title": "Close current tab or window",
+              "key": "ctrl+f4"
+            },
+            {
+              "title": "Toggle full screen",
+              "key": "f11"
+            },
+            {
+              "title": "Quit the app",
+              "key": "ctrl+q"
+            }
+          ]
+        },
+        {
+          "title": "Chats",
+          "shortcuts": [
+            {
+              "title": "New chat",
+              "key": "ctrl+n"
+            },
+            {
+              "title": "New chat",
+              "key": "ctrl+shift+o"
+            },
+            {
+              "title": "New standalone chat",
+              "key": "ctrl+opt+o"
+            },
+            {
+              "title": "Archive chat",
+              "key": "ctrl+shift+a"
+            },
+            {
+              "title": "Mark chat as unread",
+              "key": "ctrl+shift+u"
+            },
+            {
+              "title": "Pin or unpin chat",
+              "key": "ctrl+opt+p"
+            },
+            {
+              "title": "Rename chat",
+              "key": "ctrl+opt+r"
+            },
+            {
+              "title": "Open side chat",
+              "key": "ctrl+opt+s"
+            },
+            {
+              "title": "Search chats",
+              "comment": "Assign in Settings > Keyboard Shortcuts"
+            },
+            {
+              "title": "Find in chat",
+              "key": "ctrl+f"
+            },
+            {
+              "title": "Find next match",
+              "key": "ctrl+g"
+            },
+            {
+              "title": "Find previous match",
+              "key": "shift+f3"
+            },
+            {
+              "title": "Previous chat or tab",
+              "key": "ctrl+shift+tab"
+            },
+            {
+              "title": "Previous chat or tab",
+              "key": "ctrl+shift+["
+            },
+            {
+              "title": "Previous chat or tab",
+              "key": "ctrl+pageup"
+            },
+            {
+              "title": "Next chat or tab",
+              "key": "ctrl+tab"
+            },
+            {
+              "title": "Next chat or tab",
+              "key": "ctrl+shift+]"
+            },
+            {
+              "title": "Next chat or tab",
+              "key": "ctrl+pagedown"
+            },
+            {
+              "title": "Next chat needing attention",
+              "key": "ctrl+opt+a"
+            },
+            {
+              "title": "Open recent chat 1",
+              "key": "ctrl+opt+1"
+            },
+            {
+              "title": "Open recent chat 2",
+              "key": "ctrl+opt+2"
+            },
+            {
+              "title": "Open recent chat 3",
+              "key": "ctrl+opt+3"
+            },
+            {
+              "title": "Open recent chat 4",
+              "key": "ctrl+opt+4"
+            },
+            {
+              "title": "Open recent chat 5",
+              "key": "ctrl+opt+5"
+            },
+            {
+              "title": "Open recent chat 6",
+              "key": "ctrl+opt+6"
+            },
+            {
+              "title": "Go to chat 1",
+              "key": "ctrl+1"
+            },
+            {
+              "title": "Go to chat 2",
+              "key": "ctrl+2"
+            },
+            {
+              "title": "Go to chat 3",
+              "key": "ctrl+3"
+            },
+            {
+              "title": "Go to chat 4",
+              "key": "ctrl+4"
+            },
+            {
+              "title": "Go to chat 5",
+              "key": "ctrl+5"
+            },
+            {
+              "title": "Go to chat 6",
+              "key": "ctrl+6"
+            },
+            {
+              "title": "Go to chat 7",
+              "key": "ctrl+7"
+            },
+            {
+              "title": "Go to chat 8",
+              "key": "ctrl+8"
+            },
+            {
+              "title": "Go to chat 9",
+              "key": "ctrl+9"
+            }
+          ]
+        },
+        {
+          "title": "Input and modes",
+          "shortcuts": [
+            {
+              "title": "Open model picker",
+              "key": "ctrl+shift+m"
+            },
+            {
+              "title": "Open project picker",
+              "key": "ctrl+shift+opt+o"
+            },
+            {
+              "title": "Start voice chat",
+              "key": "ctrl+shift+v",
+              "comment": "When voice chat is available"
+            },
+            {
+              "title": "Start dictation",
+              "key": "ctrl+shift+d",
+              "comment": "When dictation is available"
+            },
+            {
+              "title": "Restore previous composer prompt",
+              "key": "up",
+              "comment": "When the composer is empty"
+            },
+            {
+              "title": "Approve request",
+              "key": "enter",
+              "comment": "When an approval request is open"
+            },
+            {
+              "title": "Decline request",
+              "key": "esc",
+              "comment": "When an approval request is open"
+            },
+            {
+              "title": "Switch to Chat",
+              "key": "opt+1"
+            },
+            {
+              "title": "Switch to Work",
+              "key": "opt+2"
+            },
+            {
+              "title": "Switch to Codex",
+              "key": "opt+3"
+            },
+            {
+              "title": "Toggle Activity view",
+              "key": "ctrl+opt+u",
+              "comment": "When Activity is available"
+            }
+          ]
+        },
+        {
+          "title": "Workspace and browser",
+          "shortcuts": [
+            {
+              "title": "Run primary environment action",
+              "key": "shift+win+d",
+              "comment": "When the environment has a primary action"
+            },
+            {
+              "title": "Search files",
+              "key": "ctrl+p"
+            },
+            {
+              "title": "Toggle file tree",
+              "key": "ctrl+shift+e"
+            },
+            {
+              "title": "Open review tab",
+              "key": "ctrl+shift+g"
+            },
+            {
+              "title": "Switch between chat and tabs",
+              "key": "ctrl+opt+b",
+              "comment": "In full view; toggles tabs in split view"
+            },
+            {
+              "title": "Open browser tab",
+              "key": "ctrl+t",
+              "comment": "When the built-in browser is available"
+            },
+            {
+              "title": "Cycle workspace layout",
+              "key": "ctrl+shift+b",
+              "comment": "Full view, split view, or hidden tabs"
+            },
+            {
+              "title": "Enter or exit full view",
+              "key": "ctrl+shift+f"
+            },
+            {
+              "title": "Go to line or focus browser address bar",
+              "key": "ctrl+l",
+              "comment": "Depends on the focused view"
+            },
+            {
+              "title": "Browser back",
+              "key": "opt+left",
+              "comment": "When the built-in browser is focused"
+            },
+            {
+              "title": "Browser forward",
+              "key": "opt+right",
+              "comment": "When the built-in browser is focused"
+            },
+            {
+              "title": "Reload browser page",
+              "key": "ctrl+r",
+              "comment": "When the built-in browser is focused"
+            },
+            {
+              "title": "Reload browser page without cache",
+              "key": "ctrl+shift+r",
+              "comment": "When the built-in browser is focused"
+            },
+            {
+              "title": "Copy browser URL",
+              "key": "ctrl+shift+c",
+              "comment": "When the built-in browser is focused"
+            },
+            {
+              "title": "Toggle browser browse or comment mode",
+              "key": "ctrl+.",
+              "comment": "When browser commenting is available"
+            },
+            {
+              "title": "Copy chat deep link",
+              "key": "ctrl+opt+l"
+            },
+            {
+              "title": "Copy session ID",
+              "key": "ctrl+opt+c"
+            },
+            {
+              "title": "Copy working directory",
+              "key": "ctrl+shift+c"
+            }
+          ]
+        },
+        {
+          "title": "Terminal",
+          "shortcuts": [
+            {
+              "title": "Toggle terminal",
+              "key": "ctrl+`"
+            },
+            {
+              "title": "Clear terminal",
+              "key": "ctrl+l",
+              "comment": "When the terminal is focused"
+            },
+            {
+              "title": "Clear terminal",
+              "key": "ctrl+k",
+              "comment": "When the terminal is focused"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

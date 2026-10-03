@@ -1,0 +1,11 @@
+Codex desktop icon (codex.png)
+
+Source: icon-codex-light.png bundled with the official OpenAI desktop app
+macOS bundle ID: com.openai.codex
+Installed app version: 26.930.21537
+Copied without modification from Contents/Resources/icon-codex-light.png.
+
+The icon identifies the Codex application in the shortcut directory.
+The Codex icon and brand belong to OpenAI; this repository does not claim
+ownership of the icon or imply endorsement by OpenAI.
+Product and shortcut documentation: https://learn.chatgpt.com/docs/reference/commands
