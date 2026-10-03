@@ -1,0 +1,408 @@
+{
+  "$schema": "https://hotkys.com/schema/shortcut.schema.json",
+  "name": "Herdr",
+  "slug": "herdr",
+  "source": "https://herdr.dev/docs/keyboard/",
+  "keymaps": [
+    {
+      "title": "Default",
+      "platforms": [
+        "macos",
+        "linux",
+        "windows"
+      ],
+      "sections": [
+        {
+          "title": "General",
+          "shortcuts": [
+            {
+              "title": "Enter prefix mode",
+              "key": "ctrl+b",
+              "comment": "Release Ctrl+B, then press an action key"
+            },
+            {
+              "title": "Show keyboard shortcuts",
+              "key": "ctrl+b shift+/"
+            },
+            {
+              "title": "Open settings",
+              "key": "ctrl+b s"
+            },
+            {
+              "title": "Reload configuration",
+              "key": "ctrl+b shift+r"
+            },
+            {
+              "title": "Toggle sidebar",
+              "key": "ctrl+b b"
+            },
+            {
+              "title": "Focus notification target",
+              "key": "ctrl+b o"
+            },
+            {
+              "title": "Detach client",
+              "key": "ctrl+b q",
+              "comment": "Keep the server and pane processes running"
+            }
+          ]
+        },
+        {
+          "title": "Workspaces",
+          "shortcuts": [
+            {
+              "title": "Open workspace navigation",
+              "key": "ctrl+b w"
+            },
+            {
+              "title": "Open session navigator",
+              "key": "ctrl+b g"
+            },
+            {
+              "title": "Create workspace",
+              "key": "ctrl+b shift+n"
+            },
+            {
+              "title": "Create Git worktree",
+              "key": "ctrl+b shift+g"
+            },
+            {
+              "title": "Rename workspace",
+              "key": "ctrl+b shift+w"
+            },
+            {
+              "title": "Close workspace",
+              "key": "ctrl+b shift+d"
+            }
+          ]
+        },
+        {
+          "title": "Tabs",
+          "shortcuts": [
+            {
+              "title": "Create tab",
+              "key": "ctrl+b c"
+            },
+            {
+              "title": "Rename tab",
+              "key": "ctrl+b shift+t"
+            },
+            {
+              "title": "Next tab",
+              "key": "ctrl+b n"
+            },
+            {
+              "title": "Previous tab",
+              "key": "ctrl+b p"
+            },
+            {
+              "title": "Switch to tab 1",
+              "key": "ctrl+b 1"
+            },
+            {
+              "title": "Switch to tab 2",
+              "key": "ctrl+b 2"
+            },
+            {
+              "title": "Switch to tab 3",
+              "key": "ctrl+b 3"
+            },
+            {
+              "title": "Switch to tab 4",
+              "key": "ctrl+b 4"
+            },
+            {
+              "title": "Switch to tab 5",
+              "key": "ctrl+b 5"
+            },
+            {
+              "title": "Switch to tab 6",
+              "key": "ctrl+b 6"
+            },
+            {
+              "title": "Switch to tab 7",
+              "key": "ctrl+b 7"
+            },
+            {
+              "title": "Switch to tab 8",
+              "key": "ctrl+b 8"
+            },
+            {
+              "title": "Switch to tab 9",
+              "key": "ctrl+b 9"
+            },
+            {
+              "title": "Close tab",
+              "key": "ctrl+b shift+x"
+            }
+          ]
+        },
+        {
+          "title": "Panes",
+          "shortcuts": [
+            {
+              "title": "Focus pane to the left",
+              "key": "ctrl+b h"
+            },
+            {
+              "title": "Focus pane below",
+              "key": "ctrl+b j"
+            },
+            {
+              "title": "Focus pane above",
+              "key": "ctrl+b k"
+            },
+            {
+              "title": "Focus pane to the right",
+              "key": "ctrl+b l"
+            },
+            {
+              "title": "Swap pane to the left",
+              "key": "ctrl+b shift+h"
+            },
+            {
+              "title": "Swap pane downward",
+              "key": "ctrl+b shift+j"
+            },
+            {
+              "title": "Swap pane upward",
+              "key": "ctrl+b shift+k"
+            },
+            {
+              "title": "Swap pane to the right",
+              "key": "ctrl+b shift+l"
+            },
+            {
+              "title": "Next pane",
+              "key": "ctrl+b tab"
+            },
+            {
+              "title": "Previous pane",
+              "key": "ctrl+b shift+tab"
+            },
+            {
+              "title": "Split pane right",
+              "key": "ctrl+b v"
+            },
+            {
+              "title": "Split pane down",
+              "key": "ctrl+b -"
+            },
+            {
+              "title": "Close pane",
+              "key": "ctrl+b x"
+            },
+            {
+              "title": "Rename pane",
+              "key": "ctrl+b shift+p"
+            },
+            {
+              "title": "Toggle pane zoom",
+              "key": "ctrl+b z"
+            },
+            {
+              "title": "Enter resize mode",
+              "key": "ctrl+b r"
+            },
+            {
+              "title": "Enter copy mode",
+              "key": "ctrl+b ["
+            },
+            {
+              "title": "Edit scrollback in external editor",
+              "key": "ctrl+b e"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Copy mode",
+      "platforms": [
+        "macos",
+        "linux",
+        "windows"
+      ],
+      "sections": [
+        {
+          "title": "Movement",
+          "shortcuts": [
+            {
+              "title": "Move left",
+              "key": "h"
+            },
+            {
+              "title": "Move down",
+              "key": "j"
+            },
+            {
+              "title": "Move up",
+              "key": "k"
+            },
+            {
+              "title": "Move right",
+              "key": "l"
+            },
+            {
+              "title": "Next word",
+              "key": "w"
+            },
+            {
+              "title": "Previous word",
+              "key": "b"
+            },
+            {
+              "title": "End of word",
+              "key": "e"
+            },
+            {
+              "title": "Next word separated by whitespace",
+              "key": "shift+w"
+            },
+            {
+              "title": "Previous word separated by whitespace",
+              "key": "shift+b"
+            },
+            {
+              "title": "End of word separated by whitespace",
+              "key": "shift+e"
+            },
+            {
+              "title": "Previous paragraph",
+              "key": "shift+["
+            },
+            {
+              "title": "Next paragraph",
+              "key": "shift+]"
+            },
+            {
+              "title": "Page up",
+              "key": "pageup"
+            },
+            {
+              "title": "Page down",
+              "key": "pagedown"
+            },
+            {
+              "title": "Page down",
+              "key": "ctrl+f"
+            },
+            {
+              "title": "Half page up",
+              "key": "ctrl+u"
+            },
+            {
+              "title": "Half page down",
+              "key": "ctrl+d"
+            }
+          ]
+        },
+        {
+          "title": "Search",
+          "shortcuts": [
+            {
+              "title": "Search forward",
+              "key": "/"
+            },
+            {
+              "title": "Search backward",
+              "key": "shift+/"
+            },
+            {
+              "title": "Repeat search in the same direction",
+              "key": "n"
+            },
+            {
+              "title": "Repeat search in the opposite direction",
+              "key": "shift+n"
+            }
+          ]
+        },
+        {
+          "title": "Selection and copying",
+          "shortcuts": [
+            {
+              "title": "Start selection",
+              "key": "v"
+            },
+            {
+              "title": "Start selection",
+              "key": "space"
+            },
+            {
+              "title": "Copy selection",
+              "key": "y"
+            },
+            {
+              "title": "Copy selection",
+              "key": "enter"
+            },
+            {
+              "title": "Exit copy mode",
+              "key": "q"
+            },
+            {
+              "title": "Clear selection, cancel search, or exit",
+              "key": "esc"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Resize mode",
+      "platforms": [
+        "macos",
+        "linux",
+        "windows"
+      ],
+      "sections": [
+        {
+          "title": "Resize focused pane",
+          "shortcuts": [
+            {
+              "title": "Resize toward the left",
+              "key": "h"
+            },
+            {
+              "title": "Resize toward the left",
+              "key": "left"
+            },
+            {
+              "title": "Resize downward",
+              "key": "j"
+            },
+            {
+              "title": "Resize downward",
+              "key": "down"
+            },
+            {
+              "title": "Resize upward",
+              "key": "k"
+            },
+            {
+              "title": "Resize upward",
+              "key": "up"
+            },
+            {
+              "title": "Resize toward the right",
+              "key": "l"
+            },
+            {
+              "title": "Resize toward the right",
+              "key": "right"
+            },
+            {
+              "title": "Exit resize mode",
+              "key": "esc"
+            },
+            {
+              "title": "Exit resize mode",
+              "key": "enter"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
