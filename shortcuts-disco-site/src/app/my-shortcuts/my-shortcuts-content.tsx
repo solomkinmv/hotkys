@@ -105,6 +105,10 @@ function MyShortcutsListContent({
           slug: draft.slug.trim(),
           bundleId: draft.bundleId.trim() || undefined,
           icon: draft.icon.trim() || undefined,
+          ...(draft.hostname?.trim()
+            ? { hostname: draft.hostname.trim() }
+            : {}),
+          ...(draft.source?.trim() ? { source: draft.source.trim() } : {}),
         },
         user,
       );
@@ -419,7 +423,7 @@ function MyShortcutsListContent({
               on GitHub.
             </p>
             <Button variant="ghost" asChild className="self-start rounded-xl">
-              <Link href="https://github.com/solomkinmv/hotkys#contributing-shortcuts">
+              <Link href="https://github.com/solomkinmv/hotkys/blob/main/CONTRIBUTING.md">
                 Contribution guide{" "}
                 <ArrowUpRight className="size-4" aria-hidden="true" />
               </Link>

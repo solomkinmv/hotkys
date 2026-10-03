@@ -38,15 +38,22 @@ const iconsWithLightSurface = new Set([
 ]);
 
 function getInitials(name: string): string {
-  return name
-    .trim()
-    .split(/\s+/)
-    .slice(0, 2)
-    .map((word) => (Array.from(word)[0] ?? "").toUpperCase())
-    .join("") || "?";
+  return (
+    name
+      .trim()
+      .split(/\s+/)
+      .slice(0, 2)
+      .map((word) => (Array.from(word)[0] ?? "").toUpperCase())
+      .join("") || "?"
+  );
 }
 
-export function AppIcon({ icon, appName, size = "sm", className }: AppIconProps) {
+export function AppIcon({
+  icon,
+  appName,
+  size = "sm",
+  className,
+}: AppIconProps) {
   const iconUrl = getIconUrl(icon);
   const letterColor = iconLetterColors[iconUrl ?? ""];
   const [failedIcon, setFailedIcon] = useState<string>();
@@ -64,7 +71,7 @@ export function AppIcon({ icon, appName, size = "sm", className }: AppIconProps)
       className={cn(
         sizeClasses,
         "rounded-sm flex items-center justify-center shrink-0",
-        className
+        className,
       )}
     >
       {!showFallback ? (
@@ -75,14 +82,18 @@ export function AppIcon({ icon, appName, size = "sm", className }: AppIconProps)
           decoding="async"
           className={cn(
             "h-full w-full object-cover rounded-[inherit]",
-            iconsWithLightSurface.has(iconUrl) && "bg-[#f4f0e8] p-[8%]"
+            iconsWithLightSurface.has(iconUrl) && "bg-[#f4f0e8] p-[8%]",
           )}
-          style={letterColor ? {
-            backgroundImage: `linear-gradient(${letterColor}, ${letterColor})`,
-            backgroundPosition: "center",
-            backgroundSize: "70% 70%",
-            backgroundRepeat: "no-repeat",
-          } : undefined}
+          style={
+            letterColor
+              ? {
+                  backgroundImage: `linear-gradient(${letterColor}, ${letterColor})`,
+                  backgroundPosition: "center",
+                  backgroundSize: "70% 70%",
+                  backgroundRepeat: "no-repeat",
+                }
+              : undefined
+          }
           onError={() => setFailedIcon(iconUrl)}
         />
       ) : (
@@ -92,7 +103,7 @@ export function AppIcon({ icon, appName, size = "sm", className }: AppIconProps)
           className={cn(
             "flex size-full items-center justify-center font-mono font-semibold leading-none select-none",
             textSize,
-            monogramStyles[hash % monogramStyles.length]
+            monogramStyles[hash % monogramStyles.length],
           )}
         >
           {getInitials(appName)}

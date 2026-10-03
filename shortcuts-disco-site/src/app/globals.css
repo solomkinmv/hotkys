@@ -1,7 +1,6 @@
-@import 'tailwindcss';
-@import 'tw-animate-css';
+@import "tailwindcss";
+@import "tw-animate-css";
 @plugin '@tailwindcss/typography';
-@plugin 'tailwindcss-animate';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -87,25 +86,65 @@
     --brand: 17 80% 68%;
   }
 
-  * { @apply border-border; }
-  body { @apply bg-background text-foreground; }
-  ::selection { background: hsl(var(--brand) / 0.2); }
-  a, button, input, select, textarea { scroll-margin-top: 6rem; }
-  a:focus-visible { outline: 2px solid hsl(var(--ring)); outline-offset: 4px; border-radius: 4px; }
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  ::selection {
+    background: hsl(var(--brand) / 0.2);
+  }
+  a,
+  button,
+  input,
+  select,
+  textarea {
+    scroll-margin-top: 6rem;
+  }
+  a:focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 4px;
+    border-radius: 4px;
+  }
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  html { scroll-behavior: smooth; }
-  .hero-enter { animation: hero-enter 600ms cubic-bezier(0.16, 1, 0.3, 1) both; }
-  .app-card { transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease; }
-  .app-card:hover { transform: translateY(-3px); box-shadow: 0 12px 28px hsl(var(--foreground) / 0.05); }
-  @keyframes hero-enter { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+  html {
+    scroll-behavior: smooth;
+  }
+  .hero-enter {
+    animation: hero-enter 600ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  .app-card {
+    transition:
+      transform 180ms ease,
+      box-shadow 180ms ease,
+      border-color 180ms ease;
+  }
+  .app-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px hsl(var(--foreground) / 0.05);
+  }
+  @keyframes hero-enter {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *, ::before, ::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

@@ -1,9 +1,10 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+const client = jest.fn<(...args: unknown[]) => unknown>();
 const rpc = jest.fn<(...args: unknown[]) => Promise<{ error: unknown }>>();
 const requireProfile =
   jest.fn<(...args: unknown[]) => Promise<{ id: string }>>();
 jest.mock("@/lib/supabase/client", () => ({
-  createClientOrNull: () => ({ rpc }),
+  createClientOrNull: (...args: unknown[]) => client(...args),
 }));
 jest.mock("./current-profile", () => ({
   requireCurrentProfile: (...args: unknown[]) => requireProfile(...args),
@@ -17,6 +18,7 @@ const user = {
   avatarUrl: null,
 };
 beforeEach(() => {
+  client.mockReset().mockReturnValue({ rpc });
   rpc.mockReset().mockResolvedValue({ error: null });
   requireProfile.mockReset().mockResolvedValue({ id: "profile" });
 });
@@ -29,6 +31,7 @@ describe("private app service", () => {
       user,
     );
     expect(requireProfile).toHaveBeenCalledWith(user);
+    expect(client).toHaveBeenCalledWith(user);
     expect(rpc).toHaveBeenCalledWith("private_app_mutate", {
       p_app_id: "app",
       p_entity: "shortcut",

@@ -22,10 +22,7 @@ for (const mode of ["schema", "migration", "hosted migration"]) {
       ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO anon, authenticated;
     `);
     if (mode !== "schema") {
-      const old = schema.split("-- Private app editing and stable favorites.")[0]
-        .replace(/^.*custom_keymap_id UUID.*\n/gm, "")
-        .replace(/^.*custom_shortcut_id UUID.*\n/gm, "")
-        .replace(" WHERE custom_keymap_id IS NULL AND custom_shortcut_id IS NULL;", ";");
+      const old = readFileSync(new URL("./fixtures/schema-before-remediation.sql", import.meta.url), "utf8").replace("CREATE EXTENSION IF NOT EXISTS pgcrypto;", "");
       await db.exec(old);
       if (mode === "hosted migration") await db.exec(hosted);
       else await db.exec(migration);
@@ -152,10 +149,7 @@ test("legacy favorites backfill only unique targets and safely rerun", async (t)
     GRANT USAGE ON SCHEMA public, auth TO anon, authenticated;
     ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO anon, authenticated;
   `);
-  const old = schema.split("-- Private app editing and stable favorites.")[0]
-    .replace(/^.*custom_keymap_id UUID.*\n/gm, "")
-    .replace(/^.*custom_shortcut_id UUID.*\n/gm, "")
-    .replace(" WHERE custom_keymap_id IS NULL AND custom_shortcut_id IS NULL;", ";");
+  const old = readFileSync(new URL("./fixtures/schema-before-remediation.sql", import.meta.url), "utf8").replace("CREATE EXTENSION IF NOT EXISTS pgcrypto;", "");
   await db.exec(old);
   await db.query("INSERT INTO profiles(id,clerk_user_id) VALUES ($1,'alice')", [alice]);
   await db.query("INSERT INTO custom_apps(id,user_id,slug,name) VALUES ($1,$2,'one','One'),($3,$2,'two','Two')", [app,alice,otherApp]);

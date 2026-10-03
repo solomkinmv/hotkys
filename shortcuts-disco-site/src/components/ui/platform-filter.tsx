@@ -48,9 +48,16 @@ export function PlatformFilter({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" className="h-12 shrink-0 gap-2 rounded-xl bg-card px-3 sm:px-4">
+        <Button
+          variant="outline"
+          className="h-12 shrink-0 gap-2 rounded-xl bg-card px-3 sm:px-4"
+        >
           {currentIcon}
-          <span className="hidden sm:inline">{platformFilter ? getPlatformDisplay(platformFilter) : "All platforms"}</span>
+          <span className="hidden sm:inline">
+            {platformFilter
+              ? getPlatformDisplay(platformFilter)
+              : "All platforms"}
+          </span>
           <span className="sr-only">Filter by platform</span>
         </Button>
       </DropdownMenuTrigger>

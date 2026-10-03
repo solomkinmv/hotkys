@@ -18,12 +18,14 @@ interface KeymapSelectorProps {
   keymaps: Keymap[];
   activeKeymap: string;
   urlPrefix: string;
+  baseKeymap?: string;
 }
 
 export function KeymapSelector({
   keymaps,
   activeKeymap,
   urlPrefix,
+  baseKeymap,
 }: KeymapSelectorProps) {
   const [open, setOpen] = React.useState(false);
   const [mounted, setMounted] = React.useState(false);
@@ -88,7 +90,12 @@ export function KeymapSelector({
       >
         {keymaps.map((keymap) => (
           <Link
-            href={`${urlPrefix}/${serializeKeymap(keymap)}`}
+            href={
+              keymap.customKeymapId
+                ? `${urlPrefix}/${baseKeymap ?? serializeKeymap(keymaps.find((k) => !k.customKeymapId) ?? keymap)}?keymap=${encodeURIComponent(keymap.customKeymapId)}`
+                : `${urlPrefix}/${serializeKeymap(keymap)}`
+            }
+            onClick={() => setOpen(false)}
             passHref
             key={keymap.title}
             aria-current={keymap.title === activeKeymap ? "page" : undefined}

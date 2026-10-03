@@ -1,6 +1,13 @@
 import React from "react";
 import { act, fireEvent, render, screen } from "@testing-library/react";
-import { afterEach, beforeEach, describe, expect, it, jest } from "@jest/globals";
+import {
+  afterEach,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  jest,
+} from "@jest/globals";
 import TableOfContents from "./table-of-contents";
 
 const titles = ["General", "Preferences", "Panels", "Saving"];
