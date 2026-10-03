@@ -1,0 +1,43 @@
+import { beforeEach, expect, it, jest } from "@jest/globals";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+const mockAuth = jest.fn();
+const mockProfile = jest.fn();
+const mockPreferences = jest.fn();
+const push = jest.fn();
+const updateProfile = jest.fn<(...args: unknown[]) => Promise<void>>();
+const updatePreferences = jest.fn<(...args: unknown[]) => Promise<void>>();
+jest.mock("next/navigation", () => ({ usePathname: () => "/profile", useRouter: () => ({ push }) }));
+jest.mock("@/components/auth/auth-provider", () => ({ useAuth: mockAuth }));
+jest.mock("@/lib/hooks/use-profile", () => ({ useProfile: mockProfile }));
+jest.mock("@/lib/hooks/use-preferences", () => ({ usePreferences: mockPreferences }));
+const { EditProfileContent } = require("@/app/profile/edit/edit-profile-content") as typeof import("@/app/profile/edit/edit-profile-content");
+const { SettingsContent } = require("@/app/settings/settings-content") as typeof import("@/app/settings/settings-content");
+beforeEach(() => {
+  push.mockClear(); updateProfile.mockReset(); updatePreferences.mockReset();
+  mockAuth.mockReturnValue({ user: { id: "user", displayName: "Max", email: "max@example.com" }, isLoading: false });
+  mockProfile.mockReturnValue({ profile: { displayName: "Max", avatarUrl: null }, isLoading: false, updateProfile });
+  mockPreferences.mockReturnValue({ preferences: { platformFilter: null, viewMode: "list", columnCount: 4 }, isLoading: false, updatePreferences });
+});
+it("keeps the profile draft after a failed save and trims a successful retry", async () => {
+  updateProfile.mockRejectedValueOnce(new Error("Connection interrupted")).mockResolvedValueOnce(undefined);
+  render(<EditProfileContent />);
+  fireEvent.change(screen.getByLabelText("Display name"), { target: { value: "  New name  " } });
+  fireEvent.click(screen.getByRole("button", { name: "Save changes" }));
+  expect((await screen.findByRole("alert")).textContent).toBe("Connection interrupted");
+  expect((screen.getByLabelText("Display name") as HTMLInputElement).value).toBe("  New name  ");
+  expect(push).not.toHaveBeenCalled();
+  fireEvent.click(screen.getByRole("button", { name: "Save changes" }));
+  await waitFor(() => expect(push).toHaveBeenCalledWith("/profile"));
+  expect(updateProfile).toHaveBeenLastCalledWith({ displayName: "New name", avatarUrl: null });
+});
+it("shows preference failures and clears them after the account retry succeeds", async () => {
+  updatePreferences.mockRejectedValueOnce(new Error("Offline"));
+  const view = render(<SettingsContent />);
+  fireEvent.click(screen.getByRole("button", { name: "macOS" }));
+  expect((await screen.findByRole("alert")).textContent).toBe("Offline");
+  const state = mockPreferences() as Record<string, unknown>;
+  mockPreferences.mockReturnValue({ ...state, error: "Offline" }); view.rerender(<SettingsContent />);
+  mockPreferences.mockReturnValue({ ...state, error: undefined }); view.rerender(<SettingsContent />);
+  await waitFor(() => expect(screen.queryByRole("alert")).toBeNull());
+  expect(screen.getByRole("status").textContent).toBe("Preferences saved.");
+});

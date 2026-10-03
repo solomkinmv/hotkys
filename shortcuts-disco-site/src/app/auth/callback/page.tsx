@@ -1,17 +1,19 @@
-"use client";
-
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { TypographyH1, TypographyMuted } from "@/components/ui/typography";
-
 export default function AuthCallbackPage() {
   return (
-    <section className="mx-auto max-w-md text-center">
-      <TypographyH1 className="mb-4">Sign-in link expired</TypographyH1>
-      <TypographyMuted className="mb-6">
-        Hotkys now uses Clerk for sign in. Start a new sign-in flow to continue.
-      </TypographyMuted>
-      <Button asChild>
+    <section className="mx-auto max-w-xl rounded-2xl border bg-card p-8 sm:p-12">
+      <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
+        Let’s get you back in
+      </p>
+      <h1 className="mt-4 text-3xl font-semibold tracking-tight">
+        Start a fresh sign-in.
+      </h1>
+      <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+        This sign-in link is no longer active. Start again to access your
+        favorites and private shortcuts.
+      </p>
+      <Button asChild className="mt-7 rounded-xl">
         <Link href="/auth/login">Sign In</Link>
       </Button>
     </section>

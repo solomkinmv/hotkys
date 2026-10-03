@@ -16,11 +16,29 @@ jest.mock("@/lib/services/favorites-service", () => ({
     removeFavorite: removeMock,
   },
 }));
-const { FavoritesProvider, useFavorites } =
+jest.mock("@/lib/services/user-service", () => ({
+  userService: {
+    getPreferences: async () => null,
+    getProfile: async () => null,
+  },
+}));
+jest.mock("@/lib/services/customizations-service", () => ({
+  customizationsService: {
+    getAllCustomizations: async () => ({
+      customApps: [],
+      customKeymaps: [],
+      shortcuts: [],
+      favorites: [],
+    }),
+  },
+}));
+const { AccountDataProvider } =
+  require("@/components/auth/account-data-provider") as typeof import("@/components/auth/account-data-provider");
+const { useFavorites } =
   require("./use-favorites") as typeof import("./use-favorites");
 
 function setup() {
-  return renderHook(() => useFavorites(), { wrapper: FavoritesProvider });
+  return renderHook(() => useFavorites(), { wrapper: AccountDataProvider });
 }
 
 describe("private favorites", () => {
@@ -43,7 +61,13 @@ describe("private favorites", () => {
         itemType,
         [field]: "target-1",
       } as Favorite;
-      addMock.mockResolvedValue(created);
+      addMock.mockImplementation(async () => {
+        getMock.mockResolvedValue([created]);
+        return created;
+      });
+      removeMock.mockImplementation(async () => {
+        getMock.mockResolvedValue([]);
+      });
       const { result } = setup();
       await waitFor(() => expect(result.current.isLoading).toBe(false));
       const target = {
@@ -69,8 +93,8 @@ describe("private favorites", () => {
       expect(
         result.current.isFavorite({ ...target, [field]: "different-id" }),
       ).toBe(false);
-      // A successful write updates local state; a later read cannot repeat it.
-      expect(getMock).toHaveBeenCalledTimes(1);
+      // The shared account provider reconciles successful writes once.
+      expect(getMock).toHaveBeenCalledTimes(2);
       await act(() =>
         result.current.toggleFavorite({ ...target, appSlug: "custom-renamed" }),
       );
@@ -131,6 +155,7 @@ describe("private favorites", () => {
       );
     });
     expect(result.current.isFavorite(existing)).toBe(true);
+    await act(() => result.current.refetch());
     const next = { ...existing, customAppId: "app-2" };
     await act(async () => {
       await expect(result.current.toggleFavorite(next)).rejects.toThrow(
@@ -139,4 +164,19 @@ describe("private favorites", () => {
     });
     expect(result.current.isFavorite(next)).toBe(false);
   });
+});
+
+it("exposes read failures without allowing a write against an unloaded favorites list", async () => {
+  getMock.mockRejectedValue(new Error("Offline read"));
+  const { result } = setup();
+  await waitFor(() => expect(result.current.isLoading).toBe(false));
+  await act(async () => {
+    await expect(result.current.refetch()).rejects.toThrow("Offline read");
+  });
+  await act(async () => {
+    await expect(
+      result.current.toggleFavorite({ itemType: "app", appSlug: "safari" }),
+    ).rejects.toThrow("Load your saved favorites");
+  });
+  expect(addMock).not.toHaveBeenCalled();
 });

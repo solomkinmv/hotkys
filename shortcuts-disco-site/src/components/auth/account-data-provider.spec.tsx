@@ -1,67 +1,171 @@
 import { useEffect } from "react";
 import { jest, it, expect, beforeEach } from "@jest/globals";
 import { StrictMode } from "react";
-import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
+import {
+  act,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from "@testing-library/react";
 const mockAuth = { user: { id: "a" } as { id: string } | null };
-const mockUser = { getPreferences: jest.fn<() => Promise<typeof prefs>>(), getProfile: jest.fn<(user: { id: string }) => Promise<{ id: string } | null>>(), updatePreferences: jest.fn<(next: typeof prefs, user: { id: string }) => Promise<void>>(), updateProfile: jest.fn() };
+const mockUser = {
+  getPreferences: jest.fn<() => Promise<typeof prefs>>(),
+  getProfile:
+    jest.fn<(user: { id: string }) => Promise<{ id: string } | null>>(),
+  updatePreferences:
+    jest.fn<(next: typeof prefs, user: { id: string }) => Promise<void>>(),
+  updateProfile: jest.fn(),
+};
 const mockCustom = { getAllCustomizations: jest.fn<() => Promise<unknown>>() };
-const mockFavorites = { getFavorites: jest.fn<() => Promise<unknown>>(), addFavorite: jest.fn<() => Promise<unknown>>(), removeFavorite: jest.fn() };
+const mockFavorites = {
+  getFavorites: jest.fn<() => Promise<unknown>>(),
+  addFavorite: jest.fn<() => Promise<unknown>>(),
+  removeFavorite: jest.fn(),
+};
 jest.mock("./auth-provider", () => ({ useAuth: () => mockAuth }));
 jest.mock("@/lib/services/user-service", () => ({ userService: mockUser }));
-jest.mock("@/lib/services/customizations-service", () => ({ customizationsService: mockCustom }));
-jest.mock("@/lib/services/favorites-service", () => ({ favoritesService: mockFavorites }));
-const { AccountDataProvider, useAccountData } = require("./account-data-provider") as typeof import("./account-data-provider");
+jest.mock("@/lib/services/customizations-service", () => ({
+  customizationsService: mockCustom,
+}));
+jest.mock("@/lib/services/favorites-service", () => ({
+  favoritesService: mockFavorites,
+}));
+const { AccountDataProvider, useAccountData } =
+  require("./account-data-provider") as typeof import("./account-data-provider");
 let account: ReturnType<typeof useAccountData>;
-function Probe() { const value = useAccountData(); useEffect(() => { account = value; }, [value]); return <div data-testid="snapshot">{JSON.stringify({ data: value.data, loading: value.loading, errors: value.errors })}</div>; }
-function deferred<T>() { let resolve!: (value: T) => void; let reject!: (reason: Error) => void; const promise = new Promise<T>((yes, no) => { resolve = yes; reject = no; }); return { promise, resolve, reject }; }
+function Probe() {
+  const value = useAccountData();
+  useEffect(() => {
+    account = value;
+  }, [value]);
+  return (
+    <div data-testid="snapshot">
+      {JSON.stringify({
+        data: value.data,
+        loading: value.loading,
+        errors: value.errors,
+      })}
+    </div>
+  );
+}
+function deferred<T>() {
+  let resolve!: (value: T) => void;
+  let reject!: (reason: Error) => void;
+  const promise = new Promise<T>((yes, no) => {
+    resolve = yes;
+    reject = no;
+  });
+  return { promise, resolve, reject };
+}
 const prefs = { platformFilter: null, viewMode: "list", columnCount: 4 };
 beforeEach(() => {
-  jest.resetAllMocks(); mockAuth.user = { id: "a" };
+  jest.resetAllMocks();
+  mockAuth.user = { id: "a" };
   mockUser.getPreferences.mockResolvedValue(prefs);
-  mockUser.getProfile.mockImplementation(async (user: { id: string }) => ({ id: user.id }));
+  mockUser.getProfile.mockImplementation(async (user: { id: string }) => ({
+    id: user.id,
+  }));
   mockUser.updatePreferences.mockResolvedValue(undefined);
-  mockCustom.getAllCustomizations.mockResolvedValue({ customApps: [], customKeymaps: [], shortcuts: [], favorites: [] });
+  mockCustom.getAllCustomizations.mockResolvedValue({
+    customApps: [],
+    customKeymaps: [],
+    shortcuts: [],
+    favorites: [],
+  });
   mockFavorites.getFavorites.mockResolvedValue([]);
 });
 it("completes loads during StrictMode effect replay", async () => {
-  render(<StrictMode><AccountDataProvider><Probe /></AccountDataProvider></StrictMode>);
+  render(
+    <StrictMode>
+      <AccountDataProvider>
+        <Probe />
+      </AccountDataProvider>
+    </StrictMode>,
+  );
   await waitFor(() => expect(account.loading).toBe(false));
   expect(account.data.profile?.id).toBe("a");
 });
-it.each(["b", null, "a"])("discards an old session result when replacing it with %s", async next => {
-  const old = deferred<{ id: string }>(); mockUser.getProfile.mockReturnValueOnce(old.promise);
-  const view = render(<AccountDataProvider key="first"><Probe /></AccountDataProvider>);
-  mockAuth.user = next ? { id: next } : null;
-  view.rerender(<AccountDataProvider key="replacement"><Probe /></AccountDataProvider>);
-  await waitFor(() => expect(account.loading).toBe(false));
-  await act(async () => old.resolve({ id: "late-old" }));
-  expect(account.data.profile?.id ?? null).toBe(next);
-});
+it.each(["b", null, "a"])(
+  "discards an old session result when replacing it with %s",
+  async (next) => {
+    const old = deferred<{ id: string }>();
+    mockUser.getProfile.mockReturnValueOnce(old.promise);
+    const view = render(
+      <AccountDataProvider key="first">
+        <Probe />
+      </AccountDataProvider>,
+    );
+    mockAuth.user = next ? { id: next } : null;
+    view.rerender(
+      <AccountDataProvider key="replacement">
+        <Probe />
+      </AccountDataProvider>,
+    );
+    await waitFor(() => expect(account.loading).toBe(false));
+    await act(async () => old.resolve({ id: "late-old" }));
+    expect(account.data.profile?.id ?? null).toBe(next);
+  },
+);
 it("discards late failures after switching accounts", async () => {
-  const old = deferred<null>(); mockUser.getProfile.mockReturnValueOnce(old.promise);
-  const view = render(<AccountDataProvider key="a"><Probe /></AccountDataProvider>);
-  mockAuth.user = { id: "b" }; view.rerender(<AccountDataProvider key="b"><Probe /></AccountDataProvider>);
+  const old = deferred<null>();
+  mockUser.getProfile.mockReturnValueOnce(old.promise);
+  const view = render(
+    <AccountDataProvider key="a">
+      <Probe />
+    </AccountDataProvider>,
+  );
+  mockAuth.user = { id: "b" };
+  view.rerender(
+    <AccountDataProvider key="b">
+      <Probe />
+    </AccountDataProvider>,
+  );
   await act(async () => old.reject(new Error("A failed late")));
   await waitFor(() => expect(account.loading).toBe(false));
   expect(account.errors.profile).toBeUndefined();
 });
 it("serializes preference writes and waits before a refresh can replace pending edits", async () => {
-  const save = deferred<void>(); let server = { ...prefs };
+  const save = deferred<void>();
+  let server = { ...prefs };
   mockUser.getPreferences.mockImplementation(async () => server);
-  mockUser.updatePreferences.mockImplementationOnce(async next => { await save.promise; server = next; });
-  render(<AccountDataProvider><Probe /></AccountDataProvider>);
+  mockUser.updatePreferences.mockImplementationOnce(async (next) => {
+    await save.promise;
+    server = next;
+  });
+  render(
+    <AccountDataProvider>
+      <Probe />
+    </AccountDataProvider>,
+  );
   await waitFor(() => expect(account.loading).toBe(false));
-  let operation!: Promise<void>; let refresh!: Promise<void>;
-  act(() => { operation = account.updatePreferences({ columnCount: 6 }); });
-  act(() => { refresh = account.refetch(); });
+  let operation!: Promise<void>;
+  let refresh!: Promise<void>;
+  act(() => {
+    operation = account.updatePreferences({ columnCount: 6 });
+  });
+  act(() => {
+    refresh = account.refetch();
+  });
   expect(account.data.preferences.columnCount).toBe(6);
-  await act(async () => { save.resolve(); await operation; await refresh; });
+  await act(async () => {
+    save.resolve();
+    await operation;
+    await refresh;
+  });
   expect(account.data.preferences.columnCount).toBe(6);
-  expect(mockUser.updatePreferences).toHaveBeenCalledWith({ ...prefs, columnCount: 6 }, { id: "a" });
+  expect(mockUser.updatePreferences).toHaveBeenCalledWith(
+    { ...prefs, columnCount: 6 },
+    { id: "a" },
+  );
 });
 it("retries a failed preference read without writing defaults", async () => {
   mockUser.getPreferences.mockRejectedValueOnce(new Error("Read failed"));
-  render(<AccountDataProvider><Probe /></AccountDataProvider>);
+  render(
+    <AccountDataProvider>
+      <Probe />
+    </AccountDataProvider>,
+  );
   await screen.findByRole("alert");
   fireEvent.click(screen.getByRole("button", { name: "Retry sync" }));
   await waitFor(() => expect(account.errors.preferences).toBeUndefined());
@@ -69,23 +173,115 @@ it("retries a failed preference read without writing defaults", async () => {
 });
 it("keeps a failed preference save visible and retryable", async () => {
   mockUser.updatePreferences.mockRejectedValueOnce(new Error("Save failed"));
-  render(<AccountDataProvider><Probe /></AccountDataProvider>);
+  render(
+    <AccountDataProvider>
+      <Probe />
+    </AccountDataProvider>,
+  );
   await waitFor(() => expect(account.loading).toBe(false));
-  await act(async () => { await expect(account.updatePreferences({ columnCount: 6 })).rejects.toThrow("Save failed"); });
+  await act(async () => {
+    await expect(account.updatePreferences({ columnCount: 6 })).rejects.toThrow(
+      "Save failed",
+    );
+  });
   fireEvent.click(screen.getByRole("button", { name: "Retry save" }));
   await waitFor(() => expect(account.errors.preferences).toBeUndefined());
-  expect(mockUser.updatePreferences).toHaveBeenLastCalledWith({ ...prefs, columnCount: 6 }, { id: "a" });
+  expect(mockUser.updatePreferences).toHaveBeenLastCalledWith(
+    { ...prefs, columnCount: 6 },
+    { id: "a" },
+  );
 });
 it("reconciles a failed favorite response without replaying a possibly committed write", async () => {
-  const savedFavorite = { id: "favorite", userId: "a", itemType: "app", appSlug: "sample" };
+  const savedFavorite = {
+    id: "favorite",
+    userId: "a",
+    itemType: "app",
+    appSlug: "sample",
+  };
   mockFavorites.addFavorite.mockRejectedValueOnce(new Error("Response lost"));
-  render(<AccountDataProvider><Probe /></AccountDataProvider>);
+  render(
+    <AccountDataProvider>
+      <Probe />
+    </AccountDataProvider>,
+  );
   await waitFor(() => expect(account.loading).toBe(false));
-  await act(async () => { await expect(account.addFavorite({ itemType: "app", appSlug: "sample" })).rejects.toThrow("Response lost"); });
-  expect(screen.getByRole("alert").textContent).toContain("repeat the action if needed");
+  await act(async () => {
+    await expect(
+      account.addFavorite({ itemType: "app", appSlug: "sample" }),
+    ).rejects.toThrow("Response lost");
+  });
+  expect(screen.getByRole("alert").textContent).toContain(
+    "repeat the action if needed",
+  );
   mockFavorites.getFavorites.mockResolvedValue([savedFavorite]);
   fireEvent.click(screen.getByRole("button", { name: "Retry sync" }));
   await waitFor(() => expect(account.errors.favorites).toBeUndefined());
   expect(account.data.favorites).toEqual([savedFavorite]);
   expect(mockFavorites.addFavorite).toHaveBeenCalledTimes(1);
+});
+
+it("refreshes after a pre-write read and coalesces customization/favorite callers", async () => {
+  render(
+    <AccountDataProvider>
+      <Probe />
+    </AccountDataProvider>,
+  );
+  await waitFor(() => expect(account.loading).toBe(false));
+  const oldRead = deferred<unknown[]>();
+  const saved = {
+    id: "new-favorite",
+    userId: "a",
+    itemType: "app",
+    customAppId: "app",
+  };
+  mockFavorites.getFavorites
+    .mockReturnValueOnce(oldRead.promise)
+    .mockResolvedValueOnce([saved]);
+  let old!: Promise<void>;
+  let refresh!: Promise<void[]>;
+  act(() => {
+    old = account.refetch();
+  });
+  // A direct private service write has completed while old is still in flight.
+  act(() => {
+    refresh = Promise.all([
+      account.refreshAfterWrite(["customizations"]),
+      account.refreshAfterWrite(["favorites"]),
+    ]);
+  });
+  await act(async () => {
+    oldRead.resolve([]);
+    await old;
+    await refresh;
+  });
+  expect(account.data.favorites).toEqual([saved]);
+  expect(mockFavorites.getFavorites).toHaveBeenCalledTimes(3);
+  expect(mockCustom.getAllCustomizations).toHaveBeenCalledTimes(3);
+});
+it("rejects only required failed resources after a write and retries reads without writes", async () => {
+  render(
+    <AccountDataProvider>
+      <Probe />
+    </AccountDataProvider>,
+  );
+  await waitFor(() => expect(account.loading).toBe(false));
+  mockCustom.getAllCustomizations.mockRejectedValueOnce(
+    new Error("Read after save failed"),
+  );
+  await act(async () => {
+    const results = await Promise.allSettled([
+      account.refreshAfterWrite(["customizations"]),
+      account.refreshAfterWrite(["favorites"]),
+    ]);
+    expect(results[0]).toMatchObject({
+      status: "rejected",
+      reason: new Error("Read after save failed"),
+    });
+    expect(results[1].status).toBe("fulfilled");
+  });
+  await act(async () => {
+    await account.refreshAfterWrite(["customizations"]);
+  });
+  expect(account.errors.customizations).toBeUndefined();
+  expect(mockFavorites.addFavorite).not.toHaveBeenCalled();
 });

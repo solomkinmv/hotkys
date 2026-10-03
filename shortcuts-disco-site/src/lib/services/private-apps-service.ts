@@ -26,7 +26,7 @@ async function mutate(
   values: Record<string, unknown>,
   user?: AuthUser | null,
 ): Promise<void> {
-  const client = createClientOrNull();
+  const client = createClientOrNull(user);
   if (!client) throw new Error("Supabase sign in is not configured.");
   await requireCurrentProfile(user);
   const { error } = await client.rpc("private_app_mutate", {
@@ -110,7 +110,7 @@ export const privateAppsService = {
     orderedIds: string[],
     user?: AuthUser | null,
   ) {
-    const client = createClientOrNull();
+    const client = createClientOrNull(user);
     if (!client) throw new Error("Supabase sign in is not configured.");
     await requireCurrentProfile(user);
     const { error } = await client.rpc("private_app_reorder", {

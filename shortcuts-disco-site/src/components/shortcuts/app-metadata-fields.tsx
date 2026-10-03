@@ -16,6 +16,8 @@ export interface AppDraft {
   slug: string;
   bundleId: string;
   icon: string;
+  hostname?: string;
+  source?: string;
 }
 export function AppMetadataFields({
   draft,
@@ -86,6 +88,33 @@ export function AppMetadataFields({
             />
             <FieldDescription>
               Optional. Identifies the macOS app for Raycast.
+            </FieldDescription>
+          </Field>
+          <Field>
+            <FieldLabel htmlFor="app-hostname">Hostname</FieldLabel>
+            <Input
+              id="app-hostname"
+              value={draft.hostname ?? ""}
+              onChange={(e) => onChange({ hostname: e.target.value })}
+              maxLength={USER_CONTENT_LIMITS.hostname}
+              placeholder="example.com"
+            />
+            <FieldDescription>
+              Optional. Identifies a website for Raycast.
+            </FieldDescription>
+          </Field>
+          <Field>
+            <FieldLabel htmlFor="app-source">Source URL</FieldLabel>
+            <Input
+              id="app-source"
+              type="url"
+              value={draft.source ?? ""}
+              onChange={(e) => onChange({ source: e.target.value })}
+              maxLength={USER_CONTENT_LIMITS.urlOrPath}
+              placeholder="https://example.com/shortcuts"
+            />
+            <FieldDescription>
+              Optional. Where these shortcuts are documented.
             </FieldDescription>
           </Field>
           <Field>

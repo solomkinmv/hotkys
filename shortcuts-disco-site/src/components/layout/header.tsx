@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element -- Static export uses small catalog or user-provided icons without an image optimization server. */
 "use client";
 
 import Image from "next/image";
@@ -53,10 +52,20 @@ export function Header() {
             <Link
               key={link.href}
               href={link.href}
-              aria-current={pathname === link.href ? "page" : undefined}
+              aria-current={
+                (
+                  link.href === "/#applications"
+                    ? pathname === "/" || pathname.startsWith("/apps/")
+                    : pathname === link.href
+                )
+                  ? "page"
+                  : undefined
+              }
               className={cn(
                 "text-sm font-medium text-muted-foreground transition-colors hover:text-foreground",
-                pathname === link.href && "text-foreground",
+                (link.href === "/#applications"
+                  ? pathname === "/" || pathname.startsWith("/apps/")
+                  : pathname === link.href) && "text-foreground",
               )}
             >
               {link.label}
