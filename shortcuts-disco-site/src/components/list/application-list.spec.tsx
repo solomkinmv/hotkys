@@ -117,6 +117,15 @@ describe("ApplicationList", () => {
     expect(panel.getByRole("link", { name: /view favorites/i }).getAttribute("href")).toBe("/favorites");
   });
 
+  it("finds private app favorites by ID after an app rename", () => {
+    mockUseAuth.mockReturnValue({ user: { id: "user-1" }, isLoading: false });
+    mockUseMergedShortcuts.mockReturnValue({ applications: [...baseApps, { ...customApp, customAppId: "private-id", slug: "custom-renamed", name: "Renamed" }] });
+    mockUseFavorites.mockReturnValue({ favorites: [{ itemType: "app", customAppId: "private-id" }], isLoading: false, isFavorite: () => false });
+    render(<ApplicationList applications={baseApps} />);
+    const panel = within(screen.getByRole("region", { name: "Your favorites, within reach." }));
+    expect(panel.getByRole("link", { name: /renamed/i }).getAttribute("href")).toBe("/my-shortcuts?app=renamed");
+  });
+
   it("shows a signed-out invitation and an authenticated empty state", () => {
     const { rerender } = render(<ApplicationList applications={baseApps} />);
     expect(screen.getByRole("link", { name: /sign in to save favorites/i }).getAttribute("href")).toBe("/auth/login");

@@ -3,6 +3,33 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { AppIcon } from "./app-icon";
 
 describe("AppIcon", () => {
+  it("backs cutout lettering inside the image without filling transparent outer edges", () => {
+    const { rerender } = render(<AppIcon icon="icons/adobe-illustrator.png" appName="Adobe Illustrator" className="bg-transparent" />);
+    for (const icon of ["icons/adobe-illustrator.png", "/icons/adobe-photoshop.png", "icons/adobe-xd.png"]) {
+      rerender(<AppIcon icon={icon} appName="Adobe" className="bg-transparent" />);
+      const image = screen.getByRole("img") as HTMLImageElement;
+      expect(image.style.backgroundImage).not.toBe("");
+      expect(image.style.backgroundSize).toBe("70% 70%");
+      expect(image.style.backgroundPosition).toBe("center");
+      expect(image.style.backgroundRepeat).toBe("no-repeat");
+    }
+    rerender(<AppIcon icon="icons/adobe-lightroom.png" appName="Adobe Lightroom" />);
+    expect((screen.getByRole("img") as HTMLImageElement).style.backgroundImage).toBe("");
+  });
+
+  it("gives dark marks their own light surface while preserving other and custom artwork", () => {
+    const { rerender } = render(<AppIcon icon="icons/atom.png" appName="Atom" className="bg-transparent" />);
+    for (const icon of ["atom", "githubdesktop", "macos", "miro", "zendesk-support"]) {
+      rerender(<AppIcon icon={`icons/${icon}.png`} appName="App" className="bg-transparent" />);
+      expect(screen.getByRole("img").className).toContain("bg-[#f4f0e8]");
+      expect(screen.getByRole("img").className).toContain("p-[8%]");
+    }
+    for (const icon of ["icons/1password.png", "https://example.com/icons/atom.png"]) {
+      rerender(<AppIcon icon={icon} appName="App" />);
+      expect(screen.getByRole("img").className).not.toContain("bg-[#f4f0e8]");
+    }
+  });
+
   it("gives missing icons varied, stable monograms even with transparent card styling", () => {
     const { rerender } = render(<AppIcon icon={undefined} appName="  My Tool  " size="md" className="size-11 bg-transparent rounded-xl" />);
     const monogram = screen.getByRole("img");

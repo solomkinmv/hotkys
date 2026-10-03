@@ -1,5 +1,5 @@
-import { getAllShortcuts } from "@/lib/shortcuts";
 import { FavoritesContent } from "./favorites-content";
+import { getAllShortcuts } from "@/lib/shortcuts";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -7,5 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default function FavoritesPage() {
-  return <FavoritesContent publicApps={getAllShortcuts().applications.map(app => ({ slug: app.slug, keymapTitles: app.keymaps.map(keymap => keymap.title) }))} />;
+  return <FavoritesContent applications={getAllShortcuts().applications} />;
 }

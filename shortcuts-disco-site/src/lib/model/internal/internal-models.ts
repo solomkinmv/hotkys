@@ -10,6 +10,7 @@ export interface Shortcuts {
 }
 
 export interface AppShortcuts {
+    customAppId?: string;
     bundleId?: string;
     hostname?: string;
     customAppId?: string;

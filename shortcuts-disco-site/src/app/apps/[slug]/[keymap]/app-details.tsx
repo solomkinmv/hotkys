@@ -6,20 +6,18 @@ import {
   Section,
   SectionShortcut,
 } from "@/lib/model/internal/internal-models";
-import { ShortcutDisplay } from "@/components/ui/shortcut-display";
-import {
-  Modifiers,
-  modifierMapping,
-  modifierSymbols,
-} from "@/lib/model/internal/modifiers";
-import { SeparatorWithText } from "@/components/ui/separator-with-text";
+import { serializeKeymap } from "@/lib/model/keymap-utils";
+import { matchesFavorite } from "@/lib/shortcut-core/favorites";
+import { useKeyboardNavigation } from "@/lib/hooks/use-keyboard-navigation";
+import { ShortcutMethod } from "@/components/shortcuts/shortcut-method";
+import { ShortcutFields } from "@/components/shortcuts/shortcut-fields";
+import { Modifiers } from "@/lib/model/internal/modifiers";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { SearchBar } from "@/components/ui/search-bar";
 import { TypographyMuted, TypographySmall } from "@/components/ui/typography";
 import Fuse from "fuse.js";
 import { KeymapSelector } from "@/app/apps/[slug]/[keymap]/keymap-selector";
 import TableOfContents from "@/app/apps/[slug]/[keymap]/table-of-contents";
-import Link from "next/link";
 import { ListItem } from "@/components/ui/list";
 import { Button } from "@/components/ui/button";
 import {
@@ -29,8 +27,13 @@ import {
   Pencil,
   Plus,
   Settings2,
+  Search,
 } from "lucide-react";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { Slider } from "@/components/ui/slider";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { MasonryGrid } from "@/components/ui/masonry-grid";
@@ -41,11 +44,15 @@ import { cn } from "@/lib/utils";
 import { usePreferences } from "@/lib/hooks/use-preferences";
 import { useFavorites } from "@/lib/hooks/use-favorites";
 import { useCustomizations } from "@/lib/hooks/use-customizations";
-import { matchesFavorite } from "@/lib/shortcut-core/favorites";
 import { ShortcutMerger } from "@/lib/services/shortcut-merger";
 import { customizationsService } from "@/lib/services/customizations-service";
 import { Input } from "@/components/ui/input";
-import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
+import {
+  Field,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+} from "@/components/ui/field";
 import {
   Select,
   SelectContent,
@@ -63,8 +70,6 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { normalizeShortcutKey } from "@/lib/shortcut-key-format";
-import { useKeyboardNavigation } from "@/lib/hooks/use-keyboard-navigation";
-import { ShortcutFields } from "@/components/shortcuts/shortcut-fields";
 import {
   assertResourceLimit,
   USER_CONTENT_LIMITS,
@@ -157,10 +162,8 @@ export const AppDetails = ({
 }) => {
   const { user } = useAuth();
   const { favorites } = useFavorites();
-  const {
-    customizations,
-    refetch: refetchCustomizations,
-  } = useCustomizations();
+  const { customizations, refetch: refetchCustomizations } =
+    useCustomizations();
   const {
     preferences,
     isLoading: preferencesLoading,
@@ -179,21 +182,26 @@ export const AppDetails = ({
     return (
       new ShortcutMerger(customizations).mergeShortcuts(
         [application],
-        customizations
+        customizations,
       )[0] ?? application
     );
   }, [application, customizations, user]);
+  const customKeymapId = searchParams.get("keymap");
   const displayKeymap = useMemo(
     () =>
-      mergedApplication.keymaps.find(
-        (mergedKeymap) => mergedKeymap.title === keymap.title
+      mergedApplication.keymaps.find((mergedKeymap) =>
+        customKeymapId
+          ? mergedKeymap.customKeymapId === customKeymapId
+          : mergedKeymap.title === keymap.title,
       ) ?? keymap,
-    [keymap, mergedApplication]
+    [keymap, mergedApplication, customKeymapId],
   );
 
   const [viewMode, setViewModeState] = useState<ViewMode>("list");
-  const [userColumnCount, setUserColumnCountState] = useState<number>(DEFAULT_COLUMNS);
+  const [userColumnCount, setUserColumnCountState] =
+    useState<number>(DEFAULT_COLUMNS);
   const [maxColumns, setMaxColumns] = useState<number>(MAX_COLUMNS);
+  const cheatsheetContainerRef = useRef<HTMLDivElement>(null);
   const [shortcutDialog, setShortcutDialog] =
     useState<ShortcutDialogState | null>(null);
   const [deleteShortcutDialog, setDeleteShortcutDialog] =
@@ -201,10 +209,10 @@ export const AppDetails = ({
   const [shortcutDraft, setShortcutDraft] =
     useState<ShortcutDraft>(emptyShortcutDraft);
   const [shortcutDialogError, setShortcutDialogError] = useState<string | null>(
-    null
+    null,
   );
   const [deleteShortcutError, setDeleteShortcutError] = useState<string | null>(
-    null
+    null,
   );
   const [isSavingShortcut, setIsSavingShortcut] = useState(false);
   const [isDeletingShortcut, setIsDeletingShortcut] = useState(false);
@@ -214,7 +222,9 @@ export const AppDetails = ({
   useEffect(() => {
     const effectiveMode =
       urlViewMode ??
-      (user && !preferencesLoading ? preferences.viewMode : getStoredViewMode());
+      (user && !preferencesLoading
+        ? preferences.viewMode
+        : getStoredViewMode());
     setViewModeState(effectiveMode);
   }, [urlViewMode, user, preferencesLoading, preferences.viewMode]);
 
@@ -231,17 +241,22 @@ export const AppDetails = ({
     if (viewMode !== "cheatsheet") return;
 
     const updateMaxColumns = () => {
-      const padding = 48;
-      const availableWidth = window.innerWidth - padding;
+      const availableWidth = cheatsheetContainerRef.current?.clientWidth ?? 0;
+      if (!availableWidth) return;
       const gap = 16;
-      const max = Math.max(1, Math.floor((availableWidth + gap) / (MIN_COLUMN_WIDTH + gap)));
-      setMaxColumns(max);
+      const max = Math.max(
+        1,
+        Math.floor((availableWidth + gap) / (MIN_COLUMN_WIDTH + gap)),
+      );
+      setMaxColumns(Math.min(MAX_COLUMNS, max));
     };
 
     updateMaxColumns();
-    window.addEventListener("resize", updateMaxColumns);
+    const observer = new ResizeObserver(updateMaxColumns);
+    if (cheatsheetContainerRef.current)
+      observer.observe(cheatsheetContainerRef.current);
 
-    return () => window.removeEventListener("resize", updateMaxColumns);
+    return () => observer.disconnect();
   }, [viewMode]);
 
   const setViewMode = (newMode: ViewMode) => {
@@ -260,7 +275,9 @@ export const AppDetails = ({
       params.set("view", newMode);
     }
     const query = params.toString();
-    router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false });
+    router.replace(query ? `${pathname}?${query}` : pathname, {
+      scroll: false,
+    });
   };
 
   const setColumnCount = (newCount: number) => {
@@ -279,36 +296,66 @@ export const AppDetails = ({
       params.set("cols", String(newCount));
     }
     const query = params.toString();
-    router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false });
+    router.replace(query ? `${pathname}?${query}` : pathname, {
+      scroll: false,
+    });
   };
 
-  const [searchResults, setSearchResults] = useState<DisplaySection[]>(
-    displayKeymap.sections,
-  );
+  const [searchTerm, setSearchTerm] = useState("");
   const [sectionSheetOpen, setSectionSheetOpen] = useState(false);
 
   useEffect(() => {
-    setSearchResults(displayKeymap.sections);
+    setSearchTerm("");
   }, [displayKeymap]);
 
-  const hotkeys = useMemo(() => displayKeymap.sections.flatMap(section => section.hotkeys.map(hotkey => ({ ...hotkey, sectionTitle: section.title }))), [displayKeymap]);
-  const fuse = useMemo(() => new Fuse(hotkeys, { keys: ["title"], includeScore: true, includeMatches: true }), [hotkeys]);
+  const searchResults = useMemo<DisplaySection[]>(() => {
+    if (!searchTerm.trim()) return displayKeymap.sections;
+    const fuse = new Fuse(
+      displayKeymap.sections.flatMap((section) => section.hotkeys),
+      {
+        keys: ["title"],
+        includeScore: true,
+      },
+    );
+    const titles = new Set(
+      fuse.search(searchTerm.trim()).map((result) => result.item.title),
+    );
+    return displayKeymap.sections
+      .map((section) => ({
+        ...section,
+        hotkeys: section.hotkeys.filter((hotkey) => titles.has(hotkey.title)),
+      }))
+      .filter((section) => section.hotkeys.length > 0);
+  }, [displayKeymap, searchTerm]);
+  const shortcutCount = displayKeymap.sections.reduce(
+    (total, section) => total + section.hotkeys.length,
+    0,
+  );
+  const resultCount = searchResults.reduce(
+    (total, section) => total + section.hotkeys.length,
+    0,
+  );
 
   const favoriteShortcutItems = user
-    ? searchResults.flatMap(section => section.hotkeys
-        .filter(shortcut => favorites.some(favorite => matchesFavorite(favorite, {
-          itemType: "shortcut",
-          appSlug: mergedApplication.slug,
-          customAppId: mergedApplication.customAppId,
-          keymapTitle: displayKeymap.title,
-          customKeymapId: displayKeymap.customKeymapId,
-          sectionTitle: shortcut.baseSectionTitle ?? section.title,
-          shortcutTitle: shortcut.baseShortcutTitle ?? shortcut.title,
-          baseShortcutId: shortcut.baseShortcutId,
-          baseShortcutAliases: shortcut.baseShortcutAliases,
-          customShortcutId: shortcut.customShortcutId,
-        })))
-        .map(shortcut => ({ sectionTitle: section.title, shortcut })))
+    ? searchResults.flatMap((section) =>
+        section.hotkeys
+          .filter((shortcut) =>
+            favorites.some((favorite) =>
+              matchesFavorite(favorite, {
+                itemType: "shortcut",
+                appSlug: mergedApplication.slug,
+                keymapTitle: displayKeymap.title,
+                customKeymapId: displayKeymap.customKeymapId,
+                sectionTitle: shortcut.baseSectionTitle ?? section.title,
+                shortcutTitle: shortcut.baseShortcutTitle ?? shortcut.title,
+                baseShortcutId: shortcut.baseShortcutId,
+                baseShortcutAliases: shortcut.baseShortcutAliases,
+                customShortcutId: shortcut.customShortcutId,
+              }),
+            ),
+          )
+          .map((shortcut) => ({ sectionTitle: section.title, shortcut })),
+      )
     : [];
 
   const favoriteShortcutsSection: DisplaySection | null =
@@ -330,12 +377,16 @@ export const AppDetails = ({
     displayKeymap.sections[0]?.title ??
     NEW_SECTION_VALUE;
 
+  const totalItems = displaySections.reduce(
+    (sum, section) => sum + section.hotkeys.length,
+    0,
+  );
 
   const isOfficialShortcut = (sectionTitle: string, shortcutTitle: string) =>
     keymap.sections.some(
       (section) =>
         section.title === sectionTitle &&
-        section.hotkeys.some((hotkey) => hotkey.title === shortcutTitle)
+        section.hotkeys.some((hotkey) => hotkey.title === shortcutTitle),
     );
 
   const openAddShortcutDialog = (sectionTitle: string) => {
@@ -350,7 +401,7 @@ export const AppDetails = ({
 
   const openOverrideShortcutDialog = (
     sectionTitle: string,
-    shortcut: SectionShortcut
+    shortcut: SectionShortcut,
   ) => {
     setShortcutDialog({
       type: "override",
@@ -423,11 +474,30 @@ export const AppDetails = ({
     }
 
     if (shortcutDialog.type === "override") {
-      const original = keymap.sections.find(section => section.title === shortcutDialog.sectionTitle)?.hotkeys.find(hotkey => hotkey.title === shortcutDialog.shortcutTitle);
-      if (process.env.NEXT_PUBLIC_ENABLE_OVERLAY_CLEARING !== "true" && ((!key && original?.sequence.length) || (!comment && original?.comment))) {
-        setShortcutDialogError("Clearing original fields is not available yet. Restore the field or use Restore Original."); return;
+      const original = keymap.sections
+        .find((section) => section.title === shortcutDialog.sectionTitle)
+        ?.hotkeys.find(
+          (hotkey) => hotkey.title === shortcutDialog.shortcutTitle,
+        );
+      if (
+        process.env.NEXT_PUBLIC_ENABLE_OVERLAY_CLEARING !== "true" &&
+        ((!key && original?.sequence.length) || (!comment && original?.comment))
+      ) {
+        setShortcutDialogError(
+          "Clearing original fields is not available yet. Restore the field or use Restore Original.",
+        );
+        return;
       }
-      if (process.env.NEXT_PUBLIC_ENABLE_OVERLAY_CLEARING === "true" && !key && !comment) { setShortcutDialogError("Keep a key or comment, or delete the shortcut."); return; }
+      if (
+        process.env.NEXT_PUBLIC_ENABLE_OVERLAY_CLEARING === "true" &&
+        !key &&
+        !comment
+      ) {
+        setShortcutDialogError(
+          "Keep a key or instructions, or delete the shortcut.",
+        );
+        return;
+      }
     }
 
     setIsSavingShortcut(true);
@@ -436,16 +506,19 @@ export const AppDetails = ({
       if (shortcutDialog.type === "add") {
         const customShortcutCount =
           customizations.shortcuts.length +
-          [...customizations.customKeymaps, ...customizations.customApps.flatMap((app) => app.keymaps)]
-            .reduce(
-              (count, customKeymap) =>
-                count + customKeymap.sections.reduce(
-                  (sectionCount, section) =>
-                    sectionCount + section.shortcuts.length,
-                  0,
-                ),
-              0,
-            );
+          [
+            ...customizations.customKeymaps,
+            ...customizations.customApps.flatMap((app) => app.keymaps),
+          ].reduce(
+            (count, customKeymap) =>
+              count +
+              customKeymap.sections.reduce(
+                (sectionCount, section) =>
+                  sectionCount + section.shortcuts.length,
+                0,
+              ),
+            0,
+          );
         assertResourceLimit(
           customShortcutCount,
           USER_CONTENT_LIMITS.customShortcuts,
@@ -457,13 +530,13 @@ export const AppDetails = ({
         await customizationsService.createBaseAppShortcut(
           {
             baseAppSlug: application.slug,
-            keymapTitle: keymap.title,
+            keymapTitle: displayKeymap.title,
             sectionTitle,
             title,
             key,
             comment,
           },
-          user
+          user,
         );
       } else if (shortcutDialog.type === "override") {
         await customizationsService.upsertShortcutOverlay(
@@ -473,15 +546,19 @@ export const AppDetails = ({
             baseSectionTitle: shortcutDialog.sectionTitle,
             baseShortcutTitle: shortcutDialog.shortcutTitle,
             baseShortcutId: shortcutDialog.baseShortcutId,
-            ...(shortcutDialog.customizationId ? { id: shortcutDialog.customizationId } : {}),
-            ...(process.env.NEXT_PUBLIC_ENABLE_OVERLAY_CLEARING === "true" ? { keyIsCleared: !key, commentIsCleared: !comment } : {}),
+            ...(shortcutDialog.customizationId
+              ? { id: shortcutDialog.customizationId }
+              : {}),
+            ...(process.env.NEXT_PUBLIC_ENABLE_OVERLAY_CLEARING === "true"
+              ? { keyIsCleared: !key, commentIsCleared: !comment }
+              : {}),
             title,
             key,
             comment,
             isDeleted: false,
             sortOrder: 0,
           },
-          user
+          user,
         );
       } else {
         await customizationsService.updateCustomShortcut(
@@ -494,11 +571,11 @@ export const AppDetails = ({
           user,
         );
       }
-      await refetchCustomizations();
       closeShortcutDialog();
+      await refetchCustomizations();
     } catch (error) {
       setShortcutDialogError(
-        error instanceof Error ? error.message : "Unable to save shortcut."
+        error instanceof Error ? error.message : "Unable to save shortcut.",
       );
     } finally {
       setIsSavingShortcut(false);
@@ -515,8 +592,8 @@ export const AppDetails = ({
         deleteShortcutDialog.id,
         user,
       );
-      await refetchCustomizations();
       closeDeleteShortcutDialog();
+      await refetchCustomizations();
     } catch (error) {
       setDeleteShortcutError(
         error instanceof Error ? error.message : "Unable to delete shortcut.",
@@ -527,34 +604,41 @@ export const AppDetails = ({
   };
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.value) {
-      const results = fuse.search(event.target.value);
-      const resultTitles = results.map((result) => result.item.title);
-      const filteredSections = displayKeymap.sections
-        .map((section) => {
-          const filteredHotkeys = section.hotkeys.filter((hotkey) =>
-            resultTitles.includes(hotkey.title),
-          );
-          return { ...section, hotkeys: filteredHotkeys };
-        })
-        .filter((section) => section.hotkeys.length > 0);
-      setSearchResults(filteredSections);
-    } else {
-      setSearchResults(displayKeymap.sections);
-    }
+    setSearchTerm(event.target.value);
     setSelectedIndex(-1);
   };
 
-  const navigationItems = displaySections.flatMap(section => section.hotkeys.map(shortcut => ({ section: shortcut.baseSectionTitle ?? section.title, shortcut })));
-  const { selectedIndex, setSelectedIndex, itemRefs } = useKeyboardNavigation(navigationItems, item => {
-    if (!user) return;
-    if (item.shortcut.customizationStatus === "created") openCustomShortcutDialog(item.shortcut);
-    else openOverrideShortcutDialog(item.section, item.shortcut);
-  }, undefined, { enabled: !shortcutDialog && !deleteShortcutDialog && viewMode === "list", resetKey: JSON.stringify(navigationItems.map(item => [item.section, item.shortcut.baseShortcutId, item.shortcut.customizationId, item.shortcut.title])) });
-
-  const sectionRefs = useRef<Record<string, React.RefObject<HTMLDivElement | null>>>(
-    {},
+  const navigationItems = displaySections.flatMap((section) =>
+    section.hotkeys.map((shortcut) => ({
+      section: shortcut.baseSectionTitle ?? section.title,
+      shortcut,
+    })),
   );
+  const { selectedIndex, setSelectedIndex, itemRefs } = useKeyboardNavigation(
+    navigationItems,
+    (item) => {
+      if (!user) return;
+      if (item.shortcut.customizationStatus === "created")
+        openCustomShortcutDialog(item.shortcut);
+      else openOverrideShortcutDialog(item.section, item.shortcut);
+    },
+    undefined,
+    {
+      enabled: !shortcutDialog && !deleteShortcutDialog && viewMode === "list",
+      resetKey: JSON.stringify(
+        navigationItems.map((item) => [
+          item.section,
+          item.shortcut.baseShortcutId,
+          item.shortcut.customizationId,
+          item.shortcut.title,
+        ]),
+      ),
+    },
+  );
+
+  const sectionRefs = useRef<
+    Record<string, React.RefObject<HTMLDivElement | null>>
+  >({});
   let globalIndex = 0;
   const appDetails = displaySections.map((section) => {
     sectionRefs.current[section.title] ??= React.createRef();
@@ -563,13 +647,15 @@ export const AppDetails = ({
         id={section.title}
         key={section.title}
         ref={sectionRefs.current[section.title]}
+        className="scroll-mt-8 rounded-2xl border bg-card p-2"
       >
-        <div>
-          <SeparatorWithText>
-            <span className="inline-flex items-center">
-              <span>{section.title}</span>
-            </span>
-          </SeparatorWithText>
+        <div className="mb-2 flex items-center justify-between gap-4 px-4 py-4">
+          <h2 className="text-lg font-semibold tracking-tight">
+            {section.title}
+          </h2>
+          <span className="shrink-0 font-mono text-xs text-muted-foreground">
+            {section.hotkeys.length}
+          </span>
         </div>
         {section.hotkeys.map((hotkey) => {
           const currentIndex = globalIndex++;
@@ -579,41 +665,35 @@ export const AppDetails = ({
             hotkey.baseSectionTitle ?? favoriteSectionTitle;
           const baseShortcutTitle = hotkey.baseShortcutTitle ?? hotkey.title;
           const canOverride =
-            user && isOfficialShortcut(baseSectionTitle, baseShortcutTitle);
+            user &&
+            hotkey.customizationStatus !== "created" &&
+            isOfficialShortcut(baseSectionTitle, baseShortcutTitle);
           const canEditCustom =
             user &&
             hotkey.customizationStatus === "created" &&
             Boolean(hotkey.customizationId);
           const canCustomize = Boolean(canOverride || canEditCustom);
           const openShortcutDialog = () => {
-            if (canOverride) {
-              openOverrideShortcutDialog(baseSectionTitle, hotkey);
-            } else if (canEditCustom) {
+            if (canEditCustom) {
               openCustomShortcutDialog(hotkey);
+            } else if (canOverride) {
+              openOverrideShortcutDialog(baseSectionTitle, hotkey);
             }
           };
           return (
             <ListItem
               key={hotkey.title + currentIndex}
               selected={selectedIndex === currentIndex}
+              className={cn(
+                "grid grid-cols-[minmax(0,1fr)_auto] items-start gap-x-5 gap-y-2 rounded-xl border-0 px-4 py-3 text-sm odd:bg-muted/40 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto] sm:items-center",
+                !canCustomize && "cursor-default",
+              )}
               onClick={canCustomize ? openShortcutDialog : undefined}
               ref={(el) => {
                 itemRefs.current[currentIndex] = el;
               }}
             >
-              <span className="font-medium inline-flex min-w-0 flex-1 items-center gap-2">
-                <FavoriteButton
-                  itemType="shortcut"
-                  appSlug={application.slug}
-                  customAppId={application.customAppId}
-                  customShortcutId={hotkey.customShortcutId}
-                  keymapTitle={displayKeymap.title}
-                  sectionTitle={favoriteSectionTitle}
-                  shortcutTitle={hotkey.baseShortcutTitle ?? hotkey.title}
-                  baseShortcutId={hotkey.baseShortcutId}
-                  baseShortcutAliases={hotkey.baseShortcutAliases}
-                  className="shrink-0"
-                />
+              <span className="col-start-1 row-start-1 min-w-0">
                 {canCustomize ? (
                   <button
                     type="button"
@@ -628,15 +708,24 @@ export const AppDetails = ({
                 ) : (
                   <span>{hotkey.title}</span>
                 )}
-                <ShortcutDisplay shortcut={hotkey} />
               </span>
-              <span className="flex min-w-0 max-w-[45%] shrink-0 items-center justify-end gap-2 text-right text-muted-foreground">
-                {hotkey.comment && (
-                  <span className="min-w-0 truncate">
-                    {generateCommentText(hotkey.comment)}
-                  </span>
-                )}
+              <ShortcutMethod
+                shortcut={hotkey}
+                className="col-span-2 row-start-2 sm:col-span-1 sm:col-start-2 sm:row-start-1"
+              />
+              <span className="col-start-2 row-start-1 flex items-center justify-end gap-2 sm:col-start-3">
                 <ShortcutStatusIndicator shortcut={hotkey} />
+                <FavoriteButton
+                  itemType="shortcut"
+                  appSlug={application.slug}
+                  keymapTitle={displayKeymap.title}
+                  sectionTitle={favoriteSectionTitle}
+                  shortcutTitle={hotkey.baseShortcutTitle ?? hotkey.title}
+                  baseShortcutId={hotkey.baseShortcutId}
+                  baseShortcutAliases={hotkey.baseShortcutAliases}
+                  customShortcutId={hotkey.customShortcutId}
+                  className="shrink-0 text-muted-foreground"
+                />
               </span>
             </ListItem>
           );
@@ -649,6 +738,7 @@ export const AppDetails = ({
     <MasonryGrid
       items={displaySections}
       columnCount={effectiveColumnCount}
+      columnWidth="w-72 min-w-0 max-w-full"
       getItemHeight={(section) => section.hotkeys.length + 1}
       renderItem={(section) => {
         sectionRefs.current[section.title] ??= React.createRef();
@@ -656,14 +746,15 @@ export const AppDetails = ({
           <div
             id={section.title}
             ref={sectionRefs.current[section.title]}
-            className="border rounded-lg p-3"
+            className="scroll-mt-8 rounded-2xl border bg-card p-4"
           >
-            <div className="mb-2 flex items-center gap-1">
-              <TypographyMuted className="font-semibold">
-                {section.title}
-              </TypographyMuted>
+            <div className="mb-4 flex items-center justify-between gap-3">
+              <h2 className="font-semibold tracking-tight">{section.title}</h2>
+              <span className="font-mono text-xs text-muted-foreground">
+                {section.hotkeys.length}
+              </span>
             </div>
-            <div className="space-y-1">
+            <div className="space-y-4">
               {section.hotkeys.map((hotkey, idx) => {
                 const favoriteSectionTitle =
                   hotkey.favoriteSourceSectionTitle ?? section.title;
@@ -672,39 +763,29 @@ export const AppDetails = ({
                 const baseShortcutTitle =
                   hotkey.baseShortcutTitle ?? hotkey.title;
                 const canOverride =
-                  user && isOfficialShortcut(baseSectionTitle, baseShortcutTitle);
+                  user &&
+                  hotkey.customizationStatus !== "created" &&
+                  isOfficialShortcut(baseSectionTitle, baseShortcutTitle);
                 const canEditCustom =
                   user &&
                   hotkey.customizationStatus === "created" &&
                   Boolean(hotkey.customizationId);
                 const canCustomize = Boolean(canOverride || canEditCustom);
                 const openShortcutDialog = () => {
-                  if (canOverride) {
-                    openOverrideShortcutDialog(baseSectionTitle, hotkey);
-                  } else if (canEditCustom) {
+                  if (canEditCustom) {
                     openCustomShortcutDialog(hotkey);
+                  } else if (canOverride) {
+                    openOverrideShortcutDialog(baseSectionTitle, hotkey);
                   }
                 };
                 return (
                   <div
                     key={hotkey.title + idx}
-                    className="flex flex-wrap items-start justify-between gap-x-2 gap-y-1 text-sm py-1"
+                    className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-x-3 gap-y-2 text-sm"
                     onClick={canCustomize ? openShortcutDialog : undefined}
                   >
-                    <div className="flex flex-col min-w-0">
+                    <div className="min-w-0">
                       <span className="inline-flex items-center gap-1">
-                        <FavoriteButton
-                          itemType="shortcut"
-                          appSlug={application.slug}
-                  customAppId={application.customAppId}
-                  customShortcutId={hotkey.customShortcutId}
-                          keymapTitle={displayKeymap.title}
-                          sectionTitle={favoriteSectionTitle}
-                          shortcutTitle={hotkey.baseShortcutTitle ?? hotkey.title}
-                          baseShortcutId={hotkey.baseShortcutId}
-                  baseShortcutAliases={hotkey.baseShortcutAliases}
-                          className="shrink-0"
-                        />
                         {canCustomize ? (
                           <button
                             type="button"
@@ -720,15 +801,25 @@ export const AppDetails = ({
                           <span>{hotkey.title}</span>
                         )}
                       </span>
-                      {hotkey.comment && (
-                        <span className="text-xs text-muted-foreground">
-                          {generateCommentText(hotkey.comment)}
-                        </span>
-                      )}
                     </div>
-                    <div className="flex shrink-0 items-center gap-1">
-                      <ShortcutDisplay shortcut={hotkey} />
+                    <ShortcutMethod
+                      shortcut={hotkey}
+                      compact
+                      className="col-span-2 row-start-2"
+                    />
+                    <div className="col-start-2 row-start-1 flex items-center gap-1.5">
                       <ShortcutStatusIndicator shortcut={hotkey} />
+                      <FavoriteButton
+                        itemType="shortcut"
+                        appSlug={application.slug}
+                        keymapTitle={displayKeymap.title}
+                        sectionTitle={favoriteSectionTitle}
+                        shortcutTitle={hotkey.baseShortcutTitle ?? hotkey.title}
+                        baseShortcutId={hotkey.baseShortcutId}
+                        baseShortcutAliases={hotkey.baseShortcutAliases}
+                        customShortcutId={hotkey.customShortcutId}
+                        className="shrink-0 text-muted-foreground"
+                      />
                     </div>
                   </div>
                 );
@@ -740,106 +831,160 @@ export const AppDetails = ({
     />
   );
 
+  const emptySearchState = (
+    <div className="rounded-2xl border border-dashed px-6 py-16 text-center">
+      <Search
+        className="mx-auto mb-4 size-6 text-muted-foreground"
+        aria-hidden="true"
+      />
+      <h2 className="text-lg font-semibold tracking-tight">
+        {searchTerm.trim() ? "No shortcuts found" : "No shortcuts yet"}
+      </h2>
+      <p className="mt-2 text-sm text-muted-foreground">
+        {searchTerm.trim()
+          ? "Try another action name or clear your search."
+          : "This keymap doesn't have any shortcuts yet."}
+      </p>
+      {searchTerm.trim() && (
+        <Button
+          variant="outline"
+          className="mt-5 rounded-xl"
+          onClick={() => {
+            setSearchTerm("");
+            setSelectedIndex(-1);
+          }}
+        >
+          Clear search
+        </Button>
+      )}
+    </div>
+  );
+
   return (
-    <div className="min-h-0 w-full flex-1 overflow-y-auto">
-      <div className="mx-auto max-w-5xl p-4 md:p-6">
-        <div className="flex items-center gap-2 mb-2">
-          {viewMode === "list" && (
-            <Button
-              variant="outline"
-              size="sm"
-              className="md:hidden"
-              onClick={() => setSectionSheetOpen(true)}
-            >
-              <Menu className="h-4 w-4 mr-1" />
-              Sections
-            </Button>
-          )}
-          <KeymapSelector
-            keymaps={application.keymaps}
-            activeKeymap={keymap.title}
-            urlPrefix={`/apps/${application.slug}`}
-          />
-          <div className="hidden md:flex items-center gap-1">
-            <Button
-              variant={viewMode === "list" ? "secondary" : "ghost"}
-              size="icon"
-              onClick={() => setViewMode("list")}
-              aria-label="List view"
-            >
-              <List className="h-4 w-4" />
-            </Button>
-            <Button
-              variant={viewMode === "cheatsheet" ? "secondary" : "ghost"}
-              size="icon"
-              onClick={() => setViewMode("cheatsheet")}
-              aria-label="Cheat sheet view"
-            >
-              <LayoutGrid className="h-4 w-4" />
-            </Button>
-            {viewMode === "cheatsheet" && (
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button variant="ghost" size="icon" aria-label="Column settings">
-                    <Settings2 className="h-4 w-4" />
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-56" align="end">
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between">
-                      <TypographySmall>Columns</TypographySmall>
-                      <TypographyMuted>{effectiveColumnCount}</TypographyMuted>
-                    </div>
-                    <Slider
-                      min={MIN_COLUMNS}
-                      max={MAX_COLUMNS}
-                      step={1}
-                      value={[userColumnCount]}
-                      onValueChange={([value]) => setColumnCount(value)}
-                    />
-                  </div>
-                </PopoverContent>
-              </Popover>
+    <div className="mx-auto w-full max-w-6xl pb-8">
+      <div className="mb-8 rounded-2xl border bg-muted/40 p-3 sm:p-4">
+        <div className="grid grid-cols-1 gap-3 lg:grid-cols-[minmax(0,1fr)_280px]">
+          <div
+            role="search"
+            aria-label="Search shortcuts"
+            className="flex min-w-0 items-center gap-3"
+          >
+            <div className="min-w-0 flex-1">
+              <SearchBar
+                value={searchTerm}
+                onChange={handleSearch}
+                placeholder={`Search ${application.name} shortcuts…`}
+                className="h-12 rounded-xl bg-card text-base shadow-xs"
+              />
+            </div>
+            {user && defaultAddShortcutSectionTitle && (
+              <Button
+                variant="secondary"
+                className="h-12 shrink-0 gap-1.5 rounded-xl"
+                onClick={() =>
+                  openAddShortcutDialog(defaultAddShortcutSectionTitle)
+                }
+                aria-label="Add shortcut"
+              >
+                <Plus className="size-4" aria-hidden="true" />
+                <span className="hidden sm:inline">Add shortcut</span>
+              </Button>
             )}
           </div>
+          <KeymapSelector
+            keymaps={mergedApplication.keymaps}
+            baseKeymap={serializeKeymap(keymap)}
+            activeKeymap={displayKeymap.title}
+            urlPrefix={`/apps/${application.slug}`}
+          />
         </div>
-        <div className="flex items-center gap-2">
-          {application.source && (
-            <Link
-              href={application.source}
-              className="text-sm text-muted-foreground hover:underline"
-            >
-              Source
-            </Link>
-          )}
-        </div>
-        <div
-          role="search"
-          aria-label="Search shortcuts"
-          className="flex items-center gap-2"
-        >
-          <div className="min-w-0 flex-1">
-            <SearchBar onChange={handleSearch} />
+        <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
+          <p
+            role="status"
+            aria-live="polite"
+            className="font-mono text-xs text-muted-foreground"
+          >
+            {searchTerm.trim()
+              ? `${resultCount} matching ${resultCount === 1 ? "shortcut" : "shortcuts"}`
+              : `${shortcutCount} ${shortcutCount === 1 ? "shortcut" : "shortcuts"} / ${displayKeymap.sections.length} ${displayKeymap.sections.length === 1 ? "section" : "sections"}`}
+          </p>
+          <div className="flex w-full items-center justify-between gap-3 sm:w-auto">
+            {viewMode === "list" && (
+              <Button
+                variant="outline"
+                size="sm"
+                className="size-9 shrink-0 rounded-xl px-0 sm:w-auto sm:px-3 md:hidden"
+                onClick={() => setSectionSheetOpen(true)}
+              >
+                <Menu className="size-4" aria-hidden="true" />
+                <span className="sr-only sm:not-sr-only">Sections</span>
+              </Button>
+            )}
+            <div className="flex items-center gap-1 rounded-xl border bg-card p-1">
+              <Button
+                variant={viewMode === "list" ? "secondary" : "ghost"}
+                size="sm"
+                className="h-7 rounded-lg px-2.5 aria-pressed:text-brand"
+                onClick={() => setViewMode("list")}
+                aria-label="List view"
+                aria-pressed={viewMode === "list"}
+              >
+                <List className="size-3.5" aria-hidden="true" /> List
+              </Button>
+              <Button
+                variant={viewMode === "cheatsheet" ? "secondary" : "ghost"}
+                size="sm"
+                className="h-7 rounded-lg px-2.5 aria-pressed:text-brand"
+                onClick={() => setViewMode("cheatsheet")}
+                aria-label="Cheat sheet view"
+                aria-pressed={viewMode === "cheatsheet"}
+              >
+                <LayoutGrid className="size-3.5" aria-hidden="true" /> Cheat
+                sheet
+              </Button>
+              {viewMode === "cheatsheet" && (
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="size-7 rounded-lg"
+                      aria-label="Column settings"
+                    >
+                      <Settings2 className="h-4 w-4" />
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-56 rounded-xl" align="end">
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between">
+                        <TypographySmall>Columns</TypographySmall>
+                        <TypographyMuted>
+                          {effectiveColumnCount}
+                        </TypographyMuted>
+                      </div>
+                      <Slider
+                        aria-label="Cheat sheet columns"
+                        min={MIN_COLUMNS}
+                        max={MAX_COLUMNS}
+                        step={1}
+                        value={[userColumnCount]}
+                        onValueChange={([value]) => setColumnCount(value)}
+                      />
+                    </div>
+                  </PopoverContent>
+                </Popover>
+              )}
+            </div>
           </div>
-          {user && defaultAddShortcutSectionTitle && (
-            <Button
-              variant="secondary"
-              className="shrink-0 gap-1.5"
-              onClick={() =>
-                openAddShortcutDialog(defaultAddShortcutSectionTitle)
-              }
-              aria-label="Add shortcut"
-            >
-              <Plus className="h-4 w-4" />
-              Add shortcut
-            </Button>
-          )}
         </div>
       </div>
       {viewMode === "list" ? (
         <>
           <Sheet open={sectionSheetOpen} onOpenChange={setSectionSheetOpen}>
-            <SheetContent side="left" className="w-64 overflow-y-auto p-6 pt-12">
+            <SheetContent
+              side="left"
+              className="w-64 overflow-y-auto p-6 pt-12"
+            >
               <SheetTitle className="sr-only">Sections</SheetTitle>
               <TableOfContents
                 sections={displaySections}
@@ -848,18 +993,28 @@ export const AppDetails = ({
               />
             </SheetContent>
           </Sheet>
-          <div className="mx-auto max-w-5xl flex">
-            <div className="hidden md:block px-4 md:w-56 shrink-0">
-              <TableOfContents
-                sections={displaySections}
-                sectionRefs={sectionRefs}
-              />
+          {resultCount === 0 ? (
+            emptySearchState
+          ) : (
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-[200px_minmax(0,1fr)] lg:gap-8">
+              <div className="hidden min-w-0 md:block">
+                <TableOfContents
+                  sections={displaySections}
+                  sectionRefs={sectionRefs}
+                />
+              </div>
+              <div className="min-w-0 space-y-5">{appDetails}</div>
             </div>
-            <div className="md:border-l flex-1 px-4 md:px-6 pb-6">{appDetails}</div>
-          </div>
+          )}
         </>
       ) : (
-        <div className="px-4 md:px-6 pb-6 mx-auto" style={{ maxWidth: `${effectiveColumnCount * 288 + (effectiveColumnCount - 1) * 16 + 48}px` }}>{cheatsheetView}</div>
+        <div
+          ref={cheatsheetContainerRef}
+          data-columns={effectiveColumnCount}
+          className="w-full min-w-0"
+        >
+          {resultCount === 0 ? emptySearchState : cheatsheetView}
+        </div>
       )}
       <Dialog
         open={shortcutDialog !== null}
@@ -867,16 +1022,16 @@ export const AppDetails = ({
           if (!open) closeShortcutDialog();
         }}
       >
-        <DialogContent>
+        <DialogContent className="max-h-[90dvh] overflow-y-auto rounded-2xl sm:max-w-lg">
           <DialogHeader>
             <DialogTitle>
               {shortcutDialog?.type === "add"
                 ? "Add Shortcut"
                 : "Customize Shortcut"}
             </DialogTitle>
-            <DialogDescription className="sr-only">
+            <DialogDescription>
               {shortcutDialog?.type === "add"
-                ? "Add a custom shortcut to one section in this keymap."
+                ? "Save a shortcut for your account. It will appear alongside this app’s shortcuts."
                 : "Customize this shortcut for your account."}
             </DialogDescription>
           </DialogHeader>
@@ -906,7 +1061,11 @@ export const AppDetails = ({
                       )
                     }
                   >
-                    <SelectTrigger id="shortcut-section" aria-label="Section" className="w-full min-w-0 [&_[data-slot=select-value]]:truncate">
+                    <SelectTrigger
+                      id="shortcut-section"
+                      aria-label="Section"
+                      className="w-full min-w-0 [&_[data-slot=select-value]]:truncate"
+                    >
                       <SelectValue placeholder="Select section" />
                     </SelectTrigger>
                     <SelectContent>
@@ -947,7 +1106,12 @@ export const AppDetails = ({
                 )}
               </div>
             )}
-            <ShortcutFields value={shortcutDraft} onChange={patch => setShortcutDraft(previous => ({ ...previous, ...patch }))} />
+            <ShortcutFields
+              draft={shortcutDraft}
+              onChange={(updates) =>
+                setShortcutDraft((draft) => ({ ...draft, ...updates }))
+              }
+            />
             {shortcutDialogError && (
               <FieldError>{shortcutDialogError}</FieldError>
             )}
@@ -1021,11 +1185,7 @@ export const AppDetails = ({
   );
 };
 
-function ShortcutStatusIndicator({
-  shortcut,
-}: {
-  shortcut: SectionShortcut;
-}) {
+function ShortcutStatusIndicator({ shortcut }: { shortcut: SectionShortcut }) {
   if (!shortcut.customizationStatus) return null;
 
   const label =
@@ -1046,25 +1206,6 @@ function ShortcutStatusIndicator({
   );
 }
 
-function generateCommentText(
-  optionalComment: string | undefined,
-): string | undefined {
-  if (optionalComment === undefined) {
-    return undefined;
-  }
-  let comment = optionalComment;
-  modifierMapping.forEach((modifier, text) => {
-    comment = comment.replace(
-      "{" + text + "}",
-      modifierSymbols.get(modifier) ?? "",
-    );
-  });
-  baseKeySymbolOverride.forEach((symbol, key) => {
-    comment = comment.replace("{" + key + "}", symbol);
-  });
-  return comment;
-}
-
 function formatShortcutForInput(shortcut: SectionShortcut): string {
   return shortcut.sequence.map(formatAtomicShortcutForInput).join(" ");
 }
@@ -1072,9 +1213,10 @@ function formatShortcutForInput(shortcut: SectionShortcut): string {
 function formatAtomicShortcutForInput(
   shortcut: SectionShortcut["sequence"][number],
 ): string {
-  return [...shortcut.modifiers.map(formatModifierForInput), shortcut.base].join(
-    "+",
-  );
+  return [
+    ...shortcut.modifiers.map(formatModifierForInput),
+    shortcut.base,
+  ].join("+");
 }
 
 function formatModifierForInput(modifier: Modifiers): string {
@@ -1091,10 +1233,3 @@ function formatModifierForInput(modifier: Modifiers): string {
       return "win";
   }
 }
-
-const baseKeySymbolOverride: Map<string, string> = new Map([
-  ["left", "←"],
-  ["right", "→"],
-  ["up", "↑"],
-  ["down", "↓"],
-]);

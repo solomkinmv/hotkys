@@ -5,10 +5,7 @@ import type {
   InputSection,
   InputShortcut,
 } from "@/lib/model/input/input-models";
-import type {
-  CustomApp,
-  CustomShortcut,
-} from "@/lib/model/user/user-models";
+import type { CustomApp, CustomShortcut } from "@/lib/model/user/user-models";
 import { validatePublicRoutes } from "@/lib/load/catalog-rules";
 import Validator from "@/lib/load/validator";
 import { normalizeShortcutKey } from "@/lib/shortcut-key-format";
@@ -17,7 +14,7 @@ import { validateCustomAppMetadata } from "@/lib/validation/user-content";
 type CustomShortcutDraft = Pick<CustomShortcut, "title" | "key" | "comment">;
 
 const validator = new Validator(
-  new Map((keyCodesData as { keyCodes: [string, string][] }).keyCodes)
+  new Map((keyCodesData as { keyCodes: [string, string][] }).keyCodes),
 );
 
 export function validateCustomShortcutDraft(draft: CustomShortcutDraft): void {
@@ -42,7 +39,7 @@ export function validateCustomShortcutDraft(draft: CustomShortcutDraft): void {
 }
 
 export function normalizeCustomShortcutDraft<T extends CustomShortcutDraft>(
-  draft: T
+  draft: T,
 ): T {
   return {
     ...draft,
@@ -59,7 +56,7 @@ export function validateCustomApp(customApp: CustomApp): void {
 
 export function convertCustomAppToInputApp(customApp: CustomApp): InputApp {
   const keymaps: InputKeymap[] = [...customApp.keymaps]
-    .sort((a,b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0))
+    .sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0))
     .map((keymap) => {
       const sections: InputSection[] = [...keymap.sections]
         .sort((a, b) => a.sortOrder - b.sortOrder)

@@ -3,11 +3,12 @@
 import { Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import {
-  ToggleGroup,
-  ToggleGroupItem,
-} from "@/components/ui/toggle-group";
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { TypographyMuted, TypographySmall } from "@/components/ui/typography";
 import {
   getShortcutModifierTokens,
@@ -69,13 +70,15 @@ export function ShortcutKeyInput({
               <Info className="h-4 w-4" />
             </Button>
           </PopoverTrigger>
-          <PopoverContent align="end" className="w-80">
+          <PopoverContent
+            align="end"
+            className="w-[min(20rem,calc(100vw-2rem))] rounded-xl"
+          >
             <div className="flex flex-col gap-2">
               <TypographySmall>Shortcut key format</TypographySmall>
               <TypographyMuted className="text-sm">
-                Use lowercase tokens joined with plus signs. Modifiers are
-                saved in ctrl, shift, opt, cmd order before one base key.
-                Separate shortcut sequences with spaces.
+                Join keys with plus signs, like cmd+k. Use a space between steps
+                for shortcuts pressed in sequence.
               </TypographyMuted>
               <TypographyMuted className="text-sm">
                 Examples: cmd+k, shift+cmd+z, cmd+k cmd+s.
@@ -114,6 +117,8 @@ export function ShortcutKeyInput({
   );
 }
 
-function isShortcutModifierToken(token: string): token is ShortcutModifierToken {
+function isShortcutModifierToken(
+  token: string,
+): token is ShortcutModifierToken {
   return SHORTCUT_MODIFIER_TOKENS.includes(token as ShortcutModifierToken);
 }

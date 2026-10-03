@@ -67,15 +67,17 @@ function mapCustomApps(data: unknown[]): CustomApp[] {
 }
 
 function mapCustomKeymaps(data: Row[]): CustomKeymap[] {
-  return data.map((row) => ({
-    id: requiredString(row.id),
-    customAppId: optionalString(row.custom_app_id),
-    baseAppSlug: optionalString(row.base_app_slug),
-    title: requiredString(row.title),
-    sortOrder: typeof row.sort_order === "number" ? row.sort_order : 0,
-    platforms: optionalStringArray(row.platforms),
-    sections: mapCustomSections(asRows(row.custom_sections)),
-  }));
+  return data
+    .map((row) => ({
+      id: requiredString(row.id),
+      customAppId: optionalString(row.custom_app_id),
+      baseAppSlug: optionalString(row.base_app_slug),
+      title: requiredString(row.title),
+      sortOrder: typeof row.sort_order === "number" ? row.sort_order : 0,
+      platforms: optionalStringArray(row.platforms),
+      sections: mapCustomSections(asRows(row.custom_sections)),
+    }))
+    .sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0));
 }
 
 function mapCustomSections(data: Row[]): CustomSection[] {

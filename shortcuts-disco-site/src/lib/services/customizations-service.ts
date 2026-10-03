@@ -49,16 +49,26 @@ interface CustomAppUpdateInput {
 
 export class CustomizationsService {
   async getAllCustomizations(
-    authUser?: AuthUser | null
+    authUser?: AuthUser | null,
   ): Promise<UserCustomizations> {
     const supabase = createClientOrNull(authUser);
     if (!supabase) {
-      return { customApps: [], customKeymaps: [], shortcuts: [], favorites: [] };
+      return {
+        customApps: [],
+        customKeymaps: [],
+        shortcuts: [],
+        favorites: [],
+      };
     }
 
     const profile = await getCurrentProfile(authUser);
     if (!profile) {
-      return { customApps: [], customKeymaps: [], shortcuts: [], favorites: [] };
+      return {
+        customApps: [],
+        customKeymaps: [],
+        shortcuts: [],
+        favorites: [],
+      };
     }
 
     const [appsResult, keymapsResult, shortcutsResult] = await Promise.all([
@@ -74,7 +84,7 @@ export class CustomizationsService {
               custom_shortcuts (*)
             )
           )
-        `
+        `,
         )
         .eq("user_id", profile.id),
       supabase
@@ -86,7 +96,7 @@ export class CustomizationsService {
             *,
             custom_shortcuts (*)
           )
-        `
+        `,
         )
         .eq("user_id", profile.id)
         .not("base_app_slug", "is", null),
@@ -104,7 +114,7 @@ export class CustomizationsService {
     return {
       customApps: this.mapCustomApps(appsResult.data ?? []),
       customKeymaps: this.mapCustomKeymaps(
-        (keymapsResult.data as Record<string, unknown>[]) ?? []
+        (keymapsResult.data as Record<string, unknown>[]) ?? [],
       ),
       shortcuts: this.mapShortcutOverlays(shortcutsResult.data ?? []),
       favorites: [],
@@ -113,7 +123,7 @@ export class CustomizationsService {
 
   async createCustomApp(
     app: Omit<CustomApp, "id" | "userId" | "keymaps">,
-    authUser?: AuthUser | null
+    authUser?: AuthUser | null,
   ): Promise<CustomApp> {
     validateCustomAppMetadata(app);
     const supabase = createClientOrNull(authUser);
@@ -153,7 +163,7 @@ export class CustomizationsService {
   async updateCustomApp(
     id: string,
     updates: CustomAppUpdateInput,
-    authUser?: AuthUser | null
+    authUser?: AuthUser | null,
   ): Promise<void> {
     validateCustomAppMetadata(updates);
     const supabase = createClientOrNull(authUser);
@@ -195,7 +205,7 @@ export class CustomizationsService {
 
   async createCustomKeymap(
     keymap: Omit<CustomKeymap, "id" | "sections">,
-    authUser?: AuthUser | null
+    authUser?: AuthUser | null,
   ): Promise<CustomKeymap> {
     validateCustomKeymapMetadata(keymap);
     const supabase = createClientOrNull(authUser);
@@ -224,13 +234,14 @@ export class CustomizationsService {
       baseAppSlug: data.base_app_slug,
       title: data.title,
       platforms: data.platforms,
+      sortOrder: data.sort_order ?? 0,
       sections: [],
     };
   }
 
   async createCustomSection(
     section: Omit<CustomSection, "id" | "shortcuts">,
-    authUser?: AuthUser | null
+    authUser?: AuthUser | null,
   ): Promise<CustomSection> {
     validateCustomSectionMetadata(section);
     const supabase = createClientOrNull(authUser);
@@ -261,45 +272,74 @@ export class CustomizationsService {
 
   async upsertShortcutOverlay(
     shortcut: Omit<CustomShortcut, "id"> & { id?: string },
-    authUser?: AuthUser | null
+    authUser?: AuthUser | null,
   ): Promise<void> {
     const normalized = normalizeCustomShortcutDraft(shortcut);
     validateShortcutStorageMetadata(shortcut);
-    if (normalized.key || normalized.comment) validateCustomShortcutDraft(normalized);
-    if ((normalized.keyIsCleared && normalized.key) || (normalized.commentIsCleared && normalized.comment)) throw new Error("A cleared field cannot also contain a replacement.");
-    if ((normalized.keyIsCleared || normalized.commentIsCleared) && process.env.NEXT_PUBLIC_ENABLE_OVERLAY_CLEARING !== "true") throw new Error("Clearing fields is not enabled yet.");
+    if (normalized.key || normalized.comment)
+      validateCustomShortcutDraft(normalized);
+    if (
+      (normalized.keyIsCleared && normalized.key) ||
+      (normalized.commentIsCleared && normalized.comment)
+    )
+      throw new Error("A cleared field cannot also contain a replacement.");
+    if (
+      (normalized.keyIsCleared || normalized.commentIsCleared) &&
+      process.env.NEXT_PUBLIC_ENABLE_OVERLAY_CLEARING !== "true"
+    )
+      throw new Error("Clearing fields is not enabled yet.");
     const supabase = createClientOrNull(authUser);
     if (!supabase) throw new Error("Supabase sign in is not configured.");
     const profile = await requireCurrentProfile(authUser);
     const values = {
-      user_id: profile.id, section_id: null,
+      user_id: profile.id,
+      section_id: null,
       base_app_slug: shortcut.baseAppSlug ?? null,
       base_keymap_title: shortcut.baseKeymapTitle ?? null,
       base_section_title: shortcut.baseSectionTitle ?? null,
       base_shortcut_title: shortcut.baseShortcutTitle ?? null,
       base_shortcut_id: shortcut.baseShortcutId ?? null,
-      title: normalized.title, key: normalized.key ?? null, comment: normalized.comment ?? null,
-      key_is_cleared: normalized.keyIsCleared ?? false, comment_is_cleared: normalized.commentIsCleared ?? false,
-      is_deleted: normalized.isDeleted, sort_order: normalized.sortOrder,
+      title: normalized.title,
+      key: normalized.key ?? null,
+      comment: normalized.comment ?? null,
+      key_is_cleared: normalized.keyIsCleared ?? false,
+      comment_is_cleared: normalized.commentIsCleared ?? false,
+      is_deleted: normalized.isDeleted,
+      sort_order: normalized.sortOrder,
     };
     const find = async () => {
-      let query = supabase.from("custom_shortcuts").select("id")
-        .eq("user_id", profile.id).eq("base_app_slug", shortcut.baseAppSlug!)
-        .eq("base_keymap_title", shortcut.baseKeymapTitle!).eq("base_section_title", shortcut.baseSectionTitle!);
-      query = shortcut.id ? query.eq("id", shortcut.id) : shortcut.baseShortcutId
-        ? query.eq("base_shortcut_id", shortcut.baseShortcutId)
-        : query.is("base_shortcut_id", null).eq("base_shortcut_title", shortcut.baseShortcutTitle!);
+      let query = supabase
+        .from("custom_shortcuts")
+        .select("id")
+        .eq("user_id", profile.id)
+        .eq("base_app_slug", shortcut.baseAppSlug!)
+        .eq("base_keymap_title", shortcut.baseKeymapTitle!)
+        .eq("base_section_title", shortcut.baseSectionTitle!);
+      query = shortcut.id
+        ? query.eq("id", shortcut.id)
+        : shortcut.baseShortcutId
+          ? query.eq("base_shortcut_id", shortcut.baseShortcutId)
+          : query
+              .is("base_shortcut_id", null)
+              .eq("base_shortcut_title", shortcut.baseShortcutTitle!);
       const result = await query.maybeSingle();
       if (result.error) throw result.error;
       return result.data?.id as string | undefined;
     };
     const update = async (id: string) => {
-      const { error } = await supabase.from("custom_shortcuts").update(values).eq("id", id).eq("user_id", profile.id);
+      const { error } = await supabase
+        .from("custom_shortcuts")
+        .update(values)
+        .eq("id", id)
+        .eq("user_id", profile.id);
       if (error) throw error;
     };
     const existing = await find();
     if (existing) return update(existing);
-    if (shortcut.id) throw new Error("The edited shortcut no longer exists. Reload and try again.");
+    if (shortcut.id)
+      throw new Error(
+        "The edited shortcut no longer exists. Reload and try again.",
+      );
     const { error } = await supabase.from("custom_shortcuts").insert(values);
     if (!error) return;
     if (error.code === "23505" || error.code === "23514") {
@@ -311,7 +351,7 @@ export class CustomizationsService {
 
   async createCustomShortcut(
     shortcut: Omit<CustomShortcut, "id">,
-    authUser?: AuthUser | null
+    authUser?: AuthUser | null,
   ): Promise<CustomShortcut> {
     const normalizedShortcut = normalizeCustomShortcutDraft(shortcut);
     validateCustomShortcutDraft(normalizedShortcut);
@@ -361,7 +401,7 @@ export class CustomizationsService {
 
   async createBaseAppShortcut(
     shortcut: BaseAppShortcutInput,
-    authUser?: AuthUser | null
+    authUser?: AuthUser | null,
   ): Promise<CustomShortcut> {
     const normalizedShortcut = normalizeCustomShortcutDraft(shortcut);
     validateCustomShortcutDraft(normalizedShortcut);
@@ -400,14 +440,14 @@ export class CustomizationsService {
         isDeleted: false,
         sortOrder: section.shortcuts.length,
       },
-      authUser
+      authUser,
     );
   }
 
   async updateCustomShortcut(
     id: string,
     shortcut: CustomShortcutUpdateInput,
-    authUser?: AuthUser | null
+    authUser?: AuthUser | null,
   ): Promise<void> {
     const normalizedShortcut = normalizeCustomShortcutDraft(shortcut);
     validateCustomShortcutDraft(normalizedShortcut);
@@ -433,7 +473,7 @@ export class CustomizationsService {
 
   async deleteCustomShortcut(
     id: string,
-    authUser?: AuthUser | null
+    authUser?: AuthUser | null,
   ): Promise<void> {
     const supabase = createClientOrNull(authUser);
     if (!supabase) throw new Error("Supabase sign in is not configured.");
@@ -449,41 +489,73 @@ export class CustomizationsService {
     if (error) throw error;
   }
 
-  async updateCustomKeymap(id: string, updates: Pick<CustomKeymap, "title" | "platforms">, authUser?: AuthUser | null): Promise<void> {
+  async updateCustomKeymap(
+    id: string,
+    updates: Pick<CustomKeymap, "title" | "platforms">,
+    authUser?: AuthUser | null,
+  ): Promise<void> {
     const supabase = createClientOrNull(authUser);
     if (!supabase) throw new Error("Supabase sign in is not configured.");
     const profile = await requireCurrentProfile(authUser);
     validateCustomKeymapMetadata(updates);
-    const { error } = await supabase.from("custom_keymaps").update({ title: updates.title, platforms: updates.platforms ?? null }).eq("id", id).eq("user_id", profile.id);
+    const { error } = await supabase
+      .from("custom_keymaps")
+      .update({ title: updates.title, platforms: updates.platforms ?? null })
+      .eq("id", id)
+      .eq("user_id", profile.id);
     if (error) throw error;
   }
 
-  async deleteCustomKeymap(id: string, authUser?: AuthUser | null): Promise<void> {
+  async deleteCustomKeymap(
+    id: string,
+    authUser?: AuthUser | null,
+  ): Promise<void> {
     const supabase = createClientOrNull(authUser);
     if (!supabase) throw new Error("Supabase sign in is not configured.");
     const profile = await requireCurrentProfile(authUser);
-    const { error } = await supabase.from("custom_keymaps").delete().eq("id", id).eq("user_id", profile.id);
+    const { error } = await supabase
+      .from("custom_keymaps")
+      .delete()
+      .eq("id", id)
+      .eq("user_id", profile.id);
     if (error) throw error;
   }
 
-  async updateCustomSection(id: string, updates: Pick<CustomSection, "title" | "sortOrder">, authUser?: AuthUser | null): Promise<void> {
+  async updateCustomSection(
+    id: string,
+    updates: Pick<CustomSection, "title" | "sortOrder">,
+    authUser?: AuthUser | null,
+  ): Promise<void> {
     validateCustomSectionMetadata(updates);
     const supabase = createClientOrNull(authUser);
     if (!supabase) throw new Error("Supabase sign in is not configured.");
     await requireCurrentProfile(authUser);
-    const { error } = await supabase.from("custom_sections").update({ title: updates.title, sort_order: updates.sortOrder }).eq("id", id);
+    const { error } = await supabase
+      .from("custom_sections")
+      .update({ title: updates.title, sort_order: updates.sortOrder })
+      .eq("id", id);
     if (error) throw error;
   }
 
-  async deleteCustomSection(id: string, authUser?: AuthUser | null): Promise<void> {
+  async deleteCustomSection(
+    id: string,
+    authUser?: AuthUser | null,
+  ): Promise<void> {
     const supabase = createClientOrNull(authUser);
     if (!supabase) throw new Error("Supabase sign in is not configured.");
     await requireCurrentProfile(authUser);
-    const { error } = await supabase.from("custom_sections").delete().eq("id", id);
+    const { error } = await supabase
+      .from("custom_sections")
+      .delete()
+      .eq("id", id);
     if (error) throw error;
   }
 
-  async reorderCustomItems(kind: "keymaps" | "sections" | "shortcuts", ids: string[], authUser?: AuthUser | null): Promise<void> {
+  async reorderCustomItems(
+    kind: "keymaps" | "sections" | "shortcuts",
+    ids: string[],
+    authUser?: AuthUser | null,
+  ): Promise<void> {
     const supabase = createClientOrNull(authUser);
     if (!supabase) throw new Error("Supabase sign in is not configured.");
     await requireCurrentProfile(authUser);
@@ -514,7 +586,7 @@ export class CustomizationsService {
           *,
           custom_shortcuts (*)
         )
-      `
+      `,
       )
       .eq("user_id", userId)
       .eq("base_app_slug", baseAppSlug)
@@ -616,23 +688,26 @@ export class CustomizationsService {
       source: (row.source as string | null) ?? undefined,
       icon: (row.icon as string | null) ?? undefined,
       keymaps: this.mapCustomKeymaps(
-        (row.custom_keymaps as Record<string, unknown>[]) ?? []
+        (row.custom_keymaps as Record<string, unknown>[]) ?? [],
       ),
     }));
   }
 
   private mapCustomKeymaps(data: Record<string, unknown>[]): CustomKeymap[] {
-    return data.map((row) => ({
-      id: row.id as string,
-      customAppId: (row.custom_app_id as string | null) ?? undefined,
-      baseAppSlug: (row.base_app_slug as string | null) ?? undefined,
-      title: row.title as string,
-      platforms: (row.platforms as CustomKeymap["platforms"] | null) ?? undefined,
-      sortOrder: typeof row.sort_order === "number" ? row.sort_order : 0,
-      sections: this.mapCustomSections(
-        (row.custom_sections as Record<string, unknown>[]) ?? []
-      ),
-    }));
+    return data
+      .map((row) => ({
+        id: row.id as string,
+        customAppId: (row.custom_app_id as string | null) ?? undefined,
+        baseAppSlug: (row.base_app_slug as string | null) ?? undefined,
+        title: row.title as string,
+        platforms:
+          (row.platforms as CustomKeymap["platforms"] | null) ?? undefined,
+        sortOrder: typeof row.sort_order === "number" ? row.sort_order : 0,
+        sections: this.mapCustomSections(
+          (row.custom_sections as Record<string, unknown>[]) ?? [],
+        ),
+      }))
+      .sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0));
   }
 
   private mapCustomSections(data: Record<string, unknown>[]): CustomSection[] {
@@ -642,19 +717,22 @@ export class CustomizationsService {
       title: row.title as string,
       sortOrder: row.sort_order as number,
       shortcuts: this.mapCustomShortcuts(
-        (row.custom_shortcuts as Record<string, unknown>[]) ?? []
+        (row.custom_shortcuts as Record<string, unknown>[]) ?? [],
       ),
     }));
   }
 
-  private mapCustomShortcuts(data: Record<string, unknown>[]): CustomShortcut[] {
+  private mapCustomShortcuts(
+    data: Record<string, unknown>[],
+  ): CustomShortcut[] {
     return data.map((row) => ({
       id: row.id as string,
       sectionId: (row.section_id as string | null) ?? undefined,
       baseAppSlug: (row.base_app_slug as string | null) ?? undefined,
       baseKeymapTitle: (row.base_keymap_title as string | null) ?? undefined,
       baseSectionTitle: (row.base_section_title as string | null) ?? undefined,
-      baseShortcutTitle: (row.base_shortcut_title as string | null) ?? undefined,
+      baseShortcutTitle:
+        (row.base_shortcut_title as string | null) ?? undefined,
       baseShortcutId: (row.base_shortcut_id as string | null) ?? undefined,
       title: row.title as string,
       key: (row.key as string | null) ?? undefined,
@@ -666,7 +744,9 @@ export class CustomizationsService {
     }));
   }
 
-  private mapShortcutOverlays(data: Record<string, unknown>[]): ShortcutOverlay[] {
+  private mapShortcutOverlays(
+    data: Record<string, unknown>[],
+  ): ShortcutOverlay[] {
     return data.map((row) => ({
       baseKey: `${row.base_app_slug}:${row.base_keymap_title}:${row.base_section_title}:${row.base_shortcut_title}`,
       baseShortcutId: (row.base_shortcut_id as string | null) ?? undefined,
@@ -676,8 +756,8 @@ export class CustomizationsService {
         key: row.key as string | undefined,
         comment: row.comment as string | undefined,
         isDeleted: row.is_deleted as boolean,
-      keyIsCleared: row.key_is_cleared === true,
-      commentIsCleared: row.comment_is_cleared === true,
+        keyIsCleared: row.key_is_cleared === true,
+        commentIsCleared: row.comment_is_cleared === true,
       },
     }));
   }
