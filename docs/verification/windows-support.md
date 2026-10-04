@@ -26,6 +26,8 @@ Custom app details support optional `windowsAppId` and `windowsProcessName` alon
 
 If a custom app and a public catalog entry match the same Windows application, “List Current Shortcuts” offers a choice of shortcut collections. Selecting a collection keeps the detected native process as the execution target.
 
+An explicit Windows app ID takes precedence over a saved process name when resolving an installed application. Apply is unavailable if that ID is missing, ambiguous, or has no resolvable executable. Conflicting IDs are excluded from process and display-name matching. Current Shortcuts can use a matching native app ID directly; if Raycast omits it, an explicit-ID collection can apply to the detected process only after installed-app resolution confirms the same executable name. Process-only collections remain supported. macOS also offers a collection choice when multiple entries share the current bundle ID.
+
 Apply `shortcuts-disco-site/supabase/migrations/20261003203001_custom_app_windows_identifiers.sql` before deploying the website changes. Existing rows keep null Windows identifiers. Database checks and the shared runtime validator reject executable paths, `.exe` suffixes, control characters, and unsupported process names; account access policies remain in effect.
 
 Verify creating, editing, clearing, exporting, and reloading both fields, then select a renamed custom app in Windows Raycast and apply a harmless shortcut in its intended app. Identifier integration tests and native keyboard tests cover separate parts of this flow; interactive Raycast acceptance is still required.
