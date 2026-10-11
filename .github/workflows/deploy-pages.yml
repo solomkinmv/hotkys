@@ -60,6 +60,21 @@ jobs:
       - name: Verify generated contracts
         run: node ../scripts/sync-shortcuts-core.mjs --check
 
+      - name: Validate catalog data
+        run: |
+          npm run validate-data
+          npm run format-data:check
+
+      - name: Lint and type check
+        run: |
+          npm run lint
+          npm run test:types
+
+      - name: Run tests
+        run: |
+          npm test
+          npm run test:rls
+
       - name: Build static site
         env:
           NEXT_PUBLIC_SUPABASE_URL: ${{ vars.NEXT_PUBLIC_SUPABASE_URL }}

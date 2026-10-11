@@ -23,6 +23,20 @@ describe("GitHub Pages production configuration", () => {
     expect(deployWorkflow).toContain("NEXT_PUBLIC_SUPABASE_ANON_KEY");
   });
 
+  it("runs validation, lint, type checks and tests before deploying", () => {
+    for (const command of [
+      "npm run validate-data",
+      "npm run format-data:check",
+      "npm run lint",
+      "npm run test:types",
+      "npm test",
+      "npm run test:rls",
+    ]) {
+      expect(deployWorkflow).toContain(command);
+      expect(deployWorkflow.indexOf(command)).toBeLessThan(deployWorkflow.indexOf("run: npm run build"));
+    }
+  });
+
   it("uses lockfile-only dependency installs in CI", () => {
     for (const workflow of [deployWorkflow, ...buildWorkflows]) {
       expect(workflow).toContain("run: npm ci");
