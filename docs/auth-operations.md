@@ -42,7 +42,7 @@ Migrations after the July baseline (`20260730071108_allow_clerk_oauth_rls.sql`),
 4. `20260907233528_authoring_structure_integrity.sql`: ordering, unique titles within parents, platform constraints, and a permission-checked reorder function.
 5. `20261003025605_private_app_editing.sql`: keymap `sort_order`, target-only favorite references for private keymaps/shortcuts with unambiguous backfill and duplicate cleanup, and the `private_app_reorder`/`private_app_mutate` editing functions.
 6. `20261003203001_custom_app_windows_identifiers.sql`: nullable `windows_app_id` and `windows_process_name` on custom apps with format constraints.
-7. `20261011202100_favorites_target_indexes.sql`: indexes on `favorites.custom_keymap_id` and `favorites.custom_shortcut_id` so cascading deletes of private keymaps/shortcuts avoid scanning favorites.
+7. `20261011212837_favorites_target_indexes.sql`: indexes on `favorites.custom_keymap_id` and `favorites.custom_shortcut_id` so cascading deletes of private keymaps/shortcuts avoid scanning favorites.
 
 The integrity migration deliberately aborts on pre-existing duplicate keymap/section titles. Inventory collisions by parent with `GROUP BY ... HAVING count(*) > 1`, show the operator the affected drafts, and resolve them before retrying. Do not silently merge or delete user drafts. Back up the designated project before applying changes.
 
