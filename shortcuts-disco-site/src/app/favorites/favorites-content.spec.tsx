@@ -6,6 +6,7 @@ import type { AppShortcuts } from "@/lib/model/internal/internal-models";
 const mockUseAuth = jest.fn();
 const mockUseFavorites = jest.fn();
 const mockUseCustomizations = jest.fn();
+const mockUsePublicCatalog = jest.fn();
 const removeMock = jest.fn<(...args: unknown[]) => Promise<void>>();
 const refetchMock = jest.fn<() => Promise<void>>();
 jest.mock("@/components/auth/auth-provider", () => ({ useAuth: mockUseAuth }));
@@ -15,11 +16,23 @@ jest.mock("@/lib/hooks/use-favorites", () => ({
 jest.mock("@/lib/hooks/use-customizations", () => ({
   useCustomizations: mockUseCustomizations,
 }));
+jest.mock("@/lib/hooks/use-public-catalog", () => ({
+  usePublicCatalog: mockUsePublicCatalog,
+}));
 jest.mock("@/lib/services/favorites-service", () => ({
   favoritesService: { removeFavorite: removeMock },
 }));
 const { FavoritesContent } =
   require("./favorites-content") as typeof import("./favorites-content");
+function renderFavorites(applications: AppShortcuts[]) {
+  mockUsePublicCatalog.mockReturnValue({
+    applications,
+    isLoading: false,
+    error: undefined,
+    retry: jest.fn(),
+  });
+  return render(<FavoritesContent />);
+}
 const shortcut = {
   title: "Reply",
   sequence: [],
@@ -74,7 +87,7 @@ describe("FavoritesContent", () => {
     });
   });
   it("resolves app names and preserves instruction-only shortcuts and exact destinations", () => {
-    render(<FavoritesContent applications={[app]} />);
+    renderFavorites([app]);
     expect(screen.getByRole("region", { name: "Saved apps" })).toBeTruthy();
     expect(screen.getByRole("region", { name: "Saved keymaps" })).toBeTruthy();
     expect(
@@ -88,7 +101,7 @@ describe("FavoritesContent", () => {
     ).toBe("/apps/sample/default#Editing");
   });
   it("removes the persisted favorite by ID without adding a legacy duplicate", async () => {
-    render(<FavoritesContent applications={[app]} />);
+    renderFavorites([app]);
     fireEvent.click(
       screen.getByRole("button", { name: "Remove Reply from favorites" }),
     );
@@ -101,7 +114,7 @@ describe("FavoritesContent", () => {
   });
   it("keeps a failed removal visible and lets the user retry", async () => {
     removeMock.mockRejectedValueOnce(new Error("Connection interrupted"));
-    render(<FavoritesContent applications={[app]} />);
+    renderFavorites([app]);
     fireEvent.click(
       screen.getByRole("button", { name: "Remove Reply from favorites" }),
     );
@@ -122,7 +135,7 @@ describe("FavoritesContent", () => {
       isLoading: false,
       refetch: refetchMock,
     });
-    render(<FavoritesContent applications={[app]} />);
+    renderFavorites([app]);
     expect(screen.getByText(/Shortcut unavailable/)).toBeTruthy();
     fireEvent.change(
       screen.getByRole("searchbox", { name: "Search favorites" }),
@@ -165,19 +178,56 @@ describe("FavoritesContent", () => {
       },
       isLoading: false,
     });
-    render(<FavoritesContent applications={[app]} />);
+    renderFavorites([app]);
     expect(
       screen.getByRole("link", { name: /Private Tool/ }).getAttribute("href"),
     ).toBe("/my-shortcuts?app=renamed");
   });
   it("returns signed-out visitors to favorites after sign-in", () => {
     mockUseAuth.mockReturnValue({ user: null, isLoading: false });
-    render(<FavoritesContent applications={[app]} />);
+    renderFavorites([app]);
     expect(
       screen
         .getByRole("link", { name: /Sign in to save favorites/ })
         .getAttribute("href"),
     ).toBe("/auth/login?next=%2Ffavorites");
+    expect(mockUsePublicCatalog).toHaveBeenLastCalledWith(false);
+  });
+  it("loads the full catalog only for signed-in users with favorites", () => {
+    renderFavorites([app]);
+    expect(mockUsePublicCatalog).toHaveBeenLastCalledWith(true);
+    mockUseFavorites.mockReturnValue({
+      favorites: [],
+      isLoading: false,
+      refetch: refetchMock,
+    });
+    renderFavorites([]);
+    expect(mockUsePublicCatalog).toHaveBeenLastCalledWith(false);
+  });
+  it("shows a loading state and a retryable error for the catalog", () => {
+    const retry = jest.fn();
+    const state = mockUseCustomizations() as object;
+    mockUseCustomizations.mockReturnValue({ ...state, refetch: refetchMock });
+    mockUsePublicCatalog.mockReturnValue({
+      applications: undefined,
+      isLoading: true,
+      error: undefined,
+      retry,
+    });
+    const { rerender } = render(<FavoritesContent />);
+    expect(screen.getByRole("status", { name: "Loading favorites" })).toBeTruthy();
+    mockUsePublicCatalog.mockReturnValue({
+      applications: undefined,
+      isLoading: false,
+      error: "Couldn’t load the shortcut catalog (HTTP 503).",
+      retry,
+    });
+    rerender(<FavoritesContent />);
+    expect(
+      screen.getByText("Couldn’t load the shortcut catalog (HTTP 503)."),
+    ).toBeTruthy();
+    fireEvent.click(screen.getByRole("button", { name: "Retry loading" }));
+    expect(retry).toHaveBeenCalled();
   });
   it("shows a retryable load error rather than an empty collection", () => {
     mockUseFavorites.mockReturnValue({
@@ -194,7 +244,7 @@ describe("FavoritesContent", () => {
       ...state,
       refetch: refetchCustomizations,
     });
-    render(<FavoritesContent applications={[app]} />);
+    renderFavorites([app]);
     expect(
       screen.getByRole("heading", { name: "Couldn’t load your collection" }),
     ).toBeTruthy();
@@ -277,7 +327,7 @@ describe("FavoritesContent", () => {
       },
       isLoading: false,
     });
-    render(<FavoritesContent applications={[app]} />);
+    renderFavorites([app]);
     expect(
       screen.getByRole("link", { name: /Renamed action/ }).getAttribute("href"),
     ).toBe("/my-shortcuts?app=new-tool&keymap=keymap-2#shortcut-shortcut-2");
@@ -350,7 +400,7 @@ describe("FavoritesContent", () => {
       },
       isLoading: false,
     });
-    render(<FavoritesContent applications={[]} />);
+    renderFavorites([]);
     expect(screen.getByText(/Shortcut unavailable/)).toBeTruthy();
     expect(screen.queryByText("Wrong method")).toBeNull();
     expect(
@@ -405,7 +455,7 @@ describe("FavoritesContent", () => {
       },
       isLoading: false,
     });
-    render(<FavoritesContent applications={[app]} />);
+    renderFavorites([app]);
     expect(
       screen
         .getByRole("link", { name: /Default.*Sample App/ })
@@ -422,9 +472,7 @@ describe("FavoritesContent", () => {
       isLoading: false,
       refetch: refetchMock,
     });
-    render(
-      <FavoritesContent
-        applications={[
+    renderFavorites([
           {
             ...app,
             keymaps: [
@@ -445,9 +493,7 @@ describe("FavoritesContent", () => {
               },
             ],
           },
-        ]}
-      />,
-    );
+        ]);
     expect(
       screen.getByRole("group", { name: "How to do it: Reply" }).textContent,
     ).toBe("Swipe from right to left");
@@ -499,7 +545,7 @@ describe("FavoritesContent", () => {
       },
       isLoading: false,
     });
-    render(<FavoritesContent applications={[app]} />);
+    renderFavorites([app]);
     expect(
       screen.getByRole("link", { name: /Quick palette/ }).getAttribute("href"),
     ).toBe("/apps/sample/default?keymap=added-map#Custom%20actions");
@@ -543,11 +589,7 @@ describe("FavoritesContent", () => {
       },
       isLoading: false,
     });
-    render(
-      <FavoritesContent
-        applications={[app, { ...app, slug: "second", name: "Second App" }]}
-      />,
-    );
+    renderFavorites([app, { ...app, slug: "second", name: "Second App" }]);
     expect(screen.getByRole("heading", { name: "Sample App" })).toBeTruthy();
     expect(screen.getByRole("heading", { name: "Second App" })).toBeTruthy();
     expect(
@@ -560,11 +602,7 @@ describe("FavoritesContent", () => {
       isLoading: false,
       refetch: refetchMock,
     });
-    render(
-      <FavoritesContent
-        applications={[{ ...app, slug: "second", name: "Second App" }]}
-      />,
-    );
+    renderFavorites([{ ...app, slug: "second", name: "Second App" }]);
     expect(screen.getByText(/Shortcut unavailable/)).toBeTruthy();
     expect(
       screen.getByRole("link", { name: /Reply/ }).getAttribute("href"),

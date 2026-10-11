@@ -6,6 +6,7 @@ import { ArrowRight, ArrowUpRight, Search, Star } from "lucide-react";
 import { useAuth } from "@/components/auth/auth-provider";
 import { useFavorites } from "@/lib/hooks/use-favorites";
 import { useCustomizations } from "@/lib/hooks/use-customizations";
+import { usePublicCatalog } from "@/lib/hooks/use-public-catalog";
 import { favoritesService } from "@/lib/services/favorites-service";
 import { ShortcutMerger } from "@/lib/services/shortcut-merger";
 import { getLoginHref } from "@/lib/auth/redirect";
@@ -32,11 +33,9 @@ const filters = [
   ["shortcut", "Shortcuts"],
 ] as const;
 
-export function FavoritesContent({
-  applications = [],
-}: {
-  applications?: AppShortcuts[];
-}) {
+const noApplications: AppShortcuts[] = [];
+
+export function FavoritesContent() {
   const { user, isLoading: authLoading } = useAuth();
   const {
     favorites,
@@ -44,6 +43,12 @@ export function FavoritesContent({
     error: favoritesError,
     refetch,
   } = useFavorites();
+  const {
+    applications = noApplications,
+    isLoading: catalogLoading,
+    error: catalogError,
+    retry: retryCatalog,
+  } = usePublicCatalog(!!user && favorites.length > 0);
   const {
     customizations,
     isLoading: customizationsLoading,
@@ -131,7 +136,8 @@ export function FavoritesContent({
           </Link>
         </Button>
       </div>
-      {authLoading || (user && (favoritesLoading || customizationsLoading)) ? (
+      {authLoading ||
+      (user && (favoritesLoading || customizationsLoading || catalogLoading)) ? (
         <div
           role="status"
           aria-label="Loading favorites"
@@ -144,19 +150,23 @@ export function FavoritesContent({
             />
           ))}
         </div>
-      ) : user && (favoritesError || customizationsError) ? (
+      ) : user && (favoritesError || customizationsError || catalogError) ? (
         <div role="alert" className="rounded-2xl border bg-card p-6">
           <h2 className="text-xl font-semibold tracking-tight">
             Couldn’t load your collection
           </h2>
           <p className="mt-3 text-sm text-muted-foreground">
-            {favoritesError || customizationsError}
+            {favoritesError || customizationsError || catalogError}
           </p>
           <Button
             variant="outline"
             className="mt-5 rounded-xl"
             onClick={() =>
-              Promise.allSettled([refetch(), refetchCustomizations()])
+              Promise.allSettled([
+                refetch(),
+                refetchCustomizations(),
+                retryCatalog(),
+              ])
             }
           >
             Retry loading

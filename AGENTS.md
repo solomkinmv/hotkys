@@ -18,7 +18,7 @@ The apps are independent npm projects with their own lockfiles; there is no root
 
 ## Commands
 
-Site (`shortcuts-disco-site`): `dev` (watches catalog sources and runs `next dev`), `test` (Jest, colocated `*.spec.ts(x)`), `test:types`, `lint`, `build` (exports data, outputs `out/`), `validate-data`, `format-data:check`, `prettify -- --write <file>`, `test:catalog`, `test:rls` (PGlite RLS/schema/migration tests), `check:config -- --mode public|test|production`. `predev`/`prebuild` run `check:config -- --mode auto`. `test:db:concurrency` needs a disposable `HOTKYS_TEST_DATABASE_URL`.
+Site (`shortcuts-disco-site`): `dev` (watches catalog sources and runs `next dev`), `optimize-images` (site-only WebP variants of `public/icons`, the logo and hero into `public/optimized/`; run by `build` and `predev`), `test` (Jest, colocated `*.spec.ts(x)`), `test:types`, `lint`, `build` (exports data, outputs `out/`), `validate-data`, `format-data:check`, `prettify -- --write <file>`, `test:catalog`, `test:rls` (PGlite RLS/schema/migration tests), `check:config -- --mode public|test|production`. `predev`/`prebuild` run `check:config -- --mode auto`. `test:db:concurrency` needs a disposable `HOTKYS_TEST_DATABASE_URL`.
 
 Raycast (`shortcuts-raycast-extension`): `test`, `test:types`, `lint`/`fix-lint` (`ray lint`), `build`, `dev`, `dev:catalog -- --origin http://localhost:3000` (temporary local catalog). Do not run `publish` unless asked.
 
@@ -26,7 +26,7 @@ From the root: `node scripts/sync-shortcuts-core.mjs --check|--write` and `node 
 
 ## Project invariants
 
-- Edit `shortcuts-data/` and `public/data/key-codes.json`; never the gitignored generated output (`public/data/{combined-apps.json,macos,windows,linux}`, `public/schema/`).
+- Edit `shortcuts-data/` and `public/data/key-codes.json`; never the gitignored generated output (`public/data/{combined-apps.json,macos,windows,linux}`, `public/schema/`, `public/optimized/`).
 - Edit shared shortcut logic in `shared/shortcuts-core`, then run `sync-shortcuts-core.mjs --write`. `src/lib/shortcut-core` (site) and `src/shortcut-core` (Raycast) are generated copies, checked in CI.
 - Renaming or editing existing catalog rows can break saved favorites/overlays. CI compares identities against the PR base; record accepted changes in `docs/catalog-compatibility.json` as described in `CONTRIBUTING.md`.
 - The Raycast extension fetches `data/<platform>/apps.json`, `data/<platform>/<slug>.json`, `data/key-codes.json` and icons from `https://hotkys.com` (or the `dev:catalog` override), so generated-format changes affect the published extension.

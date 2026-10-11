@@ -35,7 +35,7 @@ import {
   type AppDraft,
 } from "@/components/shortcuts/app-metadata-fields";
 import type { CustomApp } from "@/lib/model/user/user-models";
-import type { AppShortcuts } from "@/lib/model/internal/internal-models";
+import type { AppSummary } from "@/lib/model/internal/app-summary";
 import { serializeKeymap } from "@/lib/model/keymap-utils";
 import {
   assertResourceLimit,
@@ -45,7 +45,7 @@ import {
 export function MyShortcutsContent({
   applications = [],
 }: {
-  applications?: AppShortcuts[];
+  applications?: AppSummary[];
 }) {
   const params = useSearchParams();
   const selectedAppSlug = params.get("app");
@@ -64,7 +64,7 @@ const emptyAppDraft: AppDraft = { name: "", slug: "", bundleId: "", icon: "" };
 function MyShortcutsListContent({
   applications,
 }: {
-  applications: AppShortcuts[];
+  applications: AppSummary[];
 }) {
   const router = useRouter();
   const { user, isLoading: authLoading } = useAuth();
@@ -386,7 +386,7 @@ function MyShortcutsListContent({
                   return (
                     <Link
                       key={`${overlay.baseKey}:${overlay.baseShortcutId ?? ""}`}
-                      href={`/apps/${appSlug}/${serializeKeymap({ title: keymapTitle, sections: [] })}#${encodeURIComponent(sectionTitle)}`}
+                      href={`/apps/${appSlug}/${serializeKeymap({ title: keymapTitle })}#${encodeURIComponent(sectionTitle)}`}
                       className="flex items-center gap-3 rounded-xl px-3 py-4 odd:bg-muted/40 hover:bg-accent"
                     >
                       <AppIcon

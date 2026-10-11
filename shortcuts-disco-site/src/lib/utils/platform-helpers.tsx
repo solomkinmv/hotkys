@@ -1,12 +1,14 @@
 import React from "react";
-import { AppShortcuts, Platform } from "@/lib/model/internal/internal-models";
+import { Keymap, Platform } from "@/lib/model/internal/internal-models";
+
+type AppWithKeymapPlatforms = { keymaps: Pick<Keymap, "platforms">[] };
 
 /**
  * Get unique platforms supported by an application
  * @param app - Application shortcuts object
  * @returns Array of unique platforms, or empty array if no platforms specified
  */
-export function getAppPlatforms(app: AppShortcuts): Platform[] {
+export function getAppPlatforms(app: AppWithKeymapPlatforms): Platform[] {
   const platforms = app.keymaps
     .flatMap((k) => k.platforms ?? []);
   return Array.from(new Set(platforms));
@@ -41,7 +43,7 @@ export function getPlatformIcon(platform: Platform): React.ReactElement {
  * @returns True if app has at least one keymap matching the filter
  */
 export function appMatchesPlatformFilter(
-  app: AppShortcuts,
+  app: AppWithKeymapPlatforms,
   platformFilter: Platform | null
 ): boolean {
   // If filter is null (All), show all apps

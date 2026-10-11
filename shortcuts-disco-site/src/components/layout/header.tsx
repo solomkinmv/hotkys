@@ -1,6 +1,6 @@
+/* eslint-disable @next/next/no-img-element -- next/image cannot emit a srcset with images.unoptimized in a static export. */
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu } from "lucide-react";
@@ -17,6 +17,11 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
+import {
+  getLogoSrcSet,
+  getLogoVariantPath,
+  LOGO_IMAGE,
+} from "@/lib/utils/image-variants";
 
 const links = [
   { href: "/#applications", label: "Apps" },
@@ -37,11 +42,13 @@ export function Header() {
       </a>
       <div className="mx-auto flex h-[76px] max-w-6xl items-center justify-between gap-4 px-5 xl:px-0">
         <Link href="/" aria-label="Hotkys home" className="shrink-0">
-          <Image
-            src="/hotkys-logo-300x166.png"
+          <img
+            src={`/${getLogoVariantPath(1)}`}
+            srcSet={getLogoSrcSet()}
             alt="Hotkys"
-            width={76}
-            height={42}
+            width={LOGO_IMAGE.width}
+            height={LOGO_IMAGE.height}
+            decoding="async"
           />
         </Link>
         <nav

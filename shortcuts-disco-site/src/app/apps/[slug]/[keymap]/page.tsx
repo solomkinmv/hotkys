@@ -75,7 +75,8 @@ export default async function SingleApplicationPage({ params }: Props) {
             <AppIcon
               icon={appShortcuts.icon}
               appName={appShortcuts.name}
-              size="md"
+              size="lg"
+              priority
               className="size-14 rounded-2xl sm:size-18 [&_img]:object-contain"
             />
             <div className="min-w-0">

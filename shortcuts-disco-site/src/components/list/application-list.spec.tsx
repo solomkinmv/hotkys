@@ -1,11 +1,11 @@
 import { describe, expect, it, jest, beforeEach } from "@jest/globals";
 import { render, screen, fireEvent, within } from "@testing-library/react";
-import type { AppShortcuts } from "@/lib/model/internal/internal-models";
+import type { AppSummary } from "@/lib/model/internal/app-summary";
 import { appDescriptions } from "@/lib/app-descriptions";
 import fs from "node:fs";
 import path from "node:path";
 
-const mockUseMergedShortcuts = jest.fn();
+const mockUseMergedAppSummaries = jest.fn();
 const mockUseAuth = jest.fn();
 const mockUseFavorites = jest.fn();
 jest.mock("@/components/auth/auth-provider", () => ({ useAuth: mockUseAuth }));
@@ -14,9 +14,9 @@ jest.mock("@/lib/hooks/use-favorites", () => ({
 }));
 jest.mock("next/navigation", () => ({ usePathname: () => "/" }));
 
-jest.mock("@/lib/hooks/use-merged-shortcuts", () => ({
+jest.mock("@/lib/hooks/use-merged-app-summaries", () => ({
   __esModule: true,
-  useMergedShortcuts: mockUseMergedShortcuts,
+  useMergedAppSummaries: mockUseMergedAppSummaries,
 }));
 
 jest.mock("@/lib/hooks/use-platform", () => ({
@@ -43,7 +43,7 @@ jest.mock("@/lib/hooks/use-keyboard-navigation", () => ({
 const { ApplicationList } =
   require("./application-list") as typeof import("./application-list");
 
-const baseApps: AppShortcuts[] = [
+const baseApps: AppSummary[] = [
   {
     name: "Sample",
     slug: "sample",
@@ -51,19 +51,19 @@ const baseApps: AppShortcuts[] = [
       {
         title: "Default",
         platforms: ["macos"],
-        sections: [],
+        shortcutCount: 0,
       },
     ],
   },
 ];
 
-const customApp: AppShortcuts = {
+const customApp: AppSummary = {
   name: "My Tool",
   slug: "custom-my-tool",
   keymaps: [
     {
       title: "Default",
-      sections: [],
+      shortcutCount: 0,
     },
   ],
 };
@@ -77,7 +77,7 @@ describe("ApplicationList", () => {
       isFavorite: () => false,
       toggleFavorite: jest.fn(),
     });
-    mockUseMergedShortcuts.mockReturnValue({
+    mockUseMergedAppSummaries.mockReturnValue({
       applications: [...baseApps, customApp],
       isLoading: false,
       isAuthenticated: true,
@@ -107,7 +107,7 @@ describe("ApplicationList", () => {
     expect(
       appSlugs.filter((slug) => !appDescriptions[slug]?.trim()),
     ).toEqual([]);
-    mockUseMergedShortcuts.mockReturnValue({
+    mockUseMergedAppSummaries.mockReturnValue({
       applications: [
         { ...baseApps[0], name: "Figma", slug: "figma" },
         customApp,
@@ -163,7 +163,7 @@ describe("ApplicationList", () => {
 
   it("finds private app favorites by ID after an app rename", () => {
     mockUseAuth.mockReturnValue({ user: { id: "user-1" }, isLoading: false });
-    mockUseMergedShortcuts.mockReturnValue({
+    mockUseMergedAppSummaries.mockReturnValue({
       applications: [
         ...baseApps,
         {
@@ -230,7 +230,7 @@ describe("ApplicationList", () => {
     );
   });
   it("routes platform-selected public custom keymaps through an exported page", () => {
-    mockUseMergedShortcuts.mockReturnValue({
+    mockUseMergedAppSummaries.mockReturnValue({
       applications: [
         {
           ...baseApps[0],
@@ -240,7 +240,7 @@ describe("ApplicationList", () => {
               title: "Custom macOS",
               customKeymapId: "added-map",
               platforms: ["macos"],
-              sections: [],
+              shortcutCount: 0,
             },
           ],
         },

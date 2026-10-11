@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import { HeroImage } from "@/components/ui/hero-image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -49,12 +49,8 @@ export default function About() {
             </Link>
           </Button>
         </div>
-        <Image
-          src="/media/keycaps-hero.webp"
+        <HeroImage
           alt="Q, W, E, A, and S keycaps in staggered keyboard rows, with an orange A key"
-          width={1280}
-          height={853}
-          preload
           sizes="(max-width: 767px) 85vw, 480px"
           className="mx-auto h-48 w-auto object-contain sm:h-64 md:h-auto md:w-full"
         />

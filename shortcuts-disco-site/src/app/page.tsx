@@ -1,8 +1,8 @@
 import { ApplicationList } from "@/components/list/application-list";
-import { getAllShortcuts } from "@/lib/shortcuts";
+import { getAppSummaries } from "@/lib/shortcuts";
 import { Metadata } from "next";
 import { createCanonical, createOpenGraph } from "@/lib/seo-utils";
-import Image from "next/image";
+import { HeroImage } from "@/components/ui/hero-image";
 import Link from "next/link";
 import { ArrowDown, ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -20,7 +20,6 @@ export const metadata: Metadata = {
 };
 
 const AllApplicationsPage = () => {
-  const allAppShortcuts = getAllShortcuts();
   return (
     <div className="mx-auto max-w-6xl">
       <section
@@ -63,18 +62,14 @@ const AllApplicationsPage = () => {
           </div>
         </div>
         <div className="relative mx-auto w-full max-w-lg md:max-w-none">
-          <Image
-            src="/media/keycaps-hero.webp"
+          <HeroImage
             alt="Angled Q, W, E, A, and S keycaps in staggered keyboard rows, with an orange A key"
-            width={1280}
-            height={853}
-            preload
             sizes="(max-width: 767px) 85vw, 560px"
             className="mx-auto h-52 w-auto object-contain sm:h-72 md:h-auto md:w-full"
           />
         </div>
       </section>
-      <ApplicationList applications={allAppShortcuts.applications} />
+      <ApplicationList applications={getAppSummaries()} />
       <section className="mt-12 flex flex-col gap-5 border-t pt-8 pb-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h2 className="text-lg font-semibold tracking-tight">

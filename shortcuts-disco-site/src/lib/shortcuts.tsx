@@ -5,6 +5,7 @@ import Validator from "@/lib/load/validator";
 import {ShortcutsProvider} from "@/lib/load/shortcuts-provider";
 import {AllApps} from "@/lib/model/input/input-models";
 import {AppShortcuts} from "@/lib/model/internal/internal-models";
+import {AppSummary, summarizeApps} from "@/lib/model/internal/app-summary";
 
 const shortcutsDirectory = path.join(process.cwd(), "public/data");
 
@@ -21,4 +22,9 @@ export function getAllShortcuts() {
 
 export function getAppShortcutsBySlug(slug: string): AppShortcuts | undefined {
     return getAllShortcuts().applications.find(app => app.slug === slug);
+}
+
+/** Catalog apps without their shortcuts, for client lists that only need metadata and counts. */
+export function getAppSummaries(): AppSummary[] {
+    return summarizeApps(getAllShortcuts().applications);
 }

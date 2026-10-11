@@ -20,7 +20,7 @@ export function favoriteHref(favorite: Favorite, customizations: UserCustomizati
   if (!favorite.appSlug || !publicApp) return null;
   if (!favorite.keymapTitle) return `/apps/${encodeURIComponent(favorite.appSlug)}`;
   if (!publicApp.keymapTitles.includes(favorite.keymapTitle)) return null;
-  const keymap = serializeKeymap({ title: favorite.keymapTitle, sections: [] });
+  const keymap = serializeKeymap({ title: favorite.keymapTitle });
   if (!keymap) return null;
   return `/apps/${encodeURIComponent(favorite.appSlug)}/${keymap}${favorite.sectionTitle ? `#${encodeURIComponent(favorite.sectionTitle)}` : ""}`;
 }
