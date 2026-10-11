@@ -12,7 +12,7 @@ export const HERO_IMAGE = {
   source: "media/keycaps-hero.webp",
   width: 1280,
   height: 853,
-  variantWidths: [480, 640, 960],
+  variantWidths: [480, 640, 960, 1120],
 } as const;
 
 export const LOGO_IMAGE = {
