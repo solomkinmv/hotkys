@@ -33,6 +33,13 @@ it("preserves the complete macOS browser target", async () => {
   });
   expect(await getFrontmostHostname()).toBe("github.com");
 });
+it("distinguishes a supported browser without a page from other apps", async () => {
+  jest.mocked(getPlatform).mockReturnValue("macos");
+  jest.mocked(runAppleScript).mockResolvedValue("null");
+  expect(await getFrontmostBrowserTarget()).toBeNull();
+  jest.mocked(runAppleScript).mockResolvedValue(JSON.stringify({ bundleId: "com.apple.Safari", url: null }));
+  await expect(getFrontmostBrowserTarget()).rejects.toThrow("The active browser tab has no web page");
+});
 it("dispatches Windows capture without calling AppleScript", async () => {
   jest.mocked(getPlatform).mockReturnValue("windows");
   const target = {

@@ -1,3 +1,4 @@
+import { getFrontmostApplication } from "@raycast/api";
 import { usePromise } from "@raycast/utils";
 import { useEffect, useState } from "react";
 import { useApps } from "./load/apps-provider";
@@ -13,18 +14,24 @@ const SUPPORTED_BROWSERS: Record<Platform, string> = {
   windows: "Chrome, Edge, Firefox, Brave, Vivaldi, Opera or Chromium",
 };
 
+const PAGE_READ_HINT: Record<Platform, string> = {
+  macos:
+    "Open a web page in the active tab and allow Raycast to control the browser in System Settings → Privacy & Security → Automation.",
+  windows: "Open a web page in the active tab and make sure the address bar is visible.",
+};
+
 export default function WebShortcuts() {
   const [slug, setSlug] = useState<string | undefined>();
 
   const { isLoading: appsLoading, data: apps } = useApps();
   const { isLoading: shortcutsLoading, data: application, favorites, toggleFavorite } = useAppShortcuts(slug);
 
-  // Get the frontmost hostname
-  const { isLoading: hostnameLoading, data: target } = usePromise(getFrontmostBrowserTarget, [], {
-    failureToastOptions: {
-      title: "Failed to get current web page",
-    },
-  });
+  const { data: frontmostApp } = usePromise(getFrontmostApplication, []);
+  const {
+    isLoading: hostnameLoading,
+    data: target,
+    error: targetError,
+  } = usePromise(getFrontmostBrowserTarget, [], { onError: () => undefined });
 
   const hostname = target?.kind === "browser" ? target.hostname : null;
 
@@ -38,10 +45,18 @@ export default function WebShortcuts() {
   }, [appsLoading, hostname, slug, hostnameLoading, apps]);
 
   if (!slug && !hostnameLoading && !appsLoading) {
+    if (targetError) {
+      return (
+        <UnsupportedApp
+          title={`Could not read the current page${frontmostApp ? ` in ${frontmostApp.name}` : ""}`}
+          description={PAGE_READ_HINT[getPlatform()]}
+        />
+      );
+    }
     if (!hostname) {
       return (
         <UnsupportedApp
-          title="No web page detected"
+          title={frontmostApp ? `${frontmostApp.name} is not a supported browser` : "No web page detected"}
           description={`Focus a web app tab in ${SUPPORTED_BROWSERS[getPlatform()]} and run the command again.`}
         />
       );
