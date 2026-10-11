@@ -40,11 +40,9 @@ Whole-Windows-catalog tests parse every supported app and validate every declare
 
 ## Verification and boundaries
 
-Run from the extension: `npm ci`, `npm test -- --runInBand --coverage=false`, `npm run test:types`, `npm run lint`, `npm run build`.
-Run from the site: `npm ci`, `npm test -- --runInBand --coverage=false`, `npm run test:types`, `npm run lint`, `npm run validate-data`, `npm run format-data:check`, `npm run test:catalog`, `npm run build`.
-Run from the repository: `node scripts/sync-shortcuts-core.mjs --check`, `node scripts/check-catalog-identities.mjs origin/main`.
+Run the [local commands](../../CONTRIBUTING.md#local-commands) from the repository root.
 
-Local development host is macOS. Windows native tests are intentionally skipped there and run on Windows CI. Native helper tests do not prove full Raycast command interaction, browser UI Automation across every version/language, signed-in Windows OAuth, or successful injection into vendor applications. These require an interactive Windows acceptance pass before publishing. No production publication, deployment, database change, or merge is performed by this integration.
+Local development host is macOS. Windows native tests are intentionally skipped there and run on Windows CI. Native helper tests do not prove full Raycast command interaction, browser UI Automation across every version/language, signed-in Windows OAuth, or successful injection into vendor applications. These require an interactive Windows acceptance pass. Merged in https://github.com/solomkinmv/hotkys/pull/131 and deployed; interactive Windows acceptance remains pending.
 
 ## Interactive Windows acceptance
 

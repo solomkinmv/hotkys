@@ -1,6 +1,6 @@
 # Hotkys reliability and contribution specification
 
-Status — October 2, 2026: implemented; acceptance and rollout pending. See [current verification and remaining work](../verification/project-remediation.md). Original baseline: `main` at `6a79eab`, audited September 7, 2026. Companion: [implementation plan](2026-09-07-project-remediation-plan.md).
+**Status:** Archived (completed 2026-10). See [current verification and remaining work](../../verification/project-remediation.md). Original baseline: `main` at `6a79eab`, audited September 7, 2026. Companion: [implementation plan](2026-09-07-project-remediation-plan.md).
 
 ## Outcome
 

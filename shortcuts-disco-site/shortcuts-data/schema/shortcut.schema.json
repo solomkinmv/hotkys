@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://hotkys.com/schema/shortcut.schema.json",
   "title": "Application shortcuts",
-  "description": "A product in the catalog",
+  "description": "Keyboard shortcuts for one application",
   "type": "object",
   "properties": {
     "$schema": {
@@ -158,7 +158,7 @@
       "additionalProperties": false
     },
     "section-shortcut": {
-      "description": "Shortcut with title and key",
+      "description": "Shortcut with a title and a key and/or comment",
       "type": "object",
       "properties": {
         "title": {
@@ -176,6 +176,7 @@
         "comment": {
           "description": "Text comment for the shortcut. Can be used as a substitute or addition to the declared key",
           "type": "string",
+          "minLength": 1,
           "maxLength": 50
         }
       },

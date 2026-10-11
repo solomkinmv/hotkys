@@ -6,7 +6,7 @@ This is an operations contract, not proof of hosted dashboard state. Production 
 
 Run `npm run check:config -- --mode public|test|production` inside `shortcuts-disco-site`. Builds and development use `--mode auto`: no configuration selects public mode, `pk_test_` selects test, `pk_live_` selects production. Diagnostics report field names and mode, never key values.
 
-Production Pages deployment also runs `npm run check:config -- --mode production --database`. It makes zero-row API reads to verify the required favorite-reference, overlay-clear, and keymap-order columns before publishing. A missing column, denied request, or unavailable database blocks deployment; it never applies migrations or reads private rows. Run the same command after an authorized migration rollout.
+Production Pages deployment also runs `npm run check:config -- --mode production --database`. It makes zero-row API reads to verify the required favorite-reference, overlay-clear, keymap-order, and custom-app Windows identifier (`windows_app_id`, `windows_process_name`) columns before publishing. A missing column, denied request, or unavailable database blocks deployment; it never applies migrations or reads private rows. Run the same command after an authorized migration rollout.
 
 | Mode | Website requirements | Database / extension |
 | --- | --- | --- |
@@ -34,11 +34,15 @@ Raycast provides native OAuth logout. In-command Disconnect invalidates local st
 
 For a new empty project, apply `shortcuts-disco-site/supabase/schema.sql` using the chosen project SQL workflow, then verify RLS/grants. For an existing project, inspect its migration ledger and apply outstanding migrations in timestamp order; do not reinitialize it with the schema snapshot.
 
-New additive migrations:
+Migrations after the July baseline (`20260730071108_allow_clerk_oauth_rls.sql`), in timestamp order:
 
-1. `20260907232559_stable_custom_favorite_references.sql`: nullable stable custom keymap/shortcut references, ownership checks, and unambiguous private-app backfill. Legacy base-app label matches remain unresolved rather than guessed.
-2. `20260907232734_explicit_overlay_clearing.sql`: explicit clear flags. Null without a flag inherits, a value replaces, flag plus null clears. Contradictory combinations are rejected.
-3. `20260907233528_authoring_structure_integrity.sql`: ordering, unique titles within parents, platform constraints, and a permission-checked reorder function.
+1. `20260907211100_restrict_clerk_oauth_permissions.sql`: narrows Raycast OAuth (`anon`) grants and policies to issuer-checked profile/favorite writes and read-only customizations.
+2. `20260907232559_stable_custom_favorite_references.sql`: nullable stable custom keymap/shortcut references, ownership checks, and unambiguous private-app backfill. Legacy base-app label matches remain unresolved rather than guessed.
+3. `20260907232734_explicit_overlay_clearing.sql`: explicit clear flags. Null without a flag inherits, a value replaces, flag plus null clears. Contradictory combinations are rejected.
+4. `20260907233528_authoring_structure_integrity.sql`: ordering, unique titles within parents, platform constraints, and a permission-checked reorder function.
+5. `20261003025605_private_app_editing.sql`: keymap `sort_order`, target-only favorite references for private keymaps/shortcuts with unambiguous backfill and duplicate cleanup, and the `private_app_reorder`/`private_app_mutate` editing functions.
+6. `20261003203001_custom_app_windows_identifiers.sql`: nullable `windows_app_id` and `windows_process_name` on custom apps with format constraints.
+7. `20261011202100_favorites_target_indexes.sql`: indexes on `favorites.custom_keymap_id` and `favorites.custom_shortcut_id` so cascading deletes of private keymaps/shortcuts avoid scanning favorites.
 
 The integrity migration deliberately aborts on pre-existing duplicate keymap/section titles. Inventory collisions by parent with `GROUP BY ... HAVING count(*) > 1`, show the operator the affected drafts, and resolve them before retrying. Do not silently merge or delete user drafts. Back up the designated project before applying changes.
 

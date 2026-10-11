@@ -62,7 +62,7 @@ describe("Throws validation error", () => {
             "ctrl+shift+opt+cmd+e cmd+opt+e",
         ])("Throws validation error if modifiers are not in order %p", (shortcut: string) => {
             expect(() => validator.validate([generateInputAppWithShortcut({shortcut})])).toThrow(
-                new ValidationError(`Modifiers have incorrect order. Received: '${shortcut}'. Correct order: ctrl, shift, opt, cmd`),
+                new ValidationError(`Modifiers have incorrect order. Received: '${shortcut}'. Correct order: ctrl, shift, opt|alt, cmd, win`),
             );
         });
 

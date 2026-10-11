@@ -1,4 +1,4 @@
-// Update README.md if shortcut structure changes
+// Update CONTRIBUTING.md and shortcuts-data/schema/shortcut.schema.json if shortcut structure changes
 
 import { Platform } from "../internal/internal-models";
 
@@ -53,9 +53,8 @@ export interface InputSection {
  * Shortcut with title, key and comment.
  * There should be at least key or comment field. Key contains structured shortcut declaration while comment is just a string value.
  * Key consist of modifiers plus base key separated by '+' sign.
- * Supported modifiers: 'ctrl', 'shift', 'opt', 'cmd'. Modifiers should be specified in that exact order, lowercase @see {@link modifierTokens}.
+ * Supported modifiers: 'ctrl', 'shift', 'opt' (alias 'alt'), 'cmd', 'win', in that order, lowercase @see {@link modifierTokens}.
  * Final shortcut token should always be a base key. List of all base keys: @see {@link public/data/key-codes.json}.
- * As an exception, `(click)` can be used instead of base key to show mouse click.
  * Examples: 'ctrl+s', 'shift+cmd+e'.
  *
  * Shortcut macro or sequences of shortcuts are also supported and should be separated by space (' ').
