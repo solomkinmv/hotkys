@@ -3,14 +3,36 @@
 
 import { useState } from "react";
 import { getIconUrl } from "@/lib/utils/icon-helpers";
+import {
+  getIconVariantUrl,
+  type IconVariantWidth,
+} from "@/lib/utils/image-variants";
 import { cn } from "@/lib/utils";
 
 interface AppIconProps {
   icon: string | undefined;
   appName: string;
-  size?: "sm" | "md";
+  size?: AppIconSize;
+  /** Loads the icon eagerly with high priority, for above-the-fold headers. */
+  priority?: boolean;
   className?: string;
 }
+
+type AppIconSize = "sm" | "md" | "lg";
+
+const sizeConfig: Record<
+  AppIconSize,
+  {
+    box: string;
+    text: string;
+    pixels: number;
+    variants: [IconVariantWidth, IconVariantWidth];
+  }
+> = {
+  sm: { box: "h-4 w-4", text: "text-[8px]", pixels: 16, variants: [64, 64] },
+  md: { box: "h-8 w-8", text: "text-sm", pixels: 44, variants: [64, 128] },
+  lg: { box: "h-18 w-18", text: "text-lg", pixels: 72, variants: [128, 256] },
+};
 
 const monogramStyles = [
   "rounded-[28%] bg-[#e8edf5] text-[#263b60] ring-1 ring-inset ring-[#263b60]/10",
@@ -52,15 +74,24 @@ export function AppIcon({
   icon,
   appName,
   size = "sm",
+  priority = false,
   className,
 }: AppIconProps) {
   const iconUrl = getIconUrl(icon);
   const letterColor = iconLetterColors[iconUrl ?? ""];
-  const [failedIcon, setFailedIcon] = useState<string>();
-
-  const sizeClasses = size === "sm" ? "h-4 w-4" : "h-8 w-8";
-  const textSize = size === "sm" ? "text-[8px]" : "text-sm";
-  const showFallback = !iconUrl || failedIcon === iconUrl;
+  const [failure, setFailure] = useState<{
+    iconUrl: string;
+    stage: "variant" | "original";
+  }>();
+  const config = sizeConfig[size];
+  const failedStage =
+    failure && failure.iconUrl === iconUrl ? failure.stage : undefined;
+  const [variant1x, variant2x] = config.variants.map((width) =>
+    iconUrl ? getIconVariantUrl(iconUrl, width) : undefined,
+  );
+  // Fall back from the generated variant to the original file, then to a monogram.
+  const useVariant = !!variant1x && !failedStage;
+  const showFallback = !iconUrl || failedStage === "original";
   let hash = 0;
   for (const character of appName.trim().toLowerCase()) {
     hash = (hash * 31 + character.codePointAt(0)!) >>> 0;
@@ -69,16 +100,24 @@ export function AppIcon({
   return (
     <div
       className={cn(
-        sizeClasses,
+        config.box,
         "rounded-sm flex items-center justify-center shrink-0",
         className,
       )}
     >
       {!showFallback ? (
         <img
-          src={iconUrl}
+          src={useVariant ? variant1x : iconUrl}
+          srcSet={
+            useVariant && variant2x !== variant1x
+              ? `${variant1x} 1x, ${variant2x} 2x`
+              : undefined
+          }
+          width={config.pixels}
+          height={config.pixels}
           alt={`${appName} icon`}
-          loading="lazy"
+          loading={priority ? "eager" : "lazy"}
+          fetchPriority={priority ? "high" : undefined}
           decoding="async"
           className={cn(
             "h-full w-full object-cover rounded-[inherit]",
@@ -94,7 +133,12 @@ export function AppIcon({
                 }
               : undefined
           }
-          onError={() => setFailedIcon(iconUrl)}
+          onError={() =>
+            setFailure({
+              iconUrl,
+              stage: useVariant ? "variant" : "original",
+            })
+          }
         />
       ) : (
         <span
@@ -102,7 +146,7 @@ export function AppIcon({
           aria-label={`${appName} icon`}
           className={cn(
             "flex size-full items-center justify-center font-mono font-semibold leading-none select-none",
-            textSize,
+            config.text,
             monogramStyles[hash % monogramStyles.length],
           )}
         >

@@ -42,7 +42,7 @@ npm --prefix shortcuts-disco-site run build
 npm --prefix shortcuts-raycast-extension run build
 ```
 
-Only `prettify -- --write` changes source JSON. `export-data`, builds, and the development watcher validate first and regenerate combined data, per-platform manifests/app files, and the public schema. Deleted apps and removed platform variants disappear from generated output; tracked key codes are preserved. Do not edit generated catalog files or generated shortcut-core copies. Edit `shared/shortcuts-core` and run `node scripts/sync-shortcuts-core.mjs --write` when changing shared behavior.
+Only `prettify -- --write` changes source JSON. `export-data`, builds, and the development watcher validate first and regenerate combined data, per-platform manifests/app files, and the public schema. `build` and `dev` also run `optimize-images`, which writes site-only WebP variants of bundled icons, the logo and the hero image to the ignored `public/optimized/` folder; the original PNG icons remain the published assets used by Raycast. Deleted apps and removed platform variants disappear from generated output; tracked key codes are preserved. Do not edit generated catalog files or generated shortcut-core copies. Edit `shared/shortcuts-core` and run `node scripts/sync-shortcuts-core.mjs --write` when changing shared behavior.
 
 `npm --prefix shortcuts-disco-site run dev` starts Next.js and watches source JSON, schema, and key codes. Open `http://localhost:3000`. In another terminal run:
 

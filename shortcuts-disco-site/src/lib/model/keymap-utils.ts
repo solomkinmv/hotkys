@@ -1,6 +1,6 @@
 import {Keymap} from "@/lib/model/internal/internal-models";
 
-export const serializeKeymap = (keymap: Keymap) => {
+export const serializeKeymap = (keymap: Pick<Keymap, "title">) => {
     return keymap.title
         .replace(/[^\w-]+/g, "-")  // Replace non-word chars with dashes
         .replace(/^-+|-+$/g, "")    // Remove leading/trailing dashes

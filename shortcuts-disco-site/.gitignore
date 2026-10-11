@@ -49,3 +49,6 @@ TODO.md
 
 /public/schema/shortcut.schema.json
 /public/.hotkys-generation-*/
+
+# Generated site-only image variants (npm run optimize-images)
+/public/optimized/

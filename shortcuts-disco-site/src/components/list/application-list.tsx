@@ -4,7 +4,8 @@ import { useState, useMemo } from "react";
 import Link from "next/link";
 import Fuse from "fuse.js";
 import { ArrowRight, ArrowUpRight, Search, Star } from "lucide-react";
-import { AppShortcuts, Platform } from "@/lib/model/internal/internal-models";
+import type { Platform } from "@/lib/model/internal/internal-models";
+import type { AppSummary } from "@/lib/model/internal/app-summary";
 import { SearchBar } from "@/components/ui/search-bar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -14,7 +15,7 @@ import { FavoriteButton } from "@/components/favorites/favorite-button";
 import { useKeyboardNavigation } from "@/lib/hooks/use-keyboard-navigation";
 import { usePlatformFilter } from "@/lib/hooks/use-platform-filter";
 import { usePlatform } from "@/lib/hooks/use-platform";
-import { useMergedShortcuts } from "@/lib/hooks/use-merged-shortcuts";
+import { useMergedAppSummaries } from "@/lib/hooks/use-merged-app-summaries";
 import { useFavorites } from "@/lib/hooks/use-favorites";
 import { useAuth } from "@/components/auth/auth-provider";
 import { getLoginHref } from "@/lib/auth/redirect";
@@ -29,9 +30,9 @@ import { appDescriptions } from "@/lib/app-descriptions";
 const CUSTOM_APP_SLUG_PREFIX = "custom-";
 
 function getAppKeymapUrl(
-  app: AppShortcuts,
+  app: AppSummary,
   userPlatform: Platform,
-  publicCatalog: AppShortcuts[],
+  publicCatalog: AppSummary[],
 ): string {
   if (isCustomApp(app)) {
     return `/my-shortcuts?app=${encodeURIComponent(app.slug.slice(CUSTOM_APP_SLUG_PREFIX.length))}`;
@@ -48,19 +49,19 @@ function getAppKeymapUrl(
     : `/apps/${app.slug}`;
 }
 
-function isCustomApp(app: AppShortcuts): boolean {
+function isCustomApp(app: AppSummary): boolean {
   return app.slug.startsWith(CUSTOM_APP_SLUG_PREFIX);
 }
 
 export function ApplicationList({
   applications,
 }: {
-  applications: AppShortcuts[];
+  applications: AppSummary[];
 }) {
   const [searchTerm, setSearchTerm] = useState("");
   const userPlatform = usePlatform();
   const { platformFilter, setPlatformFilter } = usePlatformFilter();
-  const { applications: mergedApplications } = useMergedShortcuts(applications);
+  const { applications: mergedApplications } = useMergedAppSummaries(applications);
   const { user, isLoading: authLoading } = useAuth();
   const { favorites, isLoading: favoritesLoading } = useFavorites();
 
@@ -237,11 +238,7 @@ export function ApplicationList({
                 app.keymaps.find((k) =>
                   k.platforms?.includes(platformFilter ?? userPlatform),
                 ) ?? app.keymaps[0];
-              const count =
-                keymap?.sections.reduce(
-                  (total, section) => total + section.hotkeys.length,
-                  0,
-                ) ?? 0;
+              const count = keymap?.shortcutCount ?? 0;
               return (
                 <div
                   key={app.slug}

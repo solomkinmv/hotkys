@@ -6,7 +6,7 @@ export function validatePublicRoutes(app: InputApp): void {
   if (reserved.has(app.slug.toLowerCase()) || app.slug.toLowerCase().startsWith("custom-")) throw new Error(`${app.slug}: reserved slug`);
   const routes = new Set<string>();
   for (const keymap of app.keymaps) {
-    const route = serializeKeymap({ title: keymap.title, sections: [] });
+    const route = serializeKeymap({ title: keymap.title });
     if (!route || routes.has(route)) throw new Error(`${app.slug}: keymap ${keymap.title} has an empty or duplicated URL path`);
     routes.add(route);
   }
