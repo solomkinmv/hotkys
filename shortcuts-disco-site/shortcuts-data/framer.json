@@ -5,6 +5,7 @@
   "slug": "framer",
   "source": "https://www.framer.com/help/articles/keyboard-shortcuts/",
   "icon": "icons/framer.png",
+  "windowsProcessName": "Framer",
   "keymaps": [
     {
       "title": "Default",

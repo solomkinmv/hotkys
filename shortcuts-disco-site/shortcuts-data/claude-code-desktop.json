@@ -4,6 +4,7 @@
   "slug": "claude-code-desktop",
   "source": "https://code.claude.com/docs/en/desktop#keyboard-shortcuts",
   "icon": "icons/claude.png",
+  "windowsProcessName": "claude",
   "keymaps": [
     {
       "title": "macOS",

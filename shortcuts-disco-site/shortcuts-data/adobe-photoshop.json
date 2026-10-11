@@ -5,6 +5,7 @@
   "slug": "adobe-photoshop",
   "source": "https://helpx.adobe.com/photoshop/desktop/get-started/settings-and-preferences/view-keyboard-shortcuts.html",
   "icon": "icons/adobe-photoshop.png",
+  "windowsProcessName": "Photoshop",
   "keymaps": [
     {
       "title": "Default",
@@ -172,10 +173,6 @@
             {
               "title": "Artboard tool",
               "key": "v"
-            },
-            {
-              "title": "Rotate View tool",
-              "key": "r"
             },
             {
               "title": "Next Brush",
@@ -1256,10 +1253,6 @@
             {
               "title": "Artboard tool",
               "key": "v"
-            },
-            {
-              "title": "Rotate View tool",
-              "key": "r"
             },
             {
               "title": "Next Brush",

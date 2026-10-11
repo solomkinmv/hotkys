@@ -5,6 +5,7 @@
   "slug": "notion",
   "source": "https://www.notion.com/help/keyboard-shortcuts",
   "icon": "icons/notion.png",
+  "windowsProcessName": "Notion",
   "keymaps": [
     {
       "title": "Default",

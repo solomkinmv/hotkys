@@ -5,6 +5,7 @@
   "slug": "zeplin",
   "source": "https://support.zeplin.io/en/articles/9685993-keyboard-shortcuts",
   "icon": "icons/zeplin.png",
+  "windowsProcessName": "Zeplin",
   "keymaps": [
     {
       "title": "Default",

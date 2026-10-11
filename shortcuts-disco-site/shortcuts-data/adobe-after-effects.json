@@ -5,6 +5,7 @@
   "slug": "adobe-after-effects",
   "source": "https://helpx.adobe.com/after-effects/using/keyboard-shortcuts-reference.html",
   "icon": "icons/adobe-after-effects.png",
+  "windowsProcessName": "AfterFX",
   "keymaps": [
     {
       "title": "Default",

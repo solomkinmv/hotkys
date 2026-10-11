@@ -5,6 +5,7 @@
   "slug": "adobe-indesign",
   "source": "https://helpx.adobe.com/indesign/using/default-keyboard-shortcuts.html",
   "icon": "icons/adobe-indesign.png",
+  "windowsProcessName": "InDesign",
   "keymaps": [
     {
       "title": "Default",

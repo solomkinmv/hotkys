@@ -5,6 +5,7 @@
   "slug": "adobe-xd",
   "source": "https://helpx.adobe.com/xd/help/keyboard-shortcuts.html",
   "icon": "icons/adobe-xd.png",
+  "windowsProcessName": "XD",
   "keymaps": [
     {
       "title": "Default",
