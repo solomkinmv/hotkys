@@ -1,4 +1,4 @@
-import { beforeEach, expect, it, jest } from "@jest/globals";
+import { afterEach, beforeEach, expect, it, jest } from "@jest/globals";
 import { act, render, screen, waitFor } from "@testing-library/react";
 import { useEffect, type ReactNode } from "react";
 import type { AuthUser } from "@/lib/auth/types";
@@ -11,25 +11,57 @@ const firstUser = { id: "user_a", primaryEmailAddress: null, fullName: "A", imag
 const firstSession = { id: "session_a", getToken: async () => "token_a" };
 let mockUser: typeof firstUser | null;
 let mockSession: typeof firstSession | null;
+let mockStatus: "loading" | "ready" | "degraded" | "error";
+let mockLoaded: boolean;
 jest.mock("@clerk/react", () => ({
   ClerkProvider: ({ children }: { children: ReactNode }) => children,
-  useClerk: () => ({ signOut: mockSignOut }),
-  useUser: () => ({ isLoaded: true, user: mockUser }),
-  useSession: () => ({ isLoaded: true, session: mockSession }),
+  useClerk: () => ({ signOut: mockSignOut, status: mockStatus }),
+  useUser: () => ({ isLoaded: mockLoaded, user: mockLoaded ? mockUser : undefined }),
+  useSession: () => ({ isLoaded: mockLoaded, session: mockLoaded ? mockSession : undefined }),
 }));
 jest.mock("@/lib/clerk/config", () => ({ getClerkPublishableKey: () => "pk_test_fixture", isClerkConfigured: () => true }));
 jest.mock("@/lib/supabase/client", () => ({ setSupabaseAccessTokenProvider: mockSetToken, bindAuthUser: jest.fn() }));
 jest.mock("@/lib/auth/session", () => ({ setCurrentAuthUser: mockSetUser }));
 jest.mock("@/lib/services/current-profile", () => ({ clearCurrentProfileCache: mockClearProfile }));
 jest.mock("./account-data-provider", () => ({ AccountDataProvider: ({ children }: { children: ReactNode }) => children }));
-const { AuthProvider, useAuth } = require("./auth-provider") as typeof import("./auth-provider");
+const { AuthProvider, CLERK_LOAD_TIMEOUT_MS, useAuth } = require("./auth-provider") as typeof import("./auth-provider");
 let auth: ReturnType<typeof useAuth>;
 function Probe() {
   const current = useAuth();
   useEffect(() => { auth = current; }, [current]);
-  return <div>{current.isLoading ? "loading" : current.user?.id ?? "signed out"}</div>;
+  return <div>{current.isUnavailable ? "unavailable" : current.isLoading ? "loading" : current.user?.id ?? "signed out"}</div>;
 }
-beforeEach(() => { jest.clearAllMocks(); mockUser = firstUser; mockSession = firstSession; });
+beforeEach(() => { jest.clearAllMocks(); mockUser = firstUser; mockSession = firstSession; mockStatus = "ready"; mockLoaded = true; });
+afterEach(() => { jest.useRealTimers(); });
+
+it("reports sign-in as unavailable without a user when Clerk fails to load", async () => {
+  mockStatus = "error";
+  mockLoaded = false;
+  render(<AuthProvider><Probe /></AuthProvider>);
+  await screen.findByText("unavailable");
+  expect(auth.isLoading).toBe(false);
+  expect(auth.user).toBeNull();
+});
+
+it("gives up waiting for Clerk after the load timeout and recovers if it loads later", async () => {
+  jest.useFakeTimers();
+  mockStatus = "loading";
+  mockLoaded = false;
+  const view = render(<AuthProvider><Probe /></AuthProvider>);
+  expect(screen.getByText("loading")).toBeTruthy();
+  act(() => { jest.advanceTimersByTime(CLERK_LOAD_TIMEOUT_MS - 1); });
+  expect(screen.getByText("loading")).toBeTruthy();
+  act(() => { jest.advanceTimersByTime(1); });
+  expect(screen.getByText("unavailable")).toBeTruthy();
+  expect(auth.isLoading).toBe(false);
+
+  jest.useRealTimers();
+  mockStatus = "ready";
+  mockLoaded = true;
+  view.rerender(<AuthProvider><Probe /></AuthProvider>);
+  await screen.findByText("user_a");
+  expect(auth.isUnavailable).toBe(false);
+});
 
 it("keeps the existing bridge usable when Clerk rejects without changing its session", async () => {
   mockSignOut.mockRejectedValueOnce(new Error("Sign-out rejected"));

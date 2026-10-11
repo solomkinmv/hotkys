@@ -20,10 +20,14 @@ interface AuthContextType {
   user: AuthUser | null;
   isLoading: boolean;
   isConfigured: boolean;
+  /** Clerk failed to load (blocked, offline or erroring), so sign-in is unavailable. */
+  isUnavailable: boolean;
   signOut: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
+
+export const CLERK_LOAD_TIMEOUT_MS = 10_000;
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const clerkPublishableKey = getClerkPublishableKey();
@@ -58,6 +62,7 @@ function StaticAuthProvider({
       user: null,
       isLoading: false,
       isConfigured,
+      isUnavailable: false,
       signOut: async () => {},
     };
   }, [isConfigured]);
@@ -72,9 +77,23 @@ function StaticAuthProvider({
 }
 
 function ClerkAuthProvider({ children }: { children: ReactNode }) {
-  const { signOut: clerkSignOut } = useClerk();
+  const { signOut: clerkSignOut, status: clerkStatus } = useClerk();
   const { isLoaded: isSessionLoaded, session } = useSession();
   const { isLoaded: isUserLoaded, user: clerkUser } = useUser();
+  const isClerkLoaded = isSessionLoaded && isUserLoaded;
+  const [hasLoadTimedOut, setHasLoadTimedOut] = useState(false);
+
+  useEffect(() => {
+    if (isClerkLoaded) return;
+    const timeout = setTimeout(
+      () => setHasLoadTimedOut(true),
+      CLERK_LOAD_TIMEOUT_MS
+    );
+    return () => clearTimeout(timeout);
+  }, [isClerkLoaded]);
+
+  const isUnavailable =
+    clerkStatus === "error" || (hasLoadTimedOut && !isClerkLoaded);
 
   const user = useMemo<AuthUser | null>(() => {
     if (!clerkUser || !session?.id) return null;
@@ -125,8 +144,9 @@ function ClerkAuthProvider({ children }: { children: ReactNode }) {
   };
 
   const isLoading =
-    !isUserLoaded || !isSessionLoaded || readyAuthBridgeKey !== authBridgeKey;
-  const contextUser = isLoading ? null : user;
+    !isUnavailable &&
+    (!isClerkLoaded || readyAuthBridgeKey !== authBridgeKey);
+  const contextUser = isLoading || isUnavailable ? null : user;
 
   return (
     <AuthContext.Provider
@@ -134,6 +154,7 @@ function ClerkAuthProvider({ children }: { children: ReactNode }) {
         user: contextUser,
         isLoading,
         isConfigured: isClerkConfigured(),
+        isUnavailable,
         signOut,
       }}
     >

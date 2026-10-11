@@ -1,3 +1,4 @@
+import { AuthUnavailableGate } from "@/components/auth/auth-unavailable";
 import { FavoritesContent } from "./favorites-content";
 import type { Metadata } from "next";
 
@@ -7,5 +8,9 @@ export const metadata: Metadata = {
 };
 
 export default function FavoritesPage() {
-  return <FavoritesContent />;
+  return (
+    <AuthUnavailableGate>
+      <FavoritesContent />
+    </AuthUnavailableGate>
+  );
 }

@@ -1,3 +1,4 @@
+import { AuthUnavailableGate } from "@/components/auth/auth-unavailable";
 import { MyShortcutsContent } from "./my-shortcuts-content";
 import { getAppSummaries } from "@/lib/shortcuts";
 import type { Metadata } from "next";
@@ -10,8 +11,10 @@ export const metadata: Metadata = {
 
 export default function MyShortcutsPage() {
   return (
-    <Suspense>
-      <MyShortcutsContent applications={getAppSummaries()} />
-    </Suspense>
+    <AuthUnavailableGate>
+      <Suspense>
+        <MyShortcutsContent applications={getAppSummaries()} />
+      </Suspense>
+    </AuthUnavailableGate>
   );
 }

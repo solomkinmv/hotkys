@@ -207,6 +207,15 @@ describe("ApplicationList", () => {
     });
     rerender(<ApplicationList applications={baseApps} />);
     expect(screen.getByText("Loading your favorites…")).toBeTruthy();
+    mockUseAuth.mockReturnValue({
+      user: null,
+      isLoading: false,
+      isUnavailable: true,
+    });
+    rerender(<ApplicationList applications={baseApps} />);
+    expect(
+      screen.queryByRole("region", { name: "Your favorites, within reach." }),
+    ).toBeNull();
   });
 
   it("announces a failed favorite mutation without navigating away", async () => {
