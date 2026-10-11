@@ -1,21 +1,17 @@
 # Project remediation verification
 
-## Current status — October 2, 2026
+## Current status — October 11, 2026
 
-Implementation is complete; T14 acceptance and rollout remain open. [PR #152](https://github.com/solomkinmv/hotkys/pull/152) contains the follow-up fixes. The latest code change is `08b53b4`, which makes blank Delay default to zero as specified.
+- **Website:** merged in [PR #152](https://github.com/solomkinmv/hotkys/pull/152) on October 2, 2026 and deployed to `hotkys.com` by the `deploy-pages` workflow.
+- **Database:** production migrations applied and verified in the [October 1 follow-up](#account-data-follow-up--october-1-2026).
+- **Raycast:** Store release published through [raycast/extensions#31868](https://github.com/raycast/extensions/pull/31868) on October 4, 2026.
+- **Overlay clearing:** `NEXT_PUBLIC_ENABLE_OVERLAY_CLEARING` remains off pending the rollout in [auth operations](../auth-operations.md#release-sequence-and-rollback).
 
-| Scope | Latest verified result |
-| --- | --- |
-| Website | **275 tests / 32 suites**, types, lint and build passed in CI at `c533613` |
-| Raycast | **139 tests / 19 suites**, types, lint and build passed locally at `08b53b4` |
-| Database | **71 RLS/schema/upgrade checks passed** in CI at `c533613`; production migrations verified in the October 1 follow-up |
-| CI | All five checks passed at `c533613`; see [PR checks](https://github.com/solomkinmv/hotkys/pull/152/checks) for the current branch result |
-
-Website and database source are unchanged by the blank-Delay follow-up. Real Clerk/native evidence and [outstanding acceptance and rollout](#outstanding-acceptance-and-rollout) are recorded below. Older sections are dated snapshots and do not describe the current release state.
+Remaining acceptance items are listed in [outstanding acceptance and rollout](#outstanding-acceptance-and-rollout). The sections below are dated snapshots of evidence collected before release.
 
 ## Implementation snapshot — September 7, 2026
 
-Implementation date: September 7, 2026 (America/Toronto; final checks continued on September 8 UTC). Baseline: `6a79eab`. Verified implementation revision: `bae6443` on retained branch `codex/project-remediation`. The subsequent verification-only commit adds this report.
+Implementation date: September 7, 2026. Baseline: `main` at `6a79eab`.
 
 ### Delivered scope
 
@@ -50,13 +46,11 @@ Runtime for this snapshot: Node `22.16.0` on macOS. Clean `npm ci` installs also
 | Deliberate type-error gate probes in isolated copies | Both packages' type checks and builds rejected the probe; probes removed afterward |
 | Final static website build | Passed, 272 generated pages; no missing/dynamic font warnings |
 
-A coverage-instrumented website run passed 263 tests before the final three favorite regressions were added. The final 266-test run disables coverage to avoid repeating the expensive instrumentation; production coverage inclusion rules remain enabled in CI. The multi-mutation authoring regression has a 15-second timeout after exceeding the old 5-second budget under host load. No behavior assertions were removed.
-
 The catalog round trip starts with desktop and web private fixtures, exports allowlisted JSON, generates public files, then parses them through both actual consumer adapters. It verifies literal-plus/multi-chord identities and platforms, then watches add/change/delete/schema/key-code changes. Polling is used for reliable filesystem notifications, including temporary-directory and mounted filesystem workflows.
 
 Database tests cover fresh-schema and upgraded legacy fixtures, anonymous/website/OAuth ownership, cross-account references, quota edits, clear-field constraints, ordering, and cascades. These tests use local claim fixtures and do not establish hosted JWT verification.
 
-Logs and disposable fixtures are outside Git under `/tmp/hotkys-*`; visual artifacts are outside the checkout. They are local diagnostic artifacts, not durable CI links. No screenshot or private account data is committed.
+Logs, disposable fixtures and screenshots from all acceptance runs were kept outside Git. No screenshot, credential or private account data is committed.
 
 ## Browser acceptance — September 7, 2026
 
@@ -64,17 +58,13 @@ Public development preview was exercised through the browser: catalog search, em
 
 The final static export contains all 160 catalog app/keymap routes. Ten HTTP probes (public/private/login routes plus schema/catalog manifests) returned 200. Browser verification of the final export confirmed Safari's cheat sheet at desktop and 390 px width (`scrollWidth === innerWidth === 390`), plus `/my-shortcuts?app=custom-tools` preserving the complete query in the sign-in return URL. The exported public-only login page shows its unavailable-auth message. The generated Safari social card was visually inspected: Command/Control/Option/Shift/Tab symbols render without missing glyphs.
 
-Screenshots are retained outside Git at `/Users/max/.codex/visualizations/2026/09/07/01a07e02-de15-7e62-9fbc-fb2e2ef284e2/final-safari-desktop.png` and `final-safari-mobile.png`.
-
 ## Account data follow-up — October 1, 2026
 
 The three additive migrations were applied to the production project after duplicate-title, platform and parent-ownership preflight checks passed. A private backup was saved outside Git. Migration history matches the repository versions, and comparison before/after verified that every existing field and row in the four affected content tables was preserved.
 
 The new zero-row production API check failed against the old schema and passed after migration. A transaction on the live PostgreSQL database verified website/OAuth favorite writes, stable references and cascades, customization writes, clearing constraints, reorder permissions, cross-account denial and anonymous denial; all test fixtures were rolled back. RLS remains enabled on all seven private tables. These SQL claim fixtures verify database permissions, not Clerk token issuance or hosted JWT verification.
 
-Local verification passed: website 274 tests, Raycast 131 tests, 71 database checks, both package type/lint/build checks, generated-core synchronization and the existing catalog-identity guard. Added regressions cover sign-out rejection without session changes, successful sign-out, late rejection after account switching, favorite reconciliation without replay, deployment schema failures and Raycast cleanup on final view closure. Astra independently reviewed the remediation and found no actionable defects.
-
-The website changes are prepared for review; no website deployment or Raycast store publication was performed, and the overlay-clearing flag was not enabled. The discarded private-keymap routing and partial-loading hypotheses do not justify implementation changes; the public identity compatibility guard remains in place.
+Local verification passed: website 274 tests, Raycast 131 tests, 71 database checks, both package type/lint/build checks, generated-core synchronization and the existing catalog-identity guard. Added regressions cover sign-out rejection without session changes, successful sign-out, late rejection after account switching, favorite reconciliation without replay, deployment schema failures and Raycast cleanup on final view closure.
 
 ## Real Clerk and native Raycast acceptance — October 1, 2026
 
@@ -84,13 +74,11 @@ The native Apply smoke test exposed a command-lifecycle bug: `closeMainWindow` u
 
 Raycast's native Settings Logout control removed the OAuth connection. Reopening Favorites required sign-in and displayed no saved private data. Website Sign Out also succeeded, and `/favorites` then displayed its sign-in state. The development account and website test session were left signed out. This normal logout check does not prove a token-refresh/write overlap safe.
 
-The website test used the deployed frontend (`4a4a571`) with the migrated production database; it does not verify the pending website auth-wrapper change in production. Native acceptance used this branch's development extension (`9b710bc` plus the lifecycle fix), not the store build. Astra reviewed the lifecycle repair. After the fix, all 134 Raycast tests, type checking, lint and build passed; three new regressions cover deferred execution, failure without replay, and invalid input keeping the list open.
-
-Screenshots remain outside Git under `/Users/max/.codex/visualizations/2026/10/02/01a0fa30-2aa1-7d70-b114-44b70a1fa978/`: `clerk-favorite-persisted.jpg`, `raycast-favorites-synced.png`, `raycast-native-execution.png`, `raycast-private-data-after-logout.png` and `clerk-logged-out.jpg`. No credentials, authorization parameters or private account identifiers are committed.
+The website test used the then-deployed frontend with the migrated production database. Native acceptance used a development extension build with the lifecycle fix, not the store build. After the fix, all 134 Raycast tests, type checking, lint and build passed; three new regressions cover deferred execution, failure without replay, and invalid input keeping the list open.
 
 ## Additional native acceptance — October 2, 2026
 
-These checks used this branch's development extension and disposable local catalog/page fixtures. The native shortcut runner was unchanged. Fixture configuration, browser-target injection and local network proxy were removed afterward; the ordinary public catalog was restored, the native test account disconnected, and test servers stopped.
+These checks used a development extension and disposable local catalog/page fixtures. The native shortcut runner was unchanged. Fixture configuration, browser-target injection and local network proxy were removed afterward; the ordinary public catalog was restored, the native test account disconnected, and test servers stopped.
 
 | Check | Observed result |
 | --- | --- |
@@ -114,24 +102,22 @@ These checks used this branch's development extension and disposable local catal
 
 The three Safari runner checks supplied the captured target temporarily because native automation did not reliably preserve the browser as the foreground application at command launch. They verify actual native runner behavior, not foreground discovery or the complete List Current Web Shortcuts flow. A Command+Tab/Command+F focus-change attempt left the view available and no Safari Find bar, but the foreground transition was not independently established; it is not counted as a verified focus-cancellation check.
 
-The private API failure exposed misleading copy: Favorites displayed “No favorite applications” when account sync had failed, with the error visible only inside Actions. The fix forwards the existing account error to empty Favorites/My Apps views, shows “Account sync failed” with the existing retry instructions, and keeps public applications available. Native failure/recovery passed after the fix. Four new regressions passed, as did the complete **138-test Raycast suite**, type checking, lint and build. The unchanged website's **274-test suite** also passed during this acceptance run. Astra reviewed the fix and independently passed the four regressions; no actionable defects remained in that review.
+The private API failure exposed misleading copy: Favorites displayed “No favorite applications” when account sync had failed, with the error visible only inside Actions. The fix forwards the existing account error to empty Favorites/My Apps views, shows “Account sync failed” with the existing retry instructions, and keeps public applications available. Native failure/recovery passed after the fix. Four new regressions passed, as did the complete **138-test Raycast suite**, type checking, lint and build. The unchanged website's **274-test suite** also passed during this acceptance run.
 
-Screenshots remain outside Git in the October 2 directory above, including `native-closed-target-launch.png`, `native-multi-key-sequence.png`, `native-missing-target.png`, `native-no-executable-keys.png`, `native-no-browser-target.png`, `native-missing-key-data.png`, `native-pkce-reconnect.png`, `native-browser-runner-matching-url.png`, `native-browser-stale-url-cancelled.png`, `native-browser-partial-sequence-no-find.png`, `native-private-outage-fixed.png`, `native-private-retry-recovered.png` and `native-final-signed-out.png`. No test configuration or account data is committed.
+Delay checks used the instance marked Development in native Settings; the separately imported copy has independent preferences. With a configured value of `3`, a temporary diagnostic confirmed the real runner received three seconds and resolved about 3.5 seconds later. Initial Command+L observations were inconclusive. A fresh native Command+F run provided a persistent visible result: no Find bar was present immediately after Apply, and the Find bar appeared after a bounded four-second wait. Observation latency prevents treating this as precise keystroke timing. Clicking System Settings during the delay focused its search field, but its window remained inactive; this does not establish a foreground change or prove focus cancellation. Both copies' List All Shortcuts Delay values were restored to their original `0`, and all diagnostic code was removed.
 
-Delay checks used the instance marked Development in native Settings; the separately imported copy has independent preferences. With a configured value of `3`, a temporary diagnostic confirmed the real runner received three seconds and resolved about 3.5 seconds later. Initial Command+L observations were inconclusive. A fresh native Command+F run provided a persistent visible result: no Find bar was present immediately after Apply, and the Find bar appeared after a bounded four-second wait. Observation latency prevents treating this as precise keystroke timing. Clicking System Settings during the delay focused its search field, but its window remained inactive; this does not establish a foreground change or prove focus cancellation. Astra reviewed the uncertainty and found no concrete defect warranting a code change. Both copies' List All Shortcuts Delay values were restored to their original `0`, and all diagnostic code was removed. Screenshots include `native-delay-blank-setting.png`, `native-delay-blank-executed.png`, `native-delay-invalid-setting.png`, `native-delay-invalid-rejected.png`, `native-delay-three-setting.png`, `native-delay-three-find-result.png`, `native-delay-restored.png` and `native-imported-delay-restored.png` in the same directory.
+Permission checks used native Privacy & Security settings. Device Control and Data Access denial/regrant and manual recovery passed. System Events Automation denial was checked; restoration is awaiting action-time confirmation. Other applications and Raycast Automation targets were not changed.
 
-Permission checks used native Privacy & Security settings. Device Control and Data Access denial/regrant and manual recovery passed; proof includes `native-raycast-permission-denied.png`, `native-permission-denial-retained-view.png`, `native-raycast-permission-restored.png` and `native-permission-regrant-recovered.png`. The separate System Events Automation baseline and denial are recorded in `native-automation-baseline.png` and `native-automation-denied.png`; restoration is awaiting action-time confirmation. Other applications and Raycast Automation targets were not changed.
+The full change review found an existing legacy-key configuration bug: an empty publishable-key variable masked a valid anon key. Validation, runtime configuration and the new database check now fall back past empty strings. One regression covers all three paths with a local fixture and mocked API calls; it failed before the fix and passed afterward.
 
-The full change review found an existing legacy-key configuration bug: an empty publishable-key variable masked a valid anon key. Validation, runtime configuration and the new database check now fall back past empty strings. One regression covers all three paths with a local fixture and mocked API calls; it failed before the fix and passed afterward. All 12 focused configuration/client/workflow tests, the website type check and lint of the changed files passed.
-
-The documentation follow-up aligned blank Delay with the specification's zero-second default. A regression for empty and whitespace-only values failed before the change and passed afterward. The full Raycast suite increased to 139 passing tests; types, lint and build passed. The earlier native blank-Delay check exercised the previous 0.1-second fallback and is not evidence of a fresh native run after this correction.
+Blank Delay was later aligned with the specification's zero-second default and covered by a regression. The earlier native blank-Delay check exercised the previous 0.1-second fallback and is not evidence of a fresh native run after this correction.
 
 ## Outstanding acceptance and rollout
 
 1. **Hosted identity:** Google sign-in, native PKCE, cancellation/reconnect, hosted token verification through real favorite reads/writes, and normal logout passed for one existing account above. Live A/B own/other-user checks require a designated second account. Email-link/cross-device completion requires an authorized test inbox and a second device/browser context; it does not inherently require another account. These prerequisites were requested but not supplied. No test environment or test users were provisioned.
-2. **Native Raycast:** the completed target/runner checks, including blank/invalid/configured Delay preferences, OS Device Control and Data Access denial/regrant, and System Events Automation denial, are listed above. Full foreground-browser discovery and focus-change cancellation remain unverified. System Events Automation restoration/recovery is awaiting action-time confirmation. Delay preferences and Device Control and Data Access are restored. The remaining matrix is in [the implementation plan](../plans/2026-09-07-project-remediation-plan.md#t14--integrate-perform-acceptance-and-stage-release).
+2. **Native Raycast:** the completed target/runner checks, including blank/invalid/configured Delay preferences, OS Device Control and Data Access denial/regrant, and System Events Automation denial, are listed above. Full foreground-browser discovery and focus-change cancellation remain unverified. System Events Automation restoration/recovery is awaiting action-time confirmation. Delay preferences and Device Control and Data Access are restored. The remaining matrix is in [the implementation plan](../plans/completed/2026-09-07-project-remediation-plan.md#t14--integrate-perform-acceptance-and-stage-release).
 3. **External native logout overlap:** normal Settings Logout and private-view reopening passed. In-command Disconnect serializes this extension's owned token writes/removal. Native token-store removal is checked before persistence, but the API provides no shared transaction with an external/native logout occurring during an already-started credential write. The overlap remains unverified.
 4. **Database release:** completed for production in the October 1 follow-up above. Other environments must still inspect their drafts and migration ledger before applying the upgrades.
-5. **Compatible readers and website rollout:** release and verify the compatible Raycast reader first; only then enable `NEXT_PUBLIC_ENABLE_OVERLAY_CLEARING`. The flag remains off by default. Production deployment, store publication and live route verification were not performed.
+5. **Overlay-clearing rollout:** the website is deployed and the compatible Raycast reader is published in the Store. Verify that reader with real users before enabling `NEXT_PUBLIC_ENABLE_OVERLAY_CLEARING`, then verify affected routes on the deployed revision. The flag remains off.
 
-The exact setup and acceptance steps are in [auth operations](../auth-operations.md); the contributor workflow is in [CONTRIBUTING](../../CONTRIBUTING.md). The implementation worktree is retained for review. The original checkout is unchanged apart from the two planning documents created before implementation.
+The exact setup and acceptance steps are in [auth operations](../auth-operations.md); the contributor workflow is in [CONTRIBUTING](../../CONTRIBUTING.md).

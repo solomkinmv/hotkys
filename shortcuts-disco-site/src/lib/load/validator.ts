@@ -181,7 +181,7 @@ export default class Validator {
             const idx2 = modifierTokensOrderMapping.get(chordTokens[i + 1]) ?? -1;
             if (idx1 < 0 || idx2 < 0 || idx1 >= idx2) {
                 throw new ValidationError(
-                    `Modifiers have incorrect order. Received: '${fullShortcutKey}'. Correct order: ctrl, shift, opt, cmd`,
+                    `Modifiers have incorrect order. Received: '${fullShortcutKey}'. Correct order: ctrl, shift, opt|alt, cmd, win`,
                 );
             }
         }

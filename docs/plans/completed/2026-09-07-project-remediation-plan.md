@@ -1,6 +1,6 @@
 # Hotkys Reliability and Contribution Implementation Plan
 
-**Status — October 2, 2026:** T01–T13 are implemented. T14 acceptance and rollout remain open; track the remaining work in [verification](../verification/project-remediation.md#outstanding-acceptance-and-rollout). Keep this plan active until those items are closed.
+**Status:** Archived (completed 2026-10). T01–T13 are implemented and released; track remaining T14 acceptance and rollout in [verification](../../verification/project-remediation.md#outstanding-acceptance-and-rollout).
 
 **Goal:** resolve the audit's correctness and maintenance findings and deliver a coherent website → private authoring → contribution → public catalog → Raycast workflow.
 
