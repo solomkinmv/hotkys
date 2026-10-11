@@ -317,6 +317,7 @@ export function ApplicationList({
                     <FavoriteButton
                       itemType="app"
                       appSlug={app.slug}
+                      label={app.name}
                       showSignIn
                       className="absolute top-5 right-4 rounded-lg text-muted-foreground"
                     />

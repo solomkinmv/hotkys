@@ -85,7 +85,7 @@ const AllApplicationsPage = () => {
           </p>
         </div>
         <Button asChild variant="outline" className="rounded-xl">
-          <Link href="https://github.com/solomkinmv/shortcuts-disco">
+          <Link href="https://github.com/solomkinmv/hotkys">
             Contribute a shortcut{" "}
             <ArrowUpRight className="size-4" aria-hidden="true" />
           </Link>

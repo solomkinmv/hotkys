@@ -9,6 +9,7 @@ export async function checkDatabaseSchema(config: PublicAuthConfig) {
     ["favorites", "custom_keymap_id,custom_shortcut_id"],
     ["custom_shortcuts", "key_is_cleared,comment_is_cleared"],
     ["custom_keymaps", "sort_order"],
+    ["custom_apps", "windows_app_id,windows_process_name"],
   ]) {
     // Zero rows: verify the deployed API schema without reading private data.
     const { error } = await client.from(table).select(columns).limit(0);

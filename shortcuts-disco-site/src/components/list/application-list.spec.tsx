@@ -221,7 +221,7 @@ describe("ApplicationList", () => {
       toggleFavorite,
     });
     render(<ApplicationList applications={baseApps} />);
-    fireEvent.click(screen.getByRole("button", { name: "Add to favorites" }));
+    fireEvent.click(screen.getByRole("button", { name: "Add Sample to favorites" }));
     expect((await screen.findByRole("alert")).textContent).toBe(
       "Could not update favorites. Please try again.",
     );

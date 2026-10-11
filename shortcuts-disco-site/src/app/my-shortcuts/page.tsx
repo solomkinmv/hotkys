@@ -5,6 +5,7 @@ import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "My Shortcuts",
+  robots: { index: false },
 };
 
 export default function MyShortcutsPage() {

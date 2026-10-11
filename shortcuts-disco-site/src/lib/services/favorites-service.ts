@@ -110,29 +110,6 @@ export class FavoritesService {
 
     if (error) throw error;
   }
-
-  async toggleFavorite(
-    favorite: Omit<Favorite, "id" | "userId">,
-    authUser?: AuthUser | null,
-  ): Promise<boolean> {
-    validateFavoriteMetadata(favorite);
-    const supabase = createClientOrNull(authUser);
-    if (!supabase) throw new Error("Supabase sign in is not configured.");
-
-    await requireCurrentProfile(authUser);
-
-    const existing = (await this.getFavorites(authUser)).find((row) =>
-      matchesFavorite(row, favorite),
-    );
-
-    if (existing) {
-      await this.removeFavorite(existing.id, authUser);
-      return false;
-    } else {
-      await this.addFavorite(favorite, authUser);
-      return true;
-    }
-  }
 }
 
 export const favoritesService = new FavoritesService();

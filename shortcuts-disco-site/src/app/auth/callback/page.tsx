@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import type { Metadata } from "next";
+export const metadata: Metadata = { robots: { index: false } };
 export default function AuthCallbackPage() {
   return (
     <section className="mx-auto max-w-xl rounded-2xl border bg-card p-8 sm:p-12">

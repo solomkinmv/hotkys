@@ -33,7 +33,7 @@ function UserMenuContent() {
   if (!user) {
     return (
       <Button variant="outline" size="sm" asChild>
-        <Link href={getLoginHref(next)}>Sign In</Link>
+        <Link href={getLoginHref(next)}>Sign in</Link>
       </Button>
     );
   }
@@ -69,7 +69,7 @@ function UserMenuContent() {
         <DropdownMenuItem asChild>
           <Link href="/my-shortcuts" className="cursor-pointer">
             <FolderEdit className="mr-2 h-4 w-4" />
-            My Shortcuts
+            My shortcuts
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>

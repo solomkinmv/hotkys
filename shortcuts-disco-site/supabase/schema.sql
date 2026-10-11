@@ -253,6 +253,8 @@ CREATE INDEX IF NOT EXISTS idx_custom_shortcuts_section ON public.custom_shortcu
 CREATE INDEX IF NOT EXISTS idx_favorites_user ON public.favorites(user_id);
 CREATE INDEX IF NOT EXISTS idx_favorites_app ON public.favorites(app_slug);
 CREATE INDEX IF NOT EXISTS idx_favorites_custom_app ON public.favorites(custom_app_id);
+CREATE INDEX IF NOT EXISTS favorites_custom_keymap_id_idx ON public.favorites (custom_keymap_id) WHERE custom_keymap_id IS NOT NULL;
+CREATE INDEX IF NOT EXISTS favorites_custom_shortcut_id_idx ON public.favorites (custom_shortcut_id) WHERE custom_shortcut_id IS NOT NULL;
 
 DROP INDEX IF EXISTS public.favorites_identity_unique;
 CREATE UNIQUE INDEX favorites_identity_unique

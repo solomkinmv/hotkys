@@ -6,7 +6,6 @@ import { AppDetails } from "@/app/apps/[slug]/[keymap]/app-details";
 import { AppShortcuts, Keymap } from "@/lib/model/internal/internal-models";
 import { Suspense } from "react";
 import Link from "next/link";
-import { getPlatformDisplay } from "@/lib/utils";
 import {
   generateKeymapDescription,
   createCanonical,
@@ -102,24 +101,13 @@ export default async function SingleApplicationPage({ params }: Props) {
             <FavoriteButton
               itemType="app"
               appSlug={appShortcuts.slug}
+              label={appShortcuts.name}
               showSignIn
               className="size-9 rounded-xl border bg-card"
             />
           </div>
         </div>
       </header>
-      {appShortcuts.keymaps.length > 1 && (
-        <nav className="sr-only" aria-label="Available keymaps">
-          {appShortcuts.keymaps.map((km) => (
-            <Link
-              key={km.title}
-              href={`/apps/${appShortcuts.slug}/${serializeKeymap(km)}`}
-            >
-              {km.title} ({km.platforms?.map(getPlatformDisplay).join(", ")})
-            </Link>
-          ))}
-        </nav>
-      )}
       <Suspense>
         <AppDetails application={appShortcuts} keymap={keymap} />
       </Suspense>

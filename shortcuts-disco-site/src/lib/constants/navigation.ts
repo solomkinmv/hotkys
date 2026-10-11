@@ -18,7 +18,7 @@ export const SOCIAL_LINKS = [
     icon: "TwitterIcon"
   },
   {
-    href: "https://github.com/solomkinmv/shortcuts-disco",
+    href: "https://github.com/solomkinmv/hotkys",
     label: "GitHub",
     icon: "GithubIcon"
   },
@@ -27,7 +27,7 @@ export const SOCIAL_LINKS = [
 // Footer links
 export const FOOTER_LINKS = [
   { 
-    href: "https://github.com/solomkinmv/shortcuts-disco/issues", 
+    href: "https://github.com/solomkinmv/hotkys/issues", 
     label: "Report issues or make a request" 
   },
 ];
