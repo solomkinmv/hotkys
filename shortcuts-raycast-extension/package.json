@@ -73,7 +73,7 @@
   },
   "devDependencies": {
     "@raycast/api": "^1.103.5",
-    "@raycast/eslint-config": "^2.1.1",
+    "@raycast/eslint-config": "^2.2.0",
     "@raycast/utils": "^2.2.2",
     "@types/jest": "^30.0.0",
     "@types/node": "^24.9.2",
