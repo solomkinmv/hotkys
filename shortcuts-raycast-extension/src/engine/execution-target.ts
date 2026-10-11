@@ -1,8 +1,7 @@
 import { isWindowsProcessName } from "../shortcut-core/windows";
 
 export type MacExecutionTarget =
-  | { kind: "desktop"; bundleId: string }
-  | { kind: "browser"; bundleId: string; hostname: string; url: string };
+  { kind: "desktop"; bundleId: string } | { kind: "browser"; bundleId: string; hostname: string; url: string };
 export type WindowsExecutionTarget =
   | { kind: "desktop"; windowsProcessName: string; processId?: number; windowHandle?: string }
   | {
