@@ -62,7 +62,7 @@ export function ApplicationList({
   const userPlatform = usePlatform();
   const { platformFilter, setPlatformFilter } = usePlatformFilter();
   const { applications: mergedApplications } = useMergedAppSummaries(applications);
-  const { user, isLoading: authLoading } = useAuth();
+  const { user, isLoading: authLoading, isUnavailable } = useAuth();
   const { favorites, isLoading: favoritesLoading } = useFavorites();
 
   const filteredByPlatform = useMemo(
@@ -106,6 +106,7 @@ export function ApplicationList({
     <>
       <section
         aria-labelledby="favorites-title"
+        hidden={isUnavailable}
         className="mb-12 flex flex-col gap-5 rounded-2xl border bg-muted/50 p-5 sm:p-6 lg:flex-row lg:items-center lg:justify-between"
       >
         <div className="flex items-start gap-4 lg:max-w-sm">

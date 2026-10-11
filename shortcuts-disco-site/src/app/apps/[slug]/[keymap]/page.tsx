@@ -4,7 +4,6 @@ import { notFound } from "next/navigation";
 import { keymapMatchesTitle, serializeKeymap } from "@/lib/model/keymap-utils";
 import { AppDetails } from "@/app/apps/[slug]/[keymap]/app-details";
 import { AppShortcuts, Keymap } from "@/lib/model/internal/internal-models";
-import { Suspense } from "react";
 import Link from "next/link";
 import {
   generateKeymapDescription,
@@ -109,9 +108,7 @@ export default async function SingleApplicationPage({ params }: Props) {
           </div>
         </div>
       </header>
-      <Suspense>
-        <AppDetails application={appShortcuts} keymap={keymap} />
-      </Suspense>
+      <AppDetails application={appShortcuts} keymap={keymap} />
     </>
   );
 }

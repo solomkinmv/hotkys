@@ -3,10 +3,11 @@
 import { SignIn } from "@clerk/react";
 import { useSearchParams } from "next/navigation";
 import { useAuth } from "@/components/auth/auth-provider";
+import { AuthUnavailableNotice } from "@/components/auth/auth-unavailable";
 import { getSafeAuthRedirectPath } from "@/lib/auth/redirect";
 
 export function LoginForm() {
-  const { isConfigured } = useAuth();
+  const { isConfigured, isUnavailable } = useAuth();
   const searchParams = useSearchParams();
   const redirectUrl = getSafeAuthRedirectPath(searchParams.get("next"));
 
@@ -16,6 +17,10 @@ export function LoginForm() {
         Sign in is not configured for this deployment yet.
       </div>
     );
+  }
+
+  if (isUnavailable) {
+    return <AuthUnavailableNotice headingLevel="h2" />;
   }
 
   return (

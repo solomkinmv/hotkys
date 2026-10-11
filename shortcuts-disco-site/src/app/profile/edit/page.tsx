@@ -1,3 +1,4 @@
+import { AuthUnavailableGate } from "@/components/auth/auth-unavailable";
 import { EditProfileContent } from "./edit-profile-content";
 import type { Metadata } from "next";
 
@@ -7,5 +8,9 @@ export const metadata: Metadata = {
 };
 
 export default function EditProfilePage() {
-  return <EditProfileContent />;
+  return (
+    <AuthUnavailableGate>
+      <EditProfileContent />
+    </AuthUnavailableGate>
+  );
 }
