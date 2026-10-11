@@ -141,7 +141,7 @@ export default function About() {
             variant="outline"
             className="mt-6 h-auto min-h-9 max-w-full rounded-xl whitespace-normal text-left"
           >
-            <Link href="https://github.com/solomkinmv/shortcuts-disco#contributing-shortcuts">
+            <Link href="https://github.com/solomkinmv/hotkys/blob/main/CONTRIBUTING.md">
               Read the contribution guide{" "}
               <ArrowUpRight className="size-4" aria-hidden="true" />
             </Link>
@@ -160,7 +160,7 @@ export default function About() {
               <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
                 Create or edit a JSON file in{" "}
                 <Link
-                  href="https://github.com/solomkinmv/shortcuts-disco/tree/main/shortcuts-disco-site/shortcuts-data"
+                  href="https://github.com/solomkinmv/hotkys/tree/main/shortcuts-disco-site/shortcuts-data"
                   className="font-mono text-xs text-foreground underline decoration-border underline-offset-4 hover:decoration-brand"
                 >
                   shortcuts-data
@@ -183,7 +183,7 @@ export default function About() {
                 below to help your editor validate the file.
               </p>
               <code className="mt-3 block rounded-lg bg-muted px-3 py-2 font-mono text-xs leading-relaxed break-words">
-                &quot;$schema&quot;: &quot;schema/shortcut.schema.json&quot;
+                &quot;$schema&quot;: &quot;https://hotkys.com/schema/shortcut.schema.json&quot;
               </code>
             </div>
           </li>

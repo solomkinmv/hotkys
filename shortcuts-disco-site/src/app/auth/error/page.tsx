@@ -1,7 +1,10 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import type { Metadata } from "next";
-export const metadata: Metadata = { title: "Sign-in interrupted" };
+export const metadata: Metadata = {
+  title: "Sign-in interrupted",
+  robots: { index: false },
+};
 export default function AuthErrorPage() {
   return (
     <section className="mx-auto max-w-xl rounded-2xl border bg-card p-8 sm:p-12">

@@ -18,9 +18,9 @@ it("checks every required column with zero-row requests and no stored session", 
   expect(mockCreateClient).toHaveBeenCalledWith(config.supabaseUrl, config.supabaseKey, {
     auth: { persistSession: false, autoRefreshToken: false },
   });
-  expect(mockFrom.mock.calls).toEqual([["favorites"], ["custom_shortcuts"], ["custom_keymaps"]]);
-  expect(mockSelect.mock.calls).toEqual([["custom_keymap_id,custom_shortcut_id"], ["key_is_cleared,comment_is_cleared"], ["sort_order"]]);
-  expect(mockLimit.mock.calls).toEqual([[0], [0], [0]]);
+  expect(mockFrom.mock.calls).toEqual([["favorites"], ["custom_shortcuts"], ["custom_keymaps"], ["custom_apps"]]);
+  expect(mockSelect.mock.calls).toEqual([["custom_keymap_id,custom_shortcut_id"], ["key_is_cleared,comment_is_cleared"], ["sort_order"], ["windows_app_id,windows_process_name"]]);
+  expect(mockLimit.mock.calls).toEqual([[0], [0], [0], [0]]);
 });
 
 it("uses the legacy anon key throughout when the publishable-key variable is empty", async () => {

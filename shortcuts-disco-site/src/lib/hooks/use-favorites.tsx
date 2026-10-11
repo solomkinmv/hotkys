@@ -1,14 +1,11 @@
 "use client";
-import { useCallback, useRef, useState, type ReactNode } from "react";
+import { useCallback, useRef, useState } from "react";
 import { useAccountData } from "@/components/auth/account-data-provider";
 import { useAuth } from "@/components/auth/auth-provider";
 import {
   matchesFavorite,
   type FavoriteIdentifier,
 } from "@/lib/shortcut-core/favorites";
-export function FavoritesProvider({ children }: { children: ReactNode }) {
-  return children;
-}
 export function useFavorites() {
   const account = useAccountData();
   const { refreshAfterWrite } = account;

@@ -15,7 +15,6 @@ export type ShortcutModifierToken = (typeof SHORTCUT_MODIFIER_TOKENS)[number];
 
 const FORMAT_REPLACEMENTS: [RegExp, string][] = [
   [/\boption\b/g, "opt"],
-  [/\balt\b/g, "alt"],
   [/\bcommand\b/g, "cmd"],
   [/\bescape\b/g, "esc"],
   [/\bpgup\b/g, "pageup"],

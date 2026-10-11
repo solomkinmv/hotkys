@@ -4,7 +4,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { Suspense } from "react";
 
-export const metadata: Metadata = { title: "Sign In" };
+export const metadata: Metadata = { title: "Sign In", robots: { index: false } };
 export default function LoginPage() {
   return (
     <section className="mx-auto grid max-w-5xl items-center gap-10 py-4 md:grid-cols-[1.1fr_1fr] md:gap-16 md:py-12">

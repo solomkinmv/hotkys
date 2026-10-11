@@ -1,6 +1,6 @@
 import { describe, expect, it, jest, beforeEach } from "@jest/globals";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import { getBaseShortcutId } from "@/lib/shortcut-identity";
+import { getBaseShortcutId } from "@/lib/shortcut-core/identity";
 import type { AppShortcuts } from "@/lib/model/internal/internal-models";
 
 const mockUseAuth = jest.fn();

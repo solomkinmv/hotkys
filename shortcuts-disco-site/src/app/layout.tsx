@@ -8,7 +8,6 @@ import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { ThemeProvider } from "@/components/theme-provider";
 import { AuthProvider } from "@/components/auth/auth-provider";
-import { FavoritesProvider } from "@/lib/hooks/use-favorites";
 
 /**
  * Font configuration for the application
@@ -58,18 +57,16 @@ const RootLayout = ({ children }: React.PropsWithChildren) => {
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <AuthProvider>
-            <FavoritesProvider>
-              <Header />
+            <Header />
 
-              <main
-                id="main-content"
-                className="flex-1 px-5 py-8 md:px-10 md:py-10"
-              >
-                {children}
-              </main>
+            <main
+              id="main-content"
+              className="flex-1 px-5 py-8 md:px-10 md:py-10"
+            >
+              {children}
+            </main>
 
-              <Footer />
-            </FavoritesProvider>
+            <Footer />
           </AuthProvider>
         </ThemeProvider>
         <GoogleAnalytics gaId="G-RKBKYV49KC" />

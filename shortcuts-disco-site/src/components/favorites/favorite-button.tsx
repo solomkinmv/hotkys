@@ -64,7 +64,7 @@ export function FavoriteButton({
       >
         <Link
           href={getLoginHref(pathname)}
-          aria-label={`Sign in to favorite ${appSlug}`}
+          aria-label={`Sign in to favorite ${label ?? appSlug}`}
         >
           <Star className="h-4 w-4" aria-hidden="true" />
         </Link>
