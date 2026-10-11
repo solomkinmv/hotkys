@@ -5,6 +5,7 @@
   "slug": "affinity-photo",
   "source": "https://support.affinity.co/s/article/Keyboard-Shortcuts",
   "icon": "icons/affinityphoto.png",
+  "windowsProcessName": "Photo",
   "keymaps": [
     {
       "title": "Default",

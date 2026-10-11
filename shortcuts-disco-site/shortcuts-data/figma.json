@@ -5,6 +5,7 @@
   "slug": "figma",
   "source": "https://help.figma.com/hc/en-us/articles/360040328653-Use-Figma-products-with-a-keyboard",
   "icon": "icons/figma.png",
+  "windowsProcessName": "Figma",
   "keymaps": [
     {
       "title": "Default",

@@ -5,6 +5,7 @@
   "slug": "adobe-illustrator",
   "source": "https://helpx.adobe.com/illustrator/using/default-keyboard-shortcuts.html",
   "icon": "icons/adobe-illustrator.png",
+  "windowsProcessName": "Illustrator",
   "keymaps": [
     {
       "title": "Default",

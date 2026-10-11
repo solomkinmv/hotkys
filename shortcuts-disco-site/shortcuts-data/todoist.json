@@ -5,6 +5,7 @@
   "slug": "todoist",
   "source": "https://www.todoist.com/help/articles/use-keyboard-shortcuts-in-todoist-Wyovn2",
   "icon": "icons/todoist.png",
+  "windowsProcessName": "Todoist",
   "keymaps": [
     {
       "title": "Default",

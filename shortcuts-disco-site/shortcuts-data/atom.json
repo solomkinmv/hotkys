@@ -5,6 +5,7 @@
   "slug": "atom",
   "source": "https://github.com/atom/atom",
   "icon": "icons/atom.png",
+  "windowsProcessName": "atom",
   "keymaps": [
     {
       "title": "Default",
