@@ -12,7 +12,7 @@ import { useKeyboardNavigation } from "@/lib/hooks/use-keyboard-navigation";
 import { ShortcutMethod } from "@/components/shortcuts/shortcut-method";
 import { ShortcutFields } from "@/components/shortcuts/shortcut-fields";
 import { Modifiers } from "@/lib/model/internal/modifiers";
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { SearchBar } from "@/components/ui/search-bar";
 import { TypographyMuted, TypographySmall } from "@/components/ui/typography";
 import Fuse from "fuse.js";
@@ -146,6 +146,18 @@ function normalizeColumnCount(value: number): number {
   return Math.min(MAX_COLUMNS, Math.max(MIN_COLUMNS, value));
 }
 
+function SearchParamsListener({
+  onChange,
+}: {
+  onChange: (searchParams: URLSearchParams) => void;
+}) {
+  const searchParams = useSearchParams();
+  useEffect(() => {
+    onChange(new URLSearchParams(searchParams.toString()));
+  }, [onChange, searchParams]);
+  return null;
+}
+
 function getStoredColumnCount(): number {
   if (typeof window === "undefined") return DEFAULT_COLUMNS;
   const stored = localStorage.getItem(COLUMN_COUNT_STORAGE_KEY);
@@ -171,7 +183,10 @@ export const AppDetails = ({
   } = usePreferences();
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
+  // Read after mount so the default view is part of the static HTML.
+  const [searchParams, setSearchParams] = useState<URLSearchParams>(
+    () => new URLSearchParams(),
+  );
   const urlViewMode = parseViewMode(searchParams.get("view"));
   const urlColumnCount = parseColumnCount(searchParams.get("cols"));
   const mergedApplication = useMemo(() => {
@@ -864,6 +879,9 @@ export const AppDetails = ({
 
   return (
     <div className="mx-auto w-full max-w-6xl pb-8">
+      <Suspense fallback={null}>
+        <SearchParamsListener onChange={setSearchParams} />
+      </Suspense>
       <div className="mb-8 rounded-2xl border bg-muted/40 p-3 sm:p-4">
         <div className="grid grid-cols-1 gap-3 lg:grid-cols-[minmax(0,1fr)_280px]">
           <div
