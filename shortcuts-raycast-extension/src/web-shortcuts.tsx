@@ -6,6 +6,12 @@ import { ShortcutsList } from "./view/shortcuts-list";
 import { getFrontmostBrowserTarget } from "./engine/frontmost-hostname-fetcher";
 import { findHostnameMatch } from "./engine/hostname-matcher";
 import { UnsupportedApp } from "./view/unsupported-app";
+import { getPlatform, type Platform } from "./load/platform";
+
+const SUPPORTED_BROWSERS: Record<Platform, string> = {
+  macos: "Chrome, Safari, Arc, Edge, Brave, Vivaldi, Opera or Chromium",
+  windows: "Chrome, Edge, Firefox, Brave, Vivaldi, Opera or Chromium",
+};
 
 export default function WebShortcuts() {
   const [slug, setSlug] = useState<string | undefined>();
@@ -36,7 +42,7 @@ export default function WebShortcuts() {
       return (
         <UnsupportedApp
           title="No web page detected"
-          description="Open a web app in a supported browser, focus its tab and run the command again."
+          description={`Focus a web app tab in ${SUPPORTED_BROWSERS[getPlatform()]} and run the command again.`}
         />
       );
     }
