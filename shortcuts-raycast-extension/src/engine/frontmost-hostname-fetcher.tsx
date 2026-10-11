@@ -55,8 +55,9 @@ const appleScript = `
   }
 
   function run(argv) {
-    const url = getFrontmostLink();
-    return url ? JSON.stringify({ bundleId: getFrontmostApp(), url }) : "null";
+    const bundleId = getFrontmostApp();
+    if (!chromium.has(bundleId) && !safari.has(bundleId) && !arc.has(bundleId)) return "null";
+    return JSON.stringify({ bundleId, url: getFrontmostLink() || null });
   }
 `;
 
@@ -64,7 +65,8 @@ export async function getFrontmostBrowserTarget(): Promise<ExecutionTarget | nul
   if (getPlatform() === "windows") return getWindowsFrontmostBrowserTarget();
   const result = await runAppleScript(appleScript, { language: "JavaScript" });
   if (!result || result === "null") return null;
-  const { bundleId, url } = JSON.parse(result) as { bundleId: string; url: string };
+  const { bundleId, url } = JSON.parse(result) as { bundleId: string; url: string | null };
+  if (!url) throw new Error("The active browser tab has no web page");
   return { kind: "browser", bundleId, url, hostname: new URL(url).hostname };
 }
 export async function getFrontmostHostname(): Promise<string | null> {
