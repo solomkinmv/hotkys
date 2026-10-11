@@ -19,7 +19,7 @@
         {
           "name": "delay",
           "title": "Delay",
-          "description": "Specify delay required before running shortcut for the application",
+          "description": "Seconds (0–5) to wait before running a shortcut in the application",
           "default": "0",
           "required": false,
           "type": "textfield"
@@ -35,7 +35,7 @@
         {
           "name": "delay",
           "title": "Delay",
-          "description": "Specify delay required before running shortcut on the app",
+          "description": "Seconds (0–5) to wait before running a shortcut in the app",
           "required": false,
           "default": "0",
           "type": "textfield"
@@ -51,7 +51,7 @@
         {
           "name": "delay",
           "title": "Delay",
-          "description": "Specify delay required before running shortcut on the web page",
+          "description": "Seconds (0–5) to wait before running a shortcut on the web page",
           "required": false,
           "default": "0",
           "type": "textfield"
