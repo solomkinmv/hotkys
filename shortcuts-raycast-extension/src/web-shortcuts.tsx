@@ -5,7 +5,7 @@ import { useAppShortcuts } from "./load/app-shortcuts-provider";
 import { ShortcutsList } from "./view/shortcuts-list";
 import { getFrontmostBrowserTarget } from "./engine/frontmost-hostname-fetcher";
 import { findHostnameMatch } from "./engine/hostname-matcher";
-import { exitWithMessage } from "./view/exit-action";
+import { UnsupportedApp } from "./view/unsupported-app";
 
 export default function WebShortcuts() {
   const [slug, setSlug] = useState<string | undefined>();
@@ -24,21 +24,32 @@ export default function WebShortcuts() {
 
   // Find matching app by hostname
   useEffect(() => {
-    if (hostnameLoading || slug || appsLoading) {
+    if (hostnameLoading || slug || appsLoading || !hostname) {
       return;
     }
-    if (!hostname) {
-      exitWithMessage("No current web application found");
-      return;
-    }
-
     const foundApp = findHostnameMatch(apps, hostname);
-    if (!foundApp) {
-      exitWithMessage(`Shortcuts not available for application ${hostname}`);
-      return;
-    }
-    setSlug(foundApp.slug);
+    if (foundApp) setSlug(foundApp.slug);
   }, [appsLoading, hostname, slug, hostnameLoading, apps]);
+
+  if (!slug && !hostnameLoading && !appsLoading) {
+    if (!hostname) {
+      return (
+        <UnsupportedApp
+          title="No web page detected"
+          description="Open a web app in a supported browser, focus its tab and run the command again."
+        />
+      );
+    }
+    if (!findHostnameMatch(apps, hostname)) {
+      return (
+        <UnsupportedApp
+          title={`No shortcuts for ${hostname} yet`}
+          description="Add this web app to the public Hotkys catalog using the contribution guide, or create private shortcuts on hotkys.com."
+          identifier={hostname}
+        />
+      );
+    }
+  }
 
   return (
     <ShortcutsList
