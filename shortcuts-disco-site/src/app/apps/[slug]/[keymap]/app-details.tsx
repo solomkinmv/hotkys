@@ -711,6 +711,7 @@ export const AppDetails = ({
               </span>
               <ShortcutMethod
                 shortcut={hotkey}
+                platforms={displayKeymap.platforms}
                 className="col-span-2 row-start-2 sm:col-span-1 sm:col-start-2 sm:row-start-1"
               />
               <span className="col-start-2 row-start-1 flex items-center justify-end gap-2 sm:col-start-3">
@@ -804,6 +805,7 @@ export const AppDetails = ({
                     </div>
                     <ShortcutMethod
                       shortcut={hotkey}
+                      platforms={displayKeymap.platforms}
                       compact
                       className="col-span-2 row-start-2"
                     />

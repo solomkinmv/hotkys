@@ -1,19 +1,24 @@
 "use client";
 
 import { ShortcutDisplay } from "@/components/ui/shortcut-display";
-import type { SectionShortcut } from "@/lib/model/internal/internal-models";
+import type {
+  Platform,
+  SectionShortcut,
+} from "@/lib/model/internal/internal-models";
 import {
+  getModifierSymbols,
   modifierMapping,
-  modifierSymbols,
 } from "@/lib/model/internal/modifiers";
 import { cn } from "@/lib/utils";
 
 export function ShortcutMethod({
   shortcut,
+  platforms,
   compact = false,
   className,
 }: {
   shortcut: SectionShortcut;
+  platforms?: Platform[];
   compact?: boolean;
   className?: string;
 }) {
@@ -32,6 +37,7 @@ export function ShortcutMethod({
       {hasKeys && (
         <ShortcutDisplay
           shortcut={shortcut}
+          platforms={platforms}
           className={cn(
             "max-w-full justify-start",
             compact &&
@@ -46,7 +52,7 @@ export function ShortcutMethod({
             hasKeys ? "text-foreground/80" : "text-foreground",
           )}
         >
-          {generateCommentText(shortcut.comment)}
+          {generateCommentText(shortcut.comment, platforms)}
         </span>
       )}
     </div>
@@ -55,11 +61,13 @@ export function ShortcutMethod({
 
 function generateCommentText(
   optionalComment: string | undefined,
+  platforms: Platform[] | undefined,
 ): string | undefined {
   if (optionalComment === undefined) {
     return undefined;
   }
   let comment = optionalComment;
+  const modifierSymbols = getModifierSymbols(platforms);
   modifierMapping.forEach((modifier, text) => {
     comment = comment.replace(
       "{" + text + "}",

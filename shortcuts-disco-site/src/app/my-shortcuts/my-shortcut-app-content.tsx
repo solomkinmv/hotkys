@@ -767,6 +767,7 @@ export function MyShortcutAppContent({
                             </button>
                             <ShortcutMethod
                               shortcut={shortcut}
+                              platforms={keymap?.platforms}
                               className="col-span-2 row-start-2 sm:col-span-1 sm:col-start-2 sm:row-start-1"
                             />
                             <div className="col-start-2 row-start-1 flex items-center sm:col-start-3">

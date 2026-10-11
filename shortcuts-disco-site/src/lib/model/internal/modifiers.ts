@@ -33,11 +33,6 @@ export function getPlatform(): Platform {
     return cachedPlatform;
 }
 
-// Lazy evaluation to avoid hydration mismatches
-export const isWindows = typeof window !== 'undefined' && getPlatform() === 'windows';
-export const isLinux = typeof window !== 'undefined' && getPlatform() === 'linux';
-export const isMacOS = typeof window !== 'undefined' && getPlatform() === 'macos';
-
 // macOS modifier symbols
 export const macModifierSymbols: Map<Modifiers, string> = new Map([
     [Modifiers.command, "⌘"],
@@ -65,11 +60,58 @@ export const linuxModifierSymbols: Map<Modifiers, string> = new Map([
     [Modifiers.win, "Super"],
 ]);
 
-// Use the appropriate modifier symbols based on platform
-export const modifierSymbols: Map<Modifiers, string> = 
-    isWindows ? winModifierSymbols : 
-    isLinux ? linuxModifierSymbols : 
-    macModifierSymbols;
+const macModifierNames: Map<Modifiers, string> = new Map([
+    [Modifiers.command, "Command"],
+    [Modifiers.control, "Control"],
+    [Modifiers.option, "Option"],
+    [Modifiers.shift, "Shift"],
+    [Modifiers.win, "Windows"],
+]);
+
+const winModifierNames: Map<Modifiers, string> = new Map([
+    [Modifiers.command, "Control"],
+    [Modifiers.control, "Control"],
+    [Modifiers.option, "Alt"],
+    [Modifiers.shift, "Shift"],
+    [Modifiers.win, "Windows"],
+]);
+
+const linuxModifierNames: Map<Modifiers, string> = new Map([
+    ...winModifierNames,
+    [Modifiers.win, "Super"],
+]);
+
+/**
+ * Picks the platform whose modifier glyphs a keymap is written for.
+ * Keymaps that include macOS (or declare no platform) use macOS glyphs.
+ */
+export function getKeymapDisplayPlatform(platforms?: Platform[]): Platform {
+    if (!platforms?.length || platforms.includes("macos")) return "macos";
+    if (platforms.includes("windows")) return "windows";
+    return "linux";
+}
+
+export function getModifierSymbols(platforms?: Platform[]): Map<Modifiers, string> {
+    switch (getKeymapDisplayPlatform(platforms)) {
+        case "windows":
+            return winModifierSymbols;
+        case "linux":
+            return linuxModifierSymbols;
+        case "macos":
+            return macModifierSymbols;
+    }
+}
+
+export function getModifierNames(platforms?: Platform[]): Map<Modifiers, string> {
+    switch (getKeymapDisplayPlatform(platforms)) {
+        case "windows":
+            return winModifierNames;
+        case "linux":
+            return linuxModifierNames;
+        case "macos":
+            return macModifierNames;
+    }
+}
 
 export const modifierMapping: Map<string, Modifiers> = new Map([
     ["ctrl", Modifiers.control],

@@ -3,9 +3,13 @@
 import { Kbd, KbdGroup } from "@/components/ui/kbd";
 import {
   AtomicShortcut,
+  Platform,
   SectionShortcut,
 } from "@/lib/model/internal/internal-models";
-import { Modifiers, modifierSymbols } from "@/lib/model/internal/modifiers";
+import {
+  getModifierNames,
+  getModifierSymbols,
+} from "@/lib/model/internal/modifiers";
 import { cn } from "@/lib/utils";
 
 const baseKeySymbolOverride: Record<string, string> = {
@@ -25,45 +29,73 @@ const baseKeySymbolOverride: Record<string, string> = {
   enter: "↩",
 };
 
+const baseKeySpokenName: Record<string, string> = {
+  left: "Left Arrow",
+  right: "Right Arrow",
+  up: "Up Arrow",
+  down: "Down Arrow",
+  pageup: "Page Up",
+  pagedown: "Page Down",
+  capslock: "Caps Lock",
+  backspace: "Backspace",
+  tab: "Tab",
+  esc: "Escape",
+  enter: "Enter",
+};
+
 function formatBaseKey(base: string): string {
   return baseKeySymbolOverride[base] ?? base.toUpperCase();
 }
 
-function formatModifier(modifier: Modifiers): string {
-  return modifierSymbols.get(modifier) ?? modifier;
+function speakBaseKey(base: string): string {
+  return baseKeySpokenName[base] ?? formatBaseKey(base);
 }
+
+const kbdClassName =
+  "h-7 min-w-7 rounded-md border bg-background px-1.5 font-mono text-[13px] text-foreground shadow-[0_2px_0_hsl(var(--border))]";
 
 interface AtomicShortcutDisplayProps {
   shortcut: AtomicShortcut;
+  platforms?: Platform[];
 }
 
-function AtomicShortcutDisplay({ shortcut }: AtomicShortcutDisplayProps) {
-  const modifierKeys = shortcut.modifiers.map((mod) => formatModifier(mod));
-  const baseKey = formatBaseKey(shortcut.base);
+function AtomicShortcutDisplay({
+  shortcut,
+  platforms,
+}: AtomicShortcutDisplayProps) {
+  const symbols = getModifierSymbols(platforms);
+  const names = getModifierNames(platforms);
+  const spokenLabel = [
+    ...shortcut.modifiers.map((mod) => names.get(mod) ?? mod),
+    speakBaseKey(shortcut.base),
+  ].join(" ");
 
   return (
-    <KbdGroup>
-      {modifierKeys.map((mod, index) => (
-        <Kbd
-          key={index}
-          className="h-7 min-w-7 rounded-md border bg-background px-1.5 font-mono text-[13px] text-foreground shadow-[0_2px_0_hsl(var(--border))]"
-        >
-          {mod}
-        </Kbd>
-      ))}
-      <Kbd className="h-7 min-w-7 rounded-md border bg-background px-1.5 font-mono text-[13px] text-foreground shadow-[0_2px_0_hsl(var(--border))]">
-        {baseKey}
-      </Kbd>
-    </KbdGroup>
+    <>
+      <KbdGroup aria-hidden="true">
+        {shortcut.modifiers.map((mod, index) => (
+          <Kbd key={index} className={kbdClassName}>
+            {symbols.get(mod) ?? mod}
+          </Kbd>
+        ))}
+        <Kbd className={kbdClassName}>{formatBaseKey(shortcut.base)}</Kbd>
+      </KbdGroup>
+      <span className="sr-only">{spokenLabel}</span>
+    </>
   );
 }
 
 interface ShortcutDisplayProps {
   shortcut: SectionShortcut;
+  platforms?: Platform[];
   className?: string;
 }
 
-export function ShortcutDisplay({ shortcut, className }: ShortcutDisplayProps) {
+export function ShortcutDisplay({
+  shortcut,
+  platforms,
+  className,
+}: ShortcutDisplayProps) {
   if (shortcut.sequence.length === 0) {
     return null;
   }
@@ -80,7 +112,7 @@ export function ShortcutDisplay({ shortcut, className }: ShortcutDisplayProps) {
           {index > 0 && (
             <span className="text-muted-foreground text-xs mx-1">then</span>
           )}
-          <AtomicShortcutDisplay shortcut={atomic} />
+          <AtomicShortcutDisplay shortcut={atomic} platforms={platforms} />
         </span>
       ))}
     </span>

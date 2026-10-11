@@ -18,6 +18,7 @@ import { serializeKeymap } from "@/lib/model/keymap-utils";
 import { appDescriptions } from "@/lib/app-descriptions";
 import type {
   AppShortcuts,
+  Platform,
   SectionShortcut,
 } from "@/lib/model/internal/internal-models";
 import type {
@@ -399,7 +400,10 @@ export function FavoritesContent() {
                               </Link>
                               <div className="col-span-2 row-start-2 min-w-0 sm:col-span-1 sm:col-start-2 sm:row-start-1">
                                 {entry.shortcut ? (
-                                  <ShortcutMethod shortcut={entry.shortcut} />
+                                  <ShortcutMethod
+                                    shortcut={entry.shortcut}
+                                    platforms={entry.platforms}
+                                  />
                                 ) : (
                                   <p className="text-sm text-muted-foreground">
                                     Shortcut unavailable. You can still remove
@@ -436,6 +440,7 @@ interface FavoriteEntry {
   sectionTitle?: string;
   groupKey: string;
   shortcut?: SectionShortcut;
+  platforms?: Platform[];
 }
 function resolveFavorite(
   favorite: Favorite,
@@ -567,6 +572,7 @@ function resolveFavorite(
     href,
     keymapTitle,
     sectionTitle,
+    platforms: keymap?.platforms,
     groupKey: `${custom?.id ?? app?.slug ?? favorite.appSlug}/${privateKeymap?.id ?? addedKeymapId ?? keymapTitle}`,
     title:
       favorite.itemType === "app"
