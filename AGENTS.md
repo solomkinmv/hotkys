@@ -38,7 +38,6 @@ From the root: `node scripts/sync-shortcuts-core.mjs --check|--write`.
 ## Configuration and secrets
 
 - Public catalog development needs no env file. For accounts, copy `shortcuts-disco-site/.env.local.example` to `.env.local` with a designated test environment. Only `NEXT_PUBLIC_*` values belong there; never use server/secret keys or point test Clerk at production Supabase.
-- `NEXT_PUBLIC_ENABLE_OVERLAY_CLEARING` stays off until the rollout in `docs/auth-operations.md` is complete.
 - Raycast's public Clerk OAuth client and Supabase publishable key are checked in at `src/auth/config.ts`.
 - Production migrations, dashboard changes, deployment and store release need explicit authorization.
 
