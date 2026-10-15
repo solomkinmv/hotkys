@@ -46,6 +46,7 @@ jobs:
           npm run validate-data
           npm run format-data:check
           npm run format:check
+          npx prettier --config ../shortcuts-raycast-extension/.prettierrc --check ../shared ../scripts
           npm run test:catalog
 
       - name: Test
