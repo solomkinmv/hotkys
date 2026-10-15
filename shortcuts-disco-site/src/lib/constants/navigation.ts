@@ -8,26 +8,30 @@ export type NavIconKey = "HelpCircle" | "Raycast";
 export const MAIN_NAV_LINKS = [
   { href: "/about", label: "About", icon: "HelpCircle" },
   { href: "/raycast-extension", label: "Raycast Extension", icon: "Raycast" },
-] as const satisfies readonly { href: string; label: string; icon: NavIconKey }[];
+] as const satisfies readonly {
+  href: string;
+  label: string;
+  icon: NavIconKey;
+}[];
 
 // Social media links
 export const SOCIAL_LINKS = [
   {
     href: "https://twitter.com/solomkinmv",
     label: "Twitter",
-    icon: "TwitterIcon"
+    icon: "TwitterIcon",
   },
   {
     href: "https://github.com/solomkinmv/hotkys",
     label: "GitHub",
-    icon: "GithubIcon"
+    icon: "GithubIcon",
   },
 ] as const;
 
 // Footer links
 export const FOOTER_LINKS = [
-  { 
-    href: "https://github.com/solomkinmv/hotkys/issues", 
-    label: "Report issues or make a request" 
+  {
+    href: "https://github.com/solomkinmv/hotkys/issues",
+    label: "Report issues or make a request",
   },
 ];

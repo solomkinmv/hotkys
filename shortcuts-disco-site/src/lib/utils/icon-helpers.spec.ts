@@ -7,7 +7,7 @@ describe("getIconUrl", () => {
       "returns undefined for %p",
       (input) => {
         expect(getIconUrl(input as string | undefined)).toBeUndefined();
-      }
+      },
     );
 
     it.each([
@@ -39,7 +39,7 @@ describe("getIconUrl", () => {
 
     it("trims whitespace from absolute URLs", () => {
       expect(getIconUrl("  https://example.com/icon.png  ")).toBe(
-        "https://example.com/icon.png"
+        "https://example.com/icon.png",
       );
     });
   });

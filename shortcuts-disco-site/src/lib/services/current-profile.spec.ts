@@ -8,10 +8,8 @@ jest.mock("@/lib/supabase/client", () => ({
   createClientOrNull: mockCreateClientOrNull,
 }));
 
-const {
-  clearCurrentProfileCache,
-  getCurrentProfile,
-} = require("./current-profile") as typeof import("./current-profile");
+const { clearCurrentProfileCache, getCurrentProfile } =
+  require("./current-profile") as typeof import("./current-profile");
 
 interface DeferredProfile {
   promise: Promise<{

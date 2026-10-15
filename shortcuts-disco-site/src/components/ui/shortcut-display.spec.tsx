@@ -14,9 +14,7 @@ const originalUserAgent = navigator.userAgent;
 
 const shiftCommandA: SectionShortcut = {
   title: "Select all",
-  sequence: [
-    { base: "a", modifiers: [Modifiers.shift, Modifiers.command] },
-  ],
+  sequence: [{ base: "a", modifiers: [Modifiers.shift, Modifiers.command] }],
 };
 
 function setUserAgent(userAgent: string) {

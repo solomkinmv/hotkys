@@ -899,7 +899,9 @@ describe("AppDetails", () => {
       });
       render(<AppDetails application={application} keymap={keymap} />);
       fireEvent.click(screen.getByRole("button", { name: "Copy" }));
-      expect(screen.getByRole("button", { name: "Delete shortcut" })).toBeTruthy();
+      expect(
+        screen.getByRole("button", { name: "Delete shortcut" }),
+      ).toBeTruthy();
       fireEvent.change(screen.getByLabelText("Action"), {
         target: { value: "Copy custom" },
       });
@@ -917,10 +919,9 @@ describe("AppDetails", () => {
       fireEvent.click(screen.getByRole("button", { name: "Delete shortcut" }));
       fireEvent.click(screen.getByRole("button", { name: "Delete" }));
       await waitFor(() =>
-        expect(deleteCustomShortcutMock).toHaveBeenCalledWith(
-          "added-copy",
-          { id: "user-1" },
-        ),
+        expect(deleteCustomShortcutMock).toHaveBeenCalledWith("added-copy", {
+          id: "user-1",
+        }),
       );
       expect(upsertShortcutOverlayMock).not.toHaveBeenCalled();
     },

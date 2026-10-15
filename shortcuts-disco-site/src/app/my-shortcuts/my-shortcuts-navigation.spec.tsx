@@ -1,7 +1,10 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import "@testing-library/jest-dom/jest-globals";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import type { CustomApp, UserCustomizations } from "@/lib/model/user/user-models";
+import type {
+  CustomApp,
+  UserCustomizations,
+} from "@/lib/model/user/user-models";
 
 const user = { id: "user-1" };
 let mockSearchParams = new URLSearchParams();
@@ -10,16 +13,18 @@ let mockReadFailure = false;
 const mockPush = jest.fn((url: string) => {
   mockSearchParams = new URLSearchParams(url.split("?")[1]);
 });
-const mockCreateApp = jest.fn(async (values: Pick<CustomApp, "slug" | "name">) => {
-  const app: CustomApp = {
-    id: "new-app",
-    userId: "user-1",
-    ...values,
-    keymaps: [],
-  };
-  saved.customApps.push(app);
-  return app;
-});
+const mockCreateApp = jest.fn(
+  async (values: Pick<CustomApp, "slug" | "name">) => {
+    const app: CustomApp = {
+      id: "new-app",
+      userId: "user-1",
+      ...values,
+      keymaps: [],
+    };
+    saved.customApps.push(app);
+    return app;
+  },
+);
 
 jest.mock("next/navigation", () => ({
   useSearchParams: () => mockSearchParams,
@@ -134,7 +139,9 @@ describe("My Shortcuts navigation", () => {
     expect(
       await screen.findByRole("heading", { name: "New Tool" }),
     ).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Add keymap" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Add keymap" }),
+    ).toBeInTheDocument();
     expect(screen.queryByText("App not found")).not.toBeInTheDocument();
     expect(mockCreateApp).toHaveBeenCalledTimes(1);
   });

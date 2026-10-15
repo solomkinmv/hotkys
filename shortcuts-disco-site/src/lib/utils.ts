@@ -1,14 +1,14 @@
-import { type ClassValue, clsx } from "clsx"
-import { twMerge } from "tailwind-merge"
-import path from "path"
-import { Platform } from "./model/internal/internal-models"
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+import path from "path";
+import { Platform } from "./model/internal/internal-models";
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
 }
 
-export const rootFolder = path.resolve(__dirname, '../..')
-export const dataFolder = path.resolve(rootFolder, 'shortcuts-data')
+export const rootFolder = path.resolve(__dirname, "../..");
+export const dataFolder = path.resolve(rootFolder, "shortcuts-data");
 
 /**
  * Get display name for platform
@@ -19,12 +19,12 @@ export function getPlatformDisplay(platform?: Platform): string | null {
   if (!platform) return null;
 
   switch (platform) {
-    case 'windows':
-      return 'Windows';
-    case 'linux':
-      return 'Linux';
-    case 'macos':
-      return 'macOS';
+    case "windows":
+      return "Windows";
+    case "linux":
+      return "Linux";
+    case "macos":
+      return "macOS";
     default:
       return null;
   }

@@ -179,7 +179,8 @@ export default function About() {
                 below to help your editor validate the file.
               </p>
               <code className="mt-3 block rounded-lg bg-muted px-3 py-2 font-mono text-xs leading-relaxed break-words">
-                &quot;$schema&quot;: &quot;https://hotkys.com/schema/shortcut.schema.json&quot;
+                &quot;$schema&quot;:
+                &quot;https://hotkys.com/schema/shortcut.schema.json&quot;
               </code>
             </div>
           </li>

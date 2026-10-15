@@ -1,38 +1,41 @@
-import {AppShortcuts, Shortcuts} from "@/lib/model/internal/internal-models";
-import {ShortcutsParser} from "./input-parser";
+import { AppShortcuts, Shortcuts } from "@/lib/model/internal/internal-models";
+import { ShortcutsParser } from "./input-parser";
 import Validator from "./validator";
-import {AllApps} from "@/lib/model/input/input-models";
+import { AllApps } from "@/lib/model/input/input-models";
 
 export async function createShortcutsProvider() {
-    const data = await fetch("/data/combined-apps.json");
-    const apps = await data.json() as AllApps;
+  const data = await fetch("/data/combined-apps.json");
+  const apps = (await data.json()) as AllApps;
 
-    const keyCodesData = await fetch("/data/key-codes.json");
-    const keyCodePairs = await keyCodesData.json() as { keyCodes: [string, string][] };
+  const keyCodesData = await fetch("/data/key-codes.json");
+  const keyCodePairs = (await keyCodesData.json()) as {
+    keyCodes: [string, string][];
+  };
 
-    const keyCodesMap = new Map(keyCodePairs.keyCodes);
-    return new ShortcutsProvider(apps,
-        new ShortcutsParser(),
-        new Validator(keyCodesMap));
+  const keyCodesMap = new Map(keyCodePairs.keyCodes);
+  return new ShortcutsProvider(
+    apps,
+    new ShortcutsParser(),
+    new Validator(keyCodesMap),
+  );
 }
 
 export class ShortcutsProvider {
-    constructor(
-        private readonly allApps: AllApps,
-        private readonly parser: ShortcutsParser,
-        private readonly validator: Validator,
-    ) {
-    }
+  constructor(
+    private readonly allApps: AllApps,
+    private readonly parser: ShortcutsParser,
+    private readonly validator: Validator,
+  ) {}
 
-    public getShortcuts(): Shortcuts {
-        this.validator.validate(this.allApps.list);
-        return {
-            applications: this.parser.parseInputShortcuts(this.allApps.list),
-        };
-    }
+  public getShortcuts(): Shortcuts {
+    this.validator.validate(this.allApps.list);
+    return {
+      applications: this.parser.parseInputShortcuts(this.allApps.list),
+    };
+  }
 
-    public getShortcutsByApp(slug: string): AppShortcuts | undefined {
-        const shortcuts = this.getShortcuts();
-        return shortcuts.applications.find((app) => app.slug === slug);
-    }
+  public getShortcutsByApp(slug: string): AppShortcuts | undefined {
+    const shortcuts = this.getShortcuts();
+    return shortcuts.applications.find((app) => app.slug === slug);
+  }
 }

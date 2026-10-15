@@ -45,6 +45,7 @@ jobs:
         run: |
           npm run validate-data
           npm run format-data:check
+          npm run format:check
           npm run test:catalog
 
       - name: Test

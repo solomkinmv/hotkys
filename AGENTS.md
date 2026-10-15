@@ -18,7 +18,7 @@ The apps are independent npm projects with their own lockfiles; there is no root
 
 ## Commands
 
-Site (`shortcuts-disco-site`): `dev` (watches catalog sources and runs `next dev`), `optimize-images` (site-only WebP variants of `public/icons`, the logo and hero into `public/optimized/`; run by `build` and `predev`), `test` (Jest, colocated `*.spec.ts(x)`), `test:types`, `lint`, `build` (exports data, outputs `out/`), `validate-data`, `format-data:check`, `prettify -- --write <file>`, `test:catalog`, `test:rls` (PGlite RLS/schema/migration tests), `check:config -- --mode public|test|production`. `predev`/`prebuild` run `check:config -- --mode auto`. `test:db:concurrency` needs a disposable `HOTKYS_TEST_DATABASE_URL`.
+Site (`shortcuts-disco-site`): `dev` (watches catalog sources and runs `next dev`), `optimize-images` (site-only WebP variants of `public/icons`, the logo and hero into `public/optimized/`; run by `build` and `predev`), `test` (Jest, colocated `*.spec.ts(x)`), `test:types`, `lint`, `build` (exports data, outputs `out/`), `validate-data`, `format-data:check`, `format`/`format:check` (Prettier for site code), `prettify -- --write <file>`, `test:catalog`, `test:rls` (PGlite RLS/schema/migration tests), `check:config -- --mode public|test|production`. `predev`/`prebuild` run `check:config -- --mode auto`. `test:db:concurrency` needs a disposable `HOTKYS_TEST_DATABASE_URL`.
 
 Raycast (`shortcuts-raycast-extension`): `test`, `test:types`, `lint`/`fix-lint` (`ray lint`), `build`, `dev`, `dev:catalog -- --origin http://localhost:3000` (temporary local catalog). Do not run `publish` unless asked.
 

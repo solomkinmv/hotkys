@@ -12,7 +12,7 @@ describe("custom shortcut validation", () => {
         title: "Open command palette",
         key: "cmd+k",
         comment: "Opens commands",
-      })
+      }),
     ).not.toThrow();
   });
 
@@ -21,14 +21,14 @@ describe("custom shortcut validation", () => {
       validateCustomShortcutDraft({
         title: "Open command palette",
         key: "Cmd+K",
-      })
+      }),
     ).not.toThrow();
 
     expect(() =>
       validateCustomShortcutDraft({
         title: "Undo",
         key: "cmd+z+shift",
-      })
+      }),
     ).not.toThrow();
   });
 
@@ -38,9 +38,9 @@ describe("custom shortcut validation", () => {
         title: "Open command palette",
         key: "cmd+k",
         comment: "This comment is too long for the official data validator.",
-      })
+      }),
     ).toThrow(
-      "Comment longer than 50 symbols: 'This comment is too long for the official data validator.'"
+      "Comment longer than 50 symbols: 'This comment is too long for the official data validator.'",
     );
   });
 

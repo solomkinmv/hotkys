@@ -1,27 +1,27 @@
-"use client"
+"use client";
 
-import { Check, Moon, Sun, SunMoon } from "lucide-react"
-import { useTheme } from "next-themes"
-import * as React from "react"
+import { Check, Moon, Sun, SunMoon } from "lucide-react";
+import { useTheme } from "next-themes";
+import * as React from "react";
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/components/ui/dropdown-menu";
 
 export function ThemeToggle() {
-  const [mounted, setMounted] = React.useState(false)
-  const { setTheme, theme } = useTheme()
+  const [mounted, setMounted] = React.useState(false);
+  const { setTheme, theme } = useTheme();
 
   React.useEffect(() => {
-    setMounted(true)
-  }, [])
+    setMounted(true);
+  }, []);
 
   if (!mounted) {
-    return null
+    return null;
   }
 
   return (
@@ -70,5 +70,5 @@ export function ThemeToggle() {
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
-  )
+  );
 }

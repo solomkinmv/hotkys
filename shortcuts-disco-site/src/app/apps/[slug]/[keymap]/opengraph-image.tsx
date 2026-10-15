@@ -83,7 +83,7 @@ export async function generateStaticParams() {
     app.keymaps.map((keymap) => ({
       slug: app.slug,
       keymap: serializeKeymap(keymap),
-    }))
+    })),
   );
 }
 
@@ -97,16 +97,44 @@ async function loadLogo(): Promise<string> {
 const fontDefinitions = [
   { file: "NotoSans-Regular.ttf", name: "Noto Sans", weight: 400 as const },
   { file: "NotoSans-Bold.ttf", name: "Noto Sans", weight: 700 as const },
-  { file: "NotoSansSymbols-Regular.ttf", name: "Noto Sans Symbols", weight: 400 as const },
-  { file: "NotoSansMath-Regular.ttf", name: "Noto Sans Math", weight: 400 as const },
-  { file: "NotoSansSymbols2-Regular.ttf", name: "Noto Sans Symbols 2", weight: 400 as const },
+  {
+    file: "NotoSansSymbols-Regular.ttf",
+    name: "Noto Sans Symbols",
+    weight: 400 as const,
+  },
+  {
+    file: "NotoSansMath-Regular.ttf",
+    name: "Noto Sans Math",
+    weight: 400 as const,
+  },
+  {
+    file: "NotoSansSymbols2-Regular.ttf",
+    name: "Noto Sans Symbols 2",
+    weight: 400 as const,
+  },
 ];
 async function loadFonts() {
-  return Promise.all(fontDefinitions.map(async ({ file, name, weight }) => {
-    const bytes = await readFile(join(process.cwd(), "src/assets/fonts", file));
-    if (bytes.readUInt32BE(0) !== 0x00010000 && bytes.toString("ascii", 0, 4) !== "OTTO") throw new Error(`Invalid social-card font: ${file}`);
-    return { name, weight, style: "normal" as const, data: bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength) as ArrayBuffer };
-  }));
+  return Promise.all(
+    fontDefinitions.map(async ({ file, name, weight }) => {
+      const bytes = await readFile(
+        join(process.cwd(), "src/assets/fonts", file),
+      );
+      if (
+        bytes.readUInt32BE(0) !== 0x00010000 &&
+        bytes.toString("ascii", 0, 4) !== "OTTO"
+      )
+        throw new Error(`Invalid social-card font: ${file}`);
+      return {
+        name,
+        weight,
+        style: "normal" as const,
+        data: bytes.buffer.slice(
+          bytes.byteOffset,
+          bytes.byteOffset + bytes.byteLength,
+        ) as ArrayBuffer,
+      };
+    }),
+  );
 }
 
 export default async function Image({
@@ -119,169 +147,190 @@ export default async function Image({
 
   if (!app) {
     return new ImageResponse(
-      (
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            width: "100%",
-            height: "100%",
-            backgroundColor: "#4a5568",
-            color: "white",
-            fontSize: 48,
-          }}
-        >
-          App not found
-        </div>
-      ),
-      { ...size }
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          width: "100%",
+          height: "100%",
+          backgroundColor: "#4a5568",
+          color: "white",
+          fontSize: 48,
+        }}
+      >
+        App not found
+      </div>,
+      { ...size },
     );
   }
 
   const [fonts, logoSrc] = await Promise.all([loadFonts(), loadLogo()]);
-  const keymap = app.keymaps.find((k) =>
-    keymapMatchesTitle(k, resolvedParams.keymap)
-  ) ?? app.keymaps[0];
+  const keymap =
+    app.keymaps.find((k) => keymapMatchesTitle(k, resolvedParams.keymap)) ??
+    app.keymaps[0];
   const sections = keymap.sections.slice(0, 4);
 
   return new ImageResponse(
-    (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        width: "100%",
+        height: "100%",
+        backgroundColor: "#4a5568",
+        padding: "40px",
+        fontFamily:
+          "Noto Sans, Noto Sans Symbols, Noto Sans Symbols 2, Noto Sans Math",
+      }}
+    >
       <div
         style={{
           display: "flex",
-          flexDirection: "column",
-          width: "100%",
-          height: "100%",
-          backgroundColor: "#4a5568",
-          padding: "40px",
-          fontFamily: "Noto Sans, Noto Sans Symbols, Noto Sans Symbols 2, Noto Sans Math",
+          alignItems: "center",
+          justifyContent: "space-between",
+          marginBottom: "24px",
         }}
       >
         <div
           style={{
             display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            marginBottom: "24px",
+            flexDirection: "column",
           }}
         >
+          <span
+            style={{
+              fontSize: 56,
+              fontWeight: 700,
+              color: "white",
+            }}
+          >
+            {app.name}
+          </span>
+          <span
+            style={{
+              fontSize: 24,
+              color: "#cbd5e0",
+            }}
+          >
+            Keyboard Shortcuts Cheat Sheet
+          </span>
+        </div>
+        <img
+          alt=""
+          src={logoSrc}
+          width={120}
+          height={66}
+          style={{
+            objectFit: "contain",
+          }}
+        />
+      </div>
+
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          gap: "16px",
+          flex: 1,
+        }}
+      >
+        {sections.map((section: Section) => (
           <div
+            key={section.title}
             style={{
               display: "flex",
               flexDirection: "column",
+              backgroundColor: "white",
+              borderRadius: "12px",
+              padding: "16px",
+              width: "544px",
+              overflow: "hidden",
             }}
           >
             <span
               style={{
-                fontSize: 56,
+                fontSize: 16,
                 fontWeight: 700,
-                color: "white",
+                color: "#4a5568",
+                marginBottom: "10px",
               }}
             >
-              {app.name}
+              {section.title}
             </span>
-            <span
-              style={{
-                fontSize: 24,
-                color: "#cbd5e0",
-              }}
-            >
-              Keyboard Shortcuts Cheat Sheet
-            </span>
-          </div>
-          <img alt=""
-            src={logoSrc}
-            width={120}
-            height={66}
-            style={{
-              objectFit: "contain",
-            }}
-          />
-        </div>
-
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            gap: "16px",
-            flex: 1,
-          }}
-        >
-          {sections.map((section: Section) => (
             <div
-              key={section.title}
               style={{
                 display: "flex",
                 flexDirection: "column",
-                backgroundColor: "white",
-                borderRadius: "12px",
-                padding: "16px",
-                width: "544px",
-                overflow: "hidden",
+                gap: "5px",
               }}
             >
-              <span
-                style={{
-                  fontSize: 16,
-                  fontWeight: 700,
-                  color: "#4a5568",
-                  marginBottom: "10px",
-                }}
-              >
-                {section.title}
-              </span>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "5px",
-                }}
-              >
-                {section.hotkeys.slice(0, 6).map((hotkey, idx) => {
-                  const keyGroups = getShortcutKeys(hotkey);
-                  return (
-                    <div
-                      key={idx}
+              {section.hotkeys.slice(0, 6).map((hotkey, idx) => {
+                const keyGroups = getShortcutKeys(hotkey);
+                return (
+                  <div
+                    key={idx}
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      fontSize: 13,
+                    }}
+                  >
+                    <span
                       style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                        fontSize: 13,
+                        color: "#2d3748",
+                        maxWidth: "55%",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
                       }}
                     >
-                      <span
-                        style={{
-                          color: "#2d3748",
-                          maxWidth: "55%",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                          whiteSpace: "nowrap",
-                        }}
-                      >
-                        {hotkey.title}
-                      </span>
-                      <div style={{ display: "flex", alignItems: "center", gap: "3px" }}>
-                        {keyGroups.map((keys, groupIdx) => (
-                          <div key={groupIdx} style={{ display: "flex", alignItems: "center", gap: "2px" }}>
-                            {groupIdx > 0 && (
-                              <span style={{ color: "#718096", fontSize: 10, margin: "0 2px" }}>then</span>
-                            )}
-                            {keys.map((key, keyIdx) => (
-                              <span key={keyIdx} style={kbdStyle}>{key}</span>
-                            ))}
-                          </div>
-                        ))}
-                      </div>
+                      {hotkey.title}
+                    </span>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "3px",
+                      }}
+                    >
+                      {keyGroups.map((keys, groupIdx) => (
+                        <div
+                          key={groupIdx}
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "2px",
+                          }}
+                        >
+                          {groupIdx > 0 && (
+                            <span
+                              style={{
+                                color: "#718096",
+                                fontSize: 10,
+                                margin: "0 2px",
+                              }}
+                            >
+                              then
+                            </span>
+                          )}
+                          {keys.map((key, keyIdx) => (
+                            <span key={keyIdx} style={kbdStyle}>
+                              {key}
+                            </span>
+                          ))}
+                        </div>
+                      ))}
                     </div>
-                  );
-                })}
-              </div>
+                  </div>
+                );
+              })}
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
-    ),
-    { ...size, fonts }
+    </div>,
+    { ...size, fonts },
   );
 }

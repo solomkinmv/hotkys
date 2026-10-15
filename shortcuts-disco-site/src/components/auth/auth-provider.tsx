@@ -14,7 +14,10 @@ import { getClerkPublishableKey, isClerkConfigured } from "@/lib/clerk/config";
 import { setCurrentAuthUser } from "@/lib/auth/session";
 import type { AuthUser } from "@/lib/auth/types";
 import { clearCurrentProfileCache } from "@/lib/services/current-profile";
-import { bindAuthUser, setSupabaseAccessTokenProvider } from "@/lib/supabase/client";
+import {
+  bindAuthUser,
+  setSupabaseAccessTokenProvider,
+} from "@/lib/supabase/client";
 
 interface AuthContextType {
   user: AuthUser | null;
@@ -73,7 +76,11 @@ function StaticAuthProvider({
     setSupabaseAccessTokenProvider(null);
   }, []);
 
-  return <AuthContext.Provider value={value}><AccountDataProvider>{children}</AccountDataProvider></AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={value}>
+      <AccountDataProvider>{children}</AccountDataProvider>
+    </AuthContext.Provider>
+  );
 }
 
 function ClerkAuthProvider({ children }: { children: ReactNode }) {
@@ -87,7 +94,7 @@ function ClerkAuthProvider({ children }: { children: ReactNode }) {
     if (isClerkLoaded) return;
     const timeout = setTimeout(
       () => setHasLoadTimedOut(true),
-      CLERK_LOAD_TIMEOUT_MS
+      CLERK_LOAD_TIMEOUT_MS,
     );
     return () => clearTimeout(timeout);
   }, [isClerkLoaded]);
@@ -110,14 +117,14 @@ function ClerkAuthProvider({ children }: { children: ReactNode }) {
     session?.id ?? "none"
   }:${user?.id ?? "none"}`;
   const [readyAuthBridgeKey, setReadyAuthBridgeKey] = useState<string | null>(
-    null
+    null,
   );
 
   useEffect(() => {
     let isCurrent = true;
 
     setSupabaseAccessTokenProvider(
-      session ? async () => session.getToken() : null
+      session ? async () => session.getToken() : null,
     );
     setCurrentAuthUser(user);
     bindAuthUser(user);
@@ -144,8 +151,7 @@ function ClerkAuthProvider({ children }: { children: ReactNode }) {
   };
 
   const isLoading =
-    !isUnavailable &&
-    (!isClerkLoaded || readyAuthBridgeKey !== authBridgeKey);
+    !isUnavailable && (!isClerkLoaded || readyAuthBridgeKey !== authBridgeKey);
   const contextUser = isLoading || isUnavailable ? null : user;
 
   return (
@@ -158,7 +164,9 @@ function ClerkAuthProvider({ children }: { children: ReactNode }) {
         signOut,
       }}
     >
-      <AccountDataProvider key={isLoading ? "loading" : authBridgeKey}>{children}</AccountDataProvider>
+      <AccountDataProvider key={isLoading ? "loading" : authBridgeKey}>
+        {children}
+      </AccountDataProvider>
     </AuthContext.Provider>
   );
 }

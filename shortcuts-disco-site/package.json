@@ -21,7 +21,9 @@
     "check:config": "node --import tsx scripts/check-config.ts",
     "prebuild": "npm run check:config -- --mode auto",
     "predev": "npm run check:config -- --mode auto && npm run optimize-images",
-    "test:catalog": "tsx --tsconfig tsconfig.json ../scripts/verify-catalog.ts"
+    "test:catalog": "tsx --tsconfig tsconfig.json ../scripts/verify-catalog.ts",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "dependencies": {
     "@clerk/react": "^6.17.5",
@@ -57,6 +59,7 @@
     "jest-environment-jsdom": "^30.5.2",
     "pg": "^8.16.3",
     "postcss": "^8.5.28",
+    "prettier": "3.9.10",
     "sharp": "^0.35.5",
     "tailwindcss": "^4.3.3",
     "tsx": "^4.23.15",

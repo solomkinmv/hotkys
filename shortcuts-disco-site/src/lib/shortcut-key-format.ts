@@ -50,7 +50,9 @@ export function setShortcutModifierTokens(
   }
 
   const activeTokens = splitChord(parts[activeIndex] ?? "").filter(Boolean);
-  const baseTokens = activeTokens.filter((token) => !modifierMapping.has(token));
+  const baseTokens = activeTokens.filter(
+    (token) => !modifierMapping.has(token),
+  );
   const sortedModifiers = sortModifierTokens(Array.from(new Set(modifiers)));
 
   if (baseTokens.length === 1) {
@@ -64,7 +66,10 @@ export function setShortcutModifierTokens(
 }
 
 function normalizeShortcutSpacing(key: string): string {
-  let normalized = key.toLowerCase().trim().replace(/\b(ctrl|shift|opt|alt|cmd|win|option|command)\s*\+\s*/g, "$1+");
+  let normalized = key
+    .toLowerCase()
+    .trim()
+    .replace(/\b(ctrl|shift|opt|alt|cmd|win|option|command)\s*\+\s*/g, "$1+");
   for (const [pattern, replacement] of FORMAT_REPLACEMENTS) {
     normalized = normalized.replace(pattern, replacement);
   }

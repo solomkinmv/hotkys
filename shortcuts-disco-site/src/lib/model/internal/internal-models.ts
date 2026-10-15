@@ -1,52 +1,52 @@
-import {Modifiers} from "./modifiers";
+import { Modifiers } from "./modifiers";
 
 /**
  * Supported platform types
  */
-export type Platform = 'windows' | 'linux' | 'macos';
+export type Platform = "windows" | "linux" | "macos";
 
 export interface Shortcuts {
-    applications: AppShortcuts[];
+  applications: AppShortcuts[];
 }
 
 export interface AppShortcuts {
-    bundleId?: string;
-    windowsAppId?: string;
-    windowsProcessName?: string;
-    hostname?: string;
-    customAppId?: string;
-    name: string;
-    slug: string;
-    source?: string;
-    icon?: string;
-    keymaps: Keymap[];
+  bundleId?: string;
+  windowsAppId?: string;
+  windowsProcessName?: string;
+  hostname?: string;
+  customAppId?: string;
+  name: string;
+  slug: string;
+  source?: string;
+  icon?: string;
+  keymaps: Keymap[];
 }
 
 export interface Keymap {
-    customKeymapId?: string;
-    title: string;
-    platforms?: Platform[];
-    sections: Section[];
+  customKeymapId?: string;
+  title: string;
+  platforms?: Platform[];
+  sections: Section[];
 }
 
 export interface Section {
-    title: string;
-    hotkeys: SectionShortcut[];
+  title: string;
+  hotkeys: SectionShortcut[];
 }
 
 export interface SectionShortcut {
-    title: string;
-    sequence: AtomicShortcut[];
-    comment?: string;
-    customizationStatus?: "changed" | "created";
-    customizationId?: string;
-    baseSectionTitle?: string;
-    baseShortcutTitle?: string;
-    baseShortcutId?: string;
-    customShortcutId?: string;
+  title: string;
+  sequence: AtomicShortcut[];
+  comment?: string;
+  customizationStatus?: "changed" | "created";
+  customizationId?: string;
+  baseSectionTitle?: string;
+  baseShortcutTitle?: string;
+  baseShortcutId?: string;
+  customShortcutId?: string;
 }
 
 export interface AtomicShortcut {
-    base: string;
-    modifiers: Modifiers[];
+  base: string;
+  modifiers: Modifiers[];
 }

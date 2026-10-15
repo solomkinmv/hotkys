@@ -1,205 +1,300 @@
 import { splitChord } from "@/lib/shortcut-core/parser";
-import { InputApp, InputKeymap, InputSection, InputShortcut } from "@/lib/model/input/input-models";
-import { modifierMapping, modifierTokensOrderMapping } from "@/lib/model/internal/modifiers";
+import {
+  InputApp,
+  InputKeymap,
+  InputSection,
+  InputShortcut,
+} from "@/lib/model/input/input-models";
+import {
+  modifierMapping,
+  modifierTokensOrderMapping,
+} from "@/lib/model/internal/modifiers";
 import { Platform } from "@/lib/model/internal/internal-models";
 import {
-    USER_CONTENT_LIMITS,
-    validateCustomAppMetadata,
+  USER_CONTENT_LIMITS,
+  validateCustomAppMetadata,
 } from "@/lib/validation/user-content";
 
-const VALID_PLATFORMS: readonly Platform[] = ['windows', 'linux', 'macos'] as const;
+const VALID_PLATFORMS: readonly Platform[] = [
+  "windows",
+  "linux",
+  "macos",
+] as const;
 
 export default class Validator {
-    constructor(private readonly keyCodes: Map<string, string>) {
-    }
+  constructor(private readonly keyCodes: Map<string, string>) {}
 
-    public validate(inputApps: InputApp[]): void {
-        this.validateUniqueApplications(inputApps);
-        inputApps.forEach((inputApp) => {
-            this.validateKeymaps(inputApp.keymaps, inputApp.name);
-            inputApp.keymaps.forEach((inputKeymap) => {
-                this.validateSections(inputKeymap.sections, inputApp.name);
-                inputKeymap.sections.forEach((inputSection) => {
-                    inputSection.shortcuts.forEach(this.validateShortcut.bind(this));
-                });
-            });
+  public validate(inputApps: InputApp[]): void {
+    this.validateUniqueApplications(inputApps);
+    inputApps.forEach((inputApp) => {
+      this.validateKeymaps(inputApp.keymaps, inputApp.name);
+      inputApp.keymaps.forEach((inputKeymap) => {
+        this.validateSections(inputKeymap.sections, inputApp.name);
+        inputKeymap.sections.forEach((inputSection) => {
+          inputSection.shortcuts.forEach(this.validateShortcut.bind(this));
         });
+      });
+    });
+  }
+
+  private validateUniqueApplications(inputApps: InputApp[]) {
+    const bundleIds = new Set<string>();
+    const appNames = new Set<string>();
+    const slugs = new Set<string>();
+    inputApps.forEach((app) => {
+      validateCustomAppMetadata(app);
+      if (app.source) {
+        try {
+          new URL(app.source);
+        } catch {
+          throw new ValidationError(
+            `Source must be a valid URI: '${app.source}'`,
+          );
+        }
+      }
+      if (appNames.has(app.name)) {
+        throw new ValidationError(`Duplicated app name found: '${app.name}'`);
+      }
+      appNames.add(app.name);
+
+      if (slugs.has(app.slug)) {
+        throw new ValidationError(`Duplicated slug found: '${app.slug}'`);
+      }
+      slugs.add(app.slug);
+
+      if (!app.bundleId) return;
+      if (bundleIds.has(app.bundleId)) {
+        throw new ValidationError(
+          `Duplicated app bundleId found: '${app.bundleId}'`,
+        );
+      }
+      bundleIds.add(app.bundleId);
+    });
+  }
+
+  private validateKeymaps(keymaps: InputKeymap[], appName: string) {
+    const keymapNames = new Set<string>();
+    if (keymaps.length === 0) {
+      throw new ValidationError(
+        `Application '${appName}' should contain at least one keymap`,
+      );
     }
-
-    private validateUniqueApplications(inputApps: InputApp[]) {
-        const bundleIds = new Set<string>();
-        const appNames = new Set<string>();
-        const slugs = new Set<string>();
-        inputApps.forEach((app) => {
-            validateCustomAppMetadata(app);
-            if (app.source) {
-                try {
-                    new URL(app.source);
-                } catch {
-                    throw new ValidationError(`Source must be a valid URI: '${app.source}'`);
-                }
-            }
-            if (appNames.has(app.name)) {
-                throw new ValidationError(`Duplicated app name found: '${app.name}'`);
-            }
-            appNames.add(app.name);
-
-            if (slugs.has(app.slug)) {
-                throw new ValidationError(`Duplicated slug found: '${app.slug}'`);
-            }
-            slugs.add(app.slug);
-
-            if (!app.bundleId) return;
-            if (bundleIds.has(app.bundleId)) {
-                throw new ValidationError(`Duplicated app bundleId found: '${app.bundleId}'`)
-            }
-            bundleIds.add(app.bundleId);
-        })
+    if (keymaps.length > USER_CONTENT_LIMITS.customKeymaps) {
+      throw new ValidationError(
+        `Application '${appName}' can contain at most ${USER_CONTENT_LIMITS.customKeymaps} keymaps`,
+      );
     }
+    keymaps.forEach((keymap) => {
+      if (keymap.sections.length === 0) {
+        throw new ValidationError(
+          `Keymap '${keymap.title}' should contain at least one section for application '${appName}'`,
+        );
+      }
+      if (keymap.title.length > USER_CONTENT_LIMITS.keymapTitle) {
+        throw new ValidationError(
+          `Keymap title must be ${USER_CONTENT_LIMITS.keymapTitle} characters or fewer`,
+        );
+      }
+      if (keymap.title.length === 0) {
+        throw new ValidationError(
+          `Keymap title should not be empty for application '${appName}'`,
+        );
+      }
+      if (keymapNames.has(keymap.title)) {
+        throw new ValidationError(
+          `Duplicated keymap title '${keymap.title}' for application '${appName}'`,
+        );
+      }
+      keymapNames.add(keymap.title);
 
-    private validateKeymaps(keymaps: InputKeymap[], appName: string) {
-        const keymapNames = new Set<string>();
-        if (keymaps.length === 0) {
-            throw new ValidationError(`Application '${appName}' should contain at least one keymap`);
+      if (keymap.platforms !== undefined) {
+        if (keymap.platforms.length === 0) {
+          throw new ValidationError(
+            `Platforms array cannot be empty in keymap "${keymap.title}" for application "${appName}". Must have at least one platform.`,
+          );
         }
-        if (keymaps.length > USER_CONTENT_LIMITS.customKeymaps) {
-            throw new ValidationError(`Application '${appName}' can contain at most ${USER_CONTENT_LIMITS.customKeymaps} keymaps`);
-        }
-        keymaps.forEach((keymap) => {
-            if (keymap.sections.length === 0) {
-                throw new ValidationError(`Keymap '${keymap.title}' should contain at least one section for application '${appName}'`);
-            }
-            if (keymap.title.length > USER_CONTENT_LIMITS.keymapTitle) {
-                throw new ValidationError(`Keymap title must be ${USER_CONTENT_LIMITS.keymapTitle} characters or fewer`);
-            }
-            if (keymap.title.length === 0) {
-                throw new ValidationError(`Keymap title should not be empty for application '${appName}'`);
-            }
-            if (keymapNames.has(keymap.title)) {
-                throw new ValidationError(`Duplicated keymap title '${keymap.title}' for application '${appName}'`);
-            }
-            keymapNames.add(keymap.title);
 
-            if (keymap.platforms !== undefined) {
-                if (keymap.platforms.length === 0) {
-                    throw new ValidationError(
-                        `Platforms array cannot be empty in keymap "${keymap.title}" for application "${appName}". Must have at least one platform.`
-                    );
-                }
+        const platformSet = new Set<Platform>();
+        keymap.platforms.forEach((platform) => {
+          if (!VALID_PLATFORMS.includes(platform)) {
+            throw new ValidationError(
+              `Invalid platform "${platform}" in keymap "${keymap.title}". Must be one of: ${VALID_PLATFORMS.join(", ")}`,
+            );
+          }
+          if (platformSet.has(platform)) {
+            throw new ValidationError(
+              `Duplicate platform "${platform}" in keymap "${keymap.title}" for application "${appName}"`,
+            );
+          }
+          platformSet.add(platform);
+        });
+      }
+    });
+  }
 
-                const platformSet = new Set<Platform>();
-                keymap.platforms.forEach((platform) => {
-                    if (!VALID_PLATFORMS.includes(platform)) {
-                        throw new ValidationError(
-                            `Invalid platform "${platform}" in keymap "${keymap.title}". Must be one of: ${VALID_PLATFORMS.join(', ')}`
-                        );
-                    }
-                    if (platformSet.has(platform)) {
-                        throw new ValidationError(
-                            `Duplicate platform "${platform}" in keymap "${keymap.title}" for application "${appName}"`
-                        );
-                    }
-                    platformSet.add(platform);
-                });
-            }
-        })
+  private validateSections(sections: InputSection[], appName: string) {
+    const sectionNames = new Set<string>();
+    if (sections.length > USER_CONTENT_LIMITS.customSections) {
+      throw new ValidationError(
+        `A keymap can contain at most ${USER_CONTENT_LIMITS.customSections} sections for application '${appName}'`,
+      );
     }
+    sections.forEach((section) => {
+      if (section.shortcuts.length === 0) {
+        throw new ValidationError(
+          `Section '${section.title}' should contain at least one shortcut for application '${appName}'`,
+        );
+      }
+      if (section.shortcuts.length > USER_CONTENT_LIMITS.customShortcuts) {
+        throw new ValidationError(
+          `Section '${section.title}' can contain at most ${USER_CONTENT_LIMITS.customShortcuts} shortcuts for application '${appName}'`,
+        );
+      }
+      if (section.title.length === 0) {
+        throw new ValidationError(
+          `Section title should not be empty for application '${appName}'`,
+        );
+      }
+      if (section.title.length > USER_CONTENT_LIMITS.sectionTitle) {
+        throw new ValidationError(
+          `Section title must be ${USER_CONTENT_LIMITS.sectionTitle} characters or fewer`,
+        );
+      }
+      if (sectionNames.has(section.title)) {
+        throw new ValidationError(
+          `Duplicated section title '${section.title}' per keymap for application '${appName}'`,
+        );
+      }
+      sectionNames.add(section.title);
+    });
+  }
 
-    private validateSections(sections: InputSection[], appName: string) {
-        const sectionNames = new Set<string>();
-        if (sections.length > USER_CONTENT_LIMITS.customSections) {
-            throw new ValidationError(`A keymap can contain at most ${USER_CONTENT_LIMITS.customSections} sections for application '${appName}'`);
-        }
-        sections.forEach((section) => {
-            if (section.shortcuts.length === 0) {
-                throw new ValidationError(`Section '${section.title}' should contain at least one shortcut for application '${appName}'`);
-            }
-            if (section.shortcuts.length > USER_CONTENT_LIMITS.customShortcuts) {
-                throw new ValidationError(`Section '${section.title}' can contain at most ${USER_CONTENT_LIMITS.customShortcuts} shortcuts for application '${appName}'`);
-            }
-            if (section.title.length === 0) {
-                throw new ValidationError(`Section title should not be empty for application '${appName}'`);
-            }
-            if (section.title.length > USER_CONTENT_LIMITS.sectionTitle) {
-                throw new ValidationError(`Section title must be ${USER_CONTENT_LIMITS.sectionTitle} characters or fewer`);
-            }
-            if (sectionNames.has(section.title)) {
-                throw new ValidationError(`Duplicated section title '${section.title}' per keymap for application '${appName}'`);
-            }
-            sectionNames.add(section.title);
-        })
+  private validateShortcut(inputShortcut: InputShortcut): void {
+    if (!inputShortcut.title.trim())
+      throw new ValidationError("Shortcut title must not be empty");
+    inputShortcut.key
+      ?.trim()
+      .split(/\s+/)
+      .forEach((chord) => this.validateChord(inputShortcut.key!, chord));
+    if (inputShortcut.title.length > 50) {
+      throw new ValidationError(
+        `Title longer than 50 symbols: '${inputShortcut.title}'`,
+      );
     }
+    if (inputShortcut.comment && inputShortcut.comment.length > 50) {
+      throw new ValidationError(
+        `Comment longer than 50 symbols: '${inputShortcut.comment}'`,
+      );
+    }
+    if (
+      inputShortcut.key &&
+      inputShortcut.key.length > USER_CONTENT_LIMITS.shortcutKey
+    ) {
+      throw new ValidationError(
+        `Shortcut key must be ${USER_CONTENT_LIMITS.shortcutKey} characters or fewer`,
+      );
+    }
+    if (
+      inputShortcut.key === undefined &&
+      inputShortcut.comment === undefined
+    ) {
+      throw new ValidationError(
+        `Shortcut '${inputShortcut.title}' should contains at least key or comment`,
+      ); // todo: add test
+    }
+  }
 
-    private validateShortcut(inputShortcut: InputShortcut): void {
-        if (!inputShortcut.title.trim()) throw new ValidationError("Shortcut title must not be empty");
-        inputShortcut.key?.trim().split(/\s+/).forEach((chord) => this.validateChord(inputShortcut.key!, chord));
-        if (inputShortcut.title.length > 50) {
-            throw new ValidationError(`Title longer than 50 symbols: '${inputShortcut.title}'`);
-        }
-        if (inputShortcut.comment && inputShortcut.comment.length > 50) {
-            throw new ValidationError(`Comment longer than 50 symbols: '${inputShortcut.comment}'`);
-        }
-        if (inputShortcut.key && inputShortcut.key.length > USER_CONTENT_LIMITS.shortcutKey) {
-            throw new ValidationError(`Shortcut key must be ${USER_CONTENT_LIMITS.shortcutKey} characters or fewer`);
-        }
-        if (inputShortcut.key === undefined && inputShortcut.comment === undefined) {
-            throw new ValidationError(`Shortcut '${inputShortcut.title}' should contains at least key or comment`); // todo: add test
-        }
-    }
+  private validateChord(fullShortcutKey: string, chord: string): void {
+    const chordTokens = splitChord(chord);
+    const totalNumberOfTokens = chordTokens.length;
+    this.validateModifiersExist(
+      totalNumberOfTokens,
+      chordTokens,
+      fullShortcutKey,
+    );
+    this.validateOrderOfModifiers(
+      totalNumberOfTokens,
+      chordTokens,
+      fullShortcutKey,
+    );
+    this.validateBaseShortcutToken(
+      chordTokens[totalNumberOfTokens - 1],
+      fullShortcutKey,
+    );
+    this.validateUniqueTokens(
+      totalNumberOfTokens,
+      chordTokens,
+      fullShortcutKey,
+    );
+  }
 
-    private validateChord(fullShortcutKey: string, chord: string): void {
-        const chordTokens = splitChord(chord);
-        const totalNumberOfTokens = chordTokens.length;
-        this.validateModifiersExist(totalNumberOfTokens, chordTokens, fullShortcutKey);
-        this.validateOrderOfModifiers(totalNumberOfTokens, chordTokens, fullShortcutKey);
-        this.validateBaseShortcutToken(chordTokens[totalNumberOfTokens - 1], fullShortcutKey)
-        this.validateUniqueTokens(totalNumberOfTokens, chordTokens, fullShortcutKey);
+  private validateUniqueTokens(
+    totalNumberOfTokens: number,
+    chordTokens: string[],
+    fullShortcutKey: string,
+  ) {
+    if (totalNumberOfTokens !== new Set(chordTokens).size) {
+      throw new ValidationError(
+        `Shortcut tokens are repeated: '${fullShortcutKey}'`,
+      );
     }
+  }
 
-    private validateUniqueTokens(totalNumberOfTokens: number, chordTokens: string[], fullShortcutKey: string) {
-        if (totalNumberOfTokens !== new Set(chordTokens).size) {
-            throw new ValidationError(`Shortcut tokens are repeated: '${fullShortcutKey}'`);
-        }
+  private validateModifiersExist(
+    totalNumberOfTokens: number,
+    chordTokens: string[],
+    fullShortcutKey: string,
+  ) {
+    for (let i = 0; i < totalNumberOfTokens - 1; i++) {
+      const token = chordTokens[i];
+      if (token === "") {
+        throw new ValidationError(`Invalid shortcut: '${fullShortcutKey}'`);
+      }
+      const modifier = modifierMapping.get(token);
+      if (modifier === undefined) {
+        throw new ValidationError(
+          `Modifier doesn't exist: '${fullShortcutKey}'`,
+        );
+      }
     }
+  }
 
-    private validateModifiersExist(totalNumberOfTokens: number, chordTokens: string[], fullShortcutKey: string) {
-        for (let i = 0; i < totalNumberOfTokens - 1; i++) {
-            const token = chordTokens[i];
-            if (token === "") {
-                throw new ValidationError(`Invalid shortcut: '${fullShortcutKey}'`);
-            }
-            const modifier = modifierMapping.get(token);
-            if (modifier === undefined) {
-                throw new ValidationError(`Modifier doesn't exist: '${fullShortcutKey}'`);
-            }
-        }
+  private validateOrderOfModifiers(
+    totalNumberOfTokens: number,
+    chordTokens: string[],
+    fullShortcutKey: string,
+  ) {
+    for (let i = 0; i < totalNumberOfTokens - 2; i++) {
+      const idx1 = modifierTokensOrderMapping.get(chordTokens[i]) ?? -1;
+      const idx2 = modifierTokensOrderMapping.get(chordTokens[i + 1]) ?? -1;
+      if (idx1 < 0 || idx2 < 0 || idx1 >= idx2) {
+        throw new ValidationError(
+          `Modifiers have incorrect order. Received: '${fullShortcutKey}'. Correct order: ctrl, shift, opt|alt, cmd, win`,
+        );
+      }
     }
+  }
 
-    private validateOrderOfModifiers(totalNumberOfTokens: number, chordTokens: string[], fullShortcutKey: string) {
-        for (let i = 0; i < totalNumberOfTokens - 2; i++) {
-            const idx1 = modifierTokensOrderMapping.get(chordTokens[i]) ?? -1;
-            const idx2 = modifierTokensOrderMapping.get(chordTokens[i + 1]) ?? -1;
-            if (idx1 < 0 || idx2 < 0 || idx1 >= idx2) {
-                throw new ValidationError(
-                    `Modifiers have incorrect order. Received: '${fullShortcutKey}'. Correct order: ctrl, shift, opt|alt, cmd, win`,
-                );
-            }
-        }
+  private validateBaseShortcutToken(
+    baseToken: string,
+    fullShortcutKey: string,
+  ) {
+    if (this.keyCodes.has(baseToken)) return;
+    if (modifierMapping.has(baseToken)) {
+      throw new ValidationError(
+        `Shortcut expression should end with base key: '${fullShortcutKey}'`,
+      );
     }
-
-    private validateBaseShortcutToken(baseToken: string, fullShortcutKey: string) {
-        if (this.keyCodes.has(baseToken)) return;
-        if (modifierMapping.has(baseToken)) {
-            throw new ValidationError(`Shortcut expression should end with base key: '${fullShortcutKey}'`);
-        }
-        throw new ValidationError(`Unknown base key for shortcut: '${fullShortcutKey}'`);
-    }
+    throw new ValidationError(
+      `Unknown base key for shortcut: '${fullShortcutKey}'`,
+    );
+  }
 }
 
 export class ValidationError extends Error {
-    constructor(message: string) {
-        super(message);
-        this.name = "ValidationError";
-        Object.setPrototypeOf(this, new.target.prototype); // Ensure proper inheritance
-    }
+  constructor(message: string) {
+    super(message);
+    this.name = "ValidationError";
+    Object.setPrototypeOf(this, new.target.prototype); // Ensure proper inheritance
+  }
 }
