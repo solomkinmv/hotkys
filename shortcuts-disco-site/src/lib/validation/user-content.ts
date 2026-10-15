@@ -112,13 +112,13 @@ export function validateCustomAppMetadata(app: CustomAppMetadata): void {
     throw new Error("Source URL must use http or https");
   }
   if (app.icon && !isSafeImageLocation(app.icon)) {
-    throw new Error(
-      "Image path must be a relative path or an http/https URL",
-    );
+    throw new Error("Image path must be a relative path or an http/https URL");
   }
 }
 
-export function validateCustomKeymapMetadata(keymap: CustomKeymapMetadata): void {
+export function validateCustomKeymapMetadata(
+  keymap: CustomKeymapMetadata,
+): void {
   validateRequiredText(
     keymap.title,
     "Keymap title",
@@ -129,7 +129,10 @@ export function validateCustomKeymapMetadata(keymap: CustomKeymapMetadata): void
     "Base app slug",
     USER_CONTENT_LIMITS.slug,
   );
-  if (keymap.platforms && new Set(keymap.platforms).size !== keymap.platforms.length) {
+  if (
+    keymap.platforms &&
+    new Set(keymap.platforms).size !== keymap.platforms.length
+  ) {
     throw new Error("Keymap platforms must be unique");
   }
   if (keymap.platforms?.some((platform) => !VALID_PLATFORMS.has(platform))) {
@@ -137,7 +140,9 @@ export function validateCustomKeymapMetadata(keymap: CustomKeymapMetadata): void
   }
 }
 
-export function validateCustomSectionMetadata(section: CustomSectionMetadata): void {
+export function validateCustomSectionMetadata(
+  section: CustomSectionMetadata,
+): void {
   validateRequiredText(
     section.title,
     "Section title",
@@ -182,7 +187,11 @@ export function validateShortcutStorageMetadata(
 }
 
 export function validateFavoriteMetadata(favorite: FavoriteMetadata): void {
-  validateOptionalText(favorite.appSlug, "App slug", USER_CONTENT_LIMITS.slug + 7);
+  validateOptionalText(
+    favorite.appSlug,
+    "App slug",
+    USER_CONTENT_LIMITS.slug + 7,
+  );
   validateOptionalText(
     favorite.keymapTitle,
     "Keymap title",
@@ -249,7 +258,11 @@ export function validateOptionalText(
   validateTextLength(value, label, maxLength);
 }
 
-function validateTextLength(value: string, label: string, maxLength: number): void {
+function validateTextLength(
+  value: string,
+  label: string,
+  maxLength: number,
+): void {
   if (value.length > maxLength) {
     throw new Error(`${label} must be ${maxLength} characters or fewer`);
   }

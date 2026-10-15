@@ -61,7 +61,8 @@ export function ApplicationList({
   const [searchTerm, setSearchTerm] = useState("");
   const userPlatform = usePlatform();
   const { platformFilter, setPlatformFilter } = usePlatformFilter();
-  const { applications: mergedApplications } = useMergedAppSummaries(applications);
+  const { applications: mergedApplications } =
+    useMergedAppSummaries(applications);
   const { user, isLoading: authLoading, isUnavailable } = useAuth();
   const { favorites, isLoading: favoritesLoading } = useFavorites();
 

@@ -16,21 +16,24 @@ export function usePlatformFilter() {
   const { preferences, isLoading, updatePreferences } = usePreferences();
   const [localPlatformFilter, setLocalPlatformFilter] =
     useState<Platform | null>(() => {
-    // Initialize from localStorage on mount
-    if (typeof window !== "undefined") {
-      try {
-        const stored = localStorage.getItem(STORAGE_KEY);
-        if (stored) {
-          const parsed = JSON.parse(stored);
-          return parsed === "all" ? null : (parsed as Platform);
+      // Initialize from localStorage on mount
+      if (typeof window !== "undefined") {
+        try {
+          const stored = localStorage.getItem(STORAGE_KEY);
+          if (stored) {
+            const parsed = JSON.parse(stored);
+            return parsed === "all" ? null : (parsed as Platform);
+          }
+        } catch (error) {
+          console.error(
+            "Failed to parse platform filter from localStorage:",
+            error,
+          );
         }
-      } catch (error) {
-        console.error("Failed to parse platform filter from localStorage:", error);
       }
-    }
-    // Default: all platforms (null)
-    return null;
-  });
+      // Default: all platforms (null)
+      return null;
+    });
 
   const platformFilter =
     user && !isLoading ? preferences.platformFilter : localPlatformFilter;
@@ -41,7 +44,7 @@ export function usePlatformFilter() {
       try {
         localStorage.setItem(
           STORAGE_KEY,
-          JSON.stringify(platformFilter === null ? "all" : platformFilter)
+          JSON.stringify(platformFilter === null ? "all" : platformFilter),
         );
       } catch (error) {
         console.error("Failed to save platform filter to localStorage:", error);
@@ -58,7 +61,7 @@ export function usePlatformFilter() {
         });
       }
     },
-    [user, isLoading, updatePreferences]
+    [user, isLoading, updatePreferences],
   );
 
   return { platformFilter, setPlatformFilter: updatePlatformFilter };

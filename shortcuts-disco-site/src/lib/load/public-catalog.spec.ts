@@ -1,5 +1,12 @@
 /** @jest-environment node */
-import { afterEach, beforeEach, describe, expect, it, jest } from "@jest/globals";
+import {
+  afterEach,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  jest,
+} from "@jest/globals";
 import type { AllApps } from "@/lib/model/input/input-models";
 import { Modifiers } from "@/lib/model/internal/modifiers";
 import {

@@ -215,7 +215,9 @@ describe("FavoritesContent", () => {
       retry,
     });
     const { rerender } = render(<FavoritesContent />);
-    expect(screen.getByRole("status", { name: "Loading favorites" })).toBeTruthy();
+    expect(
+      screen.getByRole("status", { name: "Loading favorites" }),
+    ).toBeTruthy();
     mockUsePublicCatalog.mockReturnValue({
       applications: undefined,
       isLoading: false,

@@ -7,18 +7,18 @@ describe("GitHub Pages production configuration", () => {
     path.join(process.cwd(), "../.github/workflows/deploy-pages.yml"),
     "utf8",
   );
-  const buildWorkflows = [
-    "build-site-pr.yml",
-    "build-extension-pr.yml",
-  ].map((filename) =>
-    fs.readFileSync(
-      path.join(process.cwd(), `../.github/workflows/${filename}`),
-      "utf8",
-    ),
+  const buildWorkflows = ["build-site-pr.yml", "build-extension-pr.yml"].map(
+    (filename) =>
+      fs.readFileSync(
+        path.join(process.cwd(), `../.github/workflows/${filename}`),
+        "utf8",
+      ),
   );
 
   it("rejects deploys without Supabase database configuration", () => {
-    expect(deployWorkflow).toContain("npm run check:config -- --mode production");
+    expect(deployWorkflow).toContain(
+      "npm run check:config -- --mode production",
+    );
     expect(deployWorkflow).toContain("NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY");
     expect(deployWorkflow).toContain("NEXT_PUBLIC_SUPABASE_ANON_KEY");
   });
@@ -33,7 +33,9 @@ describe("GitHub Pages production configuration", () => {
       "npm run test:rls",
     ]) {
       expect(deployWorkflow).toContain(command);
-      expect(deployWorkflow.indexOf(command)).toBeLessThan(deployWorkflow.indexOf("run: npm run build"));
+      expect(deployWorkflow.indexOf(command)).toBeLessThan(
+        deployWorkflow.indexOf("run: npm run build"),
+      );
     }
   });
 

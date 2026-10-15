@@ -24,14 +24,13 @@ export const exportService = {
       prDescription,
     };
   },
-
-
 };
 
 function generatePrDescription(app: InputApp): string {
   const totalShortcuts = app.keymaps.reduce(
-    (acc, km) => acc + km.sections.reduce((sAcc, s) => sAcc + s.shortcuts.length, 0),
-    0
+    (acc, km) =>
+      acc + km.sections.reduce((sAcc, s) => sAcc + s.shortcuts.length, 0),
+    0,
   );
 
   const platformsList = app.keymaps

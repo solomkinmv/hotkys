@@ -104,9 +104,9 @@ describe("ApplicationList", () => {
       .filter((name) => name.endsWith(".json"))
       .map((name) => name.slice(0, -5));
     expect(appSlugs.length).toBeGreaterThan(0);
-    expect(
-      appSlugs.filter((slug) => !appDescriptions[slug]?.trim()),
-    ).toEqual([]);
+    expect(appSlugs.filter((slug) => !appDescriptions[slug]?.trim())).toEqual(
+      [],
+    );
     mockUseMergedAppSummaries.mockReturnValue({
       applications: [
         { ...baseApps[0], name: "Figma", slug: "figma" },
@@ -230,7 +230,9 @@ describe("ApplicationList", () => {
       toggleFavorite,
     });
     render(<ApplicationList applications={baseApps} />);
-    fireEvent.click(screen.getByRole("button", { name: "Add Sample to favorites" }));
+    fireEvent.click(
+      screen.getByRole("button", { name: "Add Sample to favorites" }),
+    );
     expect((await screen.findByRole("alert")).textContent).toBe(
       "Could not update favorites. Please try again.",
     );

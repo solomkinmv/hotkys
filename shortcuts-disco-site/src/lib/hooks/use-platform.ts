@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { useSyncExternalStore } from 'react';
-import { getPlatform } from '@/lib/model/internal/modifiers';
-import { Platform } from '@/lib/model/internal/internal-models';
+import { useSyncExternalStore } from "react";
+import { getPlatform } from "@/lib/model/internal/modifiers";
+import { Platform } from "@/lib/model/internal/internal-models";
 
 const subscribe = () => () => {};
-const getServerPlatformSnapshot = (): Platform => 'macos';
+const getServerPlatformSnapshot = (): Platform => "macos";
 
 /**
  * React hook to detect the user's platform (Windows, Linux, or macOS).
@@ -17,6 +17,6 @@ export function usePlatform(): Platform {
   return useSyncExternalStore(
     subscribe,
     getPlatform,
-    getServerPlatformSnapshot
+    getServerPlatformSnapshot,
   );
 }

@@ -17,7 +17,11 @@ import { Button } from "@/components/ui/button";
 import { User, Star, LogOut, FolderEdit } from "lucide-react";
 
 export function UserMenu() {
-  return <Suspense fallback={<div className="h-8 w-16" />}><UserMenuContent /></Suspense>;
+  return (
+    <Suspense fallback={<div className="h-8 w-16" />}>
+      <UserMenuContent />
+    </Suspense>
+  );
 }
 
 function UserMenuContent() {
@@ -79,7 +83,14 @@ function UserMenuContent() {
           </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => { void signOut().catch(() => window.alert("Sign out could not finish. Please try again.")); }} className="cursor-pointer">
+        <DropdownMenuItem
+          onClick={() => {
+            void signOut().catch(() =>
+              window.alert("Sign out could not finish. Please try again."),
+            );
+          }}
+          className="cursor-pointer"
+        >
           <LogOut className="mr-2 h-4 w-4" />
           Sign Out
         </DropdownMenuItem>

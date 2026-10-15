@@ -22,7 +22,7 @@ export function clearCurrentProfileCache() {
 }
 
 export async function getCurrentProfile(
-  authUser?: AuthUser | null
+  authUser?: AuthUser | null,
 ): Promise<CurrentProfile | null> {
   const user = authUser === undefined ? getCurrentAuthUser() : authUser;
   if (!user) {
@@ -53,7 +53,7 @@ export async function getCurrentProfile(
 }
 
 export async function requireCurrentProfile(
-  authUser?: AuthUser | null
+  authUser?: AuthUser | null,
 ): Promise<CurrentProfile> {
   const profile = await getCurrentProfile(authUser);
   if (!profile) {
@@ -64,7 +64,7 @@ export async function requireCurrentProfile(
 }
 
 async function ensureCurrentProfile(
-  user: NonNullable<ReturnType<typeof getCurrentAuthUser>>
+  user: NonNullable<ReturnType<typeof getCurrentAuthUser>>,
 ): Promise<CurrentProfile | null> {
   const supabase = createClientOrNull(user);
   if (!supabase) return null;
@@ -111,7 +111,7 @@ async function ensureCurrentProfile(
 
 function mapCurrentProfile(
   data: Record<string, string | null>,
-  email: string | null
+  email: string | null,
 ): CurrentProfile {
   return {
     id: data.id as string,

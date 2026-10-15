@@ -1,0 +1,4 @@
+shortcuts-data/
+public/
+src/lib/shortcut-core/
+supabase/migrations/

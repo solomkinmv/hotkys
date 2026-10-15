@@ -6,7 +6,7 @@ import { Platform } from "../internal/internal-models";
  * Aggregation interface for all applications.
  */
 export interface AllApps {
-    list: InputApp[];
+  list: InputApp[];
 }
 
 /**
@@ -14,16 +14,18 @@ export interface AllApps {
  * Each application consist of name, slug, bundleId and keymaps.
  */
 export interface InputApp {
-    $schema?: "schema/shortcut.schema.json" | "https://hotkys.com/schema/shortcut.schema.json";
-    bundleId?: string;
-    hostname?: string;
-    windowsAppId?: string;
+  $schema?:
+    | "schema/shortcut.schema.json"
+    | "https://hotkys.com/schema/shortcut.schema.json";
+  bundleId?: string;
+  hostname?: string;
+  windowsAppId?: string;
   windowsProcessName?: string;
-    name: string;
-    slug: string;
-    source?: string;
-    icon?: string;
-    keymaps: InputKeymap[];
+  name: string;
+  slug: string;
+  source?: string;
+  icon?: string;
+  keymaps: InputKeymap[];
 }
 
 /**
@@ -35,9 +37,9 @@ export interface InputApp {
  * At least one platform must be specified if the platforms field is present.
  */
 export interface InputKeymap {
-    title: string;
-    platforms?: Platform[];
-    sections: InputSection[];
+  title: string;
+  platforms?: Platform[];
+  sections: InputSection[];
 }
 
 /**
@@ -45,8 +47,8 @@ export interface InputKeymap {
  * Each section consist of title and shortcuts.
  */
 export interface InputSection {
-    title: string;
-    shortcuts: InputShortcut[];
+  title: string;
+  shortcuts: InputShortcut[];
 }
 
 /**
@@ -61,7 +63,7 @@ export interface InputSection {
  * Example: 'cmd+k cmd+s'
  */
 export interface InputShortcut {
-    title: string;
-    key?: string;
-    comment?: string;
+  title: string;
+  key?: string;
+  comment?: string;
 }

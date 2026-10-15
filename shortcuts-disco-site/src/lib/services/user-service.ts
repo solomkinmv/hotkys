@@ -1,6 +1,9 @@
 import { createClientOrNull } from "@/lib/supabase/client";
 import type { AuthUser } from "@/lib/auth/types";
-import type { UserProfile, UserPreferences } from "@/lib/model/user/user-models";
+import type {
+  UserProfile,
+  UserPreferences,
+} from "@/lib/model/user/user-models";
 import { getCurrentAuthUser } from "@/lib/auth/session";
 import {
   clearCurrentProfileCache,
@@ -18,7 +21,7 @@ export class UserService {
 
   async updateProfile(
     updates: Pick<UserProfile, "displayName" | "avatarUrl">,
-    authUser?: AuthUser | null
+    authUser?: AuthUser | null,
   ): Promise<void> {
     validateProfileMetadata(updates);
     const supabase = createClientOrNull(authUser);
@@ -39,7 +42,9 @@ export class UserService {
     clearCurrentProfileCache();
   }
 
-  async getPreferences(authUser?: AuthUser | null): Promise<UserPreferences | null> {
+  async getPreferences(
+    authUser?: AuthUser | null,
+  ): Promise<UserPreferences | null> {
     const supabase = createClientOrNull(authUser);
     if (!supabase) return null;
 
@@ -69,7 +74,7 @@ export class UserService {
 
   async updatePreferences(
     prefs: Partial<UserPreferences>,
-    authUser?: AuthUser | null
+    authUser?: AuthUser | null,
   ): Promise<void> {
     const supabase = createClientOrNull(authUser);
     if (!supabase) throw new Error("Supabase sign in is not configured.");
@@ -89,7 +94,7 @@ export class UserService {
 
   private mapProfile(
     profile: CurrentProfile,
-    authUser?: AuthUser | null
+    authUser?: AuthUser | null,
   ): UserProfile {
     const user = authUser === undefined ? getCurrentAuthUser() : authUser;
     return {

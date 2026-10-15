@@ -14,8 +14,7 @@ jest.mock("@clerk/react", () => ({
 
 const { AuthUnavailableGate } =
   require("./auth-unavailable") as typeof import("./auth-unavailable");
-const { LoginForm } =
-  require("./login-form") as typeof import("./login-form");
+const { LoginForm } = require("./login-form") as typeof import("./login-form");
 const { UserMenu } = require("./user-menu") as typeof import("./user-menu");
 
 const UNAVAILABLE_COPY =

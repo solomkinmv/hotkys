@@ -1,148 +1,179 @@
-import {ShortcutsParser} from "./input-parser";
-import {InputApp} from "@/lib/model/input/input-models";
-import {AppShortcuts, AtomicShortcut, Platform} from "@/lib/model/internal/internal-models";
-import {Modifiers} from "@/lib/model/internal/modifiers";
+import { ShortcutsParser } from "./input-parser";
+import { InputApp } from "@/lib/model/input/input-models";
+import {
+  AppShortcuts,
+  AtomicShortcut,
+  Platform,
+} from "@/lib/model/internal/internal-models";
+import { Modifiers } from "@/lib/model/internal/modifiers";
 import { describe, expect, it } from "@jest/globals";
 
 describe("Parses shortcut correctly", () => {
-    const parser = new ShortcutsParser();
+  const parser = new ShortcutsParser();
 
-    it("preserves the plus base key and rejects unknown modifiers", () => {
-        const result = parser.parseInputShortcuts([generateInputAppWithShortcut({shortcut: "cmd++"})]);
-        expect(result[0].keymaps[0].sections[0].hotkeys[0].sequence).toEqual([{base: "+", modifiers: [Modifiers.command]}]);
-        expect(() => parser.parseInputShortcuts([generateInputAppWithShortcut({shortcut: "unknown+a"})])).toThrow();
-    });
+  it("preserves the plus base key and rejects unknown modifiers", () => {
+    const result = parser.parseInputShortcuts([
+      generateInputAppWithShortcut({ shortcut: "cmd++" }),
+    ]);
+    expect(result[0].keymaps[0].sections[0].hotkeys[0].sequence).toEqual([
+      { base: "+", modifiers: [Modifiers.command] },
+    ]);
+    expect(() =>
+      parser.parseInputShortcuts([
+        generateInputAppWithShortcut({ shortcut: "unknown+a" }),
+      ]),
+    ).toThrow();
+  });
 
-    it("Parses app shortcut", () => {
-        expect(parser.parseInputShortcuts([generateInputAppWithShortcut()])).toEqual([generateExpectedAppWithShortcut()]);
-    });
+  it("Parses app shortcut", () => {
+    expect(
+      parser.parseInputShortcuts([generateInputAppWithShortcut()]),
+    ).toEqual([generateExpectedAppWithShortcut()]);
+  });
 
-    it("Parses shortcut without modifiers", () => {
-        const expectedShortcutSequence: AtomicShortcut[] = [
-            {
-                base: "e",
-                modifiers: [],
-            },
-        ];
+  it("Parses shortcut without modifiers", () => {
+    const expectedShortcutSequence: AtomicShortcut[] = [
+      {
+        base: "e",
+        modifiers: [],
+      },
+    ];
 
-        expect(parser.parseInputShortcuts([generateInputAppWithShortcut({shortcut: "e"})])).toEqual([
-            generateExpectedAppWithShortcut({
-                shortcutSequence: expectedShortcutSequence,
-            }),
-        ]);
-    });
+    expect(
+      parser.parseInputShortcuts([
+        generateInputAppWithShortcut({ shortcut: "e" }),
+      ]),
+    ).toEqual([
+      generateExpectedAppWithShortcut({
+        shortcutSequence: expectedShortcutSequence,
+      }),
+    ]);
+  });
 
-    it("Parses shortcut with alt modifier", () => {
-        const expectedShortcutSequence: AtomicShortcut[] = [
-            {
-                base: "e",
-                modifiers: [Modifiers.option],
-            },
-        ];
+  it("Parses shortcut with alt modifier", () => {
+    const expectedShortcutSequence: AtomicShortcut[] = [
+      {
+        base: "e",
+        modifiers: [Modifiers.option],
+      },
+    ];
 
-        expect(parser.parseInputShortcuts([generateInputAppWithShortcut({shortcut: "alt+e"})])).toEqual([
-            generateExpectedAppWithShortcut({
-                shortcutSequence: expectedShortcutSequence,
-            }),
-        ]);
-    });
+    expect(
+      parser.parseInputShortcuts([
+        generateInputAppWithShortcut({ shortcut: "alt+e" }),
+      ]),
+    ).toEqual([
+      generateExpectedAppWithShortcut({
+        shortcutSequence: expectedShortcutSequence,
+      }),
+    ]);
+  });
 
-    it("Parses shortcut with alt and other modifiers", () => {
-        const expectedShortcutSequence: AtomicShortcut[] = [
-            {
-                base: "e",
-                modifiers: [Modifiers.control, Modifiers.shift, Modifiers.option],
-            },
-        ];
+  it("Parses shortcut with alt and other modifiers", () => {
+    const expectedShortcutSequence: AtomicShortcut[] = [
+      {
+        base: "e",
+        modifiers: [Modifiers.control, Modifiers.shift, Modifiers.option],
+      },
+    ];
 
-        expect(parser.parseInputShortcuts([generateInputAppWithShortcut({shortcut: "ctrl+shift+alt+e"})])).toEqual([
-            generateExpectedAppWithShortcut({
-                shortcutSequence: expectedShortcutSequence,
-            }),
-        ]);
-    });
-
+    expect(
+      parser.parseInputShortcuts([
+        generateInputAppWithShortcut({ shortcut: "ctrl+shift+alt+e" }),
+      ]),
+    ).toEqual([
+      generateExpectedAppWithShortcut({
+        shortcutSequence: expectedShortcutSequence,
+      }),
+    ]);
+  });
 });
 
 describe("Platform field preservation", () => {
-    const parser = new ShortcutsParser();
+  const parser = new ShortcutsParser();
 
-    it("should preserve macOS platform", () => {
-        const result = parser.parseInputShortcuts([generateInputAppWithShortcut({platforms: ["macos"]})]);
-        expect(result[0].keymaps[0].platforms).toEqual(["macos"]);
-    });
+  it("should preserve macOS platform", () => {
+    const result = parser.parseInputShortcuts([
+      generateInputAppWithShortcut({ platforms: ["macos"] }),
+    ]);
+    expect(result[0].keymaps[0].platforms).toEqual(["macos"]);
+  });
 
-    it("should preserve Windows platform", () => {
-        const result = parser.parseInputShortcuts([generateInputAppWithShortcut({platforms: ["windows"]})]);
-        expect(result[0].keymaps[0].platforms).toEqual(["windows"]);
-    });
+  it("should preserve Windows platform", () => {
+    const result = parser.parseInputShortcuts([
+      generateInputAppWithShortcut({ platforms: ["windows"] }),
+    ]);
+    expect(result[0].keymaps[0].platforms).toEqual(["windows"]);
+  });
 
-    it("should preserve Linux platform", () => {
-        const result = parser.parseInputShortcuts([generateInputAppWithShortcut({platforms: ["linux"]})]);
-        expect(result[0].keymaps[0].platforms).toEqual(["linux"]);
-    });
+  it("should preserve Linux platform", () => {
+    const result = parser.parseInputShortcuts([
+      generateInputAppWithShortcut({ platforms: ["linux"] }),
+    ]);
+    expect(result[0].keymaps[0].platforms).toEqual(["linux"]);
+  });
 
-    it("should handle missing platforms field", () => {
-        const result = parser.parseInputShortcuts([generateInputAppWithShortcut()]);
-        expect(result[0].keymaps[0].platforms).toBeUndefined();
-    });
+  it("should handle missing platforms field", () => {
+    const result = parser.parseInputShortcuts([generateInputAppWithShortcut()]);
+    expect(result[0].keymaps[0].platforms).toBeUndefined();
+  });
 });
 
 function generateInputAppWithShortcut(override?: {
-    shortcut?: string;
-    platforms?: Platform[];
+  shortcut?: string;
+  platforms?: Platform[];
 }): InputApp {
-    return {
-        bundleId: "some-bundle-id",
-        name: "some-name",
-        slug: "slug",
-        keymaps: [
-            {
-                title: "keymap-name",
-                platforms: override?.platforms,
-                sections: [
-                    {
-                        title: "section-name",
-                        shortcuts: [
-                            {
-                                title: "shortcut",
-                                key: override?.shortcut ?? "ctrl+e",
-                            },
-                        ],
-                    },
-                ],
-            },
+  return {
+    bundleId: "some-bundle-id",
+    name: "some-name",
+    slug: "slug",
+    keymaps: [
+      {
+        title: "keymap-name",
+        platforms: override?.platforms,
+        sections: [
+          {
+            title: "section-name",
+            shortcuts: [
+              {
+                title: "shortcut",
+                key: override?.shortcut ?? "ctrl+e",
+              },
+            ],
+          },
         ],
-    };
+      },
+    ],
+  };
 }
 
 function generateExpectedAppWithShortcut(override?: {
-    shortcutSequence?: AtomicShortcut[],
+  shortcutSequence?: AtomicShortcut[];
 }): AppShortcuts {
-    return {
-        bundleId: "some-bundle-id",
-        name: "some-name",
-        slug: "slug",
-        keymaps: [
-            {
-                title: "keymap-name",
-                sections: [
-                    {
-                        title: "section-name",
-                        hotkeys: [
-                            {
-                                title: "shortcut",
-                                sequence: override?.shortcutSequence ?? [
-                                    {
-                                        base: "e",
-                                        modifiers: [Modifiers.control],
-                                    },
-                                ],
-                            },
-                        ],
-                    },
+  return {
+    bundleId: "some-bundle-id",
+    name: "some-name",
+    slug: "slug",
+    keymaps: [
+      {
+        title: "keymap-name",
+        sections: [
+          {
+            title: "section-name",
+            hotkeys: [
+              {
+                title: "shortcut",
+                sequence: override?.shortcutSequence ?? [
+                  {
+                    base: "e",
+                    modifiers: [Modifiers.control],
+                  },
                 ],
-            },
+              },
+            ],
+          },
         ],
-    };
+      },
+    ],
+  };
 }

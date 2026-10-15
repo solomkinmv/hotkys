@@ -54,13 +54,18 @@ export function imageVariantJobs(publicDir: string): ImageVariantJob[] {
  * Regenerates `public/optimized/` from the bundled images. Outputs newer than
  * their source and this script are reused; outputs without a source are removed.
  */
-export async function optimizeImages(root: string): Promise<{ written: number; reused: number }> {
+export async function optimizeImages(
+  root: string,
+): Promise<{ written: number; reused: number }> {
   const publicDir = path.join(root, "public");
   const outputDir = path.join(publicDir, OPTIMIZED_IMAGE_FOLDER);
   const jobs = imageVariantJobs(publicDir);
   const expected = new Set(jobs.map((job) => path.join(publicDir, job.output)));
   if (fs.existsSync(outputDir)) {
-    for (const entry of fs.readdirSync(outputDir, { recursive: true, withFileTypes: true })) {
+    for (const entry of fs.readdirSync(outputDir, {
+      recursive: true,
+      withFileTypes: true,
+    })) {
       const file = path.join(entry.parentPath, entry.name);
       if (entry.isFile() && !expected.has(file)) fs.rmSync(file);
     }
@@ -73,11 +78,15 @@ export async function optimizeImages(root: string): Promise<{ written: number; r
       const output = path.join(publicDir, job.output);
       if (fs.existsSync(output)) {
         const outputTime = fs.statSync(output).mtimeMs;
-        if (outputTime > fs.statSync(source).mtimeMs && outputTime > scriptTime) return;
+        if (outputTime > fs.statSync(source).mtimeMs && outputTime > scriptTime)
+          return;
       }
       fs.mkdirSync(path.dirname(output), { recursive: true });
       await sharp(source)
-        .resize(job.width, job.height, { fit: "inside", withoutEnlargement: true })
+        .resize(job.width, job.height, {
+          fit: "inside",
+          withoutEnlargement: true,
+        })
         .webp({ quality: 82, alphaQuality: 90, effort: 6 })
         .toFile(output);
       written++;
@@ -86,9 +95,15 @@ export async function optimizeImages(root: string): Promise<{ written: number; r
   return { written, reused: jobs.length - written };
 }
 
-if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+if (
+  process.argv[1] &&
+  import.meta.url === pathToFileURL(process.argv[1]).href
+) {
   optimizeImages(rootFolder).then(
-    ({ written, reused }) => console.log(`Optimized images: ${written} written, ${reused} up to date.`),
+    ({ written, reused }) =>
+      console.log(
+        `Optimized images: ${written} written, ${reused} up to date.`,
+      ),
     (error: unknown) => {
       console.error(error instanceof Error ? error.message : error);
       process.exitCode = 1;

@@ -98,14 +98,11 @@ describe("user content validation", () => {
     "\nhttps://example.com",
     "https://example.com\n",
     "https://example.com/\npath",
-  ])(
-    "rejects unsafe source URL scheme %p",
-    (source) => {
-      expect(() => validateCustomAppMetadata({ source })).toThrow(
-        "Source URL must use http or https",
-      );
-    },
-  );
+  ])("rejects unsafe source URL scheme %p", (source) => {
+    expect(() => validateCustomAppMetadata({ source })).toThrow(
+      "Source URL must use http or https",
+    );
+  });
 
   it.each([
     "javascript:alert(1)",

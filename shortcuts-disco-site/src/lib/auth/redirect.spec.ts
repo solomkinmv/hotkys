@@ -5,7 +5,7 @@ describe("auth redirects", () => {
   it("keeps safe app-local redirect paths", () => {
     expect(getSafeAuthRedirectPath("/favorites")).toBe("/favorites");
     expect(getSafeAuthRedirectPath("/apps/slack/default?tab=mine")).toBe(
-      "/apps/slack/default?tab=mine"
+      "/apps/slack/default?tab=mine",
     );
   });
 
@@ -25,5 +25,7 @@ describe("auth redirects", () => {
 it("rejects browser-normalized external redirects and preserves editor queries", () => {
   expect(getSafeAuthRedirectPath("/%5Cexample.com")).toBe("/");
   expect(getSafeAuthRedirectPath("/%0A/example.com")).toBe("/");
-  expect(getLoginHref("/my-shortcuts?app=my-draft")).toBe("/auth/login?next=%2Fmy-shortcuts%3Fapp%3Dmy-draft");
+  expect(getLoginHref("/my-shortcuts?app=my-draft")).toBe(
+    "/auth/login?next=%2Fmy-shortcuts%3Fapp%3Dmy-draft",
+  );
 });

@@ -138,7 +138,8 @@ export function FavoritesContent() {
         </Button>
       </div>
       {authLoading ||
-      (user && (favoritesLoading || customizationsLoading || catalogLoading)) ? (
+      (user &&
+        (favoritesLoading || customizationsLoading || catalogLoading)) ? (
         <div
           role="status"
           aria-label="Loading favorites"

@@ -20,8 +20,10 @@ jest.mock("@/lib/services/user-service", () => ({
   userService: mockUserService,
 }));
 
-const { AccountDataProvider } = require("@/components/auth/account-data-provider") as typeof import("@/components/auth/account-data-provider");
-const { usePlatformFilter } = require("./use-platform-filter") as typeof import("./use-platform-filter");
+const { AccountDataProvider } =
+  require("@/components/auth/account-data-provider") as typeof import("@/components/auth/account-data-provider");
+const { usePlatformFilter } =
+  require("./use-platform-filter") as typeof import("./use-platform-filter");
 
 function PlatformFilterProbe() {
   const { platformFilter } = usePlatformFilter();
@@ -42,7 +44,11 @@ describe("usePlatformFilter", () => {
   });
 
   it("uses the authenticated user's saved platform preference", async () => {
-    render(<AccountDataProvider><PlatformFilterProbe /></AccountDataProvider>);
+    render(
+      <AccountDataProvider>
+        <PlatformFilterProbe />
+      </AccountDataProvider>,
+    );
 
     await waitFor(() => {
       expect(screen.getByText("linux")).toBeTruthy();

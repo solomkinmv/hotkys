@@ -91,7 +91,8 @@ export function convertCustomAppToInputApp(customApp: CustomApp): InputApp {
     inputApp.bundleId = customApp.bundleId;
   }
   if (customApp.windowsAppId) inputApp.windowsAppId = customApp.windowsAppId;
-  if (customApp.windowsProcessName) inputApp.windowsProcessName = customApp.windowsProcessName;
+  if (customApp.windowsProcessName)
+    inputApp.windowsProcessName = customApp.windowsProcessName;
   if (customApp.hostname) {
     inputApp.hostname = customApp.hostname;
   }
