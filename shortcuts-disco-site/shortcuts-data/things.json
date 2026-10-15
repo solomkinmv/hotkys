@@ -94,7 +94,7 @@
             },
             {
               "title": "Move complete to Logbook",
-              "key": "cmd+l"
+              "key": "shift+cmd+y"
             }
           ]
         },
