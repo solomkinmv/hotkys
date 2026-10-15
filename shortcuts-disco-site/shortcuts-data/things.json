@@ -110,6 +110,14 @@
               "key": "down"
             },
             {
+              "title": "Select first",
+              "key": "opt+up"
+            },
+            {
+              "title": "Select last",
+              "key": "opt+down"
+            },
+            {
               "title": "Extend selection upwards",
               "key": "shift+up"
             },
@@ -181,7 +189,23 @@
             },
             {
               "title": "Start Someday",
-              "key": "cmd+q"
+              "key": "cmd+o"
+            },
+            {
+              "title": "Start date +1 day",
+              "key": "ctrl+]"
+            },
+            {
+              "title": "Start date -1 day",
+              "key": "ctrl+["
+            },
+            {
+              "title": "Start date +1 week",
+              "key": "ctrl+shift+]"
+            },
+            {
+              "title": "Start date -1 week",
+              "key": "ctrl+shift+["
             },
             {
               "title": "Add a Deadline",
@@ -193,11 +217,15 @@
             },
             {
               "title": "Deadline -1 day",
-              "key": "ctrl"
+              "key": "ctrl+,"
             },
             {
               "title": "Deadline +1 week",
               "key": "ctrl+shift+."
+            },
+            {
+              "title": "Deadline -1 week",
+              "key": "ctrl+shift+,"
             },
             {
               "title": "Make to-do or project repeating",
@@ -211,6 +239,10 @@
             {
               "title": "Open new window",
               "key": "ctrl+cmd+n"
+            },
+            {
+              "title": "Show or hide sidebar",
+              "key": "cmd+/"
             },
             {
               "title": "Close current window",
@@ -243,6 +275,10 @@
           "title": "Navigate",
           "shortcuts": [
             {
+              "title": "Show navigation popover",
+              "key": "shift+cmd+o"
+            },
+            {
               "title": "Go to Inbox",
               "key": "cmd+1"
             },
@@ -268,23 +304,31 @@
             },
             {
               "title": "Show to-do or project in context",
-              "key": "shift+cmd+l"
+              "key": "cmd+l"
             },
             {
               "title": "Enter a selected project",
-              "key": "right"
+              "key": "cmd+right"
             },
             {
               "title": "Return to previous list",
-              "key": "left"
+              "key": "cmd+left"
+            },
+            {
+              "title": "Scroll up",
+              "key": "pageup"
+            },
+            {
+              "title": "Scroll down",
+              "key": "pagedown"
             },
             {
               "title": "Scroll to top",
-              "key": "opt+up"
+              "key": "home"
             },
             {
               "title": "Scroll to bottom",
-              "key": "opt+down"
+              "key": "end"
             },
             {
               "title": "Navigate up in the sidebar",
@@ -302,6 +346,22 @@
             {
               "title": "Find",
               "key": "cmd+f"
+            },
+            {
+              "title": "Find in text",
+              "key": "shift+cmd+f"
+            },
+            {
+              "title": "Find and replace in text",
+              "key": "shift+opt+cmd+f"
+            },
+            {
+              "title": "Find next in text",
+              "key": "cmd+g"
+            },
+            {
+              "title": "Find previous in text",
+              "key": "shift+cmd+g"
             }
           ]
         },
@@ -332,6 +392,88 @@
             {
               "title": "Open a link",
               "key": "opt+cmd+enter"
+            }
+          ]
+        },
+        {
+          "title": "Other",
+          "shortcuts": [
+            {
+              "title": "Show or hide later items",
+              "key": "shift+cmd+e"
+            }
+          ]
+        },
+        {
+          "title": "Style text with Markdown",
+          "shortcuts": [
+            {
+              "title": "Heading 1",
+              "key": "ctrl+cmd+1"
+            },
+            {
+              "title": "Heading 2",
+              "key": "ctrl+cmd+2"
+            },
+            {
+              "title": "Italics",
+              "key": "cmd+i"
+            },
+            {
+              "title": "Bold",
+              "key": "cmd+b"
+            },
+            {
+              "title": "Bulleted list",
+              "key": "shift+cmd+l"
+            },
+            {
+              "title": "Numbered list",
+              "key": "opt+cmd+l"
+            },
+            {
+              "title": "Task list",
+              "key": "ctrl+cmd+l"
+            },
+            {
+              "title": "Complete task",
+              "key": "cmd+k"
+            },
+            {
+              "title": "Cancel task",
+              "key": "opt+cmd+k"
+            },
+            {
+              "title": "Quote",
+              "key": "cmd+'"
+            },
+            {
+              "title": "Highlight",
+              "key": "shift+cmd+u"
+            },
+            {
+              "title": "Link",
+              "key": "shift+cmd+k"
+            },
+            {
+              "title": "Strikethrough",
+              "key": "opt+cmd+u"
+            },
+            {
+              "title": "Code",
+              "key": "shift+cmd+j"
+            },
+            {
+              "title": "Code block",
+              "key": "shift+opt+cmd+j"
+            },
+            {
+              "title": "Increase indent",
+              "key": "cmd+]"
+            },
+            {
+              "title": "Decrease indent",
+              "key": "cmd+["
             }
           ]
         }
