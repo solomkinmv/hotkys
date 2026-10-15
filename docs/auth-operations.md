@@ -75,7 +75,3 @@ As of October 11, 2026, the website (PR #152) is deployed, production migrations
 2. **Native Raycast:** full foreground-browser discovery (List Current Web Shortcuts), focus-change cancellation during a delay, and System Events Automation restoration after denial remain unverified.
 3. **External native logout overlap:** a native logout during an already-started credential write is unverified; the Raycast API has no shared transaction for it.
 4. **Other database environments:** inspect drafts and the migration ledger before applying the upgrades above.
-
-## Ambiguous legacy shortcut identities
-
-The old website mapped Command to Control on Windows/Linux. When that old ID could identify more than one current shortcut, neither client guesses the target. A current row whose ordinary ID collides receives a `v2:` ID; new saves use that ID. Unambiguous old IDs (including the old literal-plus parser output) remain aliases. Existing ambiguous favorites remain removable by their stored row ID. Recreate an ambiguous favorite or customization against the intended current row after checking it; do not bulk-map by title.

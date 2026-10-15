@@ -121,7 +121,6 @@ export interface SectionShortcut<M extends string = string> {
   baseSectionTitle?: string;
   baseShortcutTitle?: string;
   baseShortcutId?: string;
-  baseShortcutAliases?: string[];
   customShortcutId?: string;
 }
 

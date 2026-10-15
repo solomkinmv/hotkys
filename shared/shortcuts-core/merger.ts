@@ -12,7 +12,7 @@ import type {
   ShortcutOverlay,
   UserCustomizations,
 } from "./types";
-import { getSectionIdentities } from "./identity";
+import { getSectionIds } from "./identity";
 export class ShortcutMerger<M extends string, P extends string> {
   private overlayMap: Map<string, ShortcutOverlay>;
   private legacyOverlayMap: Map<string, ShortcutOverlay>;
@@ -69,22 +69,17 @@ export class ShortcutMerger<M extends string, P extends string> {
   }
 
   private mergeSection(appSlug: string, keymapTitle: string, section: Section<M>): Section<M> {
-    const { ids, aliases } = getSectionIdentities(section.hotkeys);
+    const ids = getSectionIds(section.hotkeys);
     const mergedHotkeys = section.hotkeys
       .map((hotkey, index) => {
         const baseShortcutId = ids[index];
         const baseKey = this.buildOverlayKey(appSlug, keymapTitle, section.title, hotkey.title);
         const overlay =
-          this.overlayMap.get(this.buildOverlayIdentityKey(baseKey, baseShortcutId)) ??
-          (aliases.get(baseShortcutId) ?? [])
-            .map((id) => this.overlayMap.get(this.buildOverlayIdentityKey(baseKey, id)))
-            .find(Boolean) ??
-          this.getLegacyOverlay(baseKey);
+          this.overlayMap.get(this.buildOverlayIdentityKey(baseKey, baseShortcutId)) ?? this.getLegacyOverlay(baseKey);
 
         const baseHotkey: SectionShortcut<M> = {
           ...hotkey,
           baseShortcutId,
-          ...(aliases.get(baseShortcutId)?.length ? { baseShortcutAliases: aliases.get(baseShortcutId) } : {}),
           baseSectionTitle: section.title,
           baseShortcutTitle: hotkey.title,
         };

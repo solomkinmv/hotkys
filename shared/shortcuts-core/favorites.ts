@@ -5,7 +5,6 @@ export interface FavoriteIdentifier {
   sectionTitle?: string;
   shortcutTitle?: string;
   baseShortcutId?: string;
-  baseShortcutAliases?: string[];
   customAppId?: string;
   customKeymapId?: string;
   customShortcutId?: string;
@@ -25,12 +24,8 @@ export function matchesFavorite<T extends FavoriteIdentifier>(favorite: T, ident
   if (identifier.itemType === "keymap") return true;
   if (favorite.sectionTitle !== identifier.sectionTitle) return false;
 
-  if (favorite.baseShortcutId && identifier.baseShortcutId) {
-    return (
-      favorite.baseShortcutId === identifier.baseShortcutId ||
-      (identifier.baseShortcutAliases?.includes(favorite.baseShortcutId) ?? false)
-    );
-  }
+  if (favorite.baseShortcutId && identifier.baseShortcutId)
+    return favorite.baseShortcutId === identifier.baseShortcutId;
 
   return favorite.shortcutTitle === identifier.shortcutTitle;
 }
