@@ -8,7 +8,7 @@
     "reason": "Removes three exact duplicate rows (Photoshop 'Rotate View tool' r in Default and Default (Windows) Select tools; Firefox 'Focus Address Bar' f6 in Default Miscellaneous). Only the second occurrence is removed; the identical first row (occurrence 0) remains, so users keep the same shortcut and can re-favorite it. Saved references to the removed second occurrence become unavailable; no automatic migration or private-data mutation is performed."
   },
   {
-    "fingerprint": "310ff0d43ba1b33ff223f12a910d59b2ebd6e84360e6a27d205d86d4bf42c2c6",
-    "reason": "Corrects the Things Default Edit items binding for 'Move complete to Logbook' from cmd+l to shift+cmd+y per Cultured Code's official Mac shortcut list (issue #151). Saved references to the old cmd+l row become unavailable; users can re-favorite or recreate overlays against the corrected row. No automatic label-based migration or private-data mutation is performed."
+    "fingerprint": "854441d3e0f2515c66775ca78a603bd6e7e1ae98c5957cf5adb4805fbbaca529",
+    "reason": "Corrects eight Things Default bindings against Cultured Code's official Mac shortcut list (issue #151): Move complete to Logbook cmd+l -> shift+cmd+y, Start Someday cmd+q -> cmd+o, Deadline -1 day ctrl -> ctrl+, (the comma had been dropped), Show to-do or project in context shift+cmd+l -> cmd+l, Enter a selected project right -> cmd+right, Return to previous list left -> cmd+left, and Scroll to top/bottom opt+up/opt+down -> home/end (fn+left/right; opt+up/down are Select first/last, added as new rows). Saved references to the eight old rows become unavailable; users can re-favorite or recreate overlays against the corrected rows. No automatic label-based migration or private-data mutation is performed."
   }
 ]
