@@ -12,7 +12,7 @@ Hotkys (repository `shortcuts-disco`) is a keyboard-shortcut catalog published a
 | `shortcuts-raycast-extension`         | Raycast extension `shortcuts-search` (macOS and Windows)                    |
 | `shared/shortcuts-core`               | Source of the shortcut parser/identity/merge logic copied into both apps    |
 | `scripts`                             | Shared-core sync, catalog verification and catalog identity checks          |
-| `docs`                                | Auth operations, catalog compatibility record, plans and verification notes |
+| `docs`                                | Auth operations, catalog compatibility record, Windows acceptance checklist |
 
 The apps are independent npm projects with their own lockfiles; there is no root package. Use Node.js 22+ (site `engines`, CI). Read `CONTRIBUTING.md` for catalog grammar and the full local check list, and `docs/auth-operations.md` before account, Supabase or Clerk work.
 
