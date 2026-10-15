@@ -968,4 +968,42 @@ describe("AppDetails", () => {
       expect(upsertShortcutOverlayMock).not.toHaveBeenCalled();
     },
   );
+
+  it("saves an overlay that clears the original key", async () => {
+    render(<AppDetails application={application} keymap={keymap} />);
+    fireEvent.click(screen.getByRole("button", { name: "Copy" }));
+    fireEvent.change(screen.getByLabelText("Keyboard shortcut"), {
+      target: { value: "" },
+    });
+    fireEvent.change(
+      screen.getByLabelText("Instructions or alternative method"),
+      {
+        target: { value: "Use the Edit menu" },
+      },
+    );
+    fireEvent.click(screen.getByRole("button", { name: "Save" }));
+    await waitFor(() =>
+      expect(upsertShortcutOverlayMock).toHaveBeenCalledWith(
+        expect.objectContaining({
+          keyIsCleared: true,
+          commentIsCleared: false,
+          comment: "Use the Edit menu",
+        }),
+        { id: "user-1" },
+      ),
+    );
+  });
+
+  it("rejects an overlay that clears both key and instructions", () => {
+    render(<AppDetails application={application} keymap={keymap} />);
+    fireEvent.click(screen.getByRole("button", { name: "Copy" }));
+    fireEvent.change(screen.getByLabelText("Keyboard shortcut"), {
+      target: { value: "" },
+    });
+    fireEvent.click(screen.getByRole("button", { name: "Save" }));
+    expect(
+      screen.getByText("Keep a key or instructions, or delete the shortcut."),
+    ).toBeTruthy();
+    expect(upsertShortcutOverlayMock).not.toHaveBeenCalled();
+  });
 });

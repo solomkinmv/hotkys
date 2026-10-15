@@ -488,31 +488,11 @@ export const AppDetails = ({
       return;
     }
 
-    if (shortcutDialog.type === "override") {
-      const original = keymap.sections
-        .find((section) => section.title === shortcutDialog.sectionTitle)
-        ?.hotkeys.find(
-          (hotkey) => hotkey.title === shortcutDialog.shortcutTitle,
-        );
-      if (
-        process.env.NEXT_PUBLIC_ENABLE_OVERLAY_CLEARING !== "true" &&
-        ((!key && original?.sequence.length) || (!comment && original?.comment))
-      ) {
-        setShortcutDialogError(
-          "Clearing original fields is not available yet. Restore the field or use Restore Original.",
-        );
-        return;
-      }
-      if (
-        process.env.NEXT_PUBLIC_ENABLE_OVERLAY_CLEARING === "true" &&
-        !key &&
-        !comment
-      ) {
-        setShortcutDialogError(
-          "Keep a key or instructions, or delete the shortcut.",
-        );
-        return;
-      }
+    if (shortcutDialog.type === "override" && !key && !comment) {
+      setShortcutDialogError(
+        "Keep a key or instructions, or delete the shortcut.",
+      );
+      return;
     }
 
     setIsSavingShortcut(true);
@@ -564,9 +544,8 @@ export const AppDetails = ({
             ...(shortcutDialog.customizationId
               ? { id: shortcutDialog.customizationId }
               : {}),
-            ...(process.env.NEXT_PUBLIC_ENABLE_OVERLAY_CLEARING === "true"
-              ? { keyIsCleared: !key, commentIsCleared: !comment }
-              : {}),
+            keyIsCleared: !key,
+            commentIsCleared: !comment,
             title,
             key,
             comment,

@@ -291,11 +291,6 @@ export class CustomizationsService {
       (normalized.commentIsCleared && normalized.comment)
     )
       throw new Error("A cleared field cannot also contain a replacement.");
-    if (
-      (normalized.keyIsCleared || normalized.commentIsCleared) &&
-      process.env.NEXT_PUBLIC_ENABLE_OVERLAY_CLEARING !== "true"
-    )
-      throw new Error("Clearing fields is not enabled yet.");
     const supabase = createClientOrNull(authUser);
     if (!supabase) throw new Error("Supabase sign in is not configured.");
     const profile = await requireCurrentProfile(authUser);
