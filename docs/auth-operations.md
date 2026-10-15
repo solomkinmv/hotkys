@@ -65,7 +65,17 @@ Record environment, timestamp, application revision, migration versions, and two
 
 Keep `NEXT_PUBLIC_ENABLE_OVERLAY_CLEARING` unset or `false` until migrations are verified and a compatible Raycast reader is actually available to users. Apply additive database changes, release/verify compatible extension readers, then enable website clear-field writes and verify affected routes on the deployed revision. Disabling the website flag reverses the UI rollout; retain populated columns and legacy references.
 
-Deployment, store release, hosted dashboard changes, and production migration execution need explicit authorization. Local tests do not establish that those steps occurred. See [implementation verification](verification/project-remediation.md) for the evidence actually collected.
+Deployment, store release, hosted dashboard changes, and production migration execution need explicit authorization. Local tests do not establish that those steps occurred.
+
+## Outstanding acceptance and rollout
+
+As of October 11, 2026, the website (PR #152) is deployed, production migrations are applied and verified, and the Raycast reader is published in the Store. Still open:
+
+1. **Hosted identity:** Google sign-in, native PKCE, cancel/reconnect, hosted favorite reads/writes and normal logout passed for one existing account. Live A/B ownership checks need a designated second account; email-link cross-device completion needs an authorized test inbox and a second device or browser context. No test environment or test users are provisioned.
+2. **Native Raycast:** full foreground-browser discovery (List Current Web Shortcuts), focus-change cancellation during a delay, and System Events Automation restoration after denial remain unverified.
+3. **External native logout overlap:** a native logout during an already-started credential write is unverified; the Raycast API has no shared transaction for it.
+4. **Other database environments:** inspect drafts and the migration ledger before applying the upgrades above.
+5. **Overlay clearing:** verify the published Raycast reader with real users, then enable `NEXT_PUBLIC_ENABLE_OVERLAY_CLEARING` and verify affected routes on the deployed revision.
 
 ## Ambiguous legacy shortcut identities
 
