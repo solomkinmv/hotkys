@@ -472,10 +472,7 @@ function resolveFavorite(
                 entry.keymap.title === favorite.keymapTitle &&
                 (entry.shortcut.baseSectionTitle ?? entry.section.title) ===
                   favorite.sectionTitle &&
-                (entry.shortcut.baseShortcutId === favorite.baseShortcutId ||
-                  !!entry.shortcut.baseShortcutAliases?.includes(
-                    favorite.baseShortcutId!,
-                  )),
+                entry.shortcut.baseShortcutId === favorite.baseShortcutId,
         )
       : undefined;
   const publicKeymap = publicCustomKeymaps.find(
@@ -550,8 +547,7 @@ function resolveFavorite(
           .find((h) => h.customizationId === privateShortcut?.id)
       : section?.hotkeys.find((h) =>
           favorite.baseShortcutId
-            ? h.baseShortcutId === favorite.baseShortcutId ||
-              !!h.baseShortcutAliases?.includes(favorite.baseShortcutId)
+            ? h.baseShortcutId === favorite.baseShortcutId
             : (h.baseShortcutTitle ?? h.title) === favorite.shortcutTitle,
         ));
   const addedKeymapId = keymap?.customKeymapId;

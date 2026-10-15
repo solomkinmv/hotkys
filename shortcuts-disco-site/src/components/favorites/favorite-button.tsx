@@ -17,7 +17,6 @@ interface FavoriteButtonProps {
   sectionTitle?: string;
   shortcutTitle?: string;
   baseShortcutId?: string;
-  baseShortcutAliases?: string[];
   customAppId?: string;
   customKeymapId?: string;
   customShortcutId?: string;
@@ -34,7 +33,6 @@ export function FavoriteButton({
   sectionTitle,
   shortcutTitle,
   baseShortcutId,
-  baseShortcutAliases,
   customAppId,
   customKeymapId,
   customShortcutId,
@@ -78,7 +76,6 @@ export function FavoriteButton({
     sectionTitle,
     shortcutTitle,
     baseShortcutId,
-    baseShortcutAliases,
     customAppId,
     customKeymapId,
     customShortcutId,
@@ -97,7 +94,6 @@ export function FavoriteButton({
         sectionTitle,
         shortcutTitle,
         baseShortcutId,
-        baseShortcutAliases,
         customAppId,
         customKeymapId,
         customShortcutId,

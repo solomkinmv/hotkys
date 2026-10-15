@@ -466,42 +466,6 @@ describe("FavoritesContent", () => {
     ).toBe("/apps/sample/default#Custom%20actions");
     expect(screen.queryByRole("button", { name: /Manage/ })).toBeNull();
   });
-  it("resolves old public identities to the current method and destination", () => {
-    mockUseFavorites.mockReturnValue({
-      favorites: [favorite],
-      isLoading: false,
-      refetch: refetchMock,
-    });
-    renderFavorites([
-          {
-            ...app,
-            keymaps: [
-              {
-                title: "Default",
-                sections: [
-                  {
-                    title: "Editing",
-                    hotkeys: [
-                      {
-                        ...shortcut,
-                        baseShortcutId: "v2:stable-reply",
-                        baseShortcutAliases: [favorite.baseShortcutId],
-                      },
-                    ],
-                  },
-                ],
-              },
-            ],
-          },
-        ]);
-    expect(
-      screen.getByRole("group", { name: "How to do it: Reply" }).textContent,
-    ).toBe("Swipe from right to left");
-    expect(
-      screen.getByRole("link", { name: /Reply/ }).getAttribute("href"),
-    ).toBe("/apps/sample/default#Editing");
-  });
-
   it("routes child-only favorites for an added public keymap through an exported base page", () => {
     mockUseFavorites.mockReturnValue({
       favorites: [

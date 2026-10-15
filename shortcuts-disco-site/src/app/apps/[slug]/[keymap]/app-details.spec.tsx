@@ -394,49 +394,6 @@ describe("AppDetails", () => {
     expect(screen.getAllByText("Copy as rich text")).toHaveLength(2);
   });
 
-  it("pins a legacy plus-key favorite through its compatibility alias", () => {
-    const plusKeymap: Keymap = {
-      title: "Default",
-      sections: [
-        {
-          title: "Editing",
-          hotkeys: [
-            {
-              title: "Zoom",
-              sequence: [{ base: "+", modifiers: [Modifiers.command] }],
-            },
-          ],
-        },
-      ],
-    };
-    mockUseFavorites.mockReturnValue({
-      favorites: [
-        {
-          id: "favorite-1",
-          itemType: "shortcut",
-          appSlug: "sample",
-          keymapTitle: "Default",
-          sectionTitle: "Editing",
-          shortcutTitle: "Zoom",
-          baseShortcutId: JSON.stringify([
-            [["", ["command down", null]]],
-            "Zoom",
-            "",
-            0,
-          ]),
-        },
-      ],
-      isLoading: false,
-    });
-    render(
-      <AppDetails
-        application={{ ...application, keymaps: [plusKeymap] }}
-        keymap={plusKeymap}
-      />,
-    );
-    expect(screen.getAllByText("Zoom")).toHaveLength(2);
-  });
-
   it("pins a renamed stable private favorite without selecting its old official namesake", () => {
     mockUseFavorites.mockReturnValue({
       favorites: [

@@ -364,7 +364,6 @@ export const AppDetails = ({
                 sectionTitle: shortcut.baseSectionTitle ?? section.title,
                 shortcutTitle: shortcut.baseShortcutTitle ?? shortcut.title,
                 baseShortcutId: shortcut.baseShortcutId,
-                baseShortcutAliases: shortcut.baseShortcutAliases,
                 customShortcutId: shortcut.customShortcutId,
               }),
             ),
@@ -717,7 +716,6 @@ export const AppDetails = ({
                   sectionTitle={favoriteSectionTitle}
                   shortcutTitle={hotkey.baseShortcutTitle ?? hotkey.title}
                   baseShortcutId={hotkey.baseShortcutId}
-                  baseShortcutAliases={hotkey.baseShortcutAliases}
                   customShortcutId={hotkey.customShortcutId}
                   className="shrink-0 text-muted-foreground"
                 />
@@ -812,7 +810,6 @@ export const AppDetails = ({
                         sectionTitle={favoriteSectionTitle}
                         shortcutTitle={hotkey.baseShortcutTitle ?? hotkey.title}
                         baseShortcutId={hotkey.baseShortcutId}
-                        baseShortcutAliases={hotkey.baseShortcutAliases}
                         customShortcutId={hotkey.customShortcutId}
                         className="shrink-0 text-muted-foreground"
                       />

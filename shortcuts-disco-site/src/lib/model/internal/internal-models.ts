@@ -43,7 +43,6 @@ export interface SectionShortcut {
     baseSectionTitle?: string;
     baseShortcutTitle?: string;
     baseShortcutId?: string;
-    baseShortcutAliases?: string[];
     customShortcutId?: string;
 }
 

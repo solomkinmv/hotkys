@@ -18,7 +18,6 @@ export function toShortcutFavoriteIdentifier(
     sectionTitle: shortcut.baseSectionTitle ?? sectionTitle,
     shortcutTitle: shortcut.baseShortcutTitle ?? shortcut.title,
     baseShortcutId: shortcut.baseShortcutId,
-    baseShortcutAliases: shortcut.baseShortcutAliases,
     customShortcutId:
       shortcut.customShortcutId ??
       (application.customAppId || shortcut.customizationStatus === "created" ? shortcut.customizationId : undefined),
