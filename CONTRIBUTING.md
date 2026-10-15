@@ -31,7 +31,6 @@ npm --prefix shortcuts-disco-site run validate-data
 npm --prefix shortcuts-disco-site run format-data:check
 npm --prefix shortcuts-disco-site run test:catalog
 node scripts/sync-shortcuts-core.mjs --check
-node scripts/check-catalog-identities.mjs origin/main
 npm --prefix shortcuts-disco-site test -- --runInBand
 npm --prefix shortcuts-raycast-extension test -- --runInBand
 npm --prefix shortcuts-disco-site run test:types
@@ -54,6 +53,6 @@ This temporarily creates an ignored development asset for all extension catalog,
 
 ## Compatibility review
 
-Public favorites/overlays may contain derived identities incorporating app/keymap/section names, binding, title, comment, and duplicate occurrence. Renames and edits can break saved references. CI compares existing references against the PR base and prints affected rows plus a fingerprint. Record that exact fingerprint and a substantive `reason` in `docs/catalog-compatibility.json` only after choosing a compatibility strategy: a proven deterministic alias/migration, retaining the original row, or explicitly accepting unresolved legacy references. Do not guess same-title matches or silently delete unresolved favorites. Pure additions and formatting without semantic changes pass automatically.
+Saved favorites and overlays reference a row by its section, key, title and comment. Changing any of these on an existing row, or removing it, orphans what users saved for it, so do it only to fix real errors and say so in the PR.
 
 For account/schema work, also run `npm --prefix shortcuts-disco-site run test:rls` and follow [auth operations](docs/auth-operations.md). Screenshots and private account diagnostics belong outside Git. Never contribute tokens, credentials, or another account's exports.

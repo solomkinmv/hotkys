@@ -11,8 +11,8 @@ Hotkys (repository `shortcuts-disco`) is a keyboard-shortcut catalog published a
 | `shortcuts-disco-site/supabase`       | `schema.sql` snapshot, timestamped `migrations/`, PGlite database tests     |
 | `shortcuts-raycast-extension`         | Raycast extension `shortcuts-search` (macOS and Windows)                    |
 | `shared/shortcuts-core`               | Source of the shortcut parser/identity/merge logic copied into both apps    |
-| `scripts`                             | Shared-core sync, catalog verification and catalog identity checks          |
-| `docs`                                | Auth operations, catalog compatibility record, Windows acceptance checklist |
+| `scripts`                             | Shared-core sync and catalog verification                                   |
+| `docs`                                | Auth operations and Windows acceptance checklist                            |
 
 The apps are independent npm projects with their own lockfiles; there is no root package. Use Node.js 22+ (site `engines`, CI). Read `CONTRIBUTING.md` for catalog grammar and the full local check list, and `docs/auth-operations.md` before account, Supabase or Clerk work.
 
@@ -22,13 +22,13 @@ Site (`shortcuts-disco-site`): `dev` (watches catalog sources and runs `next dev
 
 Raycast (`shortcuts-raycast-extension`): `test`, `test:types`, `lint`/`fix-lint` (`ray lint`), `build`, `dev`, `dev:catalog -- --origin http://localhost:3000` (temporary local catalog). Do not run `publish` unless asked.
 
-From the root: `node scripts/sync-shortcuts-core.mjs --check|--write` and `node scripts/check-catalog-identities.mjs <base-ref>`.
+From the root: `node scripts/sync-shortcuts-core.mjs --check|--write`.
 
 ## Project invariants
 
 - Edit `shortcuts-data/` and `public/data/key-codes.json`; never the gitignored generated output (`public/data/{combined-apps.json,macos,windows,linux}`, `public/schema/`, `public/optimized/`).
 - Edit shared shortcut logic in `shared/shortcuts-core`, then run `sync-shortcuts-core.mjs --write`. `src/lib/shortcut-core` (site) and `src/shortcut-core` (Raycast) are generated copies, checked in CI.
-- Renaming or editing existing catalog rows can break saved favorites/overlays. CI compares identities against the PR base; record accepted changes in `docs/catalog-compatibility.json` as described in `CONTRIBUTING.md`.
+- Changing the section, key, title or comment of an existing catalog row, or removing it, orphans saved favorites/overlays for it; do it only to fix real errors.
 - The Raycast extension fetches `data/<platform>/apps.json`, `data/<platform>/<slug>.json`, `data/key-codes.json` and icons from `https://hotkys.com` (or the `dev:catalog` override), so generated-format changes affect the published extension.
 - The site is a static export using `@clerk/react` client APIs only: no middleware, server-side auth, server actions or `@clerk/nextjs`. `sitemap.ts`, `robots.ts` and `opengraph-image` are static metadata routes. Where installed skills suggest `@clerk/nextjs` server patterns or `auth.uid()`-based RLS, these conventions take precedence.
 - Supabase is only the database, via `@supabase/supabase-js`. The site passes the Clerk session token through the client's `accessToken` callback (`src/lib/supabase/client.ts`); Raycast uses Clerk OAuth PKCE (`src/auth`, `src/user-data`).
@@ -44,7 +44,7 @@ From the root: `node scripts/sync-shortcuts-core.mjs --check|--write` and `node 
 
 ## CI and deployment
 
-- PR workflows: the site job checks the shared-core sync, validates catalog data, formatting and identities, then runs tests, type check, lint, build and `test:rls`. The extension job runs sync check, tests, type check, lint and build on macOS and Windows.
+- PR workflows: the site job checks the shared-core sync, validates catalog data and formatting, then runs tests, type check, lint, build and `test:rls`. The extension job runs sync check, tests, type check, lint and build on macOS and Windows.
 - `deploy-pages.yml` deploys to GitHub Pages on pushes to `main` touching the site, `shared/` or `scripts/`, after `check:config -- --mode production --database` (requires a `pk_live_` Clerk key). `src/lib/services/deploy-pages-workflow.spec.ts` asserts workflow properties; update it with the workflows.
 - The Raycast extension is published to the Raycast Store manually; `build`/`publish` reject an active catalog override.
 

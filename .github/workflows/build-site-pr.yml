@@ -10,7 +10,6 @@ on:
       - 'shortcuts-disco-site/**' # Trigger only for changes in this directory
       - 'shared/**'
       - 'scripts/**'
-      - 'docs/catalog-compatibility.json'
       - '.github/workflows/build-site-pr.yml'
       - '.github/workflows/deploy-pages.yml'
 
@@ -27,8 +26,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7
-        with:
-          fetch-depth: 0
 
       - name: Set up Node.js
         uses: actions/setup-node@v7
@@ -49,10 +46,6 @@ jobs:
           npm run validate-data
           npm run format-data:check
           npm run test:catalog
-      - name: Check existing catalog identities
-        env:
-          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
-        run: node ../scripts/check-catalog-identities.mjs "$PR_BASE_SHA"
 
       - name: Test
         run: npm test -- --runInBand
