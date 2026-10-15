@@ -30,6 +30,7 @@ npm --prefix shortcuts-disco-site run prettify -- --write example-app.json
 npm --prefix shortcuts-disco-site run validate-data
 npm --prefix shortcuts-disco-site run format-data:check
 npm --prefix shortcuts-disco-site run format:check
+npm --prefix shortcuts-disco-site exec -- prettier --config shortcuts-raycast-extension/.prettierrc --check shared scripts
 npm --prefix shortcuts-disco-site run test:catalog
 node scripts/sync-shortcuts-core.mjs --check
 npm --prefix shortcuts-disco-site test -- --runInBand

@@ -8,7 +8,10 @@ const write = process.argv.includes("--write");
 if (!write && !process.argv.includes("--check")) throw new Error("Use --write or --check");
 async function files(dir, prefix = "") {
   let result = [];
-  for (const entry of await readdir(dir, { withFileTypes: true }).catch(e => { if (e.code === "ENOENT") return []; throw e; })) {
+  for (const entry of await readdir(dir, { withFileTypes: true }).catch((e) => {
+    if (e.code === "ENOENT") return [];
+    throw e;
+  })) {
     const name = path.join(prefix, entry.name);
     result.push(...(entry.isDirectory() ? await files(path.join(dir, entry.name), name) : [name]));
   }
@@ -20,13 +23,18 @@ for (const destination of destinations) {
   const dir = path.join(root, destination);
   for (const name of names) {
     const body = await readFile(path.join(source, name), "utf8");
-    const expected = name.endsWith(".ts") ? "// Generated from shared/shortcuts-core; run scripts/sync-shortcuts-core.mjs --write.\n" + body : body;
+    const expected = name.endsWith(".ts")
+      ? "// Generated from shared/shortcuts-core; run scripts/sync-shortcuts-core.mjs --write.\n" + body
+      : body;
     const target = path.join(dir, name);
-    if (write) { await mkdir(path.dirname(target), { recursive: true }); await writeFile(target, expected); }
-    else if (await readFile(target, "utf8").catch(() => null) !== expected) failures.push(`${destination}/${name}`);
+    if (write) {
+      await mkdir(path.dirname(target), { recursive: true });
+      await writeFile(target, expected);
+    } else if ((await readFile(target, "utf8").catch(() => null)) !== expected) failures.push(`${destination}/${name}`);
   }
-  for (const extra of (await files(dir)).filter(name => !names.includes(name))) {
-    if (write) await rm(path.join(dir, extra)); else failures.push(`${destination}/${extra} (extra)`);
+  for (const extra of (await files(dir)).filter((name) => !names.includes(name))) {
+    if (write) await rm(path.join(dir, extra));
+    else failures.push(`${destination}/${extra} (extra)`);
   }
 }
 if (failures.length) throw new Error(`Generated core differs:\n${failures.join("\n")}`);

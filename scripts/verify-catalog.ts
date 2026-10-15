@@ -16,48 +16,127 @@ async function main() {
   let watcher: ReturnType<typeof watchCatalog> | undefined;
   const source = path.join(root, "shortcuts-data");
   const read = (file: string) => JSON.parse(fs.readFileSync(path.join(root, "public", file), "utf8"));
-  const save = (slug: string, value: unknown) => fs.writeFileSync(path.join(source, `${slug}.json`), JSON.stringify(value));
-  async function until(condition: () => boolean) { const deadline = Date.now() + 10000; while (!condition()) { if (Date.now() > deadline) throw new Error("Watcher did not publish the expected snapshot"); await pause(50); } }
+  const save = (slug: string, value: unknown) =>
+    fs.writeFileSync(path.join(source, `${slug}.json`), JSON.stringify(value));
+  async function until(condition: () => boolean) {
+    const deadline = Date.now() + 10000;
+    while (!condition()) {
+      if (Date.now() > deadline) throw new Error("Watcher did not publish the expected snapshot");
+      await pause(50);
+    }
+  }
   try {
-    fs.mkdirSync(path.join(source, "schema"), { recursive: true }); fs.mkdirSync(path.join(root, "public/data"), { recursive: true });
+    fs.mkdirSync(path.join(source, "schema"), { recursive: true });
+    fs.mkdirSync(path.join(root, "public/data"), { recursive: true });
     fs.copyFileSync("shortcuts-data/schema/shortcut.schema.json", path.join(source, "schema/shortcut.schema.json"));
     fs.copyFileSync("public/data/key-codes.json", path.join(root, "public/data/key-codes.json"));
     for (const kind of ["desktop", "web"] as const) {
-      const app: CustomApp = { id: "private-app", userId: "private-owner", slug: `example-${kind}`, name: `Example ${kind}`, ...(kind === "desktop" ? { bundleId: "com.example.Fixture" } : { hostname: "example.com" }), source: "https://example.com/shortcuts", keymaps: [{ id: "private-keymap", title: "Default", platforms: ["macos", "linux"], sections: [{ id: "private-section", keymapId: "private-keymap", title: "General", sortOrder: 0, shortcuts: [{ id: "private-shortcut", title: "Zoom", key: "cmd++ cmd+c", isDeleted: false, sortOrder: 0 }] }] }] };
+      const app: CustomApp = {
+        id: "private-app",
+        userId: "private-owner",
+        slug: `example-${kind}`,
+        name: `Example ${kind}`,
+        ...(kind === "desktop" ? { bundleId: "com.example.Fixture" } : { hostname: "example.com" }),
+        source: "https://example.com/shortcuts",
+        keymaps: [
+          {
+            id: "private-keymap",
+            title: "Default",
+            platforms: ["macos", "linux"],
+            sections: [
+              {
+                id: "private-section",
+                keymapId: "private-keymap",
+                title: "General",
+                sortOrder: 0,
+                shortcuts: [
+                  { id: "private-shortcut", title: "Zoom", key: "cmd++ cmd+c", isDeleted: false, sortOrder: 0 },
+                ],
+              },
+            ],
+          },
+        ],
+      };
       const exported = exportService.exportCustomApp(app);
-      assert.ok(!exported.json.includes("private-")); save(app.slug, exported.app);
+      assert.ok(!exported.json.includes("private-"));
+      save(app.slug, exported.app);
     }
     generateCatalog(root);
     const combined = read("data/combined-apps.json").list;
     const website = new WebsiteParser().parseInputShortcuts(combined);
-    const raycast = new RaycastParser(Object.fromEntries(read("data/key-codes.json").keyCodes)).parseInputShortcuts([read("data/macos/example-desktop.json"), read("data/macos/example-web.json")]);
-    assert.equal(website.length, 2); assert.equal(raycast.length, 2);
+    const raycast = new RaycastParser(Object.fromEntries(read("data/key-codes.json").keyCodes)).parseInputShortcuts([
+      read("data/macos/example-desktop.json"),
+      read("data/macos/example-web.json"),
+    ]);
+    assert.equal(website.length, 2);
+    assert.equal(raycast.length, 2);
     for (let index = 0; index < 2; index++) {
-      const webRow = website[index].keymaps[0].sections[0].hotkeys[0]; const rayRow = raycast[index].keymaps[0].sections[0].hotkeys[0];
-      assert.deepEqual(webRow.sequence, [{ base: "+", modifiers: ["command down"] }, { base: "c", modifiers: ["command down"] }]);
-      assert.deepEqual(rayRow.sequence, webRow.sequence); assert.deepEqual(raycast[index].keymaps[0].platforms, ["macos", "linux"]);
+      const webRow = website[index].keymaps[0].sections[0].hotkeys[0];
+      const rayRow = raycast[index].keymaps[0].sections[0].hotkeys[0];
+      assert.deepEqual(webRow.sequence, [
+        { base: "+", modifiers: ["command down"] },
+        { base: "c", modifiers: ["command down"] },
+      ]);
+      assert.deepEqual(rayRow.sequence, webRow.sequence);
+      assert.deepEqual(raycast[index].keymaps[0].platforms, ["macos", "linux"]);
       assert.equal(getBaseShortcutId(webRow, 0), getBaseShortcutId(rayRow, 0));
     }
     // Windows execution metadata must survive both generated API shapes and both consumers.
-    const windows = { ...combined[0], $schema: "https://hotkys.com/schema/shortcut.schema.json", name: "Windows Fixture", slug: "windows-fixture", bundleId: "com.example.Windows", windowsAppId: "Vendor.Package!App", windowsProcessName: "Example App", keymaps: [{ title: "Windows", platforms: ["windows"], sections: [{ title: "Edit", shortcuts: [{ title: "Copy", key: "ctrl+c" }] }] }] };
-    save(windows.slug, windows); generateCatalog(root);
+    const windows = {
+      ...combined[0],
+      $schema: "https://hotkys.com/schema/shortcut.schema.json",
+      name: "Windows Fixture",
+      slug: "windows-fixture",
+      bundleId: "com.example.Windows",
+      windowsAppId: "Vendor.Package!App",
+      windowsProcessName: "Example App",
+      keymaps: [
+        {
+          title: "Windows",
+          platforms: ["windows"],
+          sections: [{ title: "Edit", shortcuts: [{ title: "Copy", key: "ctrl+c" }] }],
+        },
+      ],
+    };
+    save(windows.slug, windows);
+    generateCatalog(root);
     const metadata = read("data/windows/apps.json").apps.find((app: { slug: string }) => app.slug === windows.slug);
-    assert.equal(metadata.windowsAppId, windows.windowsAppId); assert.equal(metadata.windowsProcessName, windows.windowsProcessName);
+    assert.equal(metadata.windowsAppId, windows.windowsAppId);
+    assert.equal(metadata.windowsProcessName, windows.windowsProcessName);
     const windowsData = read("data/windows/windows-fixture.json");
     const winWebsite = new WebsiteParser().parseInputShortcuts([windowsData])[0];
     const winRaycast = new RaycastParser(getWindowsKeyNames()).parseInputShortcuts([windowsData])[0];
     for (const consumer of [winWebsite, winRaycast]) {
-      assert.equal(consumer.windowsAppId, windows.windowsAppId); assert.equal(consumer.windowsProcessName, windows.windowsProcessName);
-      assert.deepEqual(consumer.keymaps[0].sections[0].hotkeys[0].sequence, [{ base: "c", modifiers: ["control down"] }]);
+      assert.equal(consumer.windowsAppId, windows.windowsAppId);
+      assert.equal(consumer.windowsProcessName, windows.windowsProcessName);
+      assert.deepEqual(consumer.keymaps[0].sections[0].hotkeys[0].sequence, [
+        { base: "c", modifiers: ["control down"] },
+      ]);
     }
-    watcher = watchCatalog(root); await watcher.ready;
-    const added = { ...combined[0], $schema: "https://hotkys.com/schema/shortcut.schema.json", slug: "added", name: "Added", bundleId: "com.example.Added" };
-    save("added", added); await until(() => read("data/macos/apps.json").apps.some((app: { slug: string }) => app.slug === "added"));
-    added.keymaps[0].platforms = ["windows"]; save("added", added);
-    await until(() => !fs.existsSync(path.join(root, "public/data/macos/added.json")) && fs.existsSync(path.join(root, "public/data/windows/added.json")));
-    fs.unlinkSync(path.join(source, "added.json")); await until(() => !fs.existsSync(path.join(root, "public/data/windows/added.json")));
-    const schema = read("schema/shortcut.schema.json"); schema.title = "Watcher schema test";
-    fs.writeFileSync(path.join(source, "schema/shortcut.schema.json"), JSON.stringify(schema)); await until(() => read("schema/shortcut.schema.json").title === schema.title);
+    watcher = watchCatalog(root);
+    await watcher.ready;
+    const added = {
+      ...combined[0],
+      $schema: "https://hotkys.com/schema/shortcut.schema.json",
+      slug: "added",
+      name: "Added",
+      bundleId: "com.example.Added",
+    };
+    save("added", added);
+    await until(() => read("data/macos/apps.json").apps.some((app: { slug: string }) => app.slug === "added"));
+    added.keymaps[0].platforms = ["windows"];
+    save("added", added);
+    await until(
+      () =>
+        !fs.existsSync(path.join(root, "public/data/macos/added.json")) &&
+        fs.existsSync(path.join(root, "public/data/windows/added.json"))
+    );
+    fs.unlinkSync(path.join(source, "added.json"));
+    await until(() => !fs.existsSync(path.join(root, "public/data/windows/added.json")));
+    const schema = read("schema/shortcut.schema.json");
+    schema.title = "Watcher schema test";
+    fs.writeFileSync(path.join(source, "schema/shortcut.schema.json"), JSON.stringify(schema));
+    await until(() => read("schema/shortcut.schema.json").title === schema.title);
     // A key-code update must trigger publication too. A removed generated file
     // is restored by regeneration without touching tracked key-code bytes.
     fs.unlinkSync(path.join(root, "public/data/macos/example-desktop.json"));
@@ -65,7 +144,15 @@ async function main() {
     fs.writeFileSync(path.join(root, "public/data/key-codes.json"), codes);
     await until(() => fs.existsSync(path.join(root, "public/data/macos/example-desktop.json")));
     assert.equal(fs.readFileSync(path.join(root, "public/data/key-codes.json"), "utf8"), codes);
-    console.log("Desktop/web export and Windows execution metadata → catalog → both consumers and real watcher add/change/delete/schema/key-code checks passed.");
-  } finally { await watcher?.close(); fs.rmSync(root, { recursive: true, force: true }); }
+    console.log(
+      "Desktop/web export and Windows execution metadata → catalog → both consumers and real watcher add/change/delete/schema/key-code checks passed."
+    );
+  } finally {
+    await watcher?.close();
+    fs.rmSync(root, { recursive: true, force: true });
+  }
 }
-void main().catch(error => { console.error(error); process.exitCode = 1; });
+void main().catch((error) => {
+  console.error(error);
+  process.exitCode = 1;
+});
