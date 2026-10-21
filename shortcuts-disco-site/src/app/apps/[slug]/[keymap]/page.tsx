@@ -9,7 +9,9 @@ import {
   generateKeymapDescription,
   createCanonical,
   createOpenGraph,
+  createKeymapJsonLd,
 } from "@/lib/seo-utils";
+import { JsonLd } from "@/components/seo/json-ld";
 import { FavoriteButton } from "@/components/favorites/favorite-button";
 import { AppIcon } from "@/components/ui/app-icon";
 import { Button } from "@/components/ui/button";
@@ -63,6 +65,13 @@ export default async function SingleApplicationPage({ params }: Props) {
 
   return (
     <>
+      <JsonLd
+        data={createKeymapJsonLd(
+          appShortcuts,
+          keymap,
+          `/apps/${appShortcuts.slug}/${serializeKeymap(keymap)}`,
+        )}
+      />
       <header className="mx-auto mb-8 max-w-6xl">
         <Link
           href="/#applications"

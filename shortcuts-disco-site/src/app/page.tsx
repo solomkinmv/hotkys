@@ -1,7 +1,12 @@
 import { ApplicationList } from "@/components/list/application-list";
 import { getAppSummaries } from "@/lib/shortcuts";
 import { Metadata } from "next";
-import { createCanonical, createOpenGraph } from "@/lib/seo-utils";
+import {
+  createCanonical,
+  createOpenGraph,
+  createOrganizationJsonLd,
+} from "@/lib/seo-utils";
+import { JsonLd } from "@/components/seo/json-ld";
 import { HeroImage } from "@/components/ui/hero-image";
 import Link from "next/link";
 import { ArrowDown, ArrowUpRight } from "lucide-react";
@@ -22,6 +27,7 @@ export const metadata: Metadata = {
 const AllApplicationsPage = () => {
   return (
     <div className="mx-auto max-w-6xl">
+      <JsonLd data={createOrganizationJsonLd()} />
       <section
         aria-labelledby="hero-title"
         className="hero-enter grid items-center gap-4 pb-10 md:grid-cols-[1.05fr_1fr] md:gap-8"
