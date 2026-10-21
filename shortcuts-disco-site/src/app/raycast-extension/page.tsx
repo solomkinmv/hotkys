@@ -4,7 +4,11 @@ import Link from "next/link";
 import { ArrowDown, ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Kbd } from "@/components/ui/kbd";
-import { createCanonical, createOpenGraph } from "@/lib/seo-utils";
+import {
+  createCanonical,
+  createOpenGraph,
+  DEFAULT_OG_IMAGE,
+} from "@/lib/seo-utils";
 
 export const metadata: Metadata = {
   title: "Raycast Extension - Search and Run Shortcuts",
@@ -15,6 +19,7 @@ export const metadata: Metadata = {
     "/raycast-extension",
     "Raycast Extension - Search and Run Shortcuts",
     "Search and run keyboard shortcuts for supported Mac apps and websites, directly from Raycast. Install the free Hotkys extension.",
+    DEFAULT_OG_IMAGE,
   ),
 };
 

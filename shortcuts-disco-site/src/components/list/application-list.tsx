@@ -19,6 +19,7 @@ import { useMergedAppSummaries } from "@/lib/hooks/use-merged-app-summaries";
 import { useFavorites } from "@/lib/hooks/use-favorites";
 import { useAuth } from "@/components/auth/auth-provider";
 import { getLoginHref } from "@/lib/auth/redirect";
+import { HydratedLink } from "@/components/ui/hydrated-link";
 import { serializeKeymap } from "@/lib/model/keymap-utils";
 import {
   getAppPlatforms,
@@ -159,10 +160,10 @@ export function ApplicationList({
             variant="outline"
             className="shrink-0 self-start rounded-xl lg:self-auto"
           >
-            <Link href={getLoginHref("/")}>
+            <HydratedLink href={getLoginHref("/")}>
               Sign in to save favorites{" "}
               <ArrowRight className="size-4" aria-hidden="true" />
-            </Link>
+            </HydratedLink>
           </Button>
         )}
       </section>
@@ -331,10 +332,10 @@ export function ApplicationList({
             Missing an app? Add your own shortcuts to a private collection.
           </p>
           <Button asChild variant="outline" className="self-start rounded-xl">
-            <Link href="/my-shortcuts">
+            <HydratedLink href="/my-shortcuts">
               Add your own app{" "}
               <ArrowRight className="size-4" aria-hidden="true" />
-            </Link>
+            </HydratedLink>
           </Button>
         </div>
       </section>

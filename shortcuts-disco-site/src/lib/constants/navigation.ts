@@ -30,6 +30,7 @@ export const SOCIAL_LINKS = [
 
 // Footer links
 export const FOOTER_LINKS = [
+  { href: "/all-apps", label: "All apps" },
   {
     href: "https://github.com/solomkinmv/hotkys/issues",
     label: "Report issues or make a request",

@@ -6,7 +6,7 @@ import { useFavorites } from "@/lib/hooks/use-favorites";
 import { Button } from "@/components/ui/button";
 import { Star } from "lucide-react";
 import { cn } from "@/lib/utils";
-import Link from "next/link";
+import { HydratedLink } from "@/components/ui/hydrated-link";
 import { usePathname } from "next/navigation";
 import { getLoginHref } from "@/lib/auth/redirect";
 
@@ -60,12 +60,12 @@ export function FavoriteButton({
         size={size}
         className={cn("h-8 w-8", className)}
       >
-        <Link
+        <HydratedLink
           href={getLoginHref(pathname)}
           aria-label={`Sign in to favorite ${label ?? appSlug}`}
         >
           <Star className="h-4 w-4" aria-hidden="true" />
-        </Link>
+        </HydratedLink>
       </Button>
     ) : null;
 
