@@ -4,7 +4,11 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { getAllShortcuts } from "@/lib/shortcuts";
-import { createCanonical, createOpenGraph } from "@/lib/seo-utils";
+import {
+  createCanonical,
+  createOpenGraph,
+  DEFAULT_OG_IMAGE,
+} from "@/lib/seo-utils";
 
 export const metadata: Metadata = {
   title: "About Hotkys - Keyboard Shortcuts Database",
@@ -15,6 +19,7 @@ export const metadata: Metadata = {
     "/about",
     "About Hotkys - Keyboard Shortcuts Database",
     "Hotkys is an open-source keyboard shortcuts database for macOS, Windows, and Linux applications. Learn how to contribute and improve your productivity.",
+    DEFAULT_OG_IMAGE,
   ),
 };
 

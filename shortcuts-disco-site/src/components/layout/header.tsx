@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu } from "lucide-react";
 import { MAIN_NAV_LINKS } from "@/lib/constants/navigation";
+import { HydratedLink } from "@/components/ui/hydrated-link";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { UserMenu } from "@/components/auth/user-menu";
 import { Button } from "@/components/ui/button";
@@ -25,8 +26,8 @@ import {
 
 const links = [
   { href: "/#applications", label: "Apps" },
-  { href: "/favorites", label: "Favorites" },
-  { href: "/my-shortcuts", label: "My shortcuts" },
+  { href: "/favorites", label: "Favorites", accountOnly: true },
+  { href: "/my-shortcuts", label: "My shortcuts", accountOnly: true },
   ...MAIN_NAV_LINKS,
 ];
 
@@ -55,29 +56,33 @@ export function Header() {
           aria-label="Main navigation"
           className="mr-auto ml-8 hidden items-center gap-7 md:flex"
         >
-          {links.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              aria-current={
-                (
-                  link.href === "/#applications"
+          {links.map((link) => {
+            const NavLink =
+              "accountOnly" in link && link.accountOnly ? HydratedLink : Link;
+            return (
+              <NavLink
+                key={link.href}
+                href={link.href}
+                aria-current={
+                  (
+                    link.href === "/#applications"
+                      ? pathname === "/" || pathname.startsWith("/apps/")
+                      : pathname === link.href
+                  )
+                    ? "page"
+                    : undefined
+                }
+                className={cn(
+                  "text-sm font-medium text-muted-foreground transition-colors hover:text-foreground",
+                  (link.href === "/#applications"
                     ? pathname === "/" || pathname.startsWith("/apps/")
-                    : pathname === link.href
-                )
-                  ? "page"
-                  : undefined
-              }
-              className={cn(
-                "text-sm font-medium text-muted-foreground transition-colors hover:text-foreground",
-                (link.href === "/#applications"
-                  ? pathname === "/" || pathname.startsWith("/apps/")
-                  : pathname === link.href) && "text-foreground",
-              )}
-            >
-              {link.label}
-            </Link>
-          ))}
+                    : pathname === link.href) && "text-foreground",
+                )}
+              >
+                {link.label}
+              </NavLink>
+            );
+          })}
         </nav>
         <div className="flex items-center gap-2">
           <ThemeToggle />

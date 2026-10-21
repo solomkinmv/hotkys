@@ -4,6 +4,7 @@ import { Metadata } from "next";
 
 const SITE_URL = "https://hotkys.com";
 const SITE_NAME = "Hotkys";
+const MAX_DESCRIPTION_LENGTH = 160;
 
 export function generateKeymapDescription(
   app: AppShortcuts,
@@ -16,13 +17,20 @@ export function generateKeymapDescription(
     (sum, s) => sum + s.hotkeys.length,
     0,
   );
-  const sectionNames = keymap.sections
-    .slice(0, 3)
-    .map((s) => s.title)
-    .join(", ");
-  const sectionSuffix = keymap.sections.length > 3 ? ", and more" : "";
+  const intro = `Complete ${platforms} keyboard shortcuts for ${app.name}. Master ${totalShortcuts} shortcuts across ${keymap.sections.length} ${keymap.sections.length === 1 ? "category" : "categories"}`;
 
-  return `Complete ${platforms} keyboard shortcuts for ${app.name}. Master ${totalShortcuts} shortcuts across ${keymap.sections.length} categories including ${sectionNames}${sectionSuffix}.`;
+  let description = `${intro}.`;
+  for (let count = 1; count <= Math.min(3, keymap.sections.length); count++) {
+    const names = keymap.sections
+      .slice(0, count)
+      .map((s) => s.title)
+      .join(", ");
+    const suffix = count < keymap.sections.length ? ", and more" : "";
+    const candidate = `${intro} including ${names}${suffix}.`;
+    if (candidate.length > MAX_DESCRIPTION_LENGTH) break;
+    description = candidate;
+  }
+  return description;
 }
 
 export function createCanonical(path: string): Metadata["alternates"] {
@@ -31,10 +39,13 @@ export function createCanonical(path: string): Metadata["alternates"] {
   };
 }
 
+export const DEFAULT_OG_IMAGE = "/opengraph-image.jpg";
+
 export function createOpenGraph(
   path: string,
   title: string,
   description: string,
+  images?: string,
 ): Metadata["openGraph"] {
   return {
     type: "website",
@@ -42,5 +53,6 @@ export function createOpenGraph(
     siteName: SITE_NAME,
     title,
     description,
+    ...(images && { images }),
   };
 }

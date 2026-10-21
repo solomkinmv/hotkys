@@ -59,6 +59,7 @@ export default async function SingleApplicationPage({ params }: Props) {
   const resolvedParams = await params;
   const appShortcuts = getAppShortcutsBySlug(resolvedParams.slug) || notFound();
   const keymap = findKeymap(appShortcuts, resolvedParams.keymap) || notFound();
+  const otherKeymaps = appShortcuts.keymaps.filter((k) => k !== keymap);
 
   return (
     <>
@@ -87,6 +88,23 @@ export default async function SingleApplicationPage({ params }: Props) {
                 {appDescriptions[appShortcuts.slug] ??
                   "Keyboard shortcuts for your everyday workflow."}
               </p>
+              {otherKeymaps.length > 0 && (
+                <nav
+                  aria-label="Other keymaps"
+                  className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted-foreground"
+                >
+                  <span>Also available:</span>
+                  {otherKeymaps.map((other) => (
+                    <Link
+                      key={other.title}
+                      href={`/apps/${appShortcuts.slug}/${serializeKeymap(other)}`}
+                      className="underline-offset-4 hover:text-foreground hover:underline"
+                    >
+                      {other.title}
+                    </Link>
+                  ))}
+                </nav>
+              )}
             </div>
           </div>
           <div className="flex items-center gap-2">
