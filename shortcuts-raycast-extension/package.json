@@ -82,7 +82,7 @@
     "prettier": "^3.9.10",
     "ts-jest": "^29.4.14",
     "ts-node": "^10.9.2",
-    "typescript": "^5.9.3"
+    "typescript": "^7.0.2"
   },
   "scripts": {
     "build": "node scripts/check-release-config.mjs && ray build -e dist",
